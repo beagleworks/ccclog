@@ -2,9 +2,10 @@
  * GitHub Releases API からリリース日を取得する
  *
  * 日付取得の優先順位:
- * 1. Release API - 公式リリース日（最も正確）
- * 2. CHANGELOG.md コミット日 - Release がない場合のフォールバック
- * 3. 補間 - どちらも取得できない場合の最終手段
+ * 1. npm レジストリ - 実際の公開日（最も正確）
+ * 2. Release API - 公式リリース日
+ * 3. CHANGELOG.md コミット日 - フォールバック
+ * 4. 補間 - どちらも取得できない場合の最終手段
  */
 
 import { execSync } from 'node:child_process';
@@ -246,6 +247,45 @@ export async function fetchChangelogCommitDates(
     console.log(`   ${result.size} バージョンの日付をコミット履歴から取得`);
   } catch (error) {
     console.warn('   CHANGELOG.md コミット履歴の取得に失敗:', error);
+  }
+
+  return result;
+}
+
+// ========================
+// npm レジストリからの日付取得
+// ========================
+
+interface NpmTimeData {
+  [version: string]: string;
+}
+
+/**
+ * npm レジストリからパッケージの公開日を取得する
+ * @param packageName npm パッケージ名
+ * @returns バージョンと公開日のマップ
+ */
+export function fetchNpmPublishDates(packageName: string): Map<string, string> {
+  const result = new Map<string, string>();
+
+  try {
+    console.log(`   npm レジストリから公開日を取得中...`);
+    const output = execSync(`npm view ${packageName} time --json`, {
+      encoding: 'utf-8',
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    const timeData: NpmTimeData = JSON.parse(output);
+
+    for (const [version, date] of Object.entries(timeData)) {
+      // "created" と "modified" は除外
+      if (version === 'created' || version === 'modified') continue;
+
+      result.set(version, utcToJst(date));
+    }
+
+    console.log(`   ${result.size} バージョンの公開日を取得`);
+  } catch (error) {
+    console.warn('   npm レジストリからの取得に失敗:', error);
   }
 
   return result;

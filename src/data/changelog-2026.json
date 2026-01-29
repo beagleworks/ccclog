@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-29T12:05:46.173Z",
+  "generatedAt": "2026-01-29T12:38:19.049Z",
   "months": [
     {
       "key": "2026-01",
@@ -298,8 +298,8 @@
         },
         {
           "version": "2.1.18",
-          "releaseDate": "2026-01-24",
-          "releaseDateDisplay": "2026年1月24日",
+          "releaseDate": "2026-01-23",
+          "releaseDateDisplay": "2026年1月23日",
           "entries": [
             {
               "ja": "カスタマイズ可能なキーボードショートカットを追加。コンテキストごとにキーバインディングを設定し、コードシーケンスを作成し、ワークフローをパーソナライズ可能。`/keybindings`を実行して開始。詳細: https://code.claude.com/docs/en/keybindings",
@@ -719,8 +719,8 @@
         },
         {
           "version": "2.1.5",
-          "releaseDate": "2026-01-13",
-          "releaseDateDisplay": "2026年1月13日",
+          "releaseDate": "2026-01-12",
+          "releaseDateDisplay": "2026年1月12日",
           "entries": [
             {
               "ja": "一時ディレクトリをオーバーライドするための`CLAUDE_CODE_TMPDIR`環境変数を追加",
@@ -871,8 +871,8 @@
         },
         {
           "version": "2.1.0",
-          "releaseDate": "2026-01-08",
-          "releaseDateDisplay": "2026年1月8日",
+          "releaseDate": "2026-01-07",
+          "releaseDateDisplay": "2026年1月7日",
           "entries": [
             {
               "ja": "自動スキルホットリロードを追加 - スキルがセッション再起動なしで即座に利用可能に",

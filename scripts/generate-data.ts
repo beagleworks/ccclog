@@ -14,7 +14,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseChangelog, type ParsedVersion, type Entry } from './parse-changelog.js';
-import { fetchReleases, fetchChangelogCommitDates, interpolateMissingDates } from './fetch-releases.js';
+import { fetchReleases, fetchChangelogCommitDates, fetchNpmPublishDates, interpolateMissingDates } from './fetch-releases.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');
@@ -91,38 +91,26 @@ async function main() {
   const parsedVersions = parseChangelog(content);
   console.log(`   ${parsedVersions.length} バージョンを検出\n`);
 
-  // 2. GitHub Releases API からリリース日を取得
-  console.log('🌐 GitHub Releases API からリリース日を取得中...');
+  // 2. npm レジストリから公開日を取得（最も正確）
+  console.log('📦 npm レジストリから公開日を取得中...');
   const versionList = parsedVersions.map((v) => v.version);
-  const releaseMap = await fetchReleases(
-    'anthropics',
-    'claude-code',
-    versionList
-  );
-  const releaseApiCount = releaseMap.size;
-  console.log(`   ${releaseApiCount} バージョンのリリース日を取得\n`);
+  const npmDates = fetchNpmPublishDates('@anthropic-ai/claude-code');
 
-  // 3. CHANGELOG.md コミット履歴からリリース日を取得（Release API で取得できなかったもの）
-  const missingAfterReleaseApi = versionList.length - releaseMap.size;
-  let commitDateCount = 0;
-  if (missingAfterReleaseApi > 0) {
-    console.log('📚 CHANGELOG.md コミット履歴からリリース日を取得中...');
-    const commitDates = await fetchChangelogCommitDates('anthropics', 'claude-code');
-
-    // Release API で取得できなかったバージョンにコミット日を適用
-    for (const version of versionList) {
-      if (!releaseMap.has(version) && commitDates.has(version)) {
-        releaseMap.set(version, {
-          version,
-          releaseDate: commitDates.get(version)!,
-        });
-        commitDateCount++;
-      }
+  // releaseMap を構築
+  const releaseMap = new Map<string, { version: string; releaseDate: string }>();
+  let npmCount = 0;
+  for (const version of versionList) {
+    if (npmDates.has(version)) {
+      releaseMap.set(version, {
+        version,
+        releaseDate: npmDates.get(version)!,
+      });
+      npmCount++;
     }
-    console.log(`   ${commitDateCount} バージョンの日付をコミット履歴から補完\n`);
   }
+  console.log(`   ${npmCount} バージョンの公開日を取得\n`);
 
-  // 4. 取得できなかったバージョンの日付を補間（最終手段）
+  // 3. npm で取得できなかったバージョンは補間（最終手段）
   const missingCount = versionList.length - releaseMap.size;
   if (missingCount > 0) {
     console.log(`📊 ${missingCount} バージョンの日付を近隣バージョンから補間中...`);
@@ -132,8 +120,7 @@ async function main() {
 
   // 統計情報を表示
   console.log('📈 日付取得の統計:');
-  console.log(`   Release API: ${releaseApiCount} バージョン`);
-  console.log(`   コミット履歴: ${commitDateCount} バージョン`);
+  console.log(`   npm レジストリ: ${npmCount} バージョン`);
   console.log(`   補間: ${missingCount} バージョン`);
   console.log(`   合計: ${versionList.length} バージョン\n`);
 
