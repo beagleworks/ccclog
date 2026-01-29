@@ -2,10 +2,12 @@
 interface Props {
   title: string;
   description?: string;
+  currentYear?: string;
 }
 
-const { title, description = 'Claude Code の変更履歴を日本語/英語で閲覧できます' } = Astro.props;
+const { title, description = 'Claude Code の変更履歴を日本語/英語で閲覧できます', currentYear = '2026' } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const years = ['2026', '2025'];
 ---
 
 <!doctype html>
@@ -24,6 +26,16 @@ const base = import.meta.env.BASE_URL;
           <a href={base}>Claude Code CHANGELOG Viewer</a>
         </h1>
         <p class="subtitle">日本語/英語 変更履歴</p>
+        <nav class="year-nav">
+          {years.map((year) => (
+            <a
+              href={year === '2026' ? base : `${base}${year}/`}
+              class:list={['year-link', { active: currentYear === year }]}
+            >
+              {year}
+            </a>
+          ))}
+        </nav>
       </header>
       <main>
         <slot />
@@ -129,6 +141,41 @@ const base = import.meta.env.BASE_URL;
   .subtitle {
     color: var(--color-text-muted);
     font-size: 1rem;
+  }
+
+  .year-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .year-link {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    transition: all 0.2s ease;
+  }
+
+  .year-link:hover {
+    color: var(--color-text);
+    border-color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .year-link.active {
+    color: var(--color-text);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .year-link.active:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
   }
 
   footer {

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SearchBox from '../components/SearchBox.astro';
 import MonthGroup from '../components/MonthGroup.astro';
-import changelogData from '../data/changelog-2026.json';
+import changelogData from '../data/changelog-2025.json';
 
 const { months, generatedAt } = changelogData;
 const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
@@ -15,7 +15,7 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
 });
 ---
 
-<BaseLayout title="Claude Code CHANGELOG Viewer" currentYear="2026">
+<BaseLayout title="Claude Code CHANGELOG Viewer - 2025" currentYear="2025">
   <SearchBox />
 
   <div class="info-bar">

@@ -1,10 +1,13 @@
 /**
  * CHANGELOG データ生成スクリプト
  *
- * 1. CHANGELOG_2026_JA.md をパース
+ * 1. CHANGELOG_{YEAR}_JA.md をパース
  * 2. GitHub Releases API からリリース日を取得
- * 3. src/data/changelog.json を生成
- * 4. generated/CHANGELOG.md を生成
+ * 3. src/data/changelog-{year}.json を生成
+ * 4. generated/CHANGELOG-{year}.md を生成
+ *
+ * 使用法: tsx scripts/generate-data.ts [year]
+ * 例: tsx scripts/generate-data.ts 2025
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
@@ -15,6 +18,9 @@ import { fetchReleases, interpolateMissingDates } from './fetch-releases.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');
+
+// コマンドライン引数から年を取得（デフォルト: 2026）
+const YEAR = process.argv[2] || '2026';
 
 // ========================
 // 型定義
@@ -76,11 +82,11 @@ function formatMonthLabel(monthKey: string): string {
 // ========================
 
 async function main() {
-  console.log('📦 CHANGELOG データ生成を開始...\n');
+  console.log(`📦 CHANGELOG データ生成を開始 (${YEAR}年)...\n`);
 
   // 1. CHANGELOGファイルを読み込み・パース
-  console.log('📖 CHANGELOG_2026_JA.md を読み込み中...');
-  const changelogPath = join(ROOT_DIR, 'CHANGELOG_2026_JA.md');
+  console.log(`📖 CHANGELOG_${YEAR}_JA.md を読み込み中...`);
+  const changelogPath = join(ROOT_DIR, `CHANGELOG_${YEAR}_JA.md`);
   const content = readFileSync(changelogPath, 'utf-8');
   const parsedVersions = parseChangelog(content);
   console.log(`   ${parsedVersions.length} バージョンを検出\n`);
@@ -144,18 +150,18 @@ async function main() {
     mkdirSync(dataDir, { recursive: true });
   }
 
-  const jsonPath = join(dataDir, 'changelog.json');
+  const jsonPath = join(dataDir, `changelog-${YEAR}.json`);
   writeFileSync(jsonPath, JSON.stringify(changelogData, null, 2));
   console.log(`📝 ${jsonPath} を生成しました\n`);
 
-  // 6. generated/CHANGELOG.md を生成
+  // 6. generated/CHANGELOG-{YEAR}.md を生成
   const generatedDir = join(ROOT_DIR, 'generated');
   if (!existsSync(generatedDir)) {
     mkdirSync(generatedDir, { recursive: true });
   }
 
   const mdContent = generateMarkdown(changelogData);
-  const mdPath = join(generatedDir, 'CHANGELOG.md');
+  const mdPath = join(generatedDir, `CHANGELOG-${YEAR}.md`);
   writeFileSync(mdPath, mdContent);
   console.log(`📝 ${mdPath} を生成しました\n`);
 

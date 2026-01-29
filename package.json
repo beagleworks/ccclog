@@ -1,13 +1,15 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "build": "pnpm generate && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate": "tsx scripts/generate-data.ts"
+    "generate": "tsx scripts/generate-data.ts 2026 && tsx scripts/generate-data.ts 2025",
+    "generate:2025": "tsx scripts/generate-data.ts 2025",
+    "generate:2026": "tsx scripts/generate-data.ts 2026"
   },
   "dependencies": {
     "astro": "^5.16.16",

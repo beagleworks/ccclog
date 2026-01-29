@@ -85,15 +85,30 @@ Claude Code の変更履歴（CHANGELOG）を日本語/英語の並列テーブ�
 - ブレークポイント: 768px
 - モバイルでのフォントサイズ調整（iOS ズーム防止: 16px）
 
+### 2.4 複数年対応
+
+#### 2.4.1 年別ページ
+- トップページ（`/`）: 最新年（2026年）のCHANGELOG
+- 過去年ページ（`/2025/`）: 2025年のCHANGELOG
+- 各ページは同一のUIコンポーネントを使用
+
+#### 2.4.2 年切り替えナビゲーション
+- ヘッダーに年切り替えリンクを表示
+- 現在表示中の年はアクティブ状態で強調表示
+- クリックで年間を切り替え可能
+
 ---
 
 ## 3. データ仕様
 
 ### 3.1 入力データ
 
-#### 3.1.1 CHANGELOG_2026_JA.md
-元データとなるMarkdownファイル。以下の形式：
+#### 3.1.1 年別CHANGELOGファイル
+年ごとに分離されたMarkdownファイル：
+- `CHANGELOG_2026_JA.md`: 2026年のリリース（v2.1.0以降）
+- `CHANGELOG_2025_JA.md`: 2025年のリリース（v2.0.x以前）
 
+形式：
 ```markdown
 ## 2.1.23
 
@@ -108,7 +123,11 @@ Claude Code の変更履歴（CHANGELOG）を日本語/英語の並列テーブ�
 
 ### 3.2 生成データ
 
-#### 3.2.1 changelog.json
+#### 3.2.1 年別JSONファイル
+年ごとに分離されたJSONファイル：
+- `src/data/changelog-2026.json`: 2026年のデータ
+- `src/data/changelog-2025.json`: 2025年のデータ
+
 ```typescript
 interface ChangelogData {
   generatedAt: string;        // ISO 8601形式の生成日時
@@ -134,8 +153,9 @@ interface Entry {
 }
 ```
 
-#### 3.2.2 generated/CHANGELOG.md
-月別・バージョン別に整形されたMarkdownファイル。
+#### 3.2.2 年別Markdownファイル
+- `generated/CHANGELOG-2026.md`: 2026年の整形済みMarkdown
+- `generated/CHANGELOG-2025.md`: 2025年の整形済みMarkdown
 
 ### 3.3 GitHub API連携
 
@@ -160,21 +180,23 @@ interface Entry {
 ### 4.1 データフロー
 
 ```
-CHANGELOG_2026_JA.md  +  GitHub Releases API
+CHANGELOG_{YEAR}_JA.md  +  GitHub Releases API
          │                       │
          ▼                       ▼
    parse-changelog.ts    fetch-releases.ts
          │                       │
          └───────┬───────────────┘
                  ▼
-         generate-data.ts
+         generate-data.ts [year]
                  │
          ┌───────┴───────┐
          ▼               ▼
-   changelog.json    CHANGELOG.md
+ changelog-{year}.json  CHANGELOG-{year}.md
          │
          ▼
    Astro SSG Build → dist/
+                       ├── index.html (2026)
+                       └── 2025/index.html
 ```
 
 ### 4.2 npm scripts
@@ -184,7 +206,9 @@ CHANGELOG_2026_JA.md  +  GitHub Releases API
 | `pnpm dev` | 開発サーバー起動（localhost:4321） |
 | `pnpm build` | データ生成 + 静的サイトビルド |
 | `pnpm preview` | ビルド結果のプレビュー |
-| `pnpm generate` | データ生成のみ |
+| `pnpm generate` | 全年のデータ生成（2026年 + 2025年） |
+| `pnpm generate:2026` | 2026年のデータ生成のみ |
+| `pnpm generate:2025` | 2025年のデータ生成のみ |
 
 ---
 
@@ -217,30 +241,34 @@ CHANGELOG_2026_JA.md  +  GitHub Releases API
 ccclog/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml          # CI/CDワークフロー
+│       └── deploy.yml              # CI/CDワークフロー
 ├── docs/
-│   └── SPECIFICATION.md        # 本仕様書
+│   └── SPEC.md                     # 本仕様書
 ├── generated/
-│   └── CHANGELOG.md            # 生成されるMarkdown
+│   ├── CHANGELOG-2026.md           # 生成されるMarkdown（2026年）
+│   └── CHANGELOG-2025.md           # 生成されるMarkdown（2025年）
 ├── public/
-│   └── favicon.svg             # サイトアイコン
+│   └── favicon.svg                 # サイトアイコン
 ├── scripts/
-│   ├── fetch-releases.ts       # GitHub API連携
-│   ├── generate-data.ts        # データ生成メイン
-│   └── parse-changelog.ts      # Markdownパーサー
+│   ├── fetch-releases.ts           # GitHub API連携
+│   ├── generate-data.ts            # データ生成メイン（年引数対応）
+│   └── parse-changelog.ts          # Markdownパーサー
 ├── src/
 │   ├── components/
-│   │   ├── MonthGroup.astro    # 月グループコンポーネント
-│   │   ├── SearchBox.astro     # 検索UIコンポーネント
-│   │   └── VersionSection.astro # バージョンセクション
+│   │   ├── MonthGroup.astro        # 月グループコンポーネント
+│   │   ├── SearchBox.astro         # 検索UIコンポーネント
+│   │   └── VersionSection.astro    # バージョンセクション
 │   ├── data/
-│   │   └── changelog.json      # 生成されるJSONデータ
+│   │   ├── changelog-2026.json     # 生成されるJSONデータ（2026年）
+│   │   └── changelog-2025.json     # 生成されるJSONデータ（2025年）
 │   ├── layouts/
-│   │   └── BaseLayout.astro    # 共通レイアウト
+│   │   └── BaseLayout.astro        # 共通レイアウト（年ナビ含む）
 │   └── pages/
-│       └── index.astro         # メインページ
-├── astro.config.mjs            # Astro設定
-├── CHANGELOG_2026_JA.md        # 元データ
+│       ├── index.astro             # トップページ（2026年）
+│       └── 2025.astro              # 2025年ページ
+├── astro.config.mjs                # Astro設定
+├── CHANGELOG_2026_JA.md            # 元データ（2026年）
+├── CHANGELOG_2025_JA.md            # 元データ（2025年）
 ├── package.json
 └── tsconfig.json
 ```
@@ -289,4 +317,5 @@ ccclog/
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-01-29 | 1.1.0 | 複数年対応を追加（2025年ページ、年切り替えナビゲーション） |
 | 2026-01-29 | 1.0.0 | 初版作成 |
