@@ -23,13 +23,20 @@ function getEntryType(text: string): string {
   const cleanedText = text.replace(/^\[.*?\]\s*/, '');
   const lowerText = cleanedText.toLowerCase();
 
-  if (lowerText.startsWith('added') || cleanedText.startsWith('追加')) return 'added';
-  if (lowerText.startsWith('fixed') || cleanedText.startsWith('修正')) return 'fixed';
-  if (lowerText.startsWith('changed') || cleanedText.startsWith('変更')) return 'changed';
-  if (lowerText.startsWith('improved') || cleanedText.startsWith('改善')) return 'improved';
-  if (lowerText.startsWith('enabled') || cleanedText.startsWith('有効化')) return 'added';
-  if (lowerText.startsWith('removed') || cleanedText.startsWith('削除')) return 'changed';
-  if (lowerText.startsWith('deprecated') || cleanedText.startsWith('非推奨')) return 'changed';
+  // Added / Add
+  if (lowerText.startsWith('added') || lowerText.startsWith('add ') || cleanedText.startsWith('追加')) return 'added';
+  // Fixed / Fix
+  if (lowerText.startsWith('fixed') || lowerText.startsWith('fix ') || cleanedText.startsWith('修正')) return 'fixed';
+  // Changed / Change
+  if (lowerText.startsWith('changed') || lowerText.startsWith('change ') || cleanedText.startsWith('変更')) return 'changed';
+  // Improved / Improve
+  if (lowerText.startsWith('improved') || lowerText.startsWith('improve ') || cleanedText.startsWith('改善')) return 'improved';
+  // Enabled / Enable
+  if (lowerText.startsWith('enabled') || lowerText.startsWith('enable ') || cleanedText.startsWith('有効化')) return 'added';
+  // Removed / Remove
+  if (lowerText.startsWith('removed') || lowerText.startsWith('remove ') || cleanedText.startsWith('削除')) return 'changed';
+  // Deprecated / Deprecate
+  if (lowerText.startsWith('deprecated') || lowerText.startsWith('deprecate ') || cleanedText.startsWith('非推奨')) return 'changed';
   return 'other';
 }
 ---

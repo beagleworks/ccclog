@@ -110,10 +110,26 @@ async function main() {
   }
   console.log(`   ${npmCount} バージョンの公開日を取得\n`);
 
-  // 3. npm で取得できなかったバージョンは補間（最終手段）
-  const missingCount = versionList.length - releaseMap.size;
-  if (missingCount > 0) {
-    console.log(`📊 ${missingCount} バージョンの日付を近隣バージョンから補間中...`);
+  // 3. npm で取得できなかったバージョンは GitHub タグから取得
+  const missingAfterNpm = versionList.filter(v => !releaseMap.has(v));
+  let githubCount = 0;
+  if (missingAfterNpm.length > 0) {
+    console.log(`🏷️  GitHub タグから ${missingAfterNpm.length} バージョンの日付を取得中...`);
+    const githubReleases = await fetchReleases('anthropics', 'claude-code', missingAfterNpm);
+    for (const [version, info] of githubReleases) {
+      if (!releaseMap.has(version)) {
+        releaseMap.set(version, info);
+        githubCount++;
+      }
+    }
+    console.log(`   ${githubCount} バージョンの日付を取得\n`);
+  }
+
+  // 4. npm と GitHub タグで取得できなかったバージョンは補間（最終手段）
+  const missingAfterGithub = versionList.filter(v => !releaseMap.has(v));
+  const interpolatedCount = missingAfterGithub.length;
+  if (interpolatedCount > 0) {
+    console.log(`📊 ${interpolatedCount} バージョンの日付を近隣バージョンから補間中...`);
     interpolateMissingDates(versionList, releaseMap);
     console.log(`   補間完了\n`);
   }
@@ -121,7 +137,8 @@ async function main() {
   // 統計情報を表示
   console.log('📈 日付取得の統計:');
   console.log(`   npm レジストリ: ${npmCount} バージョン`);
-  console.log(`   補間: ${missingCount} バージョン`);
+  console.log(`   GitHub タグ: ${githubCount} バージョン`);
+  console.log(`   補間: ${interpolatedCount} バージョン`);
   console.log(`   合計: ${versionList.length} バージョン\n`);
 
   // 3. バージョン情報にリリース日を追加
