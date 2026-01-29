@@ -38,12 +38,13 @@ const totalEntries = versions.reduce((sum, v) => sum + v.entries.length, 0);
     </summary>
 
     <div class="month-content">
-      {versions.map((version) => (
+      {versions.map((version, index) => (
         <VersionSection
           version={version.version}
           releaseDate={version.releaseDate}
           releaseDateDisplay={version.releaseDateDisplay}
           entries={version.entries}
+          orderInMonth={versions.length - index}
         />
       ))}
     </div>

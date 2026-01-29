@@ -9,9 +9,10 @@ interface Props {
   releaseDate: string;
   releaseDateDisplay: string;
   entries: Entry[];
+  orderInMonth: number;
 }
 
-const { version, releaseDateDisplay, entries } = Astro.props;
+const { version, releaseDateDisplay, entries, orderInMonth } = Astro.props;
 
 /**
  * エントリの種類を判定してバッジクラスを返す
@@ -25,7 +26,7 @@ function getEntryType(text: string): string {
   if (lowerText.startsWith('enabled') || text.startsWith('有効化')) return 'added';
   if (lowerText.startsWith('removed') || text.startsWith('削除')) return 'changed';
   if (lowerText.startsWith('deprecated') || text.startsWith('非推奨')) return 'changed';
-  return '';
+  return 'other';
 }
 ---
 
@@ -33,6 +34,7 @@ function getEntryType(text: string): string {
   <header class="version-header">
     <h3 class="version-title">
       <a href={`#v${version}`}>v{version}</a>
+      <span class="order-badge">| #{orderInMonth}</span>
     </h3>
     <time class="version-date">{releaseDateDisplay}</time>
   </header>
@@ -90,6 +92,13 @@ function getEntryType(text: string): string {
   .version-title a:hover {
     color: var(--color-accent);
     text-decoration: none;
+  }
+
+  .order-badge {
+    color: var(--color-text-muted);
+    font-weight: 400;
+    font-size: 0.9em;
+    margin-left: 0.5rem;
   }
 
   .version-date {
@@ -154,6 +163,11 @@ function getEntryType(text: string): string {
 
   .entry-row.improved td:first-child {
     border-left: 3px solid var(--color-improved);
+    padding-left: calc(1rem - 3px);
+  }
+
+  .entry-row.other td:first-child {
+    border-left: 3px solid var(--color-other);
     padding-left: calc(1rem - 3px);
   }
 
