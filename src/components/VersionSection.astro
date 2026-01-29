@@ -1,0 +1,189 @@
+---
+interface Entry {
+  ja: string;
+  en: string;
+}
+
+interface Props {
+  version: string;
+  releaseDate: string;
+  releaseDateDisplay: string;
+  entries: Entry[];
+}
+
+const { version, releaseDateDisplay, entries } = Astro.props;
+
+/**
+ * エントリの種類を判定してバッジクラスを返す
+ */
+function getEntryType(text: string): string {
+  const lowerText = text.toLowerCase();
+  if (lowerText.startsWith('added') || text.startsWith('追加')) return 'added';
+  if (lowerText.startsWith('fixed') || text.startsWith('修正')) return 'fixed';
+  if (lowerText.startsWith('changed') || text.startsWith('変更')) return 'changed';
+  if (lowerText.startsWith('improved') || text.startsWith('改善')) return 'improved';
+  if (lowerText.startsWith('enabled') || text.startsWith('有効化')) return 'added';
+  if (lowerText.startsWith('removed') || text.startsWith('削除')) return 'changed';
+  if (lowerText.startsWith('deprecated') || text.startsWith('非推奨')) return 'changed';
+  return '';
+}
+---
+
+<article class="version-section" id={`v${version}`}>
+  <header class="version-header">
+    <h3 class="version-title">
+      <a href={`#v${version}`}>v{version}</a>
+    </h3>
+    <time class="version-date">{releaseDateDisplay}</time>
+  </header>
+
+  <div class="entries-table-wrapper">
+    <table class="entries-table">
+      <thead>
+        <tr>
+          <th>日本語</th>
+          <th>English</th>
+        </tr>
+      </thead>
+      <tbody>
+        {entries.map((entry) => {
+          const entryType = getEntryType(entry.en);
+          return (
+            <tr class={`entry-row ${entryType}`} data-ja={entry.ja} data-en={entry.en}>
+              <td class="entry-ja" set:html={entry.ja.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+              <td class="entry-en" set:html={entry.en.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</article>
+
+<style>
+  .version-section {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .version-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .version-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .version-title a {
+    color: var(--color-text);
+  }
+
+  .version-title a:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .version-date {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .entries-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .entries-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .entries-table th,
+  .entries-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  .entries-table th {
+    background-color: rgba(255, 255, 255, 0.02);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .entries-table th:first-child {
+    width: 50%;
+  }
+
+  .entries-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .entries-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+
+  /* エントリタイプによる左ボーダー色 */
+  .entry-row.added td:first-child {
+    border-left: 3px solid var(--color-added);
+    padding-left: calc(1rem - 3px);
+  }
+
+  .entry-row.fixed td:first-child {
+    border-left: 3px solid var(--color-fixed);
+    padding-left: calc(1rem - 3px);
+  }
+
+  .entry-row.changed td:first-child {
+    border-left: 3px solid var(--color-changed);
+    padding-left: calc(1rem - 3px);
+  }
+
+  .entry-row.improved td:first-child {
+    border-left: 3px solid var(--color-improved);
+    padding-left: calc(1rem - 3px);
+  }
+
+  /* 検索ハイライト */
+  :global(.highlight) {
+    background-color: rgba(255, 220, 0, 0.3);
+    padding: 0.1em 0;
+    border-radius: 2px;
+  }
+
+  /* 非表示状態 */
+  .version-section.hidden {
+    display: none;
+  }
+
+  .entry-row.hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .entries-table th,
+    .entries-table td {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .version-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>

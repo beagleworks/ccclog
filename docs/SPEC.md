@@ -1,0 +1,289 @@
+# Claude Code CHANGELOG Viewer 仕様書
+
+## 1. 概要
+
+### 1.1 目的
+Claude Code の変更履歴（CHANGELOG）を日本語/英語の並列テーブル形式で閲覧できる静的Webアプリケーション。
+
+### 1.2 技術スタック
+| 項目 | 技術 |
+|------|------|
+| フレームワーク | Astro 5.x（SSG） |
+| 検索エンジン | Fuse.js 7.x |
+| ビルドツール | tsx, TypeScript 5.x |
+| パッケージマネージャー | pnpm |
+| ホスティング | GitHub Pages |
+| CI/CD | GitHub Actions |
+
+---
+
+## 2. 機能要件
+
+### 2.1 データ表示
+
+#### 2.1.1 月別グループ化
+- 変更履歴を月単位でグループ化して表示
+- 各月グループは折りたたみ可能（`<details>`要素）
+- 最新月はデフォルトで展開、それ以外は折りたたみ
+- 月ヘッダーにリリース数と変更項目数を表示
+
+#### 2.1.2 バージョンセクション
+- 各バージョンごとにセクションを表示
+- 表示項目：
+  - バージョン番号（例: v2.1.23）
+  - リリース日（日本語形式: 2026年1月29日）
+  - 変更エントリテーブル
+
+#### 2.1.3 テーブル形式
+| 列 | 内容 |
+|----|------|
+| 日本語 | 変更内容の日本語説明 |
+| English | 変更内容の英語説明 |
+
+#### 2.1.4 エントリタイプの視覚的識別
+変更内容の先頭キーワードに応じて左ボーダー色を変更：
+
+| キーワード | 色 | カラーコード |
+|-----------|-----|-------------|
+| Added / 追加 | 緑 | #3fb950 |
+| Fixed / 修正 | オレンジ | #f0883e |
+| Changed / 変更 | 紫 | #a371f7 |
+| Improved / 改善 | 青 | #79c0ff |
+
+### 2.2 検索機能
+
+#### 2.2.1 全文検索
+- Fuse.js によるファジー検索
+- 日本語・英語両方の列を検索対象
+- 検索閾値（threshold）: 0.3
+- 位置非依存検索（ignoreLocation: true）
+
+#### 2.2.2 検索UI
+- 検索ボックス（プレースホルダー: 「検索... (日本語/English)」）
+- クリアボタン（入力時に表示）
+- 検索結果件数の表示
+- 結果なし時のメッセージ表示
+
+#### 2.2.3 検索結果の表示
+- マッチしたエントリのみ表示
+- マッチしないバージョン・月グループを非表示
+- マッチ箇所のハイライト表示（黄色背景）
+- 検索結果がある月グループは自動展開
+
+#### 2.2.4 キーボード操作
+- `Escape`キー: 検索クリア
+- デバウンス: 150ms
+
+#### 2.2.5 URLパラメータ
+- `?q=検索語` でページ読み込み時に検索を実行
+
+### 2.3 レスポンシブデザイン
+- デスクトップ・モバイル両対応
+- ブレークポイント: 768px
+- モバイルでのフォントサイズ調整（iOS ズーム防止: 16px）
+
+---
+
+## 3. データ仕様
+
+### 3.1 入力データ
+
+#### 3.1.1 CHANGELOG_2026_JA.md
+元データとなるMarkdownファイル。以下の形式：
+
+```markdown
+## 2.1.23
+
+| 日本語 | English |
+|--------|---------|
+| 変更内容（日本語） | Change description (English) |
+| ... | ... |
+
+## 2.1.22
+...
+```
+
+### 3.2 生成データ
+
+#### 3.2.1 changelog.json
+```typescript
+interface ChangelogData {
+  generatedAt: string;        // ISO 8601形式の生成日時
+  months: MonthGroup[];
+}
+
+interface MonthGroup {
+  key: string;                // "2026-01"
+  label: string;              // "2026年1月"
+  versions: Version[];
+}
+
+interface Version {
+  version: string;            // "2.1.23"
+  releaseDate: string;        // "2026-01-29"
+  releaseDateDisplay: string; // "2026年1月29日"
+  entries: Entry[];
+}
+
+interface Entry {
+  ja: string;                 // 日本語説明
+  en: string;                 // 英語説明
+}
+```
+
+#### 3.2.2 generated/CHANGELOG.md
+月別・バージョン別に整形されたMarkdownファイル。
+
+### 3.3 GitHub API連携
+
+#### 3.3.1 取得情報
+- リポジトリ: `anthropics/claude-code`
+- 取得データ: リリース日（`published_at`）
+- タグ形式: `v2.1.23` → バージョン `2.1.23`
+
+#### 3.3.2 日時変換
+- GitHub API: UTC
+- 表示: JST（UTC+9）
+- 変換式: `new Date(utcDate).getTime() + 9 * 60 * 60 * 1000`
+
+#### 3.3.3 レート制限対応
+- 403エラー時: フォールバック日付を使用
+- ページネーション: 100件/ページ、最大50ページ
+
+---
+
+## 4. ビルドプロセス
+
+### 4.1 データフロー
+
+```
+CHANGELOG_2026_JA.md  +  GitHub Releases API
+         │                       │
+         ▼                       ▼
+   parse-changelog.ts    fetch-releases.ts
+         │                       │
+         └───────┬───────────────┘
+                 ▼
+         generate-data.ts
+                 │
+         ┌───────┴───────┐
+         ▼               ▼
+   changelog.json    CHANGELOG.md
+         │
+         ▼
+   Astro SSG Build → dist/
+```
+
+### 4.2 npm scripts
+
+| コマンド | 説明 |
+|---------|------|
+| `pnpm dev` | 開発サーバー起動（localhost:4321） |
+| `pnpm build` | データ生成 + 静的サイトビルド |
+| `pnpm preview` | ビルド結果のプレビュー |
+| `pnpm generate` | データ生成のみ |
+
+---
+
+## 5. デプロイ仕様
+
+### 5.1 GitHub Pages
+
+#### 5.1.1 設定
+- Source: GitHub Actions
+- Base URL: `/ccclog/`
+- Trailing Slash: always
+
+#### 5.1.2 トリガー
+| トリガー | タイミング |
+|---------|-----------|
+| push | mainブランチへのプッシュ時 |
+| schedule | 6時間ごと（0:00, 6:00, 12:00, 18:00 UTC） |
+| workflow_dispatch | 手動実行 |
+
+### 5.2 ビルド環境
+- OS: ubuntu-latest
+- Node.js: 22
+- pnpm: 10
+
+---
+
+## 6. ファイル構成
+
+```
+ccclog/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # CI/CDワークフロー
+├── docs/
+│   └── SPECIFICATION.md        # 本仕様書
+├── generated/
+│   └── CHANGELOG.md            # 生成されるMarkdown
+├── public/
+│   └── favicon.svg             # サイトアイコン
+├── scripts/
+│   ├── fetch-releases.ts       # GitHub API連携
+│   ├── generate-data.ts        # データ生成メイン
+│   └── parse-changelog.ts      # Markdownパーサー
+├── src/
+│   ├── components/
+│   │   ├── MonthGroup.astro    # 月グループコンポーネント
+│   │   ├── SearchBox.astro     # 検索UIコンポーネント
+│   │   └── VersionSection.astro # バージョンセクション
+│   ├── data/
+│   │   └── changelog.json      # 生成されるJSONデータ
+│   ├── layouts/
+│   │   └── BaseLayout.astro    # 共通レイアウト
+│   └── pages/
+│       └── index.astro         # メインページ
+├── astro.config.mjs            # Astro設定
+├── CHANGELOG_2026_JA.md        # 元データ
+├── package.json
+└── tsconfig.json
+```
+
+---
+
+## 7. UI仕様
+
+### 7.1 カラーパレット（ダークテーマ）
+
+| 用途 | 変数名 | 値 |
+|-----|--------|-----|
+| 背景 | --color-bg | #0d1117 |
+| 背景（二次） | --color-bg-secondary | #161b22 |
+| ボーダー | --color-border | #30363d |
+| テキスト | --color-text | #e6edf3 |
+| テキスト（薄） | --color-text-muted | #8b949e |
+| アクセント | --color-accent | #58a6ff |
+
+### 7.2 フォント
+
+| 用途 | フォントファミリー |
+|-----|-------------------|
+| 本文 | -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif |
+| コード | 'SF Mono', 'Fira Code', 'Consolas', monospace |
+
+### 7.3 レイアウト
+- 最大幅: 1200px
+- パディング: 2rem 1.5rem（デスクトップ）、1rem（モバイル）
+
+---
+
+## 8. 制約事項
+
+### 8.1 既知の制限
+- GitHub API レート制限: 認証なしで60リクエスト/時間
+- 検索はクライアントサイドで実行されるため、データ量が増えるとパフォーマンスに影響
+
+### 8.2 前提条件
+- CHANGELOG_2026_JA.md が指定のMarkdown形式に従っていること
+- GitHub Releasesのタグ名が `vX.Y.Z` 形式であること
+
+---
+
+## 9. 変更履歴
+
+| 日付 | バージョン | 変更内容 |
+|-----|-----------|---------|
+| 2026-01-29 | 1.0.0 | 初版作成 |

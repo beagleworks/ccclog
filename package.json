@@ -1,0 +1,20 @@
+{
+  "name": "ccclog",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "pnpm generate && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate": "tsx scripts/generate-data.ts"
+  },
+  "dependencies": {
+    "astro": "^5.16.16",
+    "fuse.js": "^7.1.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

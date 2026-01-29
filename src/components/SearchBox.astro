@@ -1,0 +1,133 @@
+---
+// SearchBox.astro - 検索UIコンポーネント
+---
+
+<div class="search-container">
+  <div class="search-box">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+    </svg>
+    <input
+      type="search"
+      id="search-input"
+      placeholder="検索... (日本語/English)"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <button type="button" id="clear-search" class="clear-button" aria-label="検索をクリア" hidden>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+      </svg>
+    </button>
+  </div>
+  <div id="search-stats" class="search-stats" hidden></div>
+</div>
+
+<style>
+  .search-container {
+    margin-bottom: 2rem;
+  }
+
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    width: 18px;
+    height: 18px;
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 0.75rem 2.5rem;
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  #search-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  #search-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+  }
+
+  /* WebKitの検索クリアボタンを非表示 */
+  #search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .clear-button {
+    position: absolute;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .clear-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-text);
+  }
+
+  .clear-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .search-stats {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+    max-width: 500px;
+  }
+
+  .search-stats:not([hidden]) {
+    display: block;
+  }
+
+  .search-stats .match-count {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .search-stats .no-results {
+    color: var(--color-fixed);
+  }
+
+  @media (max-width: 768px) {
+    .search-box {
+      max-width: 100%;
+    }
+
+    #search-input {
+      font-size: 16px; /* iOS でのズーム防止 */
+    }
+  }
+</style>

@@ -1,0 +1,161 @@
+---
+import VersionSection from './VersionSection.astro';
+
+interface Entry {
+  ja: string;
+  en: string;
+}
+
+interface Version {
+  version: string;
+  releaseDate: string;
+  releaseDateDisplay: string;
+  entries: Entry[];
+}
+
+interface Props {
+  monthKey: string;
+  label: string;
+  versions: Version[];
+  defaultOpen?: boolean;
+}
+
+const { monthKey, label, versions, defaultOpen = true } = Astro.props;
+
+// 月の総エントリ数を計算
+const totalEntries = versions.reduce((sum, v) => sum + v.entries.length, 0);
+---
+
+<section class="month-group" id={`month-${monthKey}`} data-month={monthKey}>
+  <details open={defaultOpen}>
+    <summary class="month-header">
+      <span class="month-label">{label}</span>
+      <span class="month-stats">
+        <span class="version-count">{versions.length} リリース</span>
+        <span class="entry-count">{totalEntries} 変更</span>
+      </span>
+      <span class="expand-icon" aria-hidden="true"></span>
+    </summary>
+
+    <div class="month-content">
+      {versions.map((version) => (
+        <VersionSection
+          version={version.version}
+          releaseDate={version.releaseDate}
+          releaseDateDisplay={version.releaseDateDisplay}
+          entries={version.entries}
+        />
+      ))}
+    </div>
+  </details>
+</section>
+
+<style>
+  .month-group {
+    margin-bottom: 2rem;
+  }
+
+  .month-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+
+  .month-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .month-header:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  .month-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .month-stats {
+    display: flex;
+    gap: 0.75rem;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-left: auto;
+  }
+
+  .version-count,
+  .entry-count {
+    padding: 0.15rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+  .expand-icon {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+
+  .expand-icon::before,
+  .expand-icon::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-text-muted);
+    transition: transform 0.2s ease;
+  }
+
+  .expand-icon::before {
+    width: 12px;
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .expand-icon::after {
+    width: 2px;
+    height: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  details[open] .expand-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  .month-content {
+    padding-top: 1rem;
+  }
+
+  /* 非表示状態 */
+  .month-group.hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .month-header {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .month-label {
+      font-size: 1.1rem;
+    }
+
+    .month-stats {
+      margin-left: 0;
+      width: 100%;
+      order: 3;
+    }
+  }
+</style>
