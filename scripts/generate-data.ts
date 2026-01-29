@@ -11,7 +11,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseChangelog, type ParsedVersion, type Entry } from './parse-changelog.js';
-import { fetchReleases, estimateReleaseDate } from './fetch-releases.js';
+import { fetchReleases, interpolateMissingDates } from './fetch-releases.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');
@@ -95,10 +95,17 @@ async function main() {
   );
   console.log(`   ${releaseMap.size} バージョンのリリース日を取得\n`);
 
+  // 取得できなかったバージョンの日付を補間
+  const missingCount = versionList.length - releaseMap.size;
+  if (missingCount > 0) {
+    console.log(`📊 ${missingCount} バージョンの日付を近隣バージョンから補間中...`);
+    interpolateMissingDates(versionList, releaseMap);
+    console.log(`   補間完了\n`);
+  }
+
   // 3. バージョン情報にリリース日を追加
   const versions: Version[] = parsedVersions.map((pv) => {
-    const releaseInfo = releaseMap.get(pv.version);
-    const releaseDate = releaseInfo?.releaseDate ?? estimateReleaseDate(pv.version);
+    const releaseDate = releaseMap.get(pv.version)!.releaseDate;
 
     return {
       version: pv.version,

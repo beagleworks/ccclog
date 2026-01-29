@@ -98,13 +98,57 @@ export async function fetchReleases(
 }
 
 /**
- * フォールバック: リリース日が取得できなかった場合のダミー日付を生成
- * @param version バージョン番号
- * @returns 推定日付 (YYYY-MM-DD)
+ * 取得できなかったリリース日を近隣バージョンから補間する
+ * @param versions バージョンリスト（降順）
+ * @param releaseMap 取得済みのリリース日マップ（この関数内で更新される）
  */
-export function estimateReleaseDate(version: string): string {
-  // バージョン番号から日付を推定（仮の実装）
-  // 実際にはGitHub APIから取得するのが望ましい
-  const today = new Date();
-  return today.toISOString().split('T')[0];
+export function interpolateMissingDates(
+  versions: string[],
+  releaseMap: Map<string, ReleaseInfo>
+): void {
+  for (let i = 0; i < versions.length; i++) {
+    const version = versions[i];
+    if (releaseMap.has(version)) continue;
+
+    // 前後で取得できているバージョンを探す
+    let prevDate: string | null = null;
+    let nextDate: string | null = null;
+
+    // 前方（新しいバージョン）を探す
+    for (let j = i - 1; j >= 0; j--) {
+      const info = releaseMap.get(versions[j]);
+      if (info) {
+        prevDate = info.releaseDate;
+        break;
+      }
+    }
+
+    // 後方（古いバージョン）を探す
+    for (let j = i + 1; j < versions.length; j++) {
+      const info = releaseMap.get(versions[j]);
+      if (info) {
+        nextDate = info.releaseDate;
+        break;
+      }
+    }
+
+    // 補間または推定
+    let estimatedDate: string;
+    if (prevDate && nextDate) {
+      // 両方ある場合は新しいバージョンの日付を使用
+      estimatedDate = prevDate;
+    } else if (prevDate) {
+      estimatedDate = prevDate;
+    } else if (nextDate) {
+      estimatedDate = nextDate;
+    } else {
+      // フォールバック（すべてのバージョンで取得できなかった場合）
+      estimatedDate = new Date().toISOString().split('T')[0];
+    }
+
+    releaseMap.set(version, {
+      version,
+      releaseDate: estimatedDate,
+    });
+  }
 }
