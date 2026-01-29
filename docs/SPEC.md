@@ -319,8 +319,8 @@ ccclog/
 
 | 要素 | 内容 |
 |-----|------|
-| 著作権表示 | © 2025 Beagle Works |
-| ソーシャルリンク | X (Twitter) アイコン |
+| ソーシャルリンク | X (Twitter) アイコン（左端） |
+| 著作権表示 | © 2026 びーぐる(Beagle Works) |
 | 外部リンク | Claude Code (GitHub), Claude.ai |
 
 ---
