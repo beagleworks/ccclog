@@ -1,6 +1,13 @@
 /**
  * GitHub Releases API からリリース日を取得する
+ *
+ * 日付取得の優先順位:
+ * 1. Release API - 公式リリース日（最も正確）
+ * 2. CHANGELOG.md コミット日 - Release がない場合のフォールバック
+ * 3. 補間 - どちらも取得できない場合の最終手段
  */
+
+import { execSync } from 'node:child_process';
 
 export interface ReleaseInfo {
   version: string;
@@ -151,4 +158,95 @@ export function interpolateMissingDates(
       releaseDate: estimatedDate,
     });
   }
+}
+
+// ========================
+// CHANGELOG.md コミット履歴からの日付取得
+// ========================
+
+interface GitHubCommit {
+  sha: string;
+  commit: {
+    author: {
+      date: string;
+    };
+  };
+}
+
+interface GitHubCommitDetail {
+  sha: string;
+  commit: {
+    author: {
+      date: string;
+    };
+  };
+  files?: Array<{
+    filename: string;
+    patch?: string;
+  }>;
+}
+
+/**
+ * gh CLI を使用して CHANGELOG.md のコミット履歴からバージョン別の日付を取得する
+ * @param owner リポジトリオーナー
+ * @param repo リポジトリ名
+ * @returns バージョンとコミット日のマップ
+ */
+export async function fetchChangelogCommitDates(
+  owner: string,
+  repo: string
+): Promise<Map<string, string>> {
+  const result = new Map<string, string>();
+
+  try {
+    // gh CLI で CHANGELOG.md のコミット履歴を取得（ページネーション対応）
+    console.log('   CHANGELOG.md のコミット履歴を取得中...');
+    const commitsJson = execSync(
+      `gh api "repos/${owner}/${repo}/commits?path=CHANGELOG.md&per_page=100" --paginate`,
+      { encoding: 'utf-8', maxBuffer: 50 * 1024 * 1024 }
+    );
+    const commits: GitHubCommit[] = JSON.parse(commitsJson);
+    console.log(`   ${commits.length} コミットを検出`);
+
+    // 各コミットの差分を取得してバージョン番号を抽出
+    let processedCount = 0;
+    for (const commit of commits) {
+      try {
+        const commitJson = execSync(
+          `gh api "repos/${owner}/${repo}/commits/${commit.sha}"`,
+          { encoding: 'utf-8' }
+        );
+        const commitData: GitHubCommitDetail = JSON.parse(commitJson);
+
+        // CHANGELOG.md の差分からバージョン番号を抽出
+        for (const file of commitData.files || []) {
+          if (file.filename === 'CHANGELOG.md' && file.patch) {
+            // 追加された行から "## X.Y.Z" パターンを検出
+            const versionMatches = file.patch.match(/^\+## (\d+\.\d+\.\d+)/gm);
+            if (versionMatches) {
+              for (const match of versionMatches) {
+                const version = match.replace('+## ', '');
+                const commitDate = utcToJst(commitData.commit.author.date);
+                result.set(version, commitDate);
+              }
+            }
+          }
+        }
+
+        processedCount++;
+        if (processedCount % 50 === 0) {
+          console.log(`   ${processedCount}/${commits.length} コミットを処理中...`);
+        }
+      } catch (error) {
+        // 個別のコミット取得エラーは無視して続行
+        continue;
+      }
+    }
+
+    console.log(`   ${result.size} バージョンの日付をコミット履歴から取得`);
+  } catch (error) {
+    console.warn('   CHANGELOG.md コミット履歴の取得に失敗:', error);
+  }
+
+  return result;
 }

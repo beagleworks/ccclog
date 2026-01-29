@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-29T10:21:50.320Z",
+  "generatedAt": "2026-01-29T12:05:46.173Z",
   "months": [
     {
       "key": "2026-01",
@@ -871,8 +871,8 @@
         },
         {
           "version": "2.1.0",
-          "releaseDate": "2026-01-09",
-          "releaseDateDisplay": "2026年1月9日",
+          "releaseDate": "2026-01-08",
+          "releaseDateDisplay": "2026年1月8日",
           "entries": [
             {
               "ja": "自動スキルホットリロードを追加 - スキルがセッション再起動なしで即座に利用可能に",

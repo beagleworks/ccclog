@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-29T10:21:50.750Z",
+  "generatedAt": "2026-01-29T12:02:52.959Z",
   "months": [
     {
       "key": "2026-01",
@@ -137,8 +137,8 @@
         },
         {
           "version": "2.0.72",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-18",
+          "releaseDateDisplay": "2025年12月18日",
           "entries": [
             {
               "ja": "Chrome拡張機能と連携してブラウザを直接Claude Codeから操作できるClaude in Chrome（ベータ）機能を追加",
@@ -184,8 +184,8 @@
         },
         {
           "version": "2.0.71",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-17",
+          "releaseDateDisplay": "2025年12月17日",
           "entries": [
             {
               "ja": "プロンプト候補の有効/無効を切り替える/config設定を追加",
@@ -219,8 +219,8 @@
         },
         {
           "version": "2.0.70",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-16",
+          "releaseDateDisplay": "2025年12月16日",
           "entries": [
             {
               "ja": "Enterキーでプロンプト候補を即座に受け入れて送信するように追加（Tabは編集用に受け入れ）",
@@ -274,8 +274,8 @@
         },
         {
           "version": "2.0.69",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-13",
+          "releaseDateDisplay": "2025年12月13日",
           "entries": [
             {
               "ja": "軽微なバグ修正",
@@ -285,8 +285,8 @@
         },
         {
           "version": "2.0.68",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-13",
+          "releaseDateDisplay": "2025年12月13日",
           "entries": [
             {
               "ja": "中国語、日本語、韓国語などの言語向けIME（入力メソッドエディタ）サポートを修正（変換ウィンドウをカーソル位置に正しく配置）",
@@ -316,8 +316,8 @@
         },
         {
           "version": "2.0.67",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-12",
+          "releaseDateDisplay": "2025年12月12日",
           "entries": [
             {
               "ja": "Opus 4.5で思考モードがデフォルトで有効に",
@@ -367,8 +367,8 @@
         },
         {
           "version": "2.0.65",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-11",
+          "releaseDateDisplay": "2025年12月11日",
           "entries": [
             {
               "ja": "プロンプト作成中にalt+p（Linux、Windows）、option+p（macOS）でモデルを切り替える機能を追加",
@@ -398,8 +398,8 @@
         },
         {
           "version": "2.0.64",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-10",
+          "releaseDateDisplay": "2025年12月10日",
           "entries": [
             {
               "ja": "自動コンパクトを瞬時に実行するように改善",
@@ -461,8 +461,8 @@
         },
         {
           "version": "2.0.62",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-09",
+          "releaseDateDisplay": "2025年12月9日",
           "entries": [
             {
               "ja": "複数選択質問に「(Recommended)」インジケーターを追加（推奨オプションがリストの先頭に移動）",
@@ -496,8 +496,8 @@
         },
         {
           "version": "2.0.61",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-07",
+          "releaseDateDisplay": "2025年12月7日",
           "entries": [
             {
               "ja": "応答性の問題により複数ターミナルクライアントのVSCodeサポートを元に戻し",
@@ -507,8 +507,8 @@
         },
         {
           "version": "2.0.60",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-06",
+          "releaseDateDisplay": "2025年12月6日",
           "entries": [
             {
               "ja": "バックグラウンドエージェントサポートを追加（作業中にエージェントがバックグラウンドで実行）",
@@ -538,8 +538,8 @@
         },
         {
           "version": "2.0.59",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-05",
+          "releaseDateDisplay": "2025年12月5日",
           "entries": [
             {
               "ja": "現在のセッションでエージェント設定を上書きするための --agent CLI フラグを追加",
@@ -557,8 +557,8 @@
         },
         {
           "version": "2.0.58",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-04",
+          "releaseDateDisplay": "2025年12月4日",
           "entries": [
             {
               "ja": "Pro ユーザーがサブスクリプションの一部として Opus 4.5 にアクセスできるようになりました！",
@@ -576,8 +576,8 @@
         },
         {
           "version": "2.0.57",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-03",
+          "releaseDateDisplay": "2025年12月3日",
           "entries": [
             {
               "ja": "プランを拒否する際のフィードバック入力を追加し、ユーザーが Claude に変更内容を伝えられるようになりました",
@@ -591,8 +591,8 @@
         },
         {
           "version": "2.0.56",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-12-02",
+          "releaseDateDisplay": "2025年12月2日",
           "entries": [
             {
               "ja": "ターミナルプログレスバー（OSC 9;4）の有効/無効を切り替える設定を追加",
@@ -603,11 +603,17 @@
               "en": "VSCode Extension: Added support for VS Code's secondary sidebar (VS Code 1.97+), allowing Claude Code to be displayed in the right sidebar while keeping the file explorer on the left. Requires setting sidebar as Preferred Location in the config."
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2025-11",
+      "label": "2025年11月",
+      "versions": [
         {
           "version": "2.0.55",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-27",
+          "releaseDateDisplay": "2025年11月27日",
           "entries": [
             {
               "ja": "プロキシ DNS 解決がデフォルトで強制的にオンになっていた問題を修正。`CLAUDE_CODE_PROXY_RESOLVES_HOSTS=true` 環境変数でオプトインするようになりました",
@@ -629,8 +635,8 @@
         },
         {
           "version": "2.0.54",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-26",
+          "releaseDateDisplay": "2025年11月26日",
           "entries": [
             {
               "ja": "Hooks: PermissionRequest フックが「常に許可」の提案を処理し、許可の更新を適用できるようになりました",
@@ -644,8 +650,8 @@
         },
         {
           "version": "2.0.52",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-25",
+          "releaseDateDisplay": "2025年11月25日",
           "entries": [
             {
               "ja": "コマンドライン引数で Claude を起動した際にメッセージが重複表示される問題を修正",
@@ -667,8 +673,8 @@
         },
         {
           "version": "2.0.51",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-25",
+          "releaseDateDisplay": "2025年11月25日",
           "entries": [
             {
               "ja": "Opus 4.5 を追加！ https://www.anthropic.com/news/claude-opus-4-5",
@@ -710,8 +716,8 @@
         },
         {
           "version": "2.0.50",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-22",
+          "releaseDateDisplay": "2025年11月22日",
           "entries": [
             {
               "ja": "入力スキーマにネストされた参照を持つ MCP ツールの呼び出しを妨げるバグを修正",
@@ -733,8 +739,8 @@
         },
         {
           "version": "2.0.49",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-21",
+          "releaseDateDisplay": "2025年11月21日",
           "entries": [
             {
               "ja": "削除されたテキストを貼り付けるための readline スタイルの ctrl-y を追加",
@@ -752,8 +758,8 @@
         },
         {
           "version": "2.0.47",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-20",
+          "releaseDateDisplay": "2025年11月20日",
           "entries": [
             {
               "ja": "`claude --teleport` のエラーメッセージと検証を改善",
@@ -775,8 +781,8 @@
         },
         {
           "version": "2.0.46",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-19",
+          "releaseDateDisplay": "2025年11月19日",
           "entries": [
             {
               "ja": "メタデータから形式を検出できない場合に画像ファイルが誤ったメディアタイプで報告される問題を修正",
@@ -786,8 +792,8 @@
         },
         {
           "version": "2.0.45",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-19",
+          "releaseDateDisplay": "2025年11月19日",
           "entries": [
             {
               "ja": "Microsoft Foundry のサポートを追加！ https://code.claude.com/docs/en/azure-ai-foundry を参照",
@@ -805,8 +811,8 @@
         },
         {
           "version": "2.0.43",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-18",
+          "releaseDateDisplay": "2025年11月18日",
           "entries": [
             {
               "ja": "カスタムエージェント用の `permissionMode` フィールドを追加",
@@ -844,8 +850,8 @@
         },
         {
           "version": "2.0.42",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-15",
+          "releaseDateDisplay": "2025年11月15日",
           "entries": [
             {
               "ja": "`SubagentStop` フックに `agent_id` と `agent_transcript_path` フィールドを追加",
@@ -855,8 +861,8 @@
         },
         {
           "version": "2.0.41",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-15",
+          "releaseDateDisplay": "2025年11月15日",
           "entries": [
             {
               "ja": "プロンプトベースの停止フックに `model` パラメータを追加し、フック評価用のカスタムモデルを指定可能に",
@@ -910,8 +916,8 @@
         },
         {
           "version": "2.0.37",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-11",
+          "releaseDateDisplay": "2025年11月11日",
           "entries": [
             {
               "ja": "通知のアイドル状態の計算方法を修正",
@@ -929,8 +935,8 @@
         },
         {
           "version": "2.0.36",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-08",
+          "releaseDateDisplay": "2025年11月8日",
           "entries": [
             {
               "ja": "修正: DISABLE_AUTOUPDATER 環境変数がパッケージマネージャーの更新通知を適切に無効化するようになりました",
@@ -948,8 +954,8 @@
         },
         {
           "version": "2.0.35",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-07",
+          "releaseDateDisplay": "2025年11月7日",
           "entries": [
             {
               "ja": "コマンド検索時のファジー検索結果を改善",
@@ -975,8 +981,8 @@
         },
         {
           "version": "2.0.34",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-06",
+          "releaseDateDisplay": "2025年11月6日",
           "entries": [
             {
               "ja": "VSCode 拡張機能: 新しい会話の初期許可モードを設定するオプションを追加",
@@ -998,8 +1004,8 @@
         },
         {
           "version": "2.0.33",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-05",
+          "releaseDateDisplay": "2025年11月5日",
           "entries": [
             {
               "ja": "ネイティブバイナリインストールの起動が速くなりました",
@@ -1017,8 +1023,8 @@
         },
         {
           "version": "2.0.32",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-04",
+          "releaseDateDisplay": "2025年11月4日",
           "entries": [
             {
               "ja": "コミュニティのフィードバックに基づき出力スタイルの非推奨を取り消し",
@@ -1036,8 +1042,8 @@
         },
         {
           "version": "2.0.31",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-11-01",
+          "releaseDateDisplay": "2025年11月1日",
           "entries": [
             {
               "ja": "Windows: ネイティブインストールでモード切り替えのショートカットとして alt+m の代わりに shift+tab を使用",
@@ -1064,11 +1070,17 @@
               "en": "Fixed plugin uninstall not removing plugins"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2025-10",
+      "label": "2025年10月",
+      "versions": [
         {
           "version": "2.0.30",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-31",
+          "releaseDateDisplay": "2025年10月31日",
           "entries": [
             {
               "ja": "macOS でキーチェーンがロックされている場合に API キーエラーが発生した際に `security unlock-keychain` を実行するヒントを追加",
@@ -1138,8 +1150,8 @@
         },
         {
           "version": "2.0.28",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-28",
+          "releaseDateDisplay": "2025年10月28日",
           "entries": [
             {
               "ja": "プランモード: 新しい Plan サブエージェントを導入",
@@ -1181,8 +1193,8 @@
         },
         {
           "version": "2.0.27",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-25",
+          "releaseDateDisplay": "2025年10月25日",
           "entries": [
             {
               "ja": "許可プロンプトの新しい UI",
@@ -1208,8 +1220,8 @@
         },
         {
           "version": "2.0.25",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-22",
+          "releaseDateDisplay": "2025年10月22日",
           "entries": [
             {
               "ja": "レガシー SDK エントリポイントを削除。今後の SDK アップデートについては @anthropic-ai/claude-agent-sdk に移行してください: https://platform.claude.com/docs/en/agent-sdk/migration-guide",
@@ -1219,8 +1231,8 @@
         },
         {
           "version": "2.0.24",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-21",
+          "releaseDateDisplay": "2025年10月21日",
           "entries": [
             {
               "ja": "--setting-sources 'project' が指定されている場合にプロジェクトレベルのスキルが読み込まれないバグを修正",
@@ -1242,8 +1254,8 @@
         },
         {
           "version": "2.0.22",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-18",
+          "releaseDateDisplay": "2025年10月18日",
           "entries": [
             {
               "ja": "スラッシュコマンドをスクロールする際のコンテンツレイアウトのシフトを修正",
@@ -1265,8 +1277,8 @@
         },
         {
           "version": "2.0.21",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-18",
+          "releaseDateDisplay": "2025年10月18日",
           "entries": [
             {
               "ja": "ツールレスポンスの MCP `structuredContent` フィールドをサポート",
@@ -1292,8 +1304,8 @@
         },
         {
           "version": "2.0.20",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-17",
+          "releaseDateDisplay": "2025年10月17日",
           "entries": [
             {
               "ja": "Claude Skills のサポートを追加",
@@ -1303,8 +1315,8 @@
         },
         {
           "version": "2.0.19",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-16",
+          "releaseDateDisplay": "2025年10月16日",
           "entries": [
             {
               "ja": "長時間実行される bash コマンドを強制終了する代わりに自動的にバックグラウンド化。BASH_DEFAULT_TIMEOUT_MS でカスタマイズ可能",
@@ -1318,8 +1330,8 @@
         },
         {
           "version": "2.0.17",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-16",
+          "releaseDateDisplay": "2025年10月16日",
           "entries": [
             {
               "ja": "モデルセレクターに Haiku 4.5 を追加！",
@@ -1349,8 +1361,8 @@
         },
         {
           "version": "2.0.15",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-15",
+          "releaseDateDisplay": "2025年10月15日",
           "entries": [
             {
               "ja": "以前作成したファイルを書き込む前に再度読み取る必要があった再開のバグを修正",
@@ -1364,8 +1376,8 @@
         },
         {
           "version": "2.0.14",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-11",
+          "releaseDateDisplay": "2025年10月11日",
           "entries": [
             {
               "ja": "MCP サーバーの @メンションでオン/オフを切り替える機能を修正",
@@ -1399,8 +1411,8 @@
         },
         {
           "version": "2.0.13",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-10",
+          "releaseDateDisplay": "2025年10月10日",
           "entries": [
             {
               "ja": "ネイティブビルドで `/plugin` が動作しない問題を修正",
@@ -1410,8 +1422,8 @@
         },
         {
           "version": "2.0.12",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-10",
+          "releaseDateDisplay": "2025年10月10日",
           "entries": [
             {
               "ja": "**プラグインシステムリリース**: マーケットプレイスからカスタムコマンド、エージェント、フック、MCP サーバーで Claude Code を拡張",
@@ -1461,8 +1473,8 @@
         },
         {
           "version": "2.0.11",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-09",
+          "releaseDateDisplay": "2025年10月9日",
           "entries": [
             {
               "ja": "システムプロンプトのサイズを 1.4k トークン削減",
@@ -1484,8 +1496,8 @@
         },
         {
           "version": "2.0.10",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-09",
+          "releaseDateDisplay": "2025年10月9日",
           "entries": [
             {
               "ja": "スムーズな UI のためにターミナルレンダラーを書き直し",
@@ -1515,8 +1527,8 @@
         },
         {
           "version": "2.0.9",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-07",
+          "releaseDateDisplay": "2025年10月7日",
           "entries": [
             {
               "ja": "bash のバックグラウンド化が動作しなくなった退行を修正",
@@ -1526,8 +1538,8 @@
         },
         {
           "version": "2.0.8",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-05",
+          "releaseDateDisplay": "2025年10月5日",
           "entries": [
             {
               "ja": "Bedrock のデフォルト Sonnet モデルを `global.anthropic.claude-sonnet-4-5-20250929-v1:0` に更新",
@@ -1553,8 +1565,8 @@
         },
         {
           "version": "2.0.5",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-10-05",
+          "releaseDateDisplay": "2025年10月5日",
           "entries": [
             {
               "ja": "IDE: Enter と Tab での IME による意図しないメッセージ送信を修正",
@@ -1573,11 +1585,17 @@
               "en": "SDK: Added SDKUserMessageReplay.isReplay to prevent duplicate messages"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2025-09",
+      "label": "2025年9月",
+      "versions": [
         {
           "version": "2.0.1",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-30",
+          "releaseDateDisplay": "2025年9月30日",
           "entries": [
             {
               "ja": "Bedrock と Vertex 向けの Sonnet 4.5 デフォルトモデル設定変更をスキップ",
@@ -1591,8 +1609,8 @@
         },
         {
           "version": "2.0.0",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-30",
+          "releaseDateDisplay": "2025年9月30日",
           "entries": [
             {
               "ja": "新しいネイティブ VS Code 拡張機能",
@@ -1638,8 +1656,8 @@
         },
         {
           "version": "1.0.126",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-26",
+          "releaseDateDisplay": "2025年9月26日",
           "entries": [
             {
               "ja": "Bedrock と Vertex で /context コマンドを有効化",
@@ -1653,8 +1671,8 @@
         },
         {
           "version": "1.0.124",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-25",
+          "releaseDateDisplay": "2025年9月25日",
           "entries": [
             {
               "ja": "`CLAUDE_BASH_NO_LOGIN` 環境変数を 1 または true に設定すると、BashTool でログインシェルをスキップ",
@@ -1680,8 +1698,8 @@
         },
         {
           "version": "1.0.123",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-24",
+          "releaseDateDisplay": "2025年9月24日",
           "entries": [
             {
               "ja": "Bash 権限ルールでマッチング時に出力リダイレクトをサポート（例: `Bash(python:*)` が `python script.py > output.txt` にマッチ）",
@@ -1715,8 +1733,8 @@
         },
         {
           "version": "1.0.120",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-20",
+          "releaseDateDisplay": "2025年9月20日",
           "entries": [
             {
               "ja": "入力時のラグを修正（特に大きなプロンプトで顕著）",
@@ -1742,8 +1760,8 @@
         },
         {
           "version": "1.0.119",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-19",
+          "releaseDateDisplay": "2025年9月19日",
           "entries": [
             {
               "ja": "インタラクティブモードに入る際にプロセスが視覚的にフリーズする Windows の問題を修正",
@@ -1765,8 +1783,8 @@
         },
         {
           "version": "1.0.117",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-19",
+          "releaseDateDisplay": "2025年9月19日",
           "entries": [
             {
               "ja": "Ctrl-R 履歴検索を追加。bash/zsh のように以前のコマンドを呼び出し可能に",
@@ -1792,8 +1810,8 @@
         },
         {
           "version": "1.0.115",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-16",
+          "releaseDateDisplay": "2025年9月16日",
           "entries": [
             {
               "ja": "視覚効果を強化して思考モードの表示を改善",
@@ -1823,8 +1841,8 @@
         },
         {
           "version": "1.0.113",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-13",
+          "releaseDateDisplay": "2025年9月13日",
           "entries": [
             {
               "ja": "インタラクティブモードでのパイプ入力を非推奨化",
@@ -1838,8 +1856,8 @@
         },
         {
           "version": "1.0.112",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-12",
+          "releaseDateDisplay": "2025年9月12日",
           "entries": [
             {
               "ja": "トランスクリプトモード（Ctrl+R）: 各アシスタントメッセージの生成に使用されたモデルを追加",
@@ -1865,8 +1883,8 @@
         },
         {
           "version": "1.0.111",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-11",
+          "releaseDateDisplay": "2025年9月11日",
           "entries": [
             {
               "ja": "/model が提供されたモデル名を検証するように変更",
@@ -1880,8 +1898,8 @@
         },
         {
           "version": "1.0.110",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-10",
+          "releaseDateDisplay": "2025年9月10日",
           "entries": [
             {
               "ja": "/terminal-setup コマンドが WezTerm をサポート",
@@ -1899,8 +1917,8 @@
         },
         {
           "version": "1.0.109",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-09",
+          "releaseDateDisplay": "2025年9月9日",
           "entries": [
             {
               "ja": "SDK: `--include-partial-messages` CLI フラグによる部分メッセージストリーミングサポートを追加",
@@ -1910,19 +1928,25 @@
         },
         {
           "version": "1.0.106",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-09-05",
+          "releaseDateDisplay": "2025年9月5日",
           "entries": [
             {
               "ja": "Windows: パス権限マッチングを POSIX 形式で一貫して使用するように修正（例: `Read(//c/Users/...)`）",
               "en": "Windows: Fixed path permission matching to consistently use POSIX format (e.g., `Read(//c/Users/...)`)"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2025-08",
+      "label": "2025年8月",
+      "versions": [
         {
           "version": "1.0.97",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-30",
+          "releaseDateDisplay": "2025年8月30日",
           "entries": [
             {
               "ja": "Settings: /doctor が権限ルールの構文を検証し、修正案を提案するように",
@@ -1932,8 +1956,8 @@
         },
         {
           "version": "1.0.94",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-28",
+          "releaseDateDisplay": "2025年8月28日",
           "entries": [
             {
               "ja": "Vertex: サポートされているモデルのグローバルエンドポイントをサポート",
@@ -1955,8 +1979,8 @@
         },
         {
           "version": "1.0.93",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-27",
+          "releaseDateDisplay": "2025年8月27日",
           "entries": [
             {
               "ja": "Windows: クリップボードから画像を貼り付けるショートカット alt + v を追加",
@@ -1970,8 +1994,8 @@
         },
         {
           "version": "1.0.90",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-25",
+          "releaseDateDisplay": "2025年8月25日",
           "entries": [
             {
               "ja": "設定ファイルの変更が即座に反映されるように - 再起動不要",
@@ -1981,8 +2005,8 @@
         },
         {
           "version": "1.0.88",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-22",
+          "releaseDateDisplay": "2025年8月22日",
           "entries": [
             {
               "ja": "\"OAuth authentication is currently not supported\" エラーの問題を修正",
@@ -2008,8 +2032,8 @@
         },
         {
           "version": "1.0.86",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-22",
+          "releaseDateDisplay": "2025年8月22日",
           "entries": [
             {
               "ja": "コンテキストの問題を自己解決するための /context を追加",
@@ -2027,8 +2051,8 @@
         },
         {
           "version": "1.0.85",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-20",
+          "releaseDateDisplay": "2025年8月20日",
           "entries": [
             {
               "ja": "ステータスライン入力にセッションコスト情報を追加",
@@ -2042,8 +2066,8 @@
         },
         {
           "version": "1.0.84",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-19",
+          "releaseDateDisplay": "2025年8月19日",
           "entries": [
             {
               "ja": "ネットワークが不安定な場合の tool_use/tool_result ID 不一致エラーを修正",
@@ -2065,8 +2089,8 @@
         },
         {
           "version": "1.0.83",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-19",
+          "releaseDateDisplay": "2025年8月19日",
           "entries": [
             {
               "ja": "@-mention: パスにスペースを含むファイルをサポート",
@@ -2080,8 +2104,8 @@
         },
         {
           "version": "1.0.82",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-16",
+          "releaseDateDisplay": "2025年8月16日",
           "entries": [
             {
               "ja": "SDK: リクエストキャンセルサポートを追加",
@@ -2107,8 +2131,8 @@
         },
         {
           "version": "1.0.81",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-15",
+          "releaseDateDisplay": "2025年8月15日",
           "entries": [
             {
               "ja": "出力スタイルをリリース。新しい組み込み教育用出力スタイル「Explanatory」と「Learning」を含む。ドキュメント: https://code.claude.com/docs/en/output-styles",
@@ -2122,8 +2146,8 @@
         },
         {
           "version": "1.0.80",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-15",
+          "releaseDateDisplay": "2025年8月15日",
           "entries": [
             {
               "ja": "UI 改善: カスタムサブエージェントの色のテキストコントラストとスピナーのレンダリング問題を修正",
@@ -2133,8 +2157,8 @@
         },
         {
           "version": "1.0.77",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-15",
+          "releaseDateDisplay": "2025年8月15日",
           "entries": [
             {
               "ja": "Bash ツール: ヒアドキュメントと複数行文字列のエスケープを修正、stderr リダイレクト処理を改善",
@@ -2156,8 +2180,8 @@
         },
         {
           "version": "1.0.73",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-12",
+          "releaseDateDisplay": "2025年8月12日",
           "entries": [
             {
               "ja": "MCP: `--mcp-config file1.json file2.json` で複数の設定ファイルをサポート",
@@ -2183,8 +2207,8 @@
         },
         {
           "version": "1.0.72",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-12",
+          "releaseDateDisplay": "2025年8月12日",
           "entries": [
             {
               "ja": "Ask 権限: /permissions で Claude Code が特定のツールを使用する前に常に確認を求めるように設定可能",
@@ -2194,8 +2218,8 @@
         },
         {
           "version": "1.0.71",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-08",
+          "releaseDateDisplay": "2025年8月8日",
           "entries": [
             {
               "ja": "バックグラウンドコマンド: (Ctrl-b) で任意の Bash コマンドをバックグラウンドで実行し、Claude が作業を続行可能に（開発サーバー、ログの tail など）",
@@ -2209,8 +2233,8 @@
         },
         {
           "version": "1.0.70",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-07",
+          "releaseDateDisplay": "2025年8月7日",
           "entries": [
             {
               "ja": "パフォーマンス: 大きなコンテキストでのパフォーマンス向上のためにメッセージレンダリングを最適化",
@@ -2228,8 +2252,8 @@
         },
         {
           "version": "1.0.69",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-06",
+          "releaseDateDisplay": "2025年8月6日",
           "entries": [
             {
               "ja": "Opus をバージョン 4.1 にアップグレード",
@@ -2239,8 +2263,8 @@
         },
         {
           "version": "1.0.68",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-05",
+          "releaseDateDisplay": "2025年8月5日",
           "entries": [
             {
               "ja": "`/pr-comments` などの特定のコマンドで誤ったモデル名が使用される問題を修正",
@@ -2274,8 +2298,8 @@
         },
         {
           "version": "1.0.65",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-08-01",
+          "releaseDateDisplay": "2025年8月1日",
           "entries": [
             {
               "ja": "IDE: 接続安定性の問題と診断のエラー処理を修正",
@@ -2286,11 +2310,17 @@
               "en": "Windows: Fixed shell environment setup for users without .bashrc files"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2025-07",
+      "label": "2025年7月",
+      "versions": [
         {
           "version": "1.0.64",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-31",
+          "releaseDateDisplay": "2025年7月31日",
           "entries": [
             {
               "ja": "Agents: モデルカスタマイズサポートを追加 - エージェントが使用するモデルを指定可能に",
@@ -2316,8 +2346,8 @@
         },
         {
           "version": "1.0.63",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-30",
+          "releaseDateDisplay": "2025年7月30日",
           "entries": [
             {
               "ja": "Windows: ファイル検索、@agent メンション、カスタムスラッシュコマンド機能を修正",
@@ -2327,8 +2357,8 @@
         },
         {
           "version": "1.0.62",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-29",
+          "releaseDateDisplay": "2025年7月29日",
           "entries": [
             {
               "ja": "カスタムエージェント用の先行入力付き @-mention サポートを追加。@<your-custom-agent> で呼び出し可能",
@@ -2350,8 +2380,8 @@
         },
         {
           "version": "1.0.61",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-26",
+          "releaseDateDisplay": "2025年7月26日",
           "entries": [
             {
               "ja": "トランスクリプトモード（Ctrl+R）: Esc キーで中断ではなくトランスクリプトモードを終了するように変更",
@@ -2389,8 +2419,8 @@
         },
         {
           "version": "1.0.60",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-25",
+          "releaseDateDisplay": "2025年7月25日",
           "entries": [
             {
               "ja": "専門的なタスク用のカスタムサブエージェントを作成可能に！/agents で開始",
@@ -2400,8 +2430,8 @@
         },
         {
           "version": "1.0.59",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-24",
+          "releaseDateDisplay": "2025年7月24日",
           "entries": [
             {
               "ja": "SDK: canUseTool コールバックによるツール確認サポートを追加",
@@ -2427,8 +2457,8 @@
         },
         {
           "version": "1.0.58",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-24",
+          "releaseDateDisplay": "2025年7月24日",
           "entries": [
             {
               "ja": "PDF の読み取りサポートを追加",
@@ -2446,8 +2476,8 @@
         },
         {
           "version": "1.0.57",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-24",
+          "releaseDateDisplay": "2025年7月24日",
           "entries": [
             {
               "ja": "スラッシュコマンドでモデルを指定するサポートを追加",
@@ -2465,8 +2495,8 @@
         },
         {
           "version": "1.0.56",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-24",
+          "releaseDateDisplay": "2025年7月24日",
           "entries": [
             {
               "ja": "Windows: ターミナル VT モードをサポートする Node.js バージョンで shift+tab によるモード切り替えを有効化",
@@ -2484,8 +2514,8 @@
         },
         {
           "version": "1.0.55",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-24",
+          "releaseDateDisplay": "2025年7月24日",
           "entries": [
             {
               "ja": "Opus 4 および Sonnet 4 モデルの知識カットオフを明確化",
@@ -2507,8 +2537,8 @@
         },
         {
           "version": "1.0.54",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-17",
+          "releaseDateDisplay": "2025年7月17日",
           "entries": [
             {
               "ja": "Hooks: UserPromptSubmit フックと現在の作業ディレクトリをフック入力に追加",
@@ -2534,8 +2564,8 @@
         },
         {
           "version": "1.0.53",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-17",
+          "releaseDateDisplay": "2025年7月17日",
           "entries": [
             {
               "ja": "@-mention ファイルの切り捨てを 100 行から 2000 行に更新",
@@ -2549,8 +2579,8 @@
         },
         {
           "version": "1.0.52",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-17",
+          "releaseDateDisplay": "2025年7月17日",
           "entries": [
             {
               "ja": "MCP サーバーインストラクションのサポートを追加",
@@ -2560,8 +2590,8 @@
         },
         {
           "version": "1.0.51",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-12",
+          "releaseDateDisplay": "2025年7月12日",
           "entries": [
             {
               "ja": "ネイティブ Windows のサポートを追加（Git for Windows が必要）",
@@ -2603,8 +2633,8 @@
         },
         {
           "version": "1.0.48",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-11",
+          "releaseDateDisplay": "2025年7月11日",
           "entries": [
             {
               "ja": "v1.0.45 でアプリが起動時にフリーズすることがあるバグを修正",
@@ -2638,8 +2668,8 @@
         },
         {
           "version": "1.0.45",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-09",
+          "releaseDateDisplay": "2025年7月9日",
           "entries": [
             {
               "ja": "新しいツール入力パラメータと機能を備えた Search (Grep) ツールを再設計",
@@ -2669,8 +2699,8 @@
         },
         {
           "version": "1.0.44",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-08",
+          "releaseDateDisplay": "2025年7月8日",
           "entries": [
             {
               "ja": "新しい /export コマンドで会話を素早くエクスポートして共有可能",
@@ -2692,8 +2722,8 @@
         },
         {
           "version": "1.0.43",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-04",
+          "releaseDateDisplay": "2025年7月4日",
           "entries": [
             {
               "ja": "テーマセレクターが過剰に保存するバグを修正",
@@ -2707,8 +2737,8 @@
         },
         {
           "version": "1.0.42",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-04",
+          "releaseDateDisplay": "2025年7月4日",
           "entries": [
             {
               "ja": "`/add-dir` コマンドでチルダ（`~`）展開をサポート",
@@ -2718,8 +2748,8 @@
         },
         {
           "version": "1.0.41",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-03",
+          "releaseDateDisplay": "2025年7月3日",
           "entries": [
             {
               "ja": "Hooks: Stop フックのトリガーを Stop と SubagentStop に分割",
@@ -2745,8 +2775,8 @@
         },
         {
           "version": "1.0.40",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-03",
+          "releaseDateDisplay": "2025年7月3日",
           "entries": [
             {
               "ja": "`NODE_EXTRA_CA_CERTS` が設定されている場合に UNABLE_TO_GET_ISSUER_CERT_LOCALLY で API 接続エラーが発生するバグを修正",
@@ -2756,8 +2786,8 @@
         },
         {
           "version": "1.0.39",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-03",
+          "releaseDateDisplay": "2025年7月3日",
           "entries": [
             {
               "ja": "OpenTelemetry ログに新しい Active Time メトリクスを追加",
@@ -2767,8 +2797,8 @@
         },
         {
           "version": "1.0.38",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-01",
+          "releaseDateDisplay": "2025年7月1日",
           "entries": [
             {
               "ja": "フックをリリース。https://github.com/anthropics/claude-code/issues/712 でのコミュニティの意見に特別な感謝。ドキュメント: https://code.claude.com/docs/en/hooks",
@@ -2778,8 +2808,8 @@
         },
         {
           "version": "1.0.37",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-01",
+          "releaseDateDisplay": "2025年7月1日",
           "entries": [
             {
               "ja": "ANTHROPIC_AUTH_TOKEN または apiKeyHelper 経由での `Proxy-Authorization` ヘッダー設定機能を削除",
@@ -2789,8 +2819,8 @@
         },
         {
           "version": "1.0.36",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-07-01",
+          "releaseDateDisplay": "2025年7月1日",
           "entries": [
             {
               "ja": "Web 検索が今日の日付をコンテキストに考慮するように",
@@ -2801,11 +2831,17 @@
               "en": "Fixed a bug where stdio MCP servers were not terminating properly on exit"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2025-06",
+      "label": "2025年6月",
+      "versions": [
         {
           "version": "1.0.35",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-26",
+          "releaseDateDisplay": "2025年6月26日",
           "entries": [
             {
               "ja": "MCP OAuth Authorization Server 検出のサポートを追加",
@@ -2815,8 +2851,8 @@
         },
         {
           "version": "1.0.34",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-25",
+          "releaseDateDisplay": "2025年6月25日",
           "entries": [
             {
               "ja": "MaxListenersExceededWarning メッセージが表示されるメモリリークを修正",
@@ -2826,8 +2862,8 @@
         },
         {
           "version": "1.0.33",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-25",
+          "releaseDateDisplay": "2025年6月25日",
           "entries": [
             {
               "ja": "セッション ID サポートによるログ機能を改善",
@@ -2845,8 +2881,8 @@
         },
         {
           "version": "1.0.32",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-25",
+          "releaseDateDisplay": "2025年6月25日",
           "entries": [
             {
               "ja": "litellm のループバック設定を更新",
@@ -2860,8 +2896,8 @@
         },
         {
           "version": "1.0.31",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-24",
+          "releaseDateDisplay": "2025年6月24日",
           "entries": [
             {
               "ja": "ファイルに無効な JSON が含まれている場合に ~/.claude.json がリセットされるバグを修正",
@@ -2871,8 +2907,8 @@
         },
         {
           "version": "1.0.30",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-24",
+          "releaseDateDisplay": "2025年6月24日",
           "entries": [
             {
               "ja": "カスタムスラッシュコマンド: bash 出力の実行、@-mention ファイル、思考キーワードでの思考モード有効化",
@@ -2894,8 +2930,8 @@
         },
         {
           "version": "1.0.29",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-24",
+          "releaseDateDisplay": "2025年6月24日",
           "entries": [
             {
               "ja": "カーソルナビゲーションとレンダリングでの CJK 文字サポートを改善",
@@ -2905,8 +2941,8 @@
         },
         {
           "version": "1.0.28",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-24",
+          "releaseDateDisplay": "2025年6月24日",
           "entries": [
             {
               "ja": "スラッシュコマンド: 履歴ナビゲーション中のセレクター表示を修正",
@@ -2932,8 +2968,8 @@
         },
         {
           "version": "1.0.27",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-19",
+          "releaseDateDisplay": "2025年6月19日",
           "entries": [
             {
               "ja": "Streamable HTTP MCP サーバーをサポート",
@@ -2955,8 +2991,8 @@
         },
         {
           "version": "1.0.25",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-17",
+          "releaseDateDisplay": "2025年6月17日",
           "entries": [
             {
               "ja": "スラッシュコマンド: \"project\" と \"user\" プレフィックスを説明に移動",
@@ -2978,8 +3014,8 @@
         },
         {
           "version": "1.0.24",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-17",
+          "releaseDateDisplay": "2025年6月17日",
           "entries": [
             {
               "ja": "/mcp 出力を改善",
@@ -2993,8 +3029,8 @@
         },
         {
           "version": "1.0.23",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-17",
+          "releaseDateDisplay": "2025年6月17日",
           "entries": [
             {
               "ja": "TypeScript SDK をリリース: @anthropic-ai/claude-code をインポートして開始",
@@ -3008,8 +3044,8 @@
         },
         {
           "version": "1.0.22",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-13",
+          "releaseDateDisplay": "2025年6月13日",
           "entries": [
             {
               "ja": "SDK: `total_cost` を `total_cost_usd` にリネーム",
@@ -3019,8 +3055,8 @@
         },
         {
           "version": "1.0.21",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-13",
+          "releaseDateDisplay": "2025年6月13日",
           "entries": [
             {
               "ja": "タブベースのインデントを持つファイルの編集を改善",
@@ -3038,8 +3074,8 @@
         },
         {
           "version": "1.0.18",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-10",
+          "releaseDateDisplay": "2025年6月10日",
           "entries": [
             {
               "ja": "追加の作業ディレクトリを指定する --add-dir CLI 引数を追加",
@@ -3077,8 +3113,8 @@
         },
         {
           "version": "1.0.17",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-10",
+          "releaseDateDisplay": "2025年6月10日",
           "entries": [
             {
               "ja": "-p モードでサブタスクからのメッセージを出力（parent_tool_use_id プロパティを確認）",
@@ -3100,8 +3136,8 @@
         },
         {
           "version": "1.0.11",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-05",
+          "releaseDateDisplay": "2025年6月5日",
           "entries": [
             {
               "ja": "Claude Code が Claude Pro サブスクリプションでも使用可能に",
@@ -3127,8 +3163,8 @@
         },
         {
           "version": "1.0.10",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-04",
+          "releaseDateDisplay": "2025年6月4日",
           "entries": [
             {
               "ja": "マークダウンテーブルサポートを追加",
@@ -3142,8 +3178,8 @@
         },
         {
           "version": "1.0.8",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-03",
+          "releaseDateDisplay": "2025年6月3日",
           "entries": [
             {
               "ja": "CLOUD_ML_REGION 使用時の Vertex AI リージョンフォールバックを修正",
@@ -3173,8 +3209,8 @@
         },
         {
           "version": "1.0.7",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-03",
+          "releaseDateDisplay": "2025年6月3日",
           "entries": [
             {
               "ja": "/allowed-tools を /permissions にリネーム",
@@ -3204,8 +3240,8 @@
         },
         {
           "version": "1.0.6",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-06-03",
+          "releaseDateDisplay": "2025年6月3日",
           "entries": [
             {
               "ja": "タブインデントファイルの編集信頼性を改善",
@@ -3228,11 +3264,17 @@
               "en": "Bugfixes, UI polish, and tool reliability improvements"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2025-05",
+      "label": "2025年5月",
+      "versions": [
         {
           "version": "1.0.4",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-29",
+          "releaseDateDisplay": "2025年5月29日",
           "entries": [
             {
               "ja": "MCP ツールエラーが正しく解析されないバグを修正",
@@ -3242,8 +3284,8 @@
         },
         {
           "version": "1.0.1",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-23",
+          "releaseDateDisplay": "2025年5月23日",
           "entries": [
             {
               "ja": "インターリーブ思考をオプトアウトするための `DISABLE_INTERLEAVED_THINKING` を追加",
@@ -3261,8 +3303,8 @@
         },
         {
           "version": "1.0.0",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-23",
+          "releaseDateDisplay": "2025年5月23日",
           "entries": [
             {
               "ja": "Claude Code が一般提供開始",
@@ -3276,8 +3318,8 @@
         },
         {
           "version": "0.2.125",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-22",
+          "releaseDateDisplay": "2025年5月22日",
           "entries": [
             {
               "ja": "破壊的変更: `ANTHROPIC_MODEL` または `ANTHROPIC_SMALL_FAST_MODEL` に渡す Bedrock ARN は、エスケープされたスラッシュを含まないようにする必要があります（`%2F` ではなく `/` を指定）",
@@ -3291,8 +3333,8 @@
         },
         {
           "version": "0.2.117",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-18",
+          "releaseDateDisplay": "2025年5月18日",
           "entries": [
             {
               "ja": "破壊的変更: --print の JSON 出力がネストされたメッセージオブジェクトを返すようになりました（新しいメタデータフィールド導入時の前方互換性のため）",
@@ -3314,8 +3356,8 @@
         },
         {
           "version": "0.2.108",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-13",
+          "releaseDateDisplay": "2025年5月13日",
           "entries": [
             {
               "ja": "Claude の作業中にメッセージを送信して、リアルタイムで Claude を誘導できるようになりました",
@@ -3345,8 +3387,8 @@
         },
         {
           "version": "0.2.107",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-10",
+          "releaseDateDisplay": "2025年5月10日",
           "entries": [
             {
               "ja": "CLAUDE.md ファイルから他のファイルをインポートできるようになりました。./CLAUDE.md に @path/to/file.md を追加すると、起動時に追加ファイルを読み込みます",
@@ -3356,8 +3398,8 @@
         },
         {
           "version": "0.2.106",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-10",
+          "releaseDateDisplay": "2025年5月10日",
           "entries": [
             {
               "ja": "MCP SSE サーバー設定でカスタムヘッダーを指定できるようになりました",
@@ -3371,8 +3413,8 @@
         },
         {
           "version": "0.2.105",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-09",
+          "releaseDateDisplay": "2025年5月9日",
           "entries": [
             {
               "ja": "Claude が Web 検索できるようになりました",
@@ -3394,8 +3436,8 @@
         },
         {
           "version": "0.2.102",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-06",
+          "releaseDateDisplay": "2025年5月6日",
           "entries": [
             {
               "ja": "thinking トリガーの信頼性を向上",
@@ -3413,8 +3455,8 @@
         },
         {
           "version": "0.2.100",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-03",
+          "releaseDateDisplay": "2025年5月3日",
           "entries": [
             {
               "ja": "スタックオーバーフローエラーによるクラッシュを修正",
@@ -3428,8 +3470,8 @@
         },
         {
           "version": "0.2.98",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-02",
+          "releaseDateDisplay": "2025年5月2日",
           "entries": [
             {
               "ja": "auto-compact が2回実行される問題を修正",
@@ -3439,8 +3481,8 @@
         },
         {
           "version": "0.2.96",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-02",
+          "releaseDateDisplay": "2025年5月2日",
           "entries": [
             {
               "ja": "Claude Code を Claude Max サブスクリプションでも使用できるようになりました (https://claude.ai/upgrade)",
@@ -3450,8 +3492,8 @@
         },
         {
           "version": "0.2.93",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-05-01",
+          "releaseDateDisplay": "2025年5月1日",
           "entries": [
             {
               "ja": "\"claude --continue\" と \"claude --resume\" で中断したところから会話を再開できます",
@@ -3462,11 +3504,17 @@
               "en": "Claude now has access to a Todo list that helps it stay on track and be more organized"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2025-04",
+      "label": "2025年4月",
+      "versions": [
         {
           "version": "0.2.82",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-25",
+          "releaseDateDisplay": "2025年4月25日",
           "entries": [
             {
               "ja": "--disallowedTools のサポートを追加",
@@ -3480,8 +3528,8 @@
         },
         {
           "version": "0.2.75",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-22",
+          "releaseDateDisplay": "2025年4月22日",
           "entries": [
             {
               "ja": "Enter キーを押して、Claude の作業中に追加メッセージをキューに入れられます",
@@ -3507,8 +3555,8 @@
         },
         {
           "version": "0.2.74",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-19",
+          "releaseDateDisplay": "2025年4月19日",
           "entries": [
             {
               "ja": "動的に生成される API キー（apiKeyHelper 経由）のリフレッシュをサポート（TTL 5分）",
@@ -3522,8 +3570,8 @@
         },
         {
           "version": "0.2.72",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-19",
+          "releaseDateDisplay": "2025年4月19日",
           "entries": [
             {
               "ja": "スピナーを更新して、読み込まれたトークン数とツール使用状況を表示",
@@ -3533,8 +3581,8 @@
         },
         {
           "version": "0.2.70",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-18",
+          "releaseDateDisplay": "2025年4月18日",
           "entries": [
             {
               "ja": "curl などのネットワークコマンドを Claude が使用できるようになりました",
@@ -3552,8 +3600,8 @@
         },
         {
           "version": "0.2.69",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-18",
+          "releaseDateDisplay": "2025年4月18日",
           "entries": [
             {
               "ja": "Select コンポーネントの動作改善により UI の不具合を修正",
@@ -3567,8 +3615,8 @@
         },
         {
           "version": "0.2.67",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-18",
+          "releaseDateDisplay": "2025年4月18日",
           "entries": [
             {
               "ja": "共有プロジェクト権限ルールを .claude/settings.json に保存できるようになりました",
@@ -3578,8 +3626,8 @@
         },
         {
           "version": "0.2.66",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-18",
+          "releaseDateDisplay": "2025年4月18日",
           "entries": [
             {
               "ja": "Print モード（-p）で --output-format=stream-json によるストリーミング出力をサポート",
@@ -3593,8 +3641,8 @@
         },
         {
           "version": "0.2.63",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-18",
+          "releaseDateDisplay": "2025年4月18日",
           "entries": [
             {
               "ja": "MCP ツールが2回読み込まれ、ツール呼び出しエラーが発生する問題を修正",
@@ -3604,8 +3652,8 @@
         },
         {
           "version": "0.2.61",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "vim スタイルのキー（j/k）または bash/emacs ショートカット（Ctrl+n/p）でメニューを操作できます",
@@ -3623,8 +3671,8 @@
         },
         {
           "version": "0.2.59",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "画像をプロンプトに直接コピー＆ペーストできます",
@@ -3642,8 +3690,8 @@
         },
         {
           "version": "0.2.54",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "メッセージを '#' で始めると素早くメモリに追加できます",
@@ -3661,8 +3709,8 @@
         },
         {
           "version": "0.2.53",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "新しい web fetch ツールにより、Claude が貼り付けた URL を表示できるようになりました",
@@ -3676,8 +3724,8 @@
         },
         {
           "version": "0.2.50",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "新しい MCP「project」スコープにより、.mcp.json ファイルに MCP サーバーを追加してリポジトリにコミットできるようになりました",
@@ -3687,8 +3735,8 @@
         },
         {
           "version": "0.2.49",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "以前の MCP サーバースコープの名前を変更: 以前の「project」スコープは「local」に、「global」スコープは「user」になりました",
@@ -3698,8 +3746,8 @@
         },
         {
           "version": "0.2.47",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "Tab を押してファイル名やフォルダ名をオートコンプリートできます",
@@ -3717,8 +3765,8 @@
         },
         {
           "version": "0.2.44",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "Claude に thinking モードで計画を立てさせることができます: 'think'、'think harder'、または 'ultrathink' と言うだけです",
@@ -3728,8 +3776,8 @@
         },
         {
           "version": "0.2.41",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "MCP サーバー起動タイムアウトを MCP_TIMEOUT 環境変数で設定できるようになりました",
@@ -3743,8 +3791,8 @@
         },
         {
           "version": "0.2.37",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "新しい /release-notes コマンドでいつでもリリースノートを表示できます",
@@ -3758,8 +3806,8 @@
         },
         {
           "version": "0.2.36",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "`claude mcp add-from-claude-desktop` で Claude Desktop から MCP サーバーをインポートできます",
@@ -3773,8 +3821,8 @@
         },
         {
           "version": "0.2.34",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "テキスト入力用の Vim バインディング - /vim または /config で有効化",
@@ -3784,8 +3832,8 @@
         },
         {
           "version": "0.2.32",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "インタラクティブな MCP セットアップウィザード: \"claude mcp add\" を実行してステップバイステップのインターフェースで MCP サーバーを追加できます",
@@ -3799,8 +3847,8 @@
         },
         {
           "version": "0.2.31",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "カスタムスラッシュコマンド: .claude/commands/ ディレクトリ内の Markdown ファイルがカスタムスラッシュコマンドとして表示され、会話にプロンプトを挿入できます",
@@ -3814,8 +3862,8 @@
         },
         {
           "version": "0.2.30",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "ターミナル互換性向上のため ANSI カラーテーマを追加",
@@ -3833,8 +3881,8 @@
         },
         {
           "version": "0.2.26",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "ツール権限管理用の新しい /approved-tools コマンド",
@@ -3852,8 +3900,8 @@
         },
         {
           "version": "0.2.21",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2025-04-03",
+          "releaseDateDisplay": "2025年4月3日",
           "entries": [
             {
               "ja": "/commands のファジーマッチング",

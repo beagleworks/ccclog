@@ -14,7 +14,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseChangelog, type ParsedVersion, type Entry } from './parse-changelog.js';
-import { fetchReleases, interpolateMissingDates } from './fetch-releases.js';
+import { fetchReleases, fetchChangelogCommitDates, interpolateMissingDates } from './fetch-releases.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');
@@ -99,15 +99,43 @@ async function main() {
     'claude-code',
     versionList
   );
-  console.log(`   ${releaseMap.size} バージョンのリリース日を取得\n`);
+  const releaseApiCount = releaseMap.size;
+  console.log(`   ${releaseApiCount} バージョンのリリース日を取得\n`);
 
-  // 取得できなかったバージョンの日付を補間
+  // 3. CHANGELOG.md コミット履歴からリリース日を取得（Release API で取得できなかったもの）
+  const missingAfterReleaseApi = versionList.length - releaseMap.size;
+  let commitDateCount = 0;
+  if (missingAfterReleaseApi > 0) {
+    console.log('📚 CHANGELOG.md コミット履歴からリリース日を取得中...');
+    const commitDates = await fetchChangelogCommitDates('anthropics', 'claude-code');
+
+    // Release API で取得できなかったバージョンにコミット日を適用
+    for (const version of versionList) {
+      if (!releaseMap.has(version) && commitDates.has(version)) {
+        releaseMap.set(version, {
+          version,
+          releaseDate: commitDates.get(version)!,
+        });
+        commitDateCount++;
+      }
+    }
+    console.log(`   ${commitDateCount} バージョンの日付をコミット履歴から補完\n`);
+  }
+
+  // 4. 取得できなかったバージョンの日付を補間（最終手段）
   const missingCount = versionList.length - releaseMap.size;
   if (missingCount > 0) {
     console.log(`📊 ${missingCount} バージョンの日付を近隣バージョンから補間中...`);
     interpolateMissingDates(versionList, releaseMap);
     console.log(`   補間完了\n`);
   }
+
+  // 統計情報を表示
+  console.log('📈 日付取得の統計:');
+  console.log(`   Release API: ${releaseApiCount} バージョン`);
+  console.log(`   コミット履歴: ${commitDateCount} バージョン`);
+  console.log(`   補間: ${missingCount} バージョン`);
+  console.log(`   合計: ${versionList.length} バージョン\n`);
 
   // 3. バージョン情報にリリース日を追加
   const versions: Version[] = parsedVersions.map((pv) => {
