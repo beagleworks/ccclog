@@ -16,16 +16,20 @@ const { version, releaseDateDisplay, entries, orderInMonth } = Astro.props;
 
 /**
  * エントリの種類を判定してバッジクラスを返す
+ * [VSCode] や [Windows] などのプレフィックスは除外して動詞を認識する
  */
 function getEntryType(text: string): string {
-  const lowerText = text.toLowerCase();
-  if (lowerText.startsWith('added') || text.startsWith('追加')) return 'added';
-  if (lowerText.startsWith('fixed') || text.startsWith('修正')) return 'fixed';
-  if (lowerText.startsWith('changed') || text.startsWith('変更')) return 'changed';
-  if (lowerText.startsWith('improved') || text.startsWith('改善')) return 'improved';
-  if (lowerText.startsWith('enabled') || text.startsWith('有効化')) return 'added';
-  if (lowerText.startsWith('removed') || text.startsWith('削除')) return 'changed';
-  if (lowerText.startsWith('deprecated') || text.startsWith('非推奨')) return 'changed';
+  // [Tag] 形式のプレフィックスを除去
+  const cleanedText = text.replace(/^\[.*?\]\s*/, '');
+  const lowerText = cleanedText.toLowerCase();
+
+  if (lowerText.startsWith('added') || cleanedText.startsWith('追加')) return 'added';
+  if (lowerText.startsWith('fixed') || cleanedText.startsWith('修正')) return 'fixed';
+  if (lowerText.startsWith('changed') || cleanedText.startsWith('変更')) return 'changed';
+  if (lowerText.startsWith('improved') || cleanedText.startsWith('改善')) return 'improved';
+  if (lowerText.startsWith('enabled') || cleanedText.startsWith('有効化')) return 'added';
+  if (lowerText.startsWith('removed') || cleanedText.startsWith('削除')) return 'changed';
+  if (lowerText.startsWith('deprecated') || cleanedText.startsWith('非推奨')) return 'changed';
   return 'other';
 }
 ---
