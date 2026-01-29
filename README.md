@@ -2,6 +2,8 @@
 
 Claude Code の変更履歴（CHANGELOG）を日本語/英語の並列テーブル形式で閲覧できる静的Webアプリケーション。
 
+🔗 **https://beagleworks.github.io/ccclog/**
+
 ## 必要環境
 
 - Node.js 22+
