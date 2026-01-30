@@ -304,14 +304,11 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 | コマンド | 説明 |
 |---------|------|
 | `pnpm dev` | 開発サーバー起動（localhost:4321） |
-| `pnpm build` | データ生成 + 静的サイトビルド |
 | `pnpm preview` | ビルド結果のプレビュー |
+| `pnpm build` | データ生成 + 静的サイトビルド |
 | `pnpm generate` | 全年のデータ生成（2026年 + 2025年） |
-| `pnpm generate:2026` | 2026年のデータ生成のみ |
-| `pnpm generate:2025` | 2025年のデータ生成のみ |
 | `pnpm sync-versions` | npm レジストリから新バージョンを検出し CHANGELOG に追記 |
-| `pnpm retranslate` | 「（翻訳待ち）」エントリを再翻訳（当該年） |
-| `pnpm retranslate [year]` | 指定年の「（翻訳待ち）」エントリを再翻訳 |
+| `pnpm retranslate` | 「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
 
 ---
 
