@@ -47,7 +47,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
       - name: Sync new versions from npm
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: pnpm run sync-versions
 
       - name: Commit new versions (if any)
