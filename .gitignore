@@ -5,7 +5,7 @@ dist/
 .astro/
 
 # generated data (ビルド時に生成されるため)
-src/data/changelog.json
+src/data/changelog*.json
 generated/
 
 # dependencies
