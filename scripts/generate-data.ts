@@ -77,6 +77,35 @@ function formatMonthLabel(monthKey: string): string {
   return `${year}年${parseInt(month)}月`;
 }
 
+/**
+ * semver比較
+ * @returns 負の値: a < b、0: a == b、正の値: a > b
+ */
+function compareSemver(a: string, b: string): number {
+  const partsA = a.split('.').map(Number);
+  const partsB = b.split('.').map(Number);
+  for (let i = 0; i < 3; i++) {
+    if ((partsA[i] || 0) !== (partsB[i] || 0)) {
+      return (partsA[i] || 0) - (partsB[i] || 0);
+    }
+  }
+  return 0;
+}
+
+/**
+ * 月内のバージョンをソート（リリース日降順、同日ならsemver降順）
+ */
+function sortVersionsInMonth(versions: Version[]): Version[] {
+  return versions.sort((a, b) => {
+    // まずリリース日で降順
+    const dateCompare = b.releaseDate.localeCompare(a.releaseDate);
+    if (dateCompare !== 0) return dateCompare;
+
+    // 同日ならsemver降順
+    return compareSemver(b.version, a.version);
+  });
+}
+
 // ========================
 // メイン処理
 // ========================
@@ -165,10 +194,11 @@ async function main() {
 
   // 月キーでソート（降順）
   const sortedMonthKeys = Array.from(monthMap.keys()).sort().reverse();
+  // 各月内のバージョンもソート（リリース日降順、同日ならsemver降順）
   const months: MonthGroup[] = sortedMonthKeys.map((key) => ({
     key,
     label: formatMonthLabel(key),
-    versions: monthMap.get(key)!,
+    versions: sortVersionsInMonth(monthMap.get(key)!),
   }));
 
   // 5. changelog.json を生成
@@ -222,7 +252,10 @@ function generateMarkdown(data: ChangelogData): string {
       lines.push('|--------|---------|');
 
       for (const entry of version.entries) {
-        lines.push(`| ${entry.ja} | ${entry.en} |`);
+        // パイプ文字をエスケープしてテーブルの崩れを防ぐ
+        const escapedJa = entry.ja.replace(/\|/g, '\\|');
+        const escapedEn = entry.en.replace(/\|/g, '\\|');
+        lines.push(`| ${escapedJa} | ${escapedEn} |`);
       }
 
       lines.push('');

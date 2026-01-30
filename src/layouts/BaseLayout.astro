@@ -1,13 +1,28 @@
 ---
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
 interface Props {
   title: string;
   description?: string;
   currentYear?: string;
+  years?: string[];
 }
 
-const { title, description = 'Claude Code の変更履歴を日本語/英語で閲覧できます', currentYear = '2026' } = Astro.props;
+const { title, description = 'Claude Code の変更履歴を日本語/英語で閲覧できます', currentYear = '2026', years: propsYears } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const years = ['2026', '2025'];
+
+// yearsが渡されなかった場合はcontent/から自動検出
+let years = propsYears;
+if (!years) {
+  const contentDir = join(process.cwd(), 'content');
+  const files = readdirSync(contentDir);
+  years = files
+    .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
+    .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
+    .sort()
+    .reverse();
+}
 ---
 
 <!doctype html>
@@ -30,7 +45,7 @@ const years = ['2026', '2025'];
         <nav class="year-nav">
           {years.map((year) => (
             <a
-              href={year === '2026' ? base : `${base}${year}/`}
+              href={`${base}${year}/`}
               class:list={['year-link', { active: currentYear === year }]}
             >
               {year}

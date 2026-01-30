@@ -1,9 +1,35 @@
 ---
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SearchBox from '../components/SearchBox.astro';
 import MonthGroup from '../components/MonthGroup.astro';
-import changelogData from '../data/changelog-2025.json';
 
+export function getStaticPaths() {
+  // content/ ディレクトリから年を自動検出
+  const contentDir = join(process.cwd(), 'content');
+  const files = readdirSync(contentDir);
+  const years = files
+    .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
+    .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
+    .sort()
+    .reverse();
+
+  return years.map((year) => ({
+    params: { year },
+    props: { year, years },
+  }));
+}
+
+interface Props {
+  year: string;
+  years: string[];
+}
+
+const { year, years } = Astro.props;
+
+// 動的にJSONをインポート
+const changelogData = await import(`../data/changelog-${year}.json`);
 const { months, generatedAt } = changelogData;
 const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
   timeZone: 'Asia/Tokyo',
@@ -15,7 +41,7 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
 });
 ---
 
-<BaseLayout title="Claude Code CHANGELOG Viewer - 2025" currentYear="2025">
+<BaseLayout title={`Claude Code CHANGELOG Viewer - ${year}`} currentYear={year} years={years}>
   <SearchBox />
 
   <div class="info-bar">
@@ -23,7 +49,7 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
   </div>
 
   <div id="changelog-list">
-    {months.map((month, index) => (
+    {months.map((month: any, index: number) => (
       <MonthGroup
         monthKey={month.key}
         label={month.label}
@@ -41,18 +67,6 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
 
 <script>
   import Fuse from 'fuse.js';
-
-  interface Entry {
-    ja: string;
-    en: string;
-  }
-
-  interface Version {
-    version: string;
-    releaseDate: string;
-    releaseDateDisplay: string;
-    entries: Entry[];
-  }
 
   interface SearchableEntry {
     version: string;
@@ -97,7 +111,39 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
     includeMatches: true,
   });
 
-  // 検索結果をハイライト
+  // HTML特殊文字をエスケープ
+  function escapeHtml(text: string): string {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // バッククォートをcodeタグに変換（HTMLエスケープ後）
+  function formatCode(text: string): string {
+    const escaped = escapeHtml(text);
+    return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+  }
+
+  // ハイライト適用後にformatCodeを適用（code表示を維持）
+  function applyCodeFormatting(html: string): string {
+    // ハイライト用のspanタグを一時的に保護
+    const placeholders: string[] = [];
+    const protectedHtml = html.replace(/<span class="highlight">([^<]*)<\/span>/g, (match, content) => {
+      const idx = placeholders.length;
+      placeholders.push(match);
+      return `\x00HIGHLIGHT${idx}\x00`;
+    });
+
+    // バッククォートをcodeタグに変換
+    let result = protectedHtml.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+    // ハイライトを復元
+    result = result.replace(/\x00HIGHLIGHT(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
+
+    return result;
+  }
+
+  // 検索結果をハイライト（code表示を維持）
   function highlightText(element: HTMLElement, matches: Fuse.FuseResultMatch[] | undefined, key: string) {
     if (!matches) return;
 
@@ -118,13 +164,8 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
     }
     result += escapeHtml(text.slice(lastIndex));
 
-    element.innerHTML = result;
-  }
-
-  function escapeHtml(text: string): string {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    // ハイライト後にformatCodeを適用してcode表示を維持
+    element.innerHTML = applyCodeFormatting(result);
   }
 
   // 検索を実行
@@ -160,16 +201,22 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
     const matchedMonths = new Set<string>();
     const matchedEntries = new Map<string, Set<number>>();
 
-    results.forEach((result) => {
-      const { version, monthKey, entryIndex } = result.item;
+    // 検索結果をMapに変換してO(1)参照を実現
+    const matchResultMap = new Map<string, typeof results[0]>();
+    results.forEach((r) => {
+      const { version, monthKey, entryIndex } = r.item;
       matchedVersions.add(version);
       matchedMonths.add(monthKey);
 
-      const key = `v${version}`;
-      if (!matchedEntries.has(key)) {
-        matchedEntries.set(key, new Set());
+      const versionKey = `v${version}`;
+      if (!matchedEntries.has(versionKey)) {
+        matchedEntries.set(versionKey, new Set());
       }
-      matchedEntries.get(key)!.add(entryIndex);
+      matchedEntries.get(versionKey)!.add(entryIndex);
+
+      // 結果をMapに格納
+      const mapKey = `${version}-${entryIndex}`;
+      matchResultMap.set(mapKey, r);
     });
 
     // UIを更新
@@ -201,10 +248,9 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
             row.classList.remove('hidden');
             visibleEntryCount++;
 
-            // ハイライトを適用
-            const matchResult = results.find(
-              (r) => r.item.version === versionNum && r.item.entryIndex === idx
-            );
+            // ハイライトを適用（Mapから O(1) で取得）
+            const matchKey = `${versionNum}-${idx}`;
+            const matchResult = matchResultMap.get(matchKey);
             const jaCell = row.querySelector('.entry-ja') as HTMLElement;
             const enCell = row.querySelector('.entry-en') as HTMLElement;
 
@@ -235,11 +281,6 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
       searchStats.hidden = true;
       noResults.hidden = false;
     }
-  }
-
-  // バッククォートをcodeタグに変換
-  function formatCode(text: string): string {
-    return text.replace(/`([^`]+)`/g, '<code>$1</code>');
   }
 
   // イベントリスナーを設定
