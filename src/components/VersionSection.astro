@@ -36,11 +36,13 @@ function formatSafeHtml(text: string): string {
 
 /**
  * エントリの種類を判定してバッジクラスを返す
- * [VSCode] や [Windows] などのプレフィックスは除外して動詞を認識する
+ * [VSCode] や Windows: などのプレフィックスは除外して動詞を認識する
  */
 function getEntryType(text: string): string {
-  // [Tag] 形式のプレフィックスを除去
-  const cleanedText = text.replace(/^\[.*?\]\s*/, '');
+  // [Tag] 形式と Tag: 形式のプレフィックスを除去
+  const cleanedText = text
+    .replace(/^\[.*?\]\s*/, '')    // [IDE], [VSCode] 等
+    .replace(/^[A-Za-z]+:\s*/, ''); // Bedrock:, Windows: 等
   const lowerText = cleanedText.toLowerCase();
 
   // Added / Add

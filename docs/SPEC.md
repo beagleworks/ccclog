@@ -54,6 +54,11 @@ Claude Code の変更履歴（CHANGELOG）を日本語/英語の並列テーブ�
 | Improved / Improve / 改善 | 青 | #79c0ff |
 | Other / その他 | グレー | #8b949e |
 
+**プレフィックス除外**
+以下の形式のプレフィックスは判定時に除外される：
+- `[Tag]` 形式（例: `[IDE]`, `[VSCode]`）
+- `Tag:` 形式（例: `Bedrock:`, `Windows:`）
+
 ### 2.2 検索機能
 
 #### 2.2.1 全文検索
