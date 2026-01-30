@@ -187,8 +187,8 @@ function translateEntries(entries: string[]): string[] | null {
 エントリ:
 ${entriesText}`;
 
-    // Claude Code CLI を使用して翻訳（--print で非対話モード）
-    const responseText = execSync(`claude --print "${prompt.replace(/"/g, '\\"')}"`, {
+    // Claude Code CLI を使用して翻訳（--print で非対話モード、--model sonnet で品質重視）
+    const responseText = execSync(`claude --print --model sonnet "${prompt.replace(/"/g, '\\"')}"`, {
       encoding: 'utf-8',
       maxBuffer: 10 * 1024 * 1024,
       timeout: 60000, // 60秒タイムアウト

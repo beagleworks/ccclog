@@ -56,7 +56,7 @@ function translateText(englishText: string): string | null {
 エントリ:
 ${englishText}`;
 
-    const result = execSync(`claude --print "${prompt.replace(/"/g, '\\"')}"`, {
+    const result = execSync(`claude --print --model sonnet "${prompt.replace(/"/g, '\\"')}"`, {
       encoding: 'utf-8',
       maxBuffer: 10 * 1024 * 1024,
       timeout: 60000,

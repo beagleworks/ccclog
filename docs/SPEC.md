@@ -241,7 +241,8 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 
 | 項目 | 内容 |
 |------|------|
-| 翻訳ツール | Claude Code CLI (`claude --print`) |
+| 翻訳ツール | Claude Code CLI (`claude --print --model sonnet`) |
+| 翻訳モデル | Claude Sonnet（品質とコストのバランス） |
 | 認証方式 | OAuth トークン（サブスクリプション） |
 | 環境変数 | CLAUDE_CODE_OAUTH_TOKEN |
 
@@ -442,6 +443,7 @@ ccclog/
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-01-30 | 2.1.2 | 翻訳モデルを Claude Sonnet に明示的に指定（品質向上） |
 | 2026-01-30 | 2.1.1 | ソースデータを `content/` ディレクトリに移動 |
 | 2026-01-30 | 2.1.0 | 「（翻訳待ち）」エントリの再翻訳機能を追加 |
 | 2026-01-30 | 2.0.0 | 新バージョン検出時に Claude Code CLI で自動翻訳する機能を追加 |
