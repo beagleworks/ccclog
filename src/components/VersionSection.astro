@@ -25,8 +25,8 @@ function getEntryType(text: string): string {
 
   // Added / Add
   if (lowerText.startsWith('added') || lowerText.startsWith('add ') || cleanedText.startsWith('追加')) return 'added';
-  // Fixed / Fix
-  if (lowerText.startsWith('fixed') || lowerText.startsWith('fix ') || cleanedText.startsWith('修正')) return 'fixed';
+  // Fixed / Fix / bugfixes
+  if (lowerText.startsWith('fixed') || lowerText.startsWith('fix ') || lowerText.includes('bugfix') || cleanedText.startsWith('修正')) return 'fixed';
   // Changed / Change
   if (lowerText.startsWith('changed') || lowerText.startsWith('change ') || cleanedText.startsWith('変更')) return 'changed';
   // Improved / Improve
