@@ -17,7 +17,7 @@ on:
 
 # ページデプロイの権限設定
 permissions:
-  contents: read
+  contents: write  # sync-versions での自動コミットに必要
   pages: write
   id-token: write
 
@@ -46,6 +46,17 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Sync new versions from npm
+        run: pnpm run sync-versions
+
+      - name: Commit new versions (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG_*.md
+          git diff --staged --quiet || git commit -m "chore: 新バージョンを自動追加"
+          git push || echo "Nothing to push"
 
       - name: Build
         run: pnpm build

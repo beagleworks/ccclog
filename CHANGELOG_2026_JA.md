@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.25
+
+| 日本語 | English |
+|--------|---------|
+| （翻訳待ち） | Fixed beta header validation error for gateway users on Bedrock and Vertex, ensuring `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` avoids the error |
+
 ## 2.1.23
 
 | 日本語 | English |

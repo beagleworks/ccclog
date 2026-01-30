@@ -196,7 +196,17 @@ npm および GitHub タグで取得できないバージョン（未公開・�
 ### 4.1 データフロー
 
 ```
-CHANGELOG_{YEAR}_JA.md  +  GitHub Releases API
+npm レジストリ  +  GitHub CHANGELOG.md
+     │                    │
+     ▼                    ▼
+         sync-versions.ts
+                 │
+                 ▼
+     CHANGELOG_{YEAR}_JA.md (新バージョン自動追記)
+                 │
+─────────────────┼─────────────────────────────────
+                 │
+CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
          │                       │
          ▼                       ▼
    parse-changelog.ts    fetch-releases.ts
@@ -215,7 +225,35 @@ CHANGELOG_{YEAR}_JA.md  +  GitHub Releases API
                        └── 2025/index.html
 ```
 
-### 4.2 npm scripts
+### 4.2 新バージョン自動検出（sync-versions.ts）
+
+#### 4.2.1 処理フロー
+1. npm レジストリから `@anthropic-ai/claude-code` の全バージョン一覧と公開日を取得
+2. 当該年（現在の年、JST基準）の `CHANGELOG_{YEAR}_JA.md` から既存バージョンを抽出
+3. 未記載バージョンを特定
+4. GitHub の `CHANGELOG.md` から各バージョンの変更内容（英語）を取得
+5. 未記載バージョンを当該年のファイルに追記
+
+※ 過去年の CHANGELOG は既に整備済みのため、当該年のみを対象とする
+
+#### 4.2.2 追記形式
+```markdown
+## X.Y.Z
+
+| 日本語 | English |
+|--------|---------|
+| （翻訳待ち） | Original English text from GitHub CHANGELOG |
+```
+
+#### 4.2.3 年の判定
+- npm 公開日を JST に変換して年を判定
+- UTC 15:00 以降は翌日としてカウント（JST 0:00）
+
+#### 4.2.4 挿入位置
+- 新しいバージョンはファイルの先頭（ヘッダー直後）に追加
+- バージョン番号の降順を維持
+
+### 4.3 npm scripts
 
 | コマンド | 説明 |
 |---------|------|
@@ -225,6 +263,7 @@ CHANGELOG_{YEAR}_JA.md  +  GitHub Releases API
 | `pnpm generate` | 全年のデータ生成（2026年 + 2025年） |
 | `pnpm generate:2026` | 2026年のデータ生成のみ |
 | `pnpm generate:2025` | 2025年のデータ生成のみ |
+| `pnpm sync-versions` | npm レジストリから新バージョンを検出し CHANGELOG に追記 |
 
 ---
 
@@ -243,6 +282,15 @@ CHANGELOG_{YEAR}_JA.md  +  GitHub Releases API
 | push | mainブランチへのプッシュ時 |
 | schedule | 日本時間 6:00, 9:00, 12:00, 18:00 |
 | workflow_dispatch | 手動実行 |
+
+#### 5.1.3 新バージョン自動検出・追記
+定期ビルド時に以下の処理を実行：
+1. `pnpm run sync-versions` で npm レジストリから新バージョンを検出
+2. 新バージョンがあれば `CHANGELOG_{YEAR}_JA.md` に自動追記
+3. 変更があれば自動コミット・プッシュ
+4. 通常のビルド・デプロイを実行
+
+これにより、npm に新バージョンが公開されると最大6時間以内に自動的に CHANGELOG に追加される。
 
 ### 5.2 ビルド環境
 - OS: ubuntu-latest
@@ -268,7 +316,8 @@ ccclog/
 ├── scripts/
 │   ├── fetch-releases.ts           # GitHub API連携
 │   ├── generate-data.ts            # データ生成メイン（年引数対応）
-│   └── parse-changelog.ts          # Markdownパーサー
+│   ├── parse-changelog.ts          # Markdownパーサー
+│   └── sync-versions.ts            # 新バージョン自動検出・追記
 ├── src/
 │   ├── components/
 │   │   ├── MonthGroup.astro        # 月グループコンポーネント
@@ -341,6 +390,7 @@ ccclog/
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-01-30 | 1.4.0 | 新バージョン自動検出機能を追加（npm レジストリから未記載バージョンを検出し CHANGELOG に自動追記） |
 | 2026-01-30 | 1.3.1 | フッターXアイコン位置変更、bugfixes分類対応 |
 | 2026-01-29 | 1.3.0 | エントリタイプ分類改善、GitHubタグ取得追加、デプロイスケジュール変更、フッター改善 |
 | 2026-01-29 | 1.2.0 | npm レジストリからのリリース日取得に変更（最も正確な公開日） |

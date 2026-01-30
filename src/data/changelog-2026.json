@@ -1,10 +1,21 @@
 {
-  "generatedAt": "2026-01-30T01:01:22.438Z",
+  "generatedAt": "2026-01-30T01:58:34.801Z",
   "months": [
     {
       "key": "2026-01",
       "label": "2026年1月",
       "versions": [
+        {
+          "version": "2.1.25",
+          "releaseDate": "2026-01-30",
+          "releaseDateDisplay": "2026年1月30日",
+          "entries": [
+            {
+              "ja": "（翻訳待ち）",
+              "en": "Fixed beta header validation error for gateway users on Bedrock and Vertex, ensuring `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` avoids the error"
+            }
+          ]
+        },
         {
           "version": "2.1.23",
           "releaseDate": "2026-01-29",
