@@ -274,7 +274,32 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 - 新しいバージョンはファイルの先頭（ヘッダー直後）に追加
 - バージョン番号の降順を維持
 
-### 4.3 npm scripts
+### 4.3 翻訳待ちエントリの再翻訳（retranslate.ts）
+
+#### 4.3.1 概要
+「（翻訳待ち）」となっているエントリを検出し、Claude Code CLI で再翻訳するスクリプト。
+
+#### 4.3.2 処理フロー
+1. `CHANGELOG_{YEAR}_JA.md` から「（翻訳待ち）」を含むバージョンを検出
+2. 対象バージョンの英語エントリを抽出
+3. Claude Code CLI で日本語に翻訳
+4. 翻訳結果で「（翻訳待ち）」を置換
+5. ファイルを上書き保存
+
+#### 4.3.3 対象ファイル
+- 引数なし: 当該年（JST基準）のファイルのみ
+- 引数あり: 指定された年のファイル（例: `pnpm retranslate 2025`）
+
+#### 4.3.4 実行タイミング
+- ローカル: 手動で `pnpm retranslate` を実行
+- CI: `workflow_dispatch` で「再翻訳モード」を選択時
+
+#### 4.3.5 エラーハンドリング
+- Claude Code CLI が利用不可: エラーメッセージを表示して終了
+- 翻訳失敗: 該当エントリをスキップし、次のエントリを処理
+- 部分的な成功でもファイルは更新される
+
+### 4.4 npm scripts
 
 | コマンド | 説明 |
 |---------|------|
@@ -285,6 +310,8 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 | `pnpm generate:2026` | 2026年のデータ生成のみ |
 | `pnpm generate:2025` | 2025年のデータ生成のみ |
 | `pnpm sync-versions` | npm レジストリから新バージョンを検出し CHANGELOG に追記 |
+| `pnpm retranslate` | 「（翻訳待ち）」エントリを再翻訳（当該年） |
+| `pnpm retranslate [year]` | 指定年の「（翻訳待ち）」エントリを再翻訳 |
 
 ---
 
@@ -302,7 +329,12 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 |---------|-----------|
 | push | mainブランチへのプッシュ時 |
 | schedule | 日本時間 6:00, 9:00, 12:00, 18:00 |
-| workflow_dispatch | 手動実行 |
+| workflow_dispatch | 手動実行（オプションで再翻訳モード選択可） |
+
+#### 5.1.2.1 手動実行オプション
+| オプション | 説明 | デフォルト |
+|-----------|------|-----------|
+| retranslate | 「（翻訳待ち）」エントリを再翻訳 | false |
 
 #### 5.1.3 新バージョン自動検出・追記
 定期ビルド時に以下の処理を実行：
@@ -338,6 +370,7 @@ ccclog/
 │   ├── fetch-releases.ts           # GitHub API連携
 │   ├── generate-data.ts            # データ生成メイン（年引数対応）
 │   ├── parse-changelog.ts          # Markdownパーサー
+│   ├── retranslate.ts              # 翻訳待ちエントリの再翻訳
 │   └── sync-versions.ts            # 新バージョン自動検出・追記
 ├── src/
 │   ├── components/
@@ -411,6 +444,7 @@ ccclog/
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-01-30 | 2.1.0 | 「（翻訳待ち）」エントリの再翻訳機能を追加 |
 | 2026-01-30 | 2.0.0 | 新バージョン検出時に Claude Code CLI で自動翻訳する機能を追加 |
 | 2026-01-30 | 1.4.0 | 新バージョン自動検出機能を追加（npm レジストリから未記載バージョンを検出し CHANGELOG に自動追記） |
 | 2026-01-30 | 1.3.1 | フッターXアイコン位置変更、bugfixes分類対応 |
