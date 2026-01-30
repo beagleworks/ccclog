@@ -14,7 +14,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseChangelog, type ParsedVersion, type Entry } from './parse-changelog.js';
-import { fetchReleases, fetchChangelogCommitDates, fetchNpmPublishDates, interpolateMissingDates } from './fetch-releases.js';
+import { fetchReleases, fetchNpmPublishDates, interpolateMissingDates } from './fetch-releases.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');

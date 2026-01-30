@@ -38,27 +38,30 @@ function formatSafeHtml(text: string): string {
  * エントリの種類を判定してバッジクラスを返す
  * [VSCode] や Windows: などのプレフィックスは除外して動詞を認識する
  */
-function getEntryType(text: string): string {
+function getEntryType(enText: string, jaText: string): string {
   // [Tag] 形式と Tag: 形式のプレフィックスを除去
-  const cleanedText = text
+  const cleanedEn = enText
     .replace(/^\[.*?\]\s*/, '')    // [IDE], [VSCode] 等
-    .replace(/^[A-Za-z]+:\s*/, ''); // Bedrock:, Windows: 等
-  const lowerText = cleanedText.toLowerCase();
+    .replace(/^[A-Za-z][A-Za-z0-9-]*:\s*/, ''); // Bedrock:, Windows: 等
+  const cleanedJa = jaText
+    .replace(/^\[.*?\]\s*/, '')
+    .replace(/^[A-Za-z][A-Za-z0-9-]*:\s*/, '');
+  const lowerEn = cleanedEn.toLowerCase();
 
   // Added / Add
-  if (lowerText.startsWith('added') || lowerText.startsWith('add ') || cleanedText.startsWith('追加')) return 'added';
+  if (lowerEn.startsWith('added') || lowerEn.startsWith('add ') || cleanedJa.startsWith('追加')) return 'added';
   // Fixed / Fix / bugfixes
-  if (lowerText.startsWith('fixed') || lowerText.startsWith('fix ') || lowerText.includes('bugfix') || cleanedText.startsWith('修正')) return 'fixed';
+  if (lowerEn.startsWith('fixed') || lowerEn.startsWith('fix ') || lowerEn.includes('bugfix') || cleanedJa.startsWith('修正')) return 'fixed';
   // Changed / Change
-  if (lowerText.startsWith('changed') || lowerText.startsWith('change ') || cleanedText.startsWith('変更')) return 'changed';
+  if (lowerEn.startsWith('changed') || lowerEn.startsWith('change ') || cleanedJa.startsWith('変更')) return 'changed';
   // Improved / Improve
-  if (lowerText.startsWith('improved') || lowerText.startsWith('improve ') || cleanedText.startsWith('改善')) return 'improved';
+  if (lowerEn.startsWith('improved') || lowerEn.startsWith('improve ') || cleanedJa.startsWith('改善')) return 'improved';
   // Enabled / Enable
-  if (lowerText.startsWith('enabled') || lowerText.startsWith('enable ') || cleanedText.startsWith('有効化')) return 'added';
+  if (lowerEn.startsWith('enabled') || lowerEn.startsWith('enable ') || cleanedJa.startsWith('有効化')) return 'added';
   // Removed / Remove
-  if (lowerText.startsWith('removed') || lowerText.startsWith('remove ') || cleanedText.startsWith('削除')) return 'changed';
+  if (lowerEn.startsWith('removed') || lowerEn.startsWith('remove ') || cleanedJa.startsWith('削除')) return 'changed';
   // Deprecated / Deprecate
-  if (lowerText.startsWith('deprecated') || lowerText.startsWith('deprecate ') || cleanedText.startsWith('非推奨')) return 'changed';
+  if (lowerEn.startsWith('deprecated') || lowerEn.startsWith('deprecate ') || cleanedJa.startsWith('非推奨')) return 'changed';
   return 'other';
 }
 ---
@@ -82,7 +85,7 @@ function getEntryType(text: string): string {
       </thead>
       <tbody>
         {entries.map((entry) => {
-          const entryType = getEntryType(entry.en);
+          const entryType = getEntryType(entry.en, entry.ja);
           return (
             <tr class={`entry-row ${entryType}`} data-ja={entry.ja} data-en={entry.en}>
               <td class="entry-ja" set:html={formatSafeHtml(entry.ja)} />

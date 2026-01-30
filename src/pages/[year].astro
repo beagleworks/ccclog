@@ -111,61 +111,62 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
     includeMatches: true,
   });
 
-  // HTML特殊文字をエスケープ
   function escapeHtml(text: string): string {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
-  // バッククォートをcodeタグに変換（HTMLエスケープ後）
-  function formatCode(text: string): string {
-    const escaped = escapeHtml(text);
-    return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // バッククォート内を <code> 表示（エスケープ後）
+  function renderWithCode(rawText: string): string {
+    return escapeHtml(rawText).replace(/`([^`]+)`/g, '<code>$1</code>');
   }
 
-  // ハイライト適用後にformatCodeを適用（code表示を維持）
-  function applyCodeFormatting(html: string): string {
-    // ハイライト用のspanタグを一時的に保護
-    const placeholders: string[] = [];
-    const protectedHtml = html.replace(/<span class="highlight">([^<]*)<\/span>/g, (match, content) => {
-      const idx = placeholders.length;
-      placeholders.push(match);
-      return `\x00HIGHLIGHT${idx}\x00`;
-    });
+  const HIGHLIGHT_START = '\uE000';
+  const HIGHLIGHT_END = '\uE001';
 
-    // バッククォートをcodeタグに変換
-    let result = protectedHtml.replace(/`([^`]+)`/g, '<code>$1</code>');
+  function renderHighlightedHtml(rawText: string, indices: ReadonlyArray<[number, number]>): string {
+    if (!indices || indices.length === 0) return renderWithCode(rawText);
 
-    // ハイライトを復元
-    result = result.replace(/\x00HIGHLIGHT(\d+)\x00/g, (_, idx) => placeholders[parseInt(idx)]);
+    const sorted = [...indices].sort((a, b) => a[0] - b[0]);
+    const merged: Array<[number, number]> = [];
 
-    return result;
-  }
+    for (const [start, end] of sorted) {
+      const last = merged[merged.length - 1];
+      if (!last || start > last[1] + 1) {
+        merged.push([start, end]);
+      } else {
+        last[1] = Math.max(last[1], end);
+      }
+    }
 
-  // 検索結果をハイライト（code表示を維持）
-  function highlightText(element: HTMLElement, matches: Fuse.FuseResultMatch[] | undefined, key: string) {
-    if (!matches) return;
-
-    const match = matches.find((m) => m.key === key);
-    if (!match || !match.indices || match.indices.length === 0) return;
-
-    const text = element.textContent || '';
-    let result = '';
+    let marked = '';
     let lastIndex = 0;
-
-    // インデックスをソートして処理
-    const sortedIndices = [...match.indices].sort((a, b) => a[0] - b[0]);
-
-    for (const [start, end] of sortedIndices) {
-      result += escapeHtml(text.slice(lastIndex, start));
-      result += `<span class="highlight">${escapeHtml(text.slice(start, end + 1))}</span>`;
+    for (const [start, end] of merged) {
+      marked += rawText.slice(lastIndex, start);
+      marked += HIGHLIGHT_START + rawText.slice(start, end + 1) + HIGHLIGHT_END;
       lastIndex = end + 1;
     }
-    result += escapeHtml(text.slice(lastIndex));
+    marked += rawText.slice(lastIndex);
 
-    // ハイライト後にformatCodeを適用してcode表示を維持
-    element.innerHTML = applyCodeFormatting(result);
+    let html = escapeHtml(marked).replace(/`([^`]+)`/g, '<code>$1</code>');
+    html = html.split(HIGHLIGHT_START).join('<span class="highlight">');
+    html = html.split(HIGHLIGHT_END).join('</span>');
+    return html;
+  }
+
+  function applyHighlight(
+    element: HTMLElement,
+    rawText: string,
+    matches: Fuse.FuseResultMatch[] | undefined,
+    key: 'ja' | 'en'
+  ) {
+    const match = matches?.find((m) => m.key === key);
+    const indices = match?.indices as ReadonlyArray<[number, number]> | undefined;
+    element.innerHTML = indices ? renderHighlightedHtml(rawText, indices) : renderWithCode(rawText);
   }
 
   // 検索を実行
@@ -186,8 +187,8 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
           // ハイライトをリセット
           const jaCell = row.querySelector('.entry-ja') as HTMLElement;
           const enCell = row.querySelector('.entry-en') as HTMLElement;
-          if (jaCell) jaCell.innerHTML = formatCode((row as HTMLElement).dataset.ja || '');
-          if (enCell) enCell.innerHTML = formatCode((row as HTMLElement).dataset.en || '');
+          if (jaCell) jaCell.innerHTML = renderWithCode((row as HTMLElement).dataset.ja || '');
+          if (enCell) enCell.innerHTML = renderWithCode((row as HTMLElement).dataset.en || '');
         });
       });
       searchStats.hidden = true;
@@ -254,14 +255,12 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
             const jaCell = row.querySelector('.entry-ja') as HTMLElement;
             const enCell = row.querySelector('.entry-en') as HTMLElement;
 
-            // まずテキストをリセット
-            if (jaCell) jaCell.innerHTML = formatCode((row as HTMLElement).dataset.ja || '');
-            if (enCell) enCell.innerHTML = formatCode((row as HTMLElement).dataset.en || '');
-
             // ハイライトを適用
             if (matchResult?.matches) {
-              if (jaCell) highlightText(jaCell, matchResult.matches, 'ja');
-              if (enCell) highlightText(enCell, matchResult.matches, 'en');
+              const rawJa = (row as HTMLElement).dataset.ja || '';
+              const rawEn = (row as HTMLElement).dataset.en || '';
+              if (jaCell) applyHighlight(jaCell, rawJa, matchResult.matches, 'ja');
+              if (enCell) applyHighlight(enCell, rawEn, matchResult.matches, 'en');
             }
           } else {
             row.classList.add('hidden');

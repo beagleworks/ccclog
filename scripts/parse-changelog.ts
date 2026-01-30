@@ -12,6 +12,39 @@ export interface ParsedVersion {
   entries: Entry[];
 }
 
+function parseMarkdownTableRow(line: string): string[] {
+  const trimmed = line.trim();
+  if (!trimmed.startsWith('|')) return [];
+
+  const start = 1;
+  const end = trimmed.endsWith('|') ? trimmed.length - 1 : trimmed.length;
+
+  const cells: string[] = [];
+  let current = '';
+
+  for (let i = start; i < end; i++) {
+    const ch = trimmed[i];
+
+    // `\|` はセル内のパイプとして扱う
+    if (ch === '\\' && i + 1 < end && trimmed[i + 1] === '|') {
+      current += '|';
+      i++;
+      continue;
+    }
+
+    if (ch === '|') {
+      cells.push(current.trim());
+      current = '';
+      continue;
+    }
+
+    current += ch;
+  }
+
+  cells.push(current.trim());
+  return cells;
+}
+
 /**
  * CHANGELOGファイルをパースする
  * @param content CHANGELOGファイルの内容
@@ -55,12 +88,13 @@ export function parseChangelog(content: string): ParsedVersion[] {
 
     // テーブル行をパース
     if (inTable && line.startsWith('|') && currentVersion) {
-      const cells = line.split('|').map((cell) => cell.trim());
-      // cells[0] は空文字列、cells[1] が日本語、cells[2] が英語
-      if (cells.length >= 3 && cells[1] && cells[2]) {
+      const cells = parseMarkdownTableRow(line);
+      const ja = cells[0];
+      const en = cells[1];
+      if (ja && en) {
         currentEntries.push({
-          ja: cells[1],
-          en: cells[2],
+          ja,
+          en,
         });
       }
     }
