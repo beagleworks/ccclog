@@ -82,7 +82,7 @@ function fetchNpmVersions(): Map<string, VersionInfo> {
  */
 function getExistingVersions(year: number): Set<string> {
   const versions = new Set<string>();
-  const filePath = path.join(process.cwd(), `CHANGELOG_${year}_JA.md`);
+  const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${year}_JA.md`);
 
   if (!fs.existsSync(filePath)) {
     return versions;
@@ -268,7 +268,7 @@ function generateVersionSection(
  * CHANGELOG_{YEAR}_JA.md に新バージョンを追記
  */
 function appendToChangelog(year: number, sections: string[]): void {
-  const filePath = path.join(process.cwd(), `CHANGELOG_${year}_JA.md`);
+  const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${year}_JA.md`);
 
   if (!fs.existsSync(filePath)) {
     console.warn(`  警告: ${filePath} が存在しません。スキップします。`);

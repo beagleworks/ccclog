@@ -70,7 +70,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG_*.md
+          git add content/CHANGELOG_*.md
           git diff --staged --quiet || git commit -m "chore: 新バージョンを自動追加"
           git push || echo "Nothing to push"
 

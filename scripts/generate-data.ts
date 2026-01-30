@@ -85,8 +85,8 @@ async function main() {
   console.log(`📦 CHANGELOG データ生成を開始 (${YEAR}年)...\n`);
 
   // 1. CHANGELOGファイルを読み込み・パース
-  console.log(`📖 CHANGELOG_${YEAR}_JA.md を読み込み中...`);
-  const changelogPath = join(ROOT_DIR, `CHANGELOG_${YEAR}_JA.md`);
+  console.log(`📖 content/CHANGELOG_${YEAR}_JA.md を読み込み中...`);
+  const changelogPath = join(ROOT_DIR, 'content', `CHANGELOG_${YEAR}_JA.md`);
   const content = readFileSync(changelogPath, 'utf-8');
   const parsedVersions = parseChangelog(content);
   console.log(`   ${parsedVersions.length} バージョンを検出\n`);

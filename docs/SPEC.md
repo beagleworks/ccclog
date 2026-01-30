@@ -104,9 +104,9 @@ Claude Code の変更履歴（CHANGELOG）を日本語/英語の並列テーブ�
 ### 3.1 入力データ
 
 #### 3.1.1 年別CHANGELOGファイル
-年ごとに分離されたMarkdownファイル：
-- `CHANGELOG_2026_JA.md`: 2026年のリリース（v2.1.0以降）
-- `CHANGELOG_2025_JA.md`: 2025年のリリース（v2.0.x以前）
+年ごとに分離されたMarkdownファイル（`content/` ディレクトリに配置）：
+- `content/CHANGELOG_2026_JA.md`: 2026年のリリース（v2.1.0以降）
+- `content/CHANGELOG_2025_JA.md`: 2025年のリリース（v2.0.x以前）
 
 形式：
 ```markdown
@@ -359,6 +359,9 @@ ccclog/
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml              # CI/CDワークフロー
+├── content/                        # ソースデータ（入力）
+│   ├── CHANGELOG_2025_JA.md        # 元データ（2025年）
+│   └── CHANGELOG_2026_JA.md        # 元データ（2026年）
 ├── docs/
 │   └── SPEC.md                     # 本仕様書
 ├── generated/
@@ -386,8 +389,6 @@ ccclog/
 │       ├── index.astro             # トップページ（2026年）
 │       └── 2025.astro              # 2025年ページ
 ├── astro.config.mjs                # Astro設定
-├── CHANGELOG_2026_JA.md            # 元データ（2026年）
-├── CHANGELOG_2025_JA.md            # 元データ（2025年）
 ├── package.json
 └── tsconfig.json
 ```
@@ -444,6 +445,7 @@ ccclog/
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-01-30 | 2.1.1 | ソースデータを `content/` ディレクトリに移動 |
 | 2026-01-30 | 2.1.0 | 「（翻訳待ち）」エントリの再翻訳機能を追加 |
 | 2026-01-30 | 2.0.0 | 新バージョン検出時に Claude Code CLI で自動翻訳する機能を追加 |
 | 2026-01-30 | 1.4.0 | 新バージョン自動検出機能を追加（npm レジストリから未記載バージョンを検出し CHANGELOG に自動追記） |

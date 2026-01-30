@@ -156,7 +156,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const filePath = path.join(process.cwd(), `CHANGELOG_${targetYear}_JA.md`);
+  const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${targetYear}_JA.md`);
   console.log(`対象ファイル: ${filePath}`);
 
   if (!fs.existsSync(filePath)) {
