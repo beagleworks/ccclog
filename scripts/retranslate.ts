@@ -6,7 +6,7 @@
  *   pnpm retranslate 2025   # 指定年のファイルを処理
  */
 
-import { execSync } from 'node:child_process';
+import { execSync, execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
@@ -56,7 +56,8 @@ function translateText(englishText: string): string | null {
 エントリ:
 ${englishText}`;
 
-    const result = execSync(`claude --print --model sonnet "${prompt.replace(/"/g, '\\"')}"`, {
+    // execFileSync を使用してシェル経由を避け、コマンドインジェクションを防止
+    const result = execFileSync('claude', ['--print', '--model', 'sonnet', prompt], {
       encoding: 'utf-8',
       maxBuffer: 10 * 1024 * 1024,
       timeout: 60000,

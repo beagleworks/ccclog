@@ -15,6 +15,26 @@ interface Props {
 const { version, releaseDateDisplay, entries, orderInMonth } = Astro.props;
 
 /**
+ * HTML特殊文字をエスケープ
+ */
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
+ * テキストを安全にフォーマット（HTMLエスケープ後にバッククォートを<code>に変換）
+ */
+function formatSafeHtml(text: string): string {
+  const escaped = escapeHtml(text);
+  return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+/**
  * エントリの種類を判定してバッジクラスを返す
  * [VSCode] や [Windows] などのプレフィックスは除外して動詞を認識する
  */
@@ -63,8 +83,8 @@ function getEntryType(text: string): string {
           const entryType = getEntryType(entry.en);
           return (
             <tr class={`entry-row ${entryType}`} data-ja={entry.ja} data-en={entry.en}>
-              <td class="entry-ja" set:html={entry.ja.replace(/`([^`]+)`/g, '<code>$1</code>')} />
-              <td class="entry-en" set:html={entry.en.replace(/`([^`]+)`/g, '<code>$1</code>')} />
+              <td class="entry-ja" set:html={formatSafeHtml(entry.ja)} />
+              <td class="entry-en" set:html={formatSafeHtml(entry.en)} />
             </tr>
           );
         })}

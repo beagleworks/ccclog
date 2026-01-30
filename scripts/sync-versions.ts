@@ -9,7 +9,7 @@
  * 5. CHANGELOG_{YEAR}_JA.md に新バージョンセクションを追加
  */
 
-import { execSync } from 'node:child_process';
+import { execSync, execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
@@ -188,7 +188,8 @@ function translateEntries(entries: string[]): string[] | null {
 ${entriesText}`;
 
     // Claude Code CLI を使用して翻訳（--print で非対話モード、--model sonnet で品質重視）
-    const responseText = execSync(`claude --print --model sonnet "${prompt.replace(/"/g, '\\"')}"`, {
+    // execFileSync を使用してシェル経由を避け、コマンドインジェクションを防止
+    const responseText = execFileSync('claude', ['--print', '--model', 'sonnet', prompt], {
       encoding: 'utf-8',
       maxBuffer: 10 * 1024 * 1024,
       timeout: 60000, // 60秒タイムアウト
