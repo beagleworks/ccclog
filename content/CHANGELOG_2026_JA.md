@@ -20,8 +20,6 @@
 | `gh pr create` で作成された際にセッションが自動的に PR にリンクされるように変更 | Sessions are now automatically linked to PRs when created via `gh pr create` |
 | /context コマンドがカラー出力を表示しない問題を修正 | Fixed /context command not displaying colored output |
 | PR ステータス表示時にステータスバーのバックグラウンドタスクインジケーターが重複する問題を修正 | Fixed status bar duplicating background task indicator when PR status was shown |
-| VSCode: Claude in Chrome 統合を有効化 | VSCode: Enabled Claude in Chrome integration |
-| パーミッションがツールレベルの `allow` よりコンテンツレベルの `ask` を優先するように変更。以前は `allow: ["Bash"], ask: ["Bash(rm *)"]` で全ての bash コマンドが許可されていたが、現在は `rm` に対して確認プロンプトを表示 | Permissions now respect content-level `ask` over tool-level `allow`. Previously `allow: ["Bash"], ask: ["Bash(rm *)"]` allowed all bash commands, but will now permission prompt for `rm`. |
 | Windows: `.bashrc` ファイルを持つユーザーで bash コマンド実行が失敗する問題を修正 | Windows: Fixed bash command execution failing for users with `.bashrc` files |
 | Windows: 子プロセス生成時にコンソールウィンドウがちらつく問題を修正 | Windows: Fixed console windows flashing when spawning child processes |
 | VSCode: 長時間のセッション後に OAuth トークンの期限切れで 401 エラーが発生する問題を修正 | VSCode: Fixed OAuth token expiration causing 401 errors after extended sessions |

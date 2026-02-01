@@ -1,14 +1,16 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "scripts": {
     "dev": "astro dev",
     "preview": "astro preview",
     "build": "pnpm generate && astro build",
     "generate": "tsx scripts/generate-data.ts 2026 && tsx scripts/generate-data.ts 2025",
     "sync-versions": "tsx scripts/sync-versions.ts",
-    "retranslate": "tsx scripts/retranslate.ts"
+    "retranslate": "tsx scripts/retranslate.ts",
+    "detect-upstream": "tsx scripts/detect-upstream-changes.ts",
+    "sync-upstream": "tsx scripts/detect-upstream-changes.ts --apply"
   },
   "dependencies": {
     "astro": "^5.16.16",

@@ -312,7 +312,39 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 - 翻訳失敗: 該当エントリをスキップし、次のエントリを処理
 - 部分的な成功でもファイルは更新される
 
-### 4.4 npm scripts
+### 4.4 上流CHANGELOG変更検出・自動適用（detect-upstream-changes.ts）
+
+#### 4.4.1 概要
+Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、ローカルの `CHANGELOG_{YEAR}_JA.md` へ反映する。
+
+#### 4.4.2 対象範囲
+- 上流 `CHANGELOG.md` の先頭から直近3バージョン（最新、1つ前、2つ前）のみ
+- 年跨ぎ等は考慮しない（当該年の `CHANGELOG_{YEAR}_JA.md` のみを対象）
+
+#### 4.4.3 取得元
+- `https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md`
+
+#### 4.4.4 比較ロジック
+- エントリを正規化（小文字化、空白統一、トリム）して比較
+- 並び替えは無視し、内容のみを比較
+- 重複行は出現回数込みで比較（集合ではなくマルチセット）
+- 文言変更の同定は行わず「追加+削除」として扱う
+
+#### 4.4.5 適用ロジック（`--apply` 指定時）
+- 対象バージョンごとに、上流の英語エントリ一覧を基準としてテーブルを再構築
+- 既存の行は英語一致の日本語を再利用（「（翻訳待ち）」は再利用しない）
+- 新規/修正（追加扱い）の英語エントリのみ自動翻訳を実行（失敗時は「（翻訳待ち）」）
+- 対象バージョンのセクションのみ更新
+
+#### 4.4.6 実行タイミング
+- ローカル: 手動で `pnpm sync-upstream` を実行
+- CI: 定期ビルド時に自動実行
+
+#### 4.4.7 エラーハンドリング
+- GitHub 取得失敗: エラーログを出力してスキップ（ビルドは継続）
+- 対象バージョンが当該年ファイルに存在しない: 警告ログのみ
+
+### 4.5 npm scripts
 
 | コマンド | 説明 |
 |---------|------|
@@ -322,6 +354,8 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 | `pnpm generate` | 全年のデータ生成（2026年 + 2025年） |
 | `pnpm sync-versions` | npm レジストリから新バージョンを検出し CHANGELOG に追記 |
 | `pnpm retranslate` | 「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
+| `pnpm detect-upstream` | 上流CHANGELOGの変更検出のみを実行 |
+| `pnpm sync-upstream` | 上流CHANGELOGの変更検出 + 自動適用を実行 |
 
 ---
 
@@ -352,6 +386,10 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 2. 新バージョンがあれば `CHANGELOG_{YEAR}_JA.md` に自動追記
 3. 変更があれば自動コミット・プッシュ
 4. 通常のビルド・デプロイを実行
+
+#### 5.1.4 上流CHANGELOG変更検出・自動適用
+定期ビルド時に `pnpm sync-upstream` を実行し、上流の修正があれば `CHANGELOG_{YEAR}_JA.md` に反映する。
+変更があれば既存のコミットステップでまとめてコミットされる。
 
 これにより、npm に新バージョンが公開されると最大6時間以内に自動的に CHANGELOG に追加される。
 

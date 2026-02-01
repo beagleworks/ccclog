@@ -115,3 +115,19 @@ export function parseChangelog(content: string): ParsedVersion[] {
 
   return versions;
 }
+
+/**
+ * バージョンごとのエントリ一覧を抽出する
+ * @param content CHANGELOGファイルの内容
+ * @returns version -> entries のMap
+ */
+export function extractEntriesByVersion(content: string): Map<string, Entry[]> {
+  const versions = parseChangelog(content);
+  const result = new Map<string, Entry[]>();
+
+  for (const version of versions) {
+    result.set(version.version, version.entries);
+  }
+
+  return result;
+}
