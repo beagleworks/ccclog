@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.29
+
+| 日本語 | English |
+|--------|---------|
+| `saved_hook_context` を持つセッション再開時の起動パフォーマンスの問題を修正 | Fixed startup performance issues when resuming sessions that have `saved_hook_context` |
+
 ## 2.1.27
 
 | 日本語 | English |
