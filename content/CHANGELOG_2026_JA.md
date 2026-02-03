@@ -4,6 +4,30 @@
 
 ---
 
+## 2.1.30
+
+| 日本語 | English |
+|--------|---------|
+| PDFに対するReadツールに`pages`パラメータを追加し、特定のページ範囲を読み込めるように対応（例: `pages: "1-5"`）。大きなPDF（10ページ超）を`@`でメンションした際、コンテキストに展開せず軽量な参照を返すように変更 | Added `pages` parameter to the Read tool for PDFs, allowing specific page ranges to be read (e.g., `pages: "1-5"`). Large PDFs (>10 pages) now return a lightweight reference when `@` mentioned instead of being inlined into context. |
+| Dynamic Client Registrationに非対応のMCPサーバー（Slackなど）向けに事前設定済みOAuthクライアント認証情報を追加。`claude mcp add`で`--client-id`と`--client-secret`を使用可能 | Added pre-configured OAuth client credentials for MCP servers that don't support Dynamic Client Registration (e.g., Slack). Use `--client-id` and `--client-secret` with `claude mcp add`. |
+| 現在のセッションのトラブルシューティングをClaudeが支援する`/debug`コマンドを追加 | Added `/debug` for Claude to help troubleshoot the current session |
+| 読み取り専用モードで追加の`git log`および`git show`フラグ（例: `--topo-order`、`--cherry-pick`、`--format`、`--raw`）をサポート | Added support for additional `git log` and `git show` flags in read-only mode (e.g., `--topo-order`, `--cherry-pick`, `--format`, `--raw`) |
+| Taskツールの結果にトークン数、ツール使用回数、実行時間のメトリクスを追加 | Added token count, tool uses, and duration metrics to Task tool results |
+| 設定にモーション軽減モードを追加 | Added reduced motion mode to the config |
+| API会話履歴に幻の"(no content)"テキストブロックが出現する問題を修正し、トークンの無駄遣いとモデルの混乱を軽減 | Fixed phantom "(no content)" text blocks appearing in API conversation history, reducing token waste and potential model confusion |
+| プロンプトキャッシュがツール名の変更時のみ無効化され、ツール説明や入力スキーマの変更時に正しく無効化されない問題を修正 | Fixed prompt cache not correctly invalidating when tool descriptions or input schemas changed, only when tool names changed |
+| thinkingブロックを含む会話で`/login`実行後に発生する可能性のあった400エラーを修正 | Fixed 400 errors that could occur after running `/login` when the conversation contained thinking blocks |
+| `parentUuid`の循環参照を含む破損したトランスクリプトファイルでセッション再開時にハングする問題を修正 | Fixed a hang when resuming sessions with corrupted transcript files containing `parentUuid` cycles |
+| Max 20xユーザーが追加使用量を利用できない場合に表示される不正確な"/upgrade"提案を含むレート制限メッセージを修正 | Fixed rate limit message showing incorrect "/upgrade" suggestion for Max 20x users when extra-usage is unavailable |
+| タイピング中に許可ダイアログがフォーカスを奪う問題を修正 | Fixed permission dialogs stealing focus while actively typing |
+| SDK提供のMCPツールが共有アプリケーション状態に同期されないため、サブエージェントがアクセスできない問題を修正 | Fixed subagents not being able to access SDK-provided MCP tools because they were not synced to the shared application state |
+| `.bashrc`ファイルを持つWindowsユーザーがbashコマンドを実行できないリグレッションを修正 | Fixed a regression where Windows users with a `.bashrc` file could not run bash commands |
+| `--resume`のメモリ使用量を改善（多数のセッションを持つユーザーで68%削減）。セッションインデックスを軽量なstat基盤のロードと段階的エンリッチメントに置き換え | Improved memory usage for `--resume` (68% reduction for users with many sessions) by replacing the session index with lightweight stat-based loading and progressive enrichment |
+| `TaskStop`ツールを改善し、汎用的な"Task stopped"メッセージの代わりに、停止されたコマンド/タスクの説明を結果行に表示 | Improved `TaskStop` tool to display the stopped command/task description in the result line instead of a generic "Task stopped" message |
+| `/model`コマンドをキューではなく即座に実行するように変更 | Changed `/model` to execute immediately instead of being queued |
+| [VSCode] 質問ダイアログの「その他」テキスト入力に複数行サポートを追加（Shift+Enterで改行） | [VSCode] Added multiline input support to the "Other" text input in question dialogs (use Shift+Enter for new lines) |
+| [VSCode] 新しい会話開始時にセッションリストに重複したセッションが表示される問題を修正 | [VSCode] Fixed duplicate sessions appearing in the session list when starting a new conversation |
+
 ## 2.1.29
 
 | 日本語 | English |
