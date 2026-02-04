@@ -3,25 +3,12 @@
  * Claude Code トップページ
  * 最新年のコンテンツを直接表示（リダイレクトなし）
  */
-import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
 import ChangelogPage from '../components/ChangelogPage.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { listChangelogYears } from '../lib/server/changelog-years';
 
 // content/ ディレクトリから年を自動検出
-const contentDir = join(process.cwd(), 'content');
-let years: string[] = [];
-
-try {
-  const files = readdirSync(contentDir);
-  years = files
-    .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
-    .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
-    .sort()
-    .reverse();
-} catch {
-  // ディレクトリが存在しない場合は空配列のまま
-}
+const years = listChangelogYears('claude-code');
 
 // 最新年のデータを取得
 const latestYear = years[0];

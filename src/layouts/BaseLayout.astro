@@ -1,7 +1,6 @@
 ---
-import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
 import { products, type ProductId } from '../lib/products';
+import { listChangelogYears } from '../lib/server/changelog-years';
 
 interface Props {
   title: string;
@@ -28,20 +27,7 @@ const defaultDescription = `${productConfig.shortName} の変更履歴を日本�
 // yearsが渡されなかった場合はcontent/[subdir]から自動検出
 let years = propsYears;
 if (!years) {
-  const contentDir = productConfig.contentSubdir
-    ? join(process.cwd(), 'content', productConfig.contentSubdir)
-    : join(process.cwd(), 'content');
-
-  try {
-    const files = readdirSync(contentDir);
-    years = files
-      .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
-      .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
-      .sort()
-      .reverse();
-  } catch {
-    years = [];
-  }
+  years = listChangelogYears(productConfig.id);
 }
 
 // プロダクトごとのベースパス

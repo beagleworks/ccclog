@@ -3,30 +3,17 @@
  * Codex 年別ページ
  * getStaticPaths で年一覧を生成し、ChangelogPage で表示
  */
-import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
 import ChangelogPage from '../../components/ChangelogPage.astro';
+import { listChangelogYears } from '../../lib/server/changelog-years';
 
 export function getStaticPaths() {
   // content/codex/ ディレクトリから年を自動検出
-  const contentDir = join(process.cwd(), 'content', 'codex');
+  const years = listChangelogYears('codex');
 
-  try {
-    const files = readdirSync(contentDir);
-    const years = files
-      .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
-      .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
-      .sort()
-      .reverse();
-
-    return years.map((year) => ({
-      params: { year },
-      props: { year, years },
-    }));
-  } catch {
-    // ディレクトリが存在しない場合は空配列を返す
-    return [];
-  }
+  return years.map((year) => ({
+    params: { year },
+    props: { year, years },
+  }));
 }
 
 interface Props {
