@@ -106,7 +106,8 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
 
   // Fuse.jsインスタンスを作成
   type SearchMode = 'ja' | 'en' | 'both';
-  const STORAGE_KEY = 'ccclog.searchMode';
+  // プロダクト別の検索モードキー
+  const STORAGE_KEY = 'ccclog.searchMode.claude-code';
 
   function normalizeMode(raw: string | null): SearchMode {
     return raw === 'ja' || raw === 'en' || raw === 'both' ? raw : 'both';

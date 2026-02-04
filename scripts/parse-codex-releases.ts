@@ -39,14 +39,18 @@ export function parseCodexReleaseBody(body: string): string[] {
     }
     if (isAfterChangelog) continue;
 
-    // 最上位の箇条書きを検出（`- ` で始まる行）
-    if (line.startsWith('- ')) {
-      const entry = line.substring(2).trim();
+    // 箇条書きを検出（インデント付きも対応）
+    const trimmedLine = line.trimStart();
+    if (trimmedLine.startsWith('- ')) {
+      const entry = trimmedLine.substring(2).trim();
 
-      // 空行やアセット列挙（ダウンロードリンクなど）はスキップ
+      // 空行はスキップ
       if (!entry) continue;
-      if (entry.match(/^https?:\/\//)) continue;
-      if (entry.match(/^\[.*\]\(https?:\/\/.*\)$/)) continue;
+
+      // アセットファイル（ダウンロードリンク）のみスキップ
+      const assetExtensions = /\.(zip|tar\.gz|exe|msi|dmg|deb|rpm|apk|ipa)$/i;
+      if (entry.match(/^https?:\/\//) && entry.match(assetExtensions)) continue;
+      if (entry.match(/^\[.*\]\(https?:\/\/.*\)$/) && entry.match(assetExtensions)) continue;
 
       // 正規化して追加
       const normalized = normalizeEntry(entry);
