@@ -76,13 +76,13 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
     // コードブロック内はスキップ
     if (inCodeBlock) continue;
 
-    // "Full Changelog:" または "Changelog" で始まる行は終了（PR リスト部分を除外）
-    if (line.startsWith('Full Changelog:') || /^Changelog\b/i.test(line)) {
+    // "Full Changelog:", "Changelog", "PRs Merged" で始まる行は終了（PR リスト部分を除外）
+    if (line.startsWith('Full Changelog:') || /^Changelog\b/i.test(line) || /^PRs Merged\b/i.test(line)) {
       break;
     }
 
-    // ## で始まる見出しを検出
-    const headerMatch = line.match(/^##\s+(.+)$/);
+    // ## または ### で始まる見出しを検出
+    const headerMatch = line.match(/^#{2,3}\s+(.+)$/);
     if (headerMatch) {
       const headerText = normalizeHeaderText(headerMatch[1]);
 
