@@ -108,6 +108,14 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
   type SearchMode = 'ja' | 'en' | 'both';
   // プロダクト別の検索モードキー
   const STORAGE_KEY = 'ccclog.searchMode.claude-code';
+  const LEGACY_KEY = 'ccclog.searchMode';
+
+  // 旧キーからのマイグレーション（既存ユーザー向け）
+  const legacyValue = sessionStorage.getItem(LEGACY_KEY);
+  if (legacyValue && !sessionStorage.getItem(STORAGE_KEY)) {
+    sessionStorage.setItem(STORAGE_KEY, legacyValue);
+    sessionStorage.removeItem(LEGACY_KEY);
+  }
 
   function normalizeMode(raw: string | null): SearchMode {
     return raw === 'ja' || raw === 'en' || raw === 'both' ? raw : 'both';

@@ -39,28 +39,53 @@ export function parseCodexReleaseBody(body: string): string[] {
     }
     if (isAfterChangelog) continue;
 
-    // 箇条書きを検出（インデント付きも対応）
-    const trimmedLine = line.trimStart();
-    if (trimmedLine.startsWith('- ')) {
-      const entry = trimmedLine.substring(2).trim();
+    // 最上位の箇条書きのみを検出（インデントなしの `- ` で始まる行）
+    // ネストされた箇条書き（スペースやタブでインデントされたもの）は除外
+    if (!line.startsWith('- ')) continue;
 
-      // 空行はスキップ
-      if (!entry) continue;
+    const entry = line.substring(2).trim();
 
-      // アセットファイル（ダウンロードリンク）のみスキップ
-      const assetExtensions = /\.(zip|tar\.gz|exe|msi|dmg|deb|rpm|apk|ipa)$/i;
-      if (entry.match(/^https?:\/\//) && entry.match(assetExtensions)) continue;
-      if (entry.match(/^\[.*\]\(https?:\/\/.*\)$/) && entry.match(assetExtensions)) continue;
+    // 空行はスキップ
+    if (!entry) continue;
 
-      // 正規化して追加
-      const normalized = normalizeEntry(entry);
-      if (normalized) {
-        entries.push(normalized);
-      }
+    // アセットファイル（ダウンロードリンク）のみスキップ
+    if (isAssetEntry(entry)) continue;
+
+    // 正規化して追加
+    const normalized = normalizeEntry(entry);
+    if (normalized) {
+      entries.push(normalized);
     }
   }
 
   return entries;
+}
+
+/**
+ * アセットファイルのエントリかどうかを判定
+ * - 生URL形式: https://example.com/file.zip
+ * - Markdownリンク形式: [file.tar.gz](https://...) または [Download](https://.../file.zip)
+ */
+function isAssetEntry(entry: string): boolean {
+  const assetExtensions = /\.(zip|tar\.gz|exe|msi|dmg|deb|rpm|apk|ipa)$/i;
+
+  // 生URLの場合
+  if (entry.match(/^https?:\/\//) && entry.match(assetExtensions)) {
+    return true;
+  }
+
+  // Markdownリンク形式の場合: [text](url)
+  const mdLinkMatch = entry.match(/^\[([^\]]*)\]\((https?:\/\/[^)]+)\)$/);
+  if (mdLinkMatch) {
+    const linkText = mdLinkMatch[1];
+    const linkUrl = mdLinkMatch[2];
+    // リンクテキストまたはURLにアセット拡張子があればアセット
+    if (linkText.match(assetExtensions) || linkUrl.match(assetExtensions)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**
