@@ -4,6 +4,22 @@
 
 ---
 
+## 2.1.31
+
+| 日本語 | English |
+|--------|---------|
+| セッション終了時に、後で会話を続ける方法を示す再開ヒントを追加 | Added session resume hint on exit, showing how to continue your conversation later |
+| チェックボックス選択で日本語IMEからの全角スペース入力をサポート | Added support for full-width (zenkaku) space input from Japanese IME in checkbox selection |
+| PDFが大きすぎるエラーによりセッションが完全にロックされ、新しい会話を開始する必要があった問題を修正 | Fixed PDF too large errors permanently locking up sessions, requiring users to start a new conversation |
+| サンドボックスモードが有効な場合にbashコマンドが誤って「読み取り専用ファイルシステム」エラーで失敗を報告する問題を修正 | Fixed bash commands incorrectly reporting failure with "Read-only file system" errors when sandbox mode was enabled |
+| `~/.claude.json`のプロジェクト設定にデフォルトフィールドが欠けている場合、プランモードに入った後にセッションが使用不能になるクラッシュを修正 | Fixed a crash that made sessions unusable after entering plan mode when project config in `~/.claude.json` was missing default fields |
+| ストリーミングAPIパスで`temperatureOverride`が無視され、設定されたオーバーライドに関わらずすべてのストリーミングリクエストがデフォルト温度(1)を使用していた問題を修正 | Fixed `temperatureOverride` being silently ignored in the streaming API path, causing all streaming requests to use the default temperature (1) regardless of the configured override |
+| nullパラメータを拒否する厳密な言語サーバーとのLSPシャットダウン/終了の互換性を修正 | Fixed LSP shutdown/exit compatibility with strict language servers that reject null params |
+| bashコマンドの使用を減らすため、bash相当のコマンド(`cat`、`sed`、`grep`、`find`)の代わりに専用ツール(Read、Edit、Glob、Grep)を使用するようモデルを明確に誘導するシステムプロンプトを改善 | Improved system prompts to more clearly guide the model toward using dedicated tools (Read, Edit, Glob, Grep) instead of bash equivalents (`cat`, `sed`, `grep`, `find`), reducing unnecessary bash command usage |
+| PDFとリクエストサイズのエラーメッセージに実際の制限(100ページ、20MB)を表示するよう改善 | Improved PDF and request size error messages to show actual limits (100 pages, 20MB) |
+| ストリーミング中のスピナーの表示/非表示時にターミナルで発生するレイアウトのちらつきを軽減 | Reduced layout jitter in the terminal when the spinner appears and disappears during streaming |
+| サードパーティプロバイダー(Bedrock、Vertex、Foundry)ユーザー向けのモデル選択画面から誤解を招くAnthropic API価格表示を削除 | Removed misleading Anthropic API pricing from model selector for third-party provider (Bedrock, Vertex, Foundry) users |
+
 ## 2.1.30
 
 | 日本語 | English |
