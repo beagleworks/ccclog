@@ -4,6 +4,24 @@
 
 ---
 
+## 0.96.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| v2 app-server API に `thread/compact` を非同期トリガー RPC として追加し、クライアントが即座に圧縮を開始して完了を個別に追跡できるように改善 (#10445) | Added `thread/compact` to the v2 app-server API as an async trigger RPC, so clients can start compaction immediately and track completion separately. (#10445) | new-features |
+| 新しい `codex.rate_limits` イベントによる WebSocket 側のレート制限シグナリングを追加し、ETag/reasoning メタデータ処理の WebSocket パリティを実現 (#10324) | Added websocket-side rate limit signaling via a new `codex.rate_limits` event, with websocket parity for ETag/reasoning metadata handling. (#10324) | new-features |
+| すべての非 Windows プラットフォームで `unified_exec` を有効化 (#10641) | Enabled `unified_exec` on all non-Windows platforms. (#10641) | new-features |
+| 制約された要件値にソース来歴を含めるようにし、`/debug-config` などの UI フローでソースを認識した設定デバッグを可能に改善 (#10568) | Constrained requirement values now include source provenance, enabling source-aware config debugging in UI flows like `/debug-config`. (#10568) | new-features |
+| TUI の `request_user_input` オーバーレイにおける `Esc` 処理を修正: ノートが開いている場合、`Esc` はセッションを中断せずにノートモードを終了するように変更 (#10569) | Fixed `Esc` handling in the TUI `request_user_input` overlay: when notes are open, `Esc` now exits notes mode instead of interrupting the session. (#10569) | bug-fixes |
+| スレッド一覧表示を state DB を最初に照会（アーカイブされたスレッドを含む）し、必要な場合のみファイルシステム走査にフォールバックするように変更し、一覧表示の正確性と回復性を改善 (#10544) | Thread listing now queries the state DB first (including archived threads) and falls back to filesystem traversal only when needed, improving listing correctness and resilience. (#10544) | bug-fixes |
+| スレッドパス検索を修正し、解決されたファイルが実際に存在することを要求するようにし、無効なスレッド ID 解決を防止 (#10618) | Fixed thread path lookup to require that the resolved file actually exists, preventing invalid thread-id resolutions. (#10618) | bug-fixes |
+| 動的ツール注入を単一トランザクションで実行するようにし、部分的な状態更新を回避 (#10614) | Dynamic tool injection now runs in a single transaction to avoid partial state updates. (#10614) | bug-fixes |
+| 承認ポリシープロンプトで使用される `request_rule` ガイダンスを改善し、ルールの動作を修正 (#10379, #10598) | Refined `request_rule` guidance used in approval-policy prompting to correct rule behavior. (#10379, #10598) | bug-fixes |
+| `thread/compact` の app-server ドキュメントを更新し、非同期動作とスレッドビジーライフサイクルを明確化 (#10445) | Updated app-server docs for `thread/compact` to clarify its asynchronous behavior and thread-busy lifecycle. (#10445) | documentation |
+| TUI ドキュメントを更新し、`request_user_input` におけるモード固有の `Esc` 動作と一致させるように変更 (#10569) | Updated TUI docs to match the mode-specific `Esc` behavior in `request_user_input`. (#10569) | documentation |
+| state DB ヘルパーをバージョン管理された SQLite ファイル名スキームに移行し、ランタイム初期化時にレガシー状態ファイルをクリーンアップ (#10623) | Migrated state DB helpers to a versioned SQLite filename scheme and cleaned up legacy state files during runtime initialization. (#10623) | chores |
+| WebSocket タイミングメトリクスでランタイムテレメトリを拡張し、コアクライアント配管の内部メタデータフローを簡素化 (#10577, #10589) | Expanded runtime telemetry with websocket timing metrics and simplified internal metadata flow in core client plumbing. (#10577, #10589) | chores |
+
 ## 0.95.0
 
 | 日本語 | English | Category |
