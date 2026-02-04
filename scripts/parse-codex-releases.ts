@@ -63,15 +63,23 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
   // null は「除外中」を表す（未知セクション配下）
   let currentCategory: CodexCategory | null = 'new-features';
 
-  for (const line of lines) {
+  for (const rawLine of lines) {
+    // 先頭空白を除去（body 全体がインデントされているケースに対応）
+    const line = rawLine.trimStart();
+
     // コードブロックの開始/終了を追跡
-    if (line.trim().startsWith('```')) {
+    if (line.startsWith('```')) {
       inCodeBlock = !inCodeBlock;
       continue;
     }
 
     // コードブロック内はスキップ
     if (inCodeBlock) continue;
+
+    // "Full Changelog:" または "Changelog" で始まる行は終了（PR リスト部分を除外）
+    if (line.startsWith('Full Changelog:') || /^Changelog\b/i.test(line)) {
+      break;
+    }
 
     // ## で始まる見出しを検出
     const headerMatch = line.match(/^##\s+(.+)$/);
@@ -88,7 +96,7 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
       continue;
     }
 
-    // 最上位の箇条書きのみを検出（インデントなしの `- ` で始まる行）
+    // 最上位の箇条書きを検出（`- ` で始まる行）
     if (!line.startsWith('- ')) continue;
 
     // 未知セクション配下は除外
