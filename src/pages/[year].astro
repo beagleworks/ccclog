@@ -81,6 +81,7 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
   const clearButton = document.getElementById('clear-search') as HTMLButtonElement;
   const searchStats = document.getElementById('search-stats') as HTMLDivElement;
   const noResults = document.getElementById('no-results') as HTMLDivElement;
+  const modeButtons = document.querySelectorAll('.mode-btn') as NodeListOf<HTMLButtonElement>;
 
   // 検索用データを準備
   const searchableEntries: SearchableEntry[] = [];
@@ -104,12 +105,55 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
   });
 
   // Fuse.jsインスタンスを作成
-  const fuse = new Fuse(searchableEntries, {
-    keys: ['ja', 'en'],
-    threshold: 0.3,
-    ignoreLocation: true,
-    includeMatches: true,
-  });
+  type SearchMode = 'ja' | 'en' | 'both';
+  const STORAGE_KEY = 'ccclog.searchMode';
+
+  function normalizeMode(raw: string | null): SearchMode {
+    return raw === 'ja' || raw === 'en' || raw === 'both' ? raw : 'both';
+  }
+
+  function getInitialMode(): SearchMode {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('mode')) return normalizeMode(params.get('mode'));
+    return normalizeMode(sessionStorage.getItem(STORAGE_KEY));
+  }
+
+  function createFuseInstance(mode: SearchMode) {
+    const keys = mode === 'both' ? ['ja', 'en'] : [mode];
+    return new Fuse(searchableEntries, {
+      keys,
+      threshold: 0.3,
+      ignoreLocation: true,
+      includeMatches: true,
+    });
+  }
+
+  function syncModeUI(mode: SearchMode) {
+    modeButtons.forEach((button) => {
+      const isActive = button.dataset.mode === mode;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+  }
+
+  function updateUrlParams(query: string, mode: SearchMode) {
+    const url = new URL(window.location.href);
+    const trimmedQuery = query.trim();
+
+    if (trimmedQuery) url.searchParams.set('q', trimmedQuery);
+    else url.searchParams.delete('q');
+
+    if (mode === 'both') url.searchParams.delete('mode');
+    else url.searchParams.set('mode', mode);
+
+    history.replaceState(null, '', url);
+  }
+
+  let currentMode: SearchMode = getInitialMode();
+  syncModeUI(currentMode);
+  sessionStorage.setItem(STORAGE_KEY, currentMode);
+
+  let fuse = createFuseInstance(currentMode);
 
   function escapeHtml(text: string): string {
     return text
@@ -169,6 +213,41 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
     element.innerHTML = indices ? renderHighlightedHtml(rawText, indices) : renderWithCode(rawText);
   }
 
+  function applyRowHighlight(
+    row: Element,
+    matchResult: Fuse.FuseResult<SearchableEntry> | undefined,
+    mode: SearchMode
+  ) {
+    const jaCell = row.querySelector('.entry-ja') as HTMLElement;
+    const enCell = row.querySelector('.entry-en') as HTMLElement;
+    const rawJa = (row as HTMLElement).dataset.ja || '';
+    const rawEn = (row as HTMLElement).dataset.en || '';
+    const matches = matchResult?.matches;
+
+    if (mode === 'ja') {
+      if (jaCell) applyHighlight(jaCell, rawJa, matches, 'ja');
+      if (enCell) enCell.innerHTML = renderWithCode(rawEn);
+      return;
+    }
+
+    if (mode === 'en') {
+      if (enCell) applyHighlight(enCell, rawEn, matches, 'en');
+      if (jaCell) jaCell.innerHTML = renderWithCode(rawJa);
+      return;
+    }
+
+    if (jaCell) applyHighlight(jaCell, rawJa, matches, 'ja');
+    if (enCell) applyHighlight(enCell, rawEn, matches, 'en');
+  }
+
+  function setSearchMode(mode: SearchMode) {
+    currentMode = mode;
+    sessionStorage.setItem(STORAGE_KEY, mode);
+    syncModeUI(mode);
+    fuse = createFuseInstance(mode);
+    performSearch(searchInput.value);
+  }
+
   // 検索を実行
   function performSearch(query: string) {
     const trimmedQuery = query.trim();
@@ -185,14 +264,12 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
         rows.forEach((row) => {
           row.classList.remove('hidden');
           // ハイライトをリセット
-          const jaCell = row.querySelector('.entry-ja') as HTMLElement;
-          const enCell = row.querySelector('.entry-en') as HTMLElement;
-          if (jaCell) jaCell.innerHTML = renderWithCode((row as HTMLElement).dataset.ja || '');
-          if (enCell) enCell.innerHTML = renderWithCode((row as HTMLElement).dataset.en || '');
+          applyRowHighlight(row, undefined, currentMode);
         });
       });
       searchStats.hidden = true;
       noResults.hidden = true;
+      updateUrlParams('', currentMode);
       return;
     }
 
@@ -252,16 +329,9 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
             // ハイライトを適用（Mapから O(1) で取得）
             const matchKey = `${versionNum}-${idx}`;
             const matchResult = matchResultMap.get(matchKey);
-            const jaCell = row.querySelector('.entry-ja') as HTMLElement;
-            const enCell = row.querySelector('.entry-en') as HTMLElement;
 
             // ハイライトを適用
-            if (matchResult?.matches) {
-              const rawJa = (row as HTMLElement).dataset.ja || '';
-              const rawEn = (row as HTMLElement).dataset.en || '';
-              if (jaCell) applyHighlight(jaCell, rawJa, matchResult.matches, 'ja');
-              if (enCell) applyHighlight(enCell, rawEn, matchResult.matches, 'en');
-            }
+            applyRowHighlight(row, matchResult, currentMode);
           } else {
             row.classList.add('hidden');
           }
@@ -280,6 +350,8 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
       searchStats.hidden = true;
       noResults.hidden = false;
     }
+
+    updateUrlParams(trimmedQuery, currentMode);
   }
 
   // イベントリスナーを設定
@@ -306,12 +378,21 @@ const generatedDate = new Date(generatedAt).toLocaleString('ja-JP', {
     }
   });
 
+  modeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const nextMode = normalizeMode(button.dataset.mode || null);
+      if (nextMode !== currentMode) setSearchMode(nextMode);
+    });
+  });
+
   // ページ読み込み時にURLパラメータから検索クエリを復元
   const urlParams = new URLSearchParams(window.location.search);
   const initialQuery = urlParams.get('q');
   if (initialQuery) {
     searchInput.value = initialQuery;
     performSearch(initialQuery);
+  } else {
+    updateUrlParams('', currentMode);
   }
 </script>
 

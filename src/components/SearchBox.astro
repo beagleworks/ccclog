@@ -20,6 +20,16 @@
       </svg>
     </button>
   </div>
+
+  <div class="search-mode">
+    <span class="mode-label">検索対象:</span>
+    <div class="mode-selector" role="group" aria-label="検索対象の選択">
+      <button type="button" class="mode-btn" data-mode="ja" aria-pressed="false">日本語のみ</button>
+      <button type="button" class="mode-btn" data-mode="en" aria-pressed="false">原文のみ</button>
+      <button type="button" class="mode-btn active" data-mode="both" aria-pressed="true">両方</button>
+    </div>
+  </div>
+
   <div id="search-stats" class="search-stats" hidden></div>
 </div>
 
@@ -98,6 +108,59 @@
     height: 16px;
   }
 
+  .search-mode {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    max-width: 500px;
+  }
+
+  .mode-label {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  .mode-selector {
+    display: inline-flex;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .mode-btn {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-secondary);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .mode-btn + .mode-btn {
+    border-left: 1px solid var(--color-border);
+  }
+
+  .mode-btn:hover {
+    color: var(--color-text);
+  }
+
+  .mode-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.25);
+    position: relative;
+    z-index: 1; /* セグメントの境界線より前面に出す */
+  }
+
+  .mode-btn.active,
+  .mode-btn[aria-pressed='true'] {
+    color: var(--color-text);
+    background-color: var(--color-accent);
+  }
+
   .search-stats {
     margin-top: 0.75rem;
     padding: 0.5rem 0.75rem;
@@ -124,6 +187,12 @@
   @media (max-width: 768px) {
     .search-box {
       max-width: 100%;
+    }
+
+    .search-mode {
+      max-width: 100%;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     #search-input {
