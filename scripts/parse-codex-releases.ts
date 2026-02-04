@@ -62,6 +62,8 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
   // デフォルトは new-features（セクションヘッダー前の箇条書き用、実データでは発生しない）
   // null は「除外中」を表す（未知セクション配下）
   let currentCategory: CodexCategory | null = 'new-features';
+  // 既知のカテゴリセクションが出現したかどうか（PRs Merged 終了判定に使用）
+  let hasKnownCategory = false;
 
   for (const rawLine of lines) {
     // 先頭空白を除去（body 全体がインデントされているケースに対応）
@@ -76,8 +78,14 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
     // コードブロック内はスキップ
     if (inCodeBlock) continue;
 
-    // "Full Changelog:", "Changelog", "PRs Merged" で始まる行は終了（PR リスト部分を除外）
-    if (line.startsWith('Full Changelog:') || /^Changelog\b/i.test(line) || /^PRs Merged\b/i.test(line)) {
+    // "Full Changelog:", "Changelog" で始まる行は終了
+    if (line.startsWith('Full Changelog:') || /^Changelog\b/i.test(line)) {
+      break;
+    }
+
+    // "PRs Merged" は既知カテゴリが先に出現した場合のみ終了
+    // （PRs Merged から始まるリリースノートを除外しないため）
+    if (/^PRs Merged\b/i.test(line) && hasKnownCategory) {
       break;
     }
 
@@ -91,18 +99,34 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
         break;
       }
 
-      // 既知のカテゴリならセット、未知なら null（除外）
-      currentCategory = CATEGORY_HEADERS[headerText] ?? null;
+      // 既知のカテゴリならセット
+      const category = CATEGORY_HEADERS[headerText] ?? null;
+      if (category !== null) {
+        hasKnownCategory = true;
+        currentCategory = category;
+      } else if (headerText.startsWith('prs merged') && !hasKnownCategory) {
+        // PRs Merged のみのリリースノートの場合は、デフォルトカテゴリを維持
+        // （currentCategory を変更しない）
+      } else {
+        // 未知セクションは除外
+        currentCategory = null;
+      }
       continue;
     }
 
-    // 最上位の箇条書きを検出（`- ` で始まる行）
-    if (!line.startsWith('- ')) continue;
+    // エントリを検出: `- ` で始まる箇条書き、または `#数字` で始まる PR 参照
+    let entry: string | null = null;
+    if (line.startsWith('- ')) {
+      entry = line.substring(2).trim();
+    } else if (/^#\d+/.test(line)) {
+      // PR 参照形式（例: "#8270 — splash screen"）
+      entry = line.trim();
+    }
+
+    if (entry === null) continue;
 
     // 未知セクション配下は除外
     if (currentCategory === null) continue;
-
-    const entry = line.substring(2).trim();
 
     // 空行はスキップ
     if (!entry) continue;
