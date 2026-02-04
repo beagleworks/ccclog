@@ -8,13 +8,16 @@
  * 4. content/codex/CHANGELOG_{YEAR}_JA.md から既存バージョンを抽出
  * 5. 未記載バージョンを特定
  * 6. body フィールドからエントリを抽出・翻訳
- * 7. Markdown テーブル形式で追記
+ * 7. Markdown テーブル形式で追記（3列: 日本語, English, Category）
+ *
+ * オプション:
+ * --rebuild: 全バージョンを再取得・再翻訳（カテゴリ列追加時等に使用）
  */
 
 import { execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { parseCodexReleaseBody } from './parse-codex-releases.js';
+import { parseCodexReleaseBody, type ParsedEntry } from './parse-codex-releases.js';
 
 const GITHUB_RELEASES_URL = 'https://api.github.com/repos/openai/codex/releases';
 const TAG_PREFIX = 'rust-v';
@@ -32,7 +35,7 @@ interface VersionInfo {
   version: string;
   publishDate: string; // YYYY-MM-DD (JST)
   year: number;
-  entries: string[];
+  entries: ParsedEntry[]; // { text, category }[]
 }
 
 /**
@@ -105,7 +108,7 @@ async function fetchCodexReleases(): Promise<VersionInfo[]> {
         const dateStr = jstDate.toISOString().split('T')[0];
         const year = jstDate.getFullYear();
 
-        // エントリ抽出
+        // エントリ抽出（カテゴリ付き）
         const entries = parseCodexReleaseBody(release.body);
 
         versions.push({
@@ -166,6 +169,7 @@ function isClaudeCliAvailable(): boolean {
 
 /**
  * Claude Code CLI を使用してエントリを日本語に翻訳
+ * @param entries 英語エントリの配列（テキストのみ）
  */
 function translateEntries(entries: string[]): string[] | null {
   if (!isClaudeCliAvailable()) {
@@ -240,22 +244,22 @@ function sortVersionsDescending(versions: VersionInfo[]): VersionInfo[] {
 }
 
 /**
- * 新バージョンのセクションを生成
+ * 新バージョンのセクションを生成（3列テーブル: 日本語, English, Category）
  */
 function generateVersionSection(
   version: string,
-  entries: string[],
+  entries: ParsedEntry[],
   translations: string[] | null
 ): string {
   const lines: string[] = [];
   lines.push(`## ${version}`);
   lines.push('');
-  lines.push('| 日本語 | English |');
-  lines.push('|--------|---------|');
+  lines.push('| 日本語 | English | Category |');
+  lines.push('|--------|---------|----------|');
 
   for (let i = 0; i < entries.length; i++) {
     const jaText = translations?.[i] ?? '（翻訳待ち）';
-    lines.push(`| ${jaText} | ${entries[i]} |`);
+    lines.push(`| ${jaText} | ${entries[i].text} | ${entries[i].category} |`);
   }
 
   lines.push('');
@@ -321,10 +325,80 @@ function getCurrentYearJst(): number {
 }
 
 /**
+ * コマンドライン引数をパース
+ */
+interface CliOptions {
+  isRebuild: boolean;
+  yearOverride: number | null;
+}
+
+function parseArgs(): CliOptions {
+  const args = process.argv.slice(2);
+  let isRebuild = false;
+  let yearOverride: number | null = null;
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === '--rebuild') {
+      isRebuild = true;
+      continue;
+    }
+    if (arg === '--year') {
+      const yearStr = args[i + 1];
+      if (!yearStr) {
+        console.error('エラー: --year の後に年を指定してください');
+        process.exit(1);
+      }
+      if (!/^\d{4}$/.test(yearStr)) {
+        console.error(`エラー: 不正な年: ${yearStr}`);
+        process.exit(1);
+      }
+      yearOverride = Number(yearStr);
+      i++;
+    }
+  }
+
+  return { isRebuild, yearOverride };
+}
+
+/**
+ * ファイルをバックアップ
+ */
+function backupFile(filePath: string): void {
+  if (fs.existsSync(filePath)) {
+    const backupPath = `${filePath}.bak`;
+    fs.copyFileSync(filePath, backupPath);
+    console.log(`  バックアップ: ${backupPath}`);
+  }
+}
+
+/**
+ * ファイルをヘッダーのみの状態にリセット
+ */
+function resetChangelogFile(year: number): void {
+  const filePath = path.join(CONTENT_DIR, `CHANGELOG_${year}_JA.md`);
+  const header = `# OpenAI Codex 変更履歴 (${year}年)
+
+このファイルは OpenAI Codex の${year}年リリース分の変更履歴を日本語で記載しています。
+
+---
+
+`;
+  fs.writeFileSync(filePath, header, 'utf-8');
+  console.log(`  ${filePath} をリセットしました`);
+}
+
+/**
  * メイン処理
  */
 async function main(): Promise<void> {
-  console.log('=== Codex 新バージョン自動検出・追記 ===\n');
+  const { isRebuild, yearOverride } = parseArgs();
+
+  console.log('=== Codex 新バージョン自動検出・追記 ===');
+  if (isRebuild) {
+    console.log('※ --rebuild モード: 全バージョンを再取得・再翻訳します');
+  }
+  console.log('');
 
   // 1. GitHub Releases から全リリース情報を取得
   const allVersions = await fetchCodexReleases();
@@ -334,9 +408,21 @@ async function main(): Promise<void> {
     return;
   }
 
-  // 2. 対象年を特定（当該年のみ）
-  const currentYear = getCurrentYearJst();
-  const targetYears = [currentYear];
+  // 2. 対象年を特定
+  let targetYears: number[];
+  if (yearOverride !== null) {
+    targetYears = [yearOverride];
+  } else if (isRebuild) {
+    // --rebuild: GitHub から取得した全 Release の年
+    const yearsSet = new Set(allVersions.map((v) => v.year));
+    targetYears = Array.from(yearsSet).sort((a, b) => b - a); // 新しい順
+  } else {
+    // 通常: 当該年のみ
+    const currentYear = getCurrentYearJst();
+    targetYears = [currentYear];
+  }
+
+  console.log(`対象年: ${targetYears.join(', ')}`);
 
   // 3. 年ごとに処理
   let totalAdded = 0;
@@ -344,10 +430,17 @@ async function main(): Promise<void> {
   for (const year of targetYears) {
     console.log(`\n--- ${year}年の処理 ---`);
 
-    // ファイルを確保
-    ensureChangelogFile(year);
+    if (isRebuild) {
+      // --rebuild: バックアップしてリセット
+      const filePath = path.join(CONTENT_DIR, `CHANGELOG_${year}_JA.md`);
+      backupFile(filePath);
+      resetChangelogFile(year);
+    } else {
+      // 通常: ファイルを確保
+      ensureChangelogFile(year);
+    }
 
-    // 既存バージョンを取得
+    // 既存バージョンを取得（--rebuild 後はリセットされているので空）
     const existingVersions = getExistingVersions(year);
     console.log(`  既存バージョン数: ${existingVersions.size}`);
 
@@ -377,9 +470,10 @@ async function main(): Promise<void> {
         continue;
       }
 
-      // 翻訳を試行
+      // 翻訳を試行（テキストのみを渡す）
       console.log(`  v${versionInfo.version} を翻訳中...`);
-      const translations = translateEntries(versionInfo.entries);
+      const textOnly = versionInfo.entries.map((e) => e.text);
+      const translations = translateEntries(textOnly);
       if (translations) {
         console.log(`  v${versionInfo.version} の翻訳完了`);
       }

@@ -1,14 +1,14 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "scripts": {
     "dev": "astro dev",
     "preview": "astro preview",
     "build": "pnpm generate && astro build",
     "generate": "pnpm generate:claude-code && pnpm generate:codex",
     "generate:claude-code": "tsx scripts/generate-data.ts 2026 && tsx scripts/generate-data.ts 2025",
-    "generate:codex": "tsx scripts/generate-data.ts --product codex --year 2026",
+    "generate:codex": "tsx scripts/generate-codex-all-years.ts",
     "sync-versions": "tsx scripts/sync-versions.ts",
     "sync-codex-versions": "tsx scripts/sync-codex-versions.ts",
     "retranslate": "tsx scripts/retranslate.ts",

@@ -1,7 +1,10 @@
 ---
+type CodexCategory = 'new-features' | 'bug-fixes' | 'documentation' | 'chores';
+
 interface Entry {
   ja: string;
   en: string;
+  category?: CodexCategory; // Codex のみ
 }
 
 interface Props {
@@ -10,9 +13,10 @@ interface Props {
   releaseDateDisplay: string;
   entries: Entry[];
   orderInMonth: number;
+  product?: 'claude-code' | 'codex';
 }
 
-const { version, releaseDateDisplay, entries, orderInMonth } = Astro.props;
+const { version, releaseDateDisplay, entries, orderInMonth, product = 'claude-code' } = Astro.props;
 
 /**
  * HTML特殊文字をエスケープ
@@ -35,11 +39,33 @@ function formatSafeHtml(text: string): string {
 }
 
 /**
- * エントリの種類を判定してバッジクラスを返す
- * 文中に動詞キーワードが含まれるかで判定（プレフィックス除去不要）
+ * Codex カテゴリ → 既存 CSS クラスへのマッピング
+ * 新 CSS 不要で、既存の色を再利用
  */
-function getEntryType(enText: string): string {
-  const lowerEn = enText.toLowerCase();
+const CATEGORY_TO_CLASS: Record<string, string> = {
+  'new-features': 'added',     // 緑 #3fb950
+  'bug-fixes': 'fixed',        // オレンジ #f0883e
+  'documentation': 'improved', // 青 #79c0ff
+  'chores': 'other',           // グレー #8b949e
+};
+
+/**
+ * エントリの種類を判定してバッジクラスを返す
+ * - Codex: カテゴリ情報から決定
+ * - Claude Code: 文中に動詞キーワードが含まれるかで判定
+ */
+function getEntryType(entry: Entry, productId: string): string {
+  // Codex の場合: カテゴリ情報から決定
+  if (productId === 'codex') {
+    if (entry.category) {
+      return CATEGORY_TO_CLASS[entry.category] || 'other';
+    }
+    // カテゴリがない（旧形式）→ グレー
+    return 'other';
+  }
+
+  // Claude Code: 従来のキーワード判定
+  const lowerEn = entry.en.toLowerCase();
 
   // Added / Add
   if (lowerEn.includes('added') || lowerEn.includes('add ')) return 'added';
@@ -74,7 +100,7 @@ function getEntryType(enText: string): string {
       </thead>
       <tbody>
         {entries.map((entry) => {
-          const entryType = getEntryType(entry.en);
+          const entryType = getEntryType(entry, product);
           return (
             <tr class={`entry-row ${entryType}`} data-ja={entry.ja} data-en={entry.en}>
               <td class="entry-ja" set:html={formatSafeHtml(entry.ja)} />

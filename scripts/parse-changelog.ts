@@ -1,10 +1,21 @@
 /**
  * CHANGELOG_2026_JA.md をパースして構造化データに変換する
+ *
+ * 対応形式:
+ * - 2列テーブル: | 日本語 | English |（Claude Code）
+ * - 3列テーブル: | 日本語 | English | Category |（Codex）
  */
+
+/** Codex のカテゴリID（本家 GitHub Releases のセクション名に準拠） */
+export type CodexCategory = 'new-features' | 'bug-fixes' | 'documentation' | 'chores';
+
+/** 有効なカテゴリ値 */
+const VALID_CATEGORIES: readonly string[] = ['new-features', 'bug-fixes', 'documentation', 'chores'];
 
 export interface Entry {
   ja: string;
   en: string;
+  category?: CodexCategory; // Codex のみ
 }
 
 export interface ParsedVersion {
@@ -46,6 +57,47 @@ function parseMarkdownTableRow(line: string): string[] {
 }
 
 /**
+ * テーブルヘッダー行を検出
+ * @returns detected: ヘッダー行かどうか, hasCategory: 3列目にCategoryがあるか
+ */
+function detectTableHeader(line: string): { detected: boolean; hasCategory: boolean } {
+  const cells = parseMarkdownTableRow(line);
+  const normalized = cells.map((c) => c.trim());
+
+  // 3列: ['日本語', 'English', 'Category']
+  if (
+    normalized.length >= 3 &&
+    normalized[0] === '日本語' &&
+    normalized[1] === 'English' &&
+    normalized[2] === 'Category'
+  ) {
+    return { detected: true, hasCategory: true };
+  }
+  // 2列: ['日本語', 'English']
+  if (normalized.length >= 2 && normalized[0] === '日本語' && normalized[1] === 'English') {
+    return { detected: true, hasCategory: false };
+  }
+  return { detected: false, hasCategory: false };
+}
+
+/**
+ * カテゴリ文字列をパース
+ * @param value カテゴリ値
+ * @returns 有効なカテゴリまたは undefined
+ */
+function parseCategory(value: string): CodexCategory | undefined {
+  const normalized = value.trim().toLowerCase();
+  if (VALID_CATEGORIES.includes(normalized)) {
+    return normalized as CodexCategory;
+  }
+  // 未知値は undefined に落とす
+  if (value.trim()) {
+    console.warn(`Unknown category: "${value}" - treating as undefined`);
+  }
+  return undefined;
+}
+
+/**
  * CHANGELOGファイルをパースする
  * @param content CHANGELOGファイルの内容
  * @returns パースされたバージョン情報の配列
@@ -57,9 +109,10 @@ export function parseChangelog(content: string): ParsedVersion[] {
   let currentVersion: string | null = null;
   let currentEntries: Entry[] = [];
   let inTable = false;
+  let hasCategory = false;
 
   for (const line of lines) {
-    // バージョンヘッダーを検出 (例: ## 2.1.23)
+    // バージョンヘッダーを検出 (例: ## 2.1.23 または ## 0.1.2505301544)
     const versionMatch = line.match(/^## (\d+\.\d+\.\d+)/);
     if (versionMatch) {
       // 前のバージョンを保存
@@ -72,12 +125,15 @@ export function parseChangelog(content: string): ParsedVersion[] {
       currentVersion = versionMatch[1];
       currentEntries = [];
       inTable = false;
+      hasCategory = false;
       continue;
     }
 
     // テーブルヘッダー行を検出
-    if (line.includes('| 日本語 | English |')) {
+    const headerResult = detectTableHeader(line);
+    if (headerResult.detected) {
       inTable = true;
+      hasCategory = headerResult.hasCategory;
       continue;
     }
 
@@ -92,10 +148,17 @@ export function parseChangelog(content: string): ParsedVersion[] {
       const ja = cells[0];
       const en = cells[1];
       if (ja && en) {
-        currentEntries.push({
-          ja,
-          en,
-        });
+        const entry: Entry = { ja, en };
+
+        // 3列テーブルの場合、カテゴリを取得
+        if (hasCategory && cells[2] !== undefined) {
+          const category = parseCategory(cells[2]);
+          if (category) {
+            entry.category = category;
+          }
+        }
+
+        currentEntries.push(entry);
       }
     }
 

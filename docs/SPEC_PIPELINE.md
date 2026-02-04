@@ -44,6 +44,11 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
 #### 1.1.2 Codex の補足
 Codex は GitHub Releases の body を `parse-codex-releases.ts` で抽出し、`sync-codex-versions.ts` により `content/codex/CHANGELOG_{YEAR}_JA.md` を更新する。
 
+#### 1.1.3 Codex の複数年生成
+Codex は `content/codex/` ディレクトリから年を列挙して全年の JSON を生成する。
+- `generate-codex-all-years.ts`: content から年を列挙して `generate-data.ts` を各年で実行
+- `pnpm generate:codex` はこのスクリプトを呼び出す
+
 ---
 
 ## 2. npm scripts
@@ -58,6 +63,8 @@ Codex は GitHub Releases の body を `parse-codex-releases.ts` で抽出し、
 | `pnpm generate:codex` | Codex のみ生成 |
 | `pnpm sync-versions` | npm レジストリから新バージョンを検出し CHANGELOG に追記（Claude Code） |
 | `pnpm sync-codex-versions` | GitHub Releases から新バージョンを検出し CHANGELOG に追記（Codex） |
+| `pnpm sync-codex-versions -- --year 2025` | Codex の指定年のみ新バージョンを検出し CHANGELOG に追記 |
+| `pnpm sync-codex-versions --rebuild` | Codex の全バージョンを再取得・再翻訳（カテゴリ列追加時等に使用） |
 | `pnpm retranslate` | 「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
 | `pnpm detect-upstream` | 上流CHANGELOGの変更検出のみを実行 |
 | `pnpm sync-upstream` | 上流CHANGELOGの変更検出 + 自動適用を実行 |

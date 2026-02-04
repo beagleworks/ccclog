@@ -1,26 +1,66 @@
 /**
  * GitHub Releases の body からエントリを抽出するパーサー
  *
- * 抽出ルール（SPEC.md 9.3.5 準拠）:
+ * 抽出ルール（SPEC_CODEX.md 2.5, 2.6 準拠）:
  * - 抽出対象: `- ` で始まる箇条書き（最上位のみ）
- * - カテゴリ情報はフラットに抽出（カテゴリは保持しない）
- * - 除外対象: コードブロック、アセット列挙、空行のみのブロック、`## Changelog` 以降
+ * - カテゴリ情報: セクションヘッダー（`## New Features` 等）から抽出・保持
+ * - 除外対象: コードブロック、アセット列挙、空行のみのブロック、`## Changelog` 以降、未知セクション
  * - 正規化: 1行化、連続空白の圧縮、`|` のエスケープ
  */
+
+/** Codex のカテゴリID（本家 GitHub Releases のセクション名に準拠） */
+export type CodexCategory =
+  | 'new-features'
+  | 'bug-fixes'
+  | 'documentation'
+  | 'chores';
+
+/** パース結果のエントリ */
+export interface ParsedEntry {
+  text: string;
+  category: CodexCategory;
+}
+
+/** セクションヘッダーとカテゴリIDのマッピング */
+const CATEGORY_HEADERS: Record<string, CodexCategory> = {
+  'new features': 'new-features',
+  'bug fixes': 'bug-fixes',
+  documentation: 'documentation',
+  chores: 'chores',
+};
+
+/**
+ * 見出しテキストを正規化（表記揺れ対策）
+ * - 小文字化
+ * - 連続空白を圧縮
+ * - 末尾の :, |, - を連続で除去
+ *
+ * 注意: "Bug Fixes (Windows):" のような補足付き見出しは
+ * 正規化後も CATEGORY_HEADERS に一致しないため、未知扱いとなる（安全側に倒す）
+ */
+function normalizeHeaderText(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ') // 連続空白を圧縮
+    .replace(/[:|\\|-]+$/, ''); // 末尾の :, |, - を除去
+}
 
 /**
  * Release body からエントリを抽出
  * @param body GitHub Release の body（Markdown形式）
- * @returns 抽出されたエントリの配列
+ * @returns 抽出されたエントリの配列（カテゴリ情報付き）
  */
-export function parseCodexReleaseBody(body: string): string[] {
+export function parseCodexReleaseBody(body: string): ParsedEntry[] {
   if (!body) return [];
 
-  const entries: string[] = [];
+  const entries: ParsedEntry[] = [];
   const lines = body.split('\n');
 
   let inCodeBlock = false;
-  let isAfterChangelog = false;
+  // デフォルトは new-features（セクションヘッダー前の箇条書き用、実データでは発生しない）
+  // null は「除外中」を表す（未知セクション配下）
+  let currentCategory: CodexCategory | null = 'new-features';
 
   for (const line of lines) {
     // コードブロックの開始/終了を追跡
@@ -32,16 +72,26 @@ export function parseCodexReleaseBody(body: string): string[] {
     // コードブロック内はスキップ
     if (inCodeBlock) continue;
 
-    // `## Changelog` 以降はスキップ
-    if (line.match(/^##\s+Changelog/i)) {
-      isAfterChangelog = true;
+    // ## で始まる見出しを検出
+    const headerMatch = line.match(/^##\s+(.+)$/);
+    if (headerMatch) {
+      const headerText = normalizeHeaderText(headerMatch[1]);
+
+      // "changelog" で始まる場合は終了
+      if (headerText.startsWith('changelog')) {
+        break;
+      }
+
+      // 既知のカテゴリならセット、未知なら null（除外）
+      currentCategory = CATEGORY_HEADERS[headerText] ?? null;
       continue;
     }
-    if (isAfterChangelog) continue;
 
     // 最上位の箇条書きのみを検出（インデントなしの `- ` で始まる行）
-    // ネストされた箇条書き（スペースやタブでインデントされたもの）は除外
     if (!line.startsWith('- ')) continue;
+
+    // 未知セクション配下は除外
+    if (currentCategory === null) continue;
 
     const entry = line.substring(2).trim();
 
@@ -54,7 +104,7 @@ export function parseCodexReleaseBody(body: string): string[] {
     // 正規化して追加
     const normalized = normalizeEntry(entry);
     if (normalized) {
-      entries.push(normalized);
+      entries.push({ text: normalized, category: currentCategory });
     }
   }
 

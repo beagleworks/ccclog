@@ -66,6 +66,8 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 | English | 変更内容の英語説明 |
 
 #### 3.1.4 エントリタイプの視覚的識別
+
+**Claude Code（キーワード判定）**
 変更内容の先頭キーワードに応じて左ボーダー色を変更：
 
 | キーワード | 色 | カラーコード |
@@ -80,6 +82,19 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 以下の形式のプレフィックスは判定時に除外される：
 - `[Tag]` 形式（例: `[IDE]`, `[VSCode]`）
 - `Tag:` 形式（例: `Bedrock:`, `Windows:`）
+
+**Codex（カテゴリベース）**
+JSON の `category` フィールドに応じて左ボーダー色を変更：
+
+| カテゴリID | 色 | カラーコード | マッピング先クラス |
+|-----------|-----|-------------|-------------------|
+| `new-features` | 緑 | #3fb950 | `added` |
+| `bug-fixes` | オレンジ | #f0883e | `fixed` |
+| `documentation` | 青 | #79c0ff | `improved` |
+| `chores` | グレー | #8b949e | `other` |
+| （カテゴリなし） | グレー | #8b949e | `other` |
+
+※ Codex ではキーワード判定を行わず、カテゴリ情報のみで色を決定する。
 
 ### 3.2 検索機能
 
@@ -168,7 +183,7 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 ### 4.1 入力データ形式
 年ごとに分離されたMarkdownファイル（`CHANGELOG_{YEAR}_JA.md`）を使用する。
 
-形式：
+**Claude Code（2列テーブル）**
 ```markdown
 ## 2.1.23
 
@@ -176,10 +191,19 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 |--------|---------|
 | 変更内容（日本語） | Change description (English) |
 | ... | ... |
-
-## 2.1.22
-...
 ```
+
+**Codex（3列テーブル - Category 列を含む）**
+```markdown
+## 0.1.2505301544
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 変更内容（日本語） | Change description (English) | new-features |
+| バグ修正内容 | Bug fix description | bug-fixes |
+```
+
+パーサーはヘッダー行を検出して2列/3列を動的に判定する。
 
 ### 4.2 生成データ
 
@@ -208,7 +232,11 @@ interface Version {
 interface Entry {
   ja: string;                 // 日本語説明
   en: string;                 // 英語説明
+  category?: CodexCategory;   // Codex のみ: カテゴリID
 }
+
+// Codex カテゴリ（本家 GitHub Releases のセクション名に準拠）
+type CodexCategory = 'new-features' | 'bug-fixes' | 'documentation' | 'chores';
 ```
 
 #### 4.2.2 年別Markdownファイル
@@ -290,6 +318,7 @@ GitHub CHANGELOG 等の外部データを HTML として表示する際は、以
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-02-05 | 3.2.0 | Codex カテゴリ分類の本家準拠化（Entry 型に category 追加、3列テーブル対応） |
 | 2026-02-04 | 3.1.0 | トップページのリダイレクト廃止（直接表示）、canonical URL 対応 |
 | 2026-02-04 | 3.0.0 | マルチプロダクト対応（OpenAI Codex CHANGELOG 追加） |
 | 2026-01-31 | 2.2.0 | 検索時のcode表示維持、月内ソート、Markdownエスケープ、年別ページ動的化 |

@@ -1,9 +1,12 @@
 ---
 import VersionSection from './VersionSection.astro';
 
+type CodexCategory = 'new-features' | 'bug-fixes' | 'documentation' | 'chores';
+
 interface Entry {
   ja: string;
   en: string;
+  category?: CodexCategory; // Codex のみ
 }
 
 interface Version {
@@ -18,9 +21,10 @@ interface Props {
   label: string;
   versions: Version[];
   defaultOpen?: boolean;
+  product?: 'claude-code' | 'codex';
 }
 
-const { monthKey, label, versions, defaultOpen = true } = Astro.props;
+const { monthKey, label, versions, defaultOpen = true, product = 'claude-code' } = Astro.props;
 
 // 月の総エントリ数を計算
 const totalEntries = versions.reduce((sum, v) => sum + v.entries.length, 0);
@@ -45,6 +49,7 @@ const totalEntries = versions.reduce((sum, v) => sum + v.entries.length, 0);
           releaseDateDisplay={version.releaseDateDisplay}
           entries={version.entries}
           orderInMonth={versions.length - index}
+          product={product}
         />
       ))}
     </div>
