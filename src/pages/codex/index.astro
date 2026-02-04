@@ -1,31 +1,64 @@
 ---
 /**
  * Codex トップページ
- * 最新年のページにリダイレクト
+ * 最新年のコンテンツを直接表示（リダイレクトなし）
  */
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import ChangelogPage from '../../components/ChangelogPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const base = import.meta.env.BASE_URL;
-
-// content/codex/ ディレクトリから最新年を検出
+// content/codex/ ディレクトリから年を自動検出
 const contentDir = join(process.cwd(), 'content', 'codex');
-let latestYear = '2026';
+let years: string[] = [];
 
 try {
   const files = readdirSync(contentDir);
-  const years = files
+  years = files
     .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
     .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
     .sort()
     .reverse();
-
-  if (years.length > 0) {
-    latestYear = years[0];
-  }
 } catch {
-  // ディレクトリが存在しない場合はデフォルト年を使用
+  // ディレクトリが存在しない場合は空配列のまま
 }
 
-return Astro.redirect(`${base}codex/${latestYear}/`);
+// 最新年のデータを取得
+const latestYear = years[0];
+let months: any[] = [];
+let generatedAt = new Date().toISOString();
+
+if (latestYear) {
+  try {
+    const changelogData = await import(`../../data/codex/changelog-${latestYear}.json`);
+    months = changelogData.months;
+    generatedAt = changelogData.generatedAt;
+  } catch {
+    // データが存在しない場合は空配列のまま
+  }
+}
 ---
+
+{years.length > 0 && months.length > 0 ? (
+  <ChangelogPage
+    year={latestYear}
+    years={years}
+    months={months}
+    generatedAt={generatedAt}
+    product="codex"
+  />
+) : (
+  <BaseLayout title="OpenAI Codex CHANGELOG Viewer" years={[]} product="codex">
+    <div class="no-data">
+      <p>データがありません。</p>
+    </div>
+  </BaseLayout>
+)}
+
+<style>
+  .no-data {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-text-muted);
+  }
+</style>

@@ -159,12 +159,9 @@ export function interpolateMissingDates(
       }
     }
 
-    // 補間または推定
+    // 補間または推定（新しいバージョンの日付を優先）
     let estimatedDate: string;
-    if (prevDate && nextDate) {
-      // 両方ある場合は新しいバージョンの日付を使用
-      estimatedDate = prevDate;
-    } else if (prevDate) {
+    if (prevDate) {
       estimatedDate = prevDate;
     } else if (nextDate) {
       estimatedDate = nextDate;

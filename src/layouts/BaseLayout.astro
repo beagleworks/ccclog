@@ -53,6 +53,16 @@ function getYearUrl(year: string): string {
     ? `${base}${year}/`
     : `${base}codex/${year}/`;
 }
+
+// canonical URL を生成（空データ時は出力しない）
+// トップページ（/、/codex/）と年別ページ（/{year}/）で同一コンテンツが表示されるため、
+// 年明示URL（/{year}/）を正規URLとして指定し、SEO上の重複を回避する
+const site = import.meta.env.SITE;      // https://beagleworks.github.io
+const canonicalUrl = years.length > 0 && currentYear
+  ? productConfig.basePath === '/'
+    ? `${site}${base}${currentYear}/`
+    : `${site}${base}codex/${currentYear}/`
+  : null;
 ---
 
 <!doctype html>
@@ -62,6 +72,7 @@ function getYearUrl(year: string): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description || defaultDescription} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <title>{title}</title>
   </head>
   <body>
