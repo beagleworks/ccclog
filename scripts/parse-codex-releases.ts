@@ -55,7 +55,8 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
   if (!body) return [];
 
   const entries: ParsedEntry[] = [];
-  const lines = body.split('\n');
+  // CRLF 改行に対応: \r を除去してから分割
+  const lines = body.replace(/\r/g, '').split('\n');
 
   let inCodeBlock = false;
   // デフォルトは new-features（セクションヘッダー前の箇条書き用、実データでは発生しない）
