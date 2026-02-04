@@ -86,10 +86,10 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
       break;
     }
 
-    // "PRs Merged" は既知カテゴリが先に出現した場合のみ終了
+    // "PRs Merged" / "Merged PRs" は既知カテゴリが先に出現した場合のみ終了
     // （PRs Merged から始まるリリースノートを除外しないため）
-    // #, ##, ### 付きまたは無しの PRs Merged にマッチ
-    if (/^#{0,3}\s*PRs Merged\b/i.test(line) && hasKnownCategory) {
+    // #, ##, ### 付きまたは無しにマッチ
+    if (/^#{0,3}\s*(PRs Merged|Merged PRs)\b/i.test(line) && hasKnownCategory) {
       break;
     }
 
