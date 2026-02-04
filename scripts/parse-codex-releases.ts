@@ -24,6 +24,7 @@ export interface ParsedEntry {
 /** セクションヘッダーとカテゴリIDのマッピング */
 const CATEGORY_HEADERS: Record<string, CodexCategory> = {
   'new features': 'new-features',
+  highlights: 'new-features', // Highlights も new-features として扱う
   'bug fixes': 'bug-fixes',
   documentation: 'documentation',
   chores: 'chores',
@@ -104,11 +105,11 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
       if (category !== null) {
         hasKnownCategory = true;
         currentCategory = category;
-      } else if (headerText.startsWith('prs merged') && !hasKnownCategory) {
-        // PRs Merged のみのリリースノートの場合は、デフォルトカテゴリを維持
-        // （currentCategory を変更しない）
+      } else if (!hasKnownCategory) {
+        // 既知カテゴリがまだ出現していない場合は、デフォルトカテゴリを維持
+        // （Highlights, PRs Merged のみのリリースノートに対応）
       } else {
-        // 未知セクションは除外
+        // 既知カテゴリ後の未知セクションは除外
         currentCategory = null;
       }
       continue;

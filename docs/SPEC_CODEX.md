@@ -56,6 +56,7 @@
 | セクションヘッダー | カテゴリID | UI表示色 |
 |-------------------|-----------|---------|
 | `## New Features` | `new-features` | 緑 (#3fb950) |
+| `## Highlights` | `new-features` | 緑 (#3fb950) |
 | `## Bug Fixes` | `bug-fixes` | オレンジ (#f0883e) |
 | `## Documentation` | `documentation` | 青 (#79c0ff) |
 | `## Chores` | `chores` | グレー (#8b949e) |
