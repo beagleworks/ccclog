@@ -528,10 +528,126 @@ GitHub CHANGELOG 等の外部データを HTML として表示する際は、以
 
 ---
 
-## 9. 変更履歴
+## 9. マルチプロダクト対応
+
+### 9.1 概要
+
+Claude Code に加えて OpenAI Codex の CHANGELOG も閲覧可能にする。
+プロダクトごとに別ページ（`/` = Claude Code, `/codex/` = Codex）で提供。
+
+### 9.2 プロダクト定義
+
+| プロパティ | Claude Code | Codex |
+|-----------|-------------|-------|
+| `productId` | `claude-code` | `codex` |
+| `basePath` | `/` | `/codex/` |
+| `contentDir` | `content/` | `content/codex/` |
+| `dataDir` | `src/data/` | `src/data/codex/` |
+| `npmPackage` | `@anthropic-ai/claude-code` | （なし） |
+| `github.owner` | `anthropics` | `openai` |
+| `github.repo` | `claude-code` | `codex` |
+| `github.tagPrefix` | `v` | `rust-v` |
+
+### 9.3 Codex 入力データ仕様（GitHub Releases）
+
+#### 9.3.1 データソース
+- GitHub Releases API: `https://api.github.com/repos/openai/codex/releases`
+
+#### 9.3.2 対象リリースのフィルタ
+| 条件 | 対象/除外 |
+|------|----------|
+| `rust-vX.Y.Z` 形式のタグ | 対象 |
+| `-alpha` を含むタグ | 除外 |
+| `prerelease: true` | 除外（`-beta`/`-rc` もここで除外） |
+
+#### 9.3.3 バージョン表示
+- タグ名からプレフィックスを除去: `rust-v0.95.0` → `0.95.0`
+
+#### 9.3.4 年判定基準
+- GitHub Releases の `published_at` を JST（UTC+9）に変換して年を決定
+- Claude Code の npm 公開日と同様のロジックを適用
+
+#### 9.3.5 Release body のエントリ抽出ルール
+
+| 項目 | ルール |
+|------|--------|
+| 抽出対象 | `- ` で始まる箇条書き（最上位のみ） |
+| カテゴリ情報 | フラットに抽出（カテゴリは保持しない） |
+| 除外対象 | コードブロック、アセット列挙、空行のみのブロック、`## Changelog` 以降 |
+| 正規化 | 1行化、連続空白の圧縮、`\|` のエスケープ |
+| リンク | Markdown形式のまま保持（UI側はテキスト表示） |
+
+### 9.4 日付取得戦略
+
+| プロダクト | 優先順位 |
+|-----------|---------|
+| Claude Code | npm レジストリ → GitHub タグ → 補間 |
+| Codex | GitHub Releases (`published_at`) → 補間 |
+
+### 9.5 GitHub API 認証
+
+#### 9.5.1 認証方式
+- `GITHUB_TOKEN` 環境変数があれば `Authorization: Bearer ...` ヘッダーを付与
+
+#### 9.5.2 レート制限時の挙動
+| 環境 | 挙動 |
+|------|------|
+| CI | GitHub Actions のデフォルトトークンを使用（制限なし） |
+| ローカル（トークンあり） | 認証済みレート制限（5000リクエスト/時間） |
+| ローカル（トークンなし） | 警告を出力してビルド継続（取得できた範囲で動作） |
+
+### 9.6 検索モード保持キー
+
+プロダクト間での干渉を避けるため、sessionStorage のキーをプロダクト別に分離：
+- Claude Code: `ccclog.searchMode.claude-code`
+- Codex: `ccclog.searchMode.codex`
+
+### 9.7 ファイル構成（マルチプロダクト対応後）
+
+```
+ccclog/
+├── content/
+│   ├── CHANGELOG_2025_JA.md        # Claude Code（既存維持）
+│   ├── CHANGELOG_2026_JA.md        # Claude Code（既存維持）
+│   └── codex/                      # Codex用
+│       └── CHANGELOG_2026_JA.md
+├── src/
+│   ├── data/
+│   │   ├── changelog-2025.json     # Claude Code（既存維持）
+│   │   ├── changelog-2026.json     # Claude Code（既存維持）
+│   │   └── codex/                  # Codex用
+│   │       └── changelog-2026.json
+│   ├── lib/
+│   │   └── products.ts             # プロダクト設定
+│   └── pages/
+│       ├── index.astro             # Claude Code トップ
+│       ├── [year].astro            # Claude Code 年別
+│       └── codex/                  # Codex用
+│           ├── index.astro
+│           └── [year].astro
+└── scripts/
+    ├── sync-versions.ts            # Claude Code用（既存）
+    ├── sync-codex-versions.ts      # Codex用
+    ├── parse-codex-releases.ts     # GitHub Releases パーサー
+    └── generate-data.ts            # マルチプロダクト対応
+```
+
+### 9.8 npm scripts（マルチプロダクト対応後）
+
+| コマンド | 説明 |
+|---------|------|
+| `pnpm generate` | 全プロダクト・全年のデータ生成 |
+| `pnpm generate:claude-code` | Claude Code のみ生成 |
+| `pnpm generate:codex` | Codex のみ生成 |
+| `pnpm sync-codex-versions` | Codex の新バージョン検出・追記 |
+
+---
+
+## 10. 変更履歴
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-02-04 | 3.0.0 | マルチプロダクト対応（OpenAI Codex CHANGELOG 追加） |
 | 2026-01-31 | 2.2.0 | 検索時のcode表示維持、月内ソート、Markdownエスケープ、年別ページ動的化 |
 | 2026-01-31 | 2.1.3 | セキュリティ要件を追加（XSS対策、コマンドインジェクション対策） |
 | 2026-01-30 | 2.1.2 | 翻訳モデルを Claude Sonnet に明示的に指定（品質向上） |

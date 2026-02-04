@@ -1,27 +1,57 @@
 ---
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { products, type ProductId } from '../lib/products';
 
 interface Props {
   title: string;
   description?: string;
   currentYear?: string;
   years?: string[];
+  product?: ProductId;
 }
 
-const { title, description = 'Claude Code の変更履歴を日本語/英語で閲覧できます', currentYear = '2026', years: propsYears } = Astro.props;
+const {
+  title,
+  description,
+  currentYear = '2026',
+  years: propsYears,
+  product: productId = 'claude-code',
+} = Astro.props;
+
 const base = import.meta.env.BASE_URL;
 
-// yearsが渡されなかった場合はcontent/から自動検出
+// プロダクト設定を取得
+const productConfig = products.find((p) => p.id === productId) || products[0];
+const defaultDescription = `${productConfig.shortName} の変更履歴を日本語/英語で閲覧できます`;
+
+// yearsが渡されなかった場合はcontent/[subdir]から自動検出
 let years = propsYears;
 if (!years) {
-  const contentDir = join(process.cwd(), 'content');
-  const files = readdirSync(contentDir);
-  years = files
-    .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
-    .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
-    .sort()
-    .reverse();
+  const contentDir = productConfig.contentSubdir
+    ? join(process.cwd(), 'content', productConfig.contentSubdir)
+    : join(process.cwd(), 'content');
+
+  try {
+    const files = readdirSync(contentDir);
+    years = files
+      .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
+      .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
+      .sort()
+      .reverse();
+  } catch {
+    years = [];
+  }
+}
+
+// プロダクトごとのベースパス
+const productBasePath = productConfig.basePath === '/' ? base : `${base}codex/`;
+
+// 年ナビのURL生成
+function getYearUrl(year: string): string {
+  return productConfig.basePath === '/'
+    ? `${base}${year}/`
+    : `${base}codex/${year}/`;
 }
 ---
 
@@ -30,28 +60,43 @@ if (!years) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+    <meta name="description" content={description || defaultDescription} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <title>{title}</title>
   </head>
   <body>
     <div class="container">
       <header>
-        <h1>
-          <a href={base}>Claude Code CHANGELOG Viewer</a>
-        </h1>
-        <p class="subtitle">日本語/英語 変更履歴</p>
-        <p class="notice">※ リリース日は npm 公開日を基に表示しており、正確でない場合があります</p>
-        <nav class="year-nav">
-          {years.map((year) => (
+        <!-- プロダクト切り替えナビ -->
+        <nav class="product-nav">
+          {products.map((p) => (
             <a
-              href={`${base}${year}/`}
-              class:list={['year-link', { active: currentYear === year }]}
+              href={p.basePath === '/' ? base : `${base}codex/`}
+              class:list={['product-link', { active: productId === p.id }]}
             >
-              {year}
+              {p.shortName}
             </a>
           ))}
         </nav>
+
+        <h1>
+          <a href={productBasePath}>{productConfig.name}</a>
+        </h1>
+        <p class="subtitle">日本語/英語 変更履歴</p>
+        <p class="notice">{productConfig.releaseDateSourceNote}</p>
+
+        {years.length > 0 && (
+          <nav class="year-nav">
+            {years.map((year) => (
+              <a
+                href={getYearUrl(year)}
+                class:list={['year-link', { active: currentYear === year }]}
+              >
+                {year}
+              </a>
+            ))}
+          </nav>
+        )}
       </header>
       <main>
         <slot />
@@ -67,12 +112,11 @@ if (!years) {
             </a>
           </div>
           <div class="footer-links">
-            <a href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">
-              Claude Code
-            </a>
-            <a href="https://claude.ai" target="_blank" rel="noopener">
-              Claude.ai
-            </a>
+            {productConfig.footerLinks.map((link) => (
+              <a href={link.href} target="_blank" rel="noopener">
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </footer>
@@ -146,6 +190,35 @@ if (!years) {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--color-border);
+  }
+
+  /* プロダクト切り替えナビ */
+  .product-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .product-link {
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .product-link:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .product-link.active {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
   }
 
   header h1 {

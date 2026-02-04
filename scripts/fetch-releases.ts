@@ -6,9 +6,31 @@
  * 2. Release API - 公式リリース日
  * 3. CHANGELOG.md コミット日 - フォールバック
  * 4. 補間 - どちらも取得できない場合の最終手段
+ *
+ * 認証:
+ * - GITHUB_TOKEN 環境変数があれば Authorization ヘッダーを付与
+ * - レート制限時は警告を出力して継続（取得できた範囲で動作）
  */
 
 import { execSync } from 'node:child_process';
+
+/**
+ * GitHub API 用のリクエストヘッダーを生成
+ * GITHUB_TOKEN があれば認証ヘッダーを付与
+ */
+function getGitHubHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github.v3+json',
+    'User-Agent': 'ccclog',
+  };
+
+  const token = process.env.GITHUB_TOKEN;
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  return headers;
+}
 
 export interface ReleaseInfo {
   version: string;
@@ -51,10 +73,7 @@ export async function fetchReleases(
 
     try {
       const response = await fetch(url, {
-        headers: {
-          Accept: 'application/vnd.github.v3+json',
-          'User-Agent': 'ccclog',
-        },
+        headers: getGitHubHeaders(),
       });
 
       if (!response.ok) {

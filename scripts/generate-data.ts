@@ -1,26 +1,68 @@
 /**
- * CHANGELOG データ生成スクリプト
+ * CHANGELOG データ生成スクリプト（マルチプロダクト対応）
  *
  * 1. CHANGELOG_{YEAR}_JA.md をパース
- * 2. GitHub Releases API からリリース日を取得
- * 3. src/data/changelog-{year}.json を生成
- * 4. generated/CHANGELOG-{year}.md を生成
+ * 2. npm レジストリ または GitHub Releases API からリリース日を取得
+ * 3. src/data/[product/]changelog-{year}.json を生成
+ * 4. generated/[product/]CHANGELOG-{year}.md を生成
  *
- * 使用法: tsx scripts/generate-data.ts [year]
- * 例: tsx scripts/generate-data.ts 2025
+ * 使用法:
+ *   tsx scripts/generate-data.ts [year]                      # Claude Code（後方互換）
+ *   tsx scripts/generate-data.ts --product codex --year 2026 # Codex
+ *   tsx scripts/generate-data.ts --product claude-code 2026  # Claude Code（明示指定）
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseChangelog, type ParsedVersion, type Entry } from './parse-changelog.js';
-import { fetchReleases, fetchNpmPublishDates, interpolateMissingDates } from './fetch-releases.js';
+import { parseChangelog, type Entry } from './parse-changelog.js';
+import {
+  fetchReleases,
+  fetchNpmPublishDates,
+  interpolateMissingDates,
+} from './fetch-releases.js';
+import { getProduct, defaultProduct, type ProductId, type ProductConfig } from '../src/lib/products.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');
 
-// コマンドライン引数から年を取得（デフォルト: 2026）
-const YEAR = process.argv[2] || '2026';
+// ========================
+// コマンドライン引数パース
+// ========================
+
+interface CliArgs {
+  product: ProductId;
+  year: string;
+}
+
+function parseArgs(): CliArgs {
+  const args = process.argv.slice(2);
+  let product: ProductId = 'claude-code';
+  let year = '2026';
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+
+    if (arg === '--product' && args[i + 1]) {
+      const p = args[i + 1];
+      if (p === 'claude-code' || p === 'codex') {
+        product = p;
+      } else {
+        console.error(`不明なプロダクト: ${p}`);
+        process.exit(1);
+      }
+      i++;
+    } else if (arg === '--year' && args[i + 1]) {
+      year = args[i + 1];
+      i++;
+    } else if (/^\d{4}$/.test(arg)) {
+      // 後方互換: 数字4桁のみの引数は年として扱う
+      year = arg;
+    }
+  }
+
+  return { product, year };
+}
 
 // ========================
 // 型定義
@@ -50,8 +92,6 @@ interface ChangelogData {
 
 /**
  * 日付文字列を日本語表示形式に変換
- * @param dateStr YYYY-MM-DD形式
- * @returns 2026年1月29日 形式
  */
 function formatDateJa(dateStr: string): string {
   const [year, month, day] = dateStr.split('-');
@@ -60,8 +100,6 @@ function formatDateJa(dateStr: string): string {
 
 /**
  * 日付文字列から月キーを生成
- * @param dateStr YYYY-MM-DD形式
- * @returns YYYY-MM形式
  */
 function getMonthKey(dateStr: string): string {
   return dateStr.substring(0, 7);
@@ -69,8 +107,6 @@ function getMonthKey(dateStr: string): string {
 
 /**
  * 月キーから月ラベルを生成
- * @param monthKey YYYY-MM形式
- * @returns 2026年1月 形式
  */
 function formatMonthLabel(monthKey: string): string {
   const [year, month] = monthKey.split('-');
@@ -79,7 +115,6 @@ function formatMonthLabel(monthKey: string): string {
 
 /**
  * semver比較
- * @returns 負の値: a < b、0: a == b、正の値: a > b
  */
 function compareSemver(a: string, b: string): number {
   const partsA = a.split('.').map(Number);
@@ -97,36 +132,28 @@ function compareSemver(a: string, b: string): number {
  */
 function sortVersionsInMonth(versions: Version[]): Version[] {
   return versions.sort((a, b) => {
-    // まずリリース日で降順
     const dateCompare = b.releaseDate.localeCompare(a.releaseDate);
     if (dateCompare !== 0) return dateCompare;
-
-    // 同日ならsemver降順
     return compareSemver(b.version, a.version);
   });
 }
 
 // ========================
-// メイン処理
+// 日付取得戦略
 // ========================
 
-async function main() {
-  console.log(`📦 CHANGELOG データ生成を開始 (${YEAR}年)...\n`);
-
-  // 1. CHANGELOGファイルを読み込み・パース
-  console.log(`📖 content/CHANGELOG_${YEAR}_JA.md を読み込み中...`);
-  const changelogPath = join(ROOT_DIR, 'content', `CHANGELOG_${YEAR}_JA.md`);
-  const content = readFileSync(changelogPath, 'utf-8');
-  const parsedVersions = parseChangelog(content);
-  console.log(`   ${parsedVersions.length} バージョンを検出\n`);
-
-  // 2. npm レジストリから公開日を取得（最も正確）
-  console.log('📦 npm レジストリから公開日を取得中...');
-  const versionList = parsedVersions.map((v) => v.version);
-  const npmDates = fetchNpmPublishDates('@anthropic-ai/claude-code');
-
-  // releaseMap を構築
+/**
+ * Claude Code 用の日付取得（npm優先 → GitHub → 補間）
+ */
+async function fetchReleaseDatesForClaudeCode(
+  versionList: string[],
+  config: ProductConfig
+): Promise<Map<string, { version: string; releaseDate: string }>> {
   const releaseMap = new Map<string, { version: string; releaseDate: string }>();
+
+  // 1. npm レジストリから公開日を取得（最も正確）
+  console.log('📦 npm レジストリから公開日を取得中...');
+  const npmDates = fetchNpmPublishDates(config.npmPackage!);
   let npmCount = 0;
   for (const version of versionList) {
     if (npmDates.has(version)) {
@@ -139,12 +166,16 @@ async function main() {
   }
   console.log(`   ${npmCount} バージョンの公開日を取得\n`);
 
-  // 3. npm で取得できなかったバージョンは GitHub タグから取得
-  const missingAfterNpm = versionList.filter(v => !releaseMap.has(v));
+  // 2. npm で取得できなかったバージョンは GitHub タグから取得
+  const missingAfterNpm = versionList.filter((v) => !releaseMap.has(v));
   let githubCount = 0;
   if (missingAfterNpm.length > 0) {
     console.log(`🏷️  GitHub タグから ${missingAfterNpm.length} バージョンの日付を取得中...`);
-    const githubReleases = await fetchReleases('anthropics', 'claude-code', missingAfterNpm);
+    const githubReleases = await fetchReleases(
+      config.github.owner,
+      config.github.repo,
+      missingAfterNpm
+    );
     for (const [version, info] of githubReleases) {
       if (!releaseMap.has(version)) {
         releaseMap.set(version, info);
@@ -154,26 +185,123 @@ async function main() {
     console.log(`   ${githubCount} バージョンの日付を取得\n`);
   }
 
-  // 4. npm と GitHub タグで取得できなかったバージョンは補間（最終手段）
-  const missingAfterGithub = versionList.filter(v => !releaseMap.has(v));
-  const interpolatedCount = missingAfterGithub.length;
-  if (interpolatedCount > 0) {
-    console.log(`📊 ${interpolatedCount} バージョンの日付を近隣バージョンから補間中...`);
+  // 3. 補間
+  const missingAfterGithub = versionList.filter((v) => !releaseMap.has(v));
+  if (missingAfterGithub.length > 0) {
+    console.log(`📊 ${missingAfterGithub.length} バージョンの日付を近隣バージョンから補間中...`);
     interpolateMissingDates(versionList, releaseMap);
     console.log(`   補間完了\n`);
   }
 
-  // 統計情報を表示
+  // 統計情報
   console.log('📈 日付取得の統計:');
   console.log(`   npm レジストリ: ${npmCount} バージョン`);
   console.log(`   GitHub タグ: ${githubCount} バージョン`);
-  console.log(`   補間: ${interpolatedCount} バージョン`);
+  console.log(`   補間: ${missingAfterGithub.length} バージョン`);
   console.log(`   合計: ${versionList.length} バージョン\n`);
+
+  return releaseMap;
+}
+
+/**
+ * Codex 用の日付取得（GitHub Releases → 補間）
+ */
+async function fetchReleaseDatesForCodex(
+  versionList: string[],
+  config: ProductConfig
+): Promise<Map<string, { version: string; releaseDate: string }>> {
+  const releaseMap = new Map<string, { version: string; releaseDate: string }>();
+
+  console.log('🏷️  GitHub Releases から公開日を取得中...');
+
+  // Codex のタグ形式に合わせてバージョンにプレフィックスを付与
+  const taggedVersions = versionList.map((v) => `${config.github.tagPrefix}${v}`);
+
+  const githubReleases = await fetchReleases(
+    config.github.owner,
+    config.github.repo,
+    taggedVersions
+  );
+
+  let githubCount = 0;
+  for (const [taggedVersion, info] of githubReleases) {
+    // プレフィックスを除去してバージョン番号を取得
+    const version = taggedVersion.replace(config.github.tagPrefix, '');
+    if (versionList.includes(version)) {
+      releaseMap.set(version, {
+        version,
+        releaseDate: info.releaseDate,
+      });
+      githubCount++;
+    }
+  }
+  console.log(`   ${githubCount} バージョンの公開日を取得\n`);
+
+  // 補間
+  const missing = versionList.filter((v) => !releaseMap.has(v));
+  if (missing.length > 0) {
+    console.log(`📊 ${missing.length} バージョンの日付を近隣バージョンから補間中...`);
+    interpolateMissingDates(versionList, releaseMap);
+    console.log(`   補間完了\n`);
+  }
+
+  // 統計情報
+  console.log('📈 日付取得の統計:');
+  console.log(`   GitHub Releases: ${githubCount} バージョン`);
+  console.log(`   補間: ${missing.length} バージョン`);
+  console.log(`   合計: ${versionList.length} バージョン\n`);
+
+  return releaseMap;
+}
+
+// ========================
+// メイン処理
+// ========================
+
+async function main() {
+  const { product: productId, year } = parseArgs();
+  const config = getProduct(productId);
+
+  console.log(`📦 CHANGELOG データ生成を開始 (${config.shortName} / ${year}年)...\n`);
+
+  // パス決定
+  const contentDir = config.contentSubdir
+    ? join(ROOT_DIR, 'content', config.contentSubdir)
+    : join(ROOT_DIR, 'content');
+  const dataDir = config.dataSubdir
+    ? join(ROOT_DIR, 'src', 'data', config.dataSubdir)
+    : join(ROOT_DIR, 'src', 'data');
+  const generatedDir = config.contentSubdir
+    ? join(ROOT_DIR, 'generated', config.contentSubdir)
+    : join(ROOT_DIR, 'generated');
+
+  // 1. CHANGELOGファイルを読み込み・パース
+  const changelogPath = join(contentDir, `CHANGELOG_${year}_JA.md`);
+  if (!existsSync(changelogPath)) {
+    console.error(`❌ ファイルが見つかりません: ${changelogPath}`);
+    process.exit(1);
+  }
+
+  console.log(`📖 ${changelogPath} を読み込み中...`);
+  const content = readFileSync(changelogPath, 'utf-8');
+  const parsedVersions = parseChangelog(content);
+  console.log(`   ${parsedVersions.length} バージョンを検出\n`);
+
+  if (parsedVersions.length === 0) {
+    console.log('⚠️  バージョンが見つかりませんでした。処理を終了します。');
+    return;
+  }
+
+  // 2. リリース日を取得（プロダクトごとに異なる戦略）
+  const versionList = parsedVersions.map((v) => v.version);
+  const releaseMap =
+    productId === 'codex'
+      ? await fetchReleaseDatesForCodex(versionList, config)
+      : await fetchReleaseDatesForClaudeCode(versionList, config);
 
   // 3. バージョン情報にリリース日を追加
   const versions: Version[] = parsedVersions.map((pv) => {
-    const releaseDate = releaseMap.get(pv.version)!.releaseDate;
-
+    const releaseDate = releaseMap.get(pv.version)?.releaseDate || new Date().toISOString().split('T')[0];
     return {
       version: pv.version,
       releaseDate,
@@ -194,7 +322,6 @@ async function main() {
 
   // 月キーでソート（降順）
   const sortedMonthKeys = Array.from(monthMap.keys()).sort().reverse();
-  // 各月内のバージョンもソート（リリース日降順、同日ならsemver降順）
   const months: MonthGroup[] = sortedMonthKeys.map((key) => ({
     key,
     label: formatMonthLabel(key),
@@ -207,23 +334,21 @@ async function main() {
     months,
   };
 
-  const dataDir = join(ROOT_DIR, 'src', 'data');
   if (!existsSync(dataDir)) {
     mkdirSync(dataDir, { recursive: true });
   }
 
-  const jsonPath = join(dataDir, `changelog-${YEAR}.json`);
+  const jsonPath = join(dataDir, `changelog-${year}.json`);
   writeFileSync(jsonPath, JSON.stringify(changelogData, null, 2));
   console.log(`📝 ${jsonPath} を生成しました\n`);
 
-  // 6. generated/CHANGELOG-{YEAR}.md を生成
-  const generatedDir = join(ROOT_DIR, 'generated');
+  // 6. generated/[product/]CHANGELOG-{year}.md を生成
   if (!existsSync(generatedDir)) {
     mkdirSync(generatedDir, { recursive: true });
   }
 
-  const mdContent = generateMarkdown(changelogData);
-  const mdPath = join(generatedDir, `CHANGELOG-${YEAR}.md`);
+  const mdContent = generateMarkdown(changelogData, config);
+  const mdPath = join(generatedDir, `CHANGELOG-${year}.md`);
   writeFileSync(mdPath, mdContent);
   console.log(`📝 ${mdPath} を生成しました\n`);
 
@@ -233,9 +358,9 @@ async function main() {
 /**
  * Markdown形式のCHANGELOGを生成
  */
-function generateMarkdown(data: ChangelogData): string {
+function generateMarkdown(data: ChangelogData, config: ProductConfig): string {
   const lines: string[] = [
-    '# Claude Code CHANGELOG',
+    `# ${config.shortName} CHANGELOG`,
     '',
     `> 生成日時: ${new Date(data.generatedAt).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`,
     '',
@@ -252,7 +377,6 @@ function generateMarkdown(data: ChangelogData): string {
       lines.push('|--------|---------|');
 
       for (const entry of version.entries) {
-        // パイプ文字をエスケープしてテーブルの崩れを防ぐ
         const escapedJa = entry.ja.replace(/\|/g, '\\|');
         const escapedEn = entry.en.replace(/\|/g, '\\|');
         lines.push(`| ${escapedJa} | ${escapedEn} |`);

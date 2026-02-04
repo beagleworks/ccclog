@@ -1,0 +1,31 @@
+---
+/**
+ * Codex トップページ
+ * 最新年のページにリダイレクト
+ */
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+
+const base = import.meta.env.BASE_URL;
+
+// content/codex/ ディレクトリから最新年を検出
+const contentDir = join(process.cwd(), 'content', 'codex');
+let latestYear = '2026';
+
+try {
+  const files = readdirSync(contentDir);
+  const years = files
+    .filter((f) => /^CHANGELOG_(\d{4})_JA\.md$/.test(f))
+    .map((f) => f.match(/^CHANGELOG_(\d{4})_JA\.md$/)![1])
+    .sort()
+    .reverse();
+
+  if (years.length > 0) {
+    latestYear = years[0];
+  }
+} catch {
+  // ディレクトリが存在しない場合はデフォルト年を使用
+}
+
+return Astro.redirect(`${base}codex/${latestYear}/`);
+---
