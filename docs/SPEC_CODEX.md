@@ -56,10 +56,12 @@
 | セクションヘッダー | カテゴリID | UI表示色 |
 |-------------------|-----------|---------|
 | `## New Features` | `new-features` | 緑 (#3fb950) |
+| `## Features` | `new-features` | 緑 (#3fb950) |
 | `## Highlights` | `new-features` | 緑 (#3fb950) |
 | `## Bug Fixes` | `bug-fixes` | オレンジ (#f0883e) |
 | `## Documentation` | `documentation` | 青 (#79c0ff) |
 | `## Chores` | `chores` | グレー (#8b949e) |
+| `## Maintenance` | `chores` | グレー (#8b949e) |
 
 #### 2.6.2 見出し正規化ルール
 表記揺れに対応するため、見出しテキストを正規化して比較する。

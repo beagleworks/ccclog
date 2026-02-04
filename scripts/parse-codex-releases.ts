@@ -24,10 +24,12 @@ export interface ParsedEntry {
 /** セクションヘッダーとカテゴリIDのマッピング */
 const CATEGORY_HEADERS: Record<string, CodexCategory> = {
   'new features': 'new-features',
+  features: 'new-features', // Features も new-features として扱う
   highlights: 'new-features', // Highlights も new-features として扱う
   'bug fixes': 'bug-fixes',
   documentation: 'documentation',
   chores: 'chores',
+  maintenance: 'chores', // Maintenance は chores として扱う
 };
 
 /**
