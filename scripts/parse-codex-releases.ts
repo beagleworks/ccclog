@@ -86,12 +86,13 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
 
     // "PRs Merged" は既知カテゴリが先に出現した場合のみ終了
     // （PRs Merged から始まるリリースノートを除外しないため）
-    if (/^PRs Merged\b/i.test(line) && hasKnownCategory) {
+    // #, ##, ### 付きまたは無しの PRs Merged にマッチ
+    if (/^#{0,3}\s*PRs Merged\b/i.test(line) && hasKnownCategory) {
       break;
     }
 
-    // ## または ### で始まる見出しを検出
-    const headerMatch = line.match(/^#{2,3}\s+(.+)$/);
+    // #, ##, ### で始まる見出しを検出
+    const headerMatch = line.match(/^#{1,3}\s+(.+)$/);
     if (headerMatch) {
       const headerText = normalizeHeaderText(headerMatch[1]);
 
