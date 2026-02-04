@@ -1,8 +1,15 @@
-# Claude Code CHANGELOG Viewer
+# CHANGELOG Viewer
 
-Claude Code の変更履歴（CHANGELOG）を日本語/英語の並列テーブル形式で閲覧できる静的Webアプリケーション。
+Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の並列テーブル形式で閲覧できる静的Webアプリケーション。
 
 🔗 **https://beagleworks.github.io/ccclog/**
+
+## 対応プロダクト
+
+| プロダクト | URL | データソース |
+|-----------|-----|-------------|
+| Claude Code | `/` | npm + GitHub CHANGELOG |
+| OpenAI Codex | `/codex/` | GitHub Releases |
 
 ## 必要環境
 
@@ -22,7 +29,10 @@ pnpm install
 | `pnpm dev` | 開発サーバー起動（http://localhost:4321） |
 | `pnpm build` | データ生成 + 静的サイトビルド |
 | `pnpm preview` | ビルド結果のプレビュー |
-| `pnpm generate` | データ生成のみ（JSON/Markdown） |
+| `pnpm generate` | 全プロダクトのデータ生成（JSON/Markdown） |
+| `pnpm sync-versions` | Claude Code の新バージョン検出・追記 |
+| `pnpm sync-codex-versions` | Codex の新バージョン検出・追記 |
+| `pnpm retranslate` | 「翻訳待ち」エントリの再翻訳 |
 
 ### 開発の流れ
 
@@ -40,16 +50,25 @@ pnpm build && pnpm preview
 
 ```
 ccclog/
-├── CHANGELOG_2026_JA.md     # 元データ（Markdownテーブル）
-├── scripts/                  # データ生成スクリプト
+├── content/                     # 元データ（Markdownテーブル）
+│   ├── CHANGELOG_2026_JA.md     # Claude Code
+│   ├── CHANGELOG_2025_JA.md
+│   └── codex/                   # Codex
+│       └── CHANGELOG_2026_JA.md
+├── scripts/                     # データ生成スクリプト
 ├── src/
-│   ├── components/          # Astroコンポーネント
-│   ├── data/                # 生成されるJSONデータ
-│   ├── layouts/             # レイアウト
-│   └── pages/               # ページ
-├── generated/               # 生成されるMarkdown
-├── dist/                    # ビルド出力
-└── docs/SPEC.md             # 仕様書
+│   ├── components/              # Astroコンポーネント
+│   ├── data/                    # 生成されるJSONデータ
+│   │   ├── changelog-*.json     # Claude Code
+│   │   └── codex/               # Codex
+│   ├── layouts/                 # レイアウト
+│   ├── lib/                     # 共通ライブラリ
+│   └── pages/                   # ページ
+│       ├── [year].astro         # Claude Code
+│       └── codex/               # Codex
+├── generated/                   # 生成されるMarkdown
+├── dist/                        # ビルド出力
+└── docs/                        # 仕様書
 ```
 
 ## 技術スタック
@@ -57,7 +76,13 @@ ccclog/
 - **フレームワーク**: Astro 5.x（SSG）
 - **検索**: Fuse.js 7.x（ファジー検索）
 - **ホスティング**: GitHub Pages
+- **CI/CD**: GitHub Actions（定期自動更新）
 
 ## ドキュメント
 
-詳細な仕様は [docs/SPEC.md](docs/SPEC.md) を参照してください。
+| ファイル | 内容 |
+|----------|------|
+| [docs/SPEC.md](docs/SPEC.md) | 共通仕様 |
+| [docs/SPEC_CLAUDE.md](docs/SPEC_CLAUDE.md) | Claude Code 固有仕様 |
+| [docs/SPEC_CODEX.md](docs/SPEC_CODEX.md) | Codex 固有仕様 |
+| [docs/SPEC_PIPELINE.md](docs/SPEC_PIPELINE.md) | パイプライン仕様 |
