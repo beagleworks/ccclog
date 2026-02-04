@@ -119,8 +119,8 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
     let entry: string | null = null;
     if (line.startsWith('- ')) {
       entry = line.substring(2).trim();
-    } else if (/^#\d+/.test(line)) {
-      // PR 参照形式（例: "#8270 — splash screen"）
+    } else if (/^#\d+\s+—/.test(line)) {
+      // PR 参照形式（例: "#8270 — splash screen"）厳格にマッチ
       entry = line.trim();
     }
 
