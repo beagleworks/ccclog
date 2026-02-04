@@ -6,6 +6,7 @@ dist/
 
 # generated data (ビルド時に生成されるため)
 src/data/changelog*.json
+src/data/codex/changelog*.json
 generated/
 
 # dependencies
@@ -32,3 +33,4 @@ pnpm-debug.log*
 .claude/
 plans/
 
+src/data/codex/changelog-2026.json
