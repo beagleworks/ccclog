@@ -4,6 +4,27 @@
 
 ---
 
+## 0.97.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| MCP/アプリツール承認にセッションスコープの「許可して記憶」オプションを追加し、同じツールへの繰り返し呼び出しをセッション中に自動承認できるようにした (#10584) | Added a session-scoped “Allow and remember” option for MCP/App tool approvals, so repeated calls to the same tool can be auto-approved during the session. (#10584) | new-features |
+| スキルファイルの変更を再起動なしで検出できるよう、ライブスキル更新検出機能を追加 (#10478) | Added live skill update detection, so skill file changes are picked up without restarting. (#10478) | new-features |
+| app-server統合におけるダイナミックツール出力で、テキストと画像の混在コンテンツをサポート (#10567) | Added support for mixed text and image content in dynamic tool outputs for app-server integrations. (#10567) | new-features |
+| TUIに新しい `/debug-config` スラッシュコマンドを追加し、有効な設定を検査可能にした (#10642) | Added a new `/debug-config` slash command in the TUI to inspect effective configuration. (#10642) | new-features |
+| スレッドメモリ要約をサポートするための初期メモリ基盤(APIクライアント+ローカル永続化)を導入 (#10629, #10634) | Introduced initial memory plumbing (API client + local persistence) to support thread memory summaries. (#10629, #10634) | new-features |
+| ログをより簡単にリダイレクトできるよう、設定可能な `log_dir` を追加(`-c` オーバーライド経由も含む) (#10678) | Added configurable `log_dir` so logs can be redirected (including via `-c` overrides) more easily. (#10678) | new-features |
+| 説明列のレンダリングを安定化させることで、TUIアプリ/コネクタピッカーのちらつきを修正 (#10593) | Fixed jitter in the TUI apps/connectors picker by stabilizing description-column rendering. (#10593) | bug-fixes |
+| プリアンブルおよび初期実行フロー中のTUI「処理中」ステータスインジケーター/シマーを復元・安定化 (#10700, #10701) | Restored and stabilized the TUI “working” status indicator/shimmer during preamble and early exec flows. (#10700, #10701) | bug-fixes |
+| より高いタイムアウト、リトライ、MDM設定に対する優先順位の修正により、クラウド要件の信頼性を改善 (#10631, #10633, #10659) | Improved cloud requirements reliability with higher timeouts, retries, and corrected precedence over MDM settings. (#10631, #10633, #10659) | bug-fixes |
+| ターン途中で注入される入力処理のために、保留中の入力ユーザーイベントをより一貫して永続化 (#10656) | Persisted pending-input user events more consistently for mid-turn injected input handling. (#10656) | bug-fixes |
+| 実験的なapp-server APIへのオプトイン方法をドキュメント化 (#10667) | Documented how to opt in to the experimental app-server API. (#10667) | documentation |
+| 新しい `log_dir` 設定動作のためのドキュメント/スキーマカバレッジを更新 (#10678) | Updated docs/schema coverage for new `log_dir` configuration behavior. (#10678) | documentation |
+| ファイルシステム分離オプションを改善するため、ゲート制御されたBubblewrap(`bwrap`)Linuxサンドボックスパスを追加 (#9938) | Added a gated Bubblewrap (`bwrap`) Linux sandbox path to improve filesystem isolation options. (#9938) | chores |
+| モデルクライアントのライフサイクルをセッションスコープにリファクタリングし、暗黙的なクライアント状態を削減 (#10595, #10664) | Refactored model client lifecycle to be session-scoped and reduced implicit client state. (#10595, #10664) | chores |
+| 多数のアプリをインストールしているユーザーの繰り返しロード遅延を削減するため、アプリからのMCPアクションのキャッシュを追加 (#10662) | Added caching for MCP actions from apps to reduce repeated load latency for users with many installed apps. (#10662) | chores |
+| プロトコル/設定画面に `none` パーソナリティオプションを追加 (#10688) | Added a `none` personality option in protocol/config surfaces. (#10688) | chores |
+
 ## 0.96.0
 
 | 日本語 | English | Category |
