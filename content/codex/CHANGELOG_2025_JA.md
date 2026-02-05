@@ -906,9 +906,9 @@
 | 日本語 | English | Category |
 |--------|---------|----------|
 | 新しい設定オプション `model_supports_reasoning_summaries` を追加: https://github.com/openai/codex/pull/1524 | Added new config option: `model_supports_reasoning_summaries`: https://github.com/openai/codex/pull/1524 | new-features |
-| @reneleonhardt による複数の依存関係の更新に感謝（現在 Rust 1.88 でビルド）: https://github.com/openai/codex/pull/1494 | Thanks to @reneleonhardt for helping update a number of our dependencies (we now build with Rust 1.88!): https://github.com/openai/codex/pull/1494 | new-features |
-| まだサポートされていないため `/compact` への参照を削除: https://github.com/openai/codex/pull/1503、理由: https://github.com/openai/codex/issues/1257 | Removed reference to `/compact` in https://github.com/openai/codex/pull/1503 because it is not supported yet: https://github.com/openai/codex/issues/1257 | new-features |
-| @pchuri による修正で、`npm` 経由でインストールされた Codex 実行時に `process.platform === "android"` で Rust CLI が動作するように対応: https://github.com/openai/codex/pull/1488 | Thanks to @pchuri so that when running Codex installed via `npm`, `process.platform === "android"` will run the Rust CLI: https://github.com/openai/codex/pull/1488 | new-features |
+| @reneleonhardt の協力により多数の依存関係を更新（Rust 1.88 でビルド可能に）: https://github.com/openai/codex/pull/1494 | Thanks to @reneleonhardt for helping update a number of our dependencies (we now build with Rust 1.88!): https://github.com/openai/codex/pull/1494 | new-features |
+| まだサポートされていないため `/compact` への参照を削除: https://github.com/openai/codex/pull/1503、関連 issue: https://github.com/openai/codex/issues/1257 | Removed reference to `/compact` in https://github.com/openai/codex/pull/1503 because it is not supported yet: https://github.com/openai/codex/issues/1257 | new-features |
+| @pchuri の協力により、`npm` 経由でインストールした Codex で `process.platform === "android"` の場合に Rust CLI が実行されるように修正: https://github.com/openai/codex/pull/1488 | Thanks to @pchuri so that when running Codex installed via `npm`, `process.platform === "android"` will run the Rust CLI: https://github.com/openai/codex/pull/1488 | new-features |
 | 生成されるシェル補完で `codex-cli` ではなく `codex` を使用するように修正: https://github.com/openai/codex/pull/1496 | Fix generated shell completions to use the name `codex` instead of `codex-cli`: https://github.com/openai/codex/pull/1496 | new-features |
 ## 0.4.0
 
