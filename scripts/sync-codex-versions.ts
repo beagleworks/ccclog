@@ -466,8 +466,14 @@ async function main(): Promise<void> {
     const sections: string[] = [];
     for (const versionInfo of sortedVersions) {
       if (versionInfo.entries.length === 0) {
-        console.log(`  警告: v${versionInfo.version} の変更内容が空です`);
-        continue;
+        console.log(
+          `  注記: v${versionInfo.version} はエントリなし（プレースホルダ表示）`
+        );
+        // プレースホルダエントリを追加してセクション生成を続行
+        versionInfo.entries.push({
+          text: '(No changelog entries)',
+          category: 'chores' as const,
+        });
       }
 
       // 翻訳を試行（テキストのみを渡す）
