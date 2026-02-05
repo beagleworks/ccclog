@@ -86,9 +86,12 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
       break;
     }
 
-    // "PRs Merged" / "Merged PRs" で終了（PR番号重複などの問題を避けるため）
-    // #, ##, ### 付きまたは無しにマッチ
+    // "PRs Merged" / "Merged PRs" / "Full list of merged PRs" で終了
+    // #, ##, ### 付き、または箇条書き形式にマッチ
     if (/^#{0,3}\s*(PRs Merged|Merged PRs)\b/i.test(line)) {
+      break;
+    }
+    if (/^-\s+Full list of merged PRs\b/i.test(line)) {
       break;
     }
 
@@ -133,6 +136,10 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
 
     // 空行はスキップ
     if (!entry) continue;
+
+    // 見出し的なエントリ（単語のみ、説明なし）は除外
+    // 例: "Highlights", "Bug Fixes" など
+    if (/^[A-Z][a-z]*(\s+[A-Z][a-z]*)*$/.test(entry)) continue;
 
     // アセットファイル（ダウンロードリンク）のみスキップ
     if (isAssetEntry(entry)) continue;

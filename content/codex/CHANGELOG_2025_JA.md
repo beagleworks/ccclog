@@ -653,70 +653,11 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| ハイライト | Highlights | new-features |
-| 新しいコマンドとコントロール: TUI で `/mcp` をサポート (#2430) と承認を制御するスラッシュコマンド `/approvals` を追加 (#2474) | New commands and controls: support `/mcp` in TUI (#2430) and a slash command `/approvals` to control approvals (#2474). | new-features |
-| 推論コントロール: 実行時に推論の努力量とモデルを変更可能に (#2435) `/model`; GPT‑5 モデルに "minimal" 努力量を追加 (#2326) | Reasoning controls: change reasoning effort and model at runtime (#2435) `/model`; add “minimal” effort for GPT‑5 models (#2326). | new-features |
-| 認証の改善: ChatGPT でサインインしていない場合にログインオプションを表示 (#2440) と ChatGPT 認証トークンの自動更新 (#2484) | Auth improvements: show login options when not signed in with ChatGPT (#2440) and auto‑refresh ChatGPT auth token (#2484). | new-features |
-| UI/UX の洗練: Ghostty Ctrl‑b/Ctrl‑f フォールバック (#2427)、Ctrl+H をバックスペースに (#2412)、タブ補完後のカーソル位置調整 (#2442)、カラー/アクセシビリティの更新 (#2401, #2421) | UI/UX polish: Ghostty Ctrl‑b/Ctrl‑f fallback (#2427), Ctrl+H as backspace (#2412), cursor position tweak after tab completion (#2442), color/accessibility updates (#2401, #2421). | new-features |
-| 配布/インフラ: リリースに zip アーカイブされたバイナリを追加 (#2438) と Windows x86_64 用 DotSlash エントリ (#2361); Rust 1.89 にアップグレード (#2465, #2467) | Distribution/infra: zip archived binaries added to releases (#2438) and DotSlash entry for Windows x86_64 (#2361); upgraded to Rust 1.89 (#2465, #2467). | new-features |
-| マージされた PR の完全なリスト | Full list of merged PRs | new-features |
-| [#2352](https://github.com/openai/codex/pull/2352) tui: ローカルコンポーザー履歴で同一の連続エントリをスキップ | [#2352](https://github.com/openai/codex/pull/2352) tui: skip identical consecutive entries in local composer history | new-features |
-| [#2355](https://github.com/openai/codex/pull/2355) fix: codex-protocol クレートを導入 | [#2355](https://github.com/openai/codex/pull/2355) fix: introduce codex-protocol crate | new-features |
-| [#2326](https://github.com/openai/codex/pull/2326) Fix #2296 GPT 5 モデルに "minimal" 推論努力量を追加 | [#2326](https://github.com/openai/codex/pull/2326) Fix #2296 Add "minimal" reasoning effort for GPT 5 models | new-features |
-| [#2357](https://github.com/openai/codex/pull/2357) 重複した "Successfully logged in message" を削除 | [#2357](https://github.com/openai/codex/pull/2357) Remove duplicated "Successfully logged in message" | new-features |
-| [#2337](https://github.com/openai/codex/pull/2337) apply patch サマリーのステータス文字に色を付ける | [#2337](https://github.com/openai/codex/pull/2337) color the status letter in apply patch summary | new-features |
-| [#2336](https://github.com/openai/codex/pull/2336) chore: 重複したロックファイルを削除 | [#2336](https://github.com/openai/codex/pull/2336) chore: remove duplicated lockfile | new-features |
-| [#2361](https://github.com/openai/codex/pull/2361) fix: 生成される DotSlash ファイルに windows-x86_64 のエントリを含める | [#2361](https://github.com/openai/codex/pull/2361) fix: include an entry for windows-x86_64 in the generated DotSlash file | new-features |
-| [#2245](https://github.com/openai/codex/pull/2245) /diff コマンドの進捗インジケーターを表示 | [#2245](https://github.com/openai/codex/pull/2245) Show progress indicator for /diff command | new-features |
-| [#2314](https://github.com/openai/codex/pull/2314) /prompts を回転するプレースホルダーに置き換え | [#2314](https://github.com/openai/codex/pull/2314) replace /prompts with a rotating placeholder | new-features |
-| [#2372](https://github.com/openai/codex/pull/2372) 実行中の codex CLI プロセスにアタッチするための起動プロファイルを追加 | [#2372](https://github.com/openai/codex/pull/2372) Added launch profile for attaching to a running codex CLI process | new-features |
-| [#2373](https://github.com/openai/codex/pull/2373) ChatGPT を使用した認証を有効にする MCP サーバーコマンドを追加 | [#2373](https://github.com/openai/codex/pull/2373) Added MCP server command to enable authentication using ChatGPT | new-features |
-| [#2388](https://github.com/openai/codex/pull/2388) fix: login/src/server.rs をリファクタリングして process_request() を別関数に | [#2388](https://github.com/openai/codex/pull/2388) fix: refactor login/src/server.rs so process_request() is a separate function | new-features |
-| [#2365](https://github.com/openai/codex/pull/2365) fix: EventMsg::TurnAborted を導入 | [#2365](https://github.com/openai/codex/pull/2365) fix: introduce EventMsg::TurnAborted | new-features |
-| [#2360](https://github.com/openai/codex/pull/2360) mcp-server/src/mcp_protocol.rs とそれに依存するコードを削除 | [#2360](https://github.com/openai/codex/pull/2360) remove mcp-server/src/mcp_protocol.rs and the code that depends on it | new-features |
-| [#2401](https://github.com/openai/codex/pull/2401) fix: スタイルと色をクリーンアップし styles.md で定義 | [#2401](https://github.com/openai/codex/pull/2401) fix: clean up styles & colors and define in styles.md | new-features |
-| [#2411](https://github.com/openai/codex/pull/2411) chore(deps-dev): /.github/actions/codex の @types/node をバンプ | [#2411](https://github.com/openai/codex/pull/2411) chore(deps-dev): bump @types/node in /.github/actions/codex | new-features |
-| [#2421](https://github.com/openai/codex/pull/2421) fix: ANSI blue の使用を停止 | [#2421](https://github.com/openai/codex/pull/2421) fix: stop using ANSI blue | new-features |
-| [#2423](https://github.com/openai/codex/pull/2423) chore: mcp-server/src/wire_format.rs を protocol/src/mcp_protocol.rs に移動 | [#2423](https://github.com/openai/codex/pull/2423) chore: move mcp-server/src/wire_format.rs to protocol/src/mcp_protocol.rs | new-features |
-| [#2424](https://github.com/openai/codex/pull/2424) chore: 生成される mcp-types に TS アノテーションを追加 | [#2424](https://github.com/openai/codex/pull/2424) chore: add TS annotation to generated mcp-types | new-features |
-| [#2428](https://github.com/openai/codex/pull/2428) 推論の enum を 1 つに統合 | [#2428](https://github.com/openai/codex/pull/2428) consolidate reasoning enums into one | new-features |
-| [#2431](https://github.com/openai/codex/pull/2431) 現在のタスクコンテキストを上書きする操作を追加 | [#2431](https://github.com/openai/codex/pull/2431) Add an operation to override current task context | new-features |
-| [#2425](https://github.com/openai/codex/pull/2425) protocol-ts | [#2425](https://github.com/openai/codex/pull/2425) protocol-ts | new-features |
-| [#2432](https://github.com/openai/codex/pull/2432) UserTurn のキャッシュテストを追加 | [#2432](https://github.com/openai/codex/pull/2432) Add cache tests for UserTurn | new-features |
-| [#2412](https://github.com/openai/codex/pull/2412) Fix #2391 Ctrl+H をバックスペースのキーボードショートカットとして追加 | [#2412](https://github.com/openai/codex/pull/2412) Fix #2391 Add Ctrl+H as backspace keyboard shortcut | new-features |
-| [#2405](https://github.com/openai/codex/pull/2405) chore(deps): /codex-rs の anyhow をバンプ | [#2405](https://github.com/openai/codex/pull/2405) chore(deps): bump anyhow in /codex-rs | new-features |
-| [#2406](https://github.com/openai/codex/pull/2406) chore(deps): /codex-rs の libc をバンプ | [#2406](https://github.com/openai/codex/pull/2406) chore(deps): bump libc in /codex-rs | new-features |
-| [#2389](https://github.com/openai/codex/pull/2389) chore: expect() より Err を返すことを優先 | [#2389](https://github.com/openai/codex/pull/2389) chore: prefer returning Err to expect() | new-features |
-| [#2393](https://github.com/openai/codex/pull/2393) fix: ログインフローを async 化 | [#2393](https://github.com/openai/codex/pull/2393) fix: async-ify login flow | new-features |
-| [#2404](https://github.com/openai/codex/pull/2404) chore(deps): /codex-rs の clap をバンプ | [#2404](https://github.com/openai/codex/pull/2404) chore(deps): bump clap in /codex-rs | new-features |
-| [#2394](https://github.com/openai/codex/pull/2394) fix: `shutdown_flag` を `Arc<AtomicBool>` から `tokio::sync::Notify` に変更 | [#2394](https://github.com/openai/codex/pull/2394) fix: change `shutdown_flag` from `Arc<AtomicBool>` to `tokio::sync::Notify` | new-features |
-| [#2438](https://github.com/openai/codex/pull/2438) zip アーカイブされたバイナリをリリース | [#2438](https://github.com/openai/codex/pull/2438) Release zip archived binaries | new-features |
-| [#2395](https://github.com/openai/codex/pull/2395) fix: ServerOptions.login_timeout を削除して tokio::time::timeout() を使用 | [#2395](https://github.com/openai/codex/pull/2395) fix: eliminate ServerOptions.login_timeout and use tokio::time::timeout() | new-features |
-| [#2396](https://github.com/openai/codex/pull/2396) fix: ShutdownHandle を LoginServer のプライベートフィールドに | [#2396](https://github.com/openai/codex/pull/2396) fix: make ShutdownHandle a private field of LoginServer | new-features |
-| [#2398](https://github.com/openai/codex/pull/2398) fix: codex-login クレートの Server への参照を削減 | [#2398](https://github.com/openai/codex/pull/2398) fix: reduce references to Server in codex-login crate | new-features |
-| [#2399](https://github.com/openai/codex/pull/2399) fix: run_login_server() の shutdown_flag パラメータを削除 | [#2399](https://github.com/openai/codex/pull/2399) fix: remove shutdown_flag param to run_login_server() | new-features |
-| [#2403](https://github.com/openai/codex/pull/2403) chore(deps): /codex-rs の clap_complete をバンプ | [#2403](https://github.com/openai/codex/pull/2403) chore(deps): bump clap_complete in /codex-rs | new-features |
-| [#2440](https://github.com/openai/codex/pull/2440) ChatGPT でサインインしていない場合にログインオプションを表示 | [#2440](https://github.com/openai/codex/pull/2440) Show login options when not signed in with ChatGPT | new-features |
-| [#2446](https://github.com/openai/codex/pull/2446) fix: sysprompt などをコンテキスト残量 % から除外 | [#2446](https://github.com/openai/codex/pull/2446) fix: exclude sysprompt etc from context left % | new-features |
-| [#2430](https://github.com/openai/codex/pull/2430) [tui] /mcp コマンドをサポート | [#2430](https://github.com/openai/codex/pull/2430) [tui] Support /mcp command | new-features |
-| [#2442](https://github.com/openai/codex/pull/2442) Fix #2429 タブ補完後のカーソル位置を調整 | [#2442](https://github.com/openai/codex/pull/2442) Fix #2429 Tweak the cursor position after tab completion | new-features |
-| [#2457](https://github.com/openai/codex/pull/2457) fix: レビュー決定レスポンスの欠落したスペースを修正 | [#2457](https://github.com/openai/codex/pull/2457) fix: fix missing spacing in review decision response | new-features |
-| [#2427](https://github.com/openai/codex/pull/2427) tui: Ghostty Ctrl-b/Ctrl-f フォールバックをサポート | [#2427](https://github.com/openai/codex/pull/2427) tui: support Ghostty Ctrl-b/Ctrl-f fallback | new-features |
-| [#2407](https://github.com/openai/codex/pull/2407) chore(deps): actions/checkout を 4 から 5 にバンプ | [#2407](https://github.com/openai/codex/pull/2407) chore(deps): bump actions/checkout from 4 to 5 | new-features |
-| [#2435](https://github.com/openai/codex/pull/2435) 推論努力量の変更をサポート | [#2435](https://github.com/openai/codex/pull/2435) Support changing reasoning effort | new-features |
-| [#2462](https://github.com/openai/codex/pull/2462) feat: /status でセッション ID の箇条書きを移動 | [#2462](https://github.com/openai/codex/pull/2462) feat: move session ID bullet in /status | new-features |
-| [#2464](https://github.com/openai/codex/pull/2464) docs: sandbox_workspace_write の writable_roots を文書化 | [#2464](https://github.com/openai/codex/pull/2464) docs: document writable_roots for sandbox_workspace_write | new-features |
-| [#2466](https://github.com/openai/codex/pull/2466) fix: 時間とスペースを節約するため `cargo build` より `cargo check` を優先 | [#2466](https://github.com/openai/codex/pull/2466) fix: prefer `cargo check` to `cargo build` to save time and space | new-features |
-| [#2465](https://github.com/openai/codex/pull/2465) chore: Rust 1.89 にアップグレード | [#2465](https://github.com/openai/codex/pull/2465) chore: upgrade to Rust 1.89 | new-features |
-| [#2467](https://github.com/openai/codex/pull/2467) chore: Rust 1.89 でファイルロックが標準ライブラリに昇格 | [#2467](https://github.com/openai/codex/pull/2467) chore: Rust 1.89 promoted file locking to stdlib | new-features |
-| [#2468](https://github.com/openai/codex/pull/2468) 1 つのファイルのみがレンダリングされる場合の apply patch を修正 | [#2468](https://github.com/openai/codex/pull/2468) fix apply patch when only one file is rendered | new-features |
-| [#2475](https://github.com/openai/codex/pull/2475) Fix: 他のプロバイダーを使用している場合でもサインインが表示される問題を修正 | [#2475](https://github.com/openai/codex/pull/2475) Fix: Sign in appear even if using other providers. | new-features |
-| [#2460](https://github.com/openai/codex/pull/2460) Rust ツールチェーンの Dependabot 更新を有効化 | [#2460](https://github.com/openai/codex/pull/2460) Enable Dependabot updates for Rust toolchain | new-features |
-| [#2476](https://github.com/openai/codex/pull/2476) Diff コマンド | [#2476](https://github.com/openai/codex/pull/2476) Diff command | new-features |
-| [#2487](https://github.com/openai/codex/pull/2487) クライアントヘッダー | [#2487](https://github.com/openai/codex/pull/2487) Client headers | new-features |
-| [#2484](https://github.com/openai/codex/pull/2484) ChatGPT 認証トークンを更新 | [#2484](https://github.com/openai/codex/pull/2484) Refresh ChatGPT auth token | new-features |
-| [#2495](https://github.com/openai/codex/pull/2495) fix: 環境変数より設定変数を優先 | [#2495](https://github.com/openai/codex/pull/2495) fix: prefer config var to env var | new-features |
-| [#2474](https://github.com/openai/codex/pull/2474) 権限を制御するスラッシュコマンドを追加 | [#2474](https://github.com/openai/codex/pull/2474) Add a slash command to control permissions | new-features |
+| 新しいコマンドとコントロール: TUI で `/mcp` をサポート (#2430)、承認を制御する `/approvals` スラッシュコマンドを追加 (#2474) | New commands and controls: support `/mcp` in TUI (#2430) and a slash command `/approvals` to control approvals (#2474). | new-features |
+| 推論制御: 実行時に推論の労力とモデルを変更可能に (#2435) `/model`、GPT-5 モデル向けに「minimal」労力を追加 (#2326) | Reasoning controls: change reasoning effort and model at runtime (#2435) `/model`; add “minimal” effort for GPT‑5 models (#2326). | new-features |
+| 認証の改善: ChatGPT でサインインしていない場合にログインオプションを表示 (#2440)、ChatGPT 認証トークンの自動更新 (#2484) | Auth improvements: show login options when not signed in with ChatGPT (#2440) and auto‑refresh ChatGPT auth token (#2484). | new-features |
+| UI/UX の改良: Ghostty の Ctrl-b/Ctrl-f フォールバック (#2427)、Ctrl+H をバックスペースとして処理 (#2412)、タブ補完後のカーソル位置を調整 (#2442)、色とアクセシビリティの更新 (#2401, #2421) | UI/UX polish: Ghostty Ctrl‑b/Ctrl‑f fallback (#2427), Ctrl+H as backspace (#2412), cursor position tweak after tab completion (#2442), color/accessibility updates (#2401, #2421). | new-features |
+| 配布とインフラ: リリースに zip アーカイブされたバイナリを追加 (#2438)、Windows x86_64 用の DotSlash エントリ (#2361)、Rust 1.89 にアップグレード (#2465, #2467) | Distribution/infra: zip archived binaries added to releases (#2438) and DotSlash entry for Windows x86_64 (#2361); upgraded to Rust 1.89 (#2465, #2467). | new-features |
 ## 0.22.0
 
 | 日本語 | English | Category |
