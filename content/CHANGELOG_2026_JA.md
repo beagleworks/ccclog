@@ -4,6 +4,23 @@
 
 ---
 
+## 2.1.32
+
+| 日本語 | English |
+|--------|---------|
+| Claude Opus 4.6 が利用可能になりました！ | Claude Opus 4.6 is now available! |
+| マルチエージェント連携のためのリサーチプレビュー版エージェントチーム機能を追加（トークン消費が多い機能で、CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 の設定が必要） | Added research preview agent teams feature for multi-agent collaboration (token-intensive feature, requires setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1) |
+| Claude が作業中に自動的にメモリを記録・想起するようになりました | Claude now automatically records and recalls memories as it works |
+| メッセージセレクターに「ここから要約」を追加し、会話の部分的な要約が可能になりました | Added "Summarize from here" to the message selector, allowing partial conversation summarization. |
+| 追加ディレクトリ（`--add-dir`）内の `.claude/skills/` で定義されたスキルが自動的に読み込まれるようになりました | Skills defined in `.claude/skills/` within additional directories (`--add-dir`) are now loaded automatically. |
+| サブディレクトリから実行した際に `@` ファイル補完が誤った相対パスを表示する問題を修正 | Fixed `@` file completion showing incorrect relative paths when running from a subdirectory |
+| --resume オプションが以前の会話で指定された --agent の値をデフォルトで再利用するように更新 | Updated --resume to re-use --agent value specified in previous conversation by default. |
+| 修正：Bash ツールがヒアドキュメント内に `${index + 1}` のような JavaScript テンプレートリテラルを含む場合に「Bad substitution」エラーを発生させなくなり、ツール実行の中断を防止 | Fixed: Bash tool no longer throws "Bad substitution" errors when heredocs contain JavaScript template literals like `${index + 1}`, which previously interrupted tool execution |
+| スキルの文字数制限がコンテキストウィンドウに応じて拡張（コンテキストの2%）され、より大きなコンテキストウィンドウを持つユーザーが切り捨てなしでより多くのスキル説明を閲覧可能に | Skill character budget now scales with context window (2% of context), so users with larger context windows can see more skill descriptions without truncation |
+| 入力フィールドでタイ語/ラオ語のスペーシング母音（สระ า, ำ）が正しくレンダリングされない問題を修正 | Fixed Thai/Lao spacing vowels (สระ า, ำ) not rendering correctly in the input field |
+| VSCode：入力フィールドに先行テキストがある状態で Enter を押した際にスラッシュコマンドが誤って実行される問題を修正 | VSCode: Fixed slash commands incorrectly being executed when pressing Enter with preceding text in the input field |
+| VSCode：過去の会話リストの読み込み中にスピナーを追加 | VSCode: Added spinner when loading past conversations list |
+
 ## 2.1.31
 
 | 日本語 | English |

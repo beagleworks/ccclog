@@ -4,6 +4,19 @@
 
 ---
 
+## 0.98.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| GPT-5.3-Codex を導入。[詳細はこちら](https://openai.com/index/introducing-gpt-5-3-codex/) | Introducing GPT-5.3-Codex. [Learn More](https://openai.com/index/introducing-gpt-5-3-codex/) | new-features |
+| Steer モードが安定版となりデフォルトで有効化され、タスク実行中は `Enter` で即座に送信、`Tab` で明示的にフォローアップ入力をキューに追加するようになりました。(#10690) | Steer mode is now stable and enabled by default, so `Enter` sends immediately during running tasks while `Tab` explicitly queues follow-up input. (#10690) | new-features |
+| TypeScript SDK の `resumeThread()` の引数順序を修正し、ローカル画像を使用した再開時に意図しない新規セッションが開始される問題を解決しました。(#10709) | Fixed `resumeThread()` argument ordering in the TypeScript SDK so resuming with local images no longer starts an unintended new session. (#10709) | bug-fixes |
+| 会話途中でのモデル変更や異なるモデルでの再開時のモデル指示の処理を修正し、正しい開発者指示が適用されるようになりました。(#10651, #10719) | Fixed model-instruction handling when changing models mid-conversation or resuming with a different model, ensuring the correct developer instructions are applied. (#10651, #10719) | bug-fixes |
+| リモート圧縮の不一致を修正し、トークン事前推定と圧縮ペイロード生成で異なるベース指示が使用される問題を解決、トリム精度を向上させコンテキストオーバーフローを回避しました。(#10692) | Fixed a remote compaction mismatch where token pre-estimation and compact payload generation could use different base instructions, improving trim accuracy and avoiding context overflows. (#10692) | bug-fixes |
+| クラウド要件がログイン直後に即座にリロードされるようになり、後続のリフレッシュパスを待つ必要がなくなりました。(#10725) | Cloud requirements now reload immediately after login instead of requiring a later refresh path to take effect. (#10725) | bug-fixes |
+| デフォルトのアシスタントパーソナリティを Pragmatic に復元し、設定および関連するテスト/UI スナップショットに反映しました。(#10705) | Restored the default assistant personality to Pragmatic across config and related tests/UI snapshots. (#10705) | chores |
+| コラボレーションモードの命名とメタデータをプロンプト、ツール、プロトコルタイプ、TUI ラベル全体で統一し、より一貫したモード動作とメッセージングを実現しました。(#10666) | Unified collaboration mode naming and metadata across prompts, tools, protocol types, and TUI labels for more consistent mode behavior and messaging. (#10666) | chores |
+
 ## 0.97.0
 
 | 日本語 | English | Category |
