@@ -5,9 +5,10 @@
  * 1. GitHub Releases API から openai/codex のリリース一覧を取得
  * 2. alpha 版（prerelease、-alpha を含むタグ）を除外
  * 3. rust-v プレフィックスを除去してバージョン番号を抽出
- * 4. content/codex/CHANGELOG_{YEAR}_JA.md から既存バージョンを抽出
- * 5. 未記載バージョンを特定
- * 6. Markdown テーブル形式で追記（3列: 日本語, English, Category）
+ * 4. body フィールドからエントリを抽出（現行形式のみ対応）
+ * 5. content/codex/CHANGELOG_{YEAR}_JA.md から既存バージョンを抽出
+ * 6. 未記載バージョンを特定
+ * 7. Markdown テーブル形式で追記（3列: 日本語, English, Category）
  *
  * オプション:
  * --rebuild: 全バージョンを再取得・再生成
@@ -15,6 +16,7 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { parseCodexReleaseBody, type ParsedEntry } from './parse-codex-releases.ts';
 
 const GITHUB_RELEASES_URL = 'https://api.github.com/repos/openai/codex/releases';
 const TAG_PREFIX = 'rust-v';
@@ -25,13 +27,14 @@ interface Release {
   name: string;
   published_at: string;
   prerelease: boolean;
-  body: string;
+  body: string | null;
 }
 
 interface VersionInfo {
   version: string;
   publishDate: string; // YYYY-MM-DD (JST)
   year: number;
+  entries: ParsedEntry[];
 }
 
 /**
@@ -104,10 +107,14 @@ async function fetchCodexReleases(): Promise<VersionInfo[]> {
         const dateStr = jstDate.toISOString().split('T')[0];
         const year = jstDate.getFullYear();
 
+        // body からエントリを抽出（現行形式のみ対応）
+        const entries = parseCodexReleaseBody(release.body ?? '');
+
         versions.push({
           version,
           publishDate: dateStr,
           year,
+          entries,
         });
       }
 
@@ -270,13 +277,22 @@ function replaceVersionSection(year: number, version: string, newSection: string
 /**
  * 新バージョンのセクションを生成（3列テーブル: 日本語, English, Category）
  */
-function generateVersionSection(version: string): string {
+function generateVersionSection(version: string, entries: ParsedEntry[]): string {
   const lines: string[] = [];
   lines.push(`## ${version}`);
   lines.push('');
   lines.push('| 日本語 | English | Category |');
   lines.push('|--------|---------|----------|');
-  lines.push('| (変更履歴のエントリはありません) | (No changelog entries) | chores |');
+
+  if (entries.length === 0) {
+    lines.push('| (変更履歴のエントリはありません) | (No changelog entries) | chores |');
+  } else {
+    for (const entry of entries) {
+      // entry.text は normalizeEntry() で | がエスケープ済み
+      lines.push(`| （翻訳待ち） | ${entry.text} | ${entry.category} |`);
+    }
+  }
+
   lines.push('');
   return lines.join('\n');
 }
@@ -520,8 +536,8 @@ async function processVersionFilter(
     ensureChangelogFile(year);
     const sortedVersions = sortVersionsDescending(versions);
     for (const versionInfo of sortedVersions) {
-      console.log(`  v${versionInfo.version} を処理中...`);
-      const section = generateVersionSection(versionInfo.version);
+      console.log(`  v${versionInfo.version} を処理中... (${versionInfo.entries.length} エントリ)`);
+      const section = generateVersionSection(versionInfo.version, versionInfo.entries);
       replaceVersionSection(year, versionInfo.version, section);
       totalProcessed++;
     }
@@ -619,7 +635,7 @@ async function main(): Promise<void> {
     // 各バージョンのセクションを生成
     const sections: string[] = [];
     for (const versionInfo of sortedVersions) {
-      sections.push(generateVersionSection(versionInfo.version));
+      sections.push(generateVersionSection(versionInfo.version, versionInfo.entries));
       totalAdded++;
     }
 

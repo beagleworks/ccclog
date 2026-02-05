@@ -38,22 +38,39 @@
 - GitHub Releases の `published_at` を JST（UTC+9）に変換して年を決定
 - Claude Code の npm 公開日と同様のロジックを適用
 
-### 2.5 Release body の扱い
+### 2.5 Release body のパース仕様
 
-Release body のパースは行わず、すべてのバージョンを0件エントリとして扱う。
-
-| 項目 | 内容 |
-|------|------|
-| パース | 行わない |
-| 理由 | リリースノートの構造が不安定なため、保守コストを回避 |
-
-### 2.6 エントリ0件バージョンの表示
-
-すべてのバージョンが対象となる。
+現行形式（v0.78.0+）のリリースのみパースし、それ以外は0件として扱う。
 
 | 項目 | 内容 |
 |------|------|
-| 対象 | 全バージョン |
+| パーサー | `scripts/parse-codex-releases.ts` |
+| 対象形式 | 現行形式（`## New Features` / `## Bug Fixes` / `## Documentation` / `## Chores`） |
+| 旧形式 | 未知セクション扱い → 自然に0件 |
+| 翻訳 | 行わない（「（翻訳待ち）」で記録し `retranslate` で後から翻訳） |
+
+#### パース動作
+- `currentCategory` の初期値は `null`（除外中）
+- 既知のカテゴリヘッダーが出現すると、そのカテゴリに切り替え
+- 未知のセクションヘッダーが出現すると `null` に戻る（配下の箇条書きはスキップ）
+- `## Changelog` / `Full Changelog:` 以降は終了
+
+### 2.6 カテゴリ定義
+
+| セクションヘッダー | カテゴリID |
+|-------------------|-----------|
+| `## New Features` | `new-features` |
+| `## Bug Fixes` | `bug-fixes` |
+| `## Documentation` | `documentation` |
+| `## Chores` | `chores` |
+
+旧形式のエイリアス（`Features` / `Highlights` / `Maintenance`）は対象外。
+
+### 2.7 エントリ0件バージョンの表示
+
+| 項目 | 内容 |
+|------|------|
+| 対象 | 現行形式以外のリリース、および現行形式でもエントリが0件のリリース |
 | 表示 | プレースホルダ行「(No changelog entries)」を表示 |
 | カテゴリ | `chores` |
 

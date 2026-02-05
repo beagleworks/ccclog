@@ -155,6 +155,7 @@ ccclog/
 │   ├── fetch-releases.ts           # GitHub API連携
 │   ├── generate-data.ts            # データ生成メイン（プロダクト対応）
 │   ├── parse-changelog.ts          # Markdownパーサー
+│   ├── parse-codex-releases.ts      # Codex リリースノートパーサー
 │   ├── retranslate.ts              # 翻訳待ちエントリの再翻訳
 │   ├── sync-versions.ts            # Claude Code 新バージョン検出・追記
 │   └── sync-codex-versions.ts      # Codex 新バージョン検出・追記
