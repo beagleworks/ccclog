@@ -42,7 +42,7 @@
 
 | 項目 | ルール |
 |------|--------|
-| 抽出対象 | `- ` で始まる箇条書き、または `#数字 —` 形式の PR 参照 |
+| 抽出対象 | `- ` または `* ` で始まる箇条書き、または `#数字 —` 形式の PR 参照 |
 | カテゴリ情報 | セクションヘッダー（`## New Features` 等）から抽出・保持 |
 | 除外対象 | コードブロック、アセット列挙、空行のみのブロック、Changelog 行以降、未知セクション |
 | 正規化 | CRLF→LF変換、各行の先頭空白除去、1行化、連続空白の圧縮、`\|` のエスケープ |
@@ -107,13 +107,25 @@
 
 ---
 
-## 4. 取得対象年の指定
+## 4. 取得対象年・バージョンの指定
 
-`sync-codex-versions.ts` は取得対象年をオプションで制御できる。
+`sync-codex-versions.ts` は取得対象年やバージョンをオプションで制御できる。
 
-| 使い方 | 対象年 |
-|--------|--------|
-| `pnpm sync-codex-versions` | JST基準の当年のみ |
-| `pnpm sync-codex-versions -- --year 2025` | 指定年のみ |
-| `pnpm sync-codex-versions --rebuild` | 取得できた全年度 |
-| `pnpm sync-codex-versions -- --rebuild --year 2025` | 指定年のみ（再構築） |
+| 使い方 | 対象 | 動作 |
+|--------|------|------|
+| `pnpm sync-codex-versions` | 当年の未記載バージョン | 追記 |
+| `pnpm sync-codex-versions --year 2025` | 指定年の未記載 | 追記 |
+| `pnpm sync-codex-versions --rebuild` | 全年度 | ファイル再生成 |
+| `pnpm sync-codex-versions --rebuild --year 2025` | 指定年 | ファイル再生成 |
+| `pnpm sync-codex-versions --version 0.4.0` | 指定バージョン | セクション置換 |
+| `pnpm sync-codex-versions --before 0.50.0` | 指定より前 | セクション置換 |
+
+### 4.1 セクション置換モード（--version / --before）
+
+- 既存ファイルを維持し、対象バージョンのセクションのみ再生成
+- 存在しないセクションは適切な位置に挿入（バージョン降順を維持）
+- `--rebuild` との併用不可（エラー）
+- `--version` と `--before` の同時指定不可（最後の指定が有効）
+- `--year` との併用可能:
+  - `--version + --year`: 指定年に存在しなければエラー
+  - `--before + --year`: 指定年で絞った上で before を適用

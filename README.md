@@ -32,7 +32,9 @@ pnpm install
 | `pnpm generate` | 全プロダクトのデータ生成（JSON/Markdown） |
 | `pnpm sync-versions` | Claude Code の新バージョン検出・追記 |
 | `pnpm sync-codex-versions` | Codex の新バージョン検出・追記 |
-| `pnpm sync-codex-versions -- --year 2025` | Codex の指定年のみ新バージョン検出・追記 |
+| `pnpm sync-codex-versions --year 2025` | Codex の指定年のみ新バージョン検出・追記 |
+| `pnpm sync-codex-versions --version 0.4.0` | 指定バージョンのセクションを置換 |
+| `pnpm sync-codex-versions --before 0.50.0` | 指定バージョンより前を全て置換 |
 | `pnpm retranslate` | 「翻訳待ち」エントリの再翻訳 |
 
 ### 開発の流れ

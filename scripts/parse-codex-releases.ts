@@ -118,9 +118,9 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
       continue;
     }
 
-    // エントリを検出: `- ` で始まる箇条書き、または `#数字` で始まる PR 参照
+    // エントリを検出: `- ` または `* ` で始まる箇条書き、または `#数字 —` 形式の PR 参照
     let entry: string | null = null;
-    if (line.startsWith('- ')) {
+    if (line.startsWith('- ') || line.startsWith('* ')) {
       entry = line.substring(2).trim();
     } else if (/^#\d+\s+—/.test(line)) {
       // PR 参照形式（例: "#8270 — splash screen"）厳格にマッチ

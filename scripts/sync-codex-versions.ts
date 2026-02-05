@@ -227,20 +227,123 @@ ${entriesText}`;
 }
 
 /**
+ * バージョン文字列を比較
+ * @returns v1 < v2 なら負、v1 === v2 なら 0、v1 > v2 なら正
+ */
+function compareVersions(v1: string, v2: string): number {
+  const parts1 = v1.split('.').map(Number);
+  const parts2 = v2.split('.').map(Number);
+  for (let i = 0; i < 3; i++) {
+    if (parts1[i] !== parts2[i]) {
+      return parts1[i] - parts2[i];
+    }
+  }
+  return 0;
+}
+
+/**
  * バージョンを降順にソート（新しい順）
  */
 function sortVersionsDescending(versions: VersionInfo[]): VersionInfo[] {
-  return versions.sort((a, b) => {
-    const partsA = a.version.split('.').map(Number);
-    const partsB = b.version.split('.').map(Number);
+  return versions.sort((a, b) => compareVersions(b.version, a.version));
+}
 
-    for (let i = 0; i < 3; i++) {
-      if (partsA[i] !== partsB[i]) {
-        return partsB[i] - partsA[i];
-      }
+/**
+ * セクション境界情報
+ */
+interface SectionBoundary {
+  version: string;
+  start: number;
+  end: number; // 次のセクション開始 or ファイル末尾
+}
+
+/**
+ * ファイル内の ## X.Y.Z セクション境界を検出
+ */
+function findSectionBoundaries(content: string): SectionBoundary[] {
+  const regex = /^## (\d+\.\d+\.\d+)\b/gm;
+  const boundaries: SectionBoundary[] = [];
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(content)) !== null) {
+    boundaries.push({
+      version: match[1],
+      start: match.index,
+      end: content.length, // 暫定値
+    });
+  }
+
+  // end を次のセクション開始に更新
+  for (let i = 0; i < boundaries.length - 1; i++) {
+    boundaries[i].end = boundaries[i + 1].start;
+  }
+
+  return boundaries;
+}
+
+/**
+ * 適切な位置にセクションを挿入
+ *
+ * 挿入ルール（boundaries は降順前提）:
+ * 1. 自分が最新の場合: ヘッダー `---` の直後（先頭）
+ * 2. 中間に入る場合: 自分より古い最初のセクションの直前
+ * 3. 自分が最古の場合: ファイル末尾
+ * 4. セクションが0個: ヘッダー `---` の直後
+ * 5. `---` が無い場合: エラー終了
+ */
+function insertVersionSection(
+  filePath: string,
+  content: string,
+  version: string,
+  newSection: string,
+  boundaries: SectionBoundary[]
+): void {
+  // --- の位置を検出
+  const headerEndMatch = content.match(/^---\n/m);
+  if (!headerEndMatch || headerEndMatch.index === undefined) {
+    console.error(`エラー: ${filePath} にヘッダー区切り(---)がありません`);
+    process.exit(1);
+  }
+  const headerEnd = headerEndMatch.index + headerEndMatch[0].length;
+
+  // 挿入位置を決定
+  let insertAt: number;
+  if (boundaries.length === 0) {
+    // セクションが1つもない → ヘッダー直後
+    insertAt = headerEnd;
+  } else {
+    // 自分より古い最初のセクションを探す（=その直前に挿入）
+    const olderSection = boundaries.find((b) => compareVersions(b.version, version) < 0);
+    if (olderSection) {
+      // 中間 or 最新: 古いセクションの直前に挿入
+      insertAt = olderSection.start;
+    } else {
+      // 全て自分より新しい（=自分が最古）→ ファイル末尾
+      insertAt = content.length;
     }
-    return 0;
-  });
+  }
+
+  const newContent = content.slice(0, insertAt) + newSection + content.slice(insertAt);
+  fs.writeFileSync(filePath, newContent, 'utf-8');
+}
+
+/**
+ * 指定バージョンのセクションを置換または挿入
+ */
+function replaceVersionSection(year: number, version: string, newSection: string): void {
+  const filePath = path.join(CONTENT_DIR, `CHANGELOG_${year}_JA.md`);
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const boundaries = findSectionBoundaries(content);
+
+  const target = boundaries.find((b) => b.version === version);
+  if (target) {
+    // 置換: start〜end を newSection で差し替え
+    const newContent = content.slice(0, target.start) + newSection + content.slice(target.end);
+    fs.writeFileSync(filePath, newContent, 'utf-8');
+  } else {
+    // 挿入
+    insertVersionSection(filePath, content, version, newSection, boundaries);
+  }
 }
 
 /**
@@ -327,15 +430,24 @@ function getCurrentYearJst(): number {
 /**
  * コマンドライン引数をパース
  */
+interface VersionFilter {
+  type: 'exact' | 'before';
+  version: string;
+}
+
 interface CliOptions {
   isRebuild: boolean;
   yearOverride: number | null;
+  versionFilter?: VersionFilter;
 }
 
 function parseArgs(): CliOptions {
   const args = process.argv.slice(2);
   let isRebuild = false;
   let yearOverride: number | null = null;
+  let versionFilter: VersionFilter | undefined;
+
+  const versionPattern = /^\d+\.\d+\.\d+$/;
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -355,10 +467,50 @@ function parseArgs(): CliOptions {
       }
       yearOverride = Number(yearStr);
       i++;
+      continue;
+    }
+    if (arg === '--version') {
+      const version = args[i + 1];
+      if (!version) {
+        console.error('エラー: --version の後にバージョンを指定してください');
+        process.exit(1);
+      }
+      if (!versionPattern.test(version)) {
+        console.error(`エラー: 不正なバージョン形式: ${version} (X.Y.Z 形式で指定)`);
+        process.exit(1);
+      }
+      versionFilter = { type: 'exact', version };
+      i++;
+      continue;
+    }
+    if (arg === '--before') {
+      const version = args[i + 1];
+      if (!version) {
+        console.error('エラー: --before の後にバージョンを指定してください');
+        process.exit(1);
+      }
+      if (!versionPattern.test(version)) {
+        console.error(`エラー: 不正なバージョン形式: ${version} (X.Y.Z 形式で指定)`);
+        process.exit(1);
+      }
+      versionFilter = { type: 'before', version };
+      i++;
+      continue;
+    }
+    // 未知のオプション
+    if (arg.startsWith('--')) {
+      console.error(`エラー: 未知のオプション: ${arg}`);
+      process.exit(1);
     }
   }
 
-  return { isRebuild, yearOverride };
+  // 相互排他チェック
+  if (isRebuild && versionFilter) {
+    console.error('エラー: --rebuild と --version/--before は併用できません');
+    process.exit(1);
+  }
+
+  return { isRebuild, yearOverride, versionFilter };
 }
 
 /**
@@ -389,13 +541,118 @@ function resetChangelogFile(year: number): void {
 }
 
 /**
+ * バージョン配列を年ごとにグループ化
+ */
+function groupByYear(versions: VersionInfo[]): Map<number, VersionInfo[]> {
+  const map = new Map<number, VersionInfo[]>();
+  for (const v of versions) {
+    const list = map.get(v.year) ?? [];
+    list.push(v);
+    map.set(v.year, list);
+  }
+  return map;
+}
+
+/**
+ * 単一バージョンの翻訳・セクション生成
+ */
+async function generateAndTranslate(versionInfo: VersionInfo): Promise<string> {
+  if (versionInfo.entries.length === 0) {
+    console.log(`  注記: v${versionInfo.version} はエントリなし（プレースホルダ表示）`);
+    versionInfo.entries.push({
+      text: '(No changelog entries)',
+      category: 'chores' as const,
+    });
+  }
+
+  const textOnly = versionInfo.entries.map((e) => e.text);
+  const translations = translateEntries(textOnly);
+  if (translations) {
+    console.log(`  v${versionInfo.version} の翻訳完了`);
+  }
+
+  return generateVersionSection(versionInfo.version, versionInfo.entries, translations);
+}
+
+/**
+ * バージョンフィルタモードの処理
+ */
+async function processVersionFilter(
+  allVersions: VersionInfo[],
+  filter: VersionFilter,
+  yearOverride: number | null
+): Promise<void> {
+  // 1. 対象バージョンを抽出
+  let targetVersions: VersionInfo[];
+  if (filter.type === 'exact') {
+    targetVersions = allVersions.filter((v) => v.version === filter.version);
+    if (targetVersions.length === 0) {
+      console.error(`エラー: バージョン ${filter.version} が見つかりません`);
+      process.exit(1);
+    }
+    // --year 併用時: その年に無ければエラー
+    if (yearOverride !== null) {
+      targetVersions = targetVersions.filter((v) => v.year === yearOverride);
+      if (targetVersions.length === 0) {
+        console.error(`エラー: バージョン ${filter.version} は ${yearOverride} 年に存在しません`);
+        process.exit(1);
+      }
+    }
+  } else {
+    // --before
+    targetVersions = allVersions.filter((v) => compareVersions(v.version, filter.version) < 0);
+    // --year 併用時: 年で絞る
+    if (yearOverride !== null) {
+      targetVersions = targetVersions.filter((v) => v.year === yearOverride);
+    }
+  }
+
+  // 2. 対象が0件の場合は何もせず終了（正常終了）
+  if (targetVersions.length === 0) {
+    console.log('対象バージョンがありません');
+    return;
+  }
+
+  console.log(`対象バージョン: ${targetVersions.length}件`);
+  for (const v of targetVersions) {
+    console.log(`  - v${v.version} (${v.year}年)`);
+  }
+
+  // 3. 年ごとにグループ化
+  const byYear = groupByYear(targetVersions);
+
+  // 4. 各バージョンを処理（セクション置換）
+  // 降順（新しい順）で処理することで、複数挿入時の順序を保証
+  let totalProcessed = 0;
+  for (const [year, versions] of byYear) {
+    console.log(`\n--- ${year}年の処理 ---`);
+    ensureChangelogFile(year);
+    const sortedVersions = sortVersionsDescending(versions);
+    for (const versionInfo of sortedVersions) {
+      console.log(`  v${versionInfo.version} を処理中...`);
+      const section = await generateAndTranslate(versionInfo);
+      replaceVersionSection(year, versionInfo.version, section);
+      totalProcessed++;
+    }
+  }
+
+  console.log(`\n=== 完了: ${totalProcessed} バージョンを処理しました ===`);
+}
+
+/**
  * メイン処理
  */
 async function main(): Promise<void> {
-  const { isRebuild, yearOverride } = parseArgs();
+  const { isRebuild, yearOverride, versionFilter } = parseArgs();
 
   console.log('=== Codex 新バージョン自動検出・追記 ===');
-  if (isRebuild) {
+  if (versionFilter) {
+    const filterDesc =
+      versionFilter.type === 'exact'
+        ? `--version ${versionFilter.version}`
+        : `--before ${versionFilter.version}`;
+    console.log(`※ セクション置換モード: ${filterDesc}`);
+  } else if (isRebuild) {
     console.log('※ --rebuild モード: 全バージョンを再取得・再翻訳します');
   }
   console.log('');
@@ -405,6 +662,12 @@ async function main(): Promise<void> {
 
   if (allVersions.length === 0) {
     console.log('対象リリースがありません。');
+    return;
+  }
+
+  // フィルタモードの場合は専用処理
+  if (versionFilter) {
+    await processVersionFilter(allVersions, versionFilter, yearOverride);
     return;
   }
 

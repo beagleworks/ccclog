@@ -1,7 +1,7 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "3.2.4",
+  "version": "3.3.0",
   "scripts": {
     "dev": "astro dev",
     "preview": "astro preview",
