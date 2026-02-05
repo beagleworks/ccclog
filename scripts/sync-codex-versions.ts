@@ -7,17 +7,14 @@
  * 3. rust-v プレフィックスを除去してバージョン番号を抽出
  * 4. content/codex/CHANGELOG_{YEAR}_JA.md から既存バージョンを抽出
  * 5. 未記載バージョンを特定
- * 6. body フィールドからエントリを抽出・翻訳
- * 7. Markdown テーブル形式で追記（3列: 日本語, English, Category）
+ * 6. Markdown テーブル形式で追記（3列: 日本語, English, Category）
  *
  * オプション:
- * --rebuild: 全バージョンを再取得・再翻訳（カテゴリ列追加時等に使用）
+ * --rebuild: 全バージョンを再取得・再生成
  */
 
-import { execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { parseCodexReleaseBody, type ParsedEntry } from './parse-codex-releases.js';
 
 const GITHUB_RELEASES_URL = 'https://api.github.com/repos/openai/codex/releases';
 const TAG_PREFIX = 'rust-v';
@@ -35,7 +32,6 @@ interface VersionInfo {
   version: string;
   publishDate: string; // YYYY-MM-DD (JST)
   year: number;
-  entries: ParsedEntry[]; // { text, category }[]
 }
 
 /**
@@ -108,14 +104,10 @@ async function fetchCodexReleases(): Promise<VersionInfo[]> {
         const dateStr = jstDate.toISOString().split('T')[0];
         const year = jstDate.getFullYear();
 
-        // エントリ抽出（カテゴリ付き）
-        const entries = parseCodexReleaseBody(release.body);
-
         versions.push({
           version,
           publishDate: dateStr,
           year,
-          entries,
         });
       }
 
@@ -153,77 +145,6 @@ function getExistingVersions(year: number): Set<string> {
   }
 
   return versions;
-}
-
-/**
- * Claude Code CLI が利用可能かチェック
- */
-function isClaudeCliAvailable(): boolean {
-  try {
-    execFileSync('claude', ['--version'], { encoding: 'utf-8', stdio: 'pipe' });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Claude Code CLI を使用してエントリを日本語に翻訳
- * @param entries 英語エントリの配列（テキストのみ）
- */
-function translateEntries(entries: string[]): string[] | null {
-  if (!isClaudeCliAvailable()) {
-    console.log('  Claude Code CLI が利用できないため翻訳をスキップします');
-    return null;
-  }
-
-  if (entries.length === 0) return [];
-
-  try {
-    const entriesText = entries.map((e, i) => `${i + 1}. ${e}`).join('\n');
-
-    const prompt = `以下のOpenAI Codexの変更履歴エントリを日本語に翻訳してください。
-
-ルール:
-- 技術用語は適切に訳す（例: fix → 修正、add → 追加、improve → 改善）
-- 簡潔で自然な日本語にする
-- 各エントリを1行で翻訳
-- 番号付きリスト形式で出力（入力と同じ形式）
-- 説明や前置きは不要、翻訳結果のみを出力
-
-エントリ:
-${entriesText}`;
-
-    const responseText = execFileSync('claude', ['--print', '--model', 'sonnet', prompt], {
-      encoding: 'utf-8',
-      maxBuffer: 10 * 1024 * 1024,
-      timeout: 120000,
-    }).trim();
-
-    // 番号付きリストから翻訳を抽出
-    const lines = responseText.split('\n').filter((line) => line.trim());
-    const translations: string[] = [];
-
-    for (const line of lines) {
-      const match = line.match(/^\d+\.\s*(.+)$/);
-      if (match) {
-        // パイプ文字をエスケープ
-        translations.push(match[1].trim().replace(/\|/g, '\\|'));
-      }
-    }
-
-    if (translations.length !== entries.length) {
-      console.warn(
-        `  警告: 翻訳数が一致しません（入力: ${entries.length}, 出力: ${translations.length}）`
-      );
-      return null;
-    }
-
-    return translations;
-  } catch (error) {
-    console.error('  翻訳中にエラーが発生しました:', error);
-    return null;
-  }
 }
 
 /**
@@ -349,22 +270,13 @@ function replaceVersionSection(year: number, version: string, newSection: string
 /**
  * 新バージョンのセクションを生成（3列テーブル: 日本語, English, Category）
  */
-function generateVersionSection(
-  version: string,
-  entries: ParsedEntry[],
-  translations: string[] | null
-): string {
+function generateVersionSection(version: string): string {
   const lines: string[] = [];
   lines.push(`## ${version}`);
   lines.push('');
   lines.push('| 日本語 | English | Category |');
   lines.push('|--------|---------|----------|');
-
-  for (let i = 0; i < entries.length; i++) {
-    const jaText = translations?.[i] ?? '（翻訳待ち）';
-    lines.push(`| ${jaText} | ${entries[i].text} | ${entries[i].category} |`);
-  }
-
+  lines.push('| (変更履歴のエントリはありません) | (No changelog entries) | chores |');
   lines.push('');
   return lines.join('\n');
 }
@@ -554,27 +466,6 @@ function groupByYear(versions: VersionInfo[]): Map<number, VersionInfo[]> {
 }
 
 /**
- * 単一バージョンの翻訳・セクション生成
- */
-async function generateAndTranslate(versionInfo: VersionInfo): Promise<string> {
-  if (versionInfo.entries.length === 0) {
-    console.log(`  注記: v${versionInfo.version} はエントリなし（プレースホルダ表示）`);
-    versionInfo.entries.push({
-      text: '(No changelog entries)',
-      category: 'chores' as const,
-    });
-  }
-
-  const textOnly = versionInfo.entries.map((e) => e.text);
-  const translations = translateEntries(textOnly);
-  if (translations) {
-    console.log(`  v${versionInfo.version} の翻訳完了`);
-  }
-
-  return generateVersionSection(versionInfo.version, versionInfo.entries, translations);
-}
-
-/**
  * バージョンフィルタモードの処理
  */
 async function processVersionFilter(
@@ -630,7 +521,7 @@ async function processVersionFilter(
     const sortedVersions = sortVersionsDescending(versions);
     for (const versionInfo of sortedVersions) {
       console.log(`  v${versionInfo.version} を処理中...`);
-      const section = await generateAndTranslate(versionInfo);
+      const section = generateVersionSection(versionInfo.version);
       replaceVersionSection(year, versionInfo.version, section);
       totalProcessed++;
     }
@@ -653,7 +544,7 @@ async function main(): Promise<void> {
         : `--before ${versionFilter.version}`;
     console.log(`※ セクション置換モード: ${filterDesc}`);
   } else if (isRebuild) {
-    console.log('※ --rebuild モード: 全バージョンを再取得・再翻訳します');
+    console.log('※ --rebuild モード: 全バージョンを再取得・再生成します');
   }
   console.log('');
 
@@ -728,26 +619,7 @@ async function main(): Promise<void> {
     // 各バージョンのセクションを生成
     const sections: string[] = [];
     for (const versionInfo of sortedVersions) {
-      if (versionInfo.entries.length === 0) {
-        console.log(
-          `  注記: v${versionInfo.version} はエントリなし（プレースホルダ表示）`
-        );
-        // プレースホルダエントリを追加してセクション生成を続行
-        versionInfo.entries.push({
-          text: '(No changelog entries)',
-          category: 'chores' as const,
-        });
-      }
-
-      // 翻訳を試行（テキストのみを渡す）
-      console.log(`  v${versionInfo.version} を翻訳中...`);
-      const textOnly = versionInfo.entries.map((e) => e.text);
-      const translations = translateEntries(textOnly);
-      if (translations) {
-        console.log(`  v${versionInfo.version} の翻訳完了`);
-      }
-
-      sections.push(generateVersionSection(versionInfo.version, versionInfo.entries, translations));
+      sections.push(generateVersionSection(versionInfo.version));
       totalAdded++;
     }
 
