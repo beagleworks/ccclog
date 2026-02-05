@@ -209,49 +209,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| #6189 修正: DNS修正のためmusl 1.2.5を固定 (#6189) | #6189 fix: pin musl 1.2.5 for DNS fixes (#6189) | new-features |
-| #6202 修正: turnアイテムと一緒に送信するため、reasoning deltasを無視 (#6202) | #6202 fix: ignore reasoning deltas because we send it with turn item (#6202) | new-features |
-| #6175 [App-server] account/updated および account/logout の v2 対応 (#6175) | #6175 [App-server] v2 for account/updated and account/logout (#6175) | new-features |
-| #6156 修正: reasoning メッセージを正しく除外するよう is_api_message を修正 (#6156) | #6156 Fix is_api_message to correctly exclude reasoning messages (#6156) | new-features |
-| #4453 ファイル検索時にシンボリックリンクを追跡 (#4453) | #4453 Follow symlinks during file search (#4453) | new-features |
-| #5175 ドキュメント: config.toml のサンプルを追加 (#5175) | #5175 docs: add example config.toml (#5175) | new-features |
-| #6180 修正: `--search` で非推奨メッセージを表示しないように修正 (#6180) | #6180 fix: `--search` shouldn't show deprecation message (#6180) | new-features |
-| #6143 修正: notify handler が正しい `input_messages` の詳細を渡すように修正 (#6143) | #6143 Fixed notify handler so it passes correct `input_messages` details (#6143) | new-features |
-| #6171 サンドボックスコマンドのログを cwd ではなく $CODEX_HOME に出力 (#6171) | #6171 log sandbox commands to $CODEX_HOME instead of cwd (#6171) | new-features |
-| #5996 機能追加: 中断後の経過時間を追加 (#5996) | #5996 feat: add the time after aborting (#5996) | new-features |
-| #5541 TUI: テキストエリアの単語区切り処理を改善 (#5541) | #5541 tui: refine text area word separator handling (#5541) | new-features |
-| #6167 Windows でサンドボックスが有効な場合、信頼プロンプトをスキップしないように修正 (#6167) | #6167 Do not skip trust prompt on Windows if sandbox is enabled. (#6167) | new-features |
-| #6129 機能追加: Azure サポートのため responses-api-proxy にオプションを追加 (#6129) | #6129 feat: add options to responses-api-proxy to support Azure (#6129) | new-features |
-| #6161 コンテキストウィンドウ計算に reasoning トークンを含める (#6161) | #6161 Include reasoning tokens in the context window calculation (#6161) | new-features |
-| #6051 修正: rmcp client の機能フラグ参照を修正 (#6051) | #6051 Fix rmcp client feature flag reference (#6051) | new-features |
-| #6159 修正: OAuth ログインのエラーメッセージのタイプミスを修正 (#6159) | #6159 Fix typo in error message for OAuth login (#6159) | new-features |
-| #5685 `docs/slash_commands.md` にスラッシュコマンドのドキュメントを追加 (#5685) | #5685 Add documentation for slash commands in `docs/slash_commands.md`. (#5685) | new-features |
-| #6111 修正: ステータスカードとスナップショットの使用状況 URL を改善 (#6111) | #6111 fix: improve usage URLs in status card and snapshots (#6111) | new-features |
-| #6124 修正: Windows での「会話をアーカイブ」機能を修正 (#6124) | #6124 Fix "archive conversation" on Windows (#6124) | new-features |
-| #6137 chore(deps): actions/upload-artifact を 4 から 5 にバージョンアップ (#6137) | #6137 chore(deps): bump actions/upload-artifact from 4 to 5 (#6137) | new-features |
-| #4903 修正: API キー貼り付け時の余分な文字を修正 (#4903) | #4903 fix: pasting api key stray character (#4903) | new-features |
-| #6131 修正: experimental 設定キーに関する誤った「非推奨」メッセージを修正 (#6131) | #6131 Fix incorrect "deprecated" message about experimental config key (#6131) | new-features |
-| #6091 初期実験フィードバックに基づくサンドボックスコマンド評価機能の変更 (#6091) | #6091 Changes to sandbox command assessment feature based on initial experiment feedback (#6091) | new-features |
-| #5956 Azure OpenAI のレート制限メッセージを解析 (#5956) | #5956 Parse the Azure OpenAI rate limit message (#5956) | new-features |
-| #5649 ドキュメント: 高度なガイドのリンクアンカーと Markdown 形式を修正 (#5649) | #5649 docs: Fix link anchor and markdown format in advanced guide (#5649) | new-features |
-| #5659 ドキュメントの小さなタイプミスを修正 (#5659) | #5659 Fixing small typo in docs (#5659) | new-features |
-| #5935 TUI: より良い色クエリのため crossterm にパッチを適用 (#5935) | #5935 tui: patch crossterm for better color queries (#5935) | new-features |
-| #6050 [codex][app-server] クライアントリクエストのエラーレスポンスを改善 (#6050) | #6050 [codex][app-server] improve error response for client requests (#6050) | new-features |
-| #4973 ドキュメント: コントリビューションガイドの壊れたリンクを修正 (#4973) | #4973 docs: fix broken link in contributing guide (#4973) | new-features |
-| #6027 機能追加: compactor 2 (#6027) | #6027 feat: compactor 2 (#6027) | new-features |
-| #6052 コンパクト時の警告を追加 (#6052) | #6052 Add warning on compact (#6052) | new-features |
-| #6043 chore: json のシェルシリアライゼーションテストを追加 (#6043) | #6043 chore: Add shell serialization tests for json (#6043) | new-features |
-| #5979 総ツール呼び出しテキストを切り詰め (#5979) | #5979 Truncate total tool calls text (#5979) | new-features |
-| #4797 ドキュメント: 「Configuration」は「Getting started」に属さない (#4797) | #4797 docs: "Configuration" is not belongs "Getting started" (#4797) | new-features |
-| #4804 chore(deps): /codex-rs の indexmap を 2.10.0 から 2.11.4 にバージョンアップ (#4804) | #4804 chore(deps): bump indexmap from 2.10.0 to 2.11.4 in /codex-rs (#4804) | new-features |
-| #4802 chore(deps): /codex-rs の anyhow を 1.0.99 から 1.0.100 にバージョンアップ (#4802) | #4802 chore(deps): bump anyhow from 1.0.99 to 1.0.100 in /codex-rs (#4802) | new-features |
-| #4800 chore(deps): actions/checkout を 4 から 5 にバージョンアップ (#4800) | #4800 chore(deps): bump actions/checkout from 4 to 5 (#4800) | new-features |
-| #4801 chore(deps): actions/github-script を 7 から 8 にバージョンアップ (#4801) | #4801 chore(deps): bump actions/github-script from 7 to 8 (#4801) | new-features |
-| #6045 修正: brew upgrade のリンクを修正 (#6045) | #6045 fix: brew upgrade link (#6045) | new-features |
-| #6034 テスト: undo (#6034) | #6034 test: undo (#6034) | new-features |
-| #4426 chore(deps): /codex-rs の thiserror を 2.0.16 から 2.0.17 にバージョンアップ (#4426) | #4426 chore(deps): bump thiserror from 2.0.16 to 2.0.17 in /codex-rs (#4426) | new-features |
-| #6010 ユーザー指示メッセージ形式を更新 (#6010) | #6010 Update user instruction message format (#6010) | new-features |
-| #4266 修正(tui): insert_history_lines_to_writer でエラーを伝播 (#4266) | #4266 fix(tui): propagate errors in insert_history_lines_to_writer (#4266) | new-features |
+| (変更履歴なし) | (No changelog entries) | chores |
 ## 0.53.0
 
 | 日本語 | English | Category |

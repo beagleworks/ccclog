@@ -78,7 +78,7 @@
 | 未知のセクション（`## Other` 等） | そのセクション配下の箇条書きは除外 |
 | 補足付き見出し（`## Bug Fixes (Windows):` 等） | 未知扱いとして除外（安全側に倒す） |
 | Changelog 行以降 | `## Changelog`、`Changelog`、`Full Changelog:` で始まる行で終了 |
-| PRs Merged 行以降 | 既知カテゴリが先に出現した場合のみ終了（PRs Merged のみのリリースは `new-features` として取得） |
+| PRs Merged 行以降 | `## PRs Merged`、`## Merged PRs` で始まる行で終了（PR番号重複を避けるため） |
 | セクションヘッダー前の箇条書き | デフォルト `new-features`（実データでは発生しない） |
 
 #### 2.6.4 見出しレベル

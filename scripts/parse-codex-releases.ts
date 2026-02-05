@@ -86,10 +86,9 @@ export function parseCodexReleaseBody(body: string): ParsedEntry[] {
       break;
     }
 
-    // "PRs Merged" / "Merged PRs" は既知カテゴリが先に出現した場合のみ終了
-    // （PRs Merged から始まるリリースノートを除外しないため）
+    // "PRs Merged" / "Merged PRs" で終了（PR番号重複などの問題を避けるため）
     // #, ##, ### 付きまたは無しにマッチ
-    if (/^#{0,3}\s*(PRs Merged|Merged PRs)\b/i.test(line) && hasKnownCategory) {
+    if (/^#{0,3}\s*(PRs Merged|Merged PRs)\b/i.test(line)) {
       break;
     }
 
