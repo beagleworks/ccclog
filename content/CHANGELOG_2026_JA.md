@@ -4,6 +4,27 @@
 
 ---
 
+## 2.1.33
+
+| 日本語 | English |
+|--------|---------|
+| tmux内のエージェントチームメイトセッションでのメッセージ送受信を修正 | Fixed agent teammate sessions in tmux to send and receive messages |
+| 現在のプランでエージェントチームが利用できないという警告を修正 | Fixed warnings about agent teams not being available on your current plan |
+| マルチエージェントワークフロー用の`TeammateIdle`と`TaskCompleted`フックイベントを追加 | Added `TeammateIdle` and `TaskCompleted` hook events for multi-agent workflows |
+| エージェントのfrontmatter「tools」で`Task(agent_type)`構文によるサブエージェント生成の制限機能を追加 | Added support for restricting which sub-agents can be spawned via `Task(agent_type)` syntax in agent "tools" frontmatter |
+| エージェント用の`memory` frontmatterフィールドを追加し、`user`、`project`、`local`スコープでの永続的メモリを実現 | Added `memory` frontmatter field support for agents, enabling persistent memory with `user`, `project`, or `local` scope |
+| スキルの説明と`/skills`メニューにプラグイン名を追加し、発見性を向上 | Added plugin name to skill descriptions and `/skills` menu for better discoverability |
+| モデルが拡張思考中に新しいメッセージを送信すると思考フェーズが中断される問題を修正 | Fixed an issue where submitting a new message while the model was in extended thinking would interrupt the thinking phase |
+| ストリーミング中止時に空白テキストと思考ブロックが組み合わさることで正規化をバイパスし無効なリクエストを生成するAPIエラーを修正 | Fixed an API error that could occur when aborting mid-stream, where whitespace text combined with a thinking block would bypass normalization and produce an invalid request |
+| ストリーミングエンドポイントでの404エラーが非ストリーミングフォールバックをトリガーしなくなったAPIプロキシ互換性の問題を修正 | Fixed API proxy compatibility issue where 404 errors on streaming endpoints no longer triggered non-streaming fallback |
+| Node.jsビルドで`settings.json`環境変数で設定されたプロキシ設定がWebFetchやその他のHTTPリクエストに適用されない問題を修正 | Fixed an issue where proxy settings configured via `settings.json` environment variables were not applied to WebFetch and other HTTP requests on the Node.js build |
+| `/resume`セッションピッカーがスラッシュコマンドで開始されたセッションのタイトルをクリーンに表示せず生のXMLマークアップを表示する問題を修正 | Fixed `/resume` session picker showing raw XML markup instead of clean titles for sessions started with slash commands |
+| API接続失敗のエラーメッセージを改善し、汎用的な「接続エラー」の代わりに具体的な原因（ECONNREFUSED、SSLエラーなど）を表示 | Improved error messages for API connection failures — now shows specific cause (e.g., ECONNREFUSED, SSL errors) instead of generic "Connection error" |
+| 無効な管理設定によるエラーが表示されるように修正 | Errors from invalid managed settings are now surfaced |
+| VSCode: リモートセッションのサポートを追加し、OAuthユーザーがclaude.aiからセッションを閲覧・再開可能に | VSCode: Added support for remote sessions, allowing OAuth users to browse and resume sessions from claude.ai |
+| VSCode: セッションピッカーにgitブランチとメッセージ数を追加し、ブランチ名による検索をサポート | VSCode: Added git branch and message count to the session picker, with support for searching by branch name |
+| VSCode: 初回セッション読み込みとセッション切り替え時の最下部スクロールが不完全になる問題を修正 | VSCode: Fixed scroll-to-bottom under-scrolling on initial session load and session switch |
+
 ## 2.1.32
 
 | 日本語 | English |
