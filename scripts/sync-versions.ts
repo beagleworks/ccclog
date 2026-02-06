@@ -9,9 +9,10 @@
  * 5. CHANGELOG_{YEAR}_JA.md に新バージョンセクションを追加
  */
 
-import { execSync, execFileSync } from 'node:child_process';
+import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { translateBatch } from './translate.js';
 
 const NPM_PACKAGE = '@anthropic-ai/claude-code';
 const GITHUB_CHANGELOG_URL =
@@ -150,77 +151,6 @@ async function fetchGitHubChangelog(): Promise<Map<string, string[]>> {
   return result;
 }
 
-/**
- * Claude Code CLI が利用可能かチェック
- */
-function isClaudeCliAvailable(): boolean {
-  try {
-    execSync('claude --version', { encoding: 'utf-8', stdio: 'pipe' });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Claude Code CLI を使用してエントリを日本語に翻訳
- * CLI が利用不可またはエラーの場合は null を返す（フォールバック用）
- */
-function translateEntries(entries: string[]): string[] | null {
-  if (!isClaudeCliAvailable()) {
-    console.log('  Claude Code CLI が利用できないため翻訳をスキップします');
-    return null;
-  }
-
-  try {
-    const entriesText = entries.map((e, i) => `${i + 1}. ${e}`).join('\n');
-
-    const prompt = `以下のClaude Codeの変更履歴エントリを日本語に翻訳してください。
-
-ルール:
-- 技術用語は適切に訳す（例: fix → 修正、add → 追加、improve → 改善）
-- 簡潔で自然な日本語にする
-- 各エントリを1行で翻訳
-- 番号付きリスト形式で出力（入力と同じ形式）
-- 説明や前置きは不要、翻訳結果のみを出力
-
-エントリ:
-${entriesText}`;
-
-    // Claude Code CLI を使用して翻訳（--print で非対話モード、--model sonnet で品質重視）
-    // execFileSync を使用してシェル経由を避け、コマンドインジェクションを防止
-    const responseText = execFileSync('claude', ['--print', '--model', 'sonnet', prompt], {
-      encoding: 'utf-8',
-      maxBuffer: 10 * 1024 * 1024,
-      timeout: 60000, // 60秒タイムアウト
-    }).trim();
-
-    // 番号付きリストから翻訳を抽出
-    const lines = responseText.split('\n').filter((line) => line.trim());
-    const translations: string[] = [];
-
-    for (const line of lines) {
-      // "1. 翻訳文" 形式からテキスト部分を抽出
-      const match = line.match(/^\d+\.\s*(.+)$/);
-      if (match) {
-        translations.push(match[1].trim());
-      }
-    }
-
-    // 入力と出力の数が一致するか確認
-    if (translations.length !== entries.length) {
-      console.warn(
-        `  警告: 翻訳数が一致しません（入力: ${entries.length}, 出力: ${translations.length}）`
-      );
-      return null;
-    }
-
-    return translations;
-  } catch (error) {
-    console.error('  翻訳中にエラーが発生しました:', error);
-    return null;
-  }
-}
 
 /**
  * バージョンを降順にソート（新しい順）
@@ -365,7 +295,7 @@ async function main(): Promise<void> {
 
       // 翻訳を試行
       console.log(`  v${version} を翻訳中...`);
-      const translations = translateEntries(entries);
+      const translations = translateBatch(entries, 'Claude Code');
       if (translations) {
         console.log(`  v${version} の翻訳完了`);
       }

@@ -8,9 +8,9 @@
  *   pnpm retranslate --product codex 2025    # Codex, 2025年
  */
 
-import { execSync, execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { isClaudeCliAvailable, translateOne } from './translate.js';
 
 const PENDING_MARKER = '（翻訳待ち）';
 
@@ -33,50 +33,6 @@ function getCurrentYearJst(): number {
   return jstNow.getFullYear();
 }
 
-/**
- * Claude Code CLI が利用可能かチェック
- */
-function isClaudeCliAvailable(): boolean {
-  try {
-    execSync('claude --version', { encoding: 'utf-8', stdio: 'pipe' });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Claude Code CLI を使用してテキストを日本語に翻訳
- */
-function translateText(englishText: string, product: Product): string | null {
-  try {
-    const productLabel = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
-    const prompt = `以下の${productLabel}の変更履歴エントリを日本語に翻訳してください。
-
-ルール:
-- 技術用語は適切に訳す（例: fix → 修正、add → 追加、improve → 改善）
-- 簡潔で自然な日本語にする
-- 1行で翻訳
-- 説明や前置きは不要、翻訳結果のみを出力
-
-エントリ:
-${englishText}`;
-
-    // execFileSync を使用してシェル経由を避け、コマンドインジェクションを防止
-    const result = execFileSync('claude', ['--print', '--model', 'sonnet', prompt], {
-      encoding: 'utf-8',
-      maxBuffer: 10 * 1024 * 1024,
-      timeout: 60000,
-    }).trim();
-
-    // 複数行の場合は最初の非空行を使用
-    const lines = result.split('\n').filter((line) => line.trim());
-    return lines[0]?.trim() || null;
-  } catch (error) {
-    console.error('  翻訳エラー:', error);
-    return null;
-  }
-}
 
 /**
  * テーブル行をエスケープ済みパイプに対応して列分割
@@ -239,7 +195,7 @@ async function main(): Promise<void> {
   for (const entry of pendingEntries) {
     console.log(`\n翻訳中: v${entry.version} - ${entry.englishText.substring(0, 40)}...`);
 
-    const translation = translateText(entry.englishText, product);
+    const translation = translateOne(entry.englishText, product === 'codex' ? 'OpenAI Codex' : 'Claude Code');
 
     if (translation) {
       console.log(`  → ${translation}`);

@@ -7,10 +7,10 @@
  *   pnpm detect-upstream --apply
  */
 
-import { execSync, execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { extractEntriesByVersion, type Entry } from './parse-changelog.js';
+import { translateBatch } from './translate.js';
 
 const GITHUB_CHANGELOG_URL =
   'https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md';
@@ -116,66 +116,6 @@ function getCurrentYearJst(): number {
   return jstNow.getFullYear();
 }
 
-function isClaudeCliAvailable(): boolean {
-  try {
-    execSync('claude --version', { encoding: 'utf-8', stdio: 'pipe' });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function translateEntries(entries: string[]): string[] | null {
-  if (entries.length === 0) return [];
-
-  if (!isClaudeCliAvailable()) {
-    console.log('  Claude Code CLI が利用できないため翻訳をスキップします');
-    return null;
-  }
-
-  try {
-    const entriesText = entries.map((entry, index) => `${index + 1}. ${entry}`).join('\n');
-    const prompt = `以下のClaude Codeの変更履歴エントリを日本語に翻訳してください。
-
-ルール:
-- 技術用語は適切に訳す（例: fix → 修正、add → 追加、improve → 改善）
-- 簡潔で自然な日本語にする
-- 各エントリを1行で翻訳
-- 番号付きリスト形式で出力（入力と同じ形式）
-- 説明や前置きは不要、翻訳結果のみを出力
-
-エントリ:
-${entriesText}`;
-
-    const responseText = execFileSync('claude', ['--print', '--model', 'sonnet', prompt], {
-      encoding: 'utf-8',
-      maxBuffer: 10 * 1024 * 1024,
-      timeout: 60000,
-    }).trim();
-
-    const lines = responseText.split('\n').filter((line) => line.trim());
-    const translations: string[] = [];
-
-    for (const line of lines) {
-      const match = line.match(/^\d+\.\s*(.+)$/);
-      if (match) {
-        translations.push(match[1].trim());
-      }
-    }
-
-    if (translations.length !== entries.length) {
-      console.warn(
-        `  警告: 翻訳数が一致しません（入力: ${entries.length}, 出力: ${translations.length}）`
-      );
-      return null;
-    }
-
-    return translations;
-  } catch (error) {
-    console.error('  翻訳中にエラーが発生しました:', error);
-    return null;
-  }
-}
 
 function buildVersionSection(version: string, entries: Entry[]): string {
   const lines: string[] = [];
@@ -250,7 +190,7 @@ function rebuildEntries(
 
   let translatedCount = 0;
   if (translateTargets.length > 0) {
-    const translations = translateEntries(translateTargets.map((t) => t.text));
+    const translations = translateBatch(translateTargets.map((t) => t.text), 'Claude Code');
     if (translations) {
       for (let i = 0; i < translations.length; i++) {
         const target = translateTargets[i];

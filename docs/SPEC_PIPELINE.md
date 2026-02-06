@@ -158,6 +158,7 @@ ccclog/
 │   ├── parse-changelog.ts          # Markdownパーサー
 │   ├── parse-codex-releases.ts      # Codex リリースノートパーサー
 │   ├── retranslate.ts              # 翻訳待ちエントリの再翻訳
+│   ├── translate.ts                # 翻訳モジュール（共通）
 │   ├── sync-versions.ts            # Claude Code 新バージョン検出・追記
 │   └── sync-codex-versions.ts      # Codex 新バージョン検出・追記
 ├── src/
@@ -187,8 +188,33 @@ ccclog/
 
 ---
 
-## 6. 制約事項
+## 6. 翻訳
 
-### 6.1 既知の制限
+### 6.1 翻訳モジュール（`scripts/translate.ts`）
+
+翻訳処理を一元管理するモジュール。各スクリプト（sync-versions, sync-codex-versions, detect-upstream-changes, retranslate）はこのモジュールを通じて翻訳を行う。
+
+### 6.2 翻訳スタイルルール
+
+| ルール | 説明 |
+|--------|------|
+| 体言止め・である調 | 「〜を修正」「〜を追加」「〜に対応」のような形式で統一 |
+| 丁寧語不使用 | 「〜しました」「〜します」は使用しない |
+| 技術用語の適切な翻訳 | fix → 修正、add → 追加、improve → 改善 など |
+| 簡潔さ | 各エントリを1行で翻訳 |
+
+### 6.3 API
+
+| 関数 | シグネチャ | 用途 |
+|------|-----------|------|
+| `isClaudeCliAvailable` | `() => boolean` | Claude Code CLI の利用可否チェック |
+| `translateBatch` | `(entries: string[], productLabel: string) => string[] \| null` | 複数エントリの一括翻訳 |
+| `translateOne` | `(text: string, productLabel: string) => string \| null` | 単一エントリの翻訳 |
+
+---
+
+## 7. 制約事項
+
+### 7.1 既知の制限
 - GitHub API レート制限: 認証なしで60リクエスト/時間
 - 検索はクライアントサイドで実行されるため、データ量が増えるとパフォーマンスに影響

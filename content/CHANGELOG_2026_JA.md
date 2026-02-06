@@ -9,7 +9,7 @@
 | 日本語 | English |
 |--------|---------|
 | エージェントチーム設定がレンダリング間で変更された際のクラッシュを修正 | Fixed a crash when agent teams setting changed between renders |
-| サンドボックスから除外されたコマンド（`sandbox.excludedCommands` または `dangerouslyDisableSandbox` 経由）が `autoAllowBashIfSandboxed` 有効時に Bash 問い合わせ許可ルールをバイパスできたバグを修正 | Fixed a bug where commands excluded from sandboxing (via `sandbox.excludedCommands` or `dangerouslyDisableSandbox`) could bypass the Bash ask permission rule when `autoAllowBashIfSandboxed` was enabled |
+| サンドボックスから除外されたコマンド（`sandbox.excludedCommands` または `dangerouslyDisableSandbox` 経由）が `autoAllowBashIfSandboxed` 有効時に Bash の許可ルールをバイパスできるバグを修正 | Fixed a bug where commands excluded from sandboxing (via `sandbox.excludedCommands` or `dangerouslyDisableSandbox`) could bypass the Bash ask permission rule when `autoAllowBashIfSandboxed` was enabled |
 
 ## 2.1.33
 
