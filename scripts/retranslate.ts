@@ -2,8 +2,10 @@
  * 「（翻訳待ち）」エントリを検出し、Claude Code CLI で再翻訳する
  *
  * 使用方法:
- *   pnpm retranslate        # 当該年のファイルを処理
- *   pnpm retranslate 2025   # 指定年のファイルを処理
+ *   pnpm retranslate                         # Claude Code, 当該年
+ *   pnpm retranslate 2025                    # Claude Code, 2025年
+ *   pnpm retranslate --product codex         # Codex, 当該年
+ *   pnpm retranslate --product codex 2025    # Codex, 2025年
  */
 
 import { execSync, execFileSync } from 'node:child_process';
@@ -12,10 +14,13 @@ import * as path from 'node:path';
 
 const PENDING_MARKER = '（翻訳待ち）';
 
+type Product = 'claude-code' | 'codex';
+
 interface PendingEntry {
   version: string;
   lineNumber: number;
   englishText: string;
+  category: string | null; // Codex の場合のみ（3列テーブル）
 }
 
 /**
@@ -43,9 +48,10 @@ function isClaudeCliAvailable(): boolean {
 /**
  * Claude Code CLI を使用してテキストを日本語に翻訳
  */
-function translateText(englishText: string): string | null {
+function translateText(englishText: string, product: Product): string | null {
   try {
-    const prompt = `以下のClaude Codeの変更履歴エントリを日本語に翻訳してください。
+    const productLabel = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
+    const prompt = `以下の${productLabel}の変更履歴エントリを日本語に翻訳してください。
 
 ルール:
 - 技術用語は適切に訳す（例: fix → 修正、add → 追加、improve → 改善）
@@ -70,6 +76,14 @@ ${englishText}`;
     console.error('  翻訳エラー:', error);
     return null;
   }
+}
+
+/**
+ * テーブル行をエスケープ済みパイプに対応して列分割
+ * `\|` はセパレータではなくコンテンツの一部として扱う
+ */
+function splitTableRow(line: string): string[] {
+  return line.split(/(?<!\\)\|/).map((c) => c.trim()).filter((c) => c);
 }
 
 /**
@@ -99,13 +113,14 @@ function findPendingEntries(filePath: string): PendingEntry[] {
 
     // 「（翻訳待ち）」を含むテーブル行を検出
     if (currentVersion && line.includes(PENDING_MARKER)) {
-      // テーブル形式: | （翻訳待ち） | English text |
-      const tableMatch = line.match(/\|\s*（翻訳待ち）\s*\|\s*(.+?)\s*\|/);
-      if (tableMatch) {
+      const cells = splitTableRow(line);
+      // cells[0] = "（翻訳待ち）", cells[1] = "English text", cells[2]? = "category"
+      if (cells.length >= 2 && cells[0] === PENDING_MARKER) {
         entries.push({
           version: currentVersion,
           lineNumber: i,
-          englishText: tableMatch[1].replace(/\\\|/g, '|').trim(),
+          englishText: cells[1].replace(/\\\|/g, '|').trim(),
+          category: cells.length >= 3 ? cells[2] : null,
         });
       }
     }
@@ -121,7 +136,8 @@ function updateLine(
   filePath: string,
   lineNumber: number,
   englishText: string,
-  japaneseText: string
+  japaneseText: string,
+  category: string | null
 ): void {
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.split('\n');
@@ -130,9 +146,47 @@ function updateLine(
   const escapedJa = japaneseText.replace(/\|/g, '\\|');
   const escapedEn = englishText.replace(/\|/g, '\\|');
 
-  lines[lineNumber] = `| ${escapedJa} | ${escapedEn} |`;
+  if (category) {
+    lines[lineNumber] = `| ${escapedJa} | ${escapedEn} | ${category} |`;
+  } else {
+    lines[lineNumber] = `| ${escapedJa} | ${escapedEn} |`;
+  }
 
   fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
+}
+
+/**
+ * コマンドライン引数をパース
+ */
+function parseArgs(): { product: Product; targetYear: number } {
+  const args = process.argv.slice(2);
+  let product: Product = 'claude-code';
+  let yearArg: string | undefined;
+
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--product') {
+      const val = args[i + 1];
+      if (val === 'codex') {
+        product = 'codex';
+      } else if (val === 'claude-code') {
+        product = 'claude-code';
+      } else {
+        console.error(`エラー: 不明なプロダクト: ${val}`);
+        process.exit(1);
+      }
+      i++;
+    } else if (!args[i].startsWith('--')) {
+      yearArg = args[i];
+    }
+  }
+
+  const targetYear = yearArg ? parseInt(yearArg, 10) : getCurrentYearJst();
+  if (isNaN(targetYear)) {
+    console.error(`エラー: 無効な年: ${yearArg}`);
+    process.exit(1);
+  }
+
+  return { product, targetYear };
 }
 
 /**
@@ -148,16 +202,16 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  // 対象年を決定
-  const yearArg = process.argv[2];
-  const targetYear = yearArg ? parseInt(yearArg, 10) : getCurrentYearJst();
+  const { product, targetYear } = parseArgs();
 
-  if (isNaN(targetYear)) {
-    console.error(`エラー: 無効な年: ${yearArg}`);
-    process.exit(1);
-  }
+  // コンテンツディレクトリを決定
+  const contentDir = product === 'codex'
+    ? path.join(process.cwd(), 'content', 'codex')
+    : path.join(process.cwd(), 'content');
 
-  const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${targetYear}_JA.md`);
+  const filePath = path.join(contentDir, `CHANGELOG_${targetYear}_JA.md`);
+  const productLabel = product === 'codex' ? 'Codex' : 'Claude Code';
+  console.log(`プロダクト: ${productLabel}`);
   console.log(`対象ファイル: ${filePath}`);
 
   if (!fs.existsSync(filePath)) {
@@ -185,11 +239,11 @@ async function main(): Promise<void> {
   for (const entry of pendingEntries) {
     console.log(`\n翻訳中: v${entry.version} - ${entry.englishText.substring(0, 40)}...`);
 
-    const translation = translateText(entry.englishText);
+    const translation = translateText(entry.englishText, product);
 
     if (translation) {
       console.log(`  → ${translation}`);
-      updateLine(filePath, entry.lineNumber, entry.englishText, translation);
+      updateLine(filePath, entry.lineNumber, entry.englishText, translation, entry.category);
       successCount++;
     } else {
       console.log('  → 翻訳失敗（スキップ）');

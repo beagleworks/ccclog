@@ -75,7 +75,9 @@ jobs:
         if: ${{ github.event.inputs.retranslate == 'true' }}
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: pnpm run retranslate
+        run: |
+          pnpm run retranslate
+          pnpm run retranslate -- --product codex
 
       - name: Commit new versions (if any)
         run: |

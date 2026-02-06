@@ -65,7 +65,8 @@ Codex は `content/codex/` ディレクトリから年を列挙して全年の J
 | `pnpm sync-codex-versions` | GitHub Releases から新バージョンを検出し CHANGELOG に追記（Codex） |
 | `pnpm sync-codex-versions -- --year 2025` | Codex の指定年のみ新バージョンを検出し CHANGELOG に追記 |
 | `pnpm sync-codex-versions --rebuild` | Codex の全バージョンを再取得・再生成 |
-| `pnpm retranslate` | 「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
+| `pnpm retranslate` | Claude Code の「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
+| `pnpm retranslate --product codex` | Codex の「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
 | `pnpm detect-upstream` | 上流CHANGELOGの変更検出のみを実行 |
 | `pnpm sync-upstream` | 上流CHANGELOGの変更検出 + 自動適用を実行 |
 

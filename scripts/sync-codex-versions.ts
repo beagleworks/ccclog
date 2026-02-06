@@ -8,12 +8,14 @@
  * 4. body フィールドからエントリを抽出（現行形式のみ対応）
  * 5. content/codex/CHANGELOG_{YEAR}_JA.md から既存バージョンを抽出
  * 6. 未記載バージョンを特定
- * 7. Markdown テーブル形式で追記（3列: 日本語, English, Category）
+ * 7. Claude CLI でバッチ翻訳（失敗時は「（翻訳待ち）」にフォールバック）
+ * 8. Markdown テーブル形式で追記（3列: 日本語, English, Category）
  *
  * オプション:
  * --rebuild: 全バージョンを再取得・再生成
  */
 
+import { execSync, execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { parseCodexReleaseBody, type ParsedEntry } from './parse-codex-releases.ts';
@@ -21,6 +23,69 @@ import { parseCodexReleaseBody, type ParsedEntry } from './parse-codex-releases.
 const GITHUB_RELEASES_URL = 'https://api.github.com/repos/openai/codex/releases';
 const TAG_PREFIX = 'rust-v';
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'codex');
+
+/**
+ * Claude Code CLI が利用可能かチェック
+ */
+function isClaudeCliAvailable(): boolean {
+  try {
+    execSync('claude --version', { encoding: 'utf-8', stdio: 'pipe' });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Claude Code CLI を使用してエントリを日本語に翻訳
+ * CLI が利用不可またはエラーの場合は null を返す（フォールバック用）
+ */
+function translateEntries(entries: ParsedEntry[]): string[] | null {
+  if (!isClaudeCliAvailable()) {
+    console.log('  Claude Code CLI が利用できないため翻訳をスキップします');
+    return null;
+  }
+
+  try {
+    const entriesText = entries.map((e, i) => `${i + 1}. ${e.text}`).join('\n');
+
+    const prompt = `以下のOpenAI Codexの変更履歴エントリを日本語に翻訳してください。
+
+ルール:
+- 技術用語は適切に訳す（例: fix → 修正、add → 追加、improve → 改善）
+- 簡潔で自然な日本語にする
+- 各エントリを1行で翻訳
+- 番号付きリスト形式で出力（入力と同じ形式）
+- 説明や前置きは不要、翻訳結果のみを出力
+
+エントリ:
+${entriesText}`;
+
+    const responseText = execFileSync(
+      'claude',
+      ['--print', '--model', 'sonnet', prompt],
+      { encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024, timeout: 60000 }
+    ).trim();
+
+    // 番号付きリストから翻訳を抽出
+    const lines = responseText.split('\n').filter((line) => line.trim());
+    const translations: string[] = [];
+    for (const line of lines) {
+      const match = line.match(/^\d+\.\s*(.+)$/);
+      if (match) translations.push(match[1].trim());
+    }
+
+    if (translations.length !== entries.length) {
+      console.warn(`  警告: 翻訳数が一致しません（入力: ${entries.length}, 出力: ${translations.length}）`);
+      return null;
+    }
+
+    return translations;
+  } catch (error) {
+    console.error('  翻訳中にエラーが発生しました:', error);
+    return null;
+  }
+}
 
 interface Release {
   tag_name: string;
@@ -277,7 +342,11 @@ function replaceVersionSection(year: number, version: string, newSection: string
 /**
  * 新バージョンのセクションを生成（3列テーブル: 日本語, English, Category）
  */
-function generateVersionSection(version: string, entries: ParsedEntry[]): string {
+function generateVersionSection(
+  version: string,
+  entries: ParsedEntry[],
+  translations: string[] | null
+): string {
   const lines: string[] = [];
   lines.push(`## ${version}`);
   lines.push('');
@@ -287,9 +356,9 @@ function generateVersionSection(version: string, entries: ParsedEntry[]): string
   if (entries.length === 0) {
     lines.push('| (変更履歴のエントリはありません) | (No changelog entries) | chores |');
   } else {
-    for (const entry of entries) {
-      // entry.text は normalizeEntry() で | がエスケープ済み
-      lines.push(`| （翻訳待ち） | ${entry.text} | ${entry.category} |`);
+    for (let i = 0; i < entries.length; i++) {
+      const jaText = translations?.[i]?.replace(/\|/g, '\\|') ?? '（翻訳待ち）';
+      lines.push(`| ${jaText} | ${entries[i].text} | ${entries[i].category} |`);
     }
   }
 
@@ -537,7 +606,10 @@ async function processVersionFilter(
     const sortedVersions = sortVersionsDescending(versions);
     for (const versionInfo of sortedVersions) {
       console.log(`  v${versionInfo.version} を処理中... (${versionInfo.entries.length} エントリ)`);
-      const section = generateVersionSection(versionInfo.version, versionInfo.entries);
+      const translations = versionInfo.entries.length > 0
+        ? translateEntries(versionInfo.entries)
+        : null;
+      const section = generateVersionSection(versionInfo.version, versionInfo.entries, translations);
       replaceVersionSection(year, versionInfo.version, section);
       totalProcessed++;
     }
@@ -632,10 +704,13 @@ async function main(): Promise<void> {
     // バージョンを降順にソート
     const sortedVersions = sortVersionsDescending(missingVersions);
 
-    // 各バージョンのセクションを生成
+    // 各バージョンのセクションを生成（エントリがあれば翻訳を試みる）
     const sections: string[] = [];
     for (const versionInfo of sortedVersions) {
-      sections.push(generateVersionSection(versionInfo.version, versionInfo.entries));
+      const translations = versionInfo.entries.length > 0
+        ? translateEntries(versionInfo.entries)
+        : null;
+      sections.push(generateVersionSection(versionInfo.version, versionInfo.entries, translations));
       totalAdded++;
     }
 

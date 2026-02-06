@@ -47,7 +47,8 @@
 | パーサー | `scripts/parse-codex-releases.ts` |
 | 対象形式 | 現行形式（`## New Features` / `## Bug Fixes` / `## Documentation` / `## Chores`） |
 | 旧形式 | 未知セクション扱い → 自然に0件 |
-| 翻訳 | 行わない（「（翻訳待ち）」で記録し `retranslate` で後から翻訳） |
+| 翻訳 | sync 時に Claude CLI で自動翻訳（失敗時は「（翻訳待ち）」にフォールバック） |
+| 再翻訳 | `pnpm retranslate --product codex` で翻訳待ちエントリを再翻訳 |
 
 #### パース動作
 - `currentCategory` の初期値は `null`（除外中）
