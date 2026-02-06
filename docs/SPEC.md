@@ -124,8 +124,9 @@ JSON の `category` フィールドに応じて左ボーダー色を変更：
 #### 3.2.5 URLパラメータ
 - `?q=検索語` でページ読み込み時に検索を実行
 - `?mode=ja|en` で検索モードを指定（省略時は `both`）
-- 両方の指定が可能: `?q=MCP&mode=ja`
-- クリーンURL方針として、`both` の場合は `mode` を付与しない
+- `?display=ja|en` で表示モードを指定（省略時は `both`）
+- 複数の指定が可能: `?q=MCP&mode=ja&display=en`
+- クリーンURL方針として、`both` の場合は `mode` / `display` いずれも付与しない
 
 #### 3.2.6 検索モード選択
 - ユーザーは検索対象を以下から選択可能：
@@ -142,6 +143,25 @@ JSON の `category` フィールドに応じて左ボーダー色を変更：
 プロダクト間での干渉を避けるため、sessionStorage のキーをプロダクト別に分離：
 - Claude Code: `ccclog.searchMode.claude-code`
 - Codex: `ccclog.searchMode.codex`
+
+#### 3.2.8 表示モード選択
+- 「日本語のみ」(`ja`) / 「原文のみ」(`en`) / 「両方」(`both`、デフォルト)
+- 検索モードと同形式のセグメントコントロール UI
+- 検索モードとは独立した設定
+- `#changelog-list` 要素に `display-ja` / `display-en` クラスを付与し CSS で列制御
+  - `both` の場合はクラスを付与しない（デフォルト表示）
+- 非表示列のテーブルヘッダーも連動して非表示
+- 英語のみ表示時はエントリタイプ左ボーダーを `.entry-en` に移動
+- 状態保持の優先順位:
+  1. URL パラメータが **存在する** 場合（`?display=` キーがある）→ その値を正規化して使用（無効値は `both` に正規化。sessionStorage は参照しない）
+  2. URL パラメータが **存在しない** 場合 → sessionStorage の値を正規化して使用
+  3. いずれもない場合 → デフォルト `both`
+- ※ 既存の検索モード（`?mode=`）も同じ優先順位ルールに従っている
+
+#### 3.2.9 表示モード保持キー
+プロダクト間での干渉を避けるため、sessionStorage のキーをプロダクト別に分離：
+- Claude Code: `ccclog.displayMode.claude-code`
+- Codex: `ccclog.displayMode.codex`
 
 ### 3.3 レスポンシブデザイン
 - デスクトップ・モバイル両対応
@@ -318,6 +338,7 @@ GitHub CHANGELOG 等の外部データを HTML として表示する際は、以
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-02-06 | 3.3.0 | 表示モード機能追加（日本語のみ/原文のみ/両方の表示切替、URLパラメータ `?display=` 対応） |
 | 2026-02-05 | 3.2.0 | Codex カテゴリ分類の本家準拠化（Entry 型に category 追加、3列テーブル対応） |
 | 2026-02-04 | 3.1.0 | トップページのリダイレクト廃止（直接表示）、canonical URL 対応 |
 | 2026-02-04 | 3.0.0 | マルチプロダクト対応（OpenAI Codex CHANGELOG 追加） |

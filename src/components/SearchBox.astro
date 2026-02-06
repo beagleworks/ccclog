@@ -30,6 +30,15 @@
     </div>
   </div>
 
+  <div class="search-mode">
+    <span class="mode-label">表示:</span>
+    <div class="mode-selector" role="group" aria-label="表示対象の選択">
+      <button type="button" class="display-btn" data-display="ja" aria-pressed="false">日本語のみ</button>
+      <button type="button" class="display-btn" data-display="en" aria-pressed="false">原文のみ</button>
+      <button type="button" class="display-btn active" data-display="both" aria-pressed="true">両方</button>
+    </div>
+  </div>
+
   <div id="search-stats" class="search-stats" hidden></div>
 </div>
 
@@ -129,7 +138,8 @@
     overflow: hidden;
   }
 
-  .mode-btn {
+  .mode-btn,
+  .display-btn {
     padding: 0.35rem 0.85rem;
     font-size: 0.9rem;
     font-weight: 500;
@@ -140,15 +150,18 @@
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  .mode-btn + .mode-btn {
+  .mode-btn + .mode-btn,
+  .display-btn + .display-btn {
     border-left: 1px solid var(--color-border);
   }
 
-  .mode-btn:hover {
+  .mode-btn:hover,
+  .display-btn:hover {
     color: var(--color-text);
   }
 
-  .mode-btn:focus-visible {
+  .mode-btn:focus-visible,
+  .display-btn:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.25);
     position: relative;
@@ -156,7 +169,9 @@
   }
 
   .mode-btn.active,
-  .mode-btn[aria-pressed='true'] {
+  .mode-btn[aria-pressed='true'],
+  .display-btn.active,
+  .display-btn[aria-pressed='true'] {
     color: var(--color-text);
     background-color: var(--color-accent);
   }

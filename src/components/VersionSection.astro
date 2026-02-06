@@ -222,6 +222,34 @@ function getEntryType(entry: Entry, productId: string): string {
     padding-left: calc(1rem - 3px);
   }
 
+  /* 表示モード: 日本語のみ（英語列を非表示） */
+  :global(#changelog-list.display-ja) .entries-table th:nth-child(2),
+  :global(#changelog-list.display-ja) .entry-en { display: none; }
+
+  :global(#changelog-list.display-ja) .entries-table th:first-child { width: 100%; }
+
+  /* 表示モード: 原文のみ（日本語列を非表示） */
+  :global(#changelog-list.display-en) .entries-table th:first-child,
+  :global(#changelog-list.display-en) .entry-ja { display: none; }
+
+  :global(#changelog-list.display-en) .entries-table th:nth-child(2) { width: 100%; }
+
+  /* 原文のみ表示時: 左ボーダーを .entry-en に移動 */
+  :global(#changelog-list.display-en) .entry-row.added td:first-child { border-left: none; padding-left: 1rem; }
+  :global(#changelog-list.display-en) .entry-row.added .entry-en { border-left: 3px solid var(--color-added); padding-left: calc(1rem - 3px); }
+
+  :global(#changelog-list.display-en) .entry-row.fixed td:first-child { border-left: none; padding-left: 1rem; }
+  :global(#changelog-list.display-en) .entry-row.fixed .entry-en { border-left: 3px solid var(--color-fixed); padding-left: calc(1rem - 3px); }
+
+  :global(#changelog-list.display-en) .entry-row.changed td:first-child { border-left: none; padding-left: 1rem; }
+  :global(#changelog-list.display-en) .entry-row.changed .entry-en { border-left: 3px solid var(--color-changed); padding-left: calc(1rem - 3px); }
+
+  :global(#changelog-list.display-en) .entry-row.improved td:first-child { border-left: none; padding-left: 1rem; }
+  :global(#changelog-list.display-en) .entry-row.improved .entry-en { border-left: 3px solid var(--color-improved); padding-left: calc(1rem - 3px); }
+
+  :global(#changelog-list.display-en) .entry-row.other td:first-child { border-left: none; padding-left: 1rem; }
+  :global(#changelog-list.display-en) .entry-row.other .entry-en { border-left: 3px solid var(--color-other); padding-left: calc(1rem - 3px); }
+
   /* 検索ハイライト */
   :global(.highlight) {
     background-color: rgba(255, 220, 0, 0.3);

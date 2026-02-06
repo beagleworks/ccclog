@@ -44,6 +44,8 @@ const productName = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
 
 // 検索モード保持キー（プロダクト別）
 const storageKey = `ccclog.searchMode.${product}`;
+// 表示モード保持キー（プロダクト別）
+const displayStorageKey = `ccclog.displayMode.${product}`;
 
 // 空データ判定（検索UI/スクリプトを出すかどうか）
 const hasData = months.length > 0;
@@ -87,9 +89,10 @@ const hasData = months.length > 0;
   )}
 </BaseLayout>
 
-<script define:vars={{ storageKey }}>
+<script define:vars={{ storageKey, displayStorageKey }}>
   // 検索モード保持キーをクライアントサイドで使用
   window.__CCCLOG_STORAGE_KEY__ = storageKey;
+  window.__CCCLOG_DISPLAY_STORAGE_KEY__ = displayStorageKey;
 </script>
 
 <script>
@@ -113,6 +116,8 @@ const hasData = months.length > 0;
   const searchStats = document.getElementById('search-stats') as HTMLDivElement;
   const noResults = document.getElementById('no-results') as HTMLDivElement;
   const modeButtons = document.querySelectorAll('.mode-btn') as NodeListOf<HTMLButtonElement>;
+  const displayButtons = document.querySelectorAll('.display-btn') as NodeListOf<HTMLButtonElement>;
+  const changelogList = document.getElementById('changelog-list');
 
   // 検索用データを準備
   const searchableEntries: SearchableEntry[] = [];
@@ -151,14 +156,43 @@ const hasData = months.length > 0;
     }
   }
 
-  function normalizeMode(raw: string | null): SearchMode {
+  function normalizeSearchMode(raw: string | null): SearchMode {
     return raw === 'ja' || raw === 'en' || raw === 'both' ? raw : 'both';
   }
 
   function getInitialMode(): SearchMode {
     const params = new URLSearchParams(window.location.search);
-    if (params.has('mode')) return normalizeMode(params.get('mode'));
-    return normalizeMode(sessionStorage.getItem(STORAGE_KEY));
+    if (params.has('mode')) return normalizeSearchMode(params.get('mode'));
+    return normalizeSearchMode(sessionStorage.getItem(STORAGE_KEY));
+  }
+
+  // 表示モード
+  type DisplayMode = 'ja' | 'en' | 'both';
+  const DISPLAY_STORAGE_KEY = (window as any).__CCCLOG_DISPLAY_STORAGE_KEY__ || 'ccclog.displayMode.claude-code';
+
+  function normalizeDisplayMode(raw: string | null): DisplayMode {
+    return raw === 'ja' || raw === 'en' || raw === 'both' ? raw : 'both';
+  }
+
+  function getInitialDisplayMode(): DisplayMode {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('display')) return normalizeDisplayMode(params.get('display'));
+    return normalizeDisplayMode(sessionStorage.getItem(DISPLAY_STORAGE_KEY));
+  }
+
+  function syncDisplayUI(mode: DisplayMode) {
+    displayButtons.forEach((button) => {
+      const isActive = button.dataset.display === mode;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+  }
+
+  function applyDisplayMode(mode: DisplayMode) {
+    if (!changelogList) return;
+    changelogList.classList.remove('display-ja', 'display-en');
+    if (mode === 'ja') changelogList.classList.add('display-ja');
+    else if (mode === 'en') changelogList.classList.add('display-en');
   }
 
   function createFuseInstance(mode: SearchMode) {
@@ -179,7 +213,7 @@ const hasData = months.length > 0;
     });
   }
 
-  function updateUrlParams(query: string, mode: SearchMode) {
+  function updateUrlParams(query: string, mode: SearchMode, display: DisplayMode) {
     const url = new URL(window.location.href);
     const trimmedQuery = query.trim();
 
@@ -189,12 +223,20 @@ const hasData = months.length > 0;
     if (mode === 'both') url.searchParams.delete('mode');
     else url.searchParams.set('mode', mode);
 
+    if (display === 'both') url.searchParams.delete('display');
+    else url.searchParams.set('display', display);
+
     history.replaceState(null, '', url);
   }
 
   let currentMode: SearchMode = getInitialMode();
   syncModeUI(currentMode);
   sessionStorage.setItem(STORAGE_KEY, currentMode);
+
+  let currentDisplayMode: DisplayMode = getInitialDisplayMode();
+  syncDisplayUI(currentDisplayMode);
+  applyDisplayMode(currentDisplayMode);
+  sessionStorage.setItem(DISPLAY_STORAGE_KEY, currentDisplayMode);
 
   let fuse = createFuseInstance(currentMode);
 
@@ -291,6 +333,14 @@ const hasData = months.length > 0;
     performSearch(searchInput.value);
   }
 
+  function setDisplayMode(mode: DisplayMode) {
+    currentDisplayMode = mode;
+    sessionStorage.setItem(DISPLAY_STORAGE_KEY, mode);
+    syncDisplayUI(mode);
+    applyDisplayMode(mode);
+    updateUrlParams(searchInput.value, currentMode, currentDisplayMode);
+  }
+
   // 検索を実行
   function performSearch(query: string) {
     const trimmedQuery = query.trim();
@@ -312,7 +362,7 @@ const hasData = months.length > 0;
       });
       searchStats.hidden = true;
       noResults.hidden = true;
-      updateUrlParams('', currentMode);
+      updateUrlParams('', currentMode, currentDisplayMode);
       return;
     }
 
@@ -394,7 +444,7 @@ const hasData = months.length > 0;
       noResults.hidden = false;
     }
 
-    updateUrlParams(trimmedQuery, currentMode);
+    updateUrlParams(trimmedQuery, currentMode, currentDisplayMode);
   }
 
   // イベントリスナーを設定
@@ -423,8 +473,15 @@ const hasData = months.length > 0;
 
   modeButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const nextMode = normalizeMode(button.dataset.mode || null);
+      const nextMode = normalizeSearchMode(button.dataset.mode || null);
       if (nextMode !== currentMode) setSearchMode(nextMode);
+    });
+  });
+
+  displayButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const nextDisplay = normalizeDisplayMode(button.dataset.display || null);
+      if (nextDisplay !== currentDisplayMode) setDisplayMode(nextDisplay);
     });
   });
 
@@ -435,7 +492,7 @@ const hasData = months.length > 0;
     searchInput.value = initialQuery;
     performSearch(initialQuery);
   } else {
-    updateUrlParams('', currentMode);
+    updateUrlParams('', currentMode, currentDisplayMode);
   }
   })();
 </script>
