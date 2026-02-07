@@ -4,6 +4,18 @@
 
 ---
 
+## 2.1.37
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| /extra-usage 有効化後に /fast がすぐに利用できない問題を修正 | Fixed an issue where /fast was not immediately available after enabling /extra-usage | fixed |
+
+## 2.1.36
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Opus 4.6 で Fast モードが利用可能に。詳細は https://code.claude.com/docs/en/fast-mode を参照 | Fast mode is now available for Opus 4.6. Learn more at https://code.claude.com/docs/en/fast-mode | added |
+
 ## 2.1.34
 
 | 日本語 | English | Category |
