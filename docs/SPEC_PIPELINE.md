@@ -212,6 +212,9 @@ ccclog/
 | `isClaudeCliAvailable` | `() => boolean` | Claude Code CLI の利用可否チェック |
 | `translateBatch` | `(entries: string[], productLabel: string) => string[] \| null` | 複数エントリの一括翻訳 |
 | `translateOne` | `(text: string, productLabel: string) => string \| null` | 単一エントリの翻訳 |
+| `translateAndClassifyBatch` | `(entries: string[], productLabel: string) => TranslationWithCategory[] \| null` | 複数エントリの一括翻訳+カテゴリ分類 |
+| `translateAndClassifyOne` | `(text: string, productLabel: string) => TranslationWithCategory \| null` | 単一エントリの翻訳+カテゴリ分類 |
+| `parseTranslationsWithCategory` | `(responseText: string, expectedCount: number) => TranslationWithCategory[] \| null` | AI出力のパース（テスト用エクスポート） |
 
 ---
 

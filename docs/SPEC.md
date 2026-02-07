@@ -67,24 +67,26 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 
 #### 3.1.4 エントリタイプの視覚的識別
 
-**Claude Code（キーワード判定）**
-変更内容の先頭キーワードに応じて左ボーダー色を変更：
+**Claude Code（カテゴリベース、フォールバック: キーワード判定）**
+JSON の `category` フィールドに応じて左ボーダー色を変更。`category` がない旧形式データにはキーワード判定でフォールバックする。
 
-| キーワード | 色 | カラーコード |
-|-----------|-----|-------------|
-| Added / Add / 追加 | 緑 | #3fb950 |
-| Fixed / Fix / bugfixes / 修正 | オレンジ | #f0883e |
-| Changed / Change / 変更 | 紫 | #a371f7 |
-| Improved / Improve / 改善 | 青 | #79c0ff |
-| Other / その他 | グレー | #8b949e |
+| カテゴリ / CSS クラス | 色 | カラーコード |
+|----------------------|-----|-------------|
+| `added` | 緑 | #3fb950 |
+| `fixed` | オレンジ | #f0883e |
+| `changed` | 紫 | #a371f7 |
+| `improved` | 青 | #79c0ff |
+| `other` | グレー | #8b949e |
 
-**プレフィックス除外**
-以下の形式のプレフィックスは判定時に除外される：
-- `[Tag]` 形式（例: `[IDE]`, `[VSCode]`）
-- `Tag:` 形式（例: `Bedrock:`, `Windows:`）
+**フォールバック（キーワード判定）**: `category` がない場合、英語テキストのキーワードで分類:
+- Added / Add / Enabled / Enable → `added`
+- Fixed / Fix / bugfixes / Reduced → `fixed`
+- Changed / Change / Merged / Moved / Updated / Removed / Deprecated → `changed`
+- Improved / Improve → `improved`
+- その他 → `other`
 
 **Codex（カテゴリベース）**
-JSON の `category` フィールドに応じて左ボーダー色を変更：
+JSON の `category` フィールドに応じて `CATEGORY_TO_CLASS` マッピング経由で左ボーダー色を変更：
 
 | カテゴリID | 色 | カラーコード | マッピング先クラス |
 |-----------|-----|-------------|-------------------|
@@ -213,15 +215,17 @@ JSON の `category` フィールドに応じて左ボーダー色を変更：
 ### 4.1 入力データ形式
 年ごとに分離されたMarkdownファイル（`CHANGELOG_{YEAR}_JA.md`）を使用する。
 
-**Claude Code（2列テーブル）**
+**Claude Code（3列テーブル - Category 列を含む）**
 ```markdown
 ## 2.1.23
 
-| 日本語 | English |
-|--------|---------|
-| 変更内容（日本語） | Change description (English) |
-| ... | ... |
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 変更内容（日本語） | Change description (English) | added |
+| バグ修正内容 | Bug fix description | fixed |
 ```
+
+※ 旧形式（2列テーブル）も後方互換としてサポートする。`category` がない場合はキーワード判定にフォールバック。
 
 **Codex（3列テーブル - Category 列を含む）**
 ```markdown
@@ -262,11 +266,13 @@ interface Version {
 interface Entry {
   ja: string;                 // 日本語説明
   en: string;                 // 英語説明
-  category?: CodexCategory;   // Codex のみ: カテゴリID
+  category?: EntryCategory;   // カテゴリID（全プロダクト共通）
 }
 
-// Codex カテゴリ（本家 GitHub Releases のセクション名に準拠）
+// カテゴリ型
+type ClaudeCodeCategory = 'added' | 'fixed' | 'changed' | 'improved' | 'other';
 type CodexCategory = 'new-features' | 'bug-fixes' | 'documentation' | 'chores';
+type EntryCategory = CodexCategory | ClaudeCodeCategory;
 ```
 
 #### 4.2.2 年別Markdownファイル
@@ -348,6 +354,7 @@ GitHub CHANGELOG 等の外部データを HTML として表示する際は、以
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-02-08 | 3.5.0 | Claude Code の AI カテゴリ分類（翻訳時に分類、3列テーブル化、キーワード判定からフォールバック方式に移行） |
 | 2026-02-08 | 3.4.0 | カテゴリ凡例追加（info-bar にカラーバー+ラベル形式の凡例を表示） |
 | 2026-02-06 | 3.3.0 | 表示モード機能追加（日本語のみ/原文のみ/両方の表示切替、URLパラメータ `?display=` 対応） |
 | 2026-02-05 | 3.2.0 | Codex カテゴリ分類の本家準拠化（Entry 型に category 追加、3列テーブル対応） |

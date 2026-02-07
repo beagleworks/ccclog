@@ -2,11 +2,12 @@
 import VersionSection from './VersionSection.astro';
 
 type CodexCategory = 'new-features' | 'bug-fixes' | 'documentation' | 'chores';
+type ClaudeCodeCategory = 'added' | 'fixed' | 'changed' | 'improved' | 'other';
 
 interface Entry {
   ja: string;
   en: string;
-  category?: CodexCategory; // Codex のみ
+  category?: CodexCategory | ClaudeCodeCategory;
 }
 
 interface Version {

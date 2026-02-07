@@ -12,7 +12,7 @@
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { translateBatch } from './translate.js';
+import { translateAndClassifyBatch, translateAndClassifyOne, translateOne, type TranslationWithCategory } from './translate.js';
 
 const NPM_PACKAGE = '@anthropic-ai/claude-code';
 const GITHUB_CHANGELOG_URL =
@@ -171,24 +171,25 @@ function sortVersionsDescending(versions: string[]): string[] {
 
 /**
  * 新バージョンのセクションを生成
- * @param translations 翻訳済みテキスト（null の場合は「（翻訳待ち）」を使用）
+ * @param translations 翻訳+分類済みデータ（null の場合は「（翻訳待ち）」を使用）
  */
 function generateVersionSection(
   version: string,
   entries: string[],
-  translations: string[] | null
+  translations: TranslationWithCategory[] | null
 ): string {
   const lines: string[] = [];
   lines.push(`## ${version}`);
   lines.push('');
-  lines.push('| 日本語 | English |');
-  lines.push('|--------|---------|');
+  lines.push('| 日本語 | English | Category |');
+  lines.push('|--------|---------|----------|');
 
   for (let i = 0; i < entries.length; i++) {
     // エントリ内のパイプ文字をエスケープ
     const escapedEntry = entries[i].replace(/\|/g, '\\|');
-    const jaText = translations?.[i]?.replace(/\|/g, '\\|') ?? '（翻訳待ち）';
-    lines.push(`| ${jaText} | ${escapedEntry} |`);
+    const jaText = translations?.[i]?.translation.replace(/\|/g, '\\|') ?? '（翻訳待ち）';
+    const category = translations?.[i]?.category ?? 'other';
+    lines.push(`| ${jaText} | ${escapedEntry} | ${category} |`);
   }
 
   lines.push('');
@@ -293,9 +294,29 @@ async function main(): Promise<void> {
         continue;
       }
 
-      // 翻訳を試行
+      // 翻訳+分類を試行
       console.log(`  v${version} を翻訳中...`);
-      const translations = translateBatch(entries, 'Claude Code');
+      let translations = translateAndClassifyBatch(entries, 'Claude Code');
+      if (!translations) {
+        // バッチ失敗 → 1件ずつフォールバック
+        const fallbackResults: TranslationWithCategory[] = [];
+        let allSuccess = true;
+        for (const entry of entries) {
+          const result = translateAndClassifyOne(entry, 'Claude Code');
+          if (result) {
+            fallbackResults.push(result);
+          } else {
+            const translation = translateOne(entry, 'Claude Code');
+            if (translation) {
+              fallbackResults.push({ translation, category: 'other' });
+            } else {
+              allSuccess = false;
+              break;
+            }
+          }
+        }
+        translations = allSuccess ? fallbackResults : null;
+      }
       if (translations) {
         console.log(`  v${version} の翻訳完了`);
       }

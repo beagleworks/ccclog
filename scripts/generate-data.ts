@@ -284,7 +284,7 @@ async function main() {
 
   console.log(`📖 ${changelogPath} を読み込み中...`);
   const content = readFileSync(changelogPath, 'utf-8');
-  const parsedVersions = parseChangelog(content);
+  const parsedVersions = parseChangelog(content, productId);
   console.log(`   ${parsedVersions.length} バージョンを検出\n`);
 
   if (parsedVersions.length === 0) {

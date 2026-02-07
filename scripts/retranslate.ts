@@ -13,7 +13,8 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { isClaudeCliAvailable, translateBatch, translateOne } from './translate.js';
+import { isClaudeCliAvailable, translateBatch, translateAndClassifyBatch, translateAndClassifyOne, translateOne, type TranslationWithCategory } from './translate.js';
+import type { ClaudeCodeCategory } from './parse-changelog.js';
 
 const PENDING_MARKER = '（翻訳待ち）';
 
@@ -23,7 +24,8 @@ interface PendingEntry {
   version: string;
   lineNumber: number;
   englishText: string;
-  category: string | null; // Codex の場合のみ（3列テーブル）
+  category: string | null;
+  hasThreeColumns: boolean;
 }
 
 /**
@@ -61,6 +63,7 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
   const lines = content.split('\n');
 
   let currentVersion: string | null = null;
+  let currentHasThreeColumns = false;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -69,6 +72,7 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
     const versionMatch = line.match(/^## (\d+\.\d+\.\d+)/);
     if (versionMatch) {
       currentVersion = versionMatch[1];
+      currentHasThreeColumns = false;
       continue;
     }
 
@@ -77,8 +81,11 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
     // テーブル行でない場合はスキップ
     if (!line.startsWith('|')) continue;
 
-    // ヘッダー行（「日本語」を含む）を除外
-    if (line.includes('| 日本語 |')) continue;
+    // ヘッダー行（「日本語」を含む）を検出 → 3列かどうか判定して除外
+    if (line.includes('| 日本語 |')) {
+      currentHasThreeColumns = line.includes('| Category |');
+      continue;
+    }
 
     // 区切り行（|--- で始まる）を除外
     if (/^\|\s*-/.test(line)) continue;
@@ -95,6 +102,7 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
         lineNumber: i,
         englishText: cells[1].replace(/\\\|/g, '|').trim(),
         category: cells.length >= 3 ? cells[2] : null,
+        hasThreeColumns: currentHasThreeColumns,
       });
     } else {
       // 通常モード: 「（翻訳待ち）」のみ対象
@@ -104,6 +112,7 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
           lineNumber: i,
           englishText: cells[1].replace(/\\\|/g, '|').trim(),
           category: cells.length >= 3 ? cells[2] : null,
+          hasThreeColumns: currentHasThreeColumns,
         });
       }
     }
@@ -135,6 +144,42 @@ function updateLine(
     lines[lineNumber] = `| ${escapedJa} | ${escapedEn} |`;
   }
 
+  fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
+}
+
+/**
+ * バージョン単位の原子的更新情報
+ */
+interface VersionUpdate {
+  headerLineNumber: number;
+  separatorLineNumber: number;
+  entries: Array<{
+    lineNumber: number;
+    japaneseText: string;
+    englishText: string;
+    category: ClaudeCodeCategory;
+  }>;
+}
+
+/**
+ * バージョン単位で原子的にテーブルを3列化する
+ */
+export function applyVersionUpdate(filePath: string, update: VersionUpdate): void {
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const lines = content.split('\n');
+
+  // ヘッダーと区切り行を3列化
+  lines[update.headerLineNumber] = '| 日本語 | English | Category |';
+  lines[update.separatorLineNumber] = '|--------|---------|----------|';
+
+  // 全エントリ行を3列で書き込み
+  for (const entry of update.entries) {
+    const escapedJa = entry.japaneseText.replace(/\|/g, '\\|');
+    const escapedEn = entry.englishText.replace(/\|/g, '\\|');
+    lines[entry.lineNumber] = `| ${escapedJa} | ${escapedEn} | ${entry.category} |`;
+  }
+
+  // 1回だけ書き込み
   fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
 }
 
@@ -250,43 +295,124 @@ async function main(): Promise<void> {
   let failCount = 0;
 
   if (retranslateAll) {
-    // --retranslate-all: バージョン単位でバッチ翻訳
+    // --retranslate-all: バージョン単位でバッチ翻訳+分類 → 原子的3列化
     const groups = groupByVersion(pendingEntries);
     const cliProductLabel = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
+
+    // Claude Code の場合のみ3列化を行う（Codex は既に3列）
+    const shouldClassify = product === 'claude-code';
 
     for (const [version, versionEntries] of groups) {
       console.log(`\nv${version}: ${versionEntries.length}件を一括翻訳中...`);
 
       const englishTexts = versionEntries.map((e) => e.englishText);
-      const translations = translateBatch(englishTexts, cliProductLabel);
 
-      if (translations) {
-        // バッチ翻訳成功
-        for (let j = 0; j < versionEntries.length; j++) {
-          const entry = versionEntries[j];
-          console.log(`  → ${translations[j]}`);
-          updateLine(filePath, entry.lineNumber, entry.englishText, translations[j], entry.category);
-          successCount++;
+      if (shouldClassify) {
+        // Claude Code: 翻訳+分類 → 原子的3列化
+        let classified = translateAndClassifyBatch(englishTexts, cliProductLabel);
+
+        if (!classified) {
+          // バッチ失敗 → 1件ずつフォールバック
+          console.log(`  バッチ翻訳+分類失敗。1件ずつ再試行します...`);
+          const fallbackResults: TranslationWithCategory[] = [];
+          let allSuccess = true;
+
+          for (const entry of versionEntries) {
+            console.log(`  翻訳中: ${entry.englishText.substring(0, 40)}...`);
+            const result = translateAndClassifyOne(entry.englishText, cliProductLabel);
+            if (result) {
+              console.log(`    → ${result.translation} [${result.category}]`);
+              fallbackResults.push(result);
+            } else {
+              // 分類付き失敗 → 翻訳のみ + 'other'
+              const translation = translateOne(entry.englishText, cliProductLabel);
+              if (translation) {
+                console.log(`    → ${translation} [other (フォールバック)]`);
+                fallbackResults.push({ translation, category: 'other' });
+              } else {
+                console.log('    → 翻訳失敗');
+                allSuccess = false;
+                break;
+              }
+            }
+          }
+          classified = allSuccess ? fallbackResults : null;
+        }
+
+        if (classified && classified.length === versionEntries.length) {
+          // テーブルヘッダーと区切り行の行番号を特定
+          const content = fs.readFileSync(filePath, 'utf-8');
+          const allLines = content.split('\n');
+          const firstEntryLine = versionEntries[0].lineNumber;
+
+          // ヘッダー行はエントリ行の2行前、区切り行は1行前
+          let headerLine = -1;
+          let separatorLine = -1;
+          for (let j = firstEntryLine - 1; j >= 0; j--) {
+            if (/^\|\s*-/.test(allLines[j])) {
+              separatorLine = j;
+            } else if (allLines[j].includes('| 日本語 |')) {
+              headerLine = j;
+              break;
+            }
+          }
+
+          if (headerLine >= 0 && separatorLine >= 0) {
+            const update: VersionUpdate = {
+              headerLineNumber: headerLine,
+              separatorLineNumber: separatorLine,
+              entries: versionEntries.map((entry, idx) => ({
+                lineNumber: entry.lineNumber,
+                japaneseText: classified![idx].translation,
+                englishText: entry.englishText,
+                category: classified![idx].category,
+              })),
+            };
+            applyVersionUpdate(filePath, update);
+            for (const c of classified) {
+              console.log(`  → ${c.translation} [${c.category}]`);
+            }
+            successCount += classified.length;
+          } else {
+            console.warn(`  警告: v${version} のテーブルヘッダーが見つかりません。スキップします。`);
+            failCount += versionEntries.length;
+          }
+        } else {
+          console.log(`  v${version} はスキップ（翻訳失敗あり）`);
+          failCount += versionEntries.length;
         }
       } else {
-        // バッチ翻訳失敗 → 1件ずつフォールバック
-        console.log(`  バッチ翻訳失敗。1件ずつ再試行します...`);
-        for (const entry of versionEntries) {
-          console.log(`  翻訳中: ${entry.englishText.substring(0, 40)}...`);
-          const translation = translateOne(entry.englishText, cliProductLabel);
-          if (translation) {
-            console.log(`    → ${translation}`);
-            updateLine(filePath, entry.lineNumber, entry.englishText, translation, entry.category);
+        // Codex: 既存の翻訳のみモード（3列テーブルは既に存在）
+        const translations = translateBatch(englishTexts, cliProductLabel);
+
+        if (translations) {
+          for (let j = 0; j < versionEntries.length; j++) {
+            const entry = versionEntries[j];
+            console.log(`  → ${translations[j]}`);
+            updateLine(filePath, entry.lineNumber, entry.englishText, translations[j], entry.category);
             successCount++;
-          } else {
-            console.log('    → 翻訳失敗（スキップ）');
-            failCount++;
+          }
+        } else {
+          console.log(`  バッチ翻訳失敗。1件ずつ再試行します...`);
+          for (const entry of versionEntries) {
+            console.log(`  翻訳中: ${entry.englishText.substring(0, 40)}...`);
+            const translation = translateOne(entry.englishText, cliProductLabel);
+            if (translation) {
+              console.log(`    → ${translation}`);
+              updateLine(filePath, entry.lineNumber, entry.englishText, translation, entry.category);
+              successCount++;
+            } else {
+              console.log('    → 翻訳失敗（スキップ）');
+              failCount++;
+            }
           }
         }
       }
     }
   } else {
-    // 通常モード: 1件ずつ翻訳
+    // 通常モード: 1件ずつ翻訳（列形式を維持）
+    const cliProductLabel = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
+
     for (const entry of pendingEntries) {
       console.log(`  - v${entry.version}: ${entry.englishText.substring(0, 50)}...`);
     }
@@ -294,15 +420,36 @@ async function main(): Promise<void> {
     for (const entry of pendingEntries) {
       console.log(`\n翻訳中: v${entry.version} - ${entry.englishText.substring(0, 40)}...`);
 
-      const translation = translateOne(entry.englishText, product === 'codex' ? 'OpenAI Codex' : 'Claude Code');
-
-      if (translation) {
-        console.log(`  → ${translation}`);
-        updateLine(filePath, entry.lineNumber, entry.englishText, translation, entry.category);
-        successCount++;
+      if (entry.hasThreeColumns) {
+        // 3列テーブル → 分類付き翻訳を試行
+        const result = translateAndClassifyOne(entry.englishText, cliProductLabel);
+        if (result) {
+          console.log(`  → ${result.translation} [${result.category}]`);
+          updateLine(filePath, entry.lineNumber, entry.englishText, result.translation, result.category);
+          successCount++;
+        } else {
+          // 分類付き翻訳失敗 → 翻訳のみ + 'other'
+          const translation = translateOne(entry.englishText, cliProductLabel);
+          if (translation) {
+            console.log(`  → ${translation} [other (フォールバック)]`);
+            updateLine(filePath, entry.lineNumber, entry.englishText, translation, 'other');
+            successCount++;
+          } else {
+            console.log('  → 翻訳失敗（スキップ）');
+            failCount++;
+          }
+        }
       } else {
-        console.log('  → 翻訳失敗（スキップ）');
-        failCount++;
+        // 2列テーブル → 翻訳のみ（列形式維持）
+        const translation = translateOne(entry.englishText, cliProductLabel);
+        if (translation) {
+          console.log(`  → ${translation}`);
+          updateLine(filePath, entry.lineNumber, entry.englishText, translation, null);
+          successCount++;
+        } else {
+          console.log('  → 翻訳失敗（スキップ）');
+          failCount++;
+        }
       }
     }
   }

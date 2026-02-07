@@ -6,16 +6,23 @@
  * - 3列テーブル: | 日本語 | English | Category |（Codex）
  */
 
+/** Claude Code のカテゴリID */
+export type ClaudeCodeCategory = 'added' | 'fixed' | 'changed' | 'improved' | 'other';
+
 /** Codex のカテゴリID（本家 GitHub Releases のセクション名に準拠） */
 export type CodexCategory = 'new-features' | 'bug-fixes' | 'documentation' | 'chores';
 
-/** 有効なカテゴリ値 */
-const VALID_CATEGORIES: readonly string[] = ['new-features', 'bug-fixes', 'documentation', 'chores'];
+/** 全プロダクト共通のカテゴリ型 */
+export type EntryCategory = CodexCategory | ClaudeCodeCategory;
+
+/** プロダクト別のカテゴリセット（検証用） */
+const CODEX_CATEGORIES = new Set<string>(['new-features', 'bug-fixes', 'documentation', 'chores']);
+const CLAUDE_CODE_CATEGORIES = new Set<string>(['added', 'fixed', 'changed', 'improved', 'other']);
 
 export interface Entry {
   ja: string;
   en: string;
-  category?: CodexCategory; // Codex のみ
+  category?: EntryCategory;
 }
 
 export interface ParsedVersion {
@@ -81,28 +88,48 @@ function detectTableHeader(line: string): { detected: boolean; hasCategory: bool
 }
 
 /**
- * カテゴリ文字列をパース
+ * カテゴリ文字列をパース（プロダクト文脈付き検証）
  * @param value カテゴリ値
+ * @param product プロダクト種別（指定時はそのプロダクトのカテゴリのみ許容）
  * @returns 有効なカテゴリまたは undefined
  */
-function parseCategory(value: string): CodexCategory | undefined {
+function parseCategory(value: string, product?: 'claude-code' | 'codex'): EntryCategory | undefined {
   const normalized = value.trim().toLowerCase();
-  if (VALID_CATEGORIES.includes(normalized)) {
-    return normalized as CodexCategory;
+  if (product === 'codex') {
+    if (!CODEX_CATEGORIES.has(normalized)) {
+      if (value.trim()) {
+        console.warn(`Codex に無効なカテゴリ: "${value}"`);
+      }
+      return undefined;
+    }
+    return normalized as EntryCategory;
   }
-  // 未知値は undefined に落とす
-  if (value.trim()) {
-    console.warn(`Unknown category: "${value}" - treating as undefined`);
+  if (product === 'claude-code') {
+    if (!CLAUDE_CODE_CATEGORIES.has(normalized)) {
+      if (value.trim()) {
+        console.warn(`Claude Code に無効なカテゴリ: "${value}"`);
+      }
+      return undefined;
+    }
+    return normalized as EntryCategory;
   }
-  return undefined;
+  // product 未指定の場合は全カテゴリを許容（後方互換性）
+  if (!CODEX_CATEGORIES.has(normalized) && !CLAUDE_CODE_CATEGORIES.has(normalized)) {
+    if (value.trim()) {
+      console.warn(`Unknown category: "${value}"`);
+    }
+    return undefined;
+  }
+  return normalized as EntryCategory;
 }
 
 /**
  * CHANGELOGファイルをパースする
  * @param content CHANGELOGファイルの内容
+ * @param product プロダクト種別（カテゴリ検証に使用）
  * @returns パースされたバージョン情報の配列
  */
-export function parseChangelog(content: string): ParsedVersion[] {
+export function parseChangelog(content: string, product?: 'claude-code' | 'codex'): ParsedVersion[] {
   const versions: ParsedVersion[] = [];
   const lines = content.split('\n');
 
@@ -152,7 +179,7 @@ export function parseChangelog(content: string): ParsedVersion[] {
 
         // 3列テーブルの場合、カテゴリを取得
         if (hasCategory && cells[2] !== undefined) {
-          const category = parseCategory(cells[2]);
+          const category = parseCategory(cells[2], product);
           if (category) {
             entry.category = category;
           }
@@ -182,10 +209,11 @@ export function parseChangelog(content: string): ParsedVersion[] {
 /**
  * バージョンごとのエントリ一覧を抽出する
  * @param content CHANGELOGファイルの内容
+ * @param product プロダクト種別（カテゴリ検証に使用）
  * @returns version -> entries のMap
  */
-export function extractEntriesByVersion(content: string): Map<string, Entry[]> {
-  const versions = parseChangelog(content);
+export function extractEntriesByVersion(content: string, product?: 'claude-code' | 'codex'): Map<string, Entry[]> {
+  const versions = parseChangelog(content, product);
   const result = new Map<string, Entry[]>();
 
   for (const version of versions) {

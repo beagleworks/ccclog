@@ -10,7 +10,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { extractEntriesByVersion, type Entry } from './parse-changelog.js';
-import { translateBatch } from './translate.js';
+import { translateBatch, translateAndClassifyBatch, translateAndClassifyOne, translateOne, type TranslationWithCategory } from './translate.js';
 
 const GITHUB_CHANGELOG_URL =
   'https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md';
@@ -121,11 +121,12 @@ function buildVersionSection(version: string, entries: Entry[]): string {
   const lines: string[] = [];
   lines.push(`## ${version}`);
   lines.push('');
-  lines.push('| 日本語 | English |');
-  lines.push('|--------|---------|');
+  lines.push('| 日本語 | English | Category |');
+  lines.push('|--------|---------|----------|');
 
   for (const entry of entries) {
-    lines.push(`| ${escapePipes(entry.ja)} | ${escapePipes(entry.en)} |`);
+    const category = entry.category ?? 'other';
+    lines.push(`| ${escapePipes(entry.ja)} | ${escapePipes(entry.en)} | ${category} |`);
   }
 
   lines.push('');
@@ -180,7 +181,7 @@ function rebuildEntries(
     const existing = bucket && bucket.length > 0 ? bucket.shift()! : null;
 
     if (existing && existing.ja !== PENDING_MARKER) {
-      output.push({ ja: existing.ja, en: entry });
+      output.push({ ja: existing.ja, en: entry, category: existing.category });
       continue;
     }
 
@@ -190,12 +191,31 @@ function rebuildEntries(
 
   let translatedCount = 0;
   if (translateTargets.length > 0) {
-    const translations = translateBatch(translateTargets.map((t) => t.text), 'Claude Code');
-    if (translations) {
-      for (let i = 0; i < translations.length; i++) {
+    const classified = translateAndClassifyBatch(translateTargets.map((t) => t.text), 'Claude Code');
+    if (classified) {
+      for (let i = 0; i < classified.length; i++) {
         const target = translateTargets[i];
-        output[target.index].ja = translations[i];
+        output[target.index].ja = classified[i].translation;
+        output[target.index].category = classified[i].category;
         translatedCount++;
+      }
+    } else {
+      // バッチ失敗 → 1件ずつフォールバック
+      for (let i = 0; i < translateTargets.length; i++) {
+        const target = translateTargets[i];
+        const result = translateAndClassifyOne(target.text, 'Claude Code');
+        if (result) {
+          output[target.index].ja = result.translation;
+          output[target.index].category = result.category;
+          translatedCount++;
+        } else {
+          const translation = translateOne(target.text, 'Claude Code');
+          if (translation) {
+            output[target.index].ja = translation;
+            output[target.index].category = 'other';
+            translatedCount++;
+          }
+        }
       }
     }
   }
@@ -225,7 +245,7 @@ async function main(): Promise<void> {
   }
 
   const originalContent = fs.readFileSync(filePath, 'utf-8');
-  const localEntriesByVersion = extractEntriesByVersion(originalContent);
+  const localEntriesByVersion = extractEntriesByVersion(originalContent, 'claude-code');
 
   let hasChanges = false;
   const versionsToApply: {
