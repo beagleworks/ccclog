@@ -196,6 +196,15 @@ function rebuildEntries(
         output[target.index].category = classified[i].category;
         translatedCount++;
       }
+    } else {
+      // 全体バッチが失敗した場合でも、成功分は個別フォールバックで反映する
+      for (const target of translateTargets) {
+        const single = translateAndClassifyWithFallback([target.text], 'Claude Code');
+        if (!single || single.length === 0) continue;
+        output[target.index].ja = single[0].translation;
+        output[target.index].category = single[0].category;
+        translatedCount++;
+      }
     }
   }
 
