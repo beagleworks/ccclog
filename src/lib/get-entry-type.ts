@@ -26,7 +26,7 @@ const VALID_CLAUDE_CODE_CLASSES = new Set(['added', 'fixed', 'changed', 'improve
 
 /** キーワード → CSS クラスのマッピング（旧形式データ用フォールバック） */
 const KEYWORD_RULES: Array<{ keywords: string[]; cls: string }> = [
-  { keywords: ['added', 'add ', 'enabled', 'enable '], cls: 'added' },
+  { keywords: ['added', 'add '], cls: 'added' },
   { keywords: ['fixed', 'fix ', 'bugfix', 'reduced'], cls: 'fixed' },
   { keywords: ['changed', 'change ', 'merged', 'moved', 'updated', 'removed', 'deprecated'], cls: 'changed' },
   { keywords: ['improved', 'improve '], cls: 'improved' },

@@ -77,9 +77,9 @@ describe('getEntryType', () => {
       expect(getEntryType(entry, 'claude-code')).toBe('improved');
     });
 
-    it('Enabled を含む → added', () => {
+    it('Enabled を含む → other（enabled は分類キーワード対象外）', () => {
       const entry: Entry = { ja: 'テスト', en: 'Enabled dark mode' };
-      expect(getEntryType(entry, 'claude-code')).toBe('added');
+      expect(getEntryType(entry, 'claude-code')).toBe('other');
     });
 
     it('キーワードなし → other', () => {
