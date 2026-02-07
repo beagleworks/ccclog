@@ -214,6 +214,7 @@ ccclog/
 | `translateOne` | `(text: string, productLabel: string) => string \| null` | 単一エントリの翻訳 |
 | `translateAndClassifyBatch` | `(entries: string[], productLabel: string) => TranslationWithCategory[] \| null` | 複数エントリの一括翻訳+カテゴリ分類 |
 | `translateAndClassifyOne` | `(text: string, productLabel: string) => TranslationWithCategory \| null` | 単一エントリの翻訳+カテゴリ分類 |
+| `translateAndClassifyWithFallback` | `(entries: string[], productLabel: string) => TranslationWithCategory[] \| null` | バッチ→個別分類→個別翻訳の多段フォールバック付き翻訳+分類 |
 | `parseTranslationsWithCategory` | `(responseText: string, expectedCount: number) => TranslationWithCategory[] \| null` | AI出力のパース（テスト用エクスポート） |
 
 ---

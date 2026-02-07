@@ -79,7 +79,7 @@ JSON の `category` フィールドに応じて左ボーダー色を変更。`ca
 | `other` | グレー | #8b949e |
 
 **フォールバック（キーワード判定）**: `category` がない場合、英語テキストのキーワードで分類:
-- Added / Add / Enabled / Enable → `added`
+- Added / Add → `added`
 - Fixed / Fix / bugfixes / Reduced → `fixed`
 - Changed / Change / Merged / Moved / Updated / Removed / Deprecated → `changed`
 - Improved / Improve → `improved`
