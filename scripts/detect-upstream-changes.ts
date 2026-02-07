@@ -9,8 +9,9 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { getCurrentYearJst } from './date-utils.js';
 import { extractEntriesByVersion, type Entry } from './parse-changelog.js';
-import { translateBatch, translateAndClassifyBatch, translateAndClassifyOne, translateOne, type TranslationWithCategory } from './translate.js';
+import { translateAndClassifyWithFallback } from './translate.js';
 
 const GITHUB_CHANGELOG_URL =
   'https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md';
@@ -109,13 +110,6 @@ async function fetchUpstreamTopVersions(): Promise<UpstreamVersion[]> {
   return versions.slice(0, TARGET_VERSION_COUNT);
 }
 
-function getCurrentYearJst(): number {
-  const now = new Date();
-  const jstOffset = 9 * 60 * 60 * 1000;
-  const jstNow = new Date(now.getTime() + jstOffset);
-  return jstNow.getFullYear();
-}
-
 
 function buildVersionSection(version: string, entries: Entry[]): string {
   const lines: string[] = [];
@@ -191,31 +185,16 @@ function rebuildEntries(
 
   let translatedCount = 0;
   if (translateTargets.length > 0) {
-    const classified = translateAndClassifyBatch(translateTargets.map((t) => t.text), 'Claude Code');
+    const classified = translateAndClassifyWithFallback(
+      translateTargets.map((t) => t.text),
+      'Claude Code',
+    );
     if (classified) {
       for (let i = 0; i < classified.length; i++) {
         const target = translateTargets[i];
         output[target.index].ja = classified[i].translation;
         output[target.index].category = classified[i].category;
         translatedCount++;
-      }
-    } else {
-      // バッチ失敗 → 1件ずつフォールバック
-      for (let i = 0; i < translateTargets.length; i++) {
-        const target = translateTargets[i];
-        const result = translateAndClassifyOne(target.text, 'Claude Code');
-        if (result) {
-          output[target.index].ja = result.translation;
-          output[target.index].category = result.category;
-          translatedCount++;
-        } else {
-          const translation = translateOne(target.text, 'Claude Code');
-          if (translation) {
-            output[target.index].ja = translation;
-            output[target.index].category = 'other';
-            translatedCount++;
-          }
-        }
       }
     }
   }

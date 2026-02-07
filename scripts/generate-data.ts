@@ -264,16 +264,10 @@ async function main() {
 
   console.log(`📦 CHANGELOG データ生成を開始 (${config.shortName} / ${year}年)...\n`);
 
-  // パス決定
-  const contentDir = config.contentSubdir
-    ? join(ROOT_DIR, 'content', config.contentSubdir)
-    : join(ROOT_DIR, 'content');
-  const dataDir = config.dataSubdir
-    ? join(ROOT_DIR, 'src', 'data', config.dataSubdir)
-    : join(ROOT_DIR, 'src', 'data');
-  const generatedDir = config.contentSubdir
-    ? join(ROOT_DIR, 'generated', config.contentSubdir)
-    : join(ROOT_DIR, 'generated');
+  // パス決定（サブディレクトリがある場合はそれを付与）
+  const contentDir = join(ROOT_DIR, 'content', config.contentSubdir);
+  const dataDir = join(ROOT_DIR, 'src', 'data', config.dataSubdir);
+  const generatedDir = join(ROOT_DIR, 'generated', config.contentSubdir);
 
   // 1. CHANGELOGファイルを読み込み・パース
   const changelogPath = join(contentDir, `CHANGELOG_${year}_JA.md`);
@@ -314,10 +308,12 @@ async function main() {
   const monthMap = new Map<string, Version[]>();
   for (const version of versions) {
     const monthKey = getMonthKey(version.releaseDate);
-    if (!monthMap.has(monthKey)) {
-      monthMap.set(monthKey, []);
+    const group = monthMap.get(monthKey);
+    if (group) {
+      group.push(version);
+    } else {
+      monthMap.set(monthKey, [version]);
     }
-    monthMap.get(monthKey)!.push(version);
   }
 
   // 月キーでソート（降順）

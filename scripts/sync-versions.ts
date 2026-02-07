@@ -12,7 +12,8 @@
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { translateAndClassifyBatch, translateAndClassifyOne, translateOne, type TranslationWithCategory } from './translate.js';
+import { utcToJst, getCurrentYearJst } from './date-utils.js';
+import { translateAndClassifyWithFallback, type TranslationWithCategory } from './translate.js';
 
 const NPM_PACKAGE = '@anthropic-ai/claude-code';
 const GITHUB_CHANGELOG_URL =
@@ -28,14 +29,6 @@ interface VersionInfo {
   year: number;
 }
 
-/**
- * UTC日時をJST（日本標準時）に変換
- */
-function utcToJst(utcDate: string): Date {
-  const date = new Date(utcDate);
-  const jstOffset = 9 * 60 * 60 * 1000;
-  return new Date(date.getTime() + jstOffset);
-}
 
 /**
  * npm レジストリから全バージョンの公開日を取得
@@ -226,15 +219,6 @@ function appendToChangelog(year: number, sections: string[]): void {
   console.log(`  ${filePath} に ${sections.length} バージョンを追加しました`);
 }
 
-/**
- * 現在の年を取得（JST基準）
- */
-function getCurrentYearJst(): number {
-  const now = new Date();
-  const jstOffset = 9 * 60 * 60 * 1000;
-  const jstNow = new Date(now.getTime() + jstOffset);
-  return jstNow.getFullYear();
-}
 
 /**
  * メイン処理
@@ -296,27 +280,7 @@ async function main(): Promise<void> {
 
       // 翻訳+分類を試行
       console.log(`  v${version} を翻訳中...`);
-      let translations = translateAndClassifyBatch(entries, 'Claude Code');
-      if (!translations) {
-        // バッチ失敗 → 1件ずつフォールバック
-        const fallbackResults: TranslationWithCategory[] = [];
-        let allSuccess = true;
-        for (const entry of entries) {
-          const result = translateAndClassifyOne(entry, 'Claude Code');
-          if (result) {
-            fallbackResults.push(result);
-          } else {
-            const translation = translateOne(entry, 'Claude Code');
-            if (translation) {
-              fallbackResults.push({ translation, category: 'other' });
-            } else {
-              allSuccess = false;
-              break;
-            }
-          }
-        }
-        translations = allSuccess ? fallbackResults : null;
-      }
+      const translations = translateAndClassifyWithFallback(entries, 'Claude Code');
       if (translations) {
         console.log(`  v${version} の翻訳完了`);
       }

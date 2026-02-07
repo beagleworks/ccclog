@@ -13,7 +13,8 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { isClaudeCliAvailable, translateBatch, translateAndClassifyBatch, translateAndClassifyOne, translateOne, type TranslationWithCategory } from './translate.js';
+import { getCurrentYearJst } from './date-utils.js';
+import { isClaudeCliAvailable, translateBatch, translateAndClassifyWithFallback, translateAndClassifyOne, translateOne, type TranslationWithCategory } from './translate.js';
 import type { ClaudeCodeCategory } from './parse-changelog.js';
 
 const PENDING_MARKER = '（翻訳待ち）';
@@ -26,16 +27,6 @@ interface PendingEntry {
   englishText: string;
   category: string | null;
   hasThreeColumns: boolean;
-}
-
-/**
- * 現在の年を取得（JST基準）
- */
-function getCurrentYearJst(): number {
-  const now = new Date();
-  const jstOffset = 9 * 60 * 60 * 1000;
-  const jstNow = new Date(now.getTime() + jstOffset);
-  return jstNow.getFullYear();
 }
 
 
@@ -95,27 +86,16 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
     // 列数チェック: 最低2列必要
     if (cells.length < 2) continue;
 
-    if (forceAll) {
-      // --retranslate-all: 全テーブル行を対象
-      entries.push({
-        version: currentVersion,
-        lineNumber: i,
-        englishText: cells[1].replace(/\\\|/g, '|').trim(),
-        category: cells.length >= 3 ? cells[2] : null,
-        hasThreeColumns: currentHasThreeColumns,
-      });
-    } else {
-      // 通常モード: 「（翻訳待ち）」のみ対象
-      if (cells[0] === PENDING_MARKER) {
-        entries.push({
-          version: currentVersion,
-          lineNumber: i,
-          englishText: cells[1].replace(/\\\|/g, '|').trim(),
-          category: cells.length >= 3 ? cells[2] : null,
-          hasThreeColumns: currentHasThreeColumns,
-        });
-      }
-    }
+    // forceAll: 全テーブル行、通常モード: 「（翻訳待ち）」のみ
+    if (!forceAll && cells[0] !== PENDING_MARKER) continue;
+
+    entries.push({
+      version: currentVersion,
+      lineNumber: i,
+      englishText: cells[1].replace(/\\\|/g, '|').trim(),
+      category: cells.length >= 3 ? cells[2] : null,
+      hasThreeColumns: currentHasThreeColumns,
+    });
   }
 
   return entries;
@@ -293,11 +273,11 @@ async function main(): Promise<void> {
 
   let successCount = 0;
   let failCount = 0;
+  const cliProductLabel = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
 
   if (retranslateAll) {
     // --retranslate-all: バージョン単位でバッチ翻訳+分類 → 原子的3列化
     const groups = groupByVersion(pendingEntries);
-    const cliProductLabel = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
 
     // Claude Code の場合のみ3列化を行う（Codex は既に3列）
     const shouldClassify = product === 'claude-code';
@@ -309,35 +289,7 @@ async function main(): Promise<void> {
 
       if (shouldClassify) {
         // Claude Code: 翻訳+分類 → 原子的3列化
-        let classified = translateAndClassifyBatch(englishTexts, cliProductLabel);
-
-        if (!classified) {
-          // バッチ失敗 → 1件ずつフォールバック
-          console.log(`  バッチ翻訳+分類失敗。1件ずつ再試行します...`);
-          const fallbackResults: TranslationWithCategory[] = [];
-          let allSuccess = true;
-
-          for (const entry of versionEntries) {
-            console.log(`  翻訳中: ${entry.englishText.substring(0, 40)}...`);
-            const result = translateAndClassifyOne(entry.englishText, cliProductLabel);
-            if (result) {
-              console.log(`    → ${result.translation} [${result.category}]`);
-              fallbackResults.push(result);
-            } else {
-              // 分類付き失敗 → 翻訳のみ + 'other'
-              const translation = translateOne(entry.englishText, cliProductLabel);
-              if (translation) {
-                console.log(`    → ${translation} [other (フォールバック)]`);
-                fallbackResults.push({ translation, category: 'other' });
-              } else {
-                console.log('    → 翻訳失敗');
-                allSuccess = false;
-                break;
-              }
-            }
-          }
-          classified = allSuccess ? fallbackResults : null;
-        }
+        const classified = translateAndClassifyWithFallback(englishTexts, cliProductLabel);
 
         if (classified && classified.length === versionEntries.length) {
           // テーブルヘッダーと区切り行の行番号を特定
@@ -363,9 +315,9 @@ async function main(): Promise<void> {
               separatorLineNumber: separatorLine,
               entries: versionEntries.map((entry, idx) => ({
                 lineNumber: entry.lineNumber,
-                japaneseText: classified![idx].translation,
+                japaneseText: classified[idx].translation,
                 englishText: entry.englishText,
-                category: classified![idx].category,
+                category: classified[idx].category,
               })),
             };
             applyVersionUpdate(filePath, update);
@@ -411,8 +363,6 @@ async function main(): Promise<void> {
     }
   } else {
     // 通常モード: 1件ずつ翻訳（列形式を維持）
-    const cliProductLabel = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
-
     for (const entry of pendingEntries) {
       console.log(`  - v${entry.version}: ${entry.englishText.substring(0, 50)}...`);
     }

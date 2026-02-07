@@ -17,6 +17,7 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { utcToJst, getCurrentYearJst } from './date-utils.js';
 import { parseCodexReleaseBody, type ParsedEntry } from './parse-codex-releases.ts';
 import { translateBatch } from './translate.js';
 
@@ -56,14 +57,6 @@ function getGitHubHeaders(): Record<string, string> {
   return headers;
 }
 
-/**
- * UTC日時をJST（日本標準時）に変換
- */
-function utcToJst(utcDate: string): Date {
-  const date = new Date(utcDate);
-  const jstOffset = 9 * 60 * 60 * 1000;
-  return new Date(date.getTime() + jstOffset);
-}
 
 /**
  * GitHub Releases から対象リリースを取得
@@ -351,15 +344,6 @@ function appendToChangelog(year: number, sections: string[]): void {
   console.log(`  ${filePath} に ${sections.length} バージョンを追加しました`);
 }
 
-/**
- * 現在の年を取得（JST基準）
- */
-function getCurrentYearJst(): number {
-  const now = new Date();
-  const jstOffset = 9 * 60 * 60 * 1000;
-  const jstNow = new Date(now.getTime() + jstOffset);
-  return jstNow.getFullYear();
-}
 
 /**
  * コマンドライン引数をパース

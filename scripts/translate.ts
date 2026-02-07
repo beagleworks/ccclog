@@ -103,15 +103,6 @@ export interface TranslationWithCategory {
   category: ClaudeCodeCategory;
 }
 
-/** カテゴリとして有効な値 */
-const VALID_CLAUDE_CATEGORIES: readonly ClaudeCodeCategory[] = [
-  'added',
-  'fixed',
-  'changed',
-  'improved',
-  'other',
-];
-
 const CAT = '(added|fixed|changed|improved|other)';
 
 /** strict: 有効カテゴリのみ受理 */
@@ -131,6 +122,17 @@ const loosePatterns = [
 ];
 
 /**
+ * パターンリストからマッチを試行し、最初にマッチした結果を返す
+ */
+function matchFirst(line: string, patterns: RegExp[]): RegExpMatchArray | null {
+  for (const pattern of patterns) {
+    const m = line.match(pattern);
+    if (m) return m;
+  }
+  return null;
+}
+
+/**
  * translateAndClassifyBatch のレスポンスをパース
  * @returns パース結果の配列。パース不能行は含まれない
  */
@@ -141,42 +143,27 @@ export function parseTranslationsWithCategory(
   const results: TranslationWithCategory[] = [];
 
   for (const line of lines) {
-    // 1. strict パターン — 翻訳 + 有効カテゴリ
-    let matched = false;
-    for (const pattern of strictPatterns) {
-      const m = line.match(pattern);
-      if (m) {
-        results.push({
-          translation: m[1].trim(),
-          category: m[2].toLowerCase() as ClaudeCodeCategory,
-        });
-        matched = true;
-        break;
-      }
+    // 1. strict パターン -- 翻訳 + 有効カテゴリ
+    const strict = matchFirst(line, strictPatterns);
+    if (strict) {
+      results.push({
+        translation: strict[1].trim(),
+        category: strict[2].toLowerCase() as ClaudeCodeCategory,
+      });
+      continue;
     }
-    if (matched) continue;
 
-    // 2. loose パターン — 翻訳のみ救済、カテゴリは 'other'
-    for (const pattern of loosePatterns) {
-      const m = line.match(pattern);
-      if (m) {
-        results.push({
-          translation: m[1].trim(),
-          category: 'other',
-        });
-        matched = true;
-        break;
-      }
+    // 2. loose パターン -- 翻訳のみ救済、カテゴリは 'other'
+    const loose = matchFirst(line, loosePatterns);
+    if (loose) {
+      results.push({ translation: loose[1].trim(), category: 'other' });
+      continue;
     }
-    if (matched) continue;
 
-    // 3. 番号付きリストのみ — 翻訳テキストのみ、カテゴリは 'other'
+    // 3. 番号付きリストのみ -- 翻訳テキストのみ、カテゴリは 'other'
     const fallback = line.match(/^\d+\.\s*(.+)$/);
     if (fallback) {
-      results.push({
-        translation: fallback[1].trim(),
-        category: 'other',
-      });
+      results.push({ translation: fallback[1].trim(), category: 'other' });
     }
   }
 
@@ -257,4 +244,48 @@ export function translateAndClassifyOne(
 ): TranslationWithCategory | null {
   const results = translateAndClassifyBatch([text], productLabel);
   return results?.[0] ?? null;
+}
+
+/**
+ * 翻訳+分類をバッチ実行し、失敗時は1件ずつフォールバックする共通ロジック
+ *
+ * フォールバック順序:
+ * 1. translateAndClassifyBatch（一括）
+ * 2. translateAndClassifyOne（個別、分類付き）
+ * 3. translateOne + category:'other'（個別、翻訳のみ）
+ *
+ * 全エントリの翻訳が成功した場合のみ結果を返し、途中で失敗した場合は null を返す
+ */
+export function translateAndClassifyWithFallback(
+  entries: string[],
+  productLabel: string,
+): TranslationWithCategory[] | null {
+  if (entries.length === 0) return [];
+
+  const classified = translateAndClassifyBatch(entries, productLabel);
+  if (classified) return classified;
+
+  // バッチ失敗 → 1件ずつフォールバック
+  console.log('  バッチ翻訳+分類失敗。1件ずつ再試行します...');
+  const results: TranslationWithCategory[] = [];
+
+  for (const entry of entries) {
+    const result = translateAndClassifyOne(entry, productLabel);
+    if (result) {
+      results.push(result);
+      continue;
+    }
+
+    // 分類付き失敗 → 翻訳のみ + 'other'
+    const translation = translateOne(entry, productLabel);
+    if (translation) {
+      results.push({ translation, category: 'other' });
+      continue;
+    }
+
+    // 完全失敗
+    return null;
+  }
+
+  return results;
 }

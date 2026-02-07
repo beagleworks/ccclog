@@ -87,6 +87,12 @@ function detectTableHeader(line: string): { detected: boolean; hasCategory: bool
   return { detected: false, hasCategory: false };
 }
 
+/** プロダクト別のカテゴリ検証セットと警告ラベル */
+const CATEGORY_VALIDATION: Record<string, { validSet: Set<string>; label: string }> = {
+  'codex': { validSet: CODEX_CATEGORIES, label: 'Codex' },
+  'claude-code': { validSet: CLAUDE_CODE_CATEGORIES, label: 'Claude Code' },
+};
+
 /**
  * カテゴリ文字列をパース（プロダクト文脈付き検証）
  * @param value カテゴリ値
@@ -95,31 +101,21 @@ function detectTableHeader(line: string): { detected: boolean; hasCategory: bool
  */
 function parseCategory(value: string, product?: 'claude-code' | 'codex'): EntryCategory | undefined {
   const normalized = value.trim().toLowerCase();
-  if (product === 'codex') {
-    if (!CODEX_CATEGORIES.has(normalized)) {
-      if (value.trim()) {
-        console.warn(`Codex に無効なカテゴリ: "${value}"`);
-      }
-      return undefined;
-    }
-    return normalized as EntryCategory;
-  }
-  if (product === 'claude-code') {
-    if (!CLAUDE_CODE_CATEGORIES.has(normalized)) {
-      if (value.trim()) {
-        console.warn(`Claude Code に無効なカテゴリ: "${value}"`);
-      }
-      return undefined;
-    }
-    return normalized as EntryCategory;
-  }
-  // product 未指定の場合は全カテゴリを許容（後方互換性）
-  if (!CODEX_CATEGORIES.has(normalized) && !CLAUDE_CODE_CATEGORIES.has(normalized)) {
+
+  // 検証対象セットを決定（未指定時は全カテゴリを許容）
+  const validation = product ? CATEGORY_VALIDATION[product] : undefined;
+  const isValid = validation
+    ? validation.validSet.has(normalized)
+    : CODEX_CATEGORIES.has(normalized) || CLAUDE_CODE_CATEGORIES.has(normalized);
+
+  if (!isValid) {
     if (value.trim()) {
-      console.warn(`Unknown category: "${value}"`);
+      const label = validation?.label ?? 'Unknown';
+      console.warn(`${label} に無効なカテゴリ: "${value}"`);
     }
     return undefined;
   }
+
   return normalized as EntryCategory;
 }
 
