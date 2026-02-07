@@ -8,6 +8,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SearchBox from './SearchBox.astro';
 import MonthGroup from './MonthGroup.astro';
+import { getLegendItems } from '../lib/legend';
 
 interface MonthData {
   key: string;
@@ -49,6 +50,8 @@ const displayStorageKey = `ccclog.displayMode.${product}`;
 
 // 空データ判定（検索UI/スクリプトを出すかどうか）
 const hasData = months.length > 0;
+
+const legendItems = getLegendItems(product);
 ---
 
 <BaseLayout
@@ -62,6 +65,13 @@ const hasData = months.length > 0;
       <SearchBox />
 
       <div class="info-bar">
+        <ul class="legend" aria-label="カテゴリ凡例">
+          {legendItems.map((item) => (
+            <li class="legend-item">
+              <span class={`legend-bar ${item.cls}`}></span>{item.label}
+            </li>
+          ))}
+        </ul>
         <span class="generated-at">最終更新: {generatedDate}</span>
       </div>
 
@@ -500,7 +510,10 @@ const hasData = months.length > 0;
 <style>
   .info-bar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--color-border);
@@ -509,6 +522,45 @@ const hasData = months.length > 0;
   .generated-at {
     color: var(--color-text-muted);
     font-size: 0.8rem;
+  }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .legend-bar {
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    border-radius: 1px;
+  }
+
+  .legend-bar.added { background-color: var(--color-added); }
+  .legend-bar.fixed { background-color: var(--color-fixed); }
+  .legend-bar.changed { background-color: var(--color-changed); }
+  .legend-bar.improved { background-color: var(--color-improved); }
+  .legend-bar.other { background-color: var(--color-other); }
+
+  @media (max-width: 768px) {
+    .info-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
   }
 
   .no-results {
