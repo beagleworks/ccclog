@@ -20,7 +20,7 @@ import {
   fetchNpmPublishDates,
   interpolateMissingDates,
 } from './fetch-releases.js';
-import { getProduct, defaultProduct, type ProductId, type ProductConfig } from '../src/lib/products.js';
+import { getProduct, type ProductId, type ProductConfig } from '../src/lib/products.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');

@@ -25,8 +25,3 @@ export function listChangelogYears(productId: ProductId): string[] {
     return [];
   }
 }
-
-export function getLatestYear(productId: ProductId): string | null {
-  const years = listChangelogYears(productId);
-  return years.length > 0 ? years[0] : null;
-}

@@ -14,7 +14,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { getCurrentYearJst } from './date-utils.js';
-import { isClaudeCliAvailable, translateBatch, translateAndClassifyWithFallback, translateAndClassifyOne, translateOne, type TranslationWithCategory } from './translate.js';
+import { isClaudeCliAvailable, translateBatch, translateAndClassifyWithFallback, translateAndClassifyOne, translateOne } from './translate.js';
 import type { ClaudeCodeCategory } from './parse-changelog.js';
 
 const PENDING_MARKER = '（翻訳待ち）';
