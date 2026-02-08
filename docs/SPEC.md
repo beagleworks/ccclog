@@ -275,9 +275,6 @@ type CodexCategory = 'new-features' | 'bug-fixes' | 'documentation' | 'chores';
 type EntryCategory = CodexCategory | ClaudeCodeCategory;
 ```
 
-#### 4.2.2 年別Markdownファイル
-- `generated/CHANGELOG-{year}.md`（プロダクト別にサブディレクトリを持つ）
-
 ---
 
 ## 5. UI仕様

@@ -7,7 +7,6 @@ dist/
 # generated data (ビルド時に生成されるため)
 src/data/changelog*.json
 src/data/codex/changelog*.json
-generated/
 
 # dependencies
 node_modules/

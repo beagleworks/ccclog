@@ -4,7 +4,6 @@
  * 1. CHANGELOG_{YEAR}_JA.md をパース
  * 2. npm レジストリ または GitHub Releases API からリリース日を取得
  * 3. src/data/[product/]changelog-{year}.json を生成
- * 4. generated/[product/]CHANGELOG-{year}.md を生成
  *
  * 使用法:
  *   tsx scripts/generate-data.ts [year]                      # Claude Code（後方互換）
@@ -267,8 +266,6 @@ async function main() {
   // パス決定（サブディレクトリがある場合はそれを付与）
   const contentDir = join(ROOT_DIR, 'content', config.contentSubdir);
   const dataDir = join(ROOT_DIR, 'src', 'data', config.dataSubdir);
-  const generatedDir = join(ROOT_DIR, 'generated', config.contentSubdir);
-
   // 1. CHANGELOGファイルを読み込み・パース
   const changelogPath = join(contentDir, `CHANGELOG_${year}_JA.md`);
   if (!existsSync(changelogPath)) {
@@ -338,51 +335,7 @@ async function main() {
   writeFileSync(jsonPath, JSON.stringify(changelogData, null, 2));
   console.log(`📝 ${jsonPath} を生成しました\n`);
 
-  // 6. generated/[product/]CHANGELOG-{year}.md を生成
-  if (!existsSync(generatedDir)) {
-    mkdirSync(generatedDir, { recursive: true });
-  }
-
-  const mdContent = generateMarkdown(changelogData, config);
-  const mdPath = join(generatedDir, `CHANGELOG-${year}.md`);
-  writeFileSync(mdPath, mdContent);
-  console.log(`📝 ${mdPath} を生成しました\n`);
-
   console.log('✅ データ生成が完了しました！');
-}
-
-/**
- * Markdown形式のCHANGELOGを生成
- */
-function generateMarkdown(data: ChangelogData, config: ProductConfig): string {
-  const lines: string[] = [
-    `# ${config.shortName} CHANGELOG`,
-    '',
-    `> 生成日時: ${new Date(data.generatedAt).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}`,
-    '',
-  ];
-
-  for (const month of data.months) {
-    lines.push(`## ${month.label}`);
-    lines.push('');
-
-    for (const version of month.versions) {
-      lines.push(`### ${version.version} (${version.releaseDateDisplay})`);
-      lines.push('');
-      lines.push('| 日本語 | English |');
-      lines.push('|--------|---------|');
-
-      for (const entry of version.entries) {
-        const escapedJa = entry.ja.replace(/\|/g, '\\|');
-        const escapedEn = entry.en.replace(/\|/g, '\\|');
-        lines.push(`| ${escapedJa} | ${escapedEn} |`);
-      }
-
-      lines.push('');
-    }
-  }
-
-  return lines.join('\n');
 }
 
 // 実行

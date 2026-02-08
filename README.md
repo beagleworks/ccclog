@@ -29,7 +29,7 @@ pnpm install
 | `pnpm dev` | 開発サーバー起動（http://localhost:4321） |
 | `pnpm build` | データ生成 + 静的サイトビルド |
 | `pnpm preview` | ビルド結果のプレビュー |
-| `pnpm generate` | 全プロダクトのデータ生成（JSON/Markdown） |
+| `pnpm generate` | 全プロダクトのデータ生成（JSON） |
 | `pnpm sync-versions` | Claude Code の新バージョン検出・追記 |
 | `pnpm sync-codex-versions` | Codex の新バージョン検出・追記 |
 | `pnpm sync-codex-versions --year 2025` | Codex の指定年のみ新バージョン検出・追記 |
@@ -73,7 +73,6 @@ ccclog/
 │   └── pages/                   # ページ
 │       ├── [year].astro         # Claude Code
 │       └── codex/               # Codex
-├── generated/                   # 生成されるMarkdown
 ├── dist/                        # ビルド出力
 └── docs/                        # 仕様書
 ```

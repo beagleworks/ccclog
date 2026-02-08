@@ -8,8 +8,8 @@
 
 ### 1.1 データフロー（Claude Code を基準）
 
-#### 1.1.1 Markdown生成時のエスケープ
-テーブル形式のMarkdownを生成する際、エントリ内のパイプ文字（`|`）は `\|` にエスケープする。
+#### 1.1.1 CHANGELOGエントリのエスケープ
+CHANGELOGファイルにエントリを書き込む際、パイプ文字（`|`）は `\|` にエスケープする。
 
 ```
 npm レジストリ  +  GitHub CHANGELOG.md
@@ -31,10 +31,9 @@ CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
                  ▼
          generate-data.ts [year]
                  │
-         ┌───────┴───────┐
-         ▼               ▼
- changelog-{year}.json  CHANGELOG-{year}.md
-         │
+                 ▼
+         changelog-{year}.json
+                 │
          ▼
    Astro SSG Build → dist/
                        ├── index.html (2026)
@@ -147,11 +146,6 @@ ccclog/
 │   ├── SPEC_CLAUDE.md              # Claude Code 固有仕様
 │   ├── SPEC_CODEX.md               # Codex 固有仕様
 │   └── SPEC_PIPELINE.md            # パイプライン仕様
-├── generated/
-│   ├── CHANGELOG-2026.md           # 生成されるMarkdown（2026年）
-│   ├── CHANGELOG-2025.md           # 生成されるMarkdown（2025年）
-│   └── codex/
-│       └── CHANGELOG-2026.md       # Codex用
 ├── public/
 │   └── favicon.svg                 # サイトアイコン
 ├── scripts/
