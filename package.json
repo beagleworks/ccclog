@@ -1,7 +1,7 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "4.2.1",
+  "version": "5.0.0",
   "scripts": {
     "dev": "astro dev",
     "preview": "astro preview",
@@ -12,6 +12,7 @@
     "sync-versions": "tsx scripts/sync-versions.ts",
     "sync-codex-versions": "tsx scripts/sync-codex-versions.ts",
     "retranslate": "tsx scripts/retranslate.ts",
+    "backfill-legacy-codex": "tsx scripts/backfill-legacy-codex.ts",
     "detect-upstream": "tsx scripts/detect-upstream-changes.ts",
     "sync-upstream": "tsx scripts/detect-upstream-changes.ts --apply",
     "test": "vitest run"

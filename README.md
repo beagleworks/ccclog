@@ -36,6 +36,10 @@ pnpm install
 | `pnpm sync-codex-versions --version 0.4.0` | 指定バージョンのセクションを置換 |
 | `pnpm sync-codex-versions --before 0.50.0` | 指定バージョンより前を全て置換 |
 | `pnpm retranslate` | 「翻訳待ち」エントリの再翻訳 |
+| `pnpm backfill-legacy-codex` | Codex 旧形式リリースの AI バックフィル |
+| `pnpm backfill-legacy-codex --dry-run` | バックフィル結果を書き込まずにプレビュー |
+| `pnpm backfill-legacy-codex --version 0.50.0` | 指定バージョンのみバックフィル |
+| `pnpm backfill-legacy-codex --overwrite --version 0.50.0` | 既存エントリを上書きして再翻訳 |
 
 ### 開発の流れ
 
