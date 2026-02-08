@@ -36,6 +36,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.repository == 'beagleworks/ccclog'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
