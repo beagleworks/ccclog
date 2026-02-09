@@ -6,11 +6,10 @@
 
 | ファイル | 内容 |
 |----------|------|
-| `docs/SPEC.md` | 共通仕様（概要、UI、検索、セキュリティ等） |
-| `docs/SPEC_CLAUDE.md` | Claude Code 固有仕様 |
-| `docs/SPEC_CODEX.md` | Codex 固有仕様 |
-| `docs/SPEC_PIPELINE.md` | パイプライン仕様（ビルド、CI/CD） |
+| `docs/SPEC.md` | 全仕様（データ、UI、パイプライン、CI/CD、セキュリティ等） |
+| `CHANGELOG.md` | プロジェクトの変更履歴 |
 
 ## コミット規約
 
 コミットを作成する前に、バージョンアップ（package.json の version フィールド）が必要かどうかをユーザーに確認すること。
+バージョンアップ後はCHANGELOG.mdを更新すること。

@@ -135,7 +135,4 @@ ccclog/
 
 | ファイル | 内容 |
 |----------|------|
-| [docs/SPEC.md](docs/SPEC.md) | 共通仕様 |
-| [docs/SPEC_CLAUDE.md](docs/SPEC_CLAUDE.md) | Claude Code 固有仕様 |
-| [docs/SPEC_CODEX.md](docs/SPEC_CODEX.md) | Codex 固有仕様 |
-| [docs/SPEC_PIPELINE.md](docs/SPEC_PIPELINE.md) | パイプライン仕様 |
+| [docs/SPEC.md](docs/SPEC.md) | 仕様書（データ、UI、パイプライン、CI/CD、セキュリティ等） |

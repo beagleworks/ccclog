@@ -590,7 +590,9 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| (変更履歴のエントリはありません) | `gpt-5` is the default model! | chores |
+| (変更履歴のエントリはありません) | new `--ask-for-approval on-request` option where the model decides whether to prompt the user (which is somewhat of a balance between the existing `on-failure` and `never`) options | new-features |
+| (変更履歴のエントリはありません) | new onboarding flow that uses `--sandbox workspace-write` and `--ask-for-approval on-request` as the configuration when users mark a folder is trusted (recommended default when working in a Git repo) | new-features |
 
 ## 0.14.0
 
@@ -598,11 +600,12 @@
 |--------|---------|----------|
 | 会話ビューから一部の内部メッセージを削除 (#1868, #1866) | Removed some internal messaging from the conversation view (#1868, #1866) | bug-fixes |
 | `codex exec` が `InternalAgentDied` を表示する問題を修正 (#1864) | Fixed issue where `codex exec` was printing `InternalAgentDied` (#1864) | bug-fixes |
+
 ## 0.13.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| (変更履歴のエントリはありません) | Introduces the `--oss` flag so Codex CLI can be used with the new open-weight models from OpenAI | chores |
 
 ## 0.12.0
 
@@ -614,7 +617,12 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| (変更履歴のエントリはありません) | copy/paste works now | bug-fixes |
+| (変更履歴のエントリはありません) | use the terminal's native scrolling | bug-fixes |
+| (変更履歴のエントリはありません) | adds support for the `/compact` command | new-features |
+| (変更履歴のエントリはありません) | introduces an experimental planning tool | new-features |
+| (変更履歴のエントリはありません) | security fix to ensure `apply_patch` is run through the sandbox for the session | bug-fixes |
+| (変更履歴のエントリはありません) | CLI now checks for new versions and lets you know if you are out of date | new-features |
 
 ## 0.10.0
 
