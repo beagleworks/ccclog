@@ -609,6 +609,7 @@
 | 日本語 | English | Category |
 |--------|---------|----------|
 | 0.11.0 で発生したリグレッションを修正 (#1826) | Fix regression introduced in 0.11.0 (#1826) | bug-fixes |
+
 ## 0.11.0
 
 | 日本語 | English | Category |
@@ -622,6 +623,7 @@
 | デフォルトで「信頼済み」となるコマンドを拡大 (#1668) | More commands are "trusted" by default (#1668) | new-features |
 | TUI ヘッダーの UI 不整合を修正 (#1675) | Fix UI inconsistency in the TUI header (#1675) | bug-fixes |
 | `.jsonl` ログに Git 状態の一部を記録 (#1598) | Record some Git state in the `.jsonl` log (#1598) | new-features |
+
 ## 0.9.0
 
 | 日本語 | English | Category |
@@ -629,6 +631,7 @@
 | `codex mcp` の多数の修正 | Numerous fixes to `codex mcp` | bug-fixes |
 | Codex が終了時にスポーンしたシェルコマンドに `SIGTERM` を送信するよう修正（Linux のみ）(#1626) | Ensure shell commands spawned by Codex get `SIGTERM` when `codex` is killed (Linux only) (#1626) | bug-fixes |
 | ripgrep/`rg` の特定フラグを自動承認しないよう変更 (#1644) | Do not auto-approve certain flags for ripgrep/`rg` (#1644) | bug-fixes |
+
 ## 0.8.0
 
 | 日本語 | English | Category |
@@ -640,6 +643,7 @@
 | `codex exec` に `--json` フラグを追加し、JSONL 形式で stdout に出力 (#1603) | Add `--json` flag to `codex exec` for JSONL output to stdout (#1603) | new-features |
 | npm 版で Codex CLI と Node.js プロセスが同時に終了するよう改善 (#1590) | Ensure Codex CLI and Node.js processes exit together in npm version (#1590) | bug-fixes |
 | Windows の npm パッケージでクラッシュを防ぐため TypeScript 版へのフォールバックを追加 (#1590) | Add fallback to TypeScript version on Windows for npm package to prevent crashes (#1590) | bug-fixes |
+
 ## 0.7.0
 
 | 日本語 | English | Category |
@@ -650,7 +654,9 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| `codex` ツール呼び出しに関連する通知の `id` がリクエスト ID と一致するよう修正 | `id` for notifications associated with a `codex` tool call now match the request id | bug-fixes |
+| 大量ペースト時の要約機能を追加 | Paste summarization for large pastes | new-features |
+| Codex Web と連携する実験的な `codex apply` コマンドを追加 | Experimental `codex apply` command to interact with Codex Web | new-features |
 
 ## 0.5.0
 
@@ -661,17 +667,22 @@
 | 未サポートの `/compact` への参照を削除 (#1503) | Removed reference to `/compact` as it is not supported yet (#1503) | documentation |
 | npm 経由でインストール時、`process.platform === "android"` で Rust CLI を実行するよう修正 (#1488) | Fixed `process.platform === "android"` to run Rust CLI when installed via npm (#1488) | bug-fixes |
 | 生成されるシェル補完で `codex-cli` ではなく `codex` を使用するよう修正 (#1496) | Fixed generated shell completions to use `codex` instead of `codex-cli` (#1496) | bug-fixes |
+
 ## 0.4.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| 組み込み OpenAI モデルプロバイダーで環境変数 `OPENAI_BASE_URL` を尊重するよう変更 | Honor the `OPENAI_BASE_URL` environment variable for the built-in openai model provider | new-features |
+| プロファイル定義時に `model_reasoning_effort` と `model_reasoning_summary` の設定に対応 | Support `model_reasoning_effort` and `model_reasoning_summary` when defining a profile | new-features |
+| Homebrew フォーミュラで `generate_completions_from_executable()` を使用するため、CLI に `completion` サブコマンドを追加 (PR #1491) | Add a `completion` subcommand to the CLI in pr#1491 so we can ultimately add `generate_completions_from_executable()` to our Homebrew formula: https://github.com/Homebrew/homebrew-core/blob/main/Formula/c/codex.rb | new-features |
 
 ## 0.3.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| 非 ASCII 文字により CLI がクラッシュする問題を修正 | Fixes an issue where non-ASCII characters were crashing the CLI | bug-fixes |
+| `--sandbox` フラグのサポートを追加し、このオプションに関する config.toml の破壊的変更を実施 | Adds support for a `--sandbox` flag and makes some breaking changes to `config.toml` around this option | new-features |
+| モデルプロバイダーへのリクエスト時にカスタム HTTP ヘッダーを設定可能に | Makes it possible to configure custom HTTP headers when making requests to model providers | new-features |
 
 ## 0.2.0
 
