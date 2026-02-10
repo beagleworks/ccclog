@@ -154,7 +154,7 @@ function updateVersionSection(
   return { updated: true, content: lines.join('\n') };
 }
 
-function rebuildEntries(
+export function rebuildEntries(
   upstreamEntries: string[],
   localEntries: Entry[]
 ): { entries: Entry[]; translated: number; pending: number } {
@@ -179,7 +179,7 @@ function rebuildEntries(
       continue;
     }
 
-    output.push({ ja: PENDING_MARKER, en: entry });
+    output.push({ ja: PENDING_MARKER, en: entry, category: 'other' as const });
     translateTargets.push({ index: output.length - 1, text: entry });
   }
 
@@ -320,7 +320,11 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch((error) => {
-  console.error('エラー:', error);
-  process.exit(1);
-});
+// 直接実行時のみ main() を呼ぶ（import 時の副作用防止）
+const isDirectRun = /detect-upstream-changes\.[tj]s$/.test(process.argv[1] ?? '');
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error('エラー:', error);
+    process.exit(1);
+  });
+}

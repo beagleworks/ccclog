@@ -21,12 +21,11 @@ const PENDING_MARKER = '（翻訳待ち）';
 
 type Product = 'claude-code' | 'codex';
 
-interface PendingEntry {
+export interface PendingEntry {
   version: string;
   lineNumber: number;
   englishText: string;
   category: string | null;
-  hasThreeColumns: boolean;
 }
 
 
@@ -43,7 +42,7 @@ function splitTableRow(line: string): string[] {
  *
  * @param forceAll true の場合、翻訳済みエントリも含め全テーブル行を対象にする
  */
-function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] {
+export function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] {
   const entries: PendingEntry[] = [];
 
   if (!fs.existsSync(filePath)) {
@@ -54,7 +53,6 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
   const lines = content.split('\n');
 
   let currentVersion: string | null = null;
-  let currentHasThreeColumns = false;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -63,7 +61,6 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
     const versionMatch = line.match(/^## (\d+\.\d+\.\d+)/);
     if (versionMatch) {
       currentVersion = versionMatch[1];
-      currentHasThreeColumns = false;
       continue;
     }
 
@@ -72,11 +69,8 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
     // テーブル行でない場合はスキップ
     if (!line.startsWith('|')) continue;
 
-    // ヘッダー行（「日本語」を含む）を検出 → 3列かどうか判定して除外
-    if (line.includes('| 日本語 |')) {
-      currentHasThreeColumns = line.includes('| Category |');
-      continue;
-    }
+    // ヘッダー行（「日本語」を含む）を除外
+    if (line.includes('| 日本語 |')) continue;
 
     // 区切り行（|--- で始まる）を除外
     if (/^\|\s*-/.test(line)) continue;
@@ -94,7 +88,6 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
       lineNumber: i,
       englishText: cells[1].replace(/\\\|/g, '|').trim(),
       category: cells.length >= 3 ? cells[2] : null,
-      hasThreeColumns: currentHasThreeColumns,
     });
   }
 
@@ -104,12 +97,12 @@ function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] 
 /**
  * ファイル内の特定行を更新
  */
-function updateLine(
+export function updateLine(
   filePath: string,
   lineNumber: number,
   englishText: string,
   japaneseText: string,
-  category: string | null
+  category: string
 ): void {
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.split('\n');
@@ -118,11 +111,7 @@ function updateLine(
   const escapedJa = japaneseText.replace(/\|/g, '\\|');
   const escapedEn = englishText.replace(/\|/g, '\\|');
 
-  if (category) {
-    lines[lineNumber] = `| ${escapedJa} | ${escapedEn} | ${category} |`;
-  } else {
-    lines[lineNumber] = `| ${escapedJa} | ${escapedEn} |`;
-  }
+  lines[lineNumber] = `| ${escapedJa} | ${escapedEn} | ${category} |`;
 
   fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
 }
@@ -212,6 +201,19 @@ function parseArgs(): { product: Product; targetYear: number; retranslateAll: bo
 }
 
 /**
+ * Codex エントリにカテゴリが存在することを表明する
+ */
+export function assertCodexCategory(
+  entry: PendingEntry
+): asserts entry is PendingEntry & { category: string } {
+  if (!entry.category) {
+    throw new Error(
+      `Codex エントリにカテゴリがありません（v${entry.version}, 行${entry.lineNumber}）`
+    );
+  }
+}
+
+/**
  * バージョン単位でエントリをグループ化
  */
 function groupByVersion(entries: PendingEntry[]): Map<string, PendingEntry[]> {
@@ -230,7 +232,7 @@ function groupByVersion(entries: PendingEntry[]): Map<string, PendingEntry[]> {
 /**
  * メイン処理
  */
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
   const { product, targetYear, retranslateAll } = parseArgs();
 
   const mode = retranslateAll ? '全エントリ再翻訳' : '翻訳待ちエントリの再翻訳';
@@ -334,12 +336,13 @@ async function main(): Promise<void> {
           failCount += versionEntries.length;
         }
       } else {
-        // Codex: 既存の翻訳のみモード（3列テーブルは既に存在）
+        // Codex: 翻訳のみ。既存カテゴリを保持する
         const translations = translateBatch(englishTexts, cliProductLabel);
 
         if (translations) {
           for (let j = 0; j < versionEntries.length; j++) {
             const entry = versionEntries[j];
+            assertCodexCategory(entry);
             console.log(`  → ${translations[j]}`);
             updateLine(filePath, entry.lineNumber, entry.englishText, translations[j], entry.category);
             successCount++;
@@ -347,6 +350,7 @@ async function main(): Promise<void> {
         } else {
           console.log(`  バッチ翻訳失敗。1件ずつ再試行します...`);
           for (const entry of versionEntries) {
+            assertCodexCategory(entry);
             console.log(`  翻訳中: ${entry.englishText.substring(0, 40)}...`);
             const translation = translateOne(entry.englishText, cliProductLabel);
             if (translation) {
@@ -362,7 +366,7 @@ async function main(): Promise<void> {
       }
     }
   } else {
-    // 通常モード: 1件ずつ翻訳（列形式を維持）
+    // 通常モード: 1件ずつ翻訳
     for (const entry of pendingEntries) {
       console.log(`  - v${entry.version}: ${entry.englishText.substring(0, 50)}...`);
     }
@@ -370,15 +374,26 @@ async function main(): Promise<void> {
     for (const entry of pendingEntries) {
       console.log(`\n翻訳中: v${entry.version} - ${entry.englishText.substring(0, 40)}...`);
 
-      if (entry.hasThreeColumns) {
-        // 3列テーブル → 分類付き翻訳を試行
+      if (product === 'codex') {
+        // Codex: 翻訳のみ。既存カテゴリを保持する（カテゴリ欠損はデータ異常）
+        assertCodexCategory(entry);
+        const translation = translateOne(entry.englishText, cliProductLabel);
+        if (translation) {
+          console.log(`  → ${translation}`);
+          updateLine(filePath, entry.lineNumber, entry.englishText, translation, entry.category);
+          successCount++;
+        } else {
+          console.log('  → 翻訳失敗（スキップ）');
+          failCount++;
+        }
+      } else {
+        // Claude Code: 分類付き翻訳 → フォールバックで翻訳のみ + 'other'
         const result = translateAndClassifyOne(entry.englishText, cliProductLabel);
         if (result) {
           console.log(`  → ${result.translation} [${result.category}]`);
           updateLine(filePath, entry.lineNumber, entry.englishText, result.translation, result.category);
           successCount++;
         } else {
-          // 分類付き翻訳失敗 → 翻訳のみ + 'other'
           const translation = translateOne(entry.englishText, cliProductLabel);
           if (translation) {
             console.log(`  → ${translation} [other (フォールバック)]`);
@@ -389,17 +404,6 @@ async function main(): Promise<void> {
             failCount++;
           }
         }
-      } else {
-        // 2列テーブル → 翻訳のみ（列形式維持）
-        const translation = translateOne(entry.englishText, cliProductLabel);
-        if (translation) {
-          console.log(`  → ${translation}`);
-          updateLine(filePath, entry.lineNumber, entry.englishText, translation, null);
-          successCount++;
-        } else {
-          console.log('  → 翻訳失敗（スキップ）');
-          failCount++;
-        }
       }
     }
   }
@@ -409,7 +413,11 @@ async function main(): Promise<void> {
   console.log(`  失敗: ${failCount}件`);
 }
 
-main().catch((error) => {
-  console.error('エラー:', error);
-  process.exit(1);
-});
+// 直接実行時のみ main() を呼ぶ（import 時の副作用防止）
+const isDirectRun = /retranslate\.[tj]s$/.test(process.argv[1] ?? '');
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error('エラー:', error);
+    process.exit(1);
+  });
+}
