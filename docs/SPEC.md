@@ -456,26 +456,16 @@ Codex は `content/codex/` ディレクトリから年を列挙して全年の J
 
 ### 5.3 sync-codex-versions.ts（Codex）
 
-取得対象年やバージョンをオプションで制御できる。
+取得対象年をオプションで制御できる。
 
 | 使い方 | 対象 | 動作 |
 |--------|------|------|
 | `pnpm sync-codex-versions` | 当年の未記載バージョン | 追記 |
 | `pnpm sync-codex-versions --year 2025` | 指定年の未記載 | 追記 |
-| `pnpm sync-codex-versions --rebuild` | 全年度 | ファイル再生成 |
-| `pnpm sync-codex-versions --rebuild --year 2025` | 指定年 | ファイル再生成 |
-| `pnpm sync-codex-versions --version 0.4.0` | 指定バージョン | セクション置換 |
-| `pnpm sync-codex-versions --before 0.50.0` | 指定より前 | セクション置換 |
 
-#### 5.3.1 セクション置換モード（--version / --before）
-
-- 既存ファイルを維持し、対象バージョンのセクションのみ再生成
-- 存在しないセクションは適切な位置に挿入（バージョン降順を維持）
-- `--rebuild` との併用不可（エラー）
-- `--version` と `--before` の同時指定不可（最後の指定が有効）
-- `--year` との併用可能:
-  - `--version + --year`: 指定年に存在しなければエラー
-  - `--before + --year`: 指定年で絞った上で before を適用
+- `--year` は4桁年を受け付ける
+- 過去年の指定をサポートする
+- 対象年リリースが 0 件でも正常終了する
 
 ### 5.4 翻訳
 
@@ -628,7 +618,6 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 | `pnpm sync-versions` | npm レジストリから新バージョンを検出し CHANGELOG に追記（Claude Code） |
 | `pnpm sync-codex-versions` | GitHub Releases から新バージョンを検出し CHANGELOG に追記（Codex） |
 | `pnpm sync-codex-versions -- --year 2025` | Codex の指定年のみ新バージョンを検出し CHANGELOG に追記 |
-| `pnpm sync-codex-versions --rebuild` | Codex の全バージョンを再取得・再生成 |
 | `pnpm retranslate` | Claude Code の「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
 | `pnpm retranslate --product codex` | Codex の「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
 | `pnpm retranslate --retranslate-all 2025` | Claude Code の指定年の全エントリを再翻訳（バッチ翻訳で高速） |

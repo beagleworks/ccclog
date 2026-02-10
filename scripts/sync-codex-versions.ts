@@ -10,9 +10,6 @@
  * 6. 未記載バージョンを特定
  * 7. Claude CLI でバッチ翻訳（失敗時は「（翻訳待ち）」にフォールバック）
  * 8. Markdown テーブル形式で追記（3列: 日本語, English, Category）
- *
- * オプション:
- * --rebuild: 全バージョンを再取得・再生成
  */
 
 import * as fs from 'node:fs';
@@ -24,7 +21,6 @@ import {
   CONTENT_DIR,
   getGitHubHeaders,
   compareVersions,
-  replaceVersionSection,
   generateVersionSection,
 } from './codex-changelog-utils.ts';
 
@@ -48,13 +44,17 @@ interface VersionInfo {
 
 
 /**
- * GitHub Releases から対象リリースを取得
+ * GitHub Releases から対象年のリリースを取得
+ *
+ * GitHub Releases API はリリースを新しい順（published_at 降順）で返すため、
+ * 対象年より古いリリースが出た時点で安全にページングを打ち切れる。
+ * published_at は JST に変換して年を判定する。
  */
-async function fetchCodexReleases(): Promise<VersionInfo[]> {
+async function fetchCodexReleases(targetYear: number): Promise<VersionInfo[]> {
   const versions: VersionInfo[] = [];
   let page = 1;
 
-  console.log('GitHub Releases から Codex のリリース情報を取得中...');
+  console.log(`GitHub Releases から Codex の ${targetYear} 年リリース情報を取得中...`);
 
   while (true) {
     const url = `${GITHUB_RELEASES_URL}?per_page=100&page=${page}`;
@@ -75,6 +75,8 @@ async function fetchCodexReleases(): Promise<VersionInfo[]> {
       const releases = (await response.json()) as Release[];
       if (releases.length === 0) break;
 
+      let hitOlderYear = false;
+
       for (const release of releases) {
         // フィルタリング
         if (release.prerelease) continue;
@@ -91,6 +93,15 @@ async function fetchCodexReleases(): Promise<VersionInfo[]> {
         const dateStr = jstDate.toISOString().split('T')[0];
         const year = jstDate.getFullYear();
 
+        // 対象年より新しい → スキップ（未来の年）
+        if (year > targetYear) continue;
+
+        // 対象年より古い → 早期終了（これ以降はすべて古い）
+        if (year < targetYear) {
+          hitOlderYear = true;
+          break;
+        }
+
         // body からエントリを抽出（現行形式のみ対応）
         const entries = parseCodexReleaseBody(release.body ?? '');
 
@@ -101,6 +112,8 @@ async function fetchCodexReleases(): Promise<VersionInfo[]> {
           entries,
         });
       }
+
+      if (hitOlderYear) break;
 
       page++;
       if (page > 10) {
@@ -197,31 +210,18 @@ function appendToChangelog(year: number, sections: string[]): void {
 /**
  * コマンドライン引数をパース
  */
-interface VersionFilter {
-  type: 'exact' | 'before';
-  version: string;
-}
-
 interface CliOptions {
-  isRebuild: boolean;
   yearOverride: number | null;
-  versionFilter?: VersionFilter;
 }
 
 function parseArgs(): CliOptions {
   const args = process.argv.slice(2);
-  let isRebuild = false;
   let yearOverride: number | null = null;
-  let versionFilter: VersionFilter | undefined;
 
-  const versionPattern = /^\d+\.\d+\.\d+$/;
+  const deprecatedOptions = ['--rebuild', '--version', '--before'];
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
-    if (arg === '--rebuild') {
-      isRebuild = true;
-      continue;
-    }
     if (arg === '--year') {
       const yearStr = args[i + 1];
       if (!yearStr) {
@@ -236,33 +236,10 @@ function parseArgs(): CliOptions {
       i++;
       continue;
     }
-    if (arg === '--version') {
-      const version = args[i + 1];
-      if (!version) {
-        console.error('エラー: --version の後にバージョンを指定してください');
-        process.exit(1);
-      }
-      if (!versionPattern.test(version)) {
-        console.error(`エラー: 不正なバージョン形式: ${version} (X.Y.Z 形式で指定)`);
-        process.exit(1);
-      }
-      versionFilter = { type: 'exact', version };
-      i++;
-      continue;
-    }
-    if (arg === '--before') {
-      const version = args[i + 1];
-      if (!version) {
-        console.error('エラー: --before の後にバージョンを指定してください');
-        process.exit(1);
-      }
-      if (!versionPattern.test(version)) {
-        console.error(`エラー: 不正なバージョン形式: ${version} (X.Y.Z 形式で指定)`);
-        process.exit(1);
-      }
-      versionFilter = { type: 'before', version };
-      i++;
-      continue;
+    // 廃止済みオプション
+    if (deprecatedOptions.includes(arg)) {
+      console.error(`エラー: ${arg} オプションは廃止されました。通常の追記モードを使用してください。`);
+      process.exit(1);
     }
     // 未知のオプション
     if (arg.startsWith('--')) {
@@ -271,226 +248,64 @@ function parseArgs(): CliOptions {
     }
   }
 
-  // 相互排他チェック
-  if (isRebuild && versionFilter) {
-    console.error('エラー: --rebuild と --version/--before は併用できません');
-    process.exit(1);
-  }
-
-  return { isRebuild, yearOverride, versionFilter };
-}
-
-/**
- * ファイルをバックアップ
- */
-function backupFile(filePath: string): void {
-  if (fs.existsSync(filePath)) {
-    const backupPath = `${filePath}.bak`;
-    fs.copyFileSync(filePath, backupPath);
-    console.log(`  バックアップ: ${backupPath}`);
-  }
-}
-
-/**
- * ファイルをヘッダーのみの状態にリセット
- */
-function resetChangelogFile(year: number): void {
-  const filePath = path.join(CONTENT_DIR, `CHANGELOG_${year}_JA.md`);
-  const header = `# OpenAI Codex 変更履歴 (${year}年)
-
-このファイルは OpenAI Codex の${year}年リリース分の変更履歴を日本語で記載しています。
-
----
-
-`;
-  fs.writeFileSync(filePath, header, 'utf-8');
-  console.log(`  ${filePath} をリセットしました`);
-}
-
-/**
- * バージョン配列を年ごとにグループ化
- */
-function groupByYear(versions: VersionInfo[]): Map<number, VersionInfo[]> {
-  const map = new Map<number, VersionInfo[]>();
-  for (const v of versions) {
-    const list = map.get(v.year) ?? [];
-    list.push(v);
-    map.set(v.year, list);
-  }
-  return map;
-}
-
-/**
- * バージョンフィルタモードの処理
- */
-async function processVersionFilter(
-  allVersions: VersionInfo[],
-  filter: VersionFilter,
-  yearOverride: number | null
-): Promise<void> {
-  // 1. 対象バージョンを抽出
-  let targetVersions: VersionInfo[];
-  if (filter.type === 'exact') {
-    targetVersions = allVersions.filter((v) => v.version === filter.version);
-    if (targetVersions.length === 0) {
-      console.error(`エラー: バージョン ${filter.version} が見つかりません`);
-      process.exit(1);
-    }
-    // --year 併用時: その年に無ければエラー
-    if (yearOverride !== null) {
-      targetVersions = targetVersions.filter((v) => v.year === yearOverride);
-      if (targetVersions.length === 0) {
-        console.error(`エラー: バージョン ${filter.version} は ${yearOverride} 年に存在しません`);
-        process.exit(1);
-      }
-    }
-  } else {
-    // --before
-    targetVersions = allVersions.filter((v) => compareVersions(v.version, filter.version) < 0);
-    // --year 併用時: 年で絞る
-    if (yearOverride !== null) {
-      targetVersions = targetVersions.filter((v) => v.year === yearOverride);
-    }
-  }
-
-  // 2. 対象が0件の場合は何もせず終了（正常終了）
-  if (targetVersions.length === 0) {
-    console.log('対象バージョンがありません');
-    return;
-  }
-
-  console.log(`対象バージョン: ${targetVersions.length}件`);
-  for (const v of targetVersions) {
-    console.log(`  - v${v.version} (${v.year}年)`);
-  }
-
-  // 3. 年ごとにグループ化
-  const byYear = groupByYear(targetVersions);
-
-  // 4. 各バージョンを処理（セクション置換）
-  // 降順（新しい順）で処理することで、複数挿入時の順序を保証
-  let totalProcessed = 0;
-  for (const [year, versions] of byYear) {
-    console.log(`\n--- ${year}年の処理 ---`);
-    ensureChangelogFile(year);
-    const sortedVersions = sortVersionsDescending(versions);
-    for (const versionInfo of sortedVersions) {
-      console.log(`  v${versionInfo.version} を処理中... (${versionInfo.entries.length} エントリ)`);
-      const translations = versionInfo.entries.length > 0
-        ? translateBatch(versionInfo.entries.map(e => e.text), 'OpenAI Codex')
-        : null;
-      const section = generateVersionSection(versionInfo.version, versionInfo.entries, translations);
-      replaceVersionSection(year, versionInfo.version, section);
-      totalProcessed++;
-    }
-  }
-
-  console.log(`\n=== 完了: ${totalProcessed} バージョンを処理しました ===`);
+  return { yearOverride };
 }
 
 /**
  * メイン処理
  */
 async function main(): Promise<void> {
-  const { isRebuild, yearOverride, versionFilter } = parseArgs();
+  const { yearOverride } = parseArgs();
+  const targetYear = yearOverride ?? getCurrentYearJst();
 
   console.log('=== Codex 新バージョン自動検出・追記 ===');
-  if (versionFilter) {
-    const filterDesc =
-      versionFilter.type === 'exact'
-        ? `--version ${versionFilter.version}`
-        : `--before ${versionFilter.version}`;
-    console.log(`※ セクション置換モード: ${filterDesc}`);
-  } else if (isRebuild) {
-    console.log('※ --rebuild モード: 全バージョンを再取得・再生成します');
-  }
+  console.log(`対象年: ${targetYear}`);
   console.log('');
 
-  // 1. GitHub Releases から全リリース情報を取得
-  const allVersions = await fetchCodexReleases();
+  // 1. GitHub Releases から対象年のリリース情報を取得
+  const versions = await fetchCodexReleases(targetYear);
 
-  if (allVersions.length === 0) {
+  if (versions.length === 0) {
     console.log('対象リリースがありません。');
     return;
   }
 
-  // フィルタモードの場合は専用処理
-  if (versionFilter) {
-    await processVersionFilter(allVersions, versionFilter, yearOverride);
+  // 2. 既存バージョンを取得して未記載を特定
+  ensureChangelogFile(targetYear);
+  const existingVersions = getExistingVersions(targetYear);
+  console.log(`  既存バージョン数: ${existingVersions.size}`);
+
+  const missingVersions = versions.filter(
+    (v) => !existingVersions.has(v.version)
+  );
+
+  if (missingVersions.length === 0) {
+    console.log('  未記載バージョンはありません');
     return;
   }
 
-  // 2. 対象年を特定
-  let targetYears: number[];
-  if (yearOverride !== null) {
-    targetYears = [yearOverride];
-  } else if (isRebuild) {
-    // --rebuild: GitHub から取得した全 Release の年
-    const yearsSet = new Set(allVersions.map((v) => v.year));
-    targetYears = Array.from(yearsSet).sort((a, b) => b - a); // 新しい順
-  } else {
-    // 通常: 当該年のみ
-    const currentYear = getCurrentYearJst();
-    targetYears = [currentYear];
+  console.log(`  未記載バージョン: ${missingVersions.length}件`);
+  for (const info of missingVersions) {
+    console.log(`    - v${info.version} (${info.publishDate})`);
   }
 
-  console.log(`対象年: ${targetYears.join(', ')}`);
+  // 3. バージョンを降順にソートし、翻訳してセクション生成
+  const sortedVersions = sortVersionsDescending(missingVersions);
 
-  // 3. 年ごとに処理
-  let totalAdded = 0;
-
-  for (const year of targetYears) {
-    console.log(`\n--- ${year}年の処理 ---`);
-
-    if (isRebuild) {
-      // --rebuild: バックアップしてリセット
-      const filePath = path.join(CONTENT_DIR, `CHANGELOG_${year}_JA.md`);
-      backupFile(filePath);
-      resetChangelogFile(year);
-    } else {
-      // 通常: ファイルを確保
-      ensureChangelogFile(year);
-    }
-
-    // 既存バージョンを取得（--rebuild 後はリセットされているので空）
-    const existingVersions = getExistingVersions(year);
-    console.log(`  既存バージョン数: ${existingVersions.size}`);
-
-    // その年の未記載バージョンを特定
-    const missingVersions = allVersions.filter(
-      (v) => v.year === year && !existingVersions.has(v.version)
-    );
-
-    if (missingVersions.length === 0) {
-      console.log('  未記載バージョンはありません');
-      continue;
-    }
-
-    console.log(`  未記載バージョン: ${missingVersions.length}件`);
-    for (const info of missingVersions) {
-      console.log(`    - v${info.version} (${info.publishDate})`);
-    }
-
-    // バージョンを降順にソート
-    const sortedVersions = sortVersionsDescending(missingVersions);
-
-    // 各バージョンのセクションを生成（エントリがあれば翻訳を試みる）
-    const sections: string[] = [];
-    for (const versionInfo of sortedVersions) {
-      const translations = versionInfo.entries.length > 0
-        ? translateBatch(versionInfo.entries.map(e => e.text), 'OpenAI Codex')
-        : null;
-      sections.push(generateVersionSection(versionInfo.version, versionInfo.entries, translations));
-      totalAdded++;
-    }
-
-    // CHANGELOG に追記
-    if (sections.length > 0) {
-      appendToChangelog(year, sections);
-    }
+  const sections: string[] = [];
+  for (const versionInfo of sortedVersions) {
+    const translations = versionInfo.entries.length > 0
+      ? translateBatch(versionInfo.entries.map(e => e.text), 'OpenAI Codex')
+      : null;
+    sections.push(generateVersionSection(versionInfo.version, versionInfo.entries, translations));
   }
 
-  console.log(`\n=== 完了: ${totalAdded} バージョンを追加しました ===`);
+  // 4. CHANGELOG に追記
+  if (sections.length > 0) {
+    appendToChangelog(targetYear, sections);
+  }
+
+  console.log(`\n=== 完了: ${sections.length} バージョンを追加しました ===`);
 }
 
 main().catch((error) => {

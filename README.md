@@ -92,8 +92,6 @@ pnpm install
 | `pnpm sync-versions` | Claude Code の新バージョン検出・追記 |
 | `pnpm sync-codex-versions` | Codex の新バージョン検出・追記 |
 | `pnpm sync-codex-versions --year 2025` | Codex の指定年のみ新バージョン検出・追記 |
-| `pnpm sync-codex-versions --version 0.4.0` | 指定バージョンのセクションを置換 |
-| `pnpm sync-codex-versions --before 0.50.0` | 指定バージョンより前を全て置換 |
 | `pnpm retranslate` | 「翻訳待ち」エントリの再翻訳 |
 | `pnpm backfill-legacy-codex` | Codex 旧形式リリースの AI バックフィル |
 | `pnpm backfill-legacy-codex --dry-run` | バックフィル結果を書き込まずにプレビュー |
