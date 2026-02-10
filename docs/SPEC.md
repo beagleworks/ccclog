@@ -39,7 +39,7 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 ### 3.1 入力データ形式（共通）
 年ごとに分離されたMarkdownファイル（`CHANGELOG_{YEAR}_JA.md`）を使用する。
 
-パーサーはヘッダー行を検出して2列/3列を動的に判定する。
+パーサーは3列テーブルのみをサポートする。2列テーブル（旧形式）が検出された場合は例外を送出する。
 
 **テーブル形式（3列 - Category 列を含む）**
 ```markdown
@@ -51,7 +51,7 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 | バグ修正内容 | Bug fix description | fixed |
 ```
 
-※ 旧形式（2列テーブル）も後方互換としてサポートする。`category` がない場合はキーワード判定にフォールバック（§3.4.1 参照）。
+※ 旧形式（2列テーブル）は非対応。全データは3列テーブルに統一済み。
 
 ### 3.2 Claude Code 入力データ
 
@@ -115,13 +115,6 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 | `improved` | パフォーマンス改善、UX改善、エラーメッセージの改善 | 青 | #79c0ff | `improved` |
 | `other` | 上記に当てはまらないもの | グレー | #8b949e | `other` |
 
-**フォールバック（キーワード判定）**: `category` がない旧形式データには英語テキストのキーワードで分類:
-- Added / Add → `added`
-- Fixed / Fix / bugfixes / Reduced → `fixed`
-- Changed / Change / Merged / Moved / Updated / Removed / Deprecated → `changed`
-- Improved / Improve → `improved`
-- その他 → `other`
-
 **分類方法**: 翻訳と同時に AI（Claude Sonnet）がカテゴリを判定する。出力形式は `翻訳テキスト ||| カテゴリ` で、パーサーは複数のフォーマット揺れに対応する。
 
 #### 3.4.2 Codex カテゴリ
@@ -141,7 +134,7 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 #### 3.4.3 カテゴリ検証ルール
 - Claude Code ファイルには Claude Code カテゴリのみ許容（`added`, `fixed`, `changed`, `improved`, `other`）
 - Codex ファイルには Codex カテゴリのみ許容（`new-features`, `bug-fixes`, `documentation`, `chores`）
-- 無効なカテゴリは警告ログを出力し `undefined` として扱う
+- 無効なカテゴリは警告ログを出力し `'other'` にフォールバックする
 
 ### 3.5 生成データ（JSON）
 
@@ -170,7 +163,7 @@ interface Version {
 interface Entry {
   ja: string;                 // 日本語説明
   en: string;                 // 英語説明
-  category?: EntryCategory;   // カテゴリID（全プロダクト共通）
+  category: EntryCategory;    // カテゴリID（全プロダクト共通、必須）
 }
 
 // カテゴリ型

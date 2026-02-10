@@ -12,34 +12,22 @@ describe('parseChangelog', () => {
     warnSpy.mockRestore();
   });
 
-  describe('2列テーブル（Claude Code 旧形式）', () => {
+  describe('2列テーブル（非対応）', () => {
     const content = `## 2.1.23
 
 | 日本語 | English |
 |--------|---------|
 | バグを修正 | Fixed a bug |
-| 新機能を追加 | Added new feature |
 `;
 
-    it('category は undefined になる', () => {
-      const versions = parseChangelog(content);
-      expect(versions).toHaveLength(1);
-      expect(versions[0].version).toBe('2.1.23');
-      expect(versions[0].entries).toHaveLength(2);
-      expect(versions[0].entries[0].category).toBeUndefined();
-      expect(versions[0].entries[1].category).toBeUndefined();
-    });
-
-    it('ja と en が正しくパースされる', () => {
-      const versions = parseChangelog(content);
-      expect(versions[0].entries[0]).toEqual({
-        ja: 'バグを修正',
-        en: 'Fixed a bug',
-      });
+    it('例外を投げる', () => {
+      expect(() => parseChangelog(content, 'claude-code')).toThrow(
+        /非対応の2列テーブル/
+      );
     });
   });
 
-  describe('3列テーブル（Claude Code 新形式）', () => {
+  describe('3列テーブル（Claude Code）', () => {
     const content = `## 2.1.24
 
 | 日本語 | English | Category |
@@ -83,29 +71,31 @@ describe('parseChangelog', () => {
     });
   });
 
-  describe('2列/3列混在ファイル', () => {
+  describe('3列で category 欠損', () => {
     const content = `## 2.1.24
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| 新機能 | Added feature | added |
-
-## 2.1.23
-
-| 日本語 | English |
-|--------|---------|
-| バグ修正 | Fixed bug |
+| 新機能 | Added feature |  |
 `;
 
-    it('各バージョンの列数を正しく検出する', () => {
-      const versions = parseChangelog(content, 'claude-code');
-      expect(versions).toHaveLength(2);
+    it('例外を投げる（空白のみ）', () => {
+      expect(() => parseChangelog(content, 'claude-code')).toThrow(
+        /Category 列が欠損/
+      );
+    });
 
-      // 3列バージョン
-      expect(versions[0].entries[0].category).toBe('added');
+    const contentMissing = `## 2.1.24
 
-      // 2列バージョン
-      expect(versions[1].entries[0].category).toBeUndefined();
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 新機能 | Added feature |
+`;
+
+    it('例外を投げる（列自体がない）', () => {
+      expect(() => parseChangelog(contentMissing, 'claude-code')).toThrow(
+        /Category 列が欠損/
+      );
     });
   });
 
@@ -117,9 +107,9 @@ describe('parseChangelog', () => {
 | テスト | Test entry | added |
 `;
 
-    it('Codex ファイルに Claude Code カテゴリがあれば警告', () => {
+    it('Codex ファイルに Claude Code カテゴリがあれば other にフォールバック', () => {
       const versions = parseChangelog(content, 'codex');
-      expect(versions[0].entries[0].category).toBeUndefined();
+      expect(versions[0].entries[0].category).toBe('other');
       expect(warnSpy).toHaveBeenCalledWith(
         expect.stringContaining('Codex に無効なカテゴリ')
       );
@@ -132,9 +122,9 @@ describe('parseChangelog', () => {
 | テスト | Test entry | new-features |
 `;
 
-    it('Claude Code ファイルに Codex カテゴリがあれば警告', () => {
+    it('Claude Code ファイルに Codex カテゴリがあれば other にフォールバック', () => {
       const versions = parseChangelog(codexContent, 'claude-code');
-      expect(versions[0].entries[0].category).toBeUndefined();
+      expect(versions[0].entries[0].category).toBe('other');
       expect(warnSpy).toHaveBeenCalledWith(
         expect.stringContaining('Claude Code に無効なカテゴリ')
       );
@@ -149,6 +139,30 @@ describe('parseChangelog', () => {
     });
   });
 
+  describe('無効 category のフォールバック', () => {
+    it('claude-code で無効値は other になる', () => {
+      const content = `## 1.0.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| テスト | Test entry | invalid-cat |
+`;
+      const versions = parseChangelog(content, 'claude-code');
+      expect(versions[0].entries[0].category).toBe('other');
+    });
+
+    it('codex で無効値は other になる', () => {
+      const content = `## 1.0.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| テスト | Test entry | invalid-cat |
+`;
+      const versions = parseChangelog(content, 'codex');
+      expect(versions[0].entries[0].category).toBe('other');
+    });
+  });
+
   describe('extractEntriesByVersion', () => {
     const content = `## 2.1.24
 
@@ -158,9 +172,9 @@ describe('parseChangelog', () => {
 
 ## 2.1.23
 
-| 日本語 | English |
-|--------|---------|
-| バグ修正 | Fixed bug |
+| 日本語 | English | Category |
+|--------|---------|----------|
+| バグ修正 | Fixed bug | fixed |
 `;
 
     it('バージョンごとのMapを返す', () => {
@@ -179,15 +193,16 @@ describe('parseChangelog', () => {
   describe('パイプエスケープ', () => {
     const content = `## 1.0.0
 
-| 日本語 | English |
-|--------|---------|
-| foo \\| bar | baz \\| qux |
+| 日本語 | English | Category |
+|--------|---------|----------|
+| foo \\| bar | baz \\| qux | other |
 `;
 
     it('エスケープ済みパイプを正しく処理', () => {
       const versions = parseChangelog(content);
       expect(versions[0].entries[0].ja).toBe('foo | bar');
       expect(versions[0].entries[0].en).toBe('baz | qux');
+      expect(versions[0].entries[0].category).toBe('other');
     });
   });
 });

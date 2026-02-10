@@ -2,8 +2,7 @@
  * CHANGELOG_2026_JA.md をパースして構造化データに変換する
  *
  * 対応形式:
- * - 2列テーブル: | 日本語 | English |（Claude Code）
- * - 3列テーブル: | 日本語 | English | Category |（Codex）
+ * - 3列テーブル: | 日本語 | English | Category |
  */
 
 /** Claude Code のカテゴリID */
@@ -22,7 +21,7 @@ const CLAUDE_CODE_CATEGORIES = new Set<string>(['added', 'fixed', 'changed', 'im
 export interface Entry {
   ja: string;
   en: string;
-  category?: EntryCategory;
+  category: EntryCategory;
 }
 
 export interface ParsedVersion {
@@ -65,26 +64,24 @@ function parseMarkdownTableRow(line: string): string[] {
 
 /**
  * テーブルヘッダー行を検出
- * @returns detected: ヘッダー行かどうか, hasCategory: 3列目にCategoryがあるか
+ * @returns 'three-column' | 'two-column' | false
  */
-function detectTableHeader(line: string): { detected: boolean; hasCategory: boolean } {
+function detectTableHeader(line: string): 'three-column' | 'two-column' | false {
   const cells = parseMarkdownTableRow(line);
   const normalized = cells.map((c) => c.trim());
 
-  // 3列: ['日本語', 'English', 'Category']
   if (
     normalized.length >= 3 &&
     normalized[0] === '日本語' &&
     normalized[1] === 'English' &&
     normalized[2] === 'Category'
   ) {
-    return { detected: true, hasCategory: true };
+    return 'three-column';
   }
-  // 2列: ['日本語', 'English']
   if (normalized.length >= 2 && normalized[0] === '日本語' && normalized[1] === 'English') {
-    return { detected: true, hasCategory: false };
+    return 'two-column';
   }
-  return { detected: false, hasCategory: false };
+  return false;
 }
 
 /** プロダクト別のカテゴリ検証セットと警告ラベル */
@@ -132,7 +129,6 @@ export function parseChangelog(content: string, product?: 'claude-code' | 'codex
   let currentVersion: string | null = null;
   let currentEntries: Entry[] = [];
   let inTable = false;
-  let hasCategory = false;
 
   for (const line of lines) {
     // バージョンヘッダーを検出 (例: ## 2.1.23 または ## 0.1.2505301544)
@@ -148,16 +144,17 @@ export function parseChangelog(content: string, product?: 'claude-code' | 'codex
       currentVersion = versionMatch[1];
       currentEntries = [];
       inTable = false;
-      hasCategory = false;
       continue;
     }
 
     // テーブルヘッダー行を検出
     const headerResult = detectTableHeader(line);
-    if (headerResult.detected) {
+    if (headerResult === 'three-column') {
       inTable = true;
-      hasCategory = headerResult.hasCategory;
       continue;
+    }
+    if (headerResult === 'two-column') {
+      throw new Error(`非対応の2列テーブルを検出しました（バージョン ${currentVersion ?? 'unknown'}）。3列テーブルに変換してください。`);
     }
 
     // テーブル区切り行をスキップ
@@ -171,17 +168,11 @@ export function parseChangelog(content: string, product?: 'claude-code' | 'codex
       const ja = cells[0];
       const en = cells[1];
       if (ja && en) {
-        const entry: Entry = { ja, en };
-
-        // 3列テーブルの場合、カテゴリを取得
-        if (hasCategory && cells[2] !== undefined) {
-          const category = parseCategory(cells[2], product);
-          if (category) {
-            entry.category = category;
-          }
+        if (cells[2] === undefined || cells[2].trim() === '') {
+          throw new Error(`Category 列が欠損しています（バージョン ${currentVersion}, 行: ${line}）`);
         }
-
-        currentEntries.push(entry);
+        const category = parseCategory(cells[2], product) ?? 'other';
+        currentEntries.push({ ja, en, category });
       }
     }
 

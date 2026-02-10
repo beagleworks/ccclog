@@ -54,7 +54,7 @@
 | メッセージセレクターに「ここから要約」を追加し、部分的な会話要約が可能に | Added "Summarize from here" to the message selector, allowing partial conversation summarization. | added |
 | 追加ディレクトリ（`--add-dir`）内の `.claude/skills/` で定義されたスキルが自動読み込みされるように変更 | Skills defined in `.claude/skills/` within additional directories (`--add-dir`) are now loaded automatically. | changed |
 | サブディレクトリから実行時に `@` ファイル補完が誤った相対パスを表示する問題を修正 | Fixed `@` file completion showing incorrect relative paths when running from a subdirectory | fixed |
-| --resume オプションが以前の会話で指定された --agent の値をデフォルトで再利用するように更新 | Updated --resume to re-use --agent value specified in previous conversation by default. |
+| --resume オプションが以前の会話で指定された --agent の値をデフォルトで再利用するように更新 | Updated --resume to re-use --agent value specified in previous conversation by default. | changed |
 | Bash ツールが JavaScript テンプレートリテラル（`${index + 1}` など）を含む heredoc で「Bad substitution」エラーを発生させ、ツール実行を中断していた問題を修正 | Fixed: Bash tool no longer throws "Bad substitution" errors when heredocs contain JavaScript template literals like `${index + 1}`, which previously interrupted tool execution | fixed |
 | スキルの文字数制限がコンテキストウィンドウに応じて拡張（コンテキストの 2%）され、大きなコンテキストウィンドウを持つユーザーが切り捨てなしでより多くのスキル説明を閲覧可能に | Skill character budget now scales with context window (2% of context), so users with larger context windows can see more skill descriptions without truncation | improved |
 | タイ語・ラオ語のスペーシング母音（สระ า、ำ）が入力フィールドで正しくレンダリングされない問題を修正 | Fixed Thai/Lao spacing vowels (สระ า, ำ) not rendering correctly in the input field | fixed |

@@ -408,7 +408,7 @@
 | `--mcp-config` フラグがファイルベースの MCP 設定を正しく上書きするように修正 | Fixed `--mcp-config` flag to correctly override file-based MCP configurations | fixed |
 | セッションのパーミッションがローカル設定に保存される問題を修正 | Fixed bug that saved session permissions to local settings | fixed |
 | MCP ツールがサブエージェントで利用できない問題を修正 | Fixed MCP tools not being available to sub-agents | fixed |
-| --dangerously-skip-permissions フラグを使用している場合にフックとプラグインが実行されない問題を修正 | Fixed hooks and plugins not executing when using --dangerously-skip-permissions flag |
+| --dangerously-skip-permissions フラグを使用している場合にフックとプラグインが実行されない問題を修正 | Fixed hooks and plugins not executing when using --dangerously-skip-permissions flag | fixed |
 | 矢印キーでタイプアヘッド候補をナビゲートする際の遅延を修正 | Fixed delay when navigating through typeahead suggestions with arrow keys | fixed |
 | VSCode: 入力フッターに現在のファイルまたはコード選択状態を表示する選択インジケーターを復元 | VSCode: Restored selection indicator in input footer showing current file or code selection status | fixed |
 
@@ -446,7 +446,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| --setting-sources 'project' が指定されている場合にプロジェクトレベルのスキルが読み込まれないバグを修正 | Fixed a bug where project-level skills were not loading when --setting-sources 'project' was specified |
+| --setting-sources 'project' が指定されている場合にプロジェクトレベルのスキルが読み込まれないバグを修正 | Fixed a bug where project-level skills were not loading when --setting-sources 'project' was specified | fixed |
 | Claude Code Web: Web から CLI へのテレポート機能に対応 | Claude Code Web: Support for Web -> CLI teleport | added |
 | Sandbox: Linux & Mac 向け BashTool のサンドボックスモードをリリース | Sandbox: Releasing a sandbox mode for the BashTool on Linux & Mac | added |
 | Bedrock: 認証が必要な場合に awsAuthRefresh の出力を表示 | Bedrock: Display awsAuthRefresh output when auth is required | improved |
@@ -509,7 +509,7 @@
 | 環境変数を含む bash の権限チェックを改善 | Improve permission checks for bash with inline env vars | improved |
 | ultrathink と thinking トグルの問題を修正 | Fix ultrathink + thinking toggle | fixed |
 | 不要なログイン処理を削減 | Reduce unnecessary logins | improved |
-| --system-prompt をドキュメント化 | Document --system-prompt |
+| --system-prompt をドキュメント化 | Document --system-prompt | changed |
 | レンダリング処理に複数の改善を実施 | Several improvements to rendering | improved |
 | プラグイン UI の改善 | Plugins UI polish | improved |
 
@@ -635,7 +635,7 @@
 | スラッシュコマンドを呼び出し可能にする SlashCommand ツールを追加 https://code.claude.com/docs/en/slash-commands#SlashCommand-tool | Added SlashCommand tool, which enables Claude to invoke your slash commands. https://code.claude.com/docs/en/slash-commands#SlashCommand-tool | added |
 | BashTool 環境スナップショットのロギングを強化 | Enhanced BashTool environment snapshot logging | improved |
 | ヘッドレスモードで会話を再開した際に思考モードが不必要に有効化される問題を修正 | Fixed a bug where resuming a conversation in headless mode would sometimes enable thinking unnecessarily | fixed |
-| --debug ログをファイルに移行し、tail やフィルタリングを容易に | Migrated --debug logging to a file, to enable easy tailing & filtering |
+| --debug ログをファイルに移行し、tail やフィルタリングを容易に | Migrated --debug logging to a file, to enable easy tailing & filtering | improved |
 
 ## 1.0.120
 
@@ -1197,7 +1197,7 @@
 | 日本語 | English | Category |
 |--------|---------|----------|
 | 追加の作業ディレクトリを指定するための --add-dir CLI 引数を追加 | Added --add-dir CLI argument for specifying additional working directories | added |
-| -p フラグなしでストリーミング入力サポートを追加 | Added streaming input support without require -p flag |
+| -p フラグなしでストリーミング入力サポートを追加 | Added streaming input support without require -p flag | added |
 | 起動パフォーマンスとセッションストレージのパフォーマンスを改善 | Improved startup performance and session storage performance | improved |
 | bash コマンドの作業ディレクトリを固定する CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR 環境変数を追加 | Added CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR environment variable to freeze working directory for bash commands | added |
 | MCP サーバーツールの詳細表示（/mcp）を追加 | Added detailed MCP server tools display (/mcp) | added |
@@ -1209,7 +1209,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| -p モードでサブタスクからのメッセージを出力（parent_tool_use_id プロパティを確認） | We now emit messages from sub-tasks in -p mode (look for the parent_tool_use_id property) |
+| -p モードでサブタスクからのメッセージを出力（parent_tool_use_id プロパティを確認） | We now emit messages from sub-tasks in -p mode (look for the parent_tool_use_id property) | added |
 | VS Code差分ツールが連続して素早く呼び出された際のクラッシュを修正 | Fixed crashes when the VS Code diff tool is invoked multiple times quickly | fixed |
 | MCPサーバーリストのUI改善 | MCP server list UI improvements | improved |
 | Claude Codeのプロセスタイトルを「node」から「claude」に変更 | Update Claude Code process title to display "claude" instead of "node" | changed |
@@ -1249,7 +1249,7 @@
 | `/allowed-tools` を `/permissions` にリネーム | Renamed /allowed-tools -> /permissions | changed |
 | `.claude.json` の `allowedTools` と `ignorePatterns` を `settings.json` に移行 | Migrated allowedTools and ignorePatterns from .claude.json -> settings.json | changed |
 | `claude config` コマンドを非推奨化し、`settings.json` の直接編集を推奨 | Deprecated claude config commands in favor of editing settings.json | changed |
-| --print モードで --dangerously-skip-permissions が動作しないことがあるバグを修正 | Fixed a bug where --dangerously-skip-permissions sometimes didn't work in --print mode |
+| --print モードで --dangerously-skip-permissions が動作しないことがあるバグを修正 | Fixed a bug where --dangerously-skip-permissions sometimes didn't work in --print mode | fixed |
 | `/install-github-app` のエラーハンドリングを改善 | Improved error handling for /install-github-app | improved |
 | バグ修正、UI の洗練、ツールの信頼性向上 | Bugfixes, UI polish, and tool reliability improvements | fixed |
 
@@ -1304,7 +1304,7 @@
 | 破壊的変更: --print の JSON 出力が新しいメタデータフィールド導入に向けてネストされたメッセージオブジェクトを返すように変更 | Breaking change: --print JSON output now returns nested message objects, for forwards-compatibility as we introduce new metadata fields | changed |
 | settings.cleanupPeriodDays の導入 | Introduced settings.cleanupPeriodDays | added |
 | CLAUDE_CODE_API_KEY_HELPER_TTL_MS 環境変数の導入 | Introduced CLAUDE_CODE_API_KEY_HELPER_TTL_MS env var | added |
-| --debug モードを導入 | Introduced --debug mode |
+| --debug モードを導入 | Introduced --debug mode | added |
 
 ## 0.2.108
 
@@ -1312,7 +1312,7 @@
 |--------|---------|----------|
 | Claude の動作中にメッセージを送信してリアルタイムで誘導可能 | You can now send messages to Claude while it works to steer Claude in real-time | added |
 | BASH_DEFAULT_TIMEOUT_MS と BASH_MAX_TIMEOUT_MS 環境変数を導入 | Introduced BASH_DEFAULT_TIMEOUT_MS and BASH_MAX_TIMEOUT_MS env vars | added |
-| -p モードで thinking が動作しないバグを修正 | Fixed a bug where thinking was not working in -p mode |
+| -p モードで thinking が動作しないバグを修正 | Fixed a bug where thinking was not working in -p mode | fixed |
 | /cost コマンドのレポート機能の不具合を修正 | Fixed a regression in /cost reporting | fixed |
 | MCP ウィザードインターフェースを非推奨化し他の MCP コマンドに移行 | Deprecated MCP wizard interface in favor of other MCP commands | changed |
 | その他多数のバグ修正と改善 | Lots of other bugfixes and improvements | improved |
@@ -1377,7 +1377,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| --disallowedTools のサポートを追加 | Added support for --disallowedTools |
+| --disallowedTools のサポートを追加 | Added support for --disallowedTools | added |
 | 一貫性のためツールをリネーム: LSTool → LS、View → Read など | Renamed tools for consistency: LSTool -> LS, View -> Read, etc. | changed |
 
 ## 0.2.75

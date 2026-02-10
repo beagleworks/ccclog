@@ -7,7 +7,7 @@ type ClaudeCodeCategory = 'added' | 'fixed' | 'changed' | 'improved' | 'other';
 interface Entry {
   ja: string;
   en: string;
-  category?: CodexCategory | ClaudeCodeCategory;
+  category: CodexCategory | ClaudeCodeCategory;
 }
 
 interface Version {
