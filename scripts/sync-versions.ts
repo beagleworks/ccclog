@@ -14,6 +14,12 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { utcToJst, getCurrentYearJst } from './date-utils.js';
 import { translateAndClassifyWithFallback, type TranslationWithCategory } from './translate.js';
+import {
+  emitRunReport,
+  parseReportArgs,
+  type ReportCliOptions,
+  type ScriptRunReport,
+} from './lib/run-report.js';
 
 const NPM_PACKAGE = '@anthropic-ai/claude-code';
 const GITHUB_CHANGELOG_URL =
@@ -64,8 +70,7 @@ function fetchNpmVersions(): Map<string, VersionInfo> {
 
     console.log(`  ${result.size} バージョンを取得しました`);
   } catch (error) {
-    console.error('npm レジストリからの取得に失敗:', error);
-    process.exit(1);
+    throw new Error(`npm レジストリからの取得に失敗: ${String(error)}`);
   }
 
   return result;
@@ -137,8 +142,7 @@ async function fetchGitHubChangelog(): Promise<Map<string, string[]>> {
 
     console.log(`  ${result.size} バージョンの変更内容を取得しました`);
   } catch (error) {
-    console.error('GitHub CHANGELOG.md の取得に失敗:', error);
-    process.exit(1);
+    throw new Error(`GitHub CHANGELOG.md の取得に失敗: ${String(error)}`);
   }
 
   return result;
@@ -192,12 +196,12 @@ function generateVersionSection(
 /**
  * CHANGELOG_{YEAR}_JA.md に新バージョンを追記
  */
-function appendToChangelog(year: number, sections: string[]): void {
+function appendToChangelog(year: number, sections: string[]): string | null {
   const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${year}_JA.md`);
 
   if (!fs.existsSync(filePath)) {
     console.warn(`  警告: ${filePath} が存在しません。スキップします。`);
-    return;
+    return null;
   }
 
   const content = fs.readFileSync(filePath, 'utf-8');
@@ -206,7 +210,7 @@ function appendToChangelog(year: number, sections: string[]): void {
   const headerEndIndex = content.indexOf('\n---\n');
   if (headerEndIndex === -1) {
     console.warn(`  警告: ${filePath} のヘッダー区切りが見つかりません。`);
-    return;
+    return null;
   }
 
   // ヘッダー直後に新セクションを挿入
@@ -217,13 +221,23 @@ function appendToChangelog(year: number, sections: string[]): void {
   fs.writeFileSync(filePath, newContent, 'utf-8');
 
   console.log(`  ${filePath} に ${sections.length} バージョンを追加しました`);
+  return filePath;
 }
 
 
 /**
  * メイン処理
  */
-async function main(): Promise<void> {
+interface MainResult {
+  changed: boolean;
+  changedFiles: string[];
+  addedVersions: number;
+  translatedEntries: number;
+  warnings: string[];
+}
+
+async function main(rawArgs: string[]): Promise<{ result: MainResult; reportOptions: ReportCliOptions }> {
+  const parsed = parseReportArgs(rawArgs);
   console.log('=== 新バージョン自動検出・追記 ===\n');
 
   // 1. npm から全バージョン情報を取得
@@ -238,6 +252,9 @@ async function main(): Promise<void> {
 
   // 4. 年ごとに処理
   let totalAdded = 0;
+  let translatedEntries = 0;
+  const changedFiles: string[] = [];
+  const warnings: string[] = [];
 
   for (const year of targetYears) {
     console.log(`\n--- ${year}年の処理 ---`);
@@ -274,7 +291,9 @@ async function main(): Promise<void> {
     for (const version of sortedVersions) {
       const entries = githubChangelog.get(version);
       if (!entries || entries.length === 0) {
-        console.log(`  警告: v${version} の変更内容が GitHub CHANGELOG.md に見つかりません`);
+        const warning = `v${version} の変更内容が GitHub CHANGELOG.md に見つかりません`;
+        console.log(`  警告: ${warning}`);
+        warnings.push(warning);
         continue;
       }
 
@@ -283,6 +302,7 @@ async function main(): Promise<void> {
       const translations = translateAndClassifyWithFallback(entries, 'Claude Code');
       if (translations) {
         console.log(`  v${version} の翻訳完了`);
+        translatedEntries += translations.length;
       }
 
       sections.push(generateVersionSection(version, entries, translations));
@@ -291,14 +311,58 @@ async function main(): Promise<void> {
 
     // CHANGELOG に追記
     if (sections.length > 0) {
-      appendToChangelog(year, sections);
+      const changedFile = appendToChangelog(year, sections);
+      if (changedFile) {
+        changedFiles.push(path.relative(process.cwd(), changedFile));
+      }
     }
   }
 
   console.log(`\n=== 完了: ${totalAdded} バージョンを追加しました ===`);
+  return {
+    reportOptions: parsed.report,
+    result: {
+      changed: changedFiles.length > 0,
+      changedFiles,
+      addedVersions: totalAdded,
+      translatedEntries,
+      warnings,
+    },
+  };
 }
 
-main().catch((error) => {
-  console.error('エラー:', error);
-  process.exit(1);
-});
+const start = Date.now();
+main(process.argv.slice(2))
+  .then(({ reportOptions, result }) => {
+    const report: ScriptRunReport = {
+      script: 'sync-versions',
+      status: 'ok',
+      changed: result.changed,
+      changedFiles: result.changedFiles,
+      elapsedMs: Date.now() - start,
+      addedVersions: result.addedVersions,
+      translatedEntries: result.translatedEntries,
+      warnings: result.warnings,
+    };
+    emitRunReport(reportOptions, report);
+  })
+  .catch((error) => {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('エラー:', error);
+    let reportOptions: ReportCliOptions = { reportJson: false, reportFile: null };
+    try {
+      reportOptions = parseReportArgs(process.argv.slice(2)).report;
+    } catch {
+      // ignore
+    }
+    emitRunReport(reportOptions, {
+      script: 'sync-versions',
+      status: 'error',
+      changed: false,
+      changedFiles: [],
+      elapsedMs: Date.now() - start,
+      warnings: [message],
+      error: message,
+    });
+    process.exit(1);
+  });

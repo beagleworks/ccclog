@@ -157,9 +157,6 @@ describe('main() Codex fail-fast 結合テスト', () => {
     vi.spyOn(translate, 'isClaudeCliAvailable').mockReturnValue(true);
     vi.spyOn(translate, 'translateOne').mockReturnValue('翻訳済み');
 
-    // process.exit をモック（parseArgs 内で呼ばれる可能性を防止）
-    vi.spyOn(process, 'exit').mockImplementation(() => { throw new Error('process.exit called'); });
-
     process.argv = ['node', 'retranslate.ts', '--product', 'codex', '2099'];
 
     const { main } = await import('../retranslate');
@@ -167,10 +164,9 @@ describe('main() Codex fail-fast 結合テスト', () => {
   });
 
   it('未知オプションはエラー終了する（--retranslate-all は廃止）', async () => {
-    vi.spyOn(process, 'exit').mockImplementation(() => { throw new Error('process.exit called'); });
     process.argv = ['node', 'retranslate.ts', '--retranslate-all', '2099'];
 
     const { main } = await import('../retranslate');
-    await expect(main()).rejects.toThrow(/process\.exit called/);
+    await expect(main()).rejects.toThrow(/不明なオプション/);
   });
 });

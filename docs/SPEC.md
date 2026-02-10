@@ -589,6 +589,31 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 | ローカル（トークンあり） | 5000リクエスト/時間 | 認証済みレート制限 |
 | ローカル（トークンなし） | 60リクエスト/時間 | 警告を出力してビルド継続（取得できた範囲で動作） |
 
+### 5.8 実行レポート（Report CLI）
+
+各スクリプトは、任意で機械可読レポートを出力できる。
+
+| オプション | 説明 |
+|-----------|------|
+| `--report-json` | 実行結果JSONを標準出力へ出力 |
+| `--report-file <path>` | 実行結果JSONを指定パスへ出力 |
+
+#### 5.8.1 changed 定義（スクリプト別）
+
+`changed` はファイルを実際に変更したかどうかを示す。
+
+| スクリプト | `changed=true` の条件 |
+|-----------|------------------------|
+| `sync-versions.ts` | CHANGELOG ファイルへの書き込みが成功（`changedFiles.length > 0`） |
+| `sync-codex-versions.ts` | CHANGELOG ファイルへの書き込みが成功（`changedFiles.length > 0`） |
+| `detect-upstream-changes.ts` | `--apply` 指定時かつファイルへの書き込みが成功（`changedFiles.length > 0`） |
+| `retranslate.ts` | 翻訳成功件数 > 0（`successCount > 0`） |
+| `generate-data.ts` | 生成データの実質内容（`months`）が前回と異なる |
+
+※ `detect-upstream-changes.ts` は `--apply` なし（検出のみ）の場合、差分を検出しても `changed=false` を返す。
+※ `retranslate.ts` は成功件数ベースで判定し、厳密なファイル差分判定ではない。
+※ `generate-data.ts` は `generatedAt` タイムスタンプを比較対象から除外し、実データ部分のみで判定する。
+
 ---
 
 ## 6. CI/CD
@@ -621,9 +646,9 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 #### 6.2.2 トリガー
 | トリガー | タイミング |
 |---------|-----------|
-| push | mainブランチへのプッシュ時 |
-| schedule | 日本時間 6:00, 8:00, 10:00, 12:00, 15:00, 18:00, 24:00 |
-| workflow_dispatch | 手動実行（オプションで再翻訳モード選択可） |
+| push | mainブランチへのプッシュ時（`docs/**`, `README.md`, `CLAUDE.md`, `.github/FUNDING.yml` のみの変更は除外） |
+| schedule | 日本時間 6:00, 8:00, 10:00, 12:00, 15:00, 18:00, 24:00（同期ジョブ実行） |
+| workflow_dispatch | 手動実行（同期ジョブ + オプションで再翻訳） |
 
 #### 6.2.3 手動実行オプション
 | オプション | 説明 | デフォルト |
@@ -632,14 +657,19 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 
 ### 6.3 自動検出・追記フロー
 
-定期ビルド時に以下の処理を実行：
+定期実行（`schedule`）では以下を実行：
 1. `pnpm run sync-versions` で Claude Code の新バージョンを検出
-2. `pnpm run sync-codex-versions` で Codex の新バージョンを検出
-3. 変更があれば `CHANGELOG_{YEAR}_JA.md` に自動追記
-4. 変更があれば自動コミット・プッシュ
-5. 通常のビルド・デプロイを実行
+2. `pnpm run sync-upstream` で上流 CHANGELOG 差分を検出・反映
+3. `pnpm run sync-codex-versions` で Codex の新バージョンを検出
+4. 変更があれば `CHANGELOG_{YEAR}_JA.md` に自動追記
+5. 変更があれば自動コミット・プッシュ（`chore: 新バージョンを自動追加`）
+6. 各同期スクリプトの report JSON を Step Summary に集約して可視化
 
-上流CHANGELOG変更検出（`pnpm sync-upstream`）も定期ビルド時に実行し、上流の修正があれば `CHANGELOG_{YEAR}_JA.md` に反映する。変更があれば既存のコミットステップでまとめてコミットされる。
+`push` イベントでは同期処理を行わず、`pnpm build` + GitHub Pages デプロイのみを実行する。
+`schedule` / `workflow_dispatch` では、同期で差分があった場合に同一ワークフロー内で `pnpm build` + GitHub Pages デプロイまで実行する。
+そのため、定期実行で差分がない場合はビルド/デプロイを行わない。
+
+`workflow_dispatch` では定期実行と同じ同期処理を行い、`retranslate=true` の場合に `pnpm retranslate` / `pnpm retranslate -- --product codex` を追加実行する。
 
 これにより、npm に新バージョンが公開されると最大6時間以内に自動的に CHANGELOG に追加される。
 

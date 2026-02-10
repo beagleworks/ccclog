@@ -12,7 +12,7 @@
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseChangelog, type Entry } from './parse-changelog.js';
 import {
@@ -21,6 +21,12 @@ import {
   interpolateMissingDates,
 } from './fetch-releases.js';
 import { getProduct, type ProductId, type ProductConfig } from '../src/lib/products.js';
+import {
+  emitRunReport,
+  parseReportArgs,
+  type ReportCliOptions,
+  type ScriptRunReport,
+} from './lib/run-report.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, '..');
@@ -32,10 +38,12 @@ const ROOT_DIR = join(__dirname, '..');
 interface CliArgs {
   product: ProductId;
   year: string;
+  reportOptions: ReportCliOptions;
 }
 
-function parseArgs(): CliArgs {
-  const args = process.argv.slice(2);
+function parseArgs(rawArgs: string[]): CliArgs {
+  const parsed = parseReportArgs(rawArgs);
+  const args = parsed.remainingArgs;
   let product: ProductId = 'claude-code';
   let year = '2026';
 
@@ -47,8 +55,7 @@ function parseArgs(): CliArgs {
       if (p === 'claude-code' || p === 'codex') {
         product = p;
       } else {
-        console.error(`不明なプロダクト: ${p}`);
-        process.exit(1);
+        throw new Error(`不明なプロダクト: ${p}`);
       }
       i++;
     } else if (arg === '--year' && args[i + 1]) {
@@ -60,7 +67,7 @@ function parseArgs(): CliArgs {
     }
   }
 
-  return { product, year };
+  return { product, year, reportOptions: parsed.report };
 }
 
 // ========================
@@ -257,8 +264,14 @@ async function fetchReleaseDatesForCodex(
 // メイン処理
 // ========================
 
-async function main() {
-  const { product: productId, year } = parseArgs();
+interface MainResult {
+  changed: boolean;
+  changedFiles: string[];
+  reportOptions: ReportCliOptions;
+}
+
+async function main(rawArgs: string[] = process.argv.slice(2)): Promise<MainResult> {
+  const { product: productId, year, reportOptions } = parseArgs(rawArgs);
   const config = getProduct(productId);
 
   console.log(`📦 CHANGELOG データ生成を開始 (${config.shortName} / ${year}年)...\n`);
@@ -269,8 +282,7 @@ async function main() {
   // 1. CHANGELOGファイルを読み込み・パース
   const changelogPath = join(contentDir, `CHANGELOG_${year}_JA.md`);
   if (!existsSync(changelogPath)) {
-    console.error(`❌ ファイルが見つかりません: ${changelogPath}`);
-    process.exit(1);
+    throw new Error(`❌ ファイルが見つかりません: ${changelogPath}`);
   }
 
   console.log(`📖 ${changelogPath} を読み込み中...`);
@@ -280,7 +292,11 @@ async function main() {
 
   if (parsedVersions.length === 0) {
     console.log('⚠️  バージョンが見つかりませんでした。処理を終了します。');
-    return;
+    return {
+      changed: false,
+      changedFiles: [],
+      reportOptions,
+    };
   }
 
   // 2. リリース日を取得（プロダクトごとに異なる戦略）
@@ -332,11 +348,65 @@ async function main() {
   }
 
   const jsonPath = join(dataDir, `changelog-${year}.json`);
-  writeFileSync(jsonPath, JSON.stringify(changelogData, null, 2));
+  const nextJson = JSON.stringify(changelogData, null, 2);
+
+  // changed 判定: generatedAt は毎回変わるため、months のみで比較
+  let contentChanged = true;
+  if (existsSync(jsonPath)) {
+    try {
+      const before = JSON.parse(readFileSync(jsonPath, 'utf-8'));
+      contentChanged = JSON.stringify(before.months) !== JSON.stringify(changelogData.months);
+    } catch {
+      // パース失敗時は変更ありとして扱う
+    }
+  }
+
+  writeFileSync(jsonPath, nextJson);
   console.log(`📝 ${jsonPath} を生成しました\n`);
 
   console.log('✅ データ生成が完了しました！');
+  return {
+    changed: contentChanged,
+    changedFiles: contentChanged ? [pathRelativeToRoot(jsonPath)] : [],
+    reportOptions,
+  };
+}
+
+function pathRelativeToRoot(targetPath: string): string {
+  return relative(ROOT_DIR, targetPath);
 }
 
 // 実行
-main().catch(console.error);
+const start = Date.now();
+main()
+  .then((result) => {
+    const report: ScriptRunReport = {
+      script: 'generate-data',
+      status: 'ok',
+      changed: result.changed,
+      changedFiles: result.changedFiles,
+      elapsedMs: Date.now() - start,
+      warnings: [],
+    };
+    emitRunReport(result.reportOptions, report);
+  })
+  .catch((error) => {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(error);
+    let reportOptions: ReportCliOptions = { reportJson: false, reportFile: null };
+    try {
+      reportOptions = parseReportArgs(process.argv.slice(2)).report;
+    } catch {
+      // ignore
+    }
+    emitRunReport(reportOptions, {
+      script: 'generate-data',
+      status: 'error',
+      changed: false,
+      changedFiles: [],
+      elapsedMs: Date.now() - start,
+      warnings: [message],
+      error: message,
+    });
+    process.exit(1);
+  });

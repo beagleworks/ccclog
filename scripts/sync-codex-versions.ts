@@ -18,6 +18,12 @@ import { utcToJst, getCurrentYearJst } from './date-utils.js';
 import { parseCodexReleaseBody, type ParsedEntry } from './parse-codex-releases.ts';
 import { translateBatch } from './translate.js';
 import {
+  emitRunReport,
+  parseReportArgs,
+  type ReportCliOptions,
+  type ScriptRunReport,
+} from './lib/run-report.js';
+import {
   CONTENT_DIR,
   getGitHubHeaders,
   compareVersions,
@@ -50,7 +56,7 @@ interface VersionInfo {
  * 対象年より古いリリースが出た時点で安全にページングを打ち切れる。
  * published_at は JST に変換して年を判定する。
  */
-async function fetchCodexReleases(targetYear: number): Promise<VersionInfo[]> {
+async function fetchCodexReleases(targetYear: number, warnings: string[]): Promise<VersionInfo[]> {
   const versions: VersionInfo[] = [];
   let page = 1;
 
@@ -66,7 +72,9 @@ async function fetchCodexReleases(targetYear: number): Promise<VersionInfo[]> {
 
       if (!response.ok) {
         if (response.status === 403) {
-          console.warn('GitHub API レート制限に達しました。取得できた範囲で継続します。');
+          const warning = 'GitHub API レート制限に達しました。取得できた範囲で継続します。';
+          console.warn(warning);
+          warnings.push(warning);
           break;
         }
         throw new Error(`GitHub API error: ${response.status}`);
@@ -117,11 +125,15 @@ async function fetchCodexReleases(targetYear: number): Promise<VersionInfo[]> {
 
       page++;
       if (page > 10) {
-        console.warn('ページ数上限に達しました。');
+        const warning = 'ページ数上限に達しました。';
+        console.warn(warning);
+        warnings.push(warning);
         break;
       }
     } catch (error) {
-      console.error('GitHub Releases の取得に失敗:', error);
+      const warning = `GitHub Releases の取得に失敗: ${String(error)}`;
+      console.error(warning);
+      warnings.push(warning);
       break;
     }
   }
@@ -184,7 +196,7 @@ function ensureChangelogFile(year: number): void {
 /**
  * CHANGELOG_{YEAR}_JA.md に新バージョンを追記
  */
-function appendToChangelog(year: number, sections: string[]): void {
+function appendToChangelog(year: number, sections: string[]): string | null {
   const filePath = path.join(CONTENT_DIR, `CHANGELOG_${year}_JA.md`);
 
   const content = fs.readFileSync(filePath, 'utf-8');
@@ -193,7 +205,7 @@ function appendToChangelog(year: number, sections: string[]): void {
   const headerEndIndex = content.indexOf('\n---\n');
   if (headerEndIndex === -1) {
     console.warn(`  警告: ${filePath} のヘッダー区切りが見つかりません。`);
-    return;
+    return null;
   }
 
   // ヘッダー直後に新セクションを挿入
@@ -204,6 +216,7 @@ function appendToChangelog(year: number, sections: string[]): void {
   fs.writeFileSync(filePath, newContent, 'utf-8');
 
   console.log(`  ${filePath} に ${sections.length} バージョンを追加しました`);
+  return filePath;
 }
 
 
@@ -212,10 +225,12 @@ function appendToChangelog(year: number, sections: string[]): void {
  */
 interface CliOptions {
   yearOverride: number | null;
+  reportOptions: ReportCliOptions;
 }
 
-function parseArgs(): CliOptions {
-  const args = process.argv.slice(2);
+function parseArgs(rawArgs: string[]): CliOptions {
+  const parsed = parseReportArgs(rawArgs);
+  const args = parsed.remainingArgs;
   let yearOverride: number | null = null;
 
   for (let i = 0; i < args.length; i++) {
@@ -223,12 +238,10 @@ function parseArgs(): CliOptions {
     if (arg === '--year') {
       const yearStr = args[i + 1];
       if (!yearStr) {
-        console.error('エラー: --year の後に年を指定してください');
-        process.exit(1);
+        throw new Error('エラー: --year の後に年を指定してください');
       }
       if (!/^\d{4}$/.test(yearStr)) {
-        console.error(`エラー: 不正な年: ${yearStr}`);
-        process.exit(1);
+        throw new Error(`エラー: 不正な年: ${yearStr}`);
       }
       yearOverride = Number(yearStr);
       i++;
@@ -236,31 +249,51 @@ function parseArgs(): CliOptions {
     }
     // 未知のオプション
     if (arg.startsWith('--')) {
-      console.error(`エラー: 未知のオプション: ${arg}`);
-      process.exit(1);
+      throw new Error(`エラー: 未知のオプション: ${arg}`);
     }
   }
 
-  return { yearOverride };
+  return {
+    yearOverride,
+    reportOptions: parsed.report,
+  };
 }
 
 /**
  * メイン処理
  */
-async function main(): Promise<void> {
-  const { yearOverride } = parseArgs();
+interface MainResult {
+  changed: boolean;
+  changedFiles: string[];
+  addedVersions: number;
+  translatedEntries: number;
+  warnings: string[];
+}
+
+async function main(rawArgs: string[]): Promise<{ result: MainResult; reportOptions: ReportCliOptions }> {
+  const { yearOverride, reportOptions } = parseArgs(rawArgs);
   const targetYear = yearOverride ?? getCurrentYearJst();
+  const warnings: string[] = [];
 
   console.log('=== Codex 新バージョン自動検出・追記 ===');
   console.log(`対象年: ${targetYear}`);
   console.log('');
 
   // 1. GitHub Releases から対象年のリリース情報を取得
-  const versions = await fetchCodexReleases(targetYear);
+  const versions = await fetchCodexReleases(targetYear, warnings);
 
   if (versions.length === 0) {
     console.log('対象リリースがありません。');
-    return;
+    return {
+      reportOptions,
+      result: {
+        changed: false,
+        changedFiles: [],
+        addedVersions: 0,
+        translatedEntries: 0,
+        warnings,
+      },
+    };
   }
 
   // 2. 既存バージョンを取得して未記載を特定
@@ -274,7 +307,16 @@ async function main(): Promise<void> {
 
   if (missingVersions.length === 0) {
     console.log('  未記載バージョンはありません');
-    return;
+    return {
+      reportOptions,
+      result: {
+        changed: false,
+        changedFiles: [],
+        addedVersions: 0,
+        translatedEntries: 0,
+        warnings,
+      },
+    };
   }
 
   console.log(`  未記載バージョン: ${missingVersions.length}件`);
@@ -286,22 +328,72 @@ async function main(): Promise<void> {
   const sortedVersions = sortVersionsDescending(missingVersions);
 
   const sections: string[] = [];
+  let translatedEntries = 0;
   for (const versionInfo of sortedVersions) {
     const translations = versionInfo.entries.length > 0
       ? translateBatch(versionInfo.entries.map(e => e.text), 'OpenAI Codex')
       : null;
+    if (translations) {
+      translatedEntries += translations.length;
+    }
     sections.push(generateVersionSection(versionInfo.version, versionInfo.entries, translations));
   }
 
   // 4. CHANGELOG に追記
+  const changedFiles: string[] = [];
   if (sections.length > 0) {
-    appendToChangelog(targetYear, sections);
+    const changedFile = appendToChangelog(targetYear, sections);
+    if (changedFile) {
+      changedFiles.push(path.relative(process.cwd(), changedFile));
+    }
   }
 
   console.log(`\n=== 完了: ${sections.length} バージョンを追加しました ===`);
+  return {
+    reportOptions,
+    result: {
+      changed: changedFiles.length > 0,
+      changedFiles,
+      addedVersions: sections.length,
+      translatedEntries,
+      warnings,
+    },
+  };
 }
 
-main().catch((error) => {
-  console.error('エラー:', error);
-  process.exit(1);
-});
+const start = Date.now();
+main(process.argv.slice(2))
+  .then(({ reportOptions, result }) => {
+    const report: ScriptRunReport = {
+      script: 'sync-codex-versions',
+      status: 'ok',
+      changed: result.changed,
+      changedFiles: result.changedFiles,
+      elapsedMs: Date.now() - start,
+      addedVersions: result.addedVersions,
+      translatedEntries: result.translatedEntries,
+      warnings: result.warnings,
+    };
+    emitRunReport(reportOptions, report);
+  })
+  .catch((error) => {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('エラー:', error);
+    const fallbackReportOptions: ReportCliOptions = { reportJson: false, reportFile: null };
+    let reportOptions = fallbackReportOptions;
+    try {
+      reportOptions = parseReportArgs(process.argv.slice(2)).report;
+    } catch {
+      // ignore
+    }
+    emitRunReport(reportOptions, {
+      script: 'sync-codex-versions',
+      status: 'error',
+      changed: false,
+      changedFiles: [],
+      elapsedMs: Date.now() - start,
+      warnings: [message],
+      error: message,
+    });
+    process.exit(1);
+  });

@@ -12,6 +12,12 @@ import * as path from 'node:path';
 import { getCurrentYearJst } from './date-utils.js';
 import { extractEntriesByVersion, type Entry } from './parse-changelog.js';
 import { translateAndClassifyWithFallback } from './translate.js';
+import {
+  emitRunReport,
+  parseReportArgs,
+  type ReportCliOptions,
+  type ScriptRunReport,
+} from './lib/run-report.js';
 
 const GITHUB_CHANGELOG_URL =
   'https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md';
@@ -213,23 +219,30 @@ export function rebuildEntries(
   return { entries: output, translated: translatedCount, pending: pendingCount };
 }
 
-async function main(): Promise<void> {
-  const applyChanges = process.argv.includes('--apply');
+interface MainResult {
+  changed: boolean;
+  changedFiles: string[];
+  translatedEntries: number;
+  warnings: string[];
+}
+
+async function main(rawArgs: string[]): Promise<{ result: MainResult; reportOptions: ReportCliOptions }> {
+  const parsed = parseReportArgs(rawArgs);
+  const applyChanges = parsed.remainingArgs.includes('--apply');
+  const warnings: string[] = [];
   console.log('=== 上流CHANGELOG変更検出 ===\n');
 
   let upstreamVersions: UpstreamVersion[];
   try {
     upstreamVersions = await fetchUpstreamTopVersions();
   } catch (error) {
-    console.error('GitHub CHANGELOG.md の取得に失敗:', error);
-    process.exit(1);
+    throw new Error(`GitHub CHANGELOG.md の取得に失敗: ${String(error)}`);
   }
 
   const year = getCurrentYearJst();
   const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${year}_JA.md`);
   if (!fs.existsSync(filePath)) {
-    console.error(`エラー: ファイルが存在しません: ${filePath}`);
-    process.exit(1);
+    throw new Error(`エラー: ファイルが存在しません: ${filePath}`);
   }
 
   const originalContent = fs.readFileSync(filePath, 'utf-8');
@@ -245,9 +258,9 @@ async function main(): Promise<void> {
   for (const upstreamVersion of upstreamVersions) {
     const localEntries = localEntriesByVersion.get(upstreamVersion.version);
     if (!localEntries) {
-      console.warn(
-        `警告: v${upstreamVersion.version} は ${filePath} に存在しません（スキップ）`
-      );
+      const warning = `v${upstreamVersion.version} は ${filePath} に存在しません（スキップ）`;
+      console.warn(`警告: ${warning}`);
+      warnings.push(warning);
       continue;
     }
 
@@ -283,18 +296,35 @@ async function main(): Promise<void> {
 
   if (!hasChanges) {
     console.log('\n差分はありません');
-    return;
+    return {
+      reportOptions: parsed.report,
+      result: {
+        changed: false,
+        changedFiles: [],
+        translatedEntries: 0,
+        warnings,
+      },
+    };
   }
 
   if (!applyChanges) {
     console.log('\n検出のみ実行しました（適用は --apply を指定）');
-    return;
+    return {
+      reportOptions: parsed.report,
+      result: {
+        changed: false,
+        changedFiles: [],
+        translatedEntries: 0,
+        warnings,
+      },
+    };
   }
 
   console.log('\n=== 差分を適用します ===');
 
   let updatedContent = originalContent;
   let appliedCount = 0;
+  let translatedEntries = 0;
 
   for (const target of versionsToApply) {
     const rebuilt = rebuildEntries(target.upstreamEntries, target.localEntries);
@@ -307,24 +337,67 @@ async function main(): Promise<void> {
 
     updatedContent = updated.content;
     appliedCount++;
+    translatedEntries += rebuilt.translated;
     console.log(
       `v${target.version}: 更新完了（翻訳 ${rebuilt.translated} 件、翻訳待ち ${rebuilt.pending} 件）`
     );
   }
 
+  const changedFiles: string[] = [];
   if (appliedCount > 0 && updatedContent !== originalContent) {
     fs.writeFileSync(filePath, updatedContent, 'utf-8');
     console.log(`\n${filePath} を更新しました`);
+    changedFiles.push(path.relative(process.cwd(), filePath));
   } else {
     console.log('\n更新対象はありませんでした');
   }
+
+  return {
+    reportOptions: parsed.report,
+    result: {
+      changed: changedFiles.length > 0,
+      changedFiles,
+      translatedEntries,
+      warnings,
+    },
+  };
 }
 
 // 直接実行時のみ main() を呼ぶ（import 時の副作用防止）
 const isDirectRun = /detect-upstream-changes\.[tj]s$/.test(process.argv[1] ?? '');
 if (isDirectRun) {
-  main().catch((error) => {
-    console.error('エラー:', error);
-    process.exit(1);
-  });
+  const start = Date.now();
+  main(process.argv.slice(2))
+    .then(({ reportOptions, result }) => {
+      const report: ScriptRunReport = {
+        script: 'detect-upstream-changes',
+        status: 'ok',
+        changed: result.changed,
+        changedFiles: result.changedFiles,
+        elapsedMs: Date.now() - start,
+        translatedEntries: result.translatedEntries,
+        warnings: result.warnings,
+      };
+      emitRunReport(reportOptions, report);
+    })
+    .catch((error) => {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error('エラー:', error);
+      let reportOptions: ReportCliOptions = { reportJson: false, reportFile: null };
+      try {
+        reportOptions = parseReportArgs(process.argv.slice(2)).report;
+      } catch {
+        // ignore
+      }
+      emitRunReport(reportOptions, {
+        script: 'detect-upstream-changes',
+        status: 'error',
+        changed: false,
+        changedFiles: [],
+        elapsedMs: Date.now() - start,
+        warnings: [message],
+        error: message,
+      });
+      process.exit(1);
+    });
 }

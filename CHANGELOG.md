@@ -2,6 +2,7 @@
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-02-11 | 6.0.0 | CI 可観測性基盤: 全 sync/generate スクリプトに `--report-json`/`--report-file` オプション追加、CI Step Summary でレポート可視化、deploy.yml をジョブ分離（sync/build_push/build_sync/deploy） |
 | 2026-02-10 | 5.1.0 | backfill-legacy-codex.ts 削除、mode-utils 削除、retranslate 簡素化、codex-changelog-utils 簡素化（-1,324行） |
 | 2026-02-10 | 5.0.1 | 仕様書を1ファイルに統合、CHANGELOG.md をルート直下に分離、§5.4.1/§9 の仕様乖離修正、変更履歴の全バージョン網羅 |
 | 2026-02-08 | 5.0.0 | Codex 旧形式リリースの AI バックフィル機能を追加 |

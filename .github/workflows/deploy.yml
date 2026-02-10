@@ -1,11 +1,16 @@
 name: Deploy to GitHub Pages
 
 on:
-  # mainブランチへのプッシュ時
+  # mainブランチへのプッシュ時（不要な変更は除外）
   push:
     branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+      - 'CLAUDE.md'
+      - '.github/FUNDING.yml'
 
-  # 日本時間 6:00, 8:00, 10:00, 12:00, 15:00, 18:00, 24:00 に自動ビルド
+  # 日本時間 6:00, 8:00, 10:00, 12:00, 15:00, 18:00, 24:00 に自動同期
   schedule:
     - cron: '0 21 * * *'  # JST 6:00
     - cron: '0 23 * * *'  # JST 8:00
@@ -23,21 +28,19 @@ on:
         type: boolean
         default: false
 
-# ページデプロイの権限設定
-permissions:
-  contents: write  # sync-versions での自動コミットに必要
-  pages: write
-  id-token: write
-
-# 同時デプロイを防止
+# 同種イベントの同時実行を防止（新しい実行を優先）
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
 
 jobs:
-  build:
-    if: github.repository == 'beagleworks/ccclog'
+  sync:
+    if: github.repository == 'beagleworks/ccclog' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.detect_changes.outputs.changed }}
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,42 +57,133 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Install Claude Code CLI
         run: npm install -g @anthropic-ai/claude-code
 
+      - name: Prepare report directory
+        run: mkdir -p .ci-reports
+
       - name: Sync new versions from npm (Claude Code)
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: pnpm run sync-versions
+        run: pnpm run sync-versions -- --report-file .ci-reports/sync-versions.json
 
       - name: Sync upstream changes (Claude Code)
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: pnpm run sync-upstream
+        run: pnpm run sync-upstream -- --report-file .ci-reports/sync-upstream.json
 
       - name: Sync new versions from GitHub Releases (Codex)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-        run: pnpm run sync-codex-versions
+        run: pnpm run sync-codex-versions -- --report-file .ci-reports/sync-codex-versions.json
 
       - name: Retranslate pending entries
-        if: ${{ github.event.inputs.retranslate == 'true' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.retranslate == 'true' }}
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
-          pnpm run retranslate
-          pnpm run retranslate -- --product codex
+          pnpm run retranslate -- --report-file .ci-reports/retranslate-claude.json
+          pnpm run retranslate -- --product codex --report-file .ci-reports/retranslate-codex.json
 
-      - name: Commit new versions (if any)
+      - name: Summarize sync reports
+        if: always()
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const reportFiles = [
+            '.ci-reports/sync-versions.json',
+            '.ci-reports/sync-upstream.json',
+            '.ci-reports/sync-codex-versions.json',
+            '.ci-reports/retranslate-claude.json',
+            '.ci-reports/retranslate-codex.json',
+          ];
+
+          const rows = [];
+          for (const file of reportFiles) {
+            if (!fs.existsSync(file)) continue;
+            const report = JSON.parse(fs.readFileSync(file, 'utf-8'));
+            const warnings = Array.isArray(report.warnings) ? report.warnings.length : 0;
+            rows.push({
+              script: report.script ?? file,
+              status: report.status ?? '-',
+              changed: report.changed === true ? 'true' : 'false',
+              added: report.addedVersions ?? 0,
+              translated: report.translatedEntries ?? 0,
+              warnings,
+              elapsedSec: ((report.elapsedMs ?? 0) / 1000).toFixed(1),
+            });
+          }
+
+          const lines = [
+            '### Sync Script Reports',
+            '',
+            '| Script | Status | Changed | Added | Translated | Warnings | Elapsed (s) |',
+            '|---|---|---|---:|---:|---:|---:|',
+          ];
+
+          if (rows.length === 0) {
+            lines.push('| (none) | - | - | - | - | - | - |');
+          } else {
+            for (const row of rows) {
+              lines.push(
+                `| ${row.script} | ${row.status} | ${row.changed} | ${row.added} | ${row.translated} | ${row.warnings} | ${row.elapsedSec} |`,
+              );
+            }
+          }
+
+          lines.push('');
+          if (process.env.GITHUB_STEP_SUMMARY) {
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n'));
+          }
+          NODE
+
+      - name: Detect changelog updates
+        id: detect_changes
+        run: |
+          if [ -n "$(git status --porcelain -- content/CHANGELOG_*.md content/codex/CHANGELOG_*.md)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Changelog updates detected"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changelog updates"
+          fi
+
+      - name: Commit changelog updates
+        if: steps.detect_changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add content/CHANGELOG_*.md content/codex/CHANGELOG_*.md
-          git diff --staged --quiet || git commit -m "chore: 新バージョンを自動追加"
-          git push || echo "Nothing to push"
+          git commit -m "chore: 新バージョンを自動追加"
+          git push
+
+  build_push:
+    if: github.repository == 'beagleworks/ccclog' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build
@@ -99,12 +193,67 @@ jobs:
         with:
           path: ./dist
 
-  deploy:
+  build_sync:
+    if: github.repository == 'beagleworks/ccclog' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && needs.sync.outputs.changed == 'true'
+    needs: sync
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy_push:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
+    if: github.repository == 'beagleworks/ccclog' && github.event_name == 'push'
+    needs: build_push
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy_sync:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    if: github.repository == 'beagleworks/ccclog' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && needs.sync.outputs.changed == 'true'
+    needs:
+      - sync
+      - build_sync
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

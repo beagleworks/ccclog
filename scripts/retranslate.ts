@@ -12,6 +12,12 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { getCurrentYearJst } from './date-utils.js';
 import { isClaudeCliAvailable, translateAndClassifyOne, translateOne } from './translate.js';
+import {
+  emitRunReport,
+  parseReportArgs,
+  type ReportCliOptions,
+  type ScriptRunReport,
+} from './lib/run-report.js';
 
 const PENDING_MARKER = '（翻訳待ち）';
 
@@ -109,8 +115,9 @@ export function updateLine(
   fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
 }
 
-function parseArgs(): { product: Product; targetYear: number } {
-  const args = process.argv.slice(2);
+function parseArgs(rawArgs: string[]): { product: Product; targetYear: number; reportOptions: ReportCliOptions } {
+  const parsed = parseReportArgs(rawArgs);
+  const args = parsed.remainingArgs;
   let product: Product = 'claude-code';
   let yearArg: string | undefined;
 
@@ -128,15 +135,14 @@ function parseArgs(): { product: Product; targetYear: number } {
       } else if (val === 'claude-code') {
         product = 'claude-code';
       } else {
-        console.error(`エラー: 不明なプロダクト: ${val}`);
-        process.exit(1);
+        throw new Error(`エラー: 不明なプロダクト: ${val}`);
       }
       i++;
     } else if (args[i].startsWith('--')) {
       // 未知オプション
-      console.error(`エラー: 不明なオプション: ${args[i]}`);
-      console.error(`使用可能なオプション: ${[...knownFlags].join(', ')}`);
-      process.exit(1);
+      throw new Error(
+        `エラー: 不明なオプション: ${args[i]}\n使用可能なオプション: ${[...knownFlags].join(', ')}`
+      );
     } else {
       yearArg = args[i];
     }
@@ -144,11 +150,10 @@ function parseArgs(): { product: Product; targetYear: number } {
 
   const targetYear = yearArg ? parseInt(yearArg, 10) : getCurrentYearJst();
   if (isNaN(targetYear)) {
-    console.error(`エラー: 無効な年: ${yearArg}`);
-    process.exit(1);
+    throw new Error(`エラー: 無効な年: ${yearArg}`);
   }
 
-  return { product, targetYear };
+  return { product, targetYear, reportOptions: parsed.report };
 }
 
 /**
@@ -167,16 +172,24 @@ export function assertCodexCategory(
 /**
  * メイン処理
  */
-export async function main(): Promise<void> {
-  const { product, targetYear } = parseArgs();
+interface MainResult {
+  changed: boolean;
+  changedFiles: string[];
+  translatedEntries: number;
+  warnings: string[];
+  reportOptions: ReportCliOptions;
+}
+
+export async function main(rawArgs: string[] = process.argv.slice(2)): Promise<MainResult> {
+  const { product, targetYear, reportOptions } = parseArgs(rawArgs);
 
   console.log('=== 翻訳待ちエントリの再翻訳 ===\n');
 
   // Claude Code CLI の確認
   if (!isClaudeCliAvailable()) {
-    console.error('エラー: Claude Code CLI が利用できません');
-    console.error('  npm install -g @anthropic-ai/claude-code でインストールしてください');
-    process.exit(1);
+    throw new Error(
+      'エラー: Claude Code CLI が利用できません\n  npm install -g @anthropic-ai/claude-code でインストールしてください'
+    );
   }
 
   // コンテンツディレクトリを決定
@@ -190,8 +203,7 @@ export async function main(): Promise<void> {
   console.log(`対象ファイル: ${filePath}`);
 
   if (!fs.existsSync(filePath)) {
-    console.error(`エラー: ファイルが存在しません: ${filePath}`);
-    process.exit(1);
+    throw new Error(`エラー: ファイルが存在しません: ${filePath}`);
   }
 
   // エントリを検出
@@ -199,7 +211,13 @@ export async function main(): Promise<void> {
 
   if (pendingEntries.length === 0) {
     console.log('\n対象エントリはありません');
-    return;
+    return {
+      changed: false,
+      changedFiles: [],
+      translatedEntries: 0,
+      warnings: [],
+      reportOptions,
+    };
   }
 
   console.log(`\n対象エントリ: ${pendingEntries.length}件`);
@@ -251,13 +269,50 @@ export async function main(): Promise<void> {
   console.log(`\n=== 完了 ===`);
   console.log(`  成功: ${successCount}件`);
   console.log(`  失敗: ${failCount}件`);
+  return {
+    changed: successCount > 0,
+    changedFiles: successCount > 0 ? [path.relative(process.cwd(), filePath)] : [],
+    translatedEntries: successCount,
+    warnings: [],
+    reportOptions,
+  };
 }
 
 // 直接実行時のみ main() を呼ぶ（import 時の副作用防止）
 const isDirectRun = /retranslate\.[tj]s$/.test(process.argv[1] ?? '');
 if (isDirectRun) {
-  main().catch((error) => {
-    console.error('エラー:', error);
-    process.exit(1);
-  });
+  const start = Date.now();
+  main()
+    .then((result) => {
+      const report: ScriptRunReport = {
+        script: 'retranslate',
+        status: 'ok',
+        changed: result.changed,
+        changedFiles: result.changedFiles,
+        elapsedMs: Date.now() - start,
+        translatedEntries: result.translatedEntries,
+        warnings: result.warnings,
+      };
+      emitRunReport(result.reportOptions, report);
+    })
+    .catch((error) => {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error('エラー:', error);
+      let reportOptions: ReportCliOptions = { reportJson: false, reportFile: null };
+      try {
+        reportOptions = parseReportArgs(process.argv.slice(2)).report;
+      } catch {
+        // ignore
+      }
+      emitRunReport(reportOptions, {
+        script: 'retranslate',
+        status: 'error',
+        changed: false,
+        changedFiles: [],
+        elapsedMs: Date.now() - start,
+        warnings: [message],
+        error: message,
+      });
+      process.exit(1);
+    });
 }
