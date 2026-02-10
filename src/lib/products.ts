@@ -90,8 +90,3 @@ export function getProduct(id: ProductId): ProductConfig {
   }
   return product;
 }
-
-/**
- * デフォルトプロダクト（Claude Code）
- */
-export const defaultProduct = products[0];

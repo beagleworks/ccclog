@@ -218,8 +218,6 @@ function parseArgs(): CliOptions {
   const args = process.argv.slice(2);
   let yearOverride: number | null = null;
 
-  const deprecatedOptions = ['--rebuild', '--version', '--before'];
-
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg === '--year') {
@@ -235,11 +233,6 @@ function parseArgs(): CliOptions {
       yearOverride = Number(yearStr);
       i++;
       continue;
-    }
-    // 廃止済みオプション
-    if (deprecatedOptions.includes(arg)) {
-      console.error(`エラー: ${arg} オプションは廃止されました。通常の追記モードを使用してください。`);
-      process.exit(1);
     }
     // 未知のオプション
     if (arg.startsWith('--')) {

@@ -4,8 +4,7 @@
  * content/codex/ ディレクトリから年を列挙し、
  * 各年の generate-data.ts を実行して JSON を生成する。
  *
- * これにより、--rebuild で複数年のデータが存在する場合でも
- * ビルドエラーを回避できる。
+ * 複数年データが存在する場合でも、全ての JSON を漏れなく生成する。
  */
 
 import { execFileSync } from 'node:child_process';

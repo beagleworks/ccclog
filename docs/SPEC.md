@@ -577,24 +577,12 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 - GitHub 取得失敗: エラーログを出力してスキップ（ビルドは継続）
 - 対象バージョンが当該年ファイルに存在しない: 警告ログのみ
 
-### 5.7 backfill-legacy-codex.ts
+### 5.7 GitHub API 認証
 
-| 項目 | 内容 |
-|------|------|
-| 対象 | 全年ファイル横断で「(No changelog entries)」を含み、かつ body が非空のバージョン |
-| スクリプト | `scripts/backfill-legacy-codex.ts`（一回限り） |
-| 抽出方式 | Claude CLI で JSON 形式の構造化出力（英語整形・翻訳・カテゴリ分類を同時実施） |
-| カテゴリ | Codex 標準の4カテゴリ（§3.4.2 参照） |
-| エスケープ | 英語・日本語両列で `|` をエスケープしてテーブル崩れを防止 |
-| body 空のバージョン | プレースホルダーを維持 |
-| 再翻訳 | `--overwrite --version X.Y.Z` で既存エントリを上書き再処理（`--version` 必須） |
-
-### 5.8 GitHub API 認証
-
-#### 5.8.1 認証方式
+#### 5.7.1 認証方式
 - `GITHUB_TOKEN` 環境変数があれば `Authorization: Bearer ...` ヘッダーを付与
 
-#### 5.8.2 レート制限
+#### 5.7.2 レート制限
 | 環境 | レート制限 | 挙動 |
 |------|-----------|------|
 | CI | GitHub Actions のデフォルトトークン | 制限なし |
@@ -620,8 +608,6 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 | `pnpm sync-codex-versions -- --year 2025` | Codex の指定年のみ新バージョンを検出し CHANGELOG に追記 |
 | `pnpm retranslate` | Claude Code の「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
 | `pnpm retranslate --product codex` | Codex の「（翻訳待ち）」エントリを再翻訳（引数で年指定可） |
-| `pnpm retranslate --retranslate-all 2025` | Claude Code の指定年の全エントリを再翻訳（バッチ翻訳で高速） |
-| `pnpm retranslate --retranslate-all --product codex 2026` | Codex の指定年の全エントリを再翻訳 |
 | `pnpm detect-upstream` | 上流CHANGELOGの変更検出のみを実行 |
 | `pnpm sync-upstream` | 上流CHANGELOGの変更検出 + 自動適用を実行 |
 
@@ -694,7 +680,7 @@ GitHub CHANGELOG 等の外部データを HTML として表示する際は、以
 ## 8. 制約事項
 
 ### 8.1 既知の制限
-- GitHub API レート制限: 認証なしで60リクエスト/時間（§5.8 参照）
+- GitHub API レート制限: 認証なしで60リクエスト/時間（§5.7 参照）
 - 検索はクライアントサイドで実行されるため、データ量が増えるとパフォーマンスに影響
 
 ### 8.2 前提条件
@@ -724,7 +710,6 @@ ccclog/
 ├── public/
 │   └── favicon.svg                 # サイトアイコン
 ├── scripts/
-│   ├── backfill-legacy-codex.ts    # Codex旧形式バックフィル
 │   ├── codex-changelog-utils.ts    # Codex CHANGELOG操作ユーティリティ
 │   ├── date-utils.ts               # 日付ユーティリティ
 │   ├── detect-upstream-changes.ts  # 上流CHANGELOG変更検出
@@ -753,7 +738,6 @@ ccclog/
 │   ├── lib/
 │   │   ├── get-entry-type.ts       # エントリタイプ判定
 │   │   ├── legend.ts               # カテゴリ凡例定義
-│   │   ├── mode-utils.ts           # 検索/表示モード正規化
 │   │   ├── products.ts             # プロダクト設定
 │   │   └── server/
 │   │       └── changelog-years.ts  # 年自動検出（サーバーサイド）

@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  compareVersions,
-  findSectionBoundaries,
-  generateVersionSection,
-} from '../codex-changelog-utils.ts';
+import { compareVersions, generateVersionSection } from '../codex-changelog-utils.ts';
 
 describe('compareVersions', () => {
   it('同じバージョンは 0 を返す', () => {
@@ -25,57 +21,6 @@ describe('compareVersions', () => {
   it('メジャー > マイナー > パッチの優先順位', () => {
     expect(compareVersions('2.0.0', '1.99.99')).toBeGreaterThan(0);
     expect(compareVersions('1.10.0', '1.9.99')).toBeGreaterThan(0);
-  });
-});
-
-describe('findSectionBoundaries', () => {
-  it('セクション境界を正しく検出する', () => {
-    const content = `# Header
-
----
-
-## 1.2.0
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| テスト | test | chores |
-
-## 1.1.0
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| テスト2 | test2 | chores |
-
-## 1.0.0
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| テスト3 | test3 | chores |
-`;
-
-    const boundaries = findSectionBoundaries(content);
-    expect(boundaries).toHaveLength(3);
-    expect(boundaries[0].version).toBe('1.2.0');
-    expect(boundaries[1].version).toBe('1.1.0');
-    expect(boundaries[2].version).toBe('1.0.0');
-
-    // end は次のセクションの start
-    expect(boundaries[0].end).toBe(boundaries[1].start);
-    expect(boundaries[1].end).toBe(boundaries[2].start);
-    // 最後のセクションの end はコンテンツ末尾
-    expect(boundaries[2].end).toBe(content.length);
-  });
-
-  it('セクションが0個の場合は空配列', () => {
-    const content = `# Header\n\n---\n\nNo sections here.\n`;
-    expect(findSectionBoundaries(content)).toEqual([]);
-  });
-
-  it('バージョン以外の ## は無視する', () => {
-    const content = `## Not a version\n\n## 1.0.0\n\nContent\n`;
-    const boundaries = findSectionBoundaries(content);
-    expect(boundaries).toHaveLength(1);
-    expect(boundaries[0].version).toBe('1.0.0');
   });
 });
 

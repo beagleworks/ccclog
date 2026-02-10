@@ -91,12 +91,11 @@ pnpm install
 | `pnpm generate` | 全プロダクトのデータ生成（JSON） |
 | `pnpm sync-versions` | Claude Code の新バージョン検出・追記 |
 | `pnpm sync-codex-versions` | Codex の新バージョン検出・追記 |
-| `pnpm sync-codex-versions --year 2025` | Codex の指定年のみ新バージョン検出・追記 |
+| `pnpm sync-codex-versions -- --year 2025` | Codex の指定年のみ新バージョン検出・追記 |
 | `pnpm retranslate` | 「翻訳待ち」エントリの再翻訳 |
-| `pnpm backfill-legacy-codex` | Codex 旧形式リリースの AI バックフィル |
-| `pnpm backfill-legacy-codex --dry-run` | バックフィル結果を書き込まずにプレビュー |
-| `pnpm backfill-legacy-codex --version 0.50.0` | 指定バージョンのみバックフィル |
-| `pnpm backfill-legacy-codex --overwrite --version 0.50.0` | 既存エントリを上書きして再翻訳 |
+| `pnpm retranslate -- --product codex` | Codex の「翻訳待ち」エントリの再翻訳 |
+
+`retranslate` の `--retranslate-all` オプションは廃止されました。
 
 ### プロジェクト構成
 

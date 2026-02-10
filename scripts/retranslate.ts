@@ -6,16 +6,12 @@
  *   pnpm retranslate 2025                         # Claude Code, 2025年
  *   pnpm retranslate --product codex              # Codex, 当該年
  *   pnpm retranslate --product codex 2025         # Codex, 2025年
- *   pnpm retranslate --retranslate-all 2025       # Claude Code, 2025年の全エントリ再翻訳
- *   pnpm retranslate --retranslate-all 2026       # Claude Code, 2026年の全エントリ再翻訳
- *   pnpm retranslate --retranslate-all --product codex 2026  # Codex 全エントリ再翻訳
  */
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { getCurrentYearJst } from './date-utils.js';
-import { isClaudeCliAvailable, translateBatch, translateAndClassifyWithFallback, translateAndClassifyOne, translateOne } from './translate.js';
-import type { ClaudeCodeCategory } from './parse-changelog.js';
+import { isClaudeCliAvailable, translateAndClassifyOne, translateOne } from './translate.js';
 
 const PENDING_MARKER = '（翻訳待ち）';
 
@@ -39,10 +35,8 @@ function splitTableRow(line: string): string[] {
 
 /**
  * CHANGELOG ファイルからエントリを検出
- *
- * @param forceAll true の場合、翻訳済みエントリも含め全テーブル行を対象にする
  */
-export function findPendingEntries(filePath: string, forceAll = false): PendingEntry[] {
+export function findPendingEntries(filePath: string): PendingEntry[] {
   const entries: PendingEntry[] = [];
 
   if (!fs.existsSync(filePath)) {
@@ -80,8 +74,7 @@ export function findPendingEntries(filePath: string, forceAll = false): PendingE
     // 列数チェック: 最低2列必要
     if (cells.length < 2) continue;
 
-    // forceAll: 全テーブル行、通常モード: 「（翻訳待ち）」のみ
-    if (!forceAll && cells[0] !== PENDING_MARKER) continue;
+    if (cells[0] !== PENDING_MARKER) continue;
 
     entries.push({
       version: currentVersion,
@@ -116,61 +109,19 @@ export function updateLine(
   fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
 }
 
-/**
- * バージョン単位の原子的更新情報
- */
-interface VersionUpdate {
-  headerLineNumber: number;
-  separatorLineNumber: number;
-  entries: Array<{
-    lineNumber: number;
-    japaneseText: string;
-    englishText: string;
-    category: ClaudeCodeCategory;
-  }>;
-}
-
-/**
- * バージョン単位で原子的にテーブルを3列化する
- */
-export function applyVersionUpdate(filePath: string, update: VersionUpdate): void {
-  const content = fs.readFileSync(filePath, 'utf-8');
-  const lines = content.split('\n');
-
-  // ヘッダーと区切り行を3列化
-  lines[update.headerLineNumber] = '| 日本語 | English | Category |';
-  lines[update.separatorLineNumber] = '|--------|---------|----------|';
-
-  // 全エントリ行を3列で書き込み
-  for (const entry of update.entries) {
-    const escapedJa = entry.japaneseText.replace(/\|/g, '\\|');
-    const escapedEn = entry.englishText.replace(/\|/g, '\\|');
-    lines[entry.lineNumber] = `| ${escapedJa} | ${escapedEn} | ${entry.category} |`;
-  }
-
-  // 1回だけ書き込み
-  fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
-}
-
-/**
- * コマンドライン引数をパース
- */
-function parseArgs(): { product: Product; targetYear: number; retranslateAll: boolean } {
+function parseArgs(): { product: Product; targetYear: number } {
   const args = process.argv.slice(2);
   let product: Product = 'claude-code';
   let yearArg: string | undefined;
-  let retranslateAll = false;
 
-  const knownFlags = new Set(['--product', '--retranslate-all']);
+  const knownFlags = new Set(['--product']);
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--') {
       // pnpm 区切り — 無視
       continue;
     }
-    if (args[i] === '--retranslate-all') {
-      retranslateAll = true;
-    } else if (args[i] === '--product') {
+    if (args[i] === '--product') {
       const val = args[i + 1];
       if (val === 'codex') {
         product = 'codex';
@@ -197,7 +148,7 @@ function parseArgs(): { product: Product; targetYear: number; retranslateAll: bo
     process.exit(1);
   }
 
-  return { product, targetYear, retranslateAll };
+  return { product, targetYear };
 }
 
 /**
@@ -214,29 +165,12 @@ export function assertCodexCategory(
 }
 
 /**
- * バージョン単位でエントリをグループ化
- */
-function groupByVersion(entries: PendingEntry[]): Map<string, PendingEntry[]> {
-  const groups = new Map<string, PendingEntry[]>();
-  for (const entry of entries) {
-    const group = groups.get(entry.version);
-    if (group) {
-      group.push(entry);
-    } else {
-      groups.set(entry.version, [entry]);
-    }
-  }
-  return groups;
-}
-
-/**
  * メイン処理
  */
 export async function main(): Promise<void> {
-  const { product, targetYear, retranslateAll } = parseArgs();
+  const { product, targetYear } = parseArgs();
 
-  const mode = retranslateAll ? '全エントリ再翻訳' : '翻訳待ちエントリの再翻訳';
-  console.log(`=== ${mode} ===\n`);
+  console.log('=== 翻訳待ちエントリの再翻訳 ===\n');
 
   // Claude Code CLI の確認
   if (!isClaudeCliAvailable()) {
@@ -254,9 +188,6 @@ export async function main(): Promise<void> {
   const productLabel = product === 'codex' ? 'Codex' : 'Claude Code';
   console.log(`プロダクト: ${productLabel}`);
   console.log(`対象ファイル: ${filePath}`);
-  if (retranslateAll) {
-    console.log('モード: --retranslate-all（全エントリ再翻訳）');
-  }
 
   if (!fs.existsSync(filePath)) {
     console.error(`エラー: ファイルが存在しません: ${filePath}`);
@@ -264,7 +195,7 @@ export async function main(): Promise<void> {
   }
 
   // エントリを検出
-  const pendingEntries = findPendingEntries(filePath, retranslateAll);
+  const pendingEntries = findPendingEntries(filePath);
 
   if (pendingEntries.length === 0) {
     console.log('\n対象エントリはありません');
@@ -277,132 +208,41 @@ export async function main(): Promise<void> {
   let failCount = 0;
   const cliProductLabel = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
 
-  if (retranslateAll) {
-    // --retranslate-all: バージョン単位でバッチ翻訳+分類 → 原子的3列化
-    const groups = groupByVersion(pendingEntries);
+  for (const entry of pendingEntries) {
+    console.log(`  - v${entry.version}: ${entry.englishText.substring(0, 50)}...`);
+  }
 
-    // Claude Code の場合のみ3列化を行う（Codex は既に3列）
-    const shouldClassify = product === 'claude-code';
+  for (const entry of pendingEntries) {
+    console.log(`\n翻訳中: v${entry.version} - ${entry.englishText.substring(0, 40)}...`);
 
-    for (const [version, versionEntries] of groups) {
-      console.log(`\nv${version}: ${versionEntries.length}件を一括翻訳中...`);
-
-      const englishTexts = versionEntries.map((e) => e.englishText);
-
-      if (shouldClassify) {
-        // Claude Code: 翻訳+分類 → 原子的3列化
-        const classified = translateAndClassifyWithFallback(englishTexts, cliProductLabel);
-
-        if (classified && classified.length === versionEntries.length) {
-          // テーブルヘッダーと区切り行の行番号を特定
-          const content = fs.readFileSync(filePath, 'utf-8');
-          const allLines = content.split('\n');
-          const firstEntryLine = versionEntries[0].lineNumber;
-
-          // ヘッダー行はエントリ行の2行前、区切り行は1行前
-          let headerLine = -1;
-          let separatorLine = -1;
-          for (let j = firstEntryLine - 1; j >= 0; j--) {
-            if (/^\|\s*-/.test(allLines[j])) {
-              separatorLine = j;
-            } else if (allLines[j].includes('| 日本語 |')) {
-              headerLine = j;
-              break;
-            }
-          }
-
-          if (headerLine >= 0 && separatorLine >= 0) {
-            const update: VersionUpdate = {
-              headerLineNumber: headerLine,
-              separatorLineNumber: separatorLine,
-              entries: versionEntries.map((entry, idx) => ({
-                lineNumber: entry.lineNumber,
-                japaneseText: classified[idx].translation,
-                englishText: entry.englishText,
-                category: classified[idx].category,
-              })),
-            };
-            applyVersionUpdate(filePath, update);
-            for (const c of classified) {
-              console.log(`  → ${c.translation} [${c.category}]`);
-            }
-            successCount += classified.length;
-          } else {
-            console.warn(`  警告: v${version} のテーブルヘッダーが見つかりません。スキップします。`);
-            failCount += versionEntries.length;
-          }
-        } else {
-          console.log(`  v${version} はスキップ（翻訳失敗あり）`);
-          failCount += versionEntries.length;
-        }
+    if (product === 'codex') {
+      // Codex: 翻訳のみ。既存カテゴリを保持する（カテゴリ欠損はデータ異常）
+      assertCodexCategory(entry);
+      const translation = translateOne(entry.englishText, cliProductLabel);
+      if (translation) {
+        console.log(`  → ${translation}`);
+        updateLine(filePath, entry.lineNumber, entry.englishText, translation, entry.category);
+        successCount++;
       } else {
-        // Codex: 翻訳のみ。既存カテゴリを保持する
-        const translations = translateBatch(englishTexts, cliProductLabel);
-
-        if (translations) {
-          for (let j = 0; j < versionEntries.length; j++) {
-            const entry = versionEntries[j];
-            assertCodexCategory(entry);
-            console.log(`  → ${translations[j]}`);
-            updateLine(filePath, entry.lineNumber, entry.englishText, translations[j], entry.category);
-            successCount++;
-          }
-        } else {
-          console.log(`  バッチ翻訳失敗。1件ずつ再試行します...`);
-          for (const entry of versionEntries) {
-            assertCodexCategory(entry);
-            console.log(`  翻訳中: ${entry.englishText.substring(0, 40)}...`);
-            const translation = translateOne(entry.englishText, cliProductLabel);
-            if (translation) {
-              console.log(`    → ${translation}`);
-              updateLine(filePath, entry.lineNumber, entry.englishText, translation, entry.category);
-              successCount++;
-            } else {
-              console.log('    → 翻訳失敗（スキップ）');
-              failCount++;
-            }
-          }
-        }
+        console.log('  → 翻訳失敗（スキップ）');
+        failCount++;
       }
-    }
-  } else {
-    // 通常モード: 1件ずつ翻訳
-    for (const entry of pendingEntries) {
-      console.log(`  - v${entry.version}: ${entry.englishText.substring(0, 50)}...`);
-    }
-
-    for (const entry of pendingEntries) {
-      console.log(`\n翻訳中: v${entry.version} - ${entry.englishText.substring(0, 40)}...`);
-
-      if (product === 'codex') {
-        // Codex: 翻訳のみ。既存カテゴリを保持する（カテゴリ欠損はデータ異常）
-        assertCodexCategory(entry);
+    } else {
+      // Claude Code: 分類付き翻訳 → フォールバックで翻訳のみ + 'other'
+      const result = translateAndClassifyOne(entry.englishText, cliProductLabel);
+      if (result) {
+        console.log(`  → ${result.translation} [${result.category}]`);
+        updateLine(filePath, entry.lineNumber, entry.englishText, result.translation, result.category);
+        successCount++;
+      } else {
         const translation = translateOne(entry.englishText, cliProductLabel);
         if (translation) {
-          console.log(`  → ${translation}`);
-          updateLine(filePath, entry.lineNumber, entry.englishText, translation, entry.category);
+          console.log(`  → ${translation} [other (フォールバック)]`);
+          updateLine(filePath, entry.lineNumber, entry.englishText, translation, 'other');
           successCount++;
         } else {
           console.log('  → 翻訳失敗（スキップ）');
           failCount++;
-        }
-      } else {
-        // Claude Code: 分類付き翻訳 → フォールバックで翻訳のみ + 'other'
-        const result = translateAndClassifyOne(entry.englishText, cliProductLabel);
-        if (result) {
-          console.log(`  → ${result.translation} [${result.category}]`);
-          updateLine(filePath, entry.lineNumber, entry.englishText, result.translation, result.category);
-          successCount++;
-        } else {
-          const translation = translateOne(entry.englishText, cliProductLabel);
-          if (translation) {
-            console.log(`  → ${translation} [other (フォールバック)]`);
-            updateLine(filePath, entry.lineNumber, entry.englishText, translation, 'other');
-            successCount++;
-          } else {
-            console.log('  → 翻訳失敗（スキップ）');
-            failCount++;
-          }
         }
       }
     }

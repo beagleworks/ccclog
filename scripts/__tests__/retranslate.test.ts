@@ -1,113 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { applyVersionUpdate, findPendingEntries, updateLine, assertCodexCategory, type PendingEntry } from '../retranslate';
+import { findPendingEntries, updateLine, assertCodexCategory, type PendingEntry } from '../retranslate';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
-
-describe('applyVersionUpdate', () => {
-  let tmpDir: string;
-  let tmpFile: string;
-
-  beforeEach(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'retranslate-test-'));
-    tmpFile = path.join(tmpDir, 'test.md');
-  });
-
-  afterEach(() => {
-    fs.rmSync(tmpDir, { recursive: true, force: true });
-  });
-
-  it('既に3列のテーブルが正しく上書きされる', () => {
-    const content = `## 2.1.23
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| 古い翻訳 | Fixed a bug | other |
-| 古い翻訳2 | Added new feature | other |
-`;
-
-    fs.writeFileSync(tmpFile, content, 'utf-8');
-
-    applyVersionUpdate(tmpFile, {
-      headerLineNumber: 2,
-      separatorLineNumber: 3,
-      entries: [
-        { lineNumber: 4, japaneseText: 'バグを修正', englishText: 'Fixed a bug', category: 'fixed' },
-        { lineNumber: 5, japaneseText: '新機能を追加', englishText: 'Added new feature', category: 'added' },
-      ],
-    });
-
-    const result = fs.readFileSync(tmpFile, 'utf-8');
-    const lines = result.split('\n');
-
-    expect(lines[2]).toBe('| 日本語 | English | Category |');
-    expect(lines[3]).toBe('|--------|---------|----------|');
-    expect(lines[4]).toBe('| バグを修正 | Fixed a bug | fixed |');
-    expect(lines[5]).toBe('| 新機能を追加 | Added new feature | added |');
-  });
-
-  it('パイプ文字をエスケープする', () => {
-    const content = `## 1.0.0
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| テスト | Test entry | other |
-`;
-
-    fs.writeFileSync(tmpFile, content, 'utf-8');
-
-    applyVersionUpdate(tmpFile, {
-      headerLineNumber: 2,
-      separatorLineNumber: 3,
-      entries: [
-        { lineNumber: 4, japaneseText: 'foo | bar', englishText: 'baz | qux', category: 'other' },
-      ],
-    });
-
-    const result = fs.readFileSync(tmpFile, 'utf-8');
-    const lines = result.split('\n');
-
-    expect(lines[4]).toBe('| foo \\| bar | baz \\| qux | other |');
-  });
-
-  it('他のバージョンセクションに影響しない', () => {
-    const content = `## 2.1.24
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| 別のエントリ | Another entry | added |
-
-## 2.1.23
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| 変換対象 | Target entry | other |
-`;
-
-    fs.writeFileSync(tmpFile, content, 'utf-8');
-
-    applyVersionUpdate(tmpFile, {
-      headerLineNumber: 8,
-      separatorLineNumber: 9,
-      entries: [
-        { lineNumber: 10, japaneseText: '変換対象', englishText: 'Target entry', category: 'fixed' },
-      ],
-    });
-
-    const result = fs.readFileSync(tmpFile, 'utf-8');
-    const lines = result.split('\n');
-
-    // 最初のバージョンは変更なし
-    expect(lines[2]).toBe('| 日本語 | English | Category |');
-    expect(lines[3]).toBe('|--------|---------|----------|');
-    expect(lines[4]).toBe('| 別のエントリ | Another entry | added |');
-
-    // 2番目のバージョンのみ変更
-    expect(lines[8]).toBe('| 日本語 | English | Category |');
-    expect(lines[9]).toBe('|--------|---------|----------|');
-    expect(lines[10]).toBe('| 変換対象 | Target entry | fixed |');
-  });
-});
 
 describe('findPendingEntries', () => {
   let tmpDir: string;
@@ -140,22 +35,6 @@ describe('findPendingEntries', () => {
     expect(entries[0].version).toBe('2.1.23');
   });
 
-  it('forceAll で全エントリを返す', () => {
-    const content = `## 2.1.23
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| バグ修正 | Fixed a bug | fixed |
-| 機能追加 | Added feature | added |
-`;
-
-    fs.writeFileSync(tmpFile, content, 'utf-8');
-    const entries = findPendingEntries(tmpFile, true);
-
-    expect(entries).toHaveLength(2);
-    expect(entries[0].category).toBe('fixed');
-    expect(entries[1].category).toBe('added');
-  });
 });
 
 describe('updateLine', () => {
@@ -287,31 +166,11 @@ describe('main() Codex fail-fast 結合テスト', () => {
     await expect(main()).rejects.toThrow(/Codex エントリにカテゴリがありません/);
   });
 
-  it('Codex --retranslate-all: category 欠損で throw', async () => {
-    // カテゴリ列がない2列テーブル
-    const content = `## 0.95.0
-
-| 日本語 | English |
-|--------|---------|
-| 既存翻訳 | Some new feature |
-`;
-    fs.writeFileSync(
-      path.join(tmpDir, 'content', 'codex', 'CHANGELOG_2099_JA.md'),
-      content,
-      'utf-8'
-    );
-
-    // translate モジュールをモック
-    const translate = await import('../translate.js');
-    vi.spyOn(translate, 'isClaudeCliAvailable').mockReturnValue(true);
-    vi.spyOn(translate, 'translateBatch').mockReturnValue(['翻訳済み']);
-
-    // process.exit をモック
+  it('未知オプションはエラー終了する（--retranslate-all は廃止）', async () => {
     vi.spyOn(process, 'exit').mockImplementation(() => { throw new Error('process.exit called'); });
-
-    process.argv = ['node', 'retranslate.ts', '--retranslate-all', '--product', 'codex', '2099'];
+    process.argv = ['node', 'retranslate.ts', '--retranslate-all', '2099'];
 
     const { main } = await import('../retranslate');
-    await expect(main()).rejects.toThrow(/Codex エントリにカテゴリがありません/);
+    await expect(main()).rejects.toThrow(/process\.exit called/);
   });
 });
