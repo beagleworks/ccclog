@@ -4,6 +4,18 @@
 
 ---
 
+## 2.1.38
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 2.1.37で発生したVS Codeターミナルの最上部へのスクロール動作の不具合を修正 | Fixed VS Code terminal scroll-to-top regression introduced in 2.1.37 | fixed |
+| Tabキーでスラッシュコマンドがキューイングされ、オートコンプリートが機能しない問題を修正 | Fixed Tab key queueing slash commands instead of autocompleting | fixed |
+| 環境変数ラッパーを使用するコマンドのbash権限マッチングを修正 | Fixed bash permission matching for commands using environment variable wrappers | fixed |
+| ストリーミングを使用しない場合にツール使用間のテキストが消失する問題を修正 | Fixed text between tool uses disappearing when not using streaming | fixed |
+| VS Code拡張機能で再開時にセッションが重複する問題を修正 | Fixed duplicate sessions when resuming in VS Code extension | fixed |
+| heredocデリミタのパース処理を改善し、コマンドインジェクションを防止 | Improved heredoc delimiter parsing to prevent command smuggling | improved |
+| サンドボックスモードで`.claude/skills`ディレクトリへの書き込みをブロック | Blocked writes to `.claude/skills` directory in sandbox mode | added |
+
 ## 2.1.37
 
 | 日本語 | English | Category |
