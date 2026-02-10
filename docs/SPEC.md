@@ -134,7 +134,8 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 #### 3.4.3 カテゴリ検証ルール
 - Claude Code ファイルには Claude Code カテゴリのみ許容（`added`, `fixed`, `changed`, `improved`, `other`）
 - Codex ファイルには Codex カテゴリのみ許容（`new-features`, `bug-fixes`, `documentation`, `chores`）
-- 無効なカテゴリは警告ログを出力し `'other'` にフォールバックする
+- Claude Code: 無効なカテゴリは警告ログを出力し `'other'` にフォールバックする
+- Codex: カテゴリ欠損はデータ異常として即時エラー（`assertCodexCategory`）。Codex は全エントリが初めからカテゴリ付き3列テーブルで管理されるため、欠損は不正データを意味する
 
 ### 3.5 生成データ（JSON）
 
