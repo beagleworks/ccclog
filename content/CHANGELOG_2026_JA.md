@@ -13,6 +13,9 @@
 | ストリーミング中にMCPツールが画像コンテンツを返す際のクラッシュを修正 | Fixed a crash when MCP tools return image content during streaming | fixed |
 | /resumeセッションのプレビューで読みやすいコマンド名ではなく生のXMLタグが表示されていた問題を修正 | Fixed /resume session previews showing raw XML tags instead of readable command names | fixed |
 | Bedrock/Vertex/Foundryユーザー向けのモデルエラーメッセージをフォールバック提案とともに改善 | Improved model error messages for Bedrock/Vertex/Foundry users with fallback suggestions | improved |
+| インストール済みプラグインに対して誤解を招く「Space to Toggle」ヒントが表示される問題を修正 | Fixed plugin browse showing misleading "Space to Toggle" hint for already-installed plugins | fixed |
+| フックのブロッキングエラー（終了コード2）でstderrがユーザーに表示されない問題を修正 | Fixed hook blocking errors (exit code 2) not showing stderr to the user | fixed |
+| ファストモード可視化のためOTelイベントとトレーススパンに`speed`属性を追加 | Added `speed` attribute to OTel events and trace spans for fast mode visibility | added |
 | ターミナルレンダリングのパフォーマンス改善 | Improved terminal rendering performance | improved |
 | 致命的エラーが表示されずに握りつぶされる問題を修正 | Fixed fatal errors being swallowed instead of displayed | fixed |
 | セッション終了後にプロセスがハングする問題を修正 | Fixed process hanging after session close | fixed |

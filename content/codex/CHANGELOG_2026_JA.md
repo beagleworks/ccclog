@@ -4,6 +4,28 @@
 
 ---
 
+## 0.99.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 実行中のターン中に直接シェルコマンドを実行しても中断されなくなり、ターンがアクティブな状態でコマンドを同時実行可能に (#10513) | Running direct shell commands no longer interrupts an in-flight turn; commands can execute concurrently when a turn is active. (#10513) | new-features |
+| TUIフッターに表示するメタデータを対話的に設定できる `/statusline` を追加 (#10546) | Added `/statusline` to configure which metadata appears in the TUI footer interactively. (#10546) | new-features |
+| TUI再開ピッカーで作成時刻と最終更新時刻の並び順を切り替え可能に、ピッカー内にモード表示を追加 (#10752) | The TUI resume picker can now toggle sort order between creation time and last-updated time with an in-picker mode indicator. (#10752) | new-features |
+| app-serverクライアント向けに、アクティブターンの制御、実験的機能の一覧表示、エージェント再開、特定通知のオプトアウト用の専用APIを追加 (#10721, #10821, #10903, #11319) | App-server clients now get dedicated APIs for steering active turns, listing experimental features, resuming agents, and opting out of specific notifications. (#10721, #10821, #10903, #11319) | new-features |
+| エンタープライズ/管理者要件で `requirements.toml` を通じてWeb検索モードの制限とネットワーク制約の定義が可能に (#10964, #10958) | Enterprise/admin requirements can now restrict web search modes and define network constraints through `requirements.toml`. (#10964, #10958) | new-features |
+| 画像添付で既存形式に加えてGIFとWebP入力に対応 (#11237) | Image attachments now accept GIF and WebP inputs in addition to existing formats. (#11237) | new-features |
+| シェル環境と `rc` ファイルのスナップショット機能を有効化 (#11172) | Enable snapshotting of the shell environment and `rc` files (#11172) | new-features |
+| Windows起動時にバッファされたキー入力によってTUIサインインフローが即座に終了する問題を修正 (#10729) | Fixed a Windows startup issue where buffered keypresses could cause the TUI sign-in flow to exit immediately. (#10729) | bug-fixes |
+| 必須MCPサーバーが起動/再開フロー中に破損状態で継続せず、即座に失敗するように修正 (#10902) | Required MCP servers now fail fast during start/resume flows instead of continuing in a broken state. (#10902) | bug-fixes |
+| スキルリロードイベントの誤発生と非常に大きなログファイルが生成される可能性があったファイルウォッチャーのバグを修正 (#11217) | Fixed a file-watcher bug that emitted spurious skills reload events and could generate very large log files. (#11217) | bug-fixes |
+| TUI入力の信頼性を改善: 長いオプションラベルの正しい折り返し、アイドル時のステアモードでのTab送信、履歴呼び出し時のカーソル位置の一貫性維持、保存された下書きの画像プレースホルダーの正しい復元 (#11123, #10035, #11295, #9040) | Improved TUI input reliability: long option labels wrap correctly, Tab submits in steer mode when idle, history recall keeps cursor placement consistent, and stashed drafts restore image placeholders correctly. (#11123, #10035, #11295, #9040) | bug-fixes |
+| テキスト専用モデルでの `view_image` エラーの明確化とモデル切り替え時のサポート外画像履歴の除去により、モデルモダリティのエッジケースを修正 (#11336, #11349) | Fixed model-modality edge cases by surfacing clearer `view_image` errors on text-only models and stripping unsupported image history during model switches. (#11336, #11349) | bug-fixes |
+| ラップ/heredocシェルコマンドの誤った承認ミスマッチを削減し、exec ポリシー評価時の空コマンドリストに対するガードを追加 (#10941, #11397) | Reduced false approval mismatches for wrapped/heredoc shell commands and guarded against empty command lists in exec policy evaluation. (#10941, #11397) | bug-fixes |
+| `turn/steer`、実験的機能の検出、`resume_agent`、通知オプトアウト、null `developer_instructions` 正規化に関するapp-serverドキュメントとプロトコルリファレンスを拡充 (#10721, #10821, #10903, #10983, #11319) | Expanded app-server docs and protocol references for `turn/steer`, experimental-feature discovery, `resume_agent`, notification opt-outs, and null `developer_instructions` normalization. (#10721, #10821, #10903, #10983, #11319) | documentation |
+| 下書き/画像復元、ステアモードでのTab送信動作、履歴ナビゲーションのカーソルセマンティクスを反映してTUIコンポーザードキュメントを更新 (#9040, #10035, #11295) | Updated TUI composer docs to reflect draft/image restoration, steer-mode Tab submit behavior, and history-navigation cursor semantics. (#9040, #10035, #11295) | documentation |
+| npmリリースパッケージングを再構築し、プラットフォーム固有のバイナリを `@openai/codex` dist-tags経由で配布することでパッケージサイズの負担を軽減しつつ、プラットフォーム固有のインストール（`@alpha` 含む）を維持 (#11318, #11339) | Reworked npm release packaging so platform-specific binaries are distributed via `@openai/codex` dist-tags, reducing package-size pressure while preserving platform-specific installs (including `@alpha`). (#11318, #11339) | chores |
+| `time` のセキュリティ関連の依存関係更新を適用 (RUSTSEC-2026-0009) (#10876) | Pulled in a security-driven dependency update for `time` (RUSTSEC-2026-0009). (#10876) | chores |
+
 ## 0.98.0
 
 | 日本語 | English | Category |
