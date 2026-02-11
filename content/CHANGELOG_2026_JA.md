@@ -4,6 +4,16 @@
 
 ---
 
+## 2.1.39
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| ターミナルレンダリングのパフォーマンス改善 | Improved terminal rendering performance | improved |
+| 致命的エラーが表示されずに握りつぶされる問題を修正 | Fixed fatal errors being swallowed instead of displayed | fixed |
+| セッション終了後にプロセスがハングする問題を修正 | Fixed process hanging after session close | fixed |
+| ターミナル画面境界で文字が失われる問題を修正 | Fixed character loss at terminal screen boundary | fixed |
+| 詳細トランスクリプトビューの空白行を修正 | Fixed blank lines in verbose transcript view | fixed |
+
 ## 2.1.38
 
 | 日本語 | English | Category |
