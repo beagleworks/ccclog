@@ -8,6 +8,9 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
+| Claude Code内で別のClaude Codeセッションを起動することに対するガードを追加 | Added guard against launching Claude Code inside another Claude Code session | added |
+| Agent TeamsがBedrock、Vertex、Foundryの顧客に対して誤ったモデル識別子を使用していた問題を修正 | Fixed Agent Teams using wrong model identifier for Bedrock, Vertex, and Foundry customers | fixed |
+| /resumeセッションのプレビューで読みやすいコマンド名ではなく生のXMLタグが表示されていた問題を修正 | Fixed /resume session previews showing raw XML tags instead of readable command names | fixed |
 | ターミナルレンダリングのパフォーマンス改善 | Improved terminal rendering performance | improved |
 | 致命的エラーが表示されずに握りつぶされる問題を修正 | Fixed fatal errors being swallowed instead of displayed | fixed |
 | セッション終了後にプロセスがハングする問題を修正 | Fixed process hanging after session close | fixed |
