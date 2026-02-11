@@ -36,6 +36,9 @@ export function parseReportArgs(args: string[]): ParsedReportArgs {
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
 
+    // pnpm の `--` 区切りをスキップ
+    if (arg === '--') continue;
+
     if (arg === '--report-json') {
       reportJson = true;
       continue;

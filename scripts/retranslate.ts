@@ -124,10 +124,6 @@ function parseArgs(rawArgs: string[]): { product: Product; targetYear: number; r
   const knownFlags = new Set(['--product']);
 
   for (let i = 0; i < args.length; i++) {
-    if (args[i] === '--') {
-      // pnpm 区切り — 無視
-      continue;
-    }
     if (args[i] === '--product') {
       const val = args[i + 1];
       if (val === 'codex') {

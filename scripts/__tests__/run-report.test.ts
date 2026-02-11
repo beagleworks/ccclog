@@ -26,6 +26,19 @@ describe('parseReportArgs', () => {
   it('--report-file の次がオプション（--始まり）の場合はエラー', () => {
     expect(() => parseReportArgs(['--report-file', '--year', '2026'])).toThrow(/--report-file/);
   });
+
+  it('pnpm の -- 区切りをスキップして残りの引数を返す', () => {
+    const parsed = parseReportArgs([
+      '--',
+      '--report-file',
+      'out.json',
+      '--year',
+      '2026',
+    ]);
+
+    expect(parsed.report.reportFile).toBe('out.json');
+    expect(parsed.remainingArgs).toEqual(['--year', '2026']);
+  });
 });
 
 describe('emitRunReport', () => {
