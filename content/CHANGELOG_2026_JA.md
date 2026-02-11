@@ -10,7 +10,9 @@
 |--------|---------|----------|
 | Claude Code内で別のClaude Codeセッションを起動することに対するガードを追加 | Added guard against launching Claude Code inside another Claude Code session | added |
 | Agent TeamsがBedrock、Vertex、Foundryの顧客に対して誤ったモデル識別子を使用していた問題を修正 | Fixed Agent Teams using wrong model identifier for Bedrock, Vertex, and Foundry customers | fixed |
+| ストリーミング中にMCPツールが画像コンテンツを返す際のクラッシュを修正 | Fixed a crash when MCP tools return image content during streaming | fixed |
 | /resumeセッションのプレビューで読みやすいコマンド名ではなく生のXMLタグが表示されていた問題を修正 | Fixed /resume session previews showing raw XML tags instead of readable command names | fixed |
+| Bedrock/Vertex/Foundryユーザー向けのモデルエラーメッセージをフォールバック提案とともに改善 | Improved model error messages for Bedrock/Vertex/Foundry users with fallback suggestions | improved |
 | ターミナルレンダリングのパフォーマンス改善 | Improved terminal rendering performance | improved |
 | 致命的エラーが表示されずに握りつぶされる問題を修正 | Fixed fatal errors being swallowed instead of displayed | fixed |
 | セッション終了後にプロセスがハングする問題を修正 | Fixed process hanging after session close | fixed |
