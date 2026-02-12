@@ -16,6 +16,7 @@
 | インストール済みプラグインに対して誤解を招く「Space to Toggle」ヒントが表示される問題を修正 | Fixed plugin browse showing misleading "Space to Toggle" hint for already-installed plugins | fixed |
 | フックのブロッキングエラー（終了コード2）でstderrがユーザーに表示されない問題を修正 | Fixed hook blocking errors (exit code 2) not showing stderr to the user | fixed |
 | ファストモード可視化のためOTelイベントとトレーススパンに`speed`属性を追加 | Added `speed` attribute to OTel events and trace spans for fast mode visibility | added |
+| `/resume` で中断メッセージがセッションタイトルとして表示される問題を修正 | Fixed /resume showing interrupt messages as session titles | fixed |
 | ターミナルレンダリングのパフォーマンス改善 | Improved terminal rendering performance | improved |
 | 致命的エラーが表示されずに握りつぶされる問題を修正 | Fixed fatal errors being swallowed instead of displayed | fixed |
 | セッション終了後にプロセスがハングする問題を修正 | Fixed process hanging after session close | fixed |
