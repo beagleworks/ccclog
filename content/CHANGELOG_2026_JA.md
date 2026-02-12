@@ -20,6 +20,7 @@
 | Bedrock/Vertex/Foundryユーザーに対するOpus 4.6リリースアナウンスの表示を修正 | Fixed Opus 4.6 launch announcement showing for Bedrock/Vertex/Foundry users | fixed |
 | `/compact`を提案する多数画像の寸法制限エラーメッセージを改善 | Improved error message for many-image dimension limit errors with /compact suggestion | improved |
 | Vertex/Bedrockで構造化出力のベータヘッダーが無条件に送信される問題を修正 | Fixed structured-outputs beta header being sent unconditionally on Vertex/Bedrock | fixed |
+| `.claude/agents/` ディレクトリ内の非エージェント markdown ファイルに対する誤った警告を修正 | Fixed spurious warnings for non-agent markdown files in `.claude/agents/` directory | fixed |
 | ターミナルレンダリングのパフォーマンス改善 | Improved terminal rendering performance | improved |
 | 致命的エラーが表示されずに握りつぶされる問題を修正 | Fixed fatal errors being swallowed instead of displayed | fixed |
 | セッション終了後にプロセスがハングする問題を修正 | Fixed process hanging after session close | fixed |
