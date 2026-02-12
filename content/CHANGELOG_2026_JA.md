@@ -19,6 +19,7 @@
 | `/resume` で中断メッセージがセッションタイトルとして表示される問題を修正 | Fixed /resume showing interrupt messages as session titles | fixed |
 | Bedrock/Vertex/Foundryユーザーに対するOpus 4.6リリースアナウンスの表示を修正 | Fixed Opus 4.6 launch announcement showing for Bedrock/Vertex/Foundry users | fixed |
 | `/compact`を提案する多数画像の寸法制限エラーメッセージを改善 | Improved error message for many-image dimension limit errors with /compact suggestion | improved |
+| Vertex/Bedrockで構造化出力のベータヘッダーが無条件に送信される問題を修正 | Fixed structured-outputs beta header being sent unconditionally on Vertex/Bedrock | fixed |
 | ターミナルレンダリングのパフォーマンス改善 | Improved terminal rendering performance | improved |
 | 致命的エラーが表示されずに握りつぶされる問題を修正 | Fixed fatal errors being swallowed instead of displayed | fixed |
 | セッション終了後にプロセスがハングする問題を修正 | Fixed process hanging after session close | fixed |

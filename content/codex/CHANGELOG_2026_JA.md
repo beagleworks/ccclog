@@ -4,6 +4,39 @@
 
 ---
 
+## 0.101.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| メモリファイルに作業ディレクトリを含めるよう変更し、異なるプロジェクトディレクトリ間を切り替えた際のメモリ動作を改善 (#11591) | Memory files now include the working directory in stored context, improving memory behavior when switching between different project directories. (#11591) | new-features |
+| モデル解決時にプレフィックスで選択した場合も、要求されたモデルスラッグを保持するよう変更し、モデル参照が書き換えられずに安定するよう改善 (#11602) | Model resolution now preserves the requested model slug when selecting by prefix, so model references stay stable instead of being rewritten. (#11602) | bug-fixes |
+| 開発者メッセージをフェーズ1のメモリ入力から除外し、ノイズや無関係なコンテンツがメモリに入るのを削減 (#11608) | Developer messages are now excluded from phase-1 memory input, reducing noisy or irrelevant content entering memory. (#11608) | bug-fixes |
+| メモリフェーズ処理の並行性を削減し、負荷時の統合/ステージング処理をより安定化 (#11614) | Memory phase processing concurrency was reduced to make consolidation/staging more stable under load. (#11614) | bug-fixes |
+| フェーズ1メモリパイプラインのコードパスをクリーンアップし簡素化 (#11605) | Cleaned and simplified the phase-1 memory pipeline code paths. (#11605) | chores |
+| リポジトリメンテナンス: リモートモデルテストのフォーマットとテストスイート整備を更新 (#11619) | Minor repository maintenance: formatting and test-suite hygiene updates in remote model tests. (#11619) | chores |
+
+## 0.100.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| ツールコール間で状態を永続化できる実験的なフィーチャーゲート付きJavaScript REPLランタイム（`js_repl`）を追加し、オプションでランタイムパスのオーバーライドに対応（#10674） | Added an experimental, feature-gated JavaScript REPL runtime (`js_repl`) that can persist state across tool calls, with optional runtime path overrides. (#10674) | new-features |
+| プロトコル、バックエンドクライアント、TUIステータス画面全体で複数の同時レート制限をサポート（#11260） | Added support for multiple simultaneous rate limits across the protocol, backend client, and TUI status surfaces. (#11260) | new-features |
+| アプリサーバーWebSocket転送を受信/送信分離アーキテクチャで再導入し、接続を認識するスレッド再開サブスクリプションを追加（#11370、#11474） | Reintroduced app-server websocket transport with a split inbound/outbound architecture, plus connection-aware thread resume subscriptions. (#11370, #11474) | new-features |
+| TUIにメモリ管理スラッシュコマンド（`/m_update`、`/m_drop`）を追加し、メモリ読み取り/メトリクス処理を拡張（#11569、#11459、#11593） | Added memory management slash commands in the TUI (`/m_update`, `/m_drop`) and expanded memory-read/metrics plumbing. (#11569, #11459, #11593) | new-features |
+| ChatGPTコネクタ処理でApps SDKアプリを有効化（#11486） | Enabled Apps SDK apps in ChatGPT connector handling. (#11486) | new-features |
+| LinuxとWindows両方でサンドボックス機能を昇格し、読み取りアクセスを設定可能な新しい`ReadOnlyAccess`ポリシー形式を導入（#11381、#11341、#11387） | Promoted sandbox capabilities on both Linux and Windows, and introduced a new `ReadOnlyAccess` policy shape for configurable read access. (#11381, #11341, #11387) | new-features |
+| WebSocketのインクリメンタル出力の重複を修正し、`response.completed`後の追加を防止、`response.incomplete`をエラーパスとして処理（#11383、#11402、#11558） | Fixed websocket incremental output duplication, prevented appends after `response.completed`, and treated `response.incomplete` as an error path. (#11383, #11402, #11558) | bug-fixes |
+| アイドル時のping処理を継続し、高速再接続時のノイズの多い初回リトライエラーを抑制することでWebSocketセッションの安定性を改善（#11413、#11548） | Improved websocket session stability by continuing ping handling when idle and suppressing noisy first-retry errors during quick reconnects. (#11413, #11548) | bug-fixes |
+| 欠落したロールアウトファイルを削除し、スレッド一覧表示時に古いDBメタデータをクリーンアップすることで古いスレッドエントリを修正（#11572） | Fixed stale thread entries by dropping missing rollout files and cleaning stale DB metadata during thread listing. (#11572) | bug-fixes |
+| ペースト時のバースト間隔許容値を増加させ、Windows環境のターミナル（特にVS Code統合ターミナル）での複数行ペーストの信頼性を修正（#9348） | Fixed Windows multi-line paste reliability in terminals (especially VS Code integrated terminal) by increasing paste burst timing tolerance. (#9348) | bug-fixes |
+| 部分的なレート制限更新をマージする際の`limit_name`の誤った継承を修正（#11557） | Fixed incorrect inheritance of `limit_name` when merging partial rate-limit updates. (#11557) | bug-fixes |
+| ファイルウォッチャーのデバウンスを1秒から10秒に増加させ、アクティブな編集中のスキルパースエラーの繰り返しスパムを削減（#11494） | Reduced repeated skill parse-error spam during active edits by increasing file-watcher debounce from 1s to 10s. (#11494) | bug-fixes |
+| 機能の有効化と設定のためのJavaScript REPLドキュメントと設定/スキーマガイダンスを追加（#10674） | Added JS REPL documentation and config/schema guidance for enabling and configuring the feature. (#10674) | documentation |
+| アプリサーバーREADMEにアプリサーバーWebSocket転送のドキュメントを更新（#11370） | Updated app-server websocket transport documentation in the app-server README. (#11370) | documentation |
+| Rustワークスペースコンポーネント間の依存関係境界を簡素化するため、`codex-common`を集中化された`codex-utils-*`クレートに分割（#11422） | Split `codex-common` into focused `codex-utils-*` crates to simplify dependency boundaries across Rust workspace components. (#11422) | chores |
+| 並列Windowsビルドとmuslリンク修正を含め、WindowsおよびmuslターゲットのRustリリースパイプラインのスループットと信頼性を改善（#11488、#11500、#11556） | Improved Rust release pipeline throughput and reliability for Windows and musl targets, including parallel Windows builds and musl link fixes. (#11488, #11500, #11556) | chores |
+| 重複する`cargo-timing.html`アーティファクトを除外し、GitHubリリースアセットアップロードの衝突を防止（#11564） | Prevented GitHub release asset upload collisions by excluding duplicate `cargo-timing.html` artifacts. (#11564) | chores |
+
 ## 0.99.0
 
 | 日本語 | English | Category |
