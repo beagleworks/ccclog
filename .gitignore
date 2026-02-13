@@ -8,6 +8,9 @@ dist/
 src/data/changelog*.json
 src/data/codex/changelog*.json
 
+# generated OGP image (ビルド時に生成されるため)
+public/og-image.png
+
 # dependencies
 node_modules/
 

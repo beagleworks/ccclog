@@ -1,12 +1,13 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "scripts": {
     "dev": "astro dev",
     "preview": "astro preview",
-    "build": "pnpm generate && astro build",
+    "build": "pnpm generate && pnpm generate:og && astro build",
     "generate": "pnpm generate:claude-code && pnpm generate:codex",
+    "generate:og": "tsx scripts/generate-og-image.ts",
     "generate:claude-code": "tsx scripts/generate-data.ts 2026 && tsx scripts/generate-data.ts 2025",
     "generate:codex": "tsx scripts/generate-codex-all-years.ts",
     "sync-versions": "tsx scripts/sync-versions.ts",
@@ -22,8 +23,15 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "sharp": "^0.33.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "vitest": "^4.0.18"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "esbuild"
+    ]
   }
 }
