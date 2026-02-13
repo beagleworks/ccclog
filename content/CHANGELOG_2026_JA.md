@@ -4,6 +4,26 @@
 
 ---
 
+## 2.1.41
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 3分のタイムアウトを追加してAWS認証のリフレッシュが無限に待機する問題を修正 | Fixed AWS auth refresh hanging indefinitely by adding a 3-minute timeout | fixed |
+| `claude auth login`、`claude auth status`、`claude auth logout` CLIサブコマンドを追加 | Added `claude auth login`, `claude auth status`, and `claude auth logout` CLI subcommands | added |
+| Windows ARM64 (win32-arm64) ネイティブバイナリサポートを追加 | Added Windows ARM64 (win32-arm64) native binary support | added |
+| 引数なしで呼び出された際に会話コンテキストからセッション名を自動生成するよう `/rename` を改善 | Improved `/rename` to auto-generate session name from conversation context when called without arguments | improved |
+| 狭い端末レイアウトにおけるプロンプトフッターの表示を改善 | Improved narrow terminal layout for prompt footer | improved |
+| アンカーフラグメント付き@メンション(例: `@README.md#installation`)でファイル解決が失敗する問題を修正 | Fixed file resolution failing for @-mentions with anchor fragments (e.g., `@README.md#installation`) | fixed |
+| FIFO、`/dev/stdin`、大容量ファイルでFileReadToolがプロセスをブロックする問題を修正 | Fixed FileReadTool blocking the process on FIFOs, `/dev/stdin`, and large files | fixed |
+| ストリーミングAgent SDKモードでバックグラウンドタスク通知が配信されない問題を修正 | Fixed background task notifications not being delivered in streaming Agent SDK mode | fixed |
+| 分類ルール入力欄で各キー入力時にカーソルが末尾にジャンプする問題を修正 | Fixed cursor jumping to end on each keystroke in classifier rule input | fixed |
+| 生URLに対するマークダウンリンクの表示テキストが削除される問題を修正 | Fixed markdown link display text being dropped for raw URL | fixed |
+| 自動コンパクト失敗のエラー通知がユーザーに表示される問題を修正 | Fixed auto-compact failure error notifications being shown to users | fixed |
+| サブエージェントの経過時間表示に権限待機時間が含まれる問題を修正 | Fixed permission wait time being included in subagent elapsed time display | fixed |
+| プランモード中にproactive ticksが発火する問題を修正 | Fixed proactive ticks firing while in plan mode | fixed |
+| 設定ファイルがディスク上で変更された際に古い権限ルールをクリアするよう修正 | Fixed clear stale permission rules when settings change on disk | fixed |
+| フックのブロッキングエラーがUI上でstderrの内容を表示する問題を修正 | Fixed hook blocking errors showing stderr content in UI | fixed |
+
 ## 2.1.39
 
 | 日本語 | English | Category |
