@@ -58,13 +58,6 @@ const svg = `<svg width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2
   <rect x="740" y="460" width="80" height="6" rx="3" fill="#8b949e"/>
   <!-- URL -->
   <text
-  x="${WIDTH / 2}" y="540"
-  font-family="'SF Mono', 'Fira Code', 'Consolas', monospace"
-  font-size="20" fill="#8b949e" text-anchor="middle"
-  >beagleworks.github.io/ccclog</text>
-    
-  <!-- URL -->
-  <text
     x="${WIDTH / 2}" y="540"
     font-family="'SF Mono', 'Fira Code', 'Consolas', monospace"
     font-size="20" fill="#8b949e" text-anchor="middle"
