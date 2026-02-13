@@ -4,11 +4,28 @@
 
 ---
 
+## 2.1.42
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Zodスキーマ構築の遅延による起動パフォーマンスの改善 | Improved startup performance by deferring Zod schema construction | improved |
+| システムプロンプトから日付を移動してプロンプトキャッシュヒット率を改善 | Improved prompt cache hit rates by moving date out of system prompt | improved |
+| 対象ユーザー向けのOpus 4.6エフォート表示を1回限りで追加 | Added one-time Opus 4.6 effort callout for eligible users | added |
+| /resumeで中断メッセージがセッションタイトルとして表示される問題を修正 | Fixed /resume showing interrupt messages as session titles | fixed |
+| 画像サイズ制限エラーで/compactの使用を提案するように修正 | Fixed image dimension limit errors to suggest /compact | fixed |
+
 ## 2.1.41
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| 3分のタイムアウトを追加してAWS認証のリフレッシュが無限に待機する問題を修正 | Fixed AWS auth refresh hanging indefinitely by adding a 3-minute timeout | fixed |
+| Claude Code内で別のClaude Codeセッションを起動できないようガードを追加 | Added guard against launching Claude Code inside another Claude Code session | added |
+| Agent TeamsがBedrock、Vertex、Foundryユーザーに対して誤ったモデル識別子を使用する問題を修正 | Fixed Agent Teams using wrong model identifier for Bedrock, Vertex, and Foundry customers | fixed |
+| MCPツールがストリーミング中に画像コンテンツを返した際のクラッシュを修正 | Fixed a crash when MCP tools return image content during streaming | fixed |
+| /resumeセッションプレビューが読みやすいコマンド名ではなく生のXMLタグを表示する問題を修正 | Fixed /resume session previews showing raw XML tags instead of readable command names | fixed |
+| Bedrock/Vertex/Foundryユーザー向けのモデルエラーメッセージをフォールバック提案付きで改善 | Improved model error messages for Bedrock/Vertex/Foundry users with fallback suggestions | improved |
+| プラグインブラウザが既にインストール済みのプラグインに対して誤解を招く「Space to Toggle」ヒントを表示する問題を修正 | Fixed plugin browse showing misleading "Space to Toggle" hint for already-installed plugins | fixed |
+| フックブロッキングエラー（終了コード2）がstderrをユーザーに表示しない問題を修正 | Fixed hook blocking errors (exit code 2) not showing stderr to the user | fixed |
+| 高速モードの可視性のためにOTelイベントとトレーススパンに`speed`属性を追加 | Added `speed` attribute to OTel events and trace spans for fast mode visibility | added |
 | `claude auth login`、`claude auth status`、`claude auth logout` CLIサブコマンドを追加 | Added `claude auth login`, `claude auth status`, and `claude auth logout` CLI subcommands | added |
 | Windows ARM64 (win32-arm64) ネイティブバイナリサポートを追加 | Added Windows ARM64 (win32-arm64) native binary support | added |
 | 引数なしで呼び出された際に会話コンテキストからセッション名を自動生成するよう `/rename` を改善 | Improved `/rename` to auto-generate session name from conversation context when called without arguments | improved |
@@ -28,19 +45,6 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| Claude Code内で別のClaude Codeセッションを起動することに対するガードを追加 | Added guard against launching Claude Code inside another Claude Code session | added |
-| Agent TeamsがBedrock、Vertex、Foundryの顧客に対して誤ったモデル識別子を使用していた問題を修正 | Fixed Agent Teams using wrong model identifier for Bedrock, Vertex, and Foundry customers | fixed |
-| ストリーミング中にMCPツールが画像コンテンツを返す際のクラッシュを修正 | Fixed a crash when MCP tools return image content during streaming | fixed |
-| /resumeセッションのプレビューで読みやすいコマンド名ではなく生のXMLタグが表示されていた問題を修正 | Fixed /resume session previews showing raw XML tags instead of readable command names | fixed |
-| Bedrock/Vertex/Foundryユーザー向けのモデルエラーメッセージをフォールバック提案とともに改善 | Improved model error messages for Bedrock/Vertex/Foundry users with fallback suggestions | improved |
-| インストール済みプラグインに対して誤解を招く「Space to Toggle」ヒントが表示される問題を修正 | Fixed plugin browse showing misleading "Space to Toggle" hint for already-installed plugins | fixed |
-| フックのブロッキングエラー（終了コード2）でstderrがユーザーに表示されない問題を修正 | Fixed hook blocking errors (exit code 2) not showing stderr to the user | fixed |
-| ファストモード可視化のためOTelイベントとトレーススパンに`speed`属性を追加 | Added `speed` attribute to OTel events and trace spans for fast mode visibility | added |
-| `/resume` で中断メッセージがセッションタイトルとして表示される問題を修正 | Fixed /resume showing interrupt messages as session titles | fixed |
-| Bedrock/Vertex/Foundryユーザーに対するOpus 4.6リリースアナウンスの表示を修正 | Fixed Opus 4.6 launch announcement showing for Bedrock/Vertex/Foundry users | fixed |
-| `/compact`を提案する多数画像の寸法制限エラーメッセージを改善 | Improved error message for many-image dimension limit errors with /compact suggestion | improved |
-| Vertex/Bedrockで構造化出力のベータヘッダーが無条件に送信される問題を修正 | Fixed structured-outputs beta header being sent unconditionally on Vertex/Bedrock | fixed |
-| `.claude/agents/` ディレクトリ内の非エージェント markdown ファイルに対する誤った警告を修正 | Fixed spurious warnings for non-agent markdown files in `.claude/agents/` directory | fixed |
 | ターミナルレンダリングのパフォーマンス改善 | Improved terminal rendering performance | improved |
 | 致命的エラーが表示されずに握りつぶされる問題を修正 | Fixed fatal errors being swallowed instead of displayed | fixed |
 | セッション終了後にプロセスがハングする問題を修正 | Fixed process hanging after session close | fixed |
