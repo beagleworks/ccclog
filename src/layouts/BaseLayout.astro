@@ -49,6 +49,11 @@ const canonicalUrl = years.length > 0 && currentYear
     ? `${site}${base}${currentYear}/`
     : `${site}${base}codex/${currentYear}/`
   : null;
+
+// OGP用
+const ogDescription = description || defaultDescription;
+const ogUrl = canonicalUrl || `${site}${base}`;
+const ogImage = `${site}${base}og-image.png`;
 ---
 
 <!doctype html>
@@ -60,6 +65,21 @@ const canonicalUrl = years.length > 0 && currentYear
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="ccclog" />
+    <meta property="og:locale" content="ja_JP" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
   <body>
     <div class="container">
