@@ -2,6 +2,7 @@
 
 | 日付 | バージョン | 変更内容 |
 |-----|-----------|---------|
+| 2026-02-15 | 6.2.0 | 検索ハイライトを完全一致のみに変更（セル全文一致時のみハイライト、英語は大文字小文字を区別しない） |
 | 2026-02-13 | 6.1.0 | OGP画像・メタタグ対応: sharp によるビルド時 PNG 生成、Open Graph / Twitter Card メタタグ追加（X シェア時に画像表示） |
 | 2026-02-11 | 6.0.0 | CI 可観測性基盤: 全 sync/generate スクリプトに `--report-json`/`--report-file` オプション追加、CI Step Summary でレポート可視化、deploy.yml をジョブ分離（sync/build_push/build_sync/deploy） |
 | 2026-02-10 | 5.1.0 | backfill-legacy-codex.ts 削除、mode-utils 削除、retranslate 簡素化、codex-changelog-utils 簡素化（-1,324行） |

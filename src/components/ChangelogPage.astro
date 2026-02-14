@@ -211,7 +211,6 @@ const legendItems = getLegendItems(product);
       keys,
       threshold: 0.3,
       ignoreLocation: true,
-      includeMatches: true,
     });
   }
 
@@ -264,75 +263,46 @@ const legendItems = getLegendItems(product);
     return escapeHtml(rawText).replace(/`([^`]+)`/g, '<code>$1</code>');
   }
 
-  const HIGHLIGHT_START = '\uE000';
-  const HIGHLIGHT_END = '\uE001';
+  function isExactCellMatch(rawText: string, query: string, key: 'ja' | 'en'): boolean {
+    const trimmedQuery = query.trim();
+    if (!trimmedQuery) return false;
 
-  function renderHighlightedHtml(rawText: string, indices: ReadonlyArray<[number, number]>): string {
-    if (!indices || indices.length === 0) return renderWithCode(rawText);
-
-    const sorted = [...indices].sort((a, b) => a[0] - b[0]);
-    const merged: Array<[number, number]> = [];
-
-    for (const [start, end] of sorted) {
-      const last = merged[merged.length - 1];
-      if (!last || start > last[1] + 1) {
-        merged.push([start, end]);
-      } else {
-        last[1] = Math.max(last[1], end);
-      }
+    const trimmedText = rawText.trim();
+    if (key === 'en') {
+      return trimmedText.toLocaleLowerCase() === trimmedQuery.toLocaleLowerCase();
     }
-
-    let marked = '';
-    let lastIndex = 0;
-    for (const [start, end] of merged) {
-      marked += rawText.slice(lastIndex, start);
-      marked += HIGHLIGHT_START + rawText.slice(start, end + 1) + HIGHLIGHT_END;
-      lastIndex = end + 1;
-    }
-    marked += rawText.slice(lastIndex);
-
-    let html = escapeHtml(marked).replace(/`([^`]+)`/g, '<code>$1</code>');
-    html = html.split(HIGHLIGHT_START).join('<span class="highlight">');
-    html = html.split(HIGHLIGHT_END).join('</span>');
-    return html;
+    return trimmedText === trimmedQuery;
   }
 
-  function applyHighlight(
-    element: HTMLElement,
-    rawText: string,
-    matches: Fuse.FuseResultMatch[] | undefined,
-    key: 'ja' | 'en'
-  ) {
-    const match = matches?.find((m) => m.key === key);
-    const indices = match?.indices as ReadonlyArray<[number, number]> | undefined;
-    element.innerHTML = indices ? renderHighlightedHtml(rawText, indices) : renderWithCode(rawText);
+  function setCellHtml(element: HTMLElement, rawText: string, highlight: boolean) {
+    const rendered = renderWithCode(rawText);
+    element.innerHTML = highlight ? `<span class="highlight">${rendered}</span>` : rendered;
   }
 
   function applyRowHighlight(
     row: Element,
-    matchResult: Fuse.FuseResult<SearchableEntry> | undefined,
+    query: string,
     mode: SearchMode
   ) {
     const jaCell = row.querySelector('.entry-ja') as HTMLElement;
     const enCell = row.querySelector('.entry-en') as HTMLElement;
     const rawJa = (row as HTMLElement).dataset.ja || '';
     const rawEn = (row as HTMLElement).dataset.en || '';
-    const matches = matchResult?.matches;
 
     if (mode === 'ja') {
-      if (jaCell) applyHighlight(jaCell, rawJa, matches, 'ja');
-      if (enCell) enCell.innerHTML = renderWithCode(rawEn);
+      if (jaCell) setCellHtml(jaCell, rawJa, isExactCellMatch(rawJa, query, 'ja'));
+      if (enCell) setCellHtml(enCell, rawEn, false);
       return;
     }
 
     if (mode === 'en') {
-      if (enCell) applyHighlight(enCell, rawEn, matches, 'en');
-      if (jaCell) jaCell.innerHTML = renderWithCode(rawJa);
+      if (enCell) setCellHtml(enCell, rawEn, isExactCellMatch(rawEn, query, 'en'));
+      if (jaCell) setCellHtml(jaCell, rawJa, false);
       return;
     }
 
-    if (jaCell) applyHighlight(jaCell, rawJa, matches, 'ja');
-    if (enCell) applyHighlight(enCell, rawEn, matches, 'en');
+    if (jaCell) setCellHtml(jaCell, rawJa, isExactCellMatch(rawJa, query, 'ja'));
+    if (enCell) setCellHtml(enCell, rawEn, isExactCellMatch(rawEn, query, 'en'));
   }
 
   function setSearchMode(mode: SearchMode) {
@@ -367,7 +337,7 @@ const legendItems = getLegendItems(product);
         rows.forEach((row) => {
           row.classList.remove('hidden');
           // ハイライトをリセット
-          applyRowHighlight(row, undefined, currentMode);
+          applyRowHighlight(row, '', currentMode);
         });
       });
       searchStats.hidden = true;
@@ -381,9 +351,6 @@ const legendItems = getLegendItems(product);
     const matchedVersions = new Set<string>();
     const matchedMonths = new Set<string>();
     const matchedEntries = new Map<string, Set<number>>();
-
-    // 検索結果をMapに変換してO(1)参照を実現
-    const matchResultMap = new Map<string, typeof results[0]>();
     results.forEach((r) => {
       const { version, monthKey, entryIndex } = r.item;
       matchedVersions.add(version);
@@ -394,10 +361,6 @@ const legendItems = getLegendItems(product);
         matchedEntries.set(versionKey, new Set());
       }
       matchedEntries.get(versionKey)!.add(entryIndex);
-
-      // 結果をMapに格納
-      const mapKey = `${version}-${entryIndex}`;
-      matchResultMap.set(mapKey, r);
     });
 
     // UIを更新
@@ -428,13 +391,7 @@ const legendItems = getLegendItems(product);
           if (matchedIndices.has(idx)) {
             row.classList.remove('hidden');
             visibleEntryCount++;
-
-            // ハイライトを適用（Mapから O(1) で取得）
-            const matchKey = `${versionNum}-${idx}`;
-            const matchResult = matchResultMap.get(matchKey);
-
-            // ハイライトを適用
-            applyRowHighlight(row, matchResult, currentMode);
+            applyRowHighlight(row, trimmedQuery, currentMode);
           } else {
             row.classList.add('hidden');
           }
