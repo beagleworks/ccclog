@@ -214,7 +214,8 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| "fix: pin musl 1.2.5 for DNS fixes" をリバート (#6222) | #6222 Revert "fix: pin musl 1.2.5 for DNS fixes" | bug-fixes |
+| codex_delegate でデルタを無視するよう変更 (#6208) | #6208 ignore deltas in codex_delegate | bug-fixes |
 
 ## 0.54.0
 
@@ -242,23 +243,32 @@
 | compact 実行時に警告を追加 (#6052) | Add warning on compact (#6052) | new-features |
 | ツール呼び出し総数のテキストを切り詰めるように変更 (#5979) | Truncate total tool calls text (#5979) | bug-fixes |
 | ユーザー指示メッセージの形式を更新 (#6010) | Update user instruction message format (#6010) | new-features |
+
 ## 0.53.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| エラー 400 の問題を修正 | Fixing error 400 issues | bug-fixes |
+| Java 向けサンドボックスを改善 | Improve sandboxing for Java | new-features |
 
 ## 0.52.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| TUI 改善: ストリーミング中にキューメッセージを表示、Windows 自動モードガイダンス、undo 操作、圧縮プロンプトの設定可能化 | TUI polish: queued messages visible during streaming; Windows auto-mode guidance; undo op; compaction prompt configurable. | new-features |
+| 画像: クライアントサイド画像リサイズ、MIME 検証によるクラッシュ防止、SDK 画像転送テストの再有効化 | Images: client-side image resizing; prevent crashes with MIME verification; SDK image forwarding tests re-enabled. | bug-fixes |
+| `!<cmd>` でコマンドを直接実行する機能を追加 | Execute commands directly with !<cmd> | new-features |
+| クレジット購入による追加利用枠の確保に対応 | Ability to buy credits for more usage. | new-features |
+| Auth: キーリングサポートと設定可能なバックエンドを持つ新しい CLI 認証ストレージ抽象化 | Auth: new CLI auth storage abstraction with keyring support and configurable backend. | new-features |
+| App server: GetConversationSummary RPC、ID による会話サマリーの取得/再開、アカウント/プロトコル型の洗練 | App server: GetConversationSummary RPC; fetch/resume conversation summaries by id; refined account/protocol types. | new-features |
+| 実行/イベント: アイテムストリーミングイベント、ゴーストコミット、非推奨警告の明確化、トークン更新処理とログの改善 | Execution/events: item streaming events; ghost commits; clearer deprecation warnings; better token refresh handling and logs. | new-features |
+| 会話管理: 全ツール出力の一元的な切り詰め、前ターンの推論を除外、会話に model_provider を付与 | Conversation management: centralized truncation for all tool outputs; filter out prior-turn reasoning; annotate conversations with model_provider. | new-features |
 
 ## 0.50.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| /feedback を改善し、より良い診断情報を取得可能に | Improved /feedback to get better diagnostics. | new-features |
 
 ## 0.49.0
 
@@ -270,7 +280,14 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| --add-dir で追加の作業ディレクトリを指定可能に | --add-dir to add an additional working directory. | new-features |
+| MCP: stdio サーバーが公式 Rust MCP SDK ベースの新しいクライアントを使用するよう変更 | MCP: stdio servers now use a new client backed by the official rust MCP sdk | new-features |
+| MCP: stdio サーバーで cwd を指定可能に | MCP: stdio servers can specify a cwd | new-features |
+| MCP: 全サーバーで enabled_tools または disabled_tools を指定可能に | MCP: All servers can specify enabled_tools or disabled_tools | new-features |
+| MCP: ストリーム可能な HTTP サーバーで codex mcp login 時にスコープを指定可能に | MCP: Streamable HTTP servers can specify scopes during codex mcp login | new-features |
+| MCP: 起動エラーメッセージを改善 | MCP: Improved startup error messages | bug-fixes |
+| MCP: ツール呼び出し時の指示追従性を改善 | MCP: Better instruction following for calling tools | bug-fixes |
+| エンタープライズ向けに forced_login_method と forced_chatgpt_workspace_id 設定オプションを追加（管理設定との併用で Codex 利用をより制御可能に） | Configuration options for forced_login_method and forced_chatgpt_workspace_id which can be paired with managed configs to give enterprises more control over Codex usage. | new-features |
 
 ## 0.47.0
 
@@ -300,6 +317,7 @@
 | codex exec の危険な自動承認機能を追加 (#5043) | Add dangerous auto-approval for codex exec (#5043) | new-features |
 | TUI を sandbox_workspace_write に更新 (#3341) | Update tui to sandbox_workspace_write (#3341) | new-features |
 | Codex クラウド実行機能を追加 (#5060) | Codex cloud exec (#5060) | new-features |
+
 ## 0.46.0
 
 | 日本語 | English | Category |
@@ -319,17 +337,23 @@
 | `enabled` 設定フィールドを追加 (#4917) | Add an `enabled` config field (#4917) | new-features |
 | コンテキスト行を永続化 (#4699) | Make context line permanent (#4699) | new-features |
 | MCP サーバーに認証ステータスを追加 (#4918) | Add auth status to MCP servers (#4918) | new-features |
+
 ## 0.45.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| `codex login --api-key` を `codex login --with-api-key` に変更し、stdin からキーを読み取るようにしてセキュリティを向上 | codex login --api-key was replaced with codex login --with-api-key that reads the key from stdin to improve security. | new-features |
+| OAuth MCP サーバー認証の実験的サポートを追加 (#4517) | #4517 Experimental support for OAuth MCP server authentication | new-features |
 
 ## 0.44.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| UI リフレッシュ！チャットコンポーザー、ボトムペイン、モデルピッカー、アップグレードナッジを更新 (#4240, #4316, #4178, #4405) | New UI refresh! Updated chat composer, bottom pane, model picker, and upgrade nudge (#4240, #4316, #4178, #4405) | new-features |
+| カスタムプロンプトが名前付き引数と位置引数に対応 (#4474, #4470) | Custom prompts now support named & positional arguments (#4474, #4470) | new-features |
+| ストリーム可能な HTTP MCP サーバーのサポートを追加 (#4317) | Add support for streamable HTTP MCP servers (#4317) | new-features |
+| (実験的) Windows で読み取り専用コマンドの繰り返し承認を削減 (#4269) | (experimental) Reduce repetitive approval for read-only commands on Windows (#4269) | new-features |
+| (非常に実験的) codex cloud でクラウドタスクを管理 (#3197) | (very experimental) Manage cloud tasks with codex cloud (#3197) | new-features |
 
 ## 0.42.0
 
@@ -350,12 +374,15 @@
 | 過去の会話を編集する際のバグを修正 (#4237) | Fixed bug when editing previous conversations (#4237) | bug-fixes |
 | `.codex` ディレクトリが存在しない場合の IDE 拡張における API キーログイン失敗を修正 (#4258) | Fixed login failure with API key in IDE extension when `.codex` directory is missing (#4258) | bug-fixes |
 | 幅を小さくリサイズした際のバグを修正 (#4248) | Fixed bug when resizing to a smaller width (#4248) | bug-fixes |
-| todo-list ツールのサポートを追加 (#4255) | Add todo-list tool support (#4255) | new-features |
+| 状態管理、フッターロジック、未使用コードの内部クリーンアップとリファクタリング (#4174, #4259, #4310) | Internal cleanup and refactors for state, footer logic, and unused code (#4174, #4259, #4310) | chores |
+
 ## 0.41.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| レート制限のリセット時刻を確認可能に (#4111)、制限到達時に使用量を表示 (#4102) | Rate limits visibility: You can see when is your limits resetting (#4111) and see your usage when rate limited (#4102) | new-features |
+| exec モードで output-schema を使用して出力スキーマを指定可能に (#4079) | You can specify output schema in exec mode using output-schema. (#4079) | new-features |
+| Ripgrep (rg) を npm リリースにバンドルし、npm インストール時の @vscode/ripgrep postinstall 失敗を解消 (#3660) | Ripgrep (rg) is now vendored into the npm release (#3660), which should fix issues such as #3842 where the postinstall step of @vscode/ripgrep would sometimes fail when installing codex via npm. | bug-fixes |
 
 ## 0.40.0
 
@@ -366,15 +393,7 @@
 | 使用制限を `/status` で表示 (#4053) | Usage limits are now visible in `/status` (#4053) | new-features |
 | 特定コミット、ベースブランチとの比較、カスタム指示を指定できる `/review` コマンドを追加 (#3961) | New `/review` commands (review specific commit, against a base branch, or custom instructions) (#3961) | new-features |
 | MCP ツール呼び出しのデフォルトタイムアウトを 60 秒に設定、`config.toml` で個別サーバーごとに上書き可能 (#3959) | The default timeout for MCP tool calls is `60s` and can be overridden in `config.toml` by setting `tool_timeout_sec` for an individual MCP server (#3959) | new-features |
-| try_parse_word_only_commands_sequence() がコマンドを順序通りに返すよう修正 (#3881) | fix: update try_parse_word_only_commands_sequence() to return commands in order (#3881) | bug-fixes |
-| スラッシュコマンドポップアップの配置を修正 (#3937) | fix alignment in slash command popup (#3937) | bug-fixes |
-| 起動時に画面をクリアしないよう修正 (#3925) | don't clear screen on startup (#3925) | bug-fixes |
-| TUI でバックトラッキングを修正 (#4020) | Tui: fix backtracking (#4020) | bug-fixes |
-| /review のブランチモードプロンプトを修正 (#4061) | Fix branch mode prompt for /review (#4061) | bug-fixes |
-| ページャーオーバーレイのページ間クリアを修正 (#3952) | Fix pager overlay clear between pages (#3952) | bug-fixes |
-| セッション終了時の Codex 再開メッセージを修正 (#3957) | fix codex resume message at end of session (#3957) | bug-fixes |
-| undo 用の Git ツールを追加 (#3914) | feat: git tooling for undo (#3914) | new-features |
-| 使用データの調整を修正 (#4082) | fix: usage data tweaks (#4082) | bug-fixes |
+
 ## 0.39.0
 
 | 日本語 | English | Category |
@@ -385,13 +404,14 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| gh 呼び出し時に --repo を指定するよう修正 (#3806) | fix: specify --repo when calling gh (#3806) | bug-fixes |
 
 ## 0.37.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| npm リリースプロセスを「trusted publishing」に更新 (#3431) | Updated the npm release process to use "trusted publishing" (#3431).  | chores |
+| ただしバグがあり、恩恵は 0.38.0 まで得られない可能性あり（修正は #3806） | Though apparently there was a bug, so we may not see the benefit until 0.38.0. Fix is in #3806.37 | chores |
 
 ## 0.36.0
 
@@ -425,6 +445,7 @@
 | 圧縮後の再開とフォークに対応 (#3533) | Handle resuming and forking after compact (#3533) | bug-fixes |
 | ワークスペースルートを環境コンテキストに追加 (#3375) | Put workspace roots in the environment context (#3375) | new-features |
 | gpt-5プロンプトにファイル参照ガイドラインを追加 (#3651) | Add file reference guidelines to gpt-5 prompt (#3651) | documentation |
+
 ## 0.35.0
 
 | 日本語 | English | Category |
@@ -435,7 +456,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| Codex が外部 MCP サーバーを初期化できない問題のホットフィックス (#3436) | #3436: hotfix for issue that prevented Codex from initializing external MCP servers | bug-fixes |
 
 ## 0.33.0
 
@@ -452,70 +473,81 @@
 | docs/getting-started.md 内の prompting_guide.md への壊れたリンクを削除 (#2858) | Remove a broken link to prompting_guide.md in docs/getting-started.md (#2858) | documentation |
 | tui_markdown をカスタム Markdown レンダラーに置き換え (#3396) | replace tui_markdown with a custom markdown renderer (#3396) | new-features |
 | POSIX 統合とスナップショットセッション機能をリバート（回帰バグのため） (#3430) | Back out "feat: POSIX unification and snapshot sessions (#3179)" (#3430) | bug-fixes |
+| 2 つの認証関連テストの耐障害性を改善 (#3427) | Improved resiliency of two auth-related tests (#3427) | chores |
+
 ## 0.32.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| MCP: サーバーとして動作時に UA サフィックスを追加、安定性/互換性の微調整 | MCP: add UA suffix when acting as a server; a few stability/compat tweaks | new-features |
+| OSS: apply_patch の OSS 互換性を拡大 | OSS: Broader apply_patch OSS compatibility. | bug-fixes |
+| ロールアウト: 初期基盤構築、レスポンスに rollout_path を含めるよう変更 | Rollouts: initial groundwork and rollout_path included in responses. | new-features |
+| TUI: Alt+Delete で次の単語を削除する機能を追加 | TUI: Alt+Delete deletes the next word. | new-features |
+| Protocol/Types: ArchiveConversation リクエスト追加、エクスポートと TS 型の改善 | Protocol/Types: ArchiveConversation request; small exports and TS type improvements. | new-features |
+| CI/Build: nextest による高速テスト、shear 追加、macOS パーミッション微調整 | CI/Build: faster tests with nextest, add shear; minor macOS permission adjustment. | chores |
+| Docs: 設定内のシェルクォーティングを明確化 | Docs: clarified shell quoting in config. | documentation |
 
 ## 0.31.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| MCP サーバー宣言時に startup_timeout_ms オプションのサポートを追加（特に Windows ユーザーから要望が多かった機能）(#3182) | #3182 added support for a startup_timeout_ms option when declaring an MCP server (docs), which has been a highly requested feature, particularly for Windows users | new-features |
+| MCP 起動時のフォールトトレランスを強化 (#3243) | adding more fault tolerance to MCP startup: #3243 | bug-fixes |
+| macOS で Finder から Ctrl+V で画像をペーストできない問題を修正 (#3211) | #3211 fixes image pasting from Finder with ctrl+v on macOS | bug-fixes |
 
 ## 0.30.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| .env ファイルの自動読み込みを廃止 (#3184) | Stop loading project `.env` files automatically (#3184) | new-features |
-| セキュリティのため、リクエストを保存しないように変更 (#3212) | Never store requests for security (#3212) | bug-fixes |
-| 保留中の OAuth ログインをキャンセルしてポートを解放 (#3217) | Free port by canceling pending OAuth login (#3217) | bug-fixes |
-| ロールアウトポリシーを導入 (#3116) | Introduce rollout policy (#3116) | new-features |
-| 共有 HTTP クライアントを導入 (#3110) | Shared HTTP client (#3110) | new-features |
-| 残りコンテキストサイズの計算を修正 (#3190) | Correctly calculate remaining context size (#3190) | bug-fixes |
-| 推論サマリーの処理を改善 (#3138) | Improve handling of reasoning summary (#3138) | new-features |
-| サンドボックス化されたシェルツールの説明を修正 (#3069) | Correct sandboxed shell tool description (#3069) | bug-fixes |
-| 大きなコマンドの承認ダイアログを修正 (#3087) | Fix approval dialog for large commands (#3087) | bug-fixes |
-| モーダル表示中はステータスタイマーを一時停止 (#3131) | Pause status timer during modals (#3131) | bug-fixes |
-| ページャーの自動スクロールを最下部に固定 (#3167) | Pager auto-scroll pins to bottom (#3167) | new-features |
-| Bash のシンタックスハイライトを追加 (#3142) | Bash syntax highlighting (#3142) | new-features |
-| Mac でキーヒントに ⌥⇧⌃ グリフを使用 (#3143) | Use ⌥⇧⌃ glyphs for key hints on mac (#3143) | new-features |
-| アクティブな実行セル領域が高さゼロの場合のパニックを回避 (#3133) | Avoid panic when active exec cell area is zero height (#3133) | bug-fixes |
-| @ ファイル検索を改善: .github、.gitlab などの隠しディレクトリを含める (#2981) | Improve @ file search: include specific hidden dirs such as .github, .gitlab (#2981) | new-features |
-| セッション再開ピッカー (--resume) とクイック再開 (--continue) を追加 (#3135) | Add session resume picker (--resume) and quick resume (--continue) (#3135) | new-features |
-| MCP: セッション再開と履歴リストを追加 (#3185) | MCP: add session resume + history listing (#3185) | new-features |
-| 非サンドボックスプラットフォームで DangerFullAccess パッチを自動承認 (#2988) | Auto-approve DangerFullAccess patches on non-sandboxed platforms (#2988) | new-features |
-| UNIX システムでの ZSH サポートと検出機能の改善 (#3187) | ZSH on UNIX system and better detection (#3187) | new-features |
-| 推奨 VS Code 拡張機能を追加 (#3172) | Recommended VS Code extensions (#3172) | documentation |
-| AGENTS.md のプロンプトと説明を改善 (#3132, #3121) | AGENTS.md prompt and clarifications (#3132, #3121) | documentation |
-| API キーの権限に関するガイダンスを更新 (#3112) | Update guidance on API key permissions (#3112) | documentation |
-| `use_experimental_reasoning_summary` toml キー設定を文書化 (#3118) | Document `use_experimental_reasoning_summary` toml key config (#3118) | documentation |
+| 破壊的変更: プロジェクトの .env ファイルの自動読み込みを廃止 | Breaking: Stop loading project .env files automatically. | new-features |
+| セキュリティ: リクエストを保存しないよう変更、保留中の OAuth ログインをキャンセルしてポートを解放 | Security/behavior: Never store requests; free port by canceling pending OAuth login. | bug-fixes |
+| コア/インフラ: ロールアウトポリシー導入、共有 HTTP クライアント、残りコンテキストサイズ改善、推論サマリー設定の洗練、サンドボックスシェルツール説明の修正、サーバー通知シリアライゼーション改善 | Core/infra: Introduce rollout policy; shared HTTP client; improved remaining context size; refined reasoning summary config/handling; corrected sandboxed shell tool description; improved server notification serialization. | new-features |
+| TUI/UX: 大きなコマンドの承認ダイアログ修正、モーダル中のステータスタイマー一時停止、ページャー自動スクロール、Bash シンタックスハイライト、Mac キーグリフ、高さゼロパニック回避、@ ファイル検索改善（隠しディレクトリ対応）| TUI/UX: Fix approval dialog for large commands; pause status timer during modals; pager auto‑scroll; bash syntax highlighting; mac key glyphs; avoid zero‑height panic; improved @ file search (hidden dirs). | bug-fixes |
+| DevEx/Docs: 推奨 VS Code 拡張機能、AGENTS.md プロンプトと説明の改善、API キーガイダンス更新、CI 修正 | DevEx/docs: Recommended VS Code extensions; AGENTS.md prompt and clarifications; updated API key guidance; CI fixes. | documentation |
+| 依存関係: uuid と wiremock をバンプ | Deps: Bump uuid and wiremock. | chores |
+| Windows: フルアクセスモードで承認を求めないよう変更 | Windows: no more asking for approvals on Full Access mode | new-features |
+
 ## 0.29.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| 未サポートターゲットで arboard をゲートし Android/Termux に対応 | Android/Termux support by gating arboard on unsupported targets. | new-features |
+| std fs API を使用した安定的なクロスプラットフォームファイルロック | Stable, cross‑platform file locking using std fs APIs. | bug-fixes |
+| 認証統合: CodexAuth と AuthManager を core クレートに移動 | Auth consolidation: CodexAuth and AuthManager moved into the core crate. | chores |
+| API キー使用時のレート制限処理を復元 | Rate‑limit handling restored for API‑key usage. | bug-fixes |
+| コアロールアウトのリファクタリング: rollout モジュール抽出、リスト API 追加、ファイルヘッド返却 | Core rollout refactor: extract rollout module, add listing API, return file heads. | chores |
+| QoL 改善: exec/apply_patch で `cd foo && ...` をサポート、TUI のちらつきを修正、ratatui Stylize を優先使用 | Quality of life: support cd foo && ... in exec/apply_patch, fix TUI flicker, prefer ratatui Stylize. | bug-fixes |
+| npm パッケージに Windows ARM64 実行ファイルを追加 | Distribution: include Windows ARM64 executable in the npm package. | new-features |
+| 最新の検索ツールに切り替え | Switch to the latest search tool. | chores |
 
 ## 0.28.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
 | 入力時のラグを修正 (#2922) | Fix laggy typing (#2922) | bug-fixes |
-| メッセージスタイルを明確化のために改修 (#2877) | Rework message styling for clarity (#2877) | chores |
+| メッセージスタイルを明確化のために改修 (#2877) | Rework message styling for clarity (#2877) | bug-fixes |
 | エージェントメッセージストリーミング時の余分な空行を削除 (#3065) | Remove extra blank lines in streamed agent messages (#3065) | bug-fixes |
-| AGENTS.md 存在時に "/init" の提案を非表示化 (#3038) | Hide "/init" suggestion when AGENTS.md exists (#3038) | chores |
+| AGENTS.md 存在時に "/init" の提案を非表示化 (#3038) | Hide "/init" suggestion when AGENTS.md exists (#3038) | bug-fixes |
 | 空入力時の Enter キーを無視し空メッセージの送信を防止 (#3047) | Ignore Enter on empty input to avoid queuing blank messages (#3047) | bug-fixes |
-| get_cursor_position エラーをキャッチしクラッシュを回避 (#2870) | Catch get_cursor_position errors to avoid crashes (#2870) | bug-fixes |
+| `get_cursor_position` エラーをキャッチしクラッシュを回避 (#2870) | Catch `get_cursor_position` errors to avoid crashes (#2870) | bug-fixes |
 | 無効コマンドメッセージから余分な引用符を削除 (#3035) | Remove extra quote from disabled-command message (#3035) | bug-fixes |
 | Windows ARM ビルドに Windows 11 ARM を活用 (#3062) | Leverage Windows 11 ARM for Windows ARM builds (#3062) | chores |
+| リリース用 Windows 11 ARM イメージに zstd をインストール (#3066) | Install zstd on Windows 11 ARM image used for releases (#3066) | chores |
+| PR オープン時にリリースビルド用 Windows キャッシュを生成 (#2884) | Populate Windows cache for release builds when PRs are opened (#2884) | chores |
 | 設定リファレンステーブルを修正 (#3063) | Fix config reference table (#3063) | documentation |
+| ドキュメントリファクタリング後の PR テンプレートリンクを更新 (#2982) | Update PR template link after docs refactor (#2982) | documentation |
 | ユーザーがモデルを変更した際のログを追加 (#3060) | Add logs when users change the model (#3060) | chores |
+| codex-rs の regex-lite を 0.1.7 にバンプ (#3010) | Bump regex-lite to 0.1.7 in codex-rs (#3010) | chores |
+
 ## 0.27.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| MCP 安定性: ミューテックスの早期解放とロック順序の問題を回避 | MCP stability: drop mutexes earlier and avoid lock ordering pitfalls. | bug-fixes |
+| チャネル信頼性: ストールを防ぐためアンバウンドチャネルに切り替え | Channel reliability: switch to unbounded channel to prevent stalls. | bug-fixes |
+| パフォーマンス/クリーンアップ: 不要な flush() 呼び出しを削除 | Performance/cleanup: remove unnecessary flush() calls. | bug-fixes |
+| CI: リリースビルドを修正、`cargo clippy` に `--profile` を指定 | CI: fix release build; specify `--profile` for `cargo clippy`. | chores |
+| Docs: より安全な Homebrew スニペット、`AGENTS.md` に `just fix -p` を推奨 | Docs: safer Homebrew snippet; suggest `just fix -p` in `AGENTS.md`. | documentation |
 
 ## 0.26.0
 
@@ -524,6 +556,13 @@
 | `~/.codex/prompts` からカスタム `/prompts` を読み込み可能に (#2696) | Custom `/prompts` loaded from `~/.codex/prompts` (#2696) | new-features |
 | Codex がローカル画像を自律的に表示できる新しい「View Image」ツールを追加 (#2723) | New "View Image" tool to let Codex agentically view local images (#2723) | new-features |
 | 解決済み設定を検査するための MCP `GetConfig` エンドポイントを追加 (#2725) | MCP `GetConfig` endpoint to inspect resolved settings (#2725) | new-features |
+| Windows での画像ペーストを修正し、バーストペースト処理を改善 (#2683) | Fix image pasting in Windows + improve burst paste handling (#2683) | bug-fixes |
+| タスク実行中のスラッシュコマンドを防止 (#2792) | Prevent slash commands during an active task (#2792) | bug-fixes |
+| サスペンド (^Z) 時のカーソル位置を修正 (#2690) | Fix cursor position when suspending (^Z) (#2690) | bug-fixes |
+| 二重行と途切れたリストマーカーを削減 (#2789) | Reduce doubled lines and hanging list markers (#2789) | bug-fixes |
+| README/ドキュメントの大規模リファクタリングとナビゲーション改善 (#2724) | Major README/docs refactor and navigation (#2724) | documentation |
+| CHANGELOG がリリースページを参照するよう変更 (#2780) | CHANGELOG now points to Releases page (#2780) | documentation |
+| VS Code 拡張機能の Issue テンプレートを追加 (#2853) | Add VS Code Extension issue template (#2853) | documentation |
 
 ## 0.25.0
 
@@ -533,6 +572,16 @@
 | TUI: トランスクリプト/差分ビューでマウスホイールによる代替スクロールに対応 (#2686) | TUI: mouse wheel alternate scrolling in transcript/diff views (#2686) | new-features |
 | TUI: Alt+Ctrl+H で前の単語を削除（Alt+Backspace と同等）に対応 (#2717) | TUI: Alt+Ctrl+H deletes the previous word (parity with Alt+Backspace) (#2717) | new-features |
 | Execution: task_started イベントにコンテキストウィンドウを含めるよう変更、ターンごとにモデルが変わる可能性に対応 (#2752) | Execution: include context window on task_started events; model may vary per turn (#2752) | new-features |
+| トランスクリプトの行折り返しをキャッシュし、長いトランスクリプトの応答性を維持 (#2739) | Cache transcript line wraps to keep long transcripts responsive (#2739) | bug-fixes |
+| ターン実行中にトランスクリプト行が差分に追加される問題を修正 (#2721) | Fix transcript lines appending to diff while a turn is running (#2721) | bug-fixes |
+| 絵文字レンダリングを改善: 適切なスペースと ⌨️ 絵文字バリアントに対応 (#2735, #2728) | Improve emoji rendering: proper spacing and ⌨️ emoji variant (#2735, #2728) | bug-fixes |
+| ESC 押下時にキューイングされたメッセージをコンポーザーに返却 (#2687) | ESC with queued messages returns them to the composer (#2687) | bug-fixes |
+| マルチバイトテキスト付近のプレースホルダーをバックスペースした際のクラッシュを防止 (#2674) | Prevent crash when backspacing placeholders near multibyte text (#2674) | bug-fixes |
+| apply_patch 時に Exec デルタを送信しないよう変更 (#2742) | Don't send Exec deltas on apply_patch (#2742) | bug-fixes |
+| git_diff_against_sha をより堅牢に（カスタムドライバーを無視、ダッシュ接頭辞ファイルに対応）(#2749) | Make git_diff_against_sha more robust (ignore custom drivers; handle dash‑prefixed files) (#2749) | bug-fixes |
+| インタラクティブ実行時のテスト負荷を軽減 (#2707) | Reduce test load when running interactively (#2707) | chores |
+| 履歴内のアシスタントメッセージの重複を排除 (#2758) | Deduplicate assistant messages in history (#2758) | bug-fixes |
+| Codex GitHub Action を一時的に削除 (#2729) | Remove the Codex GitHub Action for now (#2729) | chores |
 
 ## 0.24.0
 
@@ -543,36 +592,60 @@
 | スクロール可能なトランスクリプトモード (Ctrl+T) を追加 (#2525) | Transcript mode (Ctrl+T) with scrolling ability (#2525) | new-features |
 | 過去のメッセージから会話を編集/再開 (esc-esc) する機能を追加 (#2607) | Edit/resume conversation (esc-esc) from previous messages (#2607) | new-features |
 | 明示的な --search オプション使用時の Web 検索に対応 (#2371) | Web search when using explicit --search option (#2371) | new-features |
+| CoT をデフォルトで非表示にし、ステータスインジケーターにヘッダーを表示 (#2316) | Hide CoT by default; show headers in status indicator (#2316) | new-features |
+| ページャーで差分出力を表示（ハンクヘッダー付き）(#2568) | Show diff output in pager (+ with hunk headers) (#2568) | new-features |
+| コマンド承認 UI を簡素化 (#2708) | Simplify command approval UI (#2708) | new-features |
+| Esc/Ctrl+C の中断処理を統一 (#2661) | Unify Esc/Ctrl+C interrupt handling (#2661) | bug-fixes |
+| Windows PowerShell でのペーストを修正 (#2544) | Fix windows powershell paste (#2544) | bug-fixes |
+| 長時間実行シェルコマンド exec_command/write_stdin のサポートを追加 (#2574) | Add support for long-running shell commands exec_command/write_stdin (#2574) | new-features |
+| apply_patch の信頼性を改善 (#2646) | Improve apply_patch reliability (#2646) | bug-fixes |
+| リトライ回数に上限を設定 (#2701) | Cap retry counts (#2701) | bug-fixes |
+| MCP ツールを決定論的にソートしてキャッシュヒット率を改善 (#2611) | Improve cache hit rate by sorting MCP tools deterministically (#2611) | bug-fixes |
+| GPT-5 用の model_verbosity 設定を追加 (#2108) | Add model_verbosity config for GPT-5 (#2108) | new-features |
+| git ルートまでの全 AGENTS.md ファイルを読み込むよう変更 (#2532) | Read all AGENTS.md files up to git root (#2532) | new-features |
+| ワークツリーでの git ルート解決を修正 (#2585) | Fix git root resolution in worktrees (#2585) | bug-fixes |
+| エラーメッセージとハンドリングを改善 (#2695, #2587, #2640, #2540) | Improve error messages & handling (#2695, #2587, #2640, #2540) | bug-fixes |
 
 ## 0.23.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| TUI で /mcp コマンドに対応 (#2430)、承認を制御する /approvals スラッシュコマンドを追加 (#2474) | New commands and controls: support /mcp in TUI (#2430) and a slash command /approvals to control approvals (#2474). | new-features |
+| 実行時に推論努力とモデルを変更可能に (#2435)、GPT-5 モデルに "minimal" 努力レベルを追加 (#2326) | Reasoning controls: change reasoning effort and model at runtime (#2435) /model; add "minimal" effort for GPT‑5 models (#2326). | new-features |
+| ChatGPT 未サインイン時にログインオプションを表示 (#2440)、ChatGPT 認証トークンの自動更新に対応 (#2484) | Auth improvements: show login options when not signed in with ChatGPT (#2440) and auto‑refresh ChatGPT auth token (#2484). | bug-fixes |
+| Ghostty で Ctrl-b/Ctrl-f のフォールバックに対応 (#2427)、Ctrl+H をバックスペースとして処理 (#2412)、タブ補完後のカーソル位置を調整 (#2442)、カラー・アクセシビリティを改善 (#2401, #2421) | UI/UX polish: Ghostty Ctrl‑b/Ctrl‑f fallback (#2427), Ctrl+H as backspace (#2412), cursor position tweak after tab completion (#2442), color/accessibility updates (#2401, #2421). | bug-fixes |
+| リリースに zip アーカイブバイナリを追加 (#2438)、Windows x86_64 用 DotSlash エントリを追加 (#2361)、Rust 1.89 にアップグレード (#2465, #2467) | Distribution/infra: zip archived binaries added to releases (#2438) and DotSlash entry for Windows x86_64 (#2361); upgraded to Rust 1.89 (#2465, #2467). | chores |
 
 ## 0.22.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| ログインサーバーを Python から Rust に移行し、#2000 および #2044 の問題を改善 (#2294) | #2294 moves the login server from Python to Rust, which should help with both #2000 and #2044. | new-features |
+| Markdown ストリーミングのサポートを追加 (#2029) | #2029 adds support for markdown streaming | new-features |
+| "light" 背景使用時に差分がより読みやすくなるよう UI 表示を改善 (#2270) | #2270 improves the UI treatment of diffs so they are more readable when using a light background | new-features |
+| Ctrl+Z で TUI をサスペンド可能に (#2113) | #2113 ctrl-z can be used to suspend the TUI | new-features |
 
 ## 0.21.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| プロンプトキャッシュキーを送信してキャッシュを改善（トークン効率が向上） (#2200) | Send prompt cache key for better caching (should improve token efficiency!) (#2200) | new-features |
+| プロンプトキャッシュキーを送信してキャッシュを改善（トークン効率が向上） (#2200) | Send prompt cache key for better caching (should improve token efficiency!) (#2200) | bug-fixes |
 | 複数行コマンドを分割して可読性を向上 (#2202) | Split multiline commands to improve readability (#2202) | bug-fixes |
 | exec コマンドをパースして UI で見やすくフォーマット (#2095) | Parse exec commands and format them more nicely in the UI (#2095) | bug-fixes |
 | `applypatch` コマンドを `apply_patch` コマンド文字列として認識 (#2186) | Recognize `applypatch` command as `apply_patch` command string (#2186) | bug-fixes |
 | ツール呼び出し結果に出力切り詰めメッセージを含め、モデルが期待した完全な出力を取得できなかったことを通知 (#2183) | Include output truncation message in tool call results to tell the model when it did not get the full output from a command that it might have expected (#2183) | bug-fixes |
 | `/compact` コマンド後にフィードバックメッセージを表示し、デルタが送信されない問題を修正 (#2162) | Show feedback message after `/compact` command, fixing an issue when no deltas were sent (#2162) | bug-fixes |
-| `apply_patch` の差分プレビューを表示 (#2050) | Show diff preview for `apply_patch` (#2050) | new-features |
+| `apply_patch` の差分プレビューを表示 (#2050) | Show diff preview for `apply_patch` (#2050) | bug-fixes |
 | MCP ツール用 JSON スキーマのサニタイズを追加して内部 JsonSchema 列挙型との互換性を確保 (#1975) | Add JSON schema sanitization for MCP tools to ensure compatibility with internal JsonSchema enum (#1975) | bug-fixes |
+
 ## 0.20.0
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| @openai/codex の npm リリースが旧 TypeScript CLI ではなく Rust CLI を実行するよう変更 (#2035, #2048) | #2035 the npm release of @openai/codex now runs the Rust CLI instead of falling back to the old TypeScript CLI (TypeScript code was removed from the repo in #2048) | new-features |
+| Windows: Python プログラムを一時ファイルに書き出すことでログインロジックの問題を修正 (#2047) | Windows: fixes one class of issues with login logic by writing Python program to a temp file instead of long string arg (FYI, we are planning to replace the Python with Rust: #2047) | bug-fixes |
+| Windows: 全てのターミナルが対応していないため PopKeyboardEnhancementFlags の失敗を無視するよう変更 | Windows: ignores PopKeyboardEnhancementFlags failure since not all Windows terminals support it | bug-fixes |
+| codex login での Python 証明書の問題を修正 (#2042, #2044) | #2042 should help/fix the Python certificates issue with codex login: #2044 | bug-fixes |
 
 ## 0.19.0
 
@@ -584,7 +657,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| (変更履歴のエントリはありません) | (No changelog entries) | chores |
+| キャパシティに関するエラーメッセージの軽微な修正 (#1947) | Small fix for an error message around capacity: #1947 | bug-fixes |
 
 ## 0.15.0
 
@@ -605,7 +678,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| OpenAI の新しいオープンウェイトモデルで Codex CLI を使用するための `--oss` フラグを追加 | Introduces the `--oss` flag so Codex CLI can be used with the new open-weight models from OpenAI | chores |
+| OpenAI の新しいオープンウェイトモデルで Codex CLI を使用するための `--oss` フラグを追加 | Introduces the `--oss` flag so Codex CLI can be used with the new open-weight models from OpenAI | new-features |
 
 ## 0.12.0
 
@@ -645,8 +718,8 @@
 | 日本語 | English | Category |
 |--------|---------|----------|
 | TUI と `codex exec` でモデル応答をストリーミング表示 (#1594) | Stream model responses in TUI and `codex exec` (#1594) | new-features |
-| `ctrl-d` をコンポーザーが空の場合のみ TUI を終了するよう変更 (#1589) | Change `ctrl-d` to only exit TUI when composer is empty (#1589) | chores |
-| `~/.codex/sessions` フォルダを `YYYY/MM/DD` サブフォルダで整理し、ファイルシステムのパフォーマンスを改善 (#1596) | Reorganize `~/.codex/sessions` folder with `YYYY/MM/DD` subfolders to improve filesystem performance (#1596) | chores |
+| `ctrl-d` をコンポーザーが空の場合のみ TUI を終了するよう変更 (#1589) | Change `ctrl-d` to only exit TUI when composer is empty (#1589) | new-features |
+| `~/.codex/sessions` フォルダを `YYYY/MM/DD` サブフォルダで整理し、ファイルシステムのパフォーマンスを改善 (#1596) | Reorganize `~/.codex/sessions` folder with `YYYY/MM/DD` subfolders to improve filesystem performance (#1596) | new-features |
 | 長い MCP ツール名の処理を修正 (#1571) | Fix handling of long MCP tool names (#1571) | bug-fixes |
 | `codex exec` に `--json` フラグを追加し、JSONL 形式で stdout に出力 (#1603) | Add `--json` flag to `codex exec` for JSONL output to stdout (#1603) | new-features |
 | npm 版で Codex CLI と Node.js プロセスが同時に終了するよう改善 (#1590) | Ensure Codex CLI and Node.js processes exit together in npm version (#1590) | bug-fixes |
@@ -672,7 +745,7 @@
 |--------|---------|----------|
 | 新しい設定オプション `model_supports_reasoning_summaries` を追加 (#1524) | Added new config option: `model_supports_reasoning_summaries` (#1524) | new-features |
 | 依存関係を更新し、Rust 1.88 でビルドするように変更 (#1494) | Updated dependencies and now build with Rust 1.88 (#1494) | chores |
-| 未サポートの `/compact` への参照を削除 (#1503) | Removed reference to `/compact` as it is not supported yet (#1503) | documentation |
+| 未サポートの `/compact` への参照を削除 (#1503) | Removed reference to `/compact` as it is not supported yet (#1503) | bug-fixes |
 | npm 経由でインストール時、`process.platform === "android"` で Rust CLI を実行するよう修正 (#1488) | Fixed `process.platform === "android"` to run Rust CLI when installed via npm (#1488) | bug-fixes |
 | 生成されるシェル補完で `codex-cli` ではなく `codex` を使用するよう修正 (#1496) | Fixed generated shell completions to use `codex` instead of `codex-cli` (#1496) | bug-fixes |
 
