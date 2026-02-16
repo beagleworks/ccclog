@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.44
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 認証更新エラーを修正 | Fixed auth refresh errors | fixed |
+
 ## 2.1.42
 
 | 日本語 | English | Category |
