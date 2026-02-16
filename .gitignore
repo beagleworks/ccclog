@@ -13,6 +13,7 @@ public/og-image.png
 
 # dependencies
 node_modules/
+.pnpm-store/
 
 # logs
 npm-debug.log*
