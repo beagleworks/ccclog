@@ -121,6 +121,8 @@ const legendItems = getLegendItems(product);
   // DOM要素を取得（空データ時は検索UIが存在しないため早期リターン）
   const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
   if (!searchInput) return;
+  // null ガード通過後、ネスト関数内でも non-null として扱えるようにする
+  const input: HTMLInputElement = searchInput;
 
   const clearButton = document.getElementById('clear-search') as HTMLButtonElement;
   const searchStats = document.getElementById('search-stats') as HTMLDivElement;
@@ -310,7 +312,7 @@ const legendItems = getLegendItems(product);
     sessionStorage.setItem(STORAGE_KEY, mode);
     syncModeUI(mode);
     fuse = createFuseInstance(mode);
-    performSearch(searchInput.value);
+    performSearch(input.value);
   }
 
   function setDisplayMode(mode: DisplayMode) {
@@ -318,7 +320,7 @@ const legendItems = getLegendItems(product);
     sessionStorage.setItem(DISPLAY_STORAGE_KEY, mode);
     syncDisplayUI(mode);
     applyDisplayMode(mode);
-    updateUrlParams(searchInput.value, currentMode, currentDisplayMode);
+    updateUrlParams(input.value, currentMode, currentDisplayMode);
   }
 
   // 検索を実行
@@ -417,23 +419,23 @@ const legendItems = getLegendItems(product);
   // イベントリスナーを設定
   let debounceTimer: number;
 
-  searchInput.addEventListener('input', () => {
+  input.addEventListener('input', () => {
     clearTimeout(debounceTimer);
     debounceTimer = window.setTimeout(() => {
-      performSearch(searchInput.value);
+      performSearch(input.value);
     }, 150);
   });
 
   clearButton.addEventListener('click', () => {
-    searchInput.value = '';
+    input.value = '';
     performSearch('');
-    searchInput.focus();
+    input.focus();
   });
 
   // Escapeキーで検索をクリア
-  searchInput.addEventListener('keydown', (e) => {
+  input.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      searchInput.value = '';
+      input.value = '';
       performSearch('');
     }
   });
@@ -456,7 +458,7 @@ const legendItems = getLegendItems(product);
   const urlParams = new URLSearchParams(window.location.search);
   const initialQuery = urlParams.get('q');
   if (initialQuery) {
-    searchInput.value = initialQuery;
+    input.value = initialQuery;
     performSearch(initialQuery);
   } else {
     updateUrlParams('', currentMode, currentDisplayMode);
