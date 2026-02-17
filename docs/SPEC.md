@@ -393,32 +393,33 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 CHANGELOGファイルにエントリを書き込む際、パイプ文字（`|`）は `\|` にエスケープする。
 
 ```
-npm レジストリ  +  GitHub CHANGELOG.md
-     │                    │
-     ▼                    ▼
-         sync-versions.ts
-                 │
-                 ▼
-     CHANGELOG_{YEAR}_JA.md (新バージョン自動追記)
-                 │
-─────────────────┼─────────────────────────────────
-                 │
-CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
-         │                       │
-         ▼                       ▼
-   parse-changelog.ts    fetch-releases.ts
-         │                       │
-         └───────┬───────────────┘
-                 ▼
-         generate-data.ts [year]
-                 │
-                 ▼
-         changelog-{year}.json
-                 │
-         ▼
-   Astro SSG Build → dist/
-                       ├── index.html (2026)
-                       └── 2025/index.html
+npm レジストリ  +  GitHub CHANGELOG.md  +  GitHub Releases API(欠損時)
+     │                    │                           │
+     └────────────┬───────┴───────────────┬──────────┘
+                  ▼                       ▼
+                     sync-versions.ts
+                            │
+                            ▼
+                CHANGELOG_{YEAR}_JA.md (新バージョン自動追記)
+                            │
+────────────────────────────┼──────────────────────────────────
+                            │
+   CHANGELOG_{YEAR}_JA.md  +  npm レジストリ / GitHub Releases API
+            │                        │
+            ▼                        ▼
+     parse-changelog.ts     fetch-releases.ts
+            │                        │
+            └────────┬───────────────┘
+                     ▼
+             generate-data.ts [year]
+                     │
+                     ▼
+             changelog-{year}.json
+                     │
+                     ▼
+          Astro SSG Build → dist/
+                              ├── index.html (2026)
+                              └── 2025/index.html
 ```
 
 #### 5.1.2 Codex の補足
@@ -433,10 +434,11 @@ Codex は `content/codex/` ディレクトリから年を列挙して全年の J
 
 #### 5.2.1 処理フロー
 1. npm レジストリから `@anthropic-ai/claude-code` の全バージョン一覧と公開日を取得
-2. 当該年（現在の年、JST基準）の `CHANGELOG_{YEAR}_JA.md` から既存バージョンを抽出
-3. 未記載バージョンを特定
-4. GitHub の `CHANGELOG.md` から各バージョンの変更内容（英語）を取得
-5. 未記載バージョンを当該年のファイルに追記
+2. GitHub の `CHANGELOG.md` からバージョン一覧と各バージョンの変更内容（英語）を取得
+3. 検出対象バージョンを `npm ∪ GitHub CHANGELOG` で統合する
+4. 公開日を優先順位 `npm → GitHubタグ/Release → 補間` で解決する（§3.6.1）
+5. 当該年（現在の年、JST基準）の `CHANGELOG_{YEAR}_JA.md` から既存バージョンを抽出
+6. 当該年の未記載バージョンを特定し、当該年ファイルに追記
 
 ※ 過去年の CHANGELOG は既に整備済みのため、当該年のみを対象とする
 
