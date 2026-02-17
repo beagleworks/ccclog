@@ -92,6 +92,25 @@ interface ChangelogData {
   months: MonthGroup[];
 }
 
+/** months の差分を比較し、generatedAt と contentChanged を決定する */
+export function resolveGeneratedAt(
+  existingJson: string | null,
+  months: MonthGroup[]
+): { generatedAt: string; contentChanged: boolean } {
+  if (existingJson !== null) {
+    try {
+      const before = JSON.parse(existingJson);
+      const contentChanged = JSON.stringify(before.months) !== JSON.stringify(months);
+      if (!contentChanged && typeof before.generatedAt === 'string') {
+        return { generatedAt: before.generatedAt, contentChanged: false };
+      }
+    } catch {
+      // パース失敗時は変更ありとして扱う
+    }
+  }
+  return { generatedAt: new Date().toISOString(), contentChanged: true };
+}
+
 // ========================
 // ユーティリティ関数
 // ========================
@@ -338,31 +357,25 @@ async function main(rawArgs: string[] = process.argv.slice(2)): Promise<MainResu
   }));
 
   // 5. changelog.json を生成
-  const changelogData: ChangelogData = {
-    generatedAt: new Date().toISOString(),
-    months,
-  };
-
   if (!existsSync(dataDir)) {
     mkdirSync(dataDir, { recursive: true });
   }
 
   const jsonPath = join(dataDir, `changelog-${year}.json`);
-  const nextJson = JSON.stringify(changelogData, null, 2);
+  const existingJson = existsSync(jsonPath) ? readFileSync(jsonPath, 'utf-8') : null;
+  const { generatedAt, contentChanged } = resolveGeneratedAt(existingJson, months);
 
-  // changed 判定: generatedAt は毎回変わるため、months のみで比較
-  let contentChanged = true;
-  if (existsSync(jsonPath)) {
-    try {
-      const before = JSON.parse(readFileSync(jsonPath, 'utf-8'));
-      contentChanged = JSON.stringify(before.months) !== JSON.stringify(changelogData.months);
-    } catch {
-      // パース失敗時は変更ありとして扱う
-    }
+  const changelogData: ChangelogData = {
+    generatedAt,
+    months,
+  };
+
+  if (contentChanged) {
+    writeFileSync(jsonPath, JSON.stringify(changelogData, null, 2));
+    console.log(`📝 ${jsonPath} を生成しました\n`);
+  } else {
+    console.log(`⏭️  ${jsonPath} は変更なし（スキップ）\n`);
   }
-
-  writeFileSync(jsonPath, nextJson);
-  console.log(`📝 ${jsonPath} を生成しました\n`);
 
   console.log('✅ データ生成が完了しました！');
   return {
@@ -376,7 +389,9 @@ function pathRelativeToRoot(targetPath: string): string {
   return relative(ROOT_DIR, targetPath);
 }
 
-// 実行
+// 直接実行時のみ main() を呼ぶ（import 時の副作用防止）
+const isDirectRun = process.argv[1] === fileURLToPath(import.meta.url);
+if (isDirectRun) {
 const start = Date.now();
 main()
   .then((result) => {
@@ -410,3 +425,4 @@ main()
     });
     process.exit(1);
   });
+}

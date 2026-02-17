@@ -144,7 +144,7 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 
 ```typescript
 interface ChangelogData {
-  generatedAt: string;        // ISO 8601形式の生成日時
+  generatedAt: string;        // ISO 8601形式の生成日時（データ変更時のみ更新）
   months: MonthGroup[];
 }
 
@@ -615,7 +615,7 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 
 ※ `detect-upstream-changes.ts` は `--apply` なし（検出のみ）の場合、差分を検出しても `changed=false` を返す。
 ※ `retranslate.ts` は成功件数ベースで判定し、厳密なファイル差分判定ではない。
-※ `generate-data.ts` は `generatedAt` タイムスタンプを比較対象から除外し、実データ部分のみで判定する。
+※ `generate-data.ts` は `months` の内容のみで変更判定を行う。変更がない場合は `generatedAt` を既存値で保持し、ファイル書き込みもスキップする。既存JSONのパースに失敗した場合は再生成（`changed=true`）として扱う。
 
 ---
 
