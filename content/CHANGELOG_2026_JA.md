@@ -4,6 +4,14 @@
 
 ---
 
+## 2.1.43
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| AWSの認証リフレッシュが無限にハングする問題を3分タイムアウトの追加により修正 | Fixed AWS auth refresh hanging indefinitely by adding a 3-minute timeout | fixed |
+| `.claude/agents/` ディレクトリ内の非エージェントMarkdownファイルに対する誤警告を修正 | Fixed spurious warnings for non-agent markdown files in `.claude/agents/` directory | fixed |
+| Vertex/Bedrockで構造化出力のベータヘッダーが無条件に送信される問題を修正 | Fixed structured-outputs beta header being sent unconditionally on Vertex/Bedrock | fixed |
+
 ## 2.1.44
 
 | 日本語 | English | Category |
