@@ -16,6 +16,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
+| 深くネストされたディレクトリパスでENAMETOOLONGエラーが発生する問題を修正 | Fixed ENAMETOOLONG errors for deeply-nested directory paths | fixed |
 | 認証更新エラーを修正 | Fixed auth refresh errors | fixed |
 
 ## 2.1.42
