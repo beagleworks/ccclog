@@ -4,6 +4,16 @@
 
 ---
 
+## 0.103.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| アプリ一覧のレスポンスに`app_metadata`、ブランディング、ラベルなどの詳細情報を追加し、クライアントが追加リクエストなしでより完全なアプリカードを表示可能に。(#11706) | App listing responses now include richer app details (`app_metadata`, branding, and labels), so clients can render more complete app cards without extra requests. (#11706) | new-features |
+| コミットの共同作成者帰属を`prepare-commit-msg`フックで管理するよう変更し、`command_attribution`による上書き（デフォルトラベル、カスタムラベル、無効化）に対応。(#11617) | Commit co-author attribution now uses a Codex-managed `prepare-commit-msg` hook, with `command_attribution` override support (default label, custom label, or disable). (#11617) | new-features |
+| `remote_models`フィーチャーフラグを削除し、無効時のフォールバックモデルメタデータを排除することでモデル選択の信頼性とパフォーマンスを改善。(#11699) | Removed the `remote_models` feature flag to prevent fallback model metadata when it was disabled, improving model selection reliability and performance. (#11699) | bug-fixes |
+| Rust依存関係（`clap`、`env_logger`、`arc-swap`）の更新およびBazelロック状態の定期メンテナンス。(#11888, #11889, #11890, #12032) | Updated Rust dependencies (`clap`, `env_logger`, `arc-swap`) and refreshed Bazel lock state as routine maintenance. (#11888, #11889, #11890, #12032) | chores |
+| CIの破損を受け、Rustツールチェーンの`1.93.1`へのバージョンアップをリバート。(#11886, #12035) | Reverted the Rust toolchain bump to `1.93.1` after CI breakage. (#11886, #12035) | chores |
+
 ## 0.102.0
 
 | 日本語 | English | Category |
