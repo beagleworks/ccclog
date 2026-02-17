@@ -47,6 +47,7 @@
 | スプラッシュスクリーンを追加 (#8270) | Add splash screen (#8270) | new-features |
 | 制約ベースの新しいローディング戦略に移行 (#8251) | Migrate to new constraint-based loading strategy (#8251) | chores |
 | cloud: cloud exec でデフォルトを現在のブランチに変更 (#7460) | cloud: default to current branch in cloud exec (#7460) | chores |
+
 ## 0.74.0
 
 | 日本語 | English | Category |
@@ -69,6 +70,26 @@
 | 無効な Windows ファイル名を回避するため Option<()> スキーマ生成をスキップするよう修正 (#7969) | Fix: Skip Option<()> schema generation to avoid invalid Windows filenames (#7969) | bug-fixes |
 | 並列ツール呼び出しを修正 (#7956) | fix parallel tool calls (#7956) | bug-fixes |
 | codex resume --all のドキュメントを明確化（CWD カラムとフィルタリング）(#8264) | docs: clarify codex resume --all (CWD column & filtering) (#8264) | documentation |
+| 不正なスキルの読み込みをフェイルオープンに変更 (#8243) | Make loading malformed skills fail-open (#8243) | new-features |
+| "Team" を "Business" に変更し Education を追加 (#8221) | Change "Team" to "Business" and add Education (#8221) | new-features |
+| 読み取り ACL 設定の速度と信頼性を改善 (#8216) | speed and reliability improvements for setting reads ACLs (#8216) | new-features |
+| list_models をノンブロッキングに変更 (#8198) | feat: make list_models non-blocking (#8198) | new-features |
+| 静的ファイルからモデルを読み込むよう変更 (#8153) | Load models from static file (#8153) | new-features |
+| [app-server] 新しい RawResponseItem v2 イベントを追加 (#8152) | [app-server] add new RawResponseItem v2 event (#8152) | new-features |
+| unified_exec を shell_command にフォールバック (#8075) | feat: fallback unified_exec to shell_command (#8075) | new-features |
+| 最終ユーザーターンで圧縮しないよう変更 (#8060) | feat: do not compact on last user turn (#8060) | new-features |
+| ターン終了時に unified_exec を閉じるよう変更 (#8052) | feat: close unified_exec at end of turn (#8052) | new-features |
+| approval_policy の値を制約 (#7778) | feat: Constrain values for approval_policy (#7778) | new-features |
+| elevated sandbox セットアップのバグ修正とパフォーマンス改善 (#8094) | bug fixes and perf improvements for elevated sandbox setup (#8094) | bug-fixes |
+| shell_command のフリーフォームタイムアウト出力を修正 (#7791) | chore(shell_command) fix freeform timeout output (#7791) | bug-fixes |
+| listMcpServerStatus をノンブロッキングに更新 (#8151) | chore: update listMcpServerStatus to be non-blocking (#8151) | chores |
+| user_agent ヘッダーを追加 (#8149) | Add user_agent header (#8149) | chores |
+| npm パッケージに新しい Windows バイナリを含める (#8140) | include new windows binaries in npm package (#8140) | chores |
+| Node 24 互換性のため GitHub Actions をアップグレード (#8102) | Upgrade GitHub Actions for Node 24 compatibility (#8102) | chores |
+| config.md の gpt-5.2 タイポを修正 (#8079) | docs: fix gpt-5.2 typo in config.md (#8079) | documentation |
+| 編集時のコメントを永続化 (#7931) | chore: persist comments in edit (#7931) | chores |
+| exec-server: エラーの追加コンテキストを提供 (#7935) | exec-server: additional context for errors (#7935) | bug-fixes |
+
 ## 0.73.0
 
 | 日本語 | English | Category |
@@ -105,6 +126,14 @@
 | ReasoningSummary::None の場合に推論サマリーを省略 (#7845) | Omit reasoning summary when ReasoningSummary::None (#7845) | bug-fixes |
 | オンボーディングの ApiKeyEntry 状態で 'q' キーによる終了を無効化 (#7869) | Fix: don't quit on 'q' in onboarding ApiKeyEntry state (#7869) | bug-fixes |
 | RMCP クライアント設定ガイダンスを更新 (#7895) | Update RMCP client config guidance (#7895) | documentation |
+| 1P 認証をサポート (#7945) | support 1p (#7945) | new-features |
+| モデルマネージャーを追加 (#7937) | chores: models manager (#7937) | chores |
+| モデル情報を更新 (#7853) | Update Model Info (#7853) | chores |
+| 移行画面を動的に変更 (#7896) | Make migration screen dynamic (#7896) | new-features |
+| "chat" wire_api の非推奨通知を追加 (#7897) | Added deprecation notice for "chat" wire_api (#7897) | new-features |
+| policy/.codexpolicy を rules/.rules にリネーム (#7888) | fix: policy/.codexpolicy -> rules/.rules (#7888) | bug-fixes |
+| apply-patch の CRLF 行末保持をリバート (#7903) | Revert "fix(apply-patch): preserve CRLF line endings on Windows" (#7903) | bug-fixes |
+
 ## 0.71.0
 
 | 日本語 | English | Category |
@@ -210,6 +239,14 @@
 | コントリビューションガイドラインと PR テンプレートを更新し、PR ノートにバグレポートへのリンクを要求 (#6332) | Updated contributing guidelines and PR template to request link to bug report in PR notes (#6332) | documentation |
 | ネットワークが有効な場合に証明書操作を許可するようサンドボックスを拡張 (#5980) | widen sandbox to allow certificate ops when network is enabled (#5980) | new-features |
 | listConversations により多くのセッションメタデータを追加 (#6337) | Add more session metadata to listConversations (#6337) | new-features |
+| nix ビルドを修正 (#6230) | Fix nix build (#6230) | bug-fixes |
+| rmcp を 0.8.4 にアップグレード (#6234) | Upgrade rmcp to 0.8.4 (#6234) | chores |
+| rmcp を 0.8.5 に更新 (#6261) | Update rmcp to 0.8.5 (#6261) | chores |
+| CI の断続的なテスト失敗を修正 (#6282) | Fixes intermittent test failures in CI (#6282) | chores |
+| 明確化のためリネーム (#6319) | chore: rename for clarity (#6319) | chores |
+| 文法ミスを修正 (#6326) | chore: fix grammar mistakes (#6326) | chores |
+| 関連テストを app-server/tests/suite/v2 に移動 (#6289) | chore: move relevant tests to app-server/tests/suite/v2 (#6289) | chores |
+
 ## 0.55.0
 
 | 日本語 | English | Category |
