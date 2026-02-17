@@ -4,6 +4,26 @@
 
 ---
 
+## 2.1.45
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Claude Sonnet 4.6 のサポートを追加 | Added support for Claude Sonnet 4.6 | added |
+| `--add-dir` ディレクトリからの `enabledPlugins` および `extraKnownMarketplaces` の読み込みに対応 | Added support for reading `enabledPlugins` and `extraKnownMarketplaces` from `--add-dir` directories | added |
+| スピナーのヒントをカスタマイズする `spinnerTipsOverride` 設定を追加（`tips` にカスタム文字列の配列を設定可能、`excludeDefault: true` で組み込みヒントを非表示にして独自ヒントのみ表示） | Added `spinnerTipsOverride` setting to customize spinner tips — configure `tips` with an array of custom tip strings, and optionally set `excludeDefault: true` to show only your custom tips instead of the built-in ones | added |
+| レート制限の状態更新（使用率・リセット時刻・超過情報を含む）をコンシューマーが受け取れるよう、`SDKRateLimitInfo` および `SDKRateLimitEvent` 型を SDK に追加 | Added `SDKRateLimitInfo` and `SDKRateLimitEvent` types to the SDK, enabling consumers to receive rate limit status updates including utilization, reset times, and overage information | added |
+| tmux で生成されたプロセスへ API プロバイダーの環境変数を伝播することで、Bedrock・Vertex・Foundry 上での Agent Teams チームメイトの失敗を修正 | Fixed Agent Teams teammates failing on Bedrock, Vertex, and Foundry by propagating API provider environment variables to tmux-spawned processes (anthropics/claude-code#23561) | fixed |
+| ユーザーごとの正しい一時ディレクトリを使用することで、macOS での一時ファイル書き込み時に発生するサンドボックスの「operation not permitted」エラーを修正 | Fixed sandbox "operation not permitted" errors when writing temporary files on macOS by using the correct per-user temp directory (anthropics/claude-code#21654) | fixed |
+| 完了時に `ReferenceError` でクラッシュする Task ツール（バックグラウンドエージェント）を修正 | Fixed Task tool (backgrounded agents) crashing with a `ReferenceError` on completion (anthropics/claude-code#22087) | fixed |
+| 入力欄に画像を貼り付けた際に Enter キーでオートコンプリートの候補が確定されない問題を修正 | Fixed autocomplete suggestions not being accepted on Enter when images are pasted in the input | fixed |
+| サブエージェントから呼び出されたスキルがコンパクション後にメインセッションのコンテキストへ誤って表示される問題を修正 | Fixed skills invoked by subagents incorrectly appearing in main session context after compaction | fixed |
+| 起動のたびに `.claude.json.backup` ファイルが過剰に蓄積する問題を修正 | Fixed excessive `.claude.json.backup` files accumulating on every startup | fixed |
+| プラグインが提供するコマンド・エージェント・フックが、再起動なしでインストール直後から利用できない問題を修正 | Fixed plugin-provided commands, agents, and hooks not being available immediately after installation without requiring a restart | fixed |
+| 統計キャッシュ用のセッション履歴の先行読み込みを廃止し、起動パフォーマンスを改善 | Improved startup performance by removing eager loading of session history for stats caching | improved |
+| 大量出力を生成するシェルコマンドのメモリ使用量を改善（コマンド出力サイズに応じた RSS の際限ない増加を解消） | Improved memory usage for shell commands that produce large output — RSS no longer grows unboundedly with command output size | improved |
+| 折りたたまれた読み取り／検索グループに、アクティブ中はサマリー行の下に処理中のファイルまたは検索パターンを表示するよう改善 | Improved collapsed read/search groups to show the current file or search pattern being processed beneath the summary line while active | improved |
+| [VSCode] 権限の保存先選択（プロジェクト／ユーザー／セッション）がセッションをまたいで維持されるよう改善 | [VSCode] Improved permission destination choice (project/user/session) to persist across sessions | improved |
+
 ## 2.1.43
 
 | 日本語 | English | Category |

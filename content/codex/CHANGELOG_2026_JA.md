@@ -4,6 +4,26 @@
 
 ---
 
+## 0.102.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| TUIでの権限履歴の表示改善やサンドボックス読み取りアクセス付与のスラッシュコマンド追加など、権限フローを統一化。(#11633, #11512, #11550, #11639) | Added a more unified permissions flow, including clearer permissions history in the TUI and a slash command to grant sandbox read access when directories are blocked. (#11633, #11512, #11550, #11639) | new-features |
+| 承認プロンプトにホスト/プロトコルの詳細情報を表示する、構造化されたネットワーク承認処理を導入。(#11672, #11674) | Introduced structured network approval handling, with richer host/protocol context shown directly in approval prompts. (#11672, #11674) | new-features |
+| セッション完了シグナルを明示的に送信するようアプリサーバーのファジーファイル検索を拡張し、クライアントがローディング表示を確実に停止可能に。(#10268, #11773) | Expanded app-server fuzzy file search with explicit session-complete signaling so clients can stop loading indicators reliably. (#10268, #11773) | new-features |
+| 新しいマルチエージェント命名/設定への移行を含む、設定によるカスタマイズ可能なマルチエージェントロールを追加。(#11917, #11982, #11939, #11918) | Added customizable multi-agent roles via config, including migration toward the new multi-agent naming/config surface. (#11917, #11982, #11939, #11918) | new-features |
+| クライアントがモデル再ルーティングイベントを検知・表示できるよう `model/rerouted` 通知を追加。(#12001) | Added a `model/rerouted` notification so clients can detect and render model reroute events explicitly. (#12001) | new-features |
+| TUIでの再開・巻き戻しや履歴リプレイ時にリモート画像添付が正しく保持されない問題を修正。(#10590) | Fixed remote image attachments so they persist correctly across resume/backtrack and history replay in the TUI. (#10590) | bug-fixes |
+| スクリーンリーダー利用者向けのアニメーション制御が一貫して適用されないTUIアクセシビリティのリグレッションを修正。(#11860) | Fixed a TUI accessibility regression where animation gating for screen reader users was not consistently respected. (#11860) | bug-fixes |
+| アクティブなインメモリスレッドへの再参加とスレッド再開の不正ケースの処理を改善するよう、アプリサーバーのスレッド再開動作を修正。(#11756) | Fixed app-server thread resume behavior to correctly rejoin active in-memory threads and tighten invalid resume cases. (#11756) | bug-fixes |
+| `model/list` の出力がサーバー側で意図せずフィルタリングされないよう、完全なモデルデータと可視性メタデータを返すよう修正。(#11793) | Fixed `model/list` output to return full model data plus visibility metadata, avoiding unintended server-side filtering. (#11793) | bug-fixes |
+| リセット時のハング、インフライトのツールコール競合、`view_image` のパニックパスなど、複数の `js_repl` 安定性問題を修正。(#11932, #11922, #11800, #11796) | Fixed several `js_repl` stability issues, including reset hangs, in-flight tool-call races, and a `view_image` panic path. (#11932, #11922, #11800, #11796) | bug-fixes |
+| メンション解析およびアプリ一覧の読み込み/フィルタリング動作におけるアプリ連携のエッジケースを修正。(#11894, #11518, #11697) | Fixed app integration edge cases in mention parsing and app list loading/filtering behavior. (#11894, #11518, #11697) | bug-fixes |
+| ユーザーに見えるTUIの変更にスナップショットカバレッジを義務付けるよう、コントリビューターガイドを更新。(#10669) | Updated contributor guidance to require snapshot coverage for user-visible TUI changes. (#10669) | documentation |
+| CodexアプリおよびMCPコマンド利用に関するドキュメント/ヘルプテキストを更新。(#11926, #11813) | Updated docs/help text around Codex app and MCP command usage. (#11926, #11813) | documentation |
+| `just log --search` および `just log --compact` モードを追加し、開発者向けログツールを改善。(#11995, #11994) | Improved developer log tooling with new `just log --search` and `just log --compact` modes. (#11995, #11994) | chores |
+| ベンダー管理の `rg` を更新し、依存関係のずれを減らすためBazel/Cargoロックファイルの同期チェックを強化。(#12007, #11790) | Updated vendored `rg` and tightened Bazel/Cargo lockfile sync checks to reduce dependency drift. (#12007, #11790) | chores |
+
 ## 0.101.0
 
 | 日本語 | English | Category |
