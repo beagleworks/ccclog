@@ -24,6 +24,13 @@
 | 折りたたまれた読み取り／検索グループに、アクティブ中はサマリー行の下に処理中のファイルまたは検索パターンを表示するよう改善 | Improved collapsed read/search groups to show the current file or search pattern being processed beneath the summary line while active | improved |
 | [VSCode] 権限の保存先選択（プロジェクト／ユーザー／セッション）がセッションをまたいで維持されるよう改善 | [VSCode] Improved permission destination choice (project/user/session) to persist across sessions | improved |
 
+## 2.1.44
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 深くネストされたディレクトリパスでENAMETOOLONGエラーが発生する問題を修正 | Fixed ENAMETOOLONG errors for deeply-nested directory paths | fixed |
+| 認証更新エラーを修正 | Fixed auth refresh errors | fixed |
+
 ## 2.1.43
 
 | 日本語 | English | Category |
@@ -31,13 +38,6 @@
 | AWSの認証リフレッシュが無限にハングする問題を3分タイムアウトの追加により修正 | Fixed AWS auth refresh hanging indefinitely by adding a 3-minute timeout | fixed |
 | `.claude/agents/` ディレクトリ内の非エージェントMarkdownファイルに対する誤警告を修正 | Fixed spurious warnings for non-agent markdown files in `.claude/agents/` directory | fixed |
 | Vertex/Bedrockで構造化出力のベータヘッダーが無条件に送信される問題を修正 | Fixed structured-outputs beta header being sent unconditionally on Vertex/Bedrock | fixed |
-
-## 2.1.44
-
-| 日本語 | English | Category |
-|--------|---------|----------|
-| 深くネストされたディレクトリパスでENAMETOOLONGエラーが発生する問題を修正 | Fixed ENAMETOOLONG errors for deeply-nested directory paths | fixed |
-| 認証更新エラーを修正 | Fixed auth refresh errors | fixed |
 
 ## 2.1.42
 
