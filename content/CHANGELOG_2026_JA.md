@@ -4,6 +4,86 @@
 
 ---
 
+## 2.1.47
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| FileWriteTool の行数カウントを修正し、`trimEnd()` による意図的な末尾の空白行の削除を防止 | Fixed FileWriteTool line counting to preserve intentional trailing blank lines instead of stripping them with `trimEnd()`. | fixed |
+| `os.EOL`（`\r\n`）が表示コードに引き起こすWindowsターミナルのレンダリングバグを修正 — 行数が常に1と表示される問題を解消し、正しい値を表示 | Fixed Windows terminal rendering bugs caused by `os.EOL` (`\r\n`) in display code — line counts now show correct values instead of always showing 1 on Windows. | fixed |
+| VS Code のプランプレビューを改善: Claude の反復処理に合わせた自動更新、レビュー準備完了時のみコメントを有効化、拒否時も Claude が修正できるようプレビューを維持 | Improved VS Code plan preview: auto-updates as Claude iterates, enables commenting only when the plan is ready for review, and keeps the preview open when rejecting so Claude can revise. | improved |
+| Windowsの`\r\n`改行コードにより、マークダウン出力の太字・色付きテキストが誤った文字にずれるバグを修正 | Fixed a bug where bold and colored text in markdown output could shift to the wrong characters on Windows due to `\r\n` line endings. | fixed |
+| 会話に多数のPDFドキュメントが含まれる場合にコンパクションAPIへの送信前にドキュメントブロックを画像とともに除去することでコンパクションが失敗する問題を修正 | Fixed compaction failing when conversation contains many PDF documents by stripping document blocks alongside images before sending to the compaction API (anthropics/claude-code#26188) | fixed |
+| APIストリームバッファ、エージェントコンテキスト、スキル状態を使用後に解放することで、長時間セッションのメモリ使用量を改善 | Improved memory usage in long-running sessions by releasing API stream buffers, agent context, and skill state after use | improved |
+| SessionStart フックの実行を遅延させることで起動パフォーマンスを改善し、インタラクティブになるまでの時間を約500ms短縮 | Improved startup performance by deferring SessionStart hook execution, reducing time-to-interactive by ~500ms. | improved |
+| MSYS2またはCygwinシェル使用時にWindowsでbashツールの出力が無言で破棄される問題を修正 | Fixed an issue where bash tool output was silently discarded on Windows when using MSYS2 or Cygwin shells. | fixed |
+| `@` ファイルメンションのパフォーマンス改善 - 起動時のインデックス事前ウォームアップとバックグラウンド更新付きセッションキャッシュにより、ファイル候補の表示が高速化 | Improved performance of `@` file mentions - file suggestions now appear faster by pre-warming the index on startup and using session-based caching with background refresh. | improved |
+| タスク完了後にエージェントタスクのメッセージ履歴をトリミングすることでメモリ使用量を改善 | Improved memory usage by trimming agent task message history after tasks complete | improved |
+| 進捗更新における O(n²) のメッセージ蓄積を解消し、長時間エージェントセッション中のメモリ使用量を改善 | Improved memory usage during long agent sessions by eliminating O(n²) message accumulation in progress updates | improved |
+| bashパーミッション分類器において返されたマッチの説明が実際の入力ルールと対応していることを検証するよう修正し、ハルシネーションによる誤った権限付与を防止 | Fixed the bash permission classifier to validate that returned match descriptions correspond to actual input rules, preventing hallucinated descriptions from incorrectly granting permissions | fixed |
+| NFS/FUSEファイルシステムでinodeが0と報告される場合にユーザー定義エージェントが1ファイルしか読み込まれない問題を修正 | Fixed user-defined agents only loading one file on NFS/FUSE filesystems that report zero inodes (anthropics/claude-code#26044) | fixed |
+| プラグインエージェントスキルが完全修飾プラグイン名でなく短縮名で参照された際にサイレントに読み込み失敗する問題を修正 | Fixed plugin agent skills silently failing to load when referenced by bare name instead of fully-qualified plugin name (anthropics/claude-code#25834) | fixed |
+| 折りたたまれたツール結果の検索パターンを引用符付きで表示するように変更 | Search patterns in collapsed tool results are now displayed in quotes for clarity | improved |
+| Windows: CWD追跡の一時ファイルが削除されず無限に蓄積される問題を修正 | Windows: Fixed CWD tracking temp files never being cleaned up, causing them to accumulate indefinitely (anthropics/claude-code#17600) | fixed |
+| バックグラウンドエージェントの全終了キーをESC二重押しから`ctrl+f`に変更。ESCでメインスレッドをキャンセルしてもバックグラウンドエージェントは継続実行されるよう動作を変更 | Use `ctrl+f` to kill all background agents instead of double-pressing ESC. Background agents now continue running when you press ESC to cancel the main thread, giving you more control over agent lifecycle. | changed |
+| 並行エージェントセッションでストリーミングコンテンツブロックの混在によるメッセージマージ失敗が原因で発生していたAPI 400エラー（"thinking blocks cannot be modified"）を修正 | Fixed API 400 errors ("thinking blocks cannot be modified") that occurred in sessions with concurrent agents, caused by interleaved streaming content blocks preventing proper message merging. | fixed |
+| チームメイトナビゲーションをShift+UpとShift+Downの両方ではなく、Shift+Down（折り返しあり）のみに簡略化 | Simplified teammate navigation to use only Shift+Down (with wrapping) instead of both Shift+Up and Shift+Down. | changed |
+| 単一ファイルの書き込み/編集エラーが並列ファイル操作全体を中断する問題を修正。独立したファイル変更は他の操作が失敗しても完了するよう対応。 | Fixed an issue where a single file write/edit error would abort all other parallel file write/edit operations. Independent file mutations now complete even when a sibling fails. | fixed |
+| StopおよびSubagentStopフックの入力に`last_assistant_message`フィールドを追加、トランスクリプトファイルを解析せずにアシスタントの最終レスポンステキストへのアクセスに対応 | Added `last_assistant_message` field to Stop and SubagentStop hook inputs, providing the final assistant response text so hooks can access it without parsing transcript files. | added |
+| `/rename` で設定したカスタムセッションタイトルが会話再開後に失われる問題を修正 | Fixed custom session titles set via `/rename` being lost after resuming a conversation (anthropics/claude-code#23610) | fixed |
+| 狭いターミナルで折りたたまれた読み込み/検索ヒントテキストがはみ出す問題を、先頭からの切り詰めで修正 | Fixed collapsed read/search hint text overflowing on narrow terminals by truncating from the start. | fixed |
+| バックスラッシュ改行による継続行（`\`で複数行に分割された長いコマンド）を含むbashコマンドが不正な空引数を生成し、コマンド実行が破壊される可能性がある問題を修正 | Fixed an issue where bash commands with backslash-newline continuation lines (e.g., long commands split across multiple lines with `\`) would produce spurious empty arguments, potentially breaking command execution. | fixed |
+| 多数のユーザースキルがインストールされている場合に、組み込みスラッシュコマンド（`/help`、`/model`、`/compact` など）がオートコンプリートのドロップダウンに表示されない問題を修正 | Fixed built-in slash commands (`/help`, `/model`, `/compact`, etc.) being hidden from the autocomplete dropdown when many user skills are installed (anthropics/claude-code#22020) | fixed |
+| 遅延読み込み後にMCPサーバーがMCP管理ダイアログに表示されない問題を修正 | Fixed MCP servers not appearing in the MCP Management Dialog after deferred loading | fixed |
+| `/clear` コマンド実行後にステータスバーにセッション名が残り続ける問題を修正 | Fixed session name persisting in status bar after `/clear` command (anthropics/claude-code#26082) | fixed |
+| SKILL.mdのフロントマターで`name`や`description`に数値のみ（例: `name: 3000`）が指定された場合にクラッシュする問題を修正。値を適切に文字列へ変換するよう対応 | Fixed crash when a skill's `name` or `description` in SKILL.md frontmatter is a bare number (e.g., `name: 3000`) — the value is now properly coerced to a string (anthropics/claude-code#25837) | fixed |
+| `/resume` で最初のメッセージが16KBを超えるか配列形式のコンテンツを使用する場合にセッションが暗黙的に破棄される問題を修正 | Fixed /resume silently dropping sessions when the first message exceeds 16KB or uses array-format content (anthropics/claude-code#25721) | fixed |
+| 設定可能な複数行入力用の `chat:newline` キーバインディングアクションを追加 | Added `chat:newline` keybinding action for configurable multi-line input (anthropics/claude-code#26075) | added |
+| ステータスラインJSONの`workspace`セクションに`added_dirs`を追加し、`/add-dir`で追加されたディレクトリを外部スクリプトに公開 | Added `added_dirs` to the statusline JSON `workspace` section, exposing directories added via `/add-dir` to external scripts (anthropics/claude-code#26096) | added |
+| `claude doctor` が mise および asdf 管理のインストールをネイティブインストールとして誤分類する問題を修正 | Fixed `claude doctor` misclassifying mise and asdf-managed installations as native installs (anthropics/claude-code#26033) | fixed |
+| サンドボックスコマンドで zsh ヒアドキュメントが "read-only file system" エラーで失敗する問題を修正 | Fixed zsh heredoc failing with "read-only file system" error in sandboxed commands (anthropics/claude-code#25990) | fixed |
+| エージェントの進行状況インジケーターがツール使用数を過大に表示する問題を修正 | Fixed agent progress indicator showing inflated tool use count (anthropics/claude-code#26023) | fixed |
+| WSL2環境でWindowsがBMP形式で画像をコピーした際に画像の貼り付けが機能しない問題を修正 | Fixed image pasting not working on WSL2 systems where Windows copies images as BMP format (anthropics/claude-code#25935) | fixed |
+| バックグラウンドエージェントの結果がエージェントの最終回答ではなく生のトランスクリプトデータを返す問題を修正 | Fixed background agent results returning raw transcript data instead of the agent's final answer (anthropics/claude-code#26012) | fixed |
+| WarpターミナルがShift+Enterをネイティブサポートしているにもかかわらず、セットアップを誤って促す問題を修正 | Fixed Warp terminal incorrectly prompting for Shift+Enter setup when it supports it natively (anthropics/claude-code#25957) | fixed |
+| TUIでCJK全角文字がタイムスタンプとレイアウト要素のずれを引き起こす問題を修正 | Fixed CJK wide characters causing misaligned timestamps and layout elements in the TUI (anthropics/claude-code#26084) | fixed |
+| `.claude/agents/*.md` 内のカスタムエージェントの `model` フィールドがチームメイト起動時に無視される問題を修正 | Fixed custom agent `model` field in `.claude/agents/*.md` being ignored when spawning team teammates (anthropics/claude-code#26064) | fixed |
+| コンテキスト圧縮後にプランモードが失われ、モデルが計画モードから実装モードに切り替わる問題を修正 | Fixed plan mode being lost after context compaction, causing the model to switch from planning to implementation mode (anthropics/claude-code#26061) | fixed |
+| `settings.json`で`alwaysThinkingEnabled: true`を設定してもBedrockおよびVertexプロバイダーでthinkingモードが有効にならない問題を修正 | Fixed `alwaysThinkingEnabled: true` in settings.json not enabling thinking mode on Bedrock and Vertex providers (anthropics/claude-code#26074) | fixed |
+| ヘッドレス/SDKモードで`tool_decision` OTelテレメトリイベントが送信されない不具合を修正 | Fixed `tool_decision` OTel telemetry event not being emitted in headless/SDK mode (anthropics/claude-code#26059) | fixed |
+| コンテキスト圧縮後にセッション名が失われる問題を修正（リネームされたセッションが圧縮後もカスタムタイトルを保持するように） | Fixed session name being lost after context compaction — renamed sessions now preserve their custom title through compaction (anthropics/claude-code#26121) | fixed |
+| 再開ピッカーの初期セッション表示数を10から50に増加し、セッション検索を高速化 | Increased initial session count in resume picker from 10 to 50 for faster session discovery (anthropics/claude-code#26123) | improved |
+| Windows: ドライブレターの大文字小文字が異なる場合のワークツリーセッションマッチングを修正 | Windows: fixed worktree session matching when drive letter casing differs (anthropics/claude-code#26123) | fixed |
+| `/resume <session-id>` で最初のメッセージが16KBを超えるセッションが見つからない不具合を修正 | Fixed `/resume <session-id>` failing to find sessions whose first message exceeds 16KB (anthropics/claude-code#25920) | fixed |
+| 複数行のbashコマンドで「常に許可」を使用した際に無効な権限パターンが生成され設定が破損する問題を修正 | Fixed "Always allow" on multiline bash commands creating invalid permission patterns that corrupt settings (anthropics/claude-code#25909) | fixed |
+| SKILL.mdのフロントマターで`argument-hint`にYAMLシーケンス構文（例: `[topic: foo \| bar]`）を使用した際にReactがクラッシュする問題（エラー #31）を修正、値を適切に文字列へ変換するよう対応 | Fixed React crash (error #31) when a skill's `argument-hint` in SKILL.md frontmatter uses YAML sequence syntax (e.g., `[topic: foo \| bar]`) — the value is now properly coerced to a string (anthropics/claude-code#25826) | fixed |
+| ウェブ検索を使用したセッションで `/fork` を使用した際のクラッシュを修正 — トランスクリプトのデシリアライズ時に検索結果に含まれる null エントリを適切に処理 | Fixed crash when using `/fork` on sessions that used web search — null entries in search results from transcript deserialization are now handled gracefully (anthropics/claude-code#25811) | fixed |
+| 読み取り専用のgitコマンドがmacOSのFSEventsファイルウォッチャーループを引き起こす問題を`--no-optional-locks`フラグの追加により修正 | Fixed read-only git commands triggering FSEvents file watcher loops on macOS by adding --no-optional-locks flag (anthropics/claude-code#25750) | fixed |
+| git worktreeから実行した際にカスタムエージェントとスキルが検出されない問題を修正（メインリポジトリのプロジェクトレベルの`.claude/agents/`と`.claude/skills/`も参照対象に追加） | Fixed custom agents and skills not being discovered when running from a git worktree — project-level `.claude/agents/` and `.claude/skills/` from the main repository are now included (anthropics/claude-code#25816) | fixed |
+| ネストされたClaudeセッション内で`claude doctor`や`claude plugin validate`などの非インタラクティブなサブコマンドがブロックされる問題を修正 | Fixed non-interactive subcommands like `claude doctor` and `claude plugin validate` being blocked inside nested Claude sessions (anthropics/claude-code#25803) | fixed |
+| Windows: パス間でドライブレターの大文字・小文字が異なる場合に同じCLAUDE.mdが二重読み込みされる問題を修正 | Windows: Fixed the same CLAUDE.md file being loaded twice when drive letter casing differs between paths (anthropics/claude-code#25756) | fixed |
+| マークダウンのインラインコードスパンが誤ってbashコマンドとして解析される問題を修正 | Fixed inline code spans in markdown being incorrectly parsed as bash commands (anthropics/claude-code#25792) | fixed |
+| 設定のカスタム `spinnerVerbs` がチームメイトのスピナーに反映されない問題を修正 | Fixed teammate spinners not respecting custom spinnerVerbs from settings (anthropics/claude-code#25748) | fixed |
+| コマンドが自身の作業ディレクトリを削除した後、シェルコマンドが永続的に失敗する問題を修正 | Fixed shell commands permanently failing after a command deletes its own working directory (anthropics/claude-code#26136) | fixed |
+| Windowsでcmd.exeの代わりにGit Bashを使用するよう修正し、フック（PreToolUse、PostToolUse）がサイレントに実行失敗していた問題を解消 | Fixed hooks (PreToolUse, PostToolUse) silently failing to execute on Windows by using Git Bash instead of cmd.exe (anthropics/claude-code#25981) | fixed |
+| LSPの`findReferences`などの位置ベース操作がgitignore対象ファイル（`node_modules/`、`venv/`など）の結果を返す問題を修正 | Fixed LSP `findReferences` and other location-based operations returning results from gitignored files (e.g., `node_modules/`, `venv/`) (anthropics/claude-code#26051) | fixed |
+| 設定バックアップファイルをホームディレクトリのルートから `~/.claude/backups/` へ移動 | Moved config backup files from home directory root to `~/.claude/backups/` to reduce home directory clutter (anthropics/claude-code#26130) | changed |
+| 最初のプロンプトが大きい場合（16KB超）に /resume リストからセッションが消える問題を修正 | Fixed sessions with large first prompts (>16KB) disappearing from the /resume list (anthropics/claude-code#26140) | fixed |
+| ダブルアンダースコアプレフィックスを持つシェル関数（例: `__git_ps1`）がシェルセッションをまたいで保持されない問題を修正 | Fixed shell functions with double-underscore prefixes (e.g., `__git_ps1`) not being preserved across shell sessions (anthropics/claude-code#25824) | fixed |
+| トークン受信前にスピナーが「0トークン」カウンターを表示する問題を修正 | Fixed spinner showing "0 tokens" counter before any tokens have been received (anthropics/claude-code#26105) | fixed |
+| VSCode: AskUserQuestion ダイアログが開いている間、会話メッセージが暗く表示される問題を修正 | VSCode: Fixed conversation messages appearing dimmed while the AskUserQuestion dialog is open (anthropics/claude-code#26078) | fixed |
+| git worktreeでリモートURL解決がメインリポジトリの設定ではなくworktree固有のgitdirを参照することによりバックグラウンドタスクが失敗する問題を修正 | Fixed background tasks failing in git worktrees due to remote URL resolution reading from worktree-specific gitdir instead of the main repository config (anthropics/claude-code#26065) | fixed |
+| Windows/Git Bash ターミナルで右Altキー押下時に入力フィールドへ `[25~` エスケープシーケンスが残留する不具合を修正 | Fixed Right Alt key leaving visible `[25~` escape sequence residue in the input field on Windows/Git Bash terminals (anthropics/claude-code#25943) | fixed |
+| `/rename` コマンドがデフォルトでターミナルタブのタイトルを更新するように変更 | The `/rename` command now updates the terminal tab title by default (anthropics/claude-code#25789) | changed |
+| EditツールがUnicodeの曲引用符（\u201c\u201d \u2018\u2019）をストレート引用符に無言で置換・破損していた問題を修正 | Fixed Edit tool silently corrupting Unicode curly quotes (\u201c\u201d \u2018\u2019) by replacing them with straight quotes when making edits (anthropics/claude-code#26141) | fixed |
+| OSC 8 ハイパーリンクのテキストが複数のターミナル行に折り返される際、最初の行のみクリック可能だった問題を修正 | Fixed OSC 8 hyperlinks only being clickable on the first line when link text wraps across multiple terminal lines. | fixed |
+
+## 2.1.46
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| macOSでターミナル切断後に残存するCCプロセスの問題を修正 | Fixed orphaned CC processes after terminal disconnect on macOS | fixed |
+| Claude Codeでclaude.aiのMCPコネクタを使用するサポートを追加 | Added support for using claude.ai MCP connectors in Claude Code | added |
+
 ## 2.1.45
 
 | 日本語 | English | Category |
