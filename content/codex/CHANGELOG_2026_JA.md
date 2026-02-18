@@ -4,6 +4,19 @@
 
 ---
 
+## 0.104.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| ネットワークプロキシにおけるWebSocketプロキシ用の `WS_PROXY`/`WSS_PROXY` 環境変数（小文字バリアントを含む）のサポートを追加 | Added `WS_PROXY`/`WSS_PROXY` environment support (including lowercase variants) for websocket proxying in the network proxy. (#11784) | new-features |
+| App-server v2 がスレッドのアーカイブ・アーカイブ解除時に通知を送出するようになり、クライアントがポーリング不要で反応可能に | App-server v2 now emits notifications when threads are archived or unarchived, enabling clients to react without polling. (#12030) | new-features |
+| Protocol/core が単一シェルコマンド実行フロー内での複数承認に対応するため、コマンド承認に個別の承認IDを保持するよう変更 | Protocol/core now carry distinct approval IDs for command approvals to support multiple approvals within a single shell command execution flow. (#12051) | new-features |
+| resume/fork フロー中の cwd 変更プロンプトで `Ctrl+C`/`Ctrl+D` が暗黙的な選択をせずにクリーンに終了するよう修正 | `Ctrl+C`/`Ctrl+D` now cleanly exits the cwd-change prompt during resume/fork flows instead of implicitly selecting an option. (#12040) | bug-fixes |
+| レスポンスボディのモデルスラッグではなくレスポンスヘッダーのモデル（およびWebSocketトップレベルイベント）を参照することで、安全性チェックの誤ダウングレード動作を低減 | Reduced false-positive safety-check downgrade behavior by relying on the response header model (and websocket top-level events) rather than the response body model slug. (#12061) | bug-fixes |
+| WebSocketプロキシ設定、スレッドアーカイブ・アーカイブ解除通知、コマンド承認IDの配線に関するドキュメントおよびスキーマを更新 | Updated docs and schemas to cover websocket proxy configuration, new thread archive/unarchive notifications, and the command approval ID plumbing. (#11784, #12030, #12051) | documentation |
+| 公開済みバージョンへの `npm publish` を試みた際でも Rust リリースワークフローが正常に動作するよう改善 | Made the Rust release workflow resilient to `npm publish` attempts for an already-published version. (#12044) | chores |
+| リモートコンパクションテストのモックを標準化し、デフォルトの本番相当の動作に合わせて関連スナップショットを更新 | Standardized remote compaction test mocking and refreshed related snapshots to align with the default production-shaped behavior. (#12050) | chores |
+
 ## 0.103.0
 
 | 日本語 | English | Category |
