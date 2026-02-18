@@ -199,6 +199,12 @@ npm および GitHub タグで取得できないバージョン（未公開・�
 - 前方（新しいバージョン）と後方（古いバージョン）を探索
 - 両方見つかった場合は新しい方の日付を使用
 
+**generate-data.ts の最終フォールバック（Claude Code / Codex 共通）**
+- `generate-data.ts` は上記戦略で構築済みの `releaseMap` を第一優先で使用する
+- `releaseMap` にも存在しない版は、既存JSONに同一版があればその `releaseDate` を再利用する
+- それでも欠損する場合のみ固定値 `1970-01-01` を使用する
+- 実行時刻ベースのフォールバックは使用しない（生成の決定性を維持）
+
 #### 3.6.2 Codex
 
 | 優先度 | ソース | 説明 |
@@ -454,8 +460,12 @@ Codex は `content/codex/` ディレクトリから年を列挙して全年の J
 ※ API キー未設定時やエラー時は「翻訳済みテキスト」が「（翻訳待ち）」、カテゴリは `other` になる
 
 #### 5.2.3 挿入位置
-- 新しいバージョンはファイルの先頭（ヘッダー直後）に追加
-- バージョン番号の降順を維持
+- 処理対象年ファイルを `prefix + versionSections + suffix` として扱う
+- `prefix`: 先頭から最初の `## X.Y.Z` 直前まで（ヘッダを含む）
+- `versionSections`: 各バージョンセクション本体（`## X.Y.Z` から次のバージョン直前まで）
+- `suffix`: 最後のバージョンセクション以降の任意テキスト（存在する場合は保持）
+- 新規版追記時は `versionSections` に追加後、全バージョンを semver 降順に再整列して再構築する
+- 新規版が0件でも、既存の版順崩れを検出した場合は再整列を適用する
 
 ### 5.3 sync-codex-versions.ts（Codex）
 
@@ -607,7 +617,7 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 
 | スクリプト | `changed=true` の条件 |
 |-----------|------------------------|
-| `sync-versions.ts` | CHANGELOG ファイルへの書き込みが成功（`changedFiles.length > 0`） |
+| `sync-versions.ts` | CHANGELOG ファイルへの書き込みが成功（新規追加または版順正規化。`changedFiles.length > 0`） |
 | `sync-codex-versions.ts` | CHANGELOG ファイルへの書き込みが成功（`changedFiles.length > 0`） |
 | `detect-upstream-changes.ts` | `--apply` 指定時かつファイルへの書き込みが成功（`changedFiles.length > 0`） |
 | `retranslate.ts` | 翻訳成功件数 > 0（`successCount > 0`） |
@@ -665,7 +675,7 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 2. `pnpm run sync-upstream` で上流 CHANGELOG 差分を検出・反映
 3. `pnpm run sync-codex-versions` で Codex の新バージョンを検出
 4. 変更があれば `CHANGELOG_{YEAR}_JA.md` に自動追記
-5. 変更があれば自動コミット・プッシュ（`chore: 新バージョンを自動追加`）
+5. 変更があれば自動コミット・プッシュ（`chore: CHANGELOG を自動更新`）
 6. 各同期スクリプトの report JSON を Step Summary に集約して可視化
 
 `push` イベントでは同期処理を行わず、`pnpm build` + GitHub Pages デプロイのみを実行する。

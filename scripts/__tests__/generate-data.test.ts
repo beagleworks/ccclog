@@ -2,7 +2,12 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { resolveGeneratedAt } from '../generate-data';
+import {
+  DEFAULT_RELEASE_DATE,
+  buildExistingReleaseDateMap,
+  resolveGeneratedAt,
+  resolveReleaseDate,
+} from '../generate-data';
 
 describe('resolveGeneratedAt', () => {
   beforeEach(() => {
@@ -111,5 +116,60 @@ describe('書き込みスキップ（I/O 分岐）', () => {
     expect(contentChanged).toBe(true);
     expect(afterJson.generatedAt).toBe('2026-02-17T10:00:00.000Z');
     expect(afterJson.months).toHaveLength(2);
+  });
+});
+
+describe('releaseDate 解決', () => {
+  it('releaseMap の日付が最優先される', () => {
+    const releaseMap = new Map<string, { version: string; releaseDate: string }>([
+      ['2.1.44', { version: '2.1.44', releaseDate: '2026-02-17' }],
+    ]);
+    const existingMap = new Map<string, string>([['2.1.44', '2026-02-16']]);
+
+    const resolved = resolveReleaseDate('2.1.44', releaseMap, existingMap);
+    expect(resolved).toBe('2026-02-17');
+  });
+
+  it('releaseMap 欠損時は既存JSONの日付を再利用する', () => {
+    const releaseMap = new Map<string, { version: string; releaseDate: string }>();
+    const existingMap = new Map<string, string>([['2.1.44', '2026-02-16']]);
+
+    const resolved = resolveReleaseDate('2.1.44', releaseMap, existingMap);
+    expect(resolved).toBe('2026-02-16');
+  });
+
+  it('どちらも欠損時は固定フォールバック日を返す', () => {
+    const releaseMap = new Map<string, { version: string; releaseDate: string }>();
+    const existingMap = new Map<string, string>();
+
+    const resolved = resolveReleaseDate('2.1.44', releaseMap, existingMap);
+    expect(resolved).toBe(DEFAULT_RELEASE_DATE);
+  });
+});
+
+describe('buildExistingReleaseDateMap', () => {
+  it('既存JSONから version -> releaseDate を抽出する', () => {
+    const existingJson = JSON.stringify({
+      generatedAt: '2026-02-14T00:00:00.000Z',
+      months: [
+        {
+          key: '2026-02',
+          label: '2026年2月',
+          versions: [
+            { version: '2.1.44', releaseDate: '2026-02-17' },
+            { version: '2.1.43', releaseDate: '2026-02-16' },
+          ],
+        },
+      ],
+    });
+
+    const map = buildExistingReleaseDateMap(existingJson);
+    expect(map.get('2.1.44')).toBe('2026-02-17');
+    expect(map.get('2.1.43')).toBe('2026-02-16');
+  });
+
+  it('壊れたJSONでは空Mapを返す', () => {
+    const map = buildExistingReleaseDateMap('{ invalid');
+    expect(map.size).toBe(0);
   });
 });

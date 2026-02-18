@@ -327,8 +327,105 @@ export function generateVersionSection(
   return lines.join('\n');
 }
 
+export interface ParsedChangelogSections {
+  prefix: string;
+  sections: Map<string, string>;
+  suffix: string;
+}
+
+function extractVersionFromSection(section: string): string | null {
+  const match = section.match(/^## (\d+\.\d+\.\d+)\s*$/m);
+  return match?.[1] ?? null;
+}
+
 /**
- * CHANGELOG_{YEAR}_JA.md に新バージョンを追記
+ * CHANGELOG 本文を prefix / versionSections / suffix に分解する
+ * suffix は最後の version section 以降の任意テキスト（存在する場合）
+ */
+export function splitChangelogContent(content: string): ParsedChangelogSections | null {
+  const lines = content.split('\n');
+  const versionHeaderRegex = /^## (\d+\.\d+\.\d+)\s*$/;
+  const headerIndexes: number[] = [];
+  const versions: string[] = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const match = lines[i].match(versionHeaderRegex);
+    if (!match) continue;
+    headerIndexes.push(i);
+    versions.push(match[1]);
+  }
+
+  if (headerIndexes.length === 0) {
+    return null;
+  }
+
+  const prefix = lines.slice(0, headerIndexes[0]).join('\n');
+  const sections = new Map<string, string>();
+  let suffix = '';
+
+  for (let i = 0; i < headerIndexes.length; i++) {
+    const start = headerIndexes[i];
+    const end = i + 1 < headerIndexes.length ? headerIndexes[i + 1] : lines.length;
+    let sectionEnd = end;
+
+    // 最終セクションのみ suffix を分離。
+    // 前提: 各 version セクションは見出し + テーブル行（'|' 開始）のみで構成される。
+    // この前提が崩れて本文テキスト行が入る場合、その行以降は suffix として扱われる。
+    if (i === headerIndexes.length - 1) {
+      for (let cursor = start + 1; cursor < end; cursor++) {
+        const line = lines[cursor];
+        if (line.trim() === '') continue;
+        if (line.startsWith('|')) continue;
+        sectionEnd = cursor;
+        suffix = lines.slice(cursor, end).join('\n');
+        break;
+      }
+    }
+
+    const sectionText = lines.slice(start, sectionEnd).join('\n').trimEnd();
+    sections.set(versions[i], sectionText);
+  }
+
+  return { prefix, sections, suffix };
+}
+
+function buildChangelogContent(prefix: string, sortedSections: string[], suffix: string): string {
+  const prefixPart = prefix.trimEnd();
+  const sectionsPart = sortedSections.map((section) => section.trimEnd()).join('\n\n');
+  let content = `${prefixPart}\n\n${sectionsPart}`;
+
+  if (suffix.trim().length > 0) {
+    content = `${content}\n\n${suffix.trimStart()}`;
+  }
+
+  return content.endsWith('\n') ? content : `${content}\n`;
+}
+
+/**
+ * 既存セクションと新規セクションをマージし、semver降順に正規化した本文を返す
+ */
+export function normalizeAndMergeParsedSections(
+  parsed: ParsedChangelogSections,
+  newSections: string[]
+): string {
+  const merged = new Map(parsed.sections);
+
+  for (const section of newSections) {
+    const version = extractVersionFromSection(section);
+    if (!version) continue;
+    merged.set(version, section.trimEnd());
+  }
+
+  const sortedVersions = sortVersionsDescending([...merged.keys()]);
+  const sortedSections = sortedVersions
+    .map((version) => merged.get(version))
+    .filter((section): section is string => typeof section === 'string');
+
+  return buildChangelogContent(parsed.prefix, sortedSections, parsed.suffix);
+}
+
+/**
+ * CHANGELOG_{YEAR}_JA.md を更新（新規追加 + 版順正規化）
  */
 export function appendToChangelog(year: number, sections: string[]): string | null {
   const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${year}_JA.md`);
@@ -339,22 +436,24 @@ export function appendToChangelog(year: number, sections: string[]): string | nu
   }
 
   const content = fs.readFileSync(filePath, 'utf-8');
-
-  // ヘッダー部分（---で区切られた部分まで）を検出
-  const headerEndIndex = content.indexOf('\n---\n');
-  if (headerEndIndex === -1) {
-    console.warn(`  警告: ${filePath} のヘッダー区切りが見つかりません。`);
+  const parsed = splitChangelogContent(content);
+  if (!parsed) {
+    console.warn(`  警告: ${filePath} に version セクションが見つかりません。`);
     return null;
   }
 
-  // ヘッダー直後に新セクションを挿入
-  const header = content.substring(0, headerEndIndex + 5); // "---\n" を含む
-  const body = content.substring(headerEndIndex + 5);
+  const newContent = normalizeAndMergeParsedSections(parsed, sections);
+  if (newContent === content) {
+    return null;
+  }
 
-  const newContent = header + '\n' + sections.join('\n') + body;
   fs.writeFileSync(filePath, newContent, 'utf-8');
 
-  console.log(`  ${filePath} に ${sections.length} バージョンを追加しました`);
+  if (sections.length > 0) {
+    console.log(`  ${filePath} を更新しました（${sections.length} バージョン追加 + 版順正規化）`);
+  } else {
+    console.log(`  ${filePath} を更新しました（版順正規化）`);
+  }
   return filePath;
 }
 
@@ -419,80 +518,78 @@ export async function main(rawArgs: string[]): Promise<{ result: MainResult; rep
       }
     }
 
-    if (missingVersions.length === 0) {
-      console.log('  未記載バージョンはありません');
-      continue;
-    }
-
-    console.log(`  未記載バージョン: ${missingVersions.length}件`);
-    for (const info of missingVersions) {
-      const dateLabel = info.publishDate ?? '日付不明';
-      console.log(`    - v${info.version} (${dateLabel}) [${info.source}]`);
-    }
-
-    // バージョンを降順にソート
-    const sortedVersions = sortVersionsDescending(
-      missingVersions.map((v) => v.version)
-    );
-
-    // 各バージョンのセクションを生成
     const sections: string[] = [];
     let npmOnlySkippedCount = 0;
-    for (const version of sortedVersions) {
-      const entries = githubChangelog.get(version);
-      const state = classifyUpstreamEntries(entries);
-      if (state === 'missing-section') {
-        const warning = `[upstream_missing_section] v${version} は GitHub CHANGELOG.md にセクションが存在しないためスキップ`;
-        console.log(`  警告: ${warning}`);
-        warnings.push(warning);
-        if (versionCandidates.get(version)?.source === 'npm') {
-          npmOnlySkippedCount++;
+
+    if (missingVersions.length === 0) {
+      console.log('  未記載バージョンはありません（版順正規化のみ確認）');
+    } else {
+      console.log(`  未記載バージョン: ${missingVersions.length}件`);
+      for (const info of missingVersions) {
+        const dateLabel = info.publishDate ?? '日付不明';
+        console.log(`    - v${info.version} (${dateLabel}) [${info.source}]`);
+      }
+
+      // バージョンを降順にソート
+      const sortedVersions = sortVersionsDescending(
+        missingVersions.map((v) => v.version)
+      );
+
+      // 各バージョンのセクションを生成
+      for (const version of sortedVersions) {
+        const entries = githubChangelog.get(version);
+        const state = classifyUpstreamEntries(entries);
+        if (state === 'missing-section') {
+          const warning = `[upstream_missing_section] v${version} は GitHub CHANGELOG.md にセクションが存在しないためスキップ`;
+          console.log(`  警告: ${warning}`);
+          warnings.push(warning);
+          if (versionCandidates.get(version)?.source === 'npm') {
+            npmOnlySkippedCount++;
+          }
+          continue;
         }
-        continue;
-      }
 
-      if (state === 'empty-section') {
-        const warning = `[upstream_empty_section] v${version} は GitHub CHANGELOG.md にセクションはあるがエントリが0件のためスキップ`;
-        console.log(`  警告: ${warning}`);
-        warnings.push(warning);
-        continue;
-      }
+        if (state === 'empty-section') {
+          const warning = `[upstream_empty_section] v${version} は GitHub CHANGELOG.md にセクションはあるがエントリが0件のためスキップ`;
+          console.log(`  警告: ${warning}`);
+          warnings.push(warning);
+          continue;
+        }
 
-      if (versionCandidates.get(version)?.source === 'github-changelog') {
-        console.log(
-          `  [missing_in_npm_but_in_upstream] v${version} は npm 未掲載だが上流 CHANGELOG 掲載のため追加対象`
-        );
-      }
+        if (versionCandidates.get(version)?.source === 'github-changelog') {
+          console.log(
+            `  [missing_in_npm_but_in_upstream] v${version} は npm 未掲載だが上流 CHANGELOG 掲載のため追加対象`
+          );
+        }
 
-      if (!entries) {
-        const warning = `[internal_invariant] v${version} の entries が未定義です`;
-        console.log(`  警告: ${warning}`);
-        warnings.push(warning);
-        continue;
-      }
+        if (!entries) {
+          const warning = `[internal_invariant] v${version} の entries が未定義です`;
+          console.log(`  警告: ${warning}`);
+          warnings.push(warning);
+          continue;
+        }
 
-      // 翻訳+分類を試行
-      console.log(`  v${version} を翻訳中...`);
-      const translations = translateAndClassifyWithFallback(entries, 'Claude Code');
-      if (translations) {
-        console.log(`  v${version} の翻訳完了`);
-        translatedEntries += translations.length;
-      }
+        // 翻訳+分類を試行
+        console.log(`  v${version} を翻訳中...`);
+        const translations = translateAndClassifyWithFallback(entries, 'Claude Code');
+        if (translations) {
+          console.log(`  v${version} の翻訳完了`);
+          translatedEntries += translations.length;
+        }
 
-      sections.push(generateVersionSection(version, entries, translations));
-      totalAdded++;
+        sections.push(generateVersionSection(version, entries, translations));
+        totalAdded++;
+      }
     }
 
     if (npmOnlySkippedCount > 0) {
       console.log(`  npm-only スキップ: ${npmOnlySkippedCount}件`);
     }
 
-    // CHANGELOG に追記
-    if (sections.length > 0) {
-      const changedFile = appendToChangelog(year, sections);
-      if (changedFile) {
-        changedFiles.push(path.relative(process.cwd(), changedFile));
-      }
+    // CHANGELOG に反映（新規追加 + 版順正規化）
+    const changedFile = appendToChangelog(year, sections);
+    if (changedFile) {
+      changedFiles.push(path.relative(process.cwd(), changedFile));
     }
   }
 

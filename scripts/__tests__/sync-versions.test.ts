@@ -3,7 +3,9 @@ import {
   buildVersionCandidates,
   classifyUpstreamEntries,
   generateVersionSection,
+  normalizeAndMergeParsedSections,
   resolveVersionDates,
+  splitChangelogContent,
   sortVersionsDescending,
   type VersionInfo,
 } from '../sync-versions';
@@ -201,5 +203,75 @@ describe('sortVersionsDescending', () => {
 
     expect(sorted).toEqual(['2.1.44', '2.1.43', '2.1.42']);
     expect(original).toEqual(['2.1.42', '2.1.44', '2.1.43']);
+  });
+});
+
+describe('changelog section normalization', () => {
+  it('splitChangelogContent は suffix を分離して保持する', () => {
+    const content = `# Claude Code 変更履歴 (2026年)
+
+---
+
+## 2.1.43
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 既存 | Existing 43 | fixed |
+
+## 2.1.42
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 既存 | Existing 42 | fixed |
+
+*このファイルは上流CHANGELOGを元に生成されました。*
+`;
+
+    const parsed = splitChangelogContent(content);
+    expect(parsed).not.toBeNull();
+    expect(parsed?.sections.size).toBe(2);
+    expect(parsed?.suffix.trim()).toBe('*このファイルは上流CHANGELOGを元に生成されました。*');
+  });
+
+  it('normalizeAndMergeParsedSections は semver降順で再整列し suffix を保持する', () => {
+    const content = `# Claude Code 変更履歴 (2026年)
+
+---
+
+## 2.1.43
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 既存 | Existing 43 | fixed |
+
+## 2.1.44
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 既存 | Existing 44 | fixed |
+
+*footer note*
+`;
+    const parsed = splitChangelogContent(content);
+    expect(parsed).not.toBeNull();
+
+    const newSection = `## 2.1.42
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 追加 | Added 42 | added |
+`;
+
+    const normalized = normalizeAndMergeParsedSections(parsed!, [newSection]);
+    const idx44 = normalized.indexOf('## 2.1.44');
+    const idx43 = normalized.indexOf('## 2.1.43');
+    const idx42 = normalized.indexOf('## 2.1.42');
+
+    expect(idx44).toBeGreaterThan(-1);
+    expect(idx43).toBeGreaterThan(-1);
+    expect(idx42).toBeGreaterThan(-1);
+    expect(idx44).toBeLessThan(idx43);
+    expect(idx43).toBeLessThan(idx42);
+    expect(normalized).toContain('*footer note*');
   });
 });

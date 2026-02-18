@@ -92,6 +92,8 @@ interface ChangelogData {
   months: MonthGroup[];
 }
 
+export const DEFAULT_RELEASE_DATE = '1970-01-01';
+
 /** months の差分を比較し、generatedAt と contentChanged を決定する */
 export function resolveGeneratedAt(
   existingJson: string | null,
@@ -109,6 +111,60 @@ export function resolveGeneratedAt(
     }
   }
   return { generatedAt: new Date().toISOString(), contentChanged: true };
+}
+
+type ExistingJsonShape = {
+  months?: Array<{
+    versions?: Array<{
+      version?: string;
+      releaseDate?: string;
+    }>;
+  }>;
+};
+
+/**
+ * 既存JSONから version -> releaseDate のマップを作成する
+ */
+export function buildExistingReleaseDateMap(existingJson: string | null): Map<string, string> {
+  const map = new Map<string, string>();
+  if (existingJson === null) {
+    return map;
+  }
+
+  try {
+    const parsed = JSON.parse(existingJson) as ExistingJsonShape;
+    if (!Array.isArray(parsed.months)) {
+      return map;
+    }
+
+    for (const month of parsed.months) {
+      if (!Array.isArray(month.versions)) continue;
+      for (const version of month.versions) {
+        if (typeof version.version !== 'string') continue;
+        if (typeof version.releaseDate !== 'string') continue;
+        map.set(version.version, version.releaseDate);
+      }
+    }
+  } catch {
+    // パース失敗時は空Mapを返す
+  }
+
+  return map;
+}
+
+/**
+ * releaseDate の最終解決（releaseMap -> 既存JSON -> 固定値）
+ */
+export function resolveReleaseDate(
+  version: string,
+  releaseMap: Map<string, { version: string; releaseDate: string }>,
+  existingReleaseDates: Map<string, string>
+): string {
+  return (
+    releaseMap.get(version)?.releaseDate ??
+    existingReleaseDates.get(version) ??
+    DEFAULT_RELEASE_DATE
+  );
 }
 
 // ========================
@@ -298,6 +354,10 @@ async function main(rawArgs: string[] = process.argv.slice(2)): Promise<MainResu
   // パス決定（サブディレクトリがある場合はそれを付与）
   const contentDir = join(ROOT_DIR, 'content', config.contentSubdir);
   const dataDir = join(ROOT_DIR, 'src', 'data', config.dataSubdir);
+  const jsonPath = join(dataDir, `changelog-${year}.json`);
+  const existingJson = existsSync(jsonPath) ? readFileSync(jsonPath, 'utf-8') : null;
+  const existingReleaseDates = buildExistingReleaseDateMap(existingJson);
+
   // 1. CHANGELOGファイルを読み込み・パース
   const changelogPath = join(contentDir, `CHANGELOG_${year}_JA.md`);
   if (!existsSync(changelogPath)) {
@@ -327,7 +387,11 @@ async function main(rawArgs: string[] = process.argv.slice(2)): Promise<MainResu
 
   // 3. バージョン情報にリリース日を追加
   const versions: Version[] = parsedVersions.map((pv) => {
-    const releaseDate = releaseMap.get(pv.version)?.releaseDate || new Date().toISOString().split('T')[0];
+    const releaseDate = resolveReleaseDate(
+      pv.version,
+      releaseMap,
+      existingReleaseDates
+    );
     return {
       version: pv.version,
       releaseDate,
@@ -361,8 +425,6 @@ async function main(rawArgs: string[] = process.argv.slice(2)): Promise<MainResu
     mkdirSync(dataDir, { recursive: true });
   }
 
-  const jsonPath = join(dataDir, `changelog-${year}.json`);
-  const existingJson = existsSync(jsonPath) ? readFileSync(jsonPath, 'utf-8') : null;
   const { generatedAt, contentChanged } = resolveGeneratedAt(existingJson, months);
 
   const changelogData: ChangelogData = {

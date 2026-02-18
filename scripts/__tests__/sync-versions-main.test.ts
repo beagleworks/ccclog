@@ -191,10 +191,10 @@ describe('main()', () => {
   });
 
   it('未記載バージョンがない場合は changed=false', async () => {
-    // 2.1.43 も既存に追加
+    // 2.1.43 も既存に追加（版順は 2.1.44 -> 2.1.43 -> 2.1.42 で正しい）
     const contentWithAll = LOCAL_CHANGELOG.replace(
-      '## 2.1.44',
-      '## 2.1.43\n\n| 日本語 | English | Category |\n|--------|---------|----------|\n| 既存 | Existing | other |\n\n## 2.1.44'
+      '## 2.1.42',
+      '## 2.1.43\n\n| 日本語 | English | Category |\n|--------|---------|----------|\n| 既存 | Existing | other |\n\n## 2.1.42'
     );
     fs.writeFileSync(
       path.join(tmpDir, 'content', 'CHANGELOG_2026_JA.md'),
@@ -207,5 +207,28 @@ describe('main()', () => {
     // 2.1.40 は npm-only でスキップされるので追加なし
     expect(result.addedVersions).toBe(0);
     expect(result.changed).toBe(false);
+  });
+
+  it('未記載0件でも版順崩れがあれば changed=true で正規化される', async () => {
+    const outOfOrder = LOCAL_CHANGELOG.replace(
+      '## 2.1.44',
+      '## 2.1.43\n\n| 日本語 | English | Category |\n|--------|---------|----------|\n| 既存 | Existing | other |\n\n## 2.1.44'
+    );
+    fs.writeFileSync(
+      path.join(tmpDir, 'content', 'CHANGELOG_2026_JA.md'),
+      outOfOrder,
+      'utf-8'
+    );
+
+    const { result } = await main([]);
+
+    expect(result.addedVersions).toBe(0);
+    expect(result.changed).toBe(true);
+
+    const written = fs.readFileSync(
+      path.join(tmpDir, 'content', 'CHANGELOG_2026_JA.md'),
+      'utf-8'
+    );
+    expect(written.indexOf('## 2.1.44')).toBeLessThan(written.indexOf('## 2.1.43'));
   });
 });
