@@ -90,7 +90,8 @@ pnpm install
 | コマンド | 説明 |
 |---------|------|
 | `pnpm dev` | 開発サーバー起動（http://localhost:4321） |
-| `pnpm build` | データ生成 + 静的サイトビルド |
+| `pnpm build` | データ生成 + OGP画像生成 + 静的サイトビルド（ローカル向け） |
+| `pnpm build:ci` | OGP画像生成 + 静的サイトビルド（データ再生成なし、CI向け） |
 | `pnpm preview` | ビルド結果のプレビュー |
 | `pnpm generate` | 全プロダクトのデータ生成（JSON） |
 | `pnpm sync-versions` | Claude Code の新バージョン検出・追記 |
@@ -101,6 +102,12 @@ pnpm install
 
 `retranslate` の `--retranslate-all` オプションは廃止されました。
 
+### CI 運用メモ
+
+- 定期実行（`schedule`）/ 手動実行（`workflow_dispatch`）では、`sync-*` 実行後に `pnpm generate` を実行し、`content/**/*.md` と `src/data/**/*.json` を同一コミットで反映します。
+- `push` では同期を行わず、`pnpm build:ci` によるビルドとデプロイのみを実行します。
+- bot 自動コミット（`github-actions[bot]`）は push ビルド/デプロイを起動しないように制御しています。
+
 ### プロジェクト構成
 
 ```
@@ -109,11 +116,12 @@ ccclog/
 │   ├── CHANGELOG_2026_JA.md     # Claude Code
 │   ├── CHANGELOG_2025_JA.md
 │   └── codex/                   # Codex
+│       ├── CHANGELOG_2025_JA.md
 │       └── CHANGELOG_2026_JA.md
 ├── scripts/                     # データ生成スクリプト
 ├── src/
 │   ├── components/              # Astroコンポーネント
-│   ├── data/                    # 生成されるJSONデータ
+│   ├── data/                    # 生成・Git追跡されるJSONデータ
 │   │   ├── changelog-*.json     # Claude Code
 │   │   └── codex/               # Codex
 │   ├── layouts/                 # レイアウト
