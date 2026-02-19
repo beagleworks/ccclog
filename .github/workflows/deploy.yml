@@ -89,6 +89,9 @@ jobs:
           pnpm run retranslate -- --report-file .ci-reports/retranslate-claude.json
           pnpm run retranslate -- --product codex --report-file .ci-reports/retranslate-codex.json
 
+      - name: Generate changelog data JSON
+        run: pnpm generate
+
       - name: Summarize sync reports
         if: always()
         run: |
@@ -142,28 +145,28 @@ jobs:
           }
           NODE
 
-      - name: Detect changelog updates
+      - name: Detect changelog/data updates
         id: detect_changes
         run: |
-          if [ -n "$(git status --porcelain -- content/CHANGELOG_*.md content/codex/CHANGELOG_*.md)" ]; then
+          if [ -n "$(git status --porcelain -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/**/*.json')" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "Changelog updates detected"
+            echo "Changelog/data updates detected"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No changelog updates"
+            echo "No changelog/data updates"
           fi
 
-      - name: Commit changelog updates
+      - name: Commit changelog/data updates
         if: steps.detect_changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add content/CHANGELOG_*.md content/codex/CHANGELOG_*.md
+          git add -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/**/*.json'
           git commit -m "chore: CHANGELOG を自動更新"
           git push
 
   build_push:
-    if: github.repository == 'beagleworks/ccclog' && github.event_name == 'push'
+    if: github.repository == 'beagleworks/ccclog' && github.event_name == 'push' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -186,7 +189,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm build
+        run: pnpm run build:ci
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -220,7 +223,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm build
+        run: pnpm run build:ci
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -231,7 +234,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    if: github.repository == 'beagleworks/ccclog' && github.event_name == 'push'
+    if: github.repository == 'beagleworks/ccclog' && github.event_name == 'push' && github.actor != 'github-actions[bot]'
     needs: build_push
     runs-on: ubuntu-latest
     permissions:

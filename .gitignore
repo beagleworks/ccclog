@@ -4,10 +4,6 @@ dist/
 # generated types
 .astro/
 
-# generated data (ビルド時に生成されるため)
-src/data/changelog*.json
-src/data/codex/changelog*.json
-
 # generated OGP image (ビルド時に生成されるため)
 public/og-image.png
 

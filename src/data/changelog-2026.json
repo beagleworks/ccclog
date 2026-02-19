@@ -1,0 +1,2397 @@
+{
+  "generatedAt": "2026-02-19T00:41:05.822Z",
+  "months": [
+    {
+      "key": "2026-02",
+      "label": "2026年2月",
+      "versions": [
+        {
+          "version": "2.1.47",
+          "releaseDate": "2026-02-19",
+          "releaseDateDisplay": "2026年2月19日",
+          "entries": [
+            {
+              "ja": "FileWriteTool の行数カウントを修正し、`trimEnd()` による意図的な末尾の空白行の削除を防止",
+              "en": "Fixed FileWriteTool line counting to preserve intentional trailing blank lines instead of stripping them with `trimEnd()`.",
+              "category": "fixed"
+            },
+            {
+              "ja": "`os.EOL`（`\\r\\n`）が表示コードに引き起こすWindowsターミナルのレンダリングバグを修正 — 行数が常に1と表示される問題を解消し、正しい値を表示",
+              "en": "Fixed Windows terminal rendering bugs caused by `os.EOL` (`\\r\\n`) in display code — line counts now show correct values instead of always showing 1 on Windows.",
+              "category": "fixed"
+            },
+            {
+              "ja": "VS Code のプランプレビューを改善: Claude の反復処理に合わせた自動更新、レビュー準備完了時のみコメントを有効化、拒否時も Claude が修正できるようプレビューを維持",
+              "en": "Improved VS Code plan preview: auto-updates as Claude iterates, enables commenting only when the plan is ready for review, and keeps the preview open when rejecting so Claude can revise.",
+              "category": "improved"
+            },
+            {
+              "ja": "Windowsの`\\r\\n`改行コードにより、マークダウン出力の太字・色付きテキストが誤った文字にずれるバグを修正",
+              "en": "Fixed a bug where bold and colored text in markdown output could shift to the wrong characters on Windows due to `\\r\\n` line endings.",
+              "category": "fixed"
+            },
+            {
+              "ja": "会話に多数のPDFドキュメントが含まれる場合にコンパクションAPIへの送信前にドキュメントブロックを画像とともに除去することでコンパクションが失敗する問題を修正",
+              "en": "Fixed compaction failing when conversation contains many PDF documents by stripping document blocks alongside images before sending to the compaction API (anthropics/claude-code#26188)",
+              "category": "fixed"
+            },
+            {
+              "ja": "APIストリームバッファ、エージェントコンテキスト、スキル状態を使用後に解放することで、長時間セッションのメモリ使用量を改善",
+              "en": "Improved memory usage in long-running sessions by releasing API stream buffers, agent context, and skill state after use",
+              "category": "improved"
+            },
+            {
+              "ja": "SessionStart フックの実行を遅延させることで起動パフォーマンスを改善し、インタラクティブになるまでの時間を約500ms短縮",
+              "en": "Improved startup performance by deferring SessionStart hook execution, reducing time-to-interactive by ~500ms.",
+              "category": "improved"
+            },
+            {
+              "ja": "MSYS2またはCygwinシェル使用時にWindowsでbashツールの出力が無言で破棄される問題を修正",
+              "en": "Fixed an issue where bash tool output was silently discarded on Windows when using MSYS2 or Cygwin shells.",
+              "category": "fixed"
+            },
+            {
+              "ja": "`@` ファイルメンションのパフォーマンス改善 - 起動時のインデックス事前ウォームアップとバックグラウンド更新付きセッションキャッシュにより、ファイル候補の表示が高速化",
+              "en": "Improved performance of `@` file mentions - file suggestions now appear faster by pre-warming the index on startup and using session-based caching with background refresh.",
+              "category": "improved"
+            },
+            {
+              "ja": "タスク完了後にエージェントタスクのメッセージ履歴をトリミングすることでメモリ使用量を改善",
+              "en": "Improved memory usage by trimming agent task message history after tasks complete",
+              "category": "improved"
+            },
+            {
+              "ja": "進捗更新における O(n²) のメッセージ蓄積を解消し、長時間エージェントセッション中のメモリ使用量を改善",
+              "en": "Improved memory usage during long agent sessions by eliminating O(n²) message accumulation in progress updates",
+              "category": "improved"
+            },
+            {
+              "ja": "bashパーミッション分類器において返されたマッチの説明が実際の入力ルールと対応していることを検証するよう修正し、ハルシネーションによる誤った権限付与を防止",
+              "en": "Fixed the bash permission classifier to validate that returned match descriptions correspond to actual input rules, preventing hallucinated descriptions from incorrectly granting permissions",
+              "category": "fixed"
+            },
+            {
+              "ja": "NFS/FUSEファイルシステムでinodeが0と報告される場合にユーザー定義エージェントが1ファイルしか読み込まれない問題を修正",
+              "en": "Fixed user-defined agents only loading one file on NFS/FUSE filesystems that report zero inodes (anthropics/claude-code#26044)",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラグインエージェントスキルが完全修飾プラグイン名でなく短縮名で参照された際にサイレントに読み込み失敗する問題を修正",
+              "en": "Fixed plugin agent skills silently failing to load when referenced by bare name instead of fully-qualified plugin name (anthropics/claude-code#25834)",
+              "category": "fixed"
+            },
+            {
+              "ja": "折りたたまれたツール結果の検索パターンを引用符付きで表示するように変更",
+              "en": "Search patterns in collapsed tool results are now displayed in quotes for clarity",
+              "category": "improved"
+            },
+            {
+              "ja": "Windows: CWD追跡の一時ファイルが削除されず無限に蓄積される問題を修正",
+              "en": "Windows: Fixed CWD tracking temp files never being cleaned up, causing them to accumulate indefinitely (anthropics/claude-code#17600)",
+              "category": "fixed"
+            },
+            {
+              "ja": "バックグラウンドエージェントの全終了キーをESC二重押しから`ctrl+f`に変更。ESCでメインスレッドをキャンセルしてもバックグラウンドエージェントは継続実行されるよう動作を変更",
+              "en": "Use `ctrl+f` to kill all background agents instead of double-pressing ESC. Background agents now continue running when you press ESC to cancel the main thread, giving you more control over agent lifecycle.",
+              "category": "changed"
+            },
+            {
+              "ja": "並行エージェントセッションでストリーミングコンテンツブロックの混在によるメッセージマージ失敗が原因で発生していたAPI 400エラー（\"thinking blocks cannot be modified\"）を修正",
+              "en": "Fixed API 400 errors (\"thinking blocks cannot be modified\") that occurred in sessions with concurrent agents, caused by interleaved streaming content blocks preventing proper message merging.",
+              "category": "fixed"
+            },
+            {
+              "ja": "チームメイトナビゲーションをShift+UpとShift+Downの両方ではなく、Shift+Down（折り返しあり）のみに簡略化",
+              "en": "Simplified teammate navigation to use only Shift+Down (with wrapping) instead of both Shift+Up and Shift+Down.",
+              "category": "changed"
+            },
+            {
+              "ja": "単一ファイルの書き込み/編集エラーが並列ファイル操作全体を中断する問題を修正。独立したファイル変更は他の操作が失敗しても完了するよう対応。",
+              "en": "Fixed an issue where a single file write/edit error would abort all other parallel file write/edit operations. Independent file mutations now complete even when a sibling fails.",
+              "category": "fixed"
+            },
+            {
+              "ja": "StopおよびSubagentStopフックの入力に`last_assistant_message`フィールドを追加、トランスクリプトファイルを解析せずにアシスタントの最終レスポンステキストへのアクセスに対応",
+              "en": "Added `last_assistant_message` field to Stop and SubagentStop hook inputs, providing the final assistant response text so hooks can access it without parsing transcript files.",
+              "category": "added"
+            },
+            {
+              "ja": "`/rename` で設定したカスタムセッションタイトルが会話再開後に失われる問題を修正",
+              "en": "Fixed custom session titles set via `/rename` being lost after resuming a conversation (anthropics/claude-code#23610)",
+              "category": "fixed"
+            },
+            {
+              "ja": "狭いターミナルで折りたたまれた読み込み/検索ヒントテキストがはみ出す問題を、先頭からの切り詰めで修正",
+              "en": "Fixed collapsed read/search hint text overflowing on narrow terminals by truncating from the start.",
+              "category": "fixed"
+            },
+            {
+              "ja": "バックスラッシュ改行による継続行（`\\`で複数行に分割された長いコマンド）を含むbashコマンドが不正な空引数を生成し、コマンド実行が破壊される可能性がある問題を修正",
+              "en": "Fixed an issue where bash commands with backslash-newline continuation lines (e.g., long commands split across multiple lines with `\\`) would produce spurious empty arguments, potentially breaking command execution.",
+              "category": "fixed"
+            },
+            {
+              "ja": "多数のユーザースキルがインストールされている場合に、組み込みスラッシュコマンド（`/help`、`/model`、`/compact` など）がオートコンプリートのドロップダウンに表示されない問題を修正",
+              "en": "Fixed built-in slash commands (`/help`, `/model`, `/compact`, etc.) being hidden from the autocomplete dropdown when many user skills are installed (anthropics/claude-code#22020)",
+              "category": "fixed"
+            },
+            {
+              "ja": "遅延読み込み後にMCPサーバーがMCP管理ダイアログに表示されない問題を修正",
+              "en": "Fixed MCP servers not appearing in the MCP Management Dialog after deferred loading",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/clear` コマンド実行後にステータスバーにセッション名が残り続ける問題を修正",
+              "en": "Fixed session name persisting in status bar after `/clear` command (anthropics/claude-code#26082)",
+              "category": "fixed"
+            },
+            {
+              "ja": "SKILL.mdのフロントマターで`name`や`description`に数値のみ（例: `name: 3000`）が指定された場合にクラッシュする問題を修正。値を適切に文字列へ変換するよう対応",
+              "en": "Fixed crash when a skill's `name` or `description` in SKILL.md frontmatter is a bare number (e.g., `name: 3000`) — the value is now properly coerced to a string (anthropics/claude-code#25837)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/resume` で最初のメッセージが16KBを超えるか配列形式のコンテンツを使用する場合にセッションが暗黙的に破棄される問題を修正",
+              "en": "Fixed /resume silently dropping sessions when the first message exceeds 16KB or uses array-format content (anthropics/claude-code#25721)",
+              "category": "fixed"
+            },
+            {
+              "ja": "設定可能な複数行入力用の `chat:newline` キーバインディングアクションを追加",
+              "en": "Added `chat:newline` keybinding action for configurable multi-line input (anthropics/claude-code#26075)",
+              "category": "added"
+            },
+            {
+              "ja": "ステータスラインJSONの`workspace`セクションに`added_dirs`を追加し、`/add-dir`で追加されたディレクトリを外部スクリプトに公開",
+              "en": "Added `added_dirs` to the statusline JSON `workspace` section, exposing directories added via `/add-dir` to external scripts (anthropics/claude-code#26096)",
+              "category": "added"
+            },
+            {
+              "ja": "`claude doctor` が mise および asdf 管理のインストールをネイティブインストールとして誤分類する問題を修正",
+              "en": "Fixed `claude doctor` misclassifying mise and asdf-managed installations as native installs (anthropics/claude-code#26033)",
+              "category": "fixed"
+            },
+            {
+              "ja": "サンドボックスコマンドで zsh ヒアドキュメントが \"read-only file system\" エラーで失敗する問題を修正",
+              "en": "Fixed zsh heredoc failing with \"read-only file system\" error in sandboxed commands (anthropics/claude-code#25990)",
+              "category": "fixed"
+            },
+            {
+              "ja": "エージェントの進行状況インジケーターがツール使用数を過大に表示する問題を修正",
+              "en": "Fixed agent progress indicator showing inflated tool use count (anthropics/claude-code#26023)",
+              "category": "fixed"
+            },
+            {
+              "ja": "WSL2環境でWindowsがBMP形式で画像をコピーした際に画像の貼り付けが機能しない問題を修正",
+              "en": "Fixed image pasting not working on WSL2 systems where Windows copies images as BMP format (anthropics/claude-code#25935)",
+              "category": "fixed"
+            },
+            {
+              "ja": "バックグラウンドエージェントの結果がエージェントの最終回答ではなく生のトランスクリプトデータを返す問題を修正",
+              "en": "Fixed background agent results returning raw transcript data instead of the agent's final answer (anthropics/claude-code#26012)",
+              "category": "fixed"
+            },
+            {
+              "ja": "WarpターミナルがShift+Enterをネイティブサポートしているにもかかわらず、セットアップを誤って促す問題を修正",
+              "en": "Fixed Warp terminal incorrectly prompting for Shift+Enter setup when it supports it natively (anthropics/claude-code#25957)",
+              "category": "fixed"
+            },
+            {
+              "ja": "TUIでCJK全角文字がタイムスタンプとレイアウト要素のずれを引き起こす問題を修正",
+              "en": "Fixed CJK wide characters causing misaligned timestamps and layout elements in the TUI (anthropics/claude-code#26084)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`.claude/agents/*.md` 内のカスタムエージェントの `model` フィールドがチームメイト起動時に無視される問題を修正",
+              "en": "Fixed custom agent `model` field in `.claude/agents/*.md` being ignored when spawning team teammates (anthropics/claude-code#26064)",
+              "category": "fixed"
+            },
+            {
+              "ja": "コンテキスト圧縮後にプランモードが失われ、モデルが計画モードから実装モードに切り替わる問題を修正",
+              "en": "Fixed plan mode being lost after context compaction, causing the model to switch from planning to implementation mode (anthropics/claude-code#26061)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`settings.json`で`alwaysThinkingEnabled: true`を設定してもBedrockおよびVertexプロバイダーでthinkingモードが有効にならない問題を修正",
+              "en": "Fixed `alwaysThinkingEnabled: true` in settings.json not enabling thinking mode on Bedrock and Vertex providers (anthropics/claude-code#26074)",
+              "category": "fixed"
+            },
+            {
+              "ja": "ヘッドレス/SDKモードで`tool_decision` OTelテレメトリイベントが送信されない不具合を修正",
+              "en": "Fixed `tool_decision` OTel telemetry event not being emitted in headless/SDK mode (anthropics/claude-code#26059)",
+              "category": "fixed"
+            },
+            {
+              "ja": "コンテキスト圧縮後にセッション名が失われる問題を修正（リネームされたセッションが圧縮後もカスタムタイトルを保持するように）",
+              "en": "Fixed session name being lost after context compaction — renamed sessions now preserve their custom title through compaction (anthropics/claude-code#26121)",
+              "category": "fixed"
+            },
+            {
+              "ja": "再開ピッカーの初期セッション表示数を10から50に増加し、セッション検索を高速化",
+              "en": "Increased initial session count in resume picker from 10 to 50 for faster session discovery (anthropics/claude-code#26123)",
+              "category": "improved"
+            },
+            {
+              "ja": "Windows: ドライブレターの大文字小文字が異なる場合のワークツリーセッションマッチングを修正",
+              "en": "Windows: fixed worktree session matching when drive letter casing differs (anthropics/claude-code#26123)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/resume <session-id>` で最初のメッセージが16KBを超えるセッションが見つからない不具合を修正",
+              "en": "Fixed `/resume <session-id>` failing to find sessions whose first message exceeds 16KB (anthropics/claude-code#25920)",
+              "category": "fixed"
+            },
+            {
+              "ja": "複数行のbashコマンドで「常に許可」を使用した際に無効な権限パターンが生成され設定が破損する問題を修正",
+              "en": "Fixed \"Always allow\" on multiline bash commands creating invalid permission patterns that corrupt settings (anthropics/claude-code#25909)",
+              "category": "fixed"
+            },
+            {
+              "ja": "SKILL.mdのフロントマターで`argument-hint`にYAMLシーケンス構文（例: `[topic: foo | bar]`）を使用した際にReactがクラッシュする問題（エラー #31）を修正、値を適切に文字列へ変換するよう対応",
+              "en": "Fixed React crash (error #31) when a skill's `argument-hint` in SKILL.md frontmatter uses YAML sequence syntax (e.g., `[topic: foo | bar]`) — the value is now properly coerced to a string (anthropics/claude-code#25826)",
+              "category": "fixed"
+            },
+            {
+              "ja": "ウェブ検索を使用したセッションで `/fork` を使用した際のクラッシュを修正 — トランスクリプトのデシリアライズ時に検索結果に含まれる null エントリを適切に処理",
+              "en": "Fixed crash when using `/fork` on sessions that used web search — null entries in search results from transcript deserialization are now handled gracefully (anthropics/claude-code#25811)",
+              "category": "fixed"
+            },
+            {
+              "ja": "読み取り専用のgitコマンドがmacOSのFSEventsファイルウォッチャーループを引き起こす問題を`--no-optional-locks`フラグの追加により修正",
+              "en": "Fixed read-only git commands triggering FSEvents file watcher loops on macOS by adding --no-optional-locks flag (anthropics/claude-code#25750)",
+              "category": "fixed"
+            },
+            {
+              "ja": "git worktreeから実行した際にカスタムエージェントとスキルが検出されない問題を修正（メインリポジトリのプロジェクトレベルの`.claude/agents/`と`.claude/skills/`も参照対象に追加）",
+              "en": "Fixed custom agents and skills not being discovered when running from a git worktree — project-level `.claude/agents/` and `.claude/skills/` from the main repository are now included (anthropics/claude-code#25816)",
+              "category": "fixed"
+            },
+            {
+              "ja": "ネストされたClaudeセッション内で`claude doctor`や`claude plugin validate`などの非インタラクティブなサブコマンドがブロックされる問題を修正",
+              "en": "Fixed non-interactive subcommands like `claude doctor` and `claude plugin validate` being blocked inside nested Claude sessions (anthropics/claude-code#25803)",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows: パス間でドライブレターの大文字・小文字が異なる場合に同じCLAUDE.mdが二重読み込みされる問題を修正",
+              "en": "Windows: Fixed the same CLAUDE.md file being loaded twice when drive letter casing differs between paths (anthropics/claude-code#25756)",
+              "category": "fixed"
+            },
+            {
+              "ja": "マークダウンのインラインコードスパンが誤ってbashコマンドとして解析される問題を修正",
+              "en": "Fixed inline code spans in markdown being incorrectly parsed as bash commands (anthropics/claude-code#25792)",
+              "category": "fixed"
+            },
+            {
+              "ja": "設定のカスタム `spinnerVerbs` がチームメイトのスピナーに反映されない問題を修正",
+              "en": "Fixed teammate spinners not respecting custom spinnerVerbs from settings (anthropics/claude-code#25748)",
+              "category": "fixed"
+            },
+            {
+              "ja": "コマンドが自身の作業ディレクトリを削除した後、シェルコマンドが永続的に失敗する問題を修正",
+              "en": "Fixed shell commands permanently failing after a command deletes its own working directory (anthropics/claude-code#26136)",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windowsでcmd.exeの代わりにGit Bashを使用するよう修正し、フック（PreToolUse、PostToolUse）がサイレントに実行失敗していた問題を解消",
+              "en": "Fixed hooks (PreToolUse, PostToolUse) silently failing to execute on Windows by using Git Bash instead of cmd.exe (anthropics/claude-code#25981)",
+              "category": "fixed"
+            },
+            {
+              "ja": "LSPの`findReferences`などの位置ベース操作がgitignore対象ファイル（`node_modules/`、`venv/`など）の結果を返す問題を修正",
+              "en": "Fixed LSP `findReferences` and other location-based operations returning results from gitignored files (e.g., `node_modules/`, `venv/`) (anthropics/claude-code#26051)",
+              "category": "fixed"
+            },
+            {
+              "ja": "設定バックアップファイルをホームディレクトリのルートから `~/.claude/backups/` へ移動",
+              "en": "Moved config backup files from home directory root to `~/.claude/backups/` to reduce home directory clutter (anthropics/claude-code#26130)",
+              "category": "changed"
+            },
+            {
+              "ja": "最初のプロンプトが大きい場合（16KB超）に /resume リストからセッションが消える問題を修正",
+              "en": "Fixed sessions with large first prompts (>16KB) disappearing from the /resume list (anthropics/claude-code#26140)",
+              "category": "fixed"
+            },
+            {
+              "ja": "ダブルアンダースコアプレフィックスを持つシェル関数（例: `__git_ps1`）がシェルセッションをまたいで保持されない問題を修正",
+              "en": "Fixed shell functions with double-underscore prefixes (e.g., `__git_ps1`) not being preserved across shell sessions (anthropics/claude-code#25824)",
+              "category": "fixed"
+            },
+            {
+              "ja": "トークン受信前にスピナーが「0トークン」カウンターを表示する問題を修正",
+              "en": "Fixed spinner showing \"0 tokens\" counter before any tokens have been received (anthropics/claude-code#26105)",
+              "category": "fixed"
+            },
+            {
+              "ja": "VSCode: AskUserQuestion ダイアログが開いている間、会話メッセージが暗く表示される問題を修正",
+              "en": "VSCode: Fixed conversation messages appearing dimmed while the AskUserQuestion dialog is open (anthropics/claude-code#26078)",
+              "category": "fixed"
+            },
+            {
+              "ja": "git worktreeでリモートURL解決がメインリポジトリの設定ではなくworktree固有のgitdirを参照することによりバックグラウンドタスクが失敗する問題を修正",
+              "en": "Fixed background tasks failing in git worktrees due to remote URL resolution reading from worktree-specific gitdir instead of the main repository config (anthropics/claude-code#26065)",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows/Git Bash ターミナルで右Altキー押下時に入力フィールドへ `[25~` エスケープシーケンスが残留する不具合を修正",
+              "en": "Fixed Right Alt key leaving visible `[25~` escape sequence residue in the input field on Windows/Git Bash terminals (anthropics/claude-code#25943)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/rename` コマンドがデフォルトでターミナルタブのタイトルを更新するように変更",
+              "en": "The `/rename` command now updates the terminal tab title by default (anthropics/claude-code#25789)",
+              "category": "changed"
+            },
+            {
+              "ja": "EditツールがUnicodeの曲引用符（\\u201c\\u201d \\u2018\\u2019）をストレート引用符に無言で置換・破損していた問題を修正",
+              "en": "Fixed Edit tool silently corrupting Unicode curly quotes (\\u201c\\u201d \\u2018\\u2019) by replacing them with straight quotes when making edits (anthropics/claude-code#26141)",
+              "category": "fixed"
+            },
+            {
+              "ja": "OSC 8 ハイパーリンクのテキストが複数のターミナル行に折り返される際、最初の行のみクリック可能だった問題を修正",
+              "en": "Fixed OSC 8 hyperlinks only being clickable on the first line when link text wraps across multiple terminal lines.",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.46",
+          "releaseDate": "2026-02-19",
+          "releaseDateDisplay": "2026年2月19日",
+          "entries": [
+            {
+              "ja": "macOSでターミナル切断後に残存するCCプロセスの問題を修正",
+              "en": "Fixed orphaned CC processes after terminal disconnect on macOS",
+              "category": "fixed"
+            },
+            {
+              "ja": "Claude Codeでclaude.aiのMCPコネクタを使用するサポートを追加",
+              "en": "Added support for using claude.ai MCP connectors in Claude Code",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.1.45",
+          "releaseDate": "2026-02-18",
+          "releaseDateDisplay": "2026年2月18日",
+          "entries": [
+            {
+              "ja": "Claude Sonnet 4.6 のサポートを追加",
+              "en": "Added support for Claude Sonnet 4.6",
+              "category": "added"
+            },
+            {
+              "ja": "`--add-dir` ディレクトリからの `enabledPlugins` および `extraKnownMarketplaces` の読み込みに対応",
+              "en": "Added support for reading `enabledPlugins` and `extraKnownMarketplaces` from `--add-dir` directories",
+              "category": "added"
+            },
+            {
+              "ja": "スピナーのヒントをカスタマイズする `spinnerTipsOverride` 設定を追加（`tips` にカスタム文字列の配列を設定可能、`excludeDefault: true` で組み込みヒントを非表示にして独自ヒントのみ表示）",
+              "en": "Added `spinnerTipsOverride` setting to customize spinner tips — configure `tips` with an array of custom tip strings, and optionally set `excludeDefault: true` to show only your custom tips instead of the built-in ones",
+              "category": "added"
+            },
+            {
+              "ja": "レート制限の状態更新（使用率・リセット時刻・超過情報を含む）をコンシューマーが受け取れるよう、`SDKRateLimitInfo` および `SDKRateLimitEvent` 型を SDK に追加",
+              "en": "Added `SDKRateLimitInfo` and `SDKRateLimitEvent` types to the SDK, enabling consumers to receive rate limit status updates including utilization, reset times, and overage information",
+              "category": "added"
+            },
+            {
+              "ja": "tmux で生成されたプロセスへ API プロバイダーの環境変数を伝播することで、Bedrock・Vertex・Foundry 上での Agent Teams チームメイトの失敗を修正",
+              "en": "Fixed Agent Teams teammates failing on Bedrock, Vertex, and Foundry by propagating API provider environment variables to tmux-spawned processes (anthropics/claude-code#23561)",
+              "category": "fixed"
+            },
+            {
+              "ja": "ユーザーごとの正しい一時ディレクトリを使用することで、macOS での一時ファイル書き込み時に発生するサンドボックスの「operation not permitted」エラーを修正",
+              "en": "Fixed sandbox \"operation not permitted\" errors when writing temporary files on macOS by using the correct per-user temp directory (anthropics/claude-code#21654)",
+              "category": "fixed"
+            },
+            {
+              "ja": "完了時に `ReferenceError` でクラッシュする Task ツール（バックグラウンドエージェント）を修正",
+              "en": "Fixed Task tool (backgrounded agents) crashing with a `ReferenceError` on completion (anthropics/claude-code#22087)",
+              "category": "fixed"
+            },
+            {
+              "ja": "入力欄に画像を貼り付けた際に Enter キーでオートコンプリートの候補が確定されない問題を修正",
+              "en": "Fixed autocomplete suggestions not being accepted on Enter when images are pasted in the input",
+              "category": "fixed"
+            },
+            {
+              "ja": "サブエージェントから呼び出されたスキルがコンパクション後にメインセッションのコンテキストへ誤って表示される問題を修正",
+              "en": "Fixed skills invoked by subagents incorrectly appearing in main session context after compaction",
+              "category": "fixed"
+            },
+            {
+              "ja": "起動のたびに `.claude.json.backup` ファイルが過剰に蓄積する問題を修正",
+              "en": "Fixed excessive `.claude.json.backup` files accumulating on every startup",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラグインが提供するコマンド・エージェント・フックが、再起動なしでインストール直後から利用できない問題を修正",
+              "en": "Fixed plugin-provided commands, agents, and hooks not being available immediately after installation without requiring a restart",
+              "category": "fixed"
+            },
+            {
+              "ja": "統計キャッシュ用のセッション履歴の先行読み込みを廃止し、起動パフォーマンスを改善",
+              "en": "Improved startup performance by removing eager loading of session history for stats caching",
+              "category": "improved"
+            },
+            {
+              "ja": "大量出力を生成するシェルコマンドのメモリ使用量を改善（コマンド出力サイズに応じた RSS の際限ない増加を解消）",
+              "en": "Improved memory usage for shell commands that produce large output — RSS no longer grows unboundedly with command output size",
+              "category": "improved"
+            },
+            {
+              "ja": "折りたたまれた読み取り／検索グループに、アクティブ中はサマリー行の下に処理中のファイルまたは検索パターンを表示するよう改善",
+              "en": "Improved collapsed read/search groups to show the current file or search pattern being processed beneath the summary line while active",
+              "category": "improved"
+            },
+            {
+              "ja": "[VSCode] 権限の保存先選択（プロジェクト／ユーザー／セッション）がセッションをまたいで維持されるよう改善",
+              "en": "[VSCode] Improved permission destination choice (project/user/session) to persist across sessions",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "2.1.44",
+          "releaseDate": "2026-02-17",
+          "releaseDateDisplay": "2026年2月17日",
+          "entries": [
+            {
+              "ja": "深くネストされたディレクトリパスでENAMETOOLONGエラーが発生する問題を修正",
+              "en": "Fixed ENAMETOOLONG errors for deeply-nested directory paths",
+              "category": "fixed"
+            },
+            {
+              "ja": "認証更新エラーを修正",
+              "en": "Fixed auth refresh errors",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.43",
+          "releaseDate": "2026-02-17",
+          "releaseDateDisplay": "2026年2月17日",
+          "entries": [
+            {
+              "ja": "AWSの認証リフレッシュが無限にハングする問題を3分タイムアウトの追加により修正",
+              "en": "Fixed AWS auth refresh hanging indefinitely by adding a 3-minute timeout",
+              "category": "fixed"
+            },
+            {
+              "ja": "`.claude/agents/` ディレクトリ内の非エージェントMarkdownファイルに対する誤警告を修正",
+              "en": "Fixed spurious warnings for non-agent markdown files in `.claude/agents/` directory",
+              "category": "fixed"
+            },
+            {
+              "ja": "Vertex/Bedrockで構造化出力のベータヘッダーが無条件に送信される問題を修正",
+              "en": "Fixed structured-outputs beta header being sent unconditionally on Vertex/Bedrock",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.42",
+          "releaseDate": "2026-02-14",
+          "releaseDateDisplay": "2026年2月14日",
+          "entries": [
+            {
+              "ja": "Zodスキーマ構築の遅延による起動パフォーマンスの改善",
+              "en": "Improved startup performance by deferring Zod schema construction",
+              "category": "improved"
+            },
+            {
+              "ja": "システムプロンプトから日付を移動してプロンプトキャッシュヒット率を改善",
+              "en": "Improved prompt cache hit rates by moving date out of system prompt",
+              "category": "improved"
+            },
+            {
+              "ja": "対象ユーザー向けのOpus 4.6エフォート表示を1回限りで追加",
+              "en": "Added one-time Opus 4.6 effort callout for eligible users",
+              "category": "added"
+            },
+            {
+              "ja": "/resumeで中断メッセージがセッションタイトルとして表示される問題を修正",
+              "en": "Fixed /resume showing interrupt messages as session titles",
+              "category": "fixed"
+            },
+            {
+              "ja": "画像サイズ制限エラーで/compactの使用を提案するように修正",
+              "en": "Fixed image dimension limit errors to suggest /compact",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.41",
+          "releaseDate": "2026-02-13",
+          "releaseDateDisplay": "2026年2月13日",
+          "entries": [
+            {
+              "ja": "Claude Code内で別のClaude Codeセッションを起動できないようガードを追加",
+              "en": "Added guard against launching Claude Code inside another Claude Code session",
+              "category": "added"
+            },
+            {
+              "ja": "Agent TeamsがBedrock、Vertex、Foundryユーザーに対して誤ったモデル識別子を使用する問題を修正",
+              "en": "Fixed Agent Teams using wrong model identifier for Bedrock, Vertex, and Foundry customers",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCPツールがストリーミング中に画像コンテンツを返した際のクラッシュを修正",
+              "en": "Fixed a crash when MCP tools return image content during streaming",
+              "category": "fixed"
+            },
+            {
+              "ja": "/resumeセッションプレビューが読みやすいコマンド名ではなく生のXMLタグを表示する問題を修正",
+              "en": "Fixed /resume session previews showing raw XML tags instead of readable command names",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bedrock/Vertex/Foundryユーザー向けのモデルエラーメッセージをフォールバック提案付きで改善",
+              "en": "Improved model error messages for Bedrock/Vertex/Foundry users with fallback suggestions",
+              "category": "improved"
+            },
+            {
+              "ja": "プラグインブラウザが既にインストール済みのプラグインに対して誤解を招く「Space to Toggle」ヒントを表示する問題を修正",
+              "en": "Fixed plugin browse showing misleading \"Space to Toggle\" hint for already-installed plugins",
+              "category": "fixed"
+            },
+            {
+              "ja": "フックブロッキングエラー（終了コード2）がstderrをユーザーに表示しない問題を修正",
+              "en": "Fixed hook blocking errors (exit code 2) not showing stderr to the user",
+              "category": "fixed"
+            },
+            {
+              "ja": "高速モードの可視性のためにOTelイベントとトレーススパンに`speed`属性を追加",
+              "en": "Added `speed` attribute to OTel events and trace spans for fast mode visibility",
+              "category": "added"
+            },
+            {
+              "ja": "`claude auth login`、`claude auth status`、`claude auth logout` CLIサブコマンドを追加",
+              "en": "Added `claude auth login`, `claude auth status`, and `claude auth logout` CLI subcommands",
+              "category": "added"
+            },
+            {
+              "ja": "Windows ARM64 (win32-arm64) ネイティブバイナリサポートを追加",
+              "en": "Added Windows ARM64 (win32-arm64) native binary support",
+              "category": "added"
+            },
+            {
+              "ja": "引数なしで呼び出された際に会話コンテキストからセッション名を自動生成するよう `/rename` を改善",
+              "en": "Improved `/rename` to auto-generate session name from conversation context when called without arguments",
+              "category": "improved"
+            },
+            {
+              "ja": "狭い端末レイアウトにおけるプロンプトフッターの表示を改善",
+              "en": "Improved narrow terminal layout for prompt footer",
+              "category": "improved"
+            },
+            {
+              "ja": "アンカーフラグメント付き@メンション(例: `@README.md#installation`)でファイル解決が失敗する問題を修正",
+              "en": "Fixed file resolution failing for @-mentions with anchor fragments (e.g., `@README.md#installation`)",
+              "category": "fixed"
+            },
+            {
+              "ja": "FIFO、`/dev/stdin`、大容量ファイルでFileReadToolがプロセスをブロックする問題を修正",
+              "en": "Fixed FileReadTool blocking the process on FIFOs, `/dev/stdin`, and large files",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミングAgent SDKモードでバックグラウンドタスク通知が配信されない問題を修正",
+              "en": "Fixed background task notifications not being delivered in streaming Agent SDK mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "分類ルール入力欄で各キー入力時にカーソルが末尾にジャンプする問題を修正",
+              "en": "Fixed cursor jumping to end on each keystroke in classifier rule input",
+              "category": "fixed"
+            },
+            {
+              "ja": "生URLに対するマークダウンリンクの表示テキストが削除される問題を修正",
+              "en": "Fixed markdown link display text being dropped for raw URL",
+              "category": "fixed"
+            },
+            {
+              "ja": "自動コンパクト失敗のエラー通知がユーザーに表示される問題を修正",
+              "en": "Fixed auto-compact failure error notifications being shown to users",
+              "category": "fixed"
+            },
+            {
+              "ja": "サブエージェントの経過時間表示に権限待機時間が含まれる問題を修正",
+              "en": "Fixed permission wait time being included in subagent elapsed time display",
+              "category": "fixed"
+            },
+            {
+              "ja": "プランモード中にproactive ticksが発火する問題を修正",
+              "en": "Fixed proactive ticks firing while in plan mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "設定ファイルがディスク上で変更された際に古い権限ルールをクリアするよう修正",
+              "en": "Fixed clear stale permission rules when settings change on disk",
+              "category": "fixed"
+            },
+            {
+              "ja": "フックのブロッキングエラーがUI上でstderrの内容を表示する問題を修正",
+              "en": "Fixed hook blocking errors showing stderr content in UI",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.39",
+          "releaseDate": "2026-02-11",
+          "releaseDateDisplay": "2026年2月11日",
+          "entries": [
+            {
+              "ja": "ターミナルレンダリングのパフォーマンス改善",
+              "en": "Improved terminal rendering performance",
+              "category": "improved"
+            },
+            {
+              "ja": "致命的エラーが表示されずに握りつぶされる問題を修正",
+              "en": "Fixed fatal errors being swallowed instead of displayed",
+              "category": "fixed"
+            },
+            {
+              "ja": "セッション終了後にプロセスがハングする問題を修正",
+              "en": "Fixed process hanging after session close",
+              "category": "fixed"
+            },
+            {
+              "ja": "ターミナル画面境界で文字が失われる問題を修正",
+              "en": "Fixed character loss at terminal screen boundary",
+              "category": "fixed"
+            },
+            {
+              "ja": "詳細トランスクリプトビューの空白行を修正",
+              "en": "Fixed blank lines in verbose transcript view",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.38",
+          "releaseDate": "2026-02-10",
+          "releaseDateDisplay": "2026年2月10日",
+          "entries": [
+            {
+              "ja": "2.1.37で発生したVS Codeターミナルの最上部へのスクロール動作の不具合を修正",
+              "en": "Fixed VS Code terminal scroll-to-top regression introduced in 2.1.37",
+              "category": "fixed"
+            },
+            {
+              "ja": "Tabキーでスラッシュコマンドがキューイングされ、オートコンプリートが機能しない問題を修正",
+              "en": "Fixed Tab key queueing slash commands instead of autocompleting",
+              "category": "fixed"
+            },
+            {
+              "ja": "環境変数ラッパーを使用するコマンドのbash権限マッチングを修正",
+              "en": "Fixed bash permission matching for commands using environment variable wrappers",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミングを使用しない場合にツール使用間のテキストが消失する問題を修正",
+              "en": "Fixed text between tool uses disappearing when not using streaming",
+              "category": "fixed"
+            },
+            {
+              "ja": "VS Code拡張機能で再開時にセッションが重複する問題を修正",
+              "en": "Fixed duplicate sessions when resuming in VS Code extension",
+              "category": "fixed"
+            },
+            {
+              "ja": "heredocデリミタのパース処理を改善し、コマンドインジェクションを防止",
+              "en": "Improved heredoc delimiter parsing to prevent command smuggling",
+              "category": "improved"
+            },
+            {
+              "ja": "サンドボックスモードで`.claude/skills`ディレクトリへの書き込みをブロック",
+              "en": "Blocked writes to `.claude/skills` directory in sandbox mode",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.1.37",
+          "releaseDate": "2026-02-08",
+          "releaseDateDisplay": "2026年2月8日",
+          "entries": [
+            {
+              "ja": "/extra-usage 有効化後に /fast がすぐに利用できない問題を修正",
+              "en": "Fixed an issue where /fast was not immediately available after enabling /extra-usage",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.36",
+          "releaseDate": "2026-02-08",
+          "releaseDateDisplay": "2026年2月8日",
+          "entries": [
+            {
+              "ja": "Opus 4.6 で Fast モードが利用可能に。詳細は https://code.claude.com/docs/en/fast-mode を参照",
+              "en": "Fast mode is now available for Opus 4.6. Learn more at https://code.claude.com/docs/en/fast-mode",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.1.34",
+          "releaseDate": "2026-02-06",
+          "releaseDateDisplay": "2026年2月6日",
+          "entries": [
+            {
+              "ja": "レンダリング間でエージェントチーム設定が変更された際のクラッシュを修正",
+              "en": "Fixed a crash when agent teams setting changed between renders",
+              "category": "fixed"
+            },
+            {
+              "ja": "`autoAllowBashIfSandboxed` 有効時にサンドボックスから除外されたコマンド（`sandbox.excludedCommands` または `dangerouslyDisableSandbox` 経由）が Bash の確認許可ルールをバイパス可能だったバグを修正",
+              "en": "Fixed a bug where commands excluded from sandboxing (via `sandbox.excludedCommands` or `dangerouslyDisableSandbox`) could bypass the Bash ask permission rule when `autoAllowBashIfSandboxed` was enabled",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.33",
+          "releaseDate": "2026-02-06",
+          "releaseDateDisplay": "2026年2月6日",
+          "entries": [
+            {
+              "ja": "tmux 内のエージェント teammate セッションでのメッセージ送受信を修正",
+              "en": "Fixed agent teammate sessions in tmux to send and receive messages",
+              "category": "fixed"
+            },
+            {
+              "ja": "現在のプランでエージェントチームが利用できない場合の警告を修正",
+              "en": "Fixed warnings about agent teams not being available on your current plan",
+              "category": "fixed"
+            },
+            {
+              "ja": "マルチエージェントワークフロー用の `TeammateIdle` および `TaskCompleted` フックイベントを追加",
+              "en": "Added `TeammateIdle` and `TaskCompleted` hook events for multi-agent workflows",
+              "category": "added"
+            },
+            {
+              "ja": "エージェントの frontmatter \"tools\" フィールドで `Task(agent_type)` 構文によるサブエージェント起動制限をサポート",
+              "en": "Added support for restricting which sub-agents can be spawned via `Task(agent_type)` syntax in agent \"tools\" frontmatter",
+              "category": "added"
+            },
+            {
+              "ja": "エージェント用の `memory` frontmatter フィールドをサポートし、`user`、`project`、`local` スコープでの永続メモリを有効化",
+              "en": "Added `memory` frontmatter field support for agents, enabling persistent memory with `user`, `project`, or `local` scope",
+              "category": "added"
+            },
+            {
+              "ja": "スキルの説明と `/skills` メニューにプラグイン名を追加し、発見性を向上",
+              "en": "Added plugin name to skill descriptions and `/skills` menu for better discoverability",
+              "category": "added"
+            },
+            {
+              "ja": "モデルが拡張思考中に新しいメッセージを送信すると思考フェーズが中断される問題を修正",
+              "en": "Fixed an issue where submitting a new message while the model was in extended thinking would interrupt the thinking phase",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミング中断時に空白テキストと thinking ブロックが正規化をバイパスして無効なリクエストを生成する API エラーを修正",
+              "en": "Fixed an API error that could occur when aborting mid-stream, where whitespace text combined with a thinking block would bypass normalization and produce an invalid request",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミングエンドポイントでの 404 エラーが非ストリーミングフォールバックをトリガーしなくなった API プロキシ互換性の問題を修正",
+              "en": "Fixed API proxy compatibility issue where 404 errors on streaming endpoints no longer triggered non-streaming fallback",
+              "category": "fixed"
+            },
+            {
+              "ja": "`settings.json` の環境変数で設定されたプロキシ設定が Node.js ビルドの WebFetch および他の HTTP リクエストに適用されない問題を修正",
+              "en": "Fixed an issue where proxy settings configured via `settings.json` environment variables were not applied to WebFetch and other HTTP requests on the Node.js build",
+              "category": "fixed"
+            },
+            {
+              "ja": "スラッシュコマンドで開始されたセッションで `/resume` セッションピッカーが生の XML マークアップを表示する問題を修正",
+              "en": "Fixed `/resume` session picker showing raw XML markup instead of clean titles for sessions started with slash commands",
+              "category": "fixed"
+            },
+            {
+              "ja": "API 接続失敗時のエラーメッセージを改善し、汎用的な「接続エラー」ではなく具体的な原因（ECONNREFUSED、SSL エラーなど）を表示",
+              "en": "Improved error messages for API connection failures — now shows specific cause (e.g., ECONNREFUSED, SSL errors) instead of generic \"Connection error\"",
+              "category": "improved"
+            },
+            {
+              "ja": "無効な管理設定によるエラーを表示するように改善",
+              "en": "Errors from invalid managed settings are now surfaced",
+              "category": "improved"
+            },
+            {
+              "ja": "VSCode: リモートセッションをサポートし、OAuth ユーザーが claude.ai からセッションを閲覧・再開可能に",
+              "en": "VSCode: Added support for remote sessions, allowing OAuth users to browse and resume sessions from claude.ai",
+              "category": "added"
+            },
+            {
+              "ja": "VSCode: セッションピッカーに git ブランチとメッセージ数を追加し、ブランチ名での検索をサポート",
+              "en": "VSCode: Added git branch and message count to the session picker, with support for searching by branch name",
+              "category": "added"
+            },
+            {
+              "ja": "VSCode: 初回セッション読み込みおよびセッション切り替え時の下スクロール不足を修正",
+              "en": "VSCode: Fixed scroll-to-bottom under-scrolling on initial session load and session switch",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.32",
+          "releaseDate": "2026-02-06",
+          "releaseDateDisplay": "2026年2月6日",
+          "entries": [
+            {
+              "ja": "Claude Opus 4.6 が利用可能に",
+              "en": "Claude Opus 4.6 is now available!",
+              "category": "added"
+            },
+            {
+              "ja": "マルチエージェント協調のための研究プレビュー版エージェントチーム機能を追加（トークン集約型機能、CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 の設定が必要）",
+              "en": "Added research preview agent teams feature for multi-agent collaboration (token-intensive feature, requires setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)",
+              "category": "added"
+            },
+            {
+              "ja": "Claude が作業中に自動的にメモリを記録・想起する機能を追加",
+              "en": "Claude now automatically records and recalls memories as it works",
+              "category": "added"
+            },
+            {
+              "ja": "メッセージセレクターに「ここから要約」を追加し、部分的な会話要約が可能に",
+              "en": "Added \"Summarize from here\" to the message selector, allowing partial conversation summarization.",
+              "category": "added"
+            },
+            {
+              "ja": "追加ディレクトリ（`--add-dir`）内の `.claude/skills/` で定義されたスキルが自動読み込みされるように変更",
+              "en": "Skills defined in `.claude/skills/` within additional directories (`--add-dir`) are now loaded automatically.",
+              "category": "changed"
+            },
+            {
+              "ja": "サブディレクトリから実行時に `@` ファイル補完が誤った相対パスを表示する問題を修正",
+              "en": "Fixed `@` file completion showing incorrect relative paths when running from a subdirectory",
+              "category": "fixed"
+            },
+            {
+              "ja": "--resume オプションが以前の会話で指定された --agent の値をデフォルトで再利用するように更新",
+              "en": "Updated --resume to re-use --agent value specified in previous conversation by default.",
+              "category": "changed"
+            },
+            {
+              "ja": "Bash ツールが JavaScript テンプレートリテラル（`${index + 1}` など）を含む heredoc で「Bad substitution」エラーを発生させ、ツール実行を中断していた問題を修正",
+              "en": "Fixed: Bash tool no longer throws \"Bad substitution\" errors when heredocs contain JavaScript template literals like `${index + 1}`, which previously interrupted tool execution",
+              "category": "fixed"
+            },
+            {
+              "ja": "スキルの文字数制限がコンテキストウィンドウに応じて拡張（コンテキストの 2%）され、大きなコンテキストウィンドウを持つユーザーが切り捨てなしでより多くのスキル説明を閲覧可能に",
+              "en": "Skill character budget now scales with context window (2% of context), so users with larger context windows can see more skill descriptions without truncation",
+              "category": "improved"
+            },
+            {
+              "ja": "タイ語・ラオ語のスペーシング母音（สระ า、ำ）が入力フィールドで正しくレンダリングされない問題を修正",
+              "en": "Fixed Thai/Lao spacing vowels (สระ า, ำ) not rendering correctly in the input field",
+              "category": "fixed"
+            },
+            {
+              "ja": "VSCode: 入力フィールドに先行テキストがある状態で Enter を押すとスラッシュコマンドが誤って実行される問題を修正",
+              "en": "VSCode: Fixed slash commands incorrectly being executed when pressing Enter with preceding text in the input field",
+              "category": "fixed"
+            },
+            {
+              "ja": "VSCode: 過去の会話リスト読み込み時にスピナーを追加",
+              "en": "VSCode: Added spinner when loading past conversations list",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "2.1.31",
+          "releaseDate": "2026-02-04",
+          "releaseDateDisplay": "2026年2月4日",
+          "entries": [
+            {
+              "ja": "終了時にセッション再開のヒントを表示し、後で会話を続ける方法を案内",
+              "en": "Added session resume hint on exit, showing how to continue your conversation later",
+              "category": "added"
+            },
+            {
+              "ja": "チェックボックス選択で日本語IMEの全角スペース入力に対応",
+              "en": "Added support for full-width (zenkaku) space input from Japanese IME in checkbox selection",
+              "category": "added"
+            },
+            {
+              "ja": "PDFサイズ超過エラーによりセッションが永続的にロックされ、新しい会話の開始が必要になる問題を修正",
+              "en": "Fixed PDF too large errors permanently locking up sessions, requiring users to start a new conversation",
+              "category": "fixed"
+            },
+            {
+              "ja": "サンドボックスモード有効時にbashコマンドが誤って「Read-only file system」エラーで失敗と報告される問題を修正",
+              "en": "Fixed bash commands incorrectly reporting failure with \"Read-only file system\" errors when sandbox mode was enabled",
+              "category": "fixed"
+            },
+            {
+              "ja": "`~/.claude.json`のプロジェクト設定にデフォルトフィールドが不足している場合、プランモード開始後にセッションが使用不能になるクラッシュを修正",
+              "en": "Fixed a crash that made sessions unusable after entering plan mode when project config in `~/.claude.json` was missing default fields",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミングAPIパスで`temperatureOverride`が無視され、設定した値に関わらずすべてのストリーミングリクエストがデフォルト温度（1）を使用する問題を修正",
+              "en": "Fixed `temperatureOverride` being silently ignored in the streaming API path, causing all streaming requests to use the default temperature (1) regardless of the configured override",
+              "category": "fixed"
+            },
+            {
+              "ja": "nullパラメータを拒否する厳格な言語サーバーとのLSP shutdown/exit互換性を修正",
+              "en": "Fixed LSP shutdown/exit compatibility with strict language servers that reject null params",
+              "category": "fixed"
+            },
+            {
+              "ja": "bash同等コマンド（`cat`、`sed`、`grep`、`find`）の代わりに専用ツール（Read、Edit、Glob、Grep）を使用するようモデルを誘導するシステムプロンプトを改善し、不要なbashコマンド使用を削減",
+              "en": "Improved system prompts to more clearly guide the model toward using dedicated tools (Read, Edit, Glob, Grep) instead of bash equivalents (`cat`, `sed`, `grep`, `find`), reducing unnecessary bash command usage",
+              "category": "improved"
+            },
+            {
+              "ja": "PDFとリクエストサイズのエラーメッセージに実際の制限値（100ページ、20MB）を表示するよう改善",
+              "en": "Improved PDF and request size error messages to show actual limits (100 pages, 20MB)",
+              "category": "improved"
+            },
+            {
+              "ja": "ストリーミング中のスピナー表示・非表示時のターミナルレイアウトのちらつきを軽減",
+              "en": "Reduced layout jitter in the terminal when the spinner appears and disappears during streaming",
+              "category": "improved"
+            },
+            {
+              "ja": "サードパーティプロバイダ（Bedrock、Vertex、Foundry）ユーザー向けのモデルセレクターから誤解を招くAnthropic API価格表示を削除",
+              "en": "Removed misleading Anthropic API pricing from model selector for third-party provider (Bedrock, Vertex, Foundry) users",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.30",
+          "releaseDate": "2026-02-04",
+          "releaseDateDisplay": "2026年2月4日",
+          "entries": [
+            {
+              "ja": "PDF に対応した Read ツールに `pages` パラメータを追加し、特定のページ範囲（例: `pages: \"1-5\"`）を読み取り可能に。大きな PDF（10 ページ超）を `@` でメンションした際、コンテキストへの直接埋め込みではなく軽量な参照を返すように変更",
+              "en": "Added `pages` parameter to the Read tool for PDFs, allowing specific page ranges to be read (e.g., `pages: \"1-5\"`). Large PDFs (>10 pages) now return a lightweight reference when `@` mentioned instead of being inlined into context.",
+              "category": "added"
+            },
+            {
+              "ja": "Dynamic Client Registration に対応していない MCP サーバー（Slack など）向けに、事前設定された OAuth クライアント認証情報を追加。`claude mcp add` で `--client-id` と `--client-secret` を使用可能",
+              "en": "Added pre-configured OAuth client credentials for MCP servers that don't support Dynamic Client Registration (e.g., Slack). Use `--client-id` and `--client-secret` with `claude mcp add`.",
+              "category": "added"
+            },
+            {
+              "ja": "Claude が現在のセッションのトラブルシューティングを支援する `/debug` コマンドを追加",
+              "en": "Added `/debug` for Claude to help troubleshoot the current session",
+              "category": "added"
+            },
+            {
+              "ja": "読み取り専用モードで追加の `git log` および `git show` フラグ（例: `--topo-order`、`--cherry-pick`、`--format`、`--raw`）に対応",
+              "en": "Added support for additional `git log` and `git show` flags in read-only mode (e.g., `--topo-order`, `--cherry-pick`, `--format`, `--raw`)",
+              "category": "added"
+            },
+            {
+              "ja": "Task ツールの結果にトークン数、ツール使用回数、実行時間の指標を追加",
+              "en": "Added token count, tool uses, and duration metrics to Task tool results",
+              "category": "added"
+            },
+            {
+              "ja": "設定に視覚効果低減モードを追加",
+              "en": "Added reduced motion mode to the config",
+              "category": "added"
+            },
+            {
+              "ja": "API 会話履歴に幻の「(no content)」テキストブロックが出現する問題を修正し、トークンの無駄遣いとモデルの混乱を防止",
+              "en": "Fixed phantom \"(no content)\" text blocks appearing in API conversation history, reducing token waste and potential model confusion",
+              "category": "fixed"
+            },
+            {
+              "ja": "プロンプトキャッシュがツール名の変更時のみ無効化され、ツールの説明や入力スキーマの変更時に正しく無効化されない問題を修正",
+              "en": "Fixed prompt cache not correctly invalidating when tool descriptions or input schemas changed, only when tool names changed",
+              "category": "fixed"
+            },
+            {
+              "ja": "thinking ブロックを含む会話で `/login` を実行した後に 400 エラーが発生する可能性がある問題を修正",
+              "en": "Fixed 400 errors that could occur after running `/login` when the conversation contained thinking blocks",
+              "category": "fixed"
+            },
+            {
+              "ja": "`parentUuid` の循環を含む破損したトランスクリプトファイルでセッションを再開する際のハングを修正",
+              "en": "Fixed a hang when resuming sessions with corrupted transcript files containing `parentUuid` cycles",
+              "category": "fixed"
+            },
+            {
+              "ja": "extra-usage が利用できない Max 20x ユーザーに対し、レート制限メッセージが誤った「/upgrade」の提案を表示する問題を修正",
+              "en": "Fixed rate limit message showing incorrect \"/upgrade\" suggestion for Max 20x users when extra-usage is unavailable",
+              "category": "fixed"
+            },
+            {
+              "ja": "入力中にパーミッションダイアログがフォーカスを奪う問題を修正",
+              "en": "Fixed permission dialogs stealing focus while actively typing",
+              "category": "fixed"
+            },
+            {
+              "ja": "サブエージェントが SDK 提供の MCP ツールにアクセスできない問題を修正（共有アプリケーション状態に同期されていなかったため）",
+              "en": "Fixed subagents not being able to access SDK-provided MCP tools because they were not synced to the shared application state",
+              "category": "fixed"
+            },
+            {
+              "ja": "`.bashrc` ファイルを持つ Windows ユーザーが bash コマンドを実行できないリグレッションを修正",
+              "en": "Fixed a regression where Windows users with a `.bashrc` file could not run bash commands",
+              "category": "fixed"
+            },
+            {
+              "ja": "セッションインデックスを軽量な stat ベースの読み込みと段階的なエンリッチメントに置き換え、`--resume` のメモリ使用量を改善（多数のセッションを持つユーザーで 68% 削減）",
+              "en": "Improved memory usage for `--resume` (68% reduction for users with many sessions) by replacing the session index with lightweight stat-based loading and progressive enrichment",
+              "category": "improved"
+            },
+            {
+              "ja": "`TaskStop` ツールの結果行に汎用的な「Task stopped」メッセージではなく、停止されたコマンド／タスクの説明を表示するよう改善",
+              "en": "Improved `TaskStop` tool to display the stopped command/task description in the result line instead of a generic \"Task stopped\" message",
+              "category": "improved"
+            },
+            {
+              "ja": "`/model` コマンドをキューに入れずに即座に実行するよう変更",
+              "en": "Changed `/model` to execute immediately instead of being queued",
+              "category": "changed"
+            },
+            {
+              "ja": "[VSCode] 質問ダイアログの「その他」テキスト入力に複数行入力対応を追加（Shift+Enter で改行）",
+              "en": "[VSCode] Added multiline input support to the \"Other\" text input in question dialogs (use Shift+Enter for new lines)",
+              "category": "added"
+            },
+            {
+              "ja": "[VSCode] 新しい会話を開始した際にセッションリストに重複したセッションが表示される問題を修正",
+              "en": "[VSCode] Fixed duplicate sessions appearing in the session list when starting a new conversation",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.29",
+          "releaseDate": "2026-02-01",
+          "releaseDateDisplay": "2026年2月1日",
+          "entries": [
+            {
+              "ja": "`saved_hook_context` を持つセッション再開時の起動パフォーマンスの問題を修正",
+              "en": "Fixed startup performance issues when resuming sessions that have `saved_hook_context`",
+              "category": "fixed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "2026-01",
+      "label": "2026年1月",
+      "versions": [
+        {
+          "version": "2.1.27",
+          "releaseDate": "2026-01-31",
+          "releaseDateDisplay": "2026年1月31日",
+          "entries": [
+            {
+              "ja": "ツールコール失敗と拒否をデバッグログに追加",
+              "en": "Added tool call failures and denials to debug logs",
+              "category": "added"
+            },
+            {
+              "ja": "ゲートウェイユーザー向けのコンテキスト管理検証エラーを修正し、`CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` でエラーを回避可能に",
+              "en": "Fixed context management validation error for gateway users, ensuring `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` avoids the error",
+              "category": "fixed"
+            },
+            {
+              "ja": "特定の GitHub PR 番号または URL にリンクされたセッションを再開する `--from-pr` フラグを追加",
+              "en": "Added `--from-pr` flag to resume sessions linked to a specific GitHub PR number or URL",
+              "category": "added"
+            },
+            {
+              "ja": "`gh pr create` で作成時にセッションが自動的に PR にリンクされるように変更",
+              "en": "Sessions are now automatically linked to PRs when created via `gh pr create`",
+              "category": "changed"
+            },
+            {
+              "ja": "/context コマンドで色付き出力が表示されない問題を修正",
+              "en": "Fixed /context command not displaying colored output",
+              "category": "fixed"
+            },
+            {
+              "ja": "PR ステータス表示時にステータスバーがバックグラウンドタスクインジケーターを重複表示する問題を修正",
+              "en": "Fixed status bar duplicating background task indicator when PR status was shown",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows: `.bashrc` ファイルを持つユーザーで bash コマンド実行が失敗する問題を修正",
+              "en": "Windows: Fixed bash command execution failing for users with `.bashrc` files",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows: 子プロセス生成時にコンソールウィンドウが点滅する問題を修正",
+              "en": "Windows: Fixed console windows flashing when spawning child processes",
+              "category": "fixed"
+            },
+            {
+              "ja": "VSCode: 長時間セッション後に OAuth トークン期限切れで 401 エラーが発生する問題を修正",
+              "en": "VSCode: Fixed OAuth token expiration causing 401 errors after extended sessions",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.25",
+          "releaseDate": "2026-01-30",
+          "releaseDateDisplay": "2026年1月30日",
+          "entries": [
+            {
+              "ja": "Bedrock と Vertex のゲートウェイユーザーに対するベータヘッダー検証エラーを修正し、`CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` でエラー回避を保証",
+              "en": "Fixed beta header validation error for gateway users on Bedrock and Vertex, ensuring `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` avoids the error",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.23",
+          "releaseDate": "2026-01-29",
+          "releaseDateDisplay": "2026年1月29日",
+          "entries": [
+            {
+              "ja": "カスタマイズ可能なスピナー動詞設定（`spinnerVerbs`）を追加",
+              "en": "Added customizable spinner verbs setting (`spinnerVerbs`)",
+              "category": "added"
+            },
+            {
+              "ja": "企業プロキシまたはクライアント証明書使用環境における mTLS とプロキシ接続の問題を修正",
+              "en": "Fixed mTLS and proxy connectivity for users behind corporate proxies or using client certificates",
+              "category": "fixed"
+            },
+            {
+              "ja": "共有システムにおける権限競合を防ぐためのユーザーごとの一時ディレクトリ分離を修正",
+              "en": "Fixed per-user temp directory isolation to prevent permission conflicts on shared systems",
+              "category": "fixed"
+            },
+            {
+              "ja": "プロンプトキャッシュスコープ有効時に 400 エラーを引き起こす可能性のある競合状態を修正",
+              "en": "Fixed a race condition that could cause 400 errors when prompt caching scope was enabled",
+              "category": "fixed"
+            },
+            {
+              "ja": "ヘッドレスストリーミングセッション終了時に保留中の非同期フックがキャンセルされない問題を修正",
+              "en": "Fixed pending async hooks not being cancelled when headless streaming sessions ended",
+              "category": "fixed"
+            },
+            {
+              "ja": "タブ補完で候補を受け入れた際に入力フィールドが更新されない問題を修正",
+              "en": "Fixed tab completion not updating the input field when accepting a suggestion",
+              "category": "fixed"
+            },
+            {
+              "ja": "ripgrep 検索タイムアウト時にエラーを報告せず空の結果を返す問題を修正",
+              "en": "Fixed ripgrep search timeouts silently returning empty results instead of reporting errors",
+              "category": "fixed"
+            },
+            {
+              "ja": "最適化された画面データレイアウトによるターミナルレンダリングパフォーマンスの改善",
+              "en": "Improved terminal rendering performance with optimized screen data layout",
+              "category": "improved"
+            },
+            {
+              "ja": "Bash コマンドで経過時間と共にタイムアウト時間を表示するように変更",
+              "en": "Changed Bash commands to show timeout duration alongside elapsed time",
+              "category": "changed"
+            },
+            {
+              "ja": "マージされたプルリクエストをプロンプトフッターで紫色のステータスインジケーターで表示するように変更",
+              "en": "Changed merged pull requests to show a purple status indicator in the prompt footer",
+              "category": "changed"
+            },
+            {
+              "ja": "[IDE] ヘッドレスモードで Bedrock ユーザーに対してモデルオプションが誤ったリージョン文字列を表示する問題を修正",
+              "en": "[IDE] Fixed model options displaying incorrect region strings for Bedrock users in headless mode",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.22",
+          "releaseDate": "2026-01-28",
+          "releaseDateDisplay": "2026年1月28日",
+          "entries": [
+            {
+              "ja": "非対話モード (-p) における構造化出力を修正",
+              "en": "Fixed structured outputs for non-interactive (-p) mode",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.21",
+          "releaseDate": "2026-01-28",
+          "releaseDateDisplay": "2026年1月28日",
+          "entries": [
+            {
+              "ja": "日本語IMEからの全角数字入力に対応（オプション選択プロンプト）",
+              "en": "Added support for full-width (zenkaku) number input from Japanese IME in option selection prompts",
+              "category": "added"
+            },
+            {
+              "ja": "シェル補完キャッシュファイルが終了時に切り詰められる問題を修正",
+              "en": "Fixed shell completion cache files being truncated on exit",
+              "category": "fixed"
+            },
+            {
+              "ja": "ツール実行中に中断されたセッションの再開時に発生するAPIエラーを修正",
+              "en": "Fixed API errors when resuming sessions that were interrupted during tool execution",
+              "category": "fixed"
+            },
+            {
+              "ja": "大きな出力トークン制限を持つモデルで自動コンパクト化が早期にトリガーされる問題を修正",
+              "en": "Fixed auto-compact triggering too early on models with large output token limits",
+              "category": "fixed"
+            },
+            {
+              "ja": "タスクID削除後に再利用される可能性がある問題を修正",
+              "en": "Fixed task IDs potentially being reused after deletion",
+              "category": "fixed"
+            },
+            {
+              "ja": "VS Code拡張機能のWindows環境でファイル検索が機能しない問題を修正",
+              "en": "Fixed file search not working in VS Code extension on Windows",
+              "category": "fixed"
+            },
+            {
+              "ja": "読み取り/検索の進行状況インジケーターを改善（進行中は「Reading…」、完了時は「Read」と表示）",
+              "en": "Improved read/search progress indicators to show \"Reading…\" while in progress and \"Read\" when complete",
+              "category": "improved"
+            },
+            {
+              "ja": "bashコマンド（cat、sed、awk）より専用ファイル操作ツール（Read、Edit、Write）を優先するよう改善",
+              "en": "Improved Claude to prefer file operation tools (Read, Edit, Write) over bash equivalents (cat, sed, awk)",
+              "category": "improved"
+            },
+            {
+              "ja": "[VSCode] Python仮想環境の自動アクティベーション機能を追加（`python`と`pip`コマンドが正しいインタープリターを使用、`claudeCode.usePythonEnvironment`設定で制御可能）",
+              "en": "[VSCode] Added automatic Python virtual environment activation, ensuring `python` and `pip` commands use the correct interpreter (configurable via `claudeCode.usePythonEnvironment` setting)",
+              "category": "added"
+            },
+            {
+              "ja": "[VSCode] メッセージアクションボタンの背景色が不正確な問題を修正",
+              "en": "[VSCode] Fixed message action buttons having incorrect background colors",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.20",
+          "releaseDate": "2026-01-27",
+          "releaseDateDisplay": "2026年1月27日",
+          "entries": [
+            {
+              "ja": "vim ノーマルモードでカーソルが移動できない場合に矢印キーで履歴ナビゲーションを追加",
+              "en": "Added arrow key history navigation in vim normal mode when cursor cannot move further",
+              "category": "added"
+            },
+            {
+              "ja": "外部エディタショートカット（Ctrl+G）をヘルプメニューに追加して発見性を向上",
+              "en": "Added external editor shortcut (Ctrl+G) to the help menu for better discoverability",
+              "category": "added"
+            },
+            {
+              "ja": "プロンプトフッターに PR レビューステータスインジケーターを追加し、現在のブランチの PR 状態（承認済み、変更要求、保留中、ドラフト）を色付きドットとクリック可能なリンクで表示",
+              "en": "Added PR review status indicator to the prompt footer, showing the current branch's PR state (approved, changes requested, pending, or draft) as a colored dot with a clickable link",
+              "category": "added"
+            },
+            {
+              "ja": "`--add-dir` フラグで指定した追加ディレクトリからの `CLAUDE.md` ファイル読み込みに対応（`CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1` の設定が必要）",
+              "en": "Added support for loading `CLAUDE.md` files from additional directories specified via `--add-dir` flag (requires setting `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1`)",
+              "category": "added"
+            },
+            {
+              "ja": "`TaskUpdate` ツールによるタスク削除機能を追加",
+              "en": "Added ability to delete tasks via the `TaskUpdate` tool",
+              "category": "added"
+            },
+            {
+              "ja": "セッション圧縮時にレジューム時へ完全な履歴が読み込まれる問題を修正",
+              "en": "Fixed session compaction issues that could cause resume to load full history instead of the compact summary",
+              "category": "fixed"
+            },
+            {
+              "ja": "エージェントがタスク実行中にユーザーメッセージを無視することがある問題を修正",
+              "en": "Fixed agents sometimes ignoring user messages sent while actively working on a task",
+              "category": "fixed"
+            },
+            {
+              "ja": "絵文字や CJK 文字などのワイド文字がより狭い文字に置き換えられた際に末尾カラムがクリアされない表示不具合を修正",
+              "en": "Fixed wide character (emoji, CJK) rendering artifacts where trailing columns were not cleared when replaced by narrower characters",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP ツールレスポンスに特殊な Unicode 文字が含まれる場合の JSON パースエラーを修正",
+              "en": "Fixed JSON parsing errors when MCP tool responses contain special Unicode characters",
+              "category": "fixed"
+            },
+            {
+              "ja": "複数行およびラップされたテキスト入力での上下矢印キーの動作を改善し、履歴ナビゲーションよりカーソル移動を優先",
+              "en": "Fixed up/down arrow keys in multi-line and wrapped text input to prioritize cursor movement over history navigation",
+              "category": "improved"
+            },
+            {
+              "ja": "UP 矢印キーでコマンド履歴をナビゲートした際にドラフトプロンプトが失われる問題を修正",
+              "en": "Fixed draft prompt being lost when pressing UP arrow to navigate command history",
+              "category": "fixed"
+            },
+            {
+              "ja": "スラッシュコマンド入力中のゴーストテキストのちらつきを修正",
+              "en": "Fixed ghost text flickering when typing slash commands mid-input",
+              "category": "fixed"
+            },
+            {
+              "ja": "マーケットプレイスソースの削除時に設定が適切に削除されない問題を修正",
+              "en": "Fixed marketplace source removal not properly deleting settings",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/context` などの一部コマンドで出力が重複する問題を修正",
+              "en": "Fixed duplicate output in some commands like `/context`",
+              "category": "fixed"
+            },
+            {
+              "ja": "タスクリストがメイン会話ビューの外に表示されることがある問題を修正",
+              "en": "Fixed task list sometimes showing outside the main conversation view",
+              "category": "fixed"
+            },
+            {
+              "ja": "Python docstring などの複数行構造内で発生する diff のシンタックスハイライトを修正",
+              "en": "Fixed syntax highlighting for diffs occurring within multiline constructs like Python docstrings",
+              "category": "fixed"
+            },
+            {
+              "ja": "ツール使用キャンセル時のクラッシュを修正",
+              "en": "Fixed crashes when cancelling tool use",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/sandbox` コマンドの UI を改善し、依存関係が不足している場合にインストール手順付きのステータスを表示",
+              "en": "Improved `/sandbox` command UI to show dependency status with installation instructions when dependencies are missing",
+              "category": "improved"
+            },
+            {
+              "ja": "thinking ステータステキストに微細なシマーアニメーションを追加して改善",
+              "en": "Improved thinking status text with a subtle shimmer animation",
+              "category": "improved"
+            },
+            {
+              "ja": "タスクリストをターミナルの高さに応じて表示項目を動的調整するように改善",
+              "en": "Improved task list to dynamically adjust visible items based on terminal height",
+              "category": "improved"
+            },
+            {
+              "ja": "フォーク会話のヒント表示を改善し、元のセッションを再開する方法を表示",
+              "en": "Improved fork conversation hint to show how to resume the original session",
+              "category": "improved"
+            },
+            {
+              "ja": "折りたたまれた読み取り・検索グループの表示を変更し、進行中は現在進行形（「Reading」「Searching for」）、完了後は過去形（「Read」「Searched for」）で表示",
+              "en": "Changed collapsed read/search groups to show present tense (\"Reading\", \"Searching for\") while in progress, and past tense (\"Read\", \"Searched for\") when complete",
+              "category": "changed"
+            },
+            {
+              "ja": "`ToolSearch` の結果を会話内インライン表示から簡潔な通知表示に変更",
+              "en": "Changed `ToolSearch` results to appear as a brief notification instead of inline in the conversation",
+              "category": "changed"
+            },
+            {
+              "ja": "`/commit-push-pr` スキルを変更し、MCP ツール経由で設定されている場合に PR URL を Slack チャンネルに自動投稿",
+              "en": "Changed the `/commit-push-pr` skill to automatically post PR URLs to Slack channels when configured via MCP tools",
+              "category": "changed"
+            },
+            {
+              "ja": "`/copy` コマンドを全ユーザーが利用可能に変更",
+              "en": "Changed the `/copy` command to be available to all users",
+              "category": "changed"
+            },
+            {
+              "ja": "バックグラウンドエージェントが起動前にツール権限のプロンプトを表示するように変更",
+              "en": "Changed background agents to prompt for tool permissions before launching",
+              "category": "changed"
+            },
+            {
+              "ja": "`Bash(*)` のような権限ルールを受け入れ、`Bash` と同等に扱うように変更",
+              "en": "Changed permission rules like `Bash(*)` to be accepted and treated as equivalent to `Bash`",
+              "category": "changed"
+            },
+            {
+              "ja": "設定バックアップをタイムスタンプ付きでローテーション（最新 5 件を保持）し、データ損失を防止するように変更",
+              "en": "Changed config backups to be timestamped and rotated (keeping 5 most recent) to prevent data loss",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.19",
+          "releaseDate": "2026-01-24",
+          "releaseDateDisplay": "2026年1月24日",
+          "entries": [
+            {
+              "ja": "環境変数 `CLAUDE_CODE_ENABLE_TASKS` を追加、`false` に設定することで一時的に旧システムを維持可能",
+              "en": "Added env var `CLAUDE_CODE_ENABLE_TASKS`, set to `false` to keep the old system temporarily",
+              "category": "added"
+            },
+            {
+              "ja": "カスタムコマンドで個別の引数にアクセスするための短縮記法 `$0`、`$1` などを追加",
+              "en": "Added shorthand `$0`, `$1`, etc. for accessing individual arguments in custom commands",
+              "category": "added"
+            },
+            {
+              "ja": "AVX命令セットをサポートしないプロセッサでのクラッシュを修正",
+              "en": "Fixed crashes on processors without AVX instruction support",
+              "category": "fixed"
+            },
+            {
+              "ja": "`process.exit()` からの EIO エラーをキャッチし SIGKILL をフォールバックとして使用することで、ターミナルを閉じた際の Claude Code プロセスの残留を修正",
+              "en": "Fixed dangling Claude Code processes when terminal is closed by catching EIO errors from `process.exit()` and using SIGKILL as fallback",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/rename` および `/tag` が異なるディレクトリ（例: git worktree）から再開した際に正しいセッションを更新しない問題を修正",
+              "en": "Fixed `/rename` and `/tag` not updating the correct session when resuming from a different directory (e.g., git worktrees)",
+              "category": "fixed"
+            },
+            {
+              "ja": "カスタムタイトルによるセッション再開が異なるディレクトリから実行した際に機能しない問題を修正",
+              "en": "Fixed resuming sessions by custom title not working when run from a different directory",
+              "category": "fixed"
+            },
+            {
+              "ja": "プロンプトスタッシュ（Ctrl+S）と復元を使用した際に貼り付けたテキストコンテンツが失われる問題を修正",
+              "en": "Fixed pasted text content being lost when using prompt stash (Ctrl+S) and restore",
+              "category": "fixed"
+            },
+            {
+              "ja": "エージェントリストで明示的なモデル設定がないエージェントに対して「Inherit (default)」ではなく「Sonnet (default)」と表示される問題を修正",
+              "en": "Fixed agent list displaying \"Sonnet (default)\" instead of \"Inherit (default)\" for agents without an explicit model setting",
+              "category": "fixed"
+            },
+            {
+              "ja": "バックグラウンド化されたフックコマンドが早期リターンせず、意図的にバックグラウンド化されたプロセスをセッションが待機してしまう可能性がある問題を修正",
+              "en": "Fixed backgrounded hook commands not returning early, potentially causing the session to wait on a process that was intentionally backgrounded",
+              "category": "fixed"
+            },
+            {
+              "ja": "ファイル書き込みプレビューで空行が省略される問題を修正",
+              "en": "Fixed file write preview omitting empty lines",
+              "category": "fixed"
+            },
+            {
+              "ja": "追加の権限やフックを必要としないスキルを承認なしで許可するように変更",
+              "en": "Changed skills without additional permissions or hooks to be allowed without requiring approval",
+              "category": "changed"
+            },
+            {
+              "ja": "インデックス付き引数の構文を `$ARGUMENTS.0` から `$ARGUMENTS[0]`（ブラケット構文）に変更",
+              "en": "Changed indexed argument syntax from `$ARGUMENTS.0` to `$ARGUMENTS[0]` (bracket syntax)",
+              "category": "changed"
+            },
+            {
+              "ja": "[SDK] `replayUserMessages` が有効な場合に `queued_command` 添付メッセージを `SDKUserMessageReplay` イベントとして再生する機能を追加",
+              "en": "[SDK] Added replay of `queued_command` attachment messages as `SDKUserMessageReplay` events when `replayUserMessages` is enabled",
+              "category": "added"
+            },
+            {
+              "ja": "[VSCode] セッションフォークおよび巻き戻し機能をすべてのユーザーに対して有効化",
+              "en": "[VSCode] Enabled session forking and rewind functionality for all users",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.18",
+          "releaseDate": "2026-01-24",
+          "releaseDateDisplay": "2026年1月24日",
+          "entries": [
+            {
+              "ja": "キーボードショートカットのカスタマイズに対応。コンテキストごとのキーバインド設定、コードシーケンスの作成、ワークフローのパーソナライズが可能に。`/keybindings` で開始",
+              "en": "Added customizable keyboard shortcuts. Configure keybindings per context, create chord sequences, and personalize your workflow. Run `/keybindings` to get started. Learn more at https://code.claude.com/docs/en/keybindings",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.1.17",
+          "releaseDate": "2026-01-23",
+          "releaseDateDisplay": "2026年1月23日",
+          "entries": [
+            {
+              "ja": "AVX命令非対応プロセッサでのクラッシュを修正",
+              "en": "Fixed crashes on processors without AVX instruction support",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.16",
+          "releaseDate": "2026-01-23",
+          "releaseDateDisplay": "2026年1月23日",
+          "entries": [
+            {
+              "ja": "依存関係追跡を含む新しいタスク管理システムを追加",
+              "en": "Added new task management system, including new capabilities like dependency tracking",
+              "category": "added"
+            },
+            {
+              "ja": "[VSCode] ネイティブプラグイン管理のサポートを追加",
+              "en": "[VSCode] Added native plugin management support",
+              "category": "added"
+            },
+            {
+              "ja": "[VSCode] OAuth ユーザーがセッションダイアログからリモート Claude セッションを閲覧・再開できる機能を追加",
+              "en": "[VSCode] Added ability for OAuth users to browse and resume remote Claude sessions from the Sessions dialog",
+              "category": "added"
+            },
+            {
+              "ja": "サブエージェントを大量に使用したセッションの再開時にメモリ不足でクラッシュする問題を修正",
+              "en": "Fixed out-of-memory crashes when resuming sessions with heavy subagent usage",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/compact` 実行後に「残りコンテキスト」警告が非表示にならない問題を修正",
+              "en": "Fixed an issue where the \"context remaining\" warning was not hidden after running `/compact`",
+              "category": "fixed"
+            },
+            {
+              "ja": "再開画面のセッションタイトルがユーザーの言語設定を反映しない問題を修正",
+              "en": "Fixed session titles on the resume screen not respecting the user's language setting",
+              "category": "fixed"
+            },
+            {
+              "ja": "[IDE] Windows 環境で起動時に Claude Code サイドバービューコンテナが表示されない競合状態を修正",
+              "en": "[IDE] Fixed a race condition on Windows where the Claude Code sidebar view container would not appear on start",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.15",
+          "releaseDate": "2026-01-22",
+          "releaseDateDisplay": "2026年1月22日",
+          "entries": [
+            {
+              "ja": "npm インストールの非推奨通知を追加（`claude install` を実行するか https://docs.anthropic.com/en/docs/claude-code/getting-started で他のオプションを確認）",
+              "en": "Added deprecation notification for npm installations - run `claude install` or see https://docs.anthropic.com/en/docs/claude-code/getting-started for more options",
+              "category": "added"
+            },
+            {
+              "ja": "React Compiler による UI レンダリングパフォーマンスを改善",
+              "en": "Improved UI rendering performance with React Compiler",
+              "category": "improved"
+            },
+            {
+              "ja": "`/compact` 実行後に「Context left until auto-compact」警告が消えない問題を修正",
+              "en": "Fixed the \"Context left until auto-compact\" warning not disappearing after running `/compact`",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP stdio サーバーのタイムアウト時に子プロセスが終了せず UI フリーズを引き起こす問題を修正",
+              "en": "Fixed MCP stdio server timeout not killing child process, which could cause UI freezes",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.14",
+          "releaseDate": "2026-01-21",
+          "releaseDateDisplay": "2026年1月21日",
+          "entries": [
+            {
+              "ja": "Bash モード (`!`) に履歴ベースのオートコンプリートを追加 - コマンドの一部を入力して Tab を押すと bash コマンド履歴から補完",
+              "en": "Added history-based autocomplete in bash mode (`!`) - type a partial command and press Tab to complete from your bash command history",
+              "category": "added"
+            },
+            {
+              "ja": "インストール済みプラグイン一覧に検索機能を追加 - 名前や説明でフィルタリングが可能",
+              "en": "Added search to installed plugins list - type to filter by name or description",
+              "category": "added"
+            },
+            {
+              "ja": "プラグインを特定の git コミット SHA にピン留めする機能を追加し、マーケットプレイスエントリから正確なバージョンをインストール可能に",
+              "en": "Added support for pinning plugins to specific git commit SHAs, allowing marketplace entries to install exact versions",
+              "category": "added"
+            },
+            {
+              "ja": "コンテキストウィンドウのブロック制限が過度に厳密に計算され、意図した 98% ではなく 65% でユーザーがブロックされる不具合を修正",
+              "en": "Fixed a regression where the context window blocking limit was calculated too aggressively, blocking users at ~65% context usage instead of the intended ~98%",
+              "category": "fixed"
+            },
+            {
+              "ja": "並列サブエージェント実行時にクラッシュを引き起こす可能性があったメモリ問題を修正",
+              "en": "Fixed memory issues that could cause crashes when running parallel subagents",
+              "category": "fixed"
+            },
+            {
+              "ja": "シェルコマンド完了後にストリームリソースがクリーンアップされず、長時間セッションでメモリリークが発生する問題を修正",
+              "en": "Fixed memory leak in long-running sessions where stream resources were not cleaned up after shell commands completed",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bash モードで `@` 記号が誤ってファイルオートコンプリート候補をトリガーする問題を修正",
+              "en": "Fixed `@` symbol incorrectly triggering file autocomplete suggestions in bash mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "`@` メンションメニューでフォルダクリック時に選択ではなくディレクトリ内に移動するよう動作を修正",
+              "en": "Fixed `@`-mention menu folder click behavior to navigate into directories instead of selecting them",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/feedback` コマンドで説明が非常に長い場合に無効な GitHub issue URL が生成される問題を修正",
+              "en": "Fixed `/feedback` command generating invalid GitHub issue URLs when description is very long",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/context` コマンドの詳細モードでステータスラインと同じトークン数とパーセンテージを表示するよう修正",
+              "en": "Fixed `/context` command to show the same token count and percentage as the status line in verbose mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/config`、`/context`、`/model`、`/todos` コマンドのオーバーレイが予期せず閉じる問題を修正",
+              "en": "Fixed an issue where `/config`, `/context`, `/model`, and `/todos` command overlays could close unexpectedly",
+              "category": "fixed"
+            },
+            {
+              "ja": "類似コマンドを入力した際にスラッシュコマンドのオートコンプリートが誤ったコマンドを選択する問題を修正（例: `/context` vs `/compact`）",
+              "en": "Fixed slash command autocomplete selecting wrong command when typing similar commands (e.g., `/context` vs `/compact`)",
+              "category": "fixed"
+            },
+            {
+              "ja": "マーケットプレイスが 1 つのみ設定されている場合のプラグインマーケットプレイスでの戻るナビゲーションの不整合を修正",
+              "en": "Fixed inconsistent back navigation in plugin marketplace when only one marketplace is configured",
+              "category": "fixed"
+            },
+            {
+              "ja": "iTerm2 のプログレスバーが終了時に適切にクリアされず、インジケーターやベル音が残る問題を修正",
+              "en": "Fixed iTerm2 progress bar not clearing properly on exit, preventing lingering indicators and bell sounds",
+              "category": "fixed"
+            },
+            {
+              "ja": "バックスペースで貼り付けたテキストを 1 文字ずつではなく単一トークンとして削除するよう改善",
+              "en": "Improved backspace to delete pasted text as a single token instead of one character at a time",
+              "category": "improved"
+            },
+            {
+              "ja": "[VSCode] 現在のプラン使用状況を表示する `/usage` コマンドを追加",
+              "en": "[VSCode] Added `/usage` command to display current plan usage",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.1.12",
+          "releaseDate": "2026-01-18",
+          "releaseDateDisplay": "2026年1月18日",
+          "entries": [
+            {
+              "ja": "メッセージレンダリングのバグを修正",
+              "en": "Fixed message rendering bug",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.11",
+          "releaseDate": "2026-01-17",
+          "releaseDateDisplay": "2026年1月17日",
+          "entries": [
+            {
+              "ja": "HTTP/SSE トランスポートにおける過剰な MCP 接続リクエストを修正",
+              "en": "Fixed excessive MCP connection requests for HTTP/SSE transports",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.10",
+          "releaseDate": "2026-01-17",
+          "releaseDateDisplay": "2026年1月17日",
+          "entries": [
+            {
+              "ja": "リポジトリのセットアップとメンテナンス操作のために `--init`、`--init-only`、または `--maintenance` CLI フラグで実行できる新しい `Setup` フックイベントを追加",
+              "en": "Added new `Setup` hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations",
+              "category": "added"
+            },
+            {
+              "ja": "ログイン時にブラウザが自動的に開かない場合に OAuth URL をコピーするキーボードショートカット 'c' を追加",
+              "en": "Added keyboard shortcut 'c' to copy OAuth URL when browser doesn't open automatically during login",
+              "category": "added"
+            },
+            {
+              "ja": "JavaScript テンプレートリテラル（`${index + 1}` など）を含むヒアドキュメントを含む bash コマンド実行時のクラッシュを修正",
+              "en": "Fixed a crash when running bash commands containing heredocs with JavaScript template literals like `${index + 1}`",
+              "category": "fixed"
+            },
+            {
+              "ja": "REPL が完全に起動する前に入力されたキーストロークをキャプチャするよう起動処理を改善",
+              "en": "Improved startup to capture keystrokes typed before the REPL is fully ready",
+              "category": "improved"
+            },
+            {
+              "ja": "ファイル提案を受け入れ時にテキスト挿入ではなく削除可能な添付ファイルとして表示するよう改善",
+              "en": "Improved file suggestions to show as removable attachments instead of inserting text when accepted",
+              "category": "improved"
+            },
+            {
+              "ja": "[VSCode] プラグイン一覧にインストール数の表示を追加",
+              "en": "[VSCode] Added install count display to plugin listings",
+              "category": "added"
+            },
+            {
+              "ja": "[VSCode] プラグインインストール時に信頼性に関する警告を追加",
+              "en": "[VSCode] Added trust warning when installing plugins",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.1.9",
+          "releaseDate": "2026-01-16",
+          "releaseDateDisplay": "2026年1月16日",
+          "entries": [
+            {
+              "ja": "MCP ツールの自動有効化しきい値を設定する `auto:N` 構文を追加（N はコンテキストウィンドウのパーセンテージ、0-100）",
+              "en": "Added `auto:N` syntax for configuring the MCP tool search auto-enable threshold, where N is the context window percentage (0-100)",
+              "category": "added"
+            },
+            {
+              "ja": "プランファイルの保存場所をカスタマイズする `plansDirectory` 設定を追加",
+              "en": "Added `plansDirectory` setting to customize where plan files are stored",
+              "category": "added"
+            },
+            {
+              "ja": "AskUserQuestion の「その他」入力フィールドに外部エディタサポート（Ctrl+G）を追加",
+              "en": "Added external editor support (Ctrl+G) in AskUserQuestion \"Other\" input field",
+              "category": "added"
+            },
+            {
+              "ja": "Web セッションから作成されたコミットと PR にセッション URL の帰属情報を追加",
+              "en": "Added session URL attribution to commits and PRs created from web sessions",
+              "category": "added"
+            },
+            {
+              "ja": "`PreToolUse` フックがモデルに `additionalContext` を返す機能をサポート",
+              "en": "Added support for `PreToolUse` hooks to return `additionalContext` to the model",
+              "category": "added"
+            },
+            {
+              "ja": "スキルが現在のセッション ID にアクセスするための `${CLAUDE_SESSION_ID}` 文字列置換を追加",
+              "en": "Added `${CLAUDE_SESSION_ID}` string substitution for skills to access the current session ID",
+              "category": "added"
+            },
+            {
+              "ja": "並列ツール呼び出しを含む長時間セッションで孤立した tool_result ブロックに関する API エラーで失敗する問題を修正",
+              "en": "Fixed long sessions with parallel tool calls failing with an API error about orphan tool_result blocks",
+              "category": "fixed"
+            },
+            {
+              "ja": "キャッシュされた接続プロミスが解決されない場合に MCP サーバーの再接続がハングする問題を修正",
+              "en": "Fixed MCP server reconnection hanging when cached connection promise never resolves",
+              "category": "fixed"
+            },
+            {
+              "ja": "Kitty キーボードプロトコルを使用するターミナル（Ghostty、iTerm2、kitty、WezTerm）で Ctrl+Z サスペンドが動作しない問題を修正",
+              "en": "Fixed Ctrl+Z suspend not working in terminals using Kitty keyboard protocol (Ghostty, iTerm2, kitty, WezTerm)",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.7",
+          "releaseDate": "2026-01-14",
+          "releaseDateDisplay": "2026年1月14日",
+          "entries": [
+            {
+              "ja": "ターン処理時間メッセージ（例: \"Cooked for 1m 6s\"）を非表示にする `showTurnDuration` 設定を追加",
+              "en": "Added `showTurnDuration` setting to hide turn duration messages (e.g., \"Cooked for 1m 6s\")",
+              "category": "added"
+            },
+            {
+              "ja": "許可プロンプト承認時にフィードバックを提供する機能を追加",
+              "en": "Added ability to provide feedback when accepting permission prompts",
+              "category": "added"
+            },
+            {
+              "ja": "タスク通知にエージェントの最終応答をインライン表示する機能を追加し、完全なトランスクリプトファイルを読まずに結果を確認可能に",
+              "en": "Added inline display of agent's final response in task notifications, making it easier to see results without reading the full transcript file",
+              "category": "added"
+            },
+            {
+              "ja": "ワイルドカード権限ルールがシェル演算子を含む複合コマンドにマッチする脆弱性を修正",
+              "en": "Fixed security vulnerability where wildcard permission rules could match compound commands containing shell operators",
+              "category": "other"
+            },
+            {
+              "ja": "Windows でクラウド同期ツール、アンチウイルススキャナー、Git がコンテンツを変更せずにファイルのタイムスタンプのみを更新した際に発生する誤った「ファイル変更」エラーを修正",
+              "en": "Fixed false \"file modified\" errors on Windows when cloud sync tools, antivirus scanners, or Git touch file timestamps without changing content",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミング実行中に並列ツールが失敗した際の孤立した tool_result エラーを修正",
+              "en": "Fixed orphaned tool_result errors when sibling tools fail during streaming execution",
+              "category": "fixed"
+            },
+            {
+              "ja": "コンテキストウィンドウのブロック制限が最大出力トークン用のスペースを確保した有効コンテキストウィンドウではなく、フルコンテキストウィンドウを使用して計算されていた問題を修正",
+              "en": "Fixed context window blocking limit being calculated using the full context window instead of the effective context window (which reserves space for max output tokens)",
+              "category": "other"
+            },
+            {
+              "ja": "`/model` や `/theme` などのローカルスラッシュコマンド実行時にスピナーが一瞬表示される問題を修正",
+              "en": "Fixed spinner briefly flashing when running local slash commands like `/model` or `/theme`",
+              "category": "fixed"
+            },
+            {
+              "ja": "固定幅ブライユ文字を使用してターミナルタイトルアニメーションのちらつきを修正",
+              "en": "Fixed terminal title animation jitter by using fixed-width braille characters",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラグインインストール時に git サブモジュールが完全に初期化されない問題を修正",
+              "en": "Fixed plugins with git submodules not being fully initialized when installed",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows 環境において一時ディレクトリのパスに `t` や `n` などの文字が含まれている場合にエスケープシーケンスとして誤解釈され bash コマンドが失敗する問題を修正",
+              "en": "Fixed bash commands failing on Windows when temp directory paths contained characters like `t` or `n` that were misinterpreted as escape sequences",
+              "category": "fixed"
+            },
+            {
+              "ja": "ターミナルレンダリングのメモリ割り当てオーバーヘッドを削減し、入力応答性を改善",
+              "en": "Improved typing responsiveness by reducing memory allocation overhead in terminal rendering",
+              "category": "improved"
+            },
+            {
+              "ja": "すべてのユーザーに対して MCP ツール検索の自動モードをデフォルトで有効化",
+              "en": "Enabled MCP tool search auto mode by default for all users",
+              "category": "added"
+            },
+            {
+              "ja": "OAuth および API コンソールの URL を console.anthropic.com から platform.claude.com に変更",
+              "en": "Changed OAuth and API Console URLs from console.anthropic.com to platform.claude.com",
+              "category": "changed"
+            },
+            {
+              "ja": "VSCodeにおいて、`claudeProcessWrapper`設定がClaude本体のパスではなくラッパーのパスを渡していた問題を修正",
+              "en": "[VSCode] Fixed `claudeProcessWrapper` setting passing the wrapper path instead of the Claude binary path",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.6",
+          "releaseDate": "2026-01-13",
+          "releaseDateDisplay": "2026年1月13日",
+          "entries": [
+            {
+              "ja": "`/config` コマンドに設定を素早く絞り込むための検索機能を追加",
+              "en": "Added search functionality to `/config` command for quickly filtering settings",
+              "category": "added"
+            },
+            {
+              "ja": "`/doctor` コマンドに自動更新チャネルと利用可能な npm バージョン（stable/latest）を表示するアップデート情報セクションを追加",
+              "en": "Added Updates section to `/doctor` showing auto-update channel and available npm versions (stable/latest)",
+              "category": "added"
+            },
+            {
+              "ja": "`/stats` コマンドに日付範囲フィルタを追加、`r` キーで直近7日間・直近30日間・全期間を切り替え可能",
+              "en": "Added date range filtering to `/stats` command - press `r` to cycle between Last 7 days, Last 30 days, and All time",
+              "category": "added"
+            },
+            {
+              "ja": "サブディレクトリ内のファイル操作時に、ネストされた `.claude/skills` ディレクトリからのスキル自動検出を追加",
+              "en": "Added automatic discovery of skills from nested `.claude/skills` directories when working with files in subdirectories",
+              "category": "added"
+            },
+            {
+              "ja": "ステータスラインの入力に `context_window.used_percentage` と `context_window.remaining_percentage` フィールドを追加し、コンテキストウィンドウの表示を容易化",
+              "en": "Added `context_window.used_percentage` and `context_window.remaining_percentage` fields to status line input for easier context window display",
+              "category": "added"
+            },
+            {
+              "ja": "Ctrl+G 実行時にエディタが失敗した場合のエラー表示を追加",
+              "en": "Added an error display when the editor fails during Ctrl+G",
+              "category": "added"
+            },
+            {
+              "ja": "シェル行継続によるパーミッションバイパスを修正し、ブロックされたコマンドの実行を防止",
+              "en": "Fixed permission bypass via shell line continuation that could allow blocked commands to execute",
+              "category": "fixed"
+            },
+            {
+              "ja": "ファイル監視機能がファイル内容を変更せずにタッチした際に発生する誤った「ファイルが予期せず変更されました」エラーを修正",
+              "en": "Fixed false \"File has been unexpectedly modified\" errors when file watchers touch files without changing content",
+              "category": "fixed"
+            },
+            {
+              "ja": "複数行の応答でテキストスタイル（太字、色）が徐々にずれる問題を修正",
+              "en": "Fixed text styling (bold, colors) getting progressively misaligned in multi-line responses",
+              "category": "fixed"
+            },
+            {
+              "ja": "フィードバックパネルで説明欄に「n」を入力した際に予期せず閉じてしまう問題を修正",
+              "en": "Fixed the feedback panel closing unexpectedly when typing 'n' in the description field",
+              "category": "fixed"
+            },
+            {
+              "ja": "週次リセット後の低使用率時にレート制限警告が表示される問題を修正（現在は70%以上の使用率で表示）",
+              "en": "Fixed rate limit warning appearing at low usage after weekly reset (now requires 70% usage)",
+              "category": "fixed"
+            },
+            {
+              "ja": "セッション再開時にレート制限オプションメニューが誤って開く不具合を修正",
+              "en": "Fixed rate limit options menu incorrectly auto-opening when resuming a previous session",
+              "category": "fixed"
+            },
+            {
+              "ja": "Kitty keyboard protocol 対応ターミナルにおけるテンキー入力時のエスケープシーケンス出力問題を修正",
+              "en": "Fixed numpad keys outputting escape sequences instead of characters in Kitty keyboard protocol terminals",
+              "category": "fixed"
+            },
+            {
+              "ja": "Kitty キーボードプロトコル端末で Option+Return が改行を挿入しない問題を修正",
+              "en": "Fixed Option+Return not inserting newlines in Kitty keyboard protocol terminals",
+              "category": "fixed"
+            },
+            {
+              "ja": "ホームディレクトリに破損した設定バックアップファイルが蓄積する問題を修正",
+              "en": "Fixed corrupted config backup files accumulating in the home directory",
+              "category": "fixed"
+            },
+            {
+              "ja": "`mcp list` と `mcp get` コマンドで MCP サーバープロセスが孤立したまま残る問題を修正",
+              "en": "Fixed `mcp list` and `mcp get` commands leaving orphaned MCP server processes",
+              "category": "fixed"
+            },
+            {
+              "ja": "ink2 モードでノードが `display:none` により非表示になった際の表示不具合を修正",
+              "en": "Fixed visual artifacts in ink2 mode when nodes become hidden via `display:none`",
+              "category": "fixed"
+            },
+            {
+              "ja": "外部 CLAUDE.md のインポート承認ダイアログを改善し、どのファイルがどこからインポートされるかを表示",
+              "en": "Improved the external CLAUDE.md imports approval dialog to show which files are being imported and from where",
+              "category": "improved"
+            },
+            {
+              "ja": "バックグラウンドタスクが1つのみの場合、`/tasks` ダイアログで直接タスク詳細に遷移するよう改善",
+              "en": "Improved the `/tasks` dialog to go directly to task details when there's only one background task running",
+              "category": "other"
+            },
+            {
+              "ja": "@ オートコンプリートでアイコンによる候補種別表示と単行フォーマットに対応",
+              "en": "Improved @ autocomplete with icons for different suggestion types and single-line formatting",
+              "category": "improved"
+            },
+            {
+              "ja": "複数のバックグラウンドタスクが同時に完了した際、タスク通知の表示を3行に制限し、超過分を要約表示するように変更",
+              "en": "Changed task notification display to cap at 3 lines with overflow summary when multiple background tasks complete simultaneously",
+              "category": "changed"
+            },
+            {
+              "ja": "ウィンドウ識別を容易にするため、起動時のターミナルタイトルを \"Claude Code\" に変更",
+              "en": "Changed terminal title to \"Claude Code\" on startup for better window identification",
+              "category": "other"
+            },
+            {
+              "ja": "MCP サーバーの有効化/無効化における @メンション機能を削除し、代わりに `/mcp enable <name>` を使用",
+              "en": "Removed ability to @-mention MCP servers to enable/disable - use `/mcp enable <name>` instead",
+              "category": "changed"
+            },
+            {
+              "ja": "[VSCode] 手動コンパクト後に使用状況インジケーターが更新されない問題を修正",
+              "en": "[VSCode] Fixed usage indicator not updating after manual compact",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.5",
+          "releaseDate": "2026-01-13",
+          "releaseDateDisplay": "2026年1月13日",
+          "entries": [
+            {
+              "ja": "内部一時ファイル用の一時ディレクトリを上書きする `CLAUDE_CODE_TMPDIR` 環境変数を追加（カスタム一時ディレクトリ要件を持つ環境に有用）",
+              "en": "Added `CLAUDE_CODE_TMPDIR` environment variable to override the temp directory used for internal temp files, useful for environments with custom temp directory requirements",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.1.4",
+          "releaseDate": "2026-01-11",
+          "releaseDateDisplay": "2026年1月11日",
+          "entries": [
+            {
+              "ja": "すべてのバックグラウンドタスク機能（自動バックグラウンド化と Ctrl+B ショートカットを含む）を無効化する `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` 環境変数を追加",
+              "en": "Added `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` environment variable to disable all background task functionality including auto-backgrounding and the Ctrl+B shortcut",
+              "category": "added"
+            },
+            {
+              "ja": "古い OAuth トークンによる失敗時に OAuth を更新して再試行するよう「Help improve Claude」設定の取得処理を修正",
+              "en": "Fixed \"Help improve Claude\" setting fetch to refresh OAuth and retry when it fails due to a stale OAuth token",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.3",
+          "releaseDate": "2026-01-10",
+          "releaseDateDisplay": "2026年1月10日",
+          "entries": [
+            {
+              "ja": "スラッシュコマンドとスキルを統合し、動作を変更せずにメンタルモデルを簡素化",
+              "en": "Merged slash commands and skills, simplifying the mental model with no change in behavior",
+              "category": "changed"
+            },
+            {
+              "ja": "`/config` にリリースチャネル（`stable` または `latest`）の切り替え機能を追加",
+              "en": "Added release channel (`stable` or `latest`) toggle to `/config`",
+              "category": "added"
+            },
+            {
+              "ja": "到達不能なパーミッションルールの検出と警告を追加（`/doctor` での警告表示、ルール保存後に各ルールの出所と修正ガイダンスを提供）",
+              "en": "Added detection and warnings for unreachable permission rules, with warnings in `/doctor` and after saving rules that include the source of each rule and actionable fix guidance",
+              "category": "added"
+            },
+            {
+              "ja": "`/clear` コマンド実行後もプランファイルが残る問題を修正し、会話クリア後に新しいプランファイルを使用するよう改善",
+              "en": "Fixed plan files persisting across `/clear` commands, now ensuring a fresh plan file is used after clearing a conversation",
+              "category": "fixed"
+            },
+            {
+              "ja": "大きな inode を持つファイルシステム（ExFAT 等）でのスキル重複誤検出を修正（inode 値に 64 ビット精度を使用）",
+              "en": "Fixed false skill duplicate detection on filesystems with large inodes (e.g., ExFAT) by using 64-bit precision for inode values",
+              "category": "fixed"
+            },
+            {
+              "ja": "ステータスバーのバックグラウンドタスク数とタスクダイアログ表示項目の不一致を修正",
+              "en": "Fixed mismatch between background task count in status bar and items shown in tasks dialog",
+              "category": "fixed"
+            },
+            {
+              "ja": "サブエージェントが会話圧縮時に誤ったモデルを使用する問題を修正",
+              "en": "Fixed sub-agents using the wrong model during conversation compaction",
+              "category": "fixed"
+            },
+            {
+              "ja": "ホームディレクトリから実行時に信頼ダイアログを承認してもフックなどの信頼必須機能が有効にならない問題を修正",
+              "en": "Fixed trust dialog acceptance when running from the home directory not enabling trust-requiring features like hooks during the session",
+              "category": "fixed"
+            },
+            {
+              "ja": "ターミナルレンダリングの安定性を改善（制御されていない書き込みによるカーソル状態の破損を防止）",
+              "en": "Improved terminal rendering stability by preventing uncontrolled writes from corrupting cursor state",
+              "category": "improved"
+            },
+            {
+              "ja": "スラッシュコマンド候補の可読性を改善（長い説明を 2 行に切り詰め）",
+              "en": "Improved slash command suggestion readability by truncating long descriptions to 2 lines",
+              "category": "improved"
+            },
+            {
+              "ja": "ツールフック実行のタイムアウトを 60 秒から 10 分に変更",
+              "en": "Changed tool hook execution timeout from 60 seconds to 10 minutes",
+              "category": "changed"
+            },
+            {
+              "ja": "[VSCode] パーミッションリクエストにクリック可能な保存先セレクタを追加（このプロジェクト、すべてのプロジェクト、チームと共有、またはセッションのみを選択可能）",
+              "en": "[VSCode] Added clickable destination selector for permission requests, allowing you to choose where settings are saved (this project, all projects, shared with team, or session only)",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.1.2",
+          "releaseDate": "2026-01-09",
+          "releaseDateDisplay": "2026年1月9日",
+          "entries": [
+            {
+              "ja": "ターミナルにドラッグした画像に元のパスメタデータを追加し、Claude が画像の出所を理解できるように対応",
+              "en": "Added source path metadata to images dragged onto the terminal, helping Claude understand where images originated",
+              "category": "added"
+            },
+            {
+              "ja": "OSC 8 対応ターミナル（iTerm など）でツール出力内のファイルパスをクリック可能なハイパーリンクとして表示",
+              "en": "Added clickable hyperlinks for file paths in tool output in terminals that support OSC 8 (like iTerm)",
+              "category": "added"
+            },
+            {
+              "ja": "Windows Package Manager（winget）インストールのサポートを追加し、自動検出と更新手順を提供",
+              "en": "Added support for Windows Package Manager (winget) installations with automatic detection and update instructions",
+              "category": "added"
+            },
+            {
+              "ja": "プランモードで Shift+Tab キーボードショートカットを追加し、「自動編集承認」オプションを素早く選択可能に対応",
+              "en": "Added Shift+Tab keyboard shortcut in plan mode to quickly select \"auto-accept edits\" option",
+              "category": "added"
+            },
+            {
+              "ja": "`FORCE_AUTOUPDATE_PLUGINS` 環境変数を追加し、メイン自動更新が無効でもプラグイン自動更新を許可",
+              "en": "Added `FORCE_AUTOUPDATE_PLUGINS` environment variable to allow plugin autoupdate even when the main auto-updater is disabled",
+              "category": "added"
+            },
+            {
+              "ja": "`--agent` 指定時に SessionStart フック入力に `agent_type` を追加",
+              "en": "Added `agent_type` to SessionStart hook input, populated if `--agent` is specified",
+              "category": "added"
+            },
+            {
+              "ja": "bash コマンド処理における不正な入力で任意のコマンドが実行されるコマンドインジェクション脆弱性を修正",
+              "en": "Fixed a command injection vulnerability in bash command processing where malformed input could execute arbitrary commands",
+              "category": "fixed"
+            },
+            {
+              "ja": "tree-sitter パースツリーが解放されず、長時間セッションで WASM メモリが無制限に増加するメモリリークを修正",
+              "en": "Fixed a memory leak where tree-sitter parse trees were not being freed, causing WASM memory to grow unbounded over long sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "CLAUDE.md ファイルの `@include` ディレクティブ使用時に、バイナリファイル（画像、PDF など）が誤ってメモリに含まれる問題を修正",
+              "en": "Fixed binary files (images, PDFs, etc.) being accidentally included in memory when using `@include` directives in CLAUDE.md files",
+              "category": "fixed"
+            },
+            {
+              "ja": "別のインストールが進行中と誤って表示される更新の問題を修正",
+              "en": "Fixed updates incorrectly claiming another installation is in progress",
+              "category": "fixed"
+            },
+            {
+              "ja": "監視ディレクトリにソケットファイルが存在する場合のクラッシュを修正（EOPNOTSUPP エラーの多重防御）",
+              "en": "Fixed crash when socket files exist in watched directories (defense-in-depth for EOPNOTSUPP errors)",
+              "category": "fixed"
+            },
+            {
+              "ja": "macOS の Option-as-Meta ヒントを改善し、iTerm2、Kitty、WezTerm などネイティブ CSIu ターミナル固有の手順を表示",
+              "en": "Improved Option-as-Meta hint on macOS to show terminal-specific instructions for native CSIu terminals like iTerm2, Kitty, and WezTerm",
+              "category": "improved"
+            },
+            {
+              "ja": "SSH 経由で画像を貼り付ける際のエラーメッセージを改善し、役に立たないクリップボードショートカットヒントの代わりに `scp` の使用を提案",
+              "en": "Improved error message when pasting images over SSH to suggest using `scp` instead of the unhelpful clipboard shortcut hint",
+              "category": "improved"
+            },
+            {
+              "ja": "大きなツール出力を切り捨てではなくディスクに保存し、ファイル参照経由で完全な出力にアクセス可能に変更",
+              "en": "Changed large tool outputs to be persisted to disk instead of truncated, providing full output access via file references",
+              "category": "changed"
+            },
+            {
+              "ja": "Windows 管理設定パス `C:\\ProgramData\\ClaudeCode\\managed-settings.json` を非推奨化し、管理者は `C:\\Program Files\\ClaudeCode\\managed-settings.json` への移行が必要",
+              "en": "Deprecated Windows managed settings path `C:\\ProgramData\\ClaudeCode\\managed-settings.json` - administrators should migrate to `C:\\Program Files\\ClaudeCode\\managed-settings.json`",
+              "category": "changed"
+            },
+            {
+              "ja": "[SDK] zod の最小 peer dependency を ^4.0.0 に変更",
+              "en": "[SDK] Changed minimum zod peer dependency to ^4.0.0",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.1.0",
+          "releaseDate": "2026-01-09",
+          "releaseDateDisplay": "2026年1月9日",
+          "entries": [
+            {
+              "ja": "スキルのホットリロードに対応し、`~/.claude/skills` または `.claude/skills` で作成・変更したスキルはセッション再起動なしで即座に利用可能に",
+              "en": "Added automatic skill hot-reload - skills created or modified in `~/.claude/skills` or `.claude/skills` are now immediately available without restarting the session",
+              "category": "added"
+            },
+            {
+              "ja": "スキルのフロントマターで `context: fork` を指定することでフォークしたサブエージェントコンテキストでスキルやスラッシュコマンドを実行可能に",
+              "en": "Added support for running skills and slash commands in a forked sub-agent context using `context: fork` in skill frontmatter",
+              "category": "added"
+            },
+            {
+              "ja": "スキルに `agent` フィールドを追加し、実行時のエージェントタイプを指定可能に",
+              "en": "Added support for `agent` field in skills to specify agent type for execution",
+              "category": "added"
+            },
+            {
+              "ja": "Claude の応答言語を設定する `language` 設定を追加（例: language: \"japanese\"）",
+              "en": "Added `language` setting to configure Claude's response language (e.g., language: \"japanese\")",
+              "category": "added"
+            },
+            {
+              "ja": "Shift+Enter が iTerm2、WezTerm、Ghostty、Kitty でターミナル設定の変更なしで動作するように変更",
+              "en": "Changed Shift+Enter to work out of the box in iTerm2, WezTerm, Ghostty, and Kitty without modifying terminal configs",
+              "category": "changed"
+            },
+            {
+              "ja": "`settings.json` に `respectGitignore` サポートを追加し、プロジェクトごとに @ メンションファイルピッカーの動作を制御可能に",
+              "en": "Added `respectGitignore` support in `settings.json` for per-project control over @-mention file picker behavior",
+              "category": "added"
+            },
+            {
+              "ja": "`IS_DEMO` 環境変数を追加し、ストリーミングや録画時に UI からメールアドレスと組織名を非表示に",
+              "en": "Added `IS_DEMO` environment variable to hide email and organization from the UI, useful for streaming or recording sessions",
+              "category": "added"
+            },
+            {
+              "ja": "デバッグログに機密データ（OAuth トークン、API キー、パスワード）が露出する可能性があるセキュリティ問題を修正",
+              "en": "Fixed security issue where sensitive data (OAuth tokens, API keys, passwords) could be exposed in debug logs",
+              "category": "fixed"
+            },
+            {
+              "ja": "`-c` または `--resume` でセッションを再開した際にファイルとスキルが適切に検出されない問題を修正",
+              "en": "Fixed files and skills not being properly discovered when resuming sessions with `-c` or `--resume`",
+              "category": "fixed"
+            },
+            {
+              "ja": "上矢印キーまたは Ctrl+R 検索で履歴からプロンプトを再生した際に貼り付けた内容が失われる問題を修正",
+              "en": "Fixed pasted content being lost when replaying prompts from history using up arrow or Ctrl+R search",
+              "category": "fixed"
+            },
+            {
+              "ja": "Esc キーの動作を改善し、キューされたプロンプトを実行中のタスクをキャンセルせずに入力欄に移動",
+              "en": "Fixed Esc key with queued prompts to only move them to input without canceling the running task",
+              "category": "fixed"
+            },
+            {
+              "ja": "複雑な bash コマンドの権限プロンプトを削減",
+              "en": "Reduced permission prompts for complex bash commands",
+              "category": "improved"
+            },
+            {
+              "ja": "Bash ツールの権限に `*` を使用したワイルドカードパターンマッチングを追加（例: `Bash(npm *)`、`Bash(* install)`、`Bash(git * main)`）",
+              "en": "Added wildcard pattern matching for Bash tool permissions using `*` at any position in rules (e.g., `Bash(npm *)`, `Bash(* install)`, `Bash(git * main)`)",
+              "category": "added"
+            },
+            {
+              "ja": "Ctrl+B によるバックグラウンド化を統合し、bash コマンドとエージェントの両方で動作するようになり、実行中のすべてのフォアグラウンドタスクを同時にバックグラウンド化",
+              "en": "Added unified Ctrl+B backgrounding for both bash commands and agents - pressing Ctrl+B now backgrounds all running foreground tasks simultaneously",
+              "category": "added"
+            },
+            {
+              "ja": "MCP の `list_changed` 通知に対応し、MCP サーバーが再接続なしで利用可能なツール、プロンプト、リソースを動的に更新可能に",
+              "en": "Added support for MCP `list_changed` notifications, allowing MCP servers to dynamically update their available tools, prompts, and resources without requiring reconnection",
+              "category": "added"
+            },
+            {
+              "ja": "claude.ai サブスクライバー向けに `/teleport` および `/remote-env` スラッシュコマンドを追加し、リモートセッションの再開と設定を可能に",
+              "en": "Added `/teleport` and `/remote-env` slash commands for claude.ai subscribers, allowing them to resume and configure remote sessions",
+              "category": "added"
+            },
+            {
+              "ja": "settings.json の権限または `--disallowedTools` CLI フラグで `Task(AgentName)` 構文を使用して特定のエージェントを無効化可能に",
+              "en": "Added support for disabling specific agents using `Task(AgentName)` syntax in settings.json permissions or the `--disallowedTools` CLI flag",
+              "category": "added"
+            },
+            {
+              "ja": "エージェントのフロントマターにフックサポートを追加し、エージェントのライフサイクルにスコープされた PreToolUse、PostToolUse、Stop フックを定義可能に",
+              "en": "Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle",
+              "category": "added"
+            },
+            {
+              "ja": "新しい Vim モーションを追加: `;` と `,` で f/F/t/T モーションの繰り返し、`y` オペレーター（`yy`/`Y`）、`p`/`P` でペースト、テキストオブジェクト（`iw`、`aw`、`iW`、`aW`、`i\"`、`a\"`、`i'`、`a'`、`i(`、`a(`、`i[`、`a[`、`i{`、`a{`）、`>>` と `<<` でインデント/アンインデント、`J` で行の結合",
+              "en": "Added new Vim motions: `;` and `,` to repeat f/F/t/T motions, `y` operator for yank with `yy`/`Y`, `p`/`P` for paste, text objects (`iw`, `aw`, `iW`, `aW`, `i\"`, `a\"`, `i'`, `a'`, `i(`, `a(`, `i[`, `a[`, `i{`, `a{`), `>>` and `<<` for indent/dedent, and `J` to join lines",
+              "category": "added"
+            },
+            {
+              "ja": "`/plan` コマンドショートカットを追加し、プロンプトから直接プランモードを有効化",
+              "en": "Added `/plan` command shortcut to enable plan mode directly from the prompt",
+              "category": "added"
+            },
+            {
+              "ja": "スラッシュコマンドのオートコンプリートを改善し、入力の先頭だけでなく任意の位置の `/` で動作",
+              "en": "Added slash command autocomplete support when `/` appears anywhere in input, not just at the beginning",
+              "category": "improved"
+            },
+            {
+              "ja": "インタラクティブモードで `--tools` フラグを追加し、Claude が使用できる組み込みツールを制限可能に",
+              "en": "Added `--tools` flag support in interactive mode to restrict which built-in tools Claude can use during interactive sessions",
+              "category": "added"
+            },
+            {
+              "ja": "`CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS` 環境変数を追加し、デフォルトのファイル読み込みトークン制限をオーバーライド可能に",
+              "en": "Added `CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS` environment variable to override the default file read token limit",
+              "category": "added"
+            },
+            {
+              "ja": "フックに `once: true` 設定のサポートを追加",
+              "en": "Added support for `once: true` config for hooks",
+              "category": "added"
+            },
+            {
+              "ja": "フロントマターの `allowed-tools` フィールドで YAML スタイルのリストに対応し、スキル宣言を簡潔に",
+              "en": "Added support for YAML-style lists in frontmatter `allowed-tools` field for cleaner skill declarations",
+              "category": "added"
+            },
+            {
+              "ja": "プラグインからのプロンプトおよびエージェントフックタイプに対応（以前はコマンドフックのみサポート）",
+              "en": "Added support for prompt and agent hook types from plugins (previously only command hooks were supported)",
+              "category": "added"
+            },
+            {
+              "ja": "iTerm2 で Cmd+V による画像貼り付けに対応（Ctrl+V にマッピング）",
+              "en": "Added Cmd+V support for image paste in iTerm2 (maps to Ctrl+V)",
+              "category": "added"
+            },
+            {
+              "ja": "ダイアログでタブを切り替えるための左右矢印キーナビゲーションを追加",
+              "en": "Added left/right arrow key navigation for cycling through tabs in dialogs",
+              "category": "added"
+            },
+            {
+              "ja": "Ctrl+O トランスクリプトモードで思考ブロックのリアルタイム表示を追加",
+              "en": "Added real-time thinking block display in Ctrl+O transcript mode",
+              "category": "added"
+            },
+            {
+              "ja": "コンテキスト可視化でスキルを独立したカテゴリとして表示",
+              "en": "Added Skills as a separate category in the context visualization",
+              "category": "added"
+            },
+            {
+              "ja": "起動パフォーマンスを改善するための複数の最適化",
+              "en": "Multiple optimizations to improve startup performance",
+              "category": "improved"
+            },
+            {
+              "ja": "サブエージェント（Task ツール）を改善し、権限拒否後も動作を継続し代替アプローチを試行可能に",
+              "en": "Improved subagents (Task tool) to continue working after permission denial, allowing them to try alternative approaches",
+              "category": "improved"
+            },
+            {
+              "ja": "スキルを改善し、実行中に進行状況を表示しツール使用をリアルタイムで表示",
+              "en": "Improved skills to show progress while executing, displaying tool uses as they happen",
+              "category": "improved"
+            },
+            {
+              "ja": "プランモード移行時の権限プロンプトを削除し、承認なしでプランモードに移行可能に",
+              "en": "Removed permission prompt when entering plan mode - users can now enter plan mode without approval",
+              "category": "changed"
+            },
+            {
+              "ja": "[VSCode] コンテキストメニューに現在選択されているモデル名を追加",
+              "en": "[VSCode] Added currently selected model name to the context menu",
+              "category": "added"
+            },
+            {
+              "ja": "[VSCode] 自動承認権限ボタンにわかりやすいラベルを追加（例: 「Yes, and don't ask again」の代わりに「Yes, allow npm for this project」）",
+              "en": "[VSCode] Added descriptive labels on auto-accept permission button (e.g., \"Yes, allow npm for this project\" instead of \"Yes, and don't ask again\")",
+              "category": "improved"
+            },
+            {
+              "ja": "[Windows] 不適切なレンダリング問題を修正",
+              "en": "[Windows] Fixed issue with improper rendering",
+              "category": "fixed"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

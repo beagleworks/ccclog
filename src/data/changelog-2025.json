@@ -1,0 +1,4518 @@
+{
+  "generatedAt": "2026-02-19T00:41:06.607Z",
+  "months": [
+    {
+      "key": "2026-01",
+      "label": "2026年1月",
+      "versions": [
+        {
+          "version": "2.0.76",
+          "releaseDate": "2026-01-08",
+          "releaseDateDisplay": "2026年1月8日",
+          "entries": [
+            {
+              "ja": "Chrome 連携使用時の macOS コード署名警告の問題を修正",
+              "en": "Fixed issue with macOS code-sign warning when using Claude in Chrome integration",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.75",
+          "releaseDate": "2026-01-08",
+          "releaseDateDisplay": "2026年1月8日",
+          "entries": [
+            {
+              "ja": "軽微なバグ修正",
+              "en": "Minor bugfixes",
+              "category": "fixed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "2025-12",
+      "label": "2025年12月",
+      "versions": [
+        {
+          "version": "2.0.74",
+          "releaseDate": "2025-12-20",
+          "releaseDateDisplay": "2025年12月20日",
+          "entries": [
+            {
+              "ja": "LSP（Language Server Protocol）ツールを追加し、定義へのジャンプ、参照検索、ホバードキュメントなどのコードインテリジェンス機能に対応",
+              "en": "Added LSP (Language Server Protocol) tool for code intelligence features like go-to-definition, find references, and hover documentation",
+              "category": "added"
+            },
+            {
+              "ja": "Kitty、Alacritty、Zed、Warp ターミナルの `/terminal-setup` サポートを追加",
+              "en": "Added `/terminal-setup` support for Kitty, Alacritty, Zed, and Warp terminals",
+              "category": "added"
+            },
+            {
+              "ja": "`/theme` コマンドに Ctrl+T ショートカットを追加し、シンタックスハイライトのオン/オフ切り替えに対応",
+              "en": "Added ctrl+t shortcut in `/theme` to toggle syntax highlighting on/off",
+              "category": "added"
+            },
+            {
+              "ja": "テーマピッカーにシンタックスハイライト情報を追加",
+              "en": "Added syntax highlighting info to theme picker",
+              "category": "added"
+            },
+            {
+              "ja": "macOS ユーザー向けに、Alt ショートカットがターミナル設定により動作しない場合のガイダンスを追加",
+              "en": "Added guidance for macOS users when Alt shortcuts fail due to terminal configuration",
+              "category": "added"
+            },
+            {
+              "ja": "スキルの `allowed-tools` がスキルから呼び出されたツールに適用されない問題を修正",
+              "en": "Fixed skill `allowed-tools` not being applied to tools invoked by the skill",
+              "category": "fixed"
+            },
+            {
+              "ja": "ユーザーが既に Opus を使用している場合に Opus 4.5 のヒントが誤って表示される問題を修正",
+              "en": "Fixed Opus 4.5 tip incorrectly showing when user was already using Opus",
+              "category": "fixed"
+            },
+            {
+              "ja": "シンタックスハイライトが正しく初期化されない場合のクラッシュの可能性を修正",
+              "en": "Fixed a potential crash when syntax highlighting isn't initialized correctly",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/plugins discover` で検索ボックスにフォーカスがある状態でリスト選択インジケーターが表示される表示不具合を修正",
+              "en": "Fixed visual bug in `/plugins discover` where list selection indicator showed while search box was focused",
+              "category": "fixed"
+            },
+            {
+              "ja": "macOS のキーボードショートカット表示を 'alt' から 'opt' に修正",
+              "en": "Fixed macOS keyboard shortcuts to display 'opt' instead of 'alt'",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/context` コマンドの表示を改善し、ソース別のスキルとエージェントのグループ化、スラッシュコマンド、トークン数のソートに対応",
+              "en": "Improved `/context` command visualization with grouped skills and agents by source, slash commands, and sorted token count",
+              "category": "improved"
+            },
+            {
+              "ja": "[Windows] 不適切なレンダリングの問題を修正",
+              "en": "[Windows] Fixed issue with improper rendering",
+              "category": "fixed"
+            },
+            {
+              "ja": "[VSCode] 年末プロモーションメッセージ用のギフトタグ絵文字を追加",
+              "en": "[VSCode] Added gift tag pictogram for year-end promotion message",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.73",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "添付画像をデフォルトビューアで開くクリック可能な `[Image #N]` リンクを追加",
+              "en": "Added clickable `[Image #N]` links that open attached images in the default viewer",
+              "category": "added"
+            },
+            {
+              "ja": "ctrl-y yank 後にキルリング履歴を巡回する alt-y yank-pop を追加",
+              "en": "Added alt-y yank-pop to cycle through kill ring history after ctrl-y yank",
+              "category": "added"
+            },
+            {
+              "ja": "プラグイン検索画面に検索フィルタリングを追加（名前、説明、マーケットプレイスで絞り込み可能）",
+              "en": "Added search filtering to the plugin discover screen (type to filter by name, description, or marketplace)",
+              "category": "added"
+            },
+            {
+              "ja": "`--session-id` と `--resume` または `--continue` および `--fork-session` を組み合わせてセッションをフォークする際のカスタムセッション ID のサポートを追加",
+              "en": "Added support for custom session IDs when forking sessions with `--session-id` combined with `--resume` or `--continue` and `--fork-session`",
+              "category": "added"
+            },
+            {
+              "ja": "入力履歴の巡回が遅くなる問題とメッセージ送信後にテキストが上書きされる可能性のある競合状態を修正",
+              "en": "Fixed slow input history cycling and race condition that could overwrite text after message submission",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/theme` コマンドがテーマピッカーを直接開くように改善",
+              "en": "Improved `/theme` command to open theme picker directly",
+              "category": "improved"
+            },
+            {
+              "ja": "テーマピッカー UI を改善",
+              "en": "Improved theme picker UI",
+              "category": "improved"
+            },
+            {
+              "ja": "統一された SearchBox コンポーネントによるセッション再開、権限、プラグイン画面全体の検索 UX を改善",
+              "en": "Improved search UX across resume session, permissions, and plugins screens with a unified SearchBox component",
+              "category": "improved"
+            },
+            {
+              "ja": "[VSCode] 保留中の権限（青）と未読の補完（オレンジ）を示すタブアイコンバッジを追加",
+              "en": "[VSCode] Added tab icon badges showing pending permissions (blue) and unread completions (orange)",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.72",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Chrome拡張機能（https://claude.ai/chrome）と連携してブラウザを直接操作できる Claude in Chrome（ベータ）機能を追加",
+              "en": "Added Claude in Chrome (Beta) feature that works with the Chrome extension (https://claude.ai/chrome) to let you control your browser directly from Claude Code",
+              "category": "added"
+            },
+            {
+              "ja": "ターミナルのちらつきを軽減",
+              "en": "Reduced terminal flickering",
+              "category": "improved"
+            },
+            {
+              "ja": "モバイルアプリのダウンロードを促すヒントにスキャン可能なQRコードを追加",
+              "en": "Added scannable QR code to mobile app tip for quick app downloads",
+              "category": "added"
+            },
+            {
+              "ja": "会話の再開時にローディングインジケーターを追加してフィードバックを改善",
+              "en": "Added loading indicator when resuming conversations for better feedback",
+              "category": "improved"
+            },
+            {
+              "ja": "非インタラクティブモードで `/context` コマンドがカスタムシステムプロンプトを尊重しない問題を修正",
+              "en": "Fixed `/context` command not respecting custom system prompts in non-interactive mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "Ctrl+Yで貼り付け時に連続するCtrl+K行の順序が正しくない問題を修正",
+              "en": "Fixed order of consecutive Ctrl+K lines when pasting with Ctrl+Y",
+              "category": "fixed"
+            },
+            {
+              "ja": "@ メンションのファイル提案速度を改善（gitリポジトリで約3倍高速化）",
+              "en": "Improved @ mention file suggestion speed (~3× faster in git repositories)",
+              "category": "improved"
+            },
+            {
+              "ja": "`.ignore` または `.rgignore` ファイルを含むリポジトリでのファイル提案パフォーマンスを改善",
+              "en": "Improved file suggestion performance in repos with `.ignore` or `.rgignore` files",
+              "category": "improved"
+            },
+            {
+              "ja": "設定の検証エラーをより目立つように改善",
+              "en": "Improved settings validation errors to be more prominent",
+              "category": "improved"
+            },
+            {
+              "ja": "誤操作を防ぐため、思考トグルのショートカットをTabからAlt+Tに変更",
+              "en": "Changed thinking toggle from Tab to Alt+T to avoid accidental triggers",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.71",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プロンプト候補の有効化/無効化のための /config トグルを追加",
+              "en": "Added /config toggle to enable/disable prompt suggestions",
+              "category": "added"
+            },
+            {
+              "ja": "/config コマンドのエイリアスとして `/settings` を追加",
+              "en": "Added `/settings` as an alias for the `/config` command",
+              "category": "added"
+            },
+            {
+              "ja": "カーソルがパス途中にある場合の @ ファイル参照候補が誤って発動する問題を修正",
+              "en": "Fixed @ file reference suggestions incorrectly triggering when cursor is in the middle of a path",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--dangerously-skip-permissions` 使用時に `.mcp.json` の MCP サーバーが読み込まれない問題を修正",
+              "en": "Fixed MCP servers from `.mcp.json` not loading when using `--dangerously-skip-permissions`",
+              "category": "fixed"
+            },
+            {
+              "ja": "シェル glob パターンを含む有効な bash コマンド（例: `ls *.txt`、`for f in *.png`）を誤って拒否するパーミッションルールを修正",
+              "en": "Fixed permission rules incorrectly rejecting valid bash commands containing shell glob patterns (e.g., `ls *.txt`, `for f in *.png`)",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bedrock: トークンカウントと推論プロファイル取得で環境変数 `ANTHROPIC_BEDROCK_BASE_URL` を考慮するように対応",
+              "en": "Bedrock: Environment variable `ANTHROPIC_BEDROCK_BASE_URL` is now respected for token counting and inference profile listing",
+              "category": "changed"
+            },
+            {
+              "ja": "ネイティブビルド向けの新しいシンタックスハイライトエンジン",
+              "en": "New syntax highlighting engine for native build",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.70",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プロンプト候補をEnterキーで即座に受け入れて送信可能に（Tabキーは編集のための受け入れのまま）",
+              "en": "Added Enter key to accept and submit prompt suggestions immediately (tab still accepts for editing)",
+              "category": "added"
+            },
+            {
+              "ja": "MCPツール権限にワイルドカード構文 `mcp__server__*` を追加し、サーバーの全ツールを一括許可・拒否可能に",
+              "en": "Added wildcard syntax `mcp__server__*` for MCP tool permissions to allow or deny all tools from a server",
+              "category": "added"
+            },
+            {
+              "ja": "プラグインマーケットプレイスごとに自動更新を制御できる自動更新トグルを追加",
+              "en": "Added auto-update toggle for plugin marketplaces, allowing per-marketplace control over automatic updates",
+              "category": "added"
+            },
+            {
+              "ja": "ステータスラインに `current_usage` フィールドを追加し、コンテキストウィンドウの正確な使用率計算を実現",
+              "en": "Added `current_usage` field to status line input, enabling accurate context window percentage calculations",
+              "category": "added"
+            },
+            {
+              "ja": "ユーザーの入力中にキューコマンドを処理する際に入力がクリアされる問題を修正",
+              "en": "Fixed input being cleared when processing queued commands while the user was typing",
+              "category": "fixed"
+            },
+            {
+              "ja": "Tabキー押下時にプロンプト候補が入力済みテキストを置き換える問題を修正",
+              "en": "Fixed prompt suggestions replacing typed input when pressing Tab",
+              "category": "fixed"
+            },
+            {
+              "ja": "ターミナルのリサイズ時に差分ビューが更新されない問題を修正",
+              "en": "Fixed diff view not updating when terminal is resized",
+              "category": "fixed"
+            },
+            {
+              "ja": "大規模な会話におけるメモリ使用量を3分の1に改善",
+              "en": "Improved memory usage by 3x for large conversations",
+              "category": "improved"
+            },
+            {
+              "ja": "クリップボードにコピーされた統計スクリーンショット（Ctrl+S）の解像度を向上し、より鮮明な画像を実現",
+              "en": "Improved resolution of stats screenshots copied to clipboard (Ctrl+S) for crisper images",
+              "category": "improved"
+            },
+            {
+              "ja": "クイックメモリエントリの # ショートカットを削除（代わりにClaudeにCLAUDE.mdの編集を依頼）",
+              "en": "Removed # shortcut for quick memory entry (tell Claude to edit your CLAUDE.md instead)",
+              "category": "changed"
+            },
+            {
+              "ja": "/config のシンキングモードトグルが正しく永続化されない問題を修正",
+              "en": "Fix thinking mode toggle in /config not persisting correctly",
+              "category": "fixed"
+            },
+            {
+              "ja": "ファイル作成権限ダイアログのUIを改善",
+              "en": "Improve UI for file creation permission dialog",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "2.0.69",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "軽微なバグを修正",
+              "en": "Minor bugfixes",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.68",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "IME（入力メソッドエディタ）における中国語・日本語・韓国語などの入力時に、変換候補ウィンドウがカーソル位置に正しく表示されるよう修正",
+              "en": "Fixed IME (Input Method Editor) support for languages like Chinese, Japanese, and Korean by correctly positioning the composition window at the cursor",
+              "category": "fixed"
+            },
+            {
+              "ja": "許可されていない MCP ツールがモデルに表示される問題を修正",
+              "en": "Fixed a bug where disallowed MCP tools were visible to the model",
+              "category": "fixed"
+            },
+            {
+              "ja": "サブエージェント動作中にステアリングメッセージが失われる問題を修正",
+              "en": "Fixed an issue where steering messages could be lost while a subagent is working",
+              "category": "fixed"
+            },
+            {
+              "ja": "Option+Arrow キーによる単語ナビゲーション時に、CJK（中国語・日本語・韓国語）テキストが単語境界で移動せず全体を1単語として扱う問題を修正",
+              "en": "Fixed Option+Arrow word navigation treating entire CJK (Chinese, Japanese, Korean) text sequences as a single word instead of navigating by word boundaries",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラン終了時の UX を改善：プランが空または存在しない場合、エラーを投げる代わりにシンプルな yes/no ダイアログを表示",
+              "en": "Improved plan mode exit UX: show simplified yes/no dialog when exiting with empty or missing plan instead of throwing an error",
+              "category": "improved"
+            },
+            {
+              "ja": "エンタープライズ管理設定のサポートを追加（この機能を有効化するには Anthropic アカウントチームに連絡が必要）",
+              "en": "Add support for enterprise managed settings. Contact your Anthropic account team to enable this feature.",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.67",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Opus 4.5 で思考モードがデフォルトで有効化",
+              "en": "Thinking mode is now enabled by default for Opus 4.5",
+              "category": "changed"
+            },
+            {
+              "ja": "思考モードの設定を /config に移動",
+              "en": "Thinking mode configuration has moved to /config",
+              "category": "changed"
+            },
+            {
+              "ja": "`/permissions` コマンドに検索機能を追加し、`/` キーボードショートカットでツール名によるルールのフィルタリングに対応",
+              "en": "Added search functionality to `/permissions` command with `/` keyboard shortcut for filtering rules by tool name",
+              "category": "added"
+            },
+            {
+              "ja": "`/doctor` で自動更新が無効になっている理由を表示",
+              "en": "Show reason why autoupdater is disabled in `/doctor`",
+              "category": "improved"
+            },
+            {
+              "ja": "別のインスタンスが既に最新バージョンの場合に `claude update` 実行時に誤った「別のプロセスが更新中」エラーが表示される問題を修正",
+              "en": "Fixed false \"Another process is currently updating Claude\" error when running `claude update` while another instance is already on the latest version",
+              "category": "fixed"
+            },
+            {
+              "ja": "非対話モード（`-p` フラグまたはパイプ入力）実行時に `.mcp.json` の MCP サーバーが保留状態のままになる問題を修正",
+              "en": "Fixed MCP servers from `.mcp.json` being stuck in pending state when running in non-interactive mode (`-p` flag or piped input)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/permissions` で権限ルール削除後にスクロール位置がリセットされる問題を修正",
+              "en": "Fixed scroll position resetting after deleting a permission rule in `/permissions`",
+              "category": "fixed"
+            },
+            {
+              "ja": "キリル文字、ギリシャ文字、アラビア文字、ヘブライ文字、タイ文字、中国語などの非ラテン文字で単語削除（opt+delete）と単語ナビゲーション（opt+arrow）が正しく動作しない問題を修正",
+              "en": "Fixed word deletion (opt+delete) and word navigation (opt+arrow) not working correctly with non-Latin text such as Cyrillic, Greek, Arabic, Hebrew, Thai, and Chinese",
+              "category": "fixed"
+            },
+            {
+              "ja": "`claude install --force` が古いロックファイルをバイパスしない問題を修正",
+              "en": "Fixed `claude install --force` not bypassing stale lock files",
+              "category": "fixed"
+            },
+            {
+              "ja": "CLAUDE.md 内の連続した @~/ ファイル参照がマークダウンの取り消し線の干渉により誤って解析される問題を修正",
+              "en": "Fixed consecutive @~/ file references in CLAUDE.md being incorrectly parsed due to markdown strikethrough interference",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows: ログディレクトリパスのコロンが原因でプラグイン MCP サーバーが失敗する問題を修正",
+              "en": "Windows: Fixed plugin MCP servers failing due to colons in log directory paths",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.65",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プロンプト入力中にalt+p（Linux、Windows）またはoption+p（macOS）でモデルを切り替える機能を追加",
+              "en": "Added ability to switch models while writing a prompt using alt+p (linux, windows), option+p (macos).",
+              "category": "added"
+            },
+            {
+              "ja": "ステータスラインの入力部分にコンテキストウィンドウ情報を追加",
+              "en": "Added context window information to status line input",
+              "category": "added"
+            },
+            {
+              "ja": "カスタム `@` ファイル検索コマンド用の `fileSuggestion` 設定を追加",
+              "en": "Added `fileSuggestion` setting for custom `@` file search commands",
+              "category": "added"
+            },
+            {
+              "ja": "自動シェル検出を上書きする `CLAUDE_CODE_SHELL` 環境変数を追加（ログインシェルと実際の作業シェルが異なる場合に有用）",
+              "en": "Added `CLAUDE_CODE_SHELL` environment variable to override automatic shell detection (useful when login shell differs from actual working shell)",
+              "category": "added"
+            },
+            {
+              "ja": "Escapeキーでクエリを中断した際にプロンプトが履歴に保存されない問題を修正",
+              "en": "Fixed prompt not being saved to history when aborting a query with Escape",
+              "category": "fixed"
+            },
+            {
+              "ja": "Readツールの画像処理において、ファイル拡張子ではなくバイト列から形式を識別するように修正",
+              "en": "Fixed Read tool image handling to identify format from bytes instead of file extension",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.64",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "自動圧縮を即時実行に変更",
+              "en": "Made auto-compacting instant",
+              "category": "improved"
+            },
+            {
+              "ja": "エージェントとbashコマンドの非同期実行およびメインエージェントへのメッセージ送信に対応",
+              "en": "Agents and bash commands can run asynchronously and send messages to wake up the main agent",
+              "category": "added"
+            },
+            {
+              "ja": "/stats コマンドで使用統計（お気に入りモデル、使用グラフ、連続使用日数）を表示",
+              "en": "/stats now provides users with interesting CC stats, such as favorite model, usage graph, usage streak",
+              "category": "added"
+            },
+            {
+              "ja": "名前付きセッション機能を追加（`/rename` で命名、`/resume <name>` または `claude --resume <name>` で再開）",
+              "en": "Added named session support: use `/rename` to name sessions, `/resume <name>` in REPL or `claude --resume <name>` from the terminal to resume them",
+              "category": "added"
+            },
+            {
+              "ja": "`.claude/rules/` のサポートを追加（詳細は https://code.claude.com/docs/en/memory を参照）",
+              "en": "Added support for .claude/rules/`.  See https://code.claude.com/docs/en/memory for details.",
+              "category": "added"
+            },
+            {
+              "ja": "画像リサイズ時の寸法メタデータを追加し、大きな画像の座標マッピングを正確化",
+              "en": "Added image dimension metadata when images are resized, enabling accurate coordinate mappings for large images",
+              "category": "added"
+            },
+            {
+              "ja": "ネイティブインストーラー使用時の .env 自動読み込みを修正",
+              "en": "Fixed auto-loading .env when using native installer",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--continue` または `--resume` フラグ使用時に `--system-prompt` が無視される問題を修正",
+              "en": "Fixed `--system-prompt` being ignored when using `--continue` or `--resume` flags",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/resume` 画面を改善（フォークされたセッションをグループ化、プレビュー(P)とリネーム(R)のキーボードショートカット追加）",
+              "en": "Improved `/resume` screen with grouped forked sessions and keyboard shortcuts for preview (P) and rename (R)",
+              "category": "improved"
+            },
+            {
+              "ja": "VSCode: コードブロックとbashツール入力にクリップボードコピーボタンを追加",
+              "en": "VSCode: Added copy-to-clipboard button on code blocks and bash tool inputs",
+              "category": "added"
+            },
+            {
+              "ja": "VSCode: Windows ARM64 でエミュレーション経由で x64 バイナリにフォールバックし、拡張機能の動作を修正",
+              "en": "VSCode: Fixed extension not working on Windows ARM64 by falling back to x64 binary via emulation",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bedrock: トークンカウントの効率を改善",
+              "en": "Bedrock: Improve efficiency of token counting",
+              "category": "improved"
+            },
+            {
+              "ja": "Bedrock: `aws login` による AWS Management Console 認証情報に対応",
+              "en": "Bedrock: Add support for `aws login` AWS Management Console credentials",
+              "category": "added"
+            },
+            {
+              "ja": "AgentOutputTool と BashOutputTool を廃止し、新しい統合 TaskOutputTool に移行",
+              "en": "Unshipped AgentOutputTool and BashOutputTool, in favor of a new unified TaskOutputTool",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.62",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "複数選択式の質問に「（推奨）」インジケーターを追加し、推奨オプションをリスト最上部に配置",
+              "en": "Added \"(Recommended)\" indicator for multiple-choice questions, with the recommended option moved to the top of the list",
+              "category": "added"
+            },
+            {
+              "ja": "コミットとPRの署名をカスタマイズする `attribution` 設定を追加（`includeCoAuthoredBy` を非推奨化）",
+              "en": "Added `attribution` setting to customize commit and PR bylines (deprecates `includeCoAuthoredBy`)",
+              "category": "added"
+            },
+            {
+              "ja": "~/.claude がプロジェクトディレクトリにシンボリックリンクされている場合にスラッシュコマンドが重複表示される問題を修正",
+              "en": "Fixed duplicate slash commands appearing when ~/.claude is symlinked to a project directory",
+              "category": "fixed"
+            },
+            {
+              "ja": "複数のコマンドが同じ名前を共有している場合にスラッシュコマンドの選択が機能しない問題を修正",
+              "en": "Fixed slash command selection not working when multiple commands share the same name",
+              "category": "fixed"
+            },
+            {
+              "ja": "シンボリックリンクされたスキルディレクトリ内のスキルファイルが循環シンボリックリンクになる問題を修正",
+              "en": "Fixed an issue where skill files inside symlinked skill directories could become circular symlinks",
+              "category": "fixed"
+            },
+            {
+              "ja": "ロックファイルが誤って古くなることで実行中のバージョンが削除される問題を修正",
+              "en": "Fixed running versions getting removed because lock file incorrectly going stale",
+              "category": "fixed"
+            },
+            {
+              "ja": "ファイル変更を拒否した際にIDE差分タブが閉じない問題を修正",
+              "en": "Fixed IDE diff tab not closing when rejecting file changes",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.61",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "VSCode での複数ターミナルクライアントサポートを応答性の問題により差し戻し",
+              "en": "Reverted VSCode support for multiple terminal clients due to responsiveness issues.",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.60",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "バックグラウンドエージェント対応を追加：作業中にエージェントがバックグラウンドで実行される",
+              "en": "Added background agent support. Agents run in the background while you work",
+              "category": "added"
+            },
+            {
+              "ja": "すべてのスラッシュコマンドを無効化する --disable-slash-commands CLI フラグを追加",
+              "en": "Added --disable-slash-commands CLI flag to disable all slash commands",
+              "category": "added"
+            },
+            {
+              "ja": "\"Co-Authored-By\" コミットメッセージにモデル名を追加",
+              "en": "Added model name to \"Co-Authored-By\" commit messages",
+              "category": "added"
+            },
+            {
+              "ja": "\"/mcp enable [server-name]\" または \"/mcp disable [server-name]\" ですべてのサーバーを素早く切り替え可能に",
+              "en": "Enabled \"/mcp enable [server-name]\" or \"/mcp disable [server-name]\" to quickly toggle all servers",
+              "category": "added"
+            },
+            {
+              "ja": "事前承認済みウェブサイトの要約をスキップするよう Fetch を更新",
+              "en": "Updated Fetch to skip summarization for pre-approved websites",
+              "category": "changed"
+            },
+            {
+              "ja": "VSCode: IDE サーバーへの複数ターミナルクライアントの同時接続に対応",
+              "en": "VSCode: Added support for multiple terminal clients connecting to the IDE server simultaneously",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.59",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "現在のセッションのエージェント設定を上書きする --agent CLI フラグを追加",
+              "en": "Added --agent CLI flag to override the agent setting for the current session",
+              "category": "added"
+            },
+            {
+              "ja": "特定エージェントのシステムプロンプト、ツール制限、モデルでメインスレッドを設定する `agent` 設定を追加",
+              "en": "Added `agent` setting to configure main thread with a specific agent's system prompt, tool restrictions, and model",
+              "category": "added"
+            },
+            {
+              "ja": "VS Code: .claude.json 設定ファイルが誤った場所から読み込まれる問題を修正",
+              "en": "VS Code: Fixed .claude.json config file being read from incorrect location",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.58",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Pro ユーザーはサブスクリプションの一部として Opus 4.5 にアクセス可能",
+              "en": "Pro users now have access to Opus 4.5 as part of their subscription!",
+              "category": "added"
+            },
+            {
+              "ja": "タイマー表示が「12m 0s」ではなく「11m 60s」と表示される問題を修正",
+              "en": "Fixed timer duration showing \"11m 60s\" instead of \"12m 0s\"",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows: 管理設定は `C:\\Program Files\\ClaudeCode` が存在する場合はそちらを優先。`C:\\ProgramData\\ClaudeCode` のサポートは将来のバージョンで削除予定",
+              "en": "Windows: Managed settings now prefer `C:\\Program Files\\ClaudeCode` if it exists. Support for `C:\\ProgramData\\ClaudeCode` will be removed in a future version.",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.57",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プラン却下時にフィードバック入力を追加し、Claude に変更点を伝達可能に",
+              "en": "Added feedback input when rejecting plans, allowing users to tell Claude what to change",
+              "category": "added"
+            },
+            {
+              "ja": "VSCode: リアルタイム応答表示のためストリーミングメッセージ対応を追加",
+              "en": "VSCode: Added streaming message support for real-time response display",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.56",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ターミナル進捗バーを有効化/無効化する設定を追加（OSC 9;4）",
+              "en": "Added setting to enable/disable terminal progress bar (OSC 9;4)",
+              "category": "added"
+            },
+            {
+              "ja": "VSCode 拡張機能: VS Code のセカンダリサイドバー（VS Code 1.97以降）に対応し、左側にファイルエクスプローラーを保持したまま右側のサイドバーに Claude Code を表示可能に。設定で Preferred Location としてサイドバーを指定する必要あり",
+              "en": "VSCode Extension: Added support for VS Code's secondary sidebar (VS Code 1.97+), allowing Claude Code to be displayed in the right sidebar while keeping the file explorer on the left. Requires setting sidebar as Preferred Location in the config.",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.55",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プロキシ DNS 解決がデフォルトで強制的に有効化されていた問題を修正。現在は `CLAUDE_CODE_PROXY_RESOLVES_HOSTS=true` 環境変数によるオプトイン方式",
+              "en": "Fixed proxy DNS resolution being forced on by default. Now opt-in via `CLAUDE_CODE_PROXY_RESOLVES_HOSTS=true` environment variable",
+              "category": "fixed"
+            },
+            {
+              "ja": "メモリロケーションセレクタで矢印キーを押し続けるとキーボードナビゲーションが応答しなくなる問題を修正",
+              "en": "Fixed keyboard navigation becoming unresponsive when holding down arrow keys in memory location selector",
+              "category": "fixed"
+            },
+            {
+              "ja": "AskUserQuestion ツールを改善し、最後の質問が単一選択の場合は自動送信することで、シンプルな質問フローにおける追加のレビュー画面を削減",
+              "en": "Improved AskUserQuestion tool to auto-submit single-select questions on the last question, eliminating the extra review screen for simple question flows",
+              "category": "improved"
+            },
+            {
+              "ja": "`@` ファイル提案のあいまい検索を改善し、より高速で正確な結果を提供",
+              "en": "Improved fuzzy matching for `@` file suggestions with faster, more accurate results",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "2.0.54",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Hooks: PermissionRequest フックで「常に許可」提案の処理とパーミッション更新の適用に対応",
+              "en": "Hooks: Enable PermissionRequest hooks to process 'always allow' suggestions and apply permission updates",
+              "category": "added"
+            },
+            {
+              "ja": "iTerm 通知が過剰に表示される問題を修正",
+              "en": "Fix issue with excessive iTerm notifications",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.52",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "コマンドライン引数で Claude を起動した際に重複メッセージが表示される問題を修正",
+              "en": "Fixed duplicate message display when starting Claude with a command line argument",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/usage` コマンドの進行状況バーを使用量の増加に応じて埋まるよう修正（残り割合表示から変更）",
+              "en": "Fixed `/usage` command progress bars to fill up as usage increases (instead of showing remaining percentage)",
+              "category": "fixed"
+            },
+            {
+              "ja": "Wayland 実行中の Linux システムで画像貼り付けが動作しない問題を修正（xclip が利用不可の場合 wl-paste にフォールバック）",
+              "en": "Fixed image pasting not working on Linux systems running Wayland (now falls back to wl-paste when xclip is unavailable)",
+              "category": "fixed"
+            },
+            {
+              "ja": "bash コマンドでの `$!` の一部使用を許可",
+              "en": "Permit some uses of `$!` in bash commands",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.51",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Opus 4.5 を追加 https://www.anthropic.com/news/claude-opus-4-5",
+              "en": "Added Opus 4.5! https://www.anthropic.com/news/claude-opus-4-5",
+              "category": "added"
+            },
+            {
+              "ja": "Claude Code for Desktop を公開 https://claude.com/download",
+              "en": "Introducing Claude Code for Desktop: https://claude.com/download",
+              "category": "added"
+            },
+            {
+              "ja": "新モデルを試せるよう、Claude Code ユーザーの使用制限を更新（詳細は Claude Opus 4.5 ブログを参照）",
+              "en": "To give you room to try out our new model, we've updated usage limits for Claude Code users. See the Claude Opus 4.5 blog for full details",
+              "category": "changed"
+            },
+            {
+              "ja": "Pro ユーザーは Claude Code で Opus 4.5 にアクセスするための追加使用量を購入可能に",
+              "en": "Pro users can now purchase extra usage for access to Opus 4.5 in Claude Code",
+              "category": "added"
+            },
+            {
+              "ja": "Plan Mode でより正確な計画を立て、より徹底的に実行するように改善",
+              "en": "Plan Mode now builds more precise plans and executes more thoroughly",
+              "category": "improved"
+            },
+            {
+              "ja": "使用制限の通知をより分かりやすく改善",
+              "en": "Usage limit notifications now easier to understand",
+              "category": "improved"
+            },
+            {
+              "ja": "`/usage` を「% used」表示に戻す変更",
+              "en": "Switched `/usage` back to \"% used\"",
+              "category": "changed"
+            },
+            {
+              "ja": "thinking エラーのハンドリングを修正",
+              "en": "Fixed handling of thinking errors",
+              "category": "fixed"
+            },
+            {
+              "ja": "パフォーマンス低下を修正",
+              "en": "Fixed performance regression",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.50",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "入力スキーマにネストされた参照を持つMCPツールの呼び出しを妨げるバグを修正",
+              "en": "Fixed bug preventing calling MCP tools that have nested references in their input schemas",
+              "category": "fixed"
+            },
+            {
+              "ja": "アップグレード中の無害で煩雑なエラーを抑制",
+              "en": "Silenced a noisy but harmless error during upgrades",
+              "category": "improved"
+            },
+            {
+              "ja": "ultrathinのテキスト表示を改善",
+              "en": "Improved ultrathink text display",
+              "category": "improved"
+            },
+            {
+              "ja": "5時間セッション制限の警告メッセージの明確性を改善",
+              "en": "Improved clarity of 5-hour session limit warning message",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "2.0.49",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "readline スタイルの Ctrl-Y によるカットテキスト貼り付けを追加",
+              "en": "Added readline-style ctrl-y for pasting deleted text",
+              "category": "added"
+            },
+            {
+              "ja": "使用制限の警告メッセージの明確化を改善",
+              "en": "Improved clarity of usage limit warning message",
+              "category": "improved"
+            },
+            {
+              "ja": "サブエージェントのパーミッション処理を修正",
+              "en": "Fixed handling of subagent permissions",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.47",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "`claude --teleport` のエラーメッセージとバリデーションを改善",
+              "en": "Improved error messages and validation for `claude --teleport`",
+              "category": "improved"
+            },
+            {
+              "ja": "`/usage` のエラーハンドリングを改善",
+              "en": "Improved error handling in `/usage`",
+              "category": "improved"
+            },
+            {
+              "ja": "終了時に履歴エントリが記録されない競合状態を修正",
+              "en": "Fixed race condition with history entry not getting logged at exit",
+              "category": "fixed"
+            },
+            {
+              "ja": "`settings.json` から Vertex AI 設定が適用されない問題を修正",
+              "en": "Fixed Vertex AI configuration not being applied from `settings.json`",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.46",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "メタデータからフォーマットを検出できない場合に画像ファイルが誤ったメディアタイプで報告される不具合を修正",
+              "en": "Fixed image files being reported with incorrect media type when format cannot be detected from metadata",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.45",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Microsoft Foundry のサポートを追加 https://code.claude.com/docs/en/azure-ai-foundry を参照",
+              "en": "Added support for Microsoft Foundry! See https://code.claude.com/docs/en/azure-ai-foundry",
+              "category": "added"
+            },
+            {
+              "ja": "カスタムロジックでツール権限リクエストを自動承認または拒否する `PermissionRequest` フックを追加",
+              "en": "Added `PermissionRequest` hook to automatically approve or deny tool permission requests with custom logic",
+              "category": "added"
+            },
+            {
+              "ja": "メッセージを `&` で開始することで、バックグラウンドタスクを Web 版 Claude Code に送信可能に",
+              "en": "Send background tasks to Claude Code on the web by starting a message with `&`",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.43",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "カスタムエージェントに `permissionMode` フィールドを追加",
+              "en": "Added `permissionMode` field for custom agents",
+              "category": "added"
+            },
+            {
+              "ja": "`PreToolUseHookInput` と `PostToolUseHookInput` 型に `tool_use_id` フィールドを追加",
+              "en": "Added `tool_use_id` field to `PreToolUseHookInput` and `PostToolUseHookInput` types",
+              "category": "added"
+            },
+            {
+              "ja": "サブエージェント用に自動ロードするスキルを宣言する frontmatter フィールドを追加",
+              "en": "Added skills frontmatter field to declare skills to auto-load for subagents",
+              "category": "added"
+            },
+            {
+              "ja": "`SubagentStart` フックイベントを追加",
+              "en": "Added the `SubagentStart` hook event",
+              "category": "added"
+            },
+            {
+              "ja": "ファイルを @-mention した際にネストした `CLAUDE.md` が読み込まれない問題を修正",
+              "en": "Fixed nested `CLAUDE.md` files not loading when @-mentioning files",
+              "category": "fixed"
+            },
+            {
+              "ja": "UI で一部のメッセージが重複レンダリングされる問題を修正",
+              "en": "Fixed duplicate rendering of some messages in the UI",
+              "category": "fixed"
+            },
+            {
+              "ja": "視覚的なちらつきを修正",
+              "en": "Fixed some visual flickers",
+              "category": "fixed"
+            },
+            {
+              "ja": "セル ID が `cell-N` パターンに一致する際に NotebookEdit ツールが誤った位置にセルを挿入する問題を修正",
+              "en": "Fixed NotebookEdit tool inserting cells at incorrect positions when cell IDs matched the pattern `cell-N`",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.42",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "`SubagentStop` フックに `agent_id` および `agent_transcript_path` フィールドを追加",
+              "en": "Added `agent_id` and `agent_transcript_path` fields to `SubagentStop` hooks.",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.41",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プロンプトベースの停止フックに `model` パラメータを追加し、フック評価用のカスタムモデルを指定可能に",
+              "en": "Added `model` parameter to prompt-based stop hooks, allowing users to specify a custom model for hook evaluation",
+              "category": "added"
+            },
+            {
+              "ja": "ユーザー設定からのスラッシュコマンドが2回読み込まれる問題を修正（レンダリング問題の原因となっていた）",
+              "en": "Fixed slash commands from user settings being loaded twice, which could cause rendering issues",
+              "category": "fixed"
+            },
+            {
+              "ja": "コマンド説明におけるユーザー設定とプロジェクト設定の誤ったラベル付けを修正",
+              "en": "Fixed incorrect labeling of user settings vs project settings in command descriptions",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラグインコマンドフックの実行中にタイムアウトが発生した際のクラッシュを修正",
+              "en": "Fixed crash when plugin command hooks timeout during execution",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bedrock ユーザーが `--model haiku` 使用時に /model ピッカーで Opus エントリが重複表示される問題を修正",
+              "en": "Fixed: Bedrock users no longer see duplicate Opus entries in the /model picker when using `--model haiku`",
+              "category": "fixed"
+            },
+            {
+              "ja": "信頼ダイアログとオンボーディングにおけるセキュリティドキュメントのリンク切れを修正",
+              "en": "Fixed broken security documentation links in trust dialogs and onboarding",
+              "category": "fixed"
+            },
+            {
+              "ja": "diff モーダルを閉じるために ESC を押すとモデルも中断される問題を修正",
+              "en": "Fixed issue where pressing ESC to close the diff modal would also interrupt the model",
+              "category": "fixed"
+            },
+            {
+              "ja": "ctrl-r 履歴検索でスラッシュコマンドに到達した際に検索がキャンセルされなくなった",
+              "en": "ctrl-r history search landing on a slash command no longer cancels the search",
+              "category": "fixed"
+            },
+            {
+              "ja": "SDK: フックのカスタムタイムアウトに対応",
+              "en": "SDK: Support custom timeouts for hooks",
+              "category": "added"
+            },
+            {
+              "ja": "より多くの安全な git コマンドを承認なしで実行可能に",
+              "en": "Allow more safe git commands to run without approval",
+              "category": "improved"
+            },
+            {
+              "ja": "プラグイン: 出力スタイルの共有とインストールに対応",
+              "en": "Plugins: Added support for sharing and installing output styles",
+              "category": "added"
+            },
+            {
+              "ja": "Web からのセッション転送時に上流ブランチを自動設定",
+              "en": "Teleporting a session from web will automatically set the upstream branch",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "2.0.37",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "通知のアイドル状態の計算方法を修正",
+              "en": "Fixed how idleness is computed for notifications",
+              "category": "fixed"
+            },
+            {
+              "ja": "フック: 通知フックイベントにマッチャー値を追加",
+              "en": "Hooks: Added matcher values for Notification hook events",
+              "category": "added"
+            },
+            {
+              "ja": "出力スタイル: frontmatter に `keep-coding-instructions` オプションを追加",
+              "en": "Output Styles: Added `keep-coding-instructions` option to frontmatter",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.36",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "DISABLE_AUTOUPDATER 環境変数がパッケージマネージャー更新通知を正しく無効化するよう修正",
+              "en": "Fixed: DISABLE_AUTOUPDATER environment variable now properly disables package manager update notifications",
+              "category": "fixed"
+            },
+            {
+              "ja": "キューに入ったメッセージが誤って bash コマンドとして実行される問題を修正",
+              "en": "Fixed queued messages being incorrectly executed as bash commands",
+              "category": "fixed"
+            },
+            {
+              "ja": "キューに入ったメッセージ処理中に入力が失われる問題を修正",
+              "en": "Fixed input being lost when typing while a queued message is processed",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.35",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "コマンド検索時のファジー検索結果を改善",
+              "en": "Improve fuzzy search results when searching commands",
+              "category": "improved"
+            },
+            {
+              "ja": "VS Code 拡張機能で `chat.fontSize` および `chat.fontFamily` 設定を UI 全体に反映し、再読み込み不要でフォント変更を即座に適用",
+              "en": "Improved VS Code extension to respect `chat.fontSize` and `chat.fontFamily` settings throughout the entire UI, and apply font changes immediately without requiring reload",
+              "category": "improved"
+            },
+            {
+              "ja": "`CLAUDE_CODE_EXIT_AFTER_STOP_DELAY` 環境変数を追加し、指定したアイドル時間後に SDK モードを自動終了（自動化ワークフローやスクリプトで有用）",
+              "en": "Added `CLAUDE_CODE_EXIT_AFTER_STOP_DELAY` environment variable to automatically exit SDK mode after a specified idle duration, useful for automated workflows and scripts",
+              "category": "added"
+            },
+            {
+              "ja": "`ignorePatterns` をプロジェクト設定から localSettings の拒否権限へ移行",
+              "en": "Migrated `ignorePatterns` from project config to deny permissions in the localSettings.",
+              "category": "changed"
+            },
+            {
+              "ja": "空文字列や falsy 値を持つ項目（例: `/hooks` メニュー）でメニューナビゲーションが固まる問題を修正",
+              "en": "Fixed menu navigation getting stuck on items with empty string or other falsy values (e.g., in the `/hooks` menu)",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.34",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "VSCode 拡張機能: 新規会話の初期権限モードを設定する機能を追加",
+              "en": "VSCode Extension: Added setting to configure the initial permission mode for new conversations",
+              "category": "added"
+            },
+            {
+              "ja": "ネイティブ Rust ベースのファジーファインダーによるファイルパス提案のパフォーマンス改善",
+              "en": "Improved file path suggestion performance with native Rust-based fuzzy finder",
+              "category": "improved"
+            },
+            {
+              "ja": "OAuth を使用する MCP サーバー（Slack など）の接続時にハングアップを引き起こす無限トークンリフレッシュループを修正",
+              "en": "Fixed infinite token refresh loop that caused MCP servers with OAuth (e.g., Slack) to hang during connection",
+              "category": "other"
+            },
+            {
+              "ja": "大きなファイル（特に base64 エンコード画像）の読み書き時のメモリクラッシュを修正",
+              "en": "Fixed memory crash when reading or writing large files (especially base64-encoded images)",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.33",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ネイティブバイナリのインストールが高速化",
+              "en": "Native binary installs now launch quicker.",
+              "category": "improved"
+            },
+            {
+              "ja": "`claude doctor` が Homebrew と npm-global のインストールを誤検出する問題を修正（シンボリックリンクの適切な解決により）",
+              "en": "Fixed `claude doctor` incorrectly detecting Homebrew vs npm-global installations by properly resolving symlinks",
+              "category": "fixed"
+            },
+            {
+              "ja": "`claude mcp serve` が互換性のない outputSchema を持つツールを公開する問題を修正",
+              "en": "Fixed `claude mcp serve` exposing tools with incompatible outputSchemas",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.32",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "コミュニティのフィードバックに基づき、出力スタイルの非推奨化を解除",
+              "en": "Un-deprecate output styles based on community feedback",
+              "category": "changed"
+            },
+            {
+              "ja": "起動時に通知を表示する`companyAnnouncements`設定を追加",
+              "en": "Added `companyAnnouncements` setting for displaying announcements on startup",
+              "category": "added"
+            },
+            {
+              "ja": "PostToolUseフック実行中にフック進行状況メッセージが正しく更新されない問題を修正",
+              "en": "Fixed hook progress messages not updating correctly during PostToolUse hook execution",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.31",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Windows: ネイティブインストールにおいて、モード切り替えショートカットを alt+m から shift+tab に変更",
+              "en": "Windows: native installation uses shift+tab as shortcut for mode switching, instead of alt+m",
+              "category": "changed"
+            },
+            {
+              "ja": "Vertex: 対応モデルにおいてウェブ検索のサポートを追加",
+              "en": "Vertex: add support for Web Search on supported models",
+              "category": "added"
+            },
+            {
+              "ja": "VSCode: ファイル検索で .gitignore されたファイルを含めるための respectGitIgnore 設定を追加（デフォルトは true）",
+              "en": "VSCode: Adding the respectGitIgnore configuration to include .gitignored files in file searches (defaults to true)",
+              "category": "added"
+            },
+            {
+              "ja": "サブエージェントと MCP サーバーに関する「Tool names must be unique」エラーのバグを修正",
+              "en": "Fixed a bug with subagents and MCP servers related to \"Tool names must be unique\" error",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/compact` が既存の compact 境界を尊重せず `prompt_too_long` で失敗する問題を修正",
+              "en": "Fixed issue causing `/compact` to fail with `prompt_too_long` by making it respect existing compact boundaries",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラグインのアンインストール時にプラグインが削除されない問題を修正",
+              "en": "Fixed plugin uninstall not removing plugins",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.30",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "macOS でキーチェーンがロックされている場合の API キー エラーに対する `security unlock-keychain` 実行のヒントを追加",
+              "en": "Added helpful hint to run `security unlock-keychain` when encountering API key errors on macOS with locked keychain",
+              "category": "added"
+            },
+            {
+              "ja": "ポリシーレベルで dangerouslyDisableSandbox のエスケープハッチを無効化する `allowUnsandboxedCommands` サンドボックス設定を追加",
+              "en": "Added `allowUnsandboxedCommands` sandbox setting to disable the dangerouslyDisableSandbox escape hatch at policy level",
+              "category": "added"
+            },
+            {
+              "ja": "カスタムエージェント定義に明示的なツールブロック用の `disallowedTools` フィールドを追加",
+              "en": "Added `disallowedTools` field to custom agent definitions for explicit tool blocking",
+              "category": "added"
+            },
+            {
+              "ja": "プロンプトベースの停止フックを追加",
+              "en": "Added prompt-based stop hooks",
+              "category": "added"
+            },
+            {
+              "ja": "VSCode: ファイル検索で .gitignore されたファイルを含めるための respectGitIgnore 設定を追加（デフォルトは true）",
+              "en": "VSCode: Added respectGitIgnore configuration to include .gitignored files in file searches (defaults to true)",
+              "category": "added"
+            },
+            {
+              "ja": "ネイティブビルドで SSE MCP サーバーを有効化",
+              "en": "Enabled SSE MCP servers on native build",
+              "category": "added"
+            },
+            {
+              "ja": "出力スタイルを非推奨化。`/output-style` でオプションを確認し、代わりに --system-prompt-file、--system-prompt、--append-system-prompt、CLAUDE.md、またはプラグインを使用",
+              "en": "Deprecated output styles. Review options in `/output-style` and use --system-prompt-file, --system-prompt, --append-system-prompt, CLAUDE.md, or plugins instead",
+              "category": "changed"
+            },
+            {
+              "ja": "カスタム ripgrep 設定のサポートを削除し、検索結果が返されない問題と設定検出の失敗を解消",
+              "en": "Removed support for custom ripgrep configuration, resolving an issue where Search returns no results and config discovery fails",
+              "category": "changed"
+            },
+            {
+              "ja": "Explore エージェントがコードベース探索中に不要な .md 調査ファイルを作成する問題を修正",
+              "en": "Fixed Explore agent creating unwanted .md investigation files during codebase exploration",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/context` が \"max_tokens must be greater than thinking.budget_tokens\" エラーで失敗することがある問題を修正",
+              "en": "Fixed a bug where `/context` would sometimes fail with \"max_tokens must be greater than thinking.budget_tokens\" error message",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--mcp-config` フラグがファイルベースの MCP 設定を正しく上書きするように修正",
+              "en": "Fixed `--mcp-config` flag to correctly override file-based MCP configurations",
+              "category": "fixed"
+            },
+            {
+              "ja": "セッションのパーミッションがローカル設定に保存される問題を修正",
+              "en": "Fixed bug that saved session permissions to local settings",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP ツールがサブエージェントで利用できない問題を修正",
+              "en": "Fixed MCP tools not being available to sub-agents",
+              "category": "fixed"
+            },
+            {
+              "ja": "--dangerously-skip-permissions フラグを使用している場合にフックとプラグインが実行されない問題を修正",
+              "en": "Fixed hooks and plugins not executing when using --dangerously-skip-permissions flag",
+              "category": "fixed"
+            },
+            {
+              "ja": "矢印キーでタイプアヘッド候補をナビゲートする際の遅延を修正",
+              "en": "Fixed delay when navigating through typeahead suggestions with arrow keys",
+              "category": "fixed"
+            },
+            {
+              "ja": "VSCode: 入力フッターに現在のファイルまたはコード選択状態を表示する選択インジケーターを復元",
+              "en": "VSCode: Restored selection indicator in input footer showing current file or code selection status",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.28",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Plan モードに新しい Plan サブエージェントを導入",
+              "en": "Plan mode: introduced new Plan subagent",
+              "category": "added"
+            },
+            {
+              "ja": "サブエージェントの再開をサポート",
+              "en": "Subagents: claude can now choose to resume subagents",
+              "category": "added"
+            },
+            {
+              "ja": "サブエージェントが使用するモデルを動的に選択可能に変更",
+              "en": "Subagents: claude can dynamically choose the model used by its subagents",
+              "category": "added"
+            },
+            {
+              "ja": "SDK に --max-budget-usd フラグを追加",
+              "en": "SDK: added --max-budget-usd flag",
+              "category": "added"
+            },
+            {
+              "ja": "カスタムスラッシュコマンド、サブエージェント、出力スタイルの検出で .gitignore を無視するように変更",
+              "en": "Discovery of custom slash commands, subagents, and output styles no longer respects .gitignore",
+              "category": "changed"
+            },
+            {
+              "ja": "`/terminal-setup` が VS Code の `Shift + Enter` にバックスラッシュを追加する問題を修正",
+              "en": "Stop `/terminal-setup` from adding backslash to `Shift + Enter` in VS Code",
+              "category": "fixed"
+            },
+            {
+              "ja": "Git ベースのプラグインとマーケットプレイスにブランチとタグのサポートを追加（fragment 構文を使用、例: `owner/repo#branch`）",
+              "en": "Add branch and tag support for git-based plugins and marketplaces using fragment syntax (e.g., `owner/repo#branch`)",
+              "category": "added"
+            },
+            {
+              "ja": "ホームディレクトリから起動時に macOS の権限プロンプトが表示される不具合を修正",
+              "en": "Fixed a bug where macOS permission prompts would show up upon initial launch when launching from home directory",
+              "category": "fixed"
+            },
+            {
+              "ja": "その他のバグ修正",
+              "en": "Various other bug fixes",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.27",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "パーミッションプロンプトの新しい UI",
+              "en": "New UI for permission prompts",
+              "category": "added"
+            },
+            {
+              "ja": "セッション再開画面に現在のブランチフィルタリングと検索を追加し、ナビゲーションを容易化",
+              "en": "Added current branch filtering and search to session resume screen for easier navigation",
+              "category": "added"
+            },
+            {
+              "ja": "ディレクトリ @-mention が \"No assistant message found\" エラーを引き起こす問題を修正",
+              "en": "Fixed directory @-mention causing \"No assistant message found\" error",
+              "category": "fixed"
+            },
+            {
+              "ja": "VSCode 拡張機能: ファイル検索に .gitignore されたファイルを含める設定を追加",
+              "en": "VSCode Extension: Add config setting to include .gitignored files in file searches",
+              "category": "added"
+            },
+            {
+              "ja": "VSCode 拡張機能: 無関係な 'Warmup' 会話の不具合と、設定がデフォルトにリセットされることがある問題を修正",
+              "en": "VSCode Extension: Bug fixes for unrelated 'Warmup' conversations, and configuration/settings occasionally being reset to defaults",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.25",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "旧式のSDKエントリーポイントを削除。今後のSDKアップデートに備えて@anthropic-ai/claude-agent-sdkへ移行すること: https://platform.claude.com/docs/en/agent-sdk/migration-guide",
+              "en": "Removed legacy SDK entrypoint. Please migrate to @anthropic-ai/claude-agent-sdk for future SDK updates: https://platform.claude.com/docs/en/agent-sdk/migration-guide",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.24",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "--setting-sources 'project' が指定されている場合にプロジェクトレベルのスキルが読み込まれないバグを修正",
+              "en": "Fixed a bug where project-level skills were not loading when --setting-sources 'project' was specified",
+              "category": "fixed"
+            },
+            {
+              "ja": "Claude Code Web: Web から CLI へのテレポート機能に対応",
+              "en": "Claude Code Web: Support for Web -> CLI teleport",
+              "category": "added"
+            },
+            {
+              "ja": "Sandbox: Linux & Mac 向け BashTool のサンドボックスモードをリリース",
+              "en": "Sandbox: Releasing a sandbox mode for the BashTool on Linux & Mac",
+              "category": "added"
+            },
+            {
+              "ja": "Bedrock: 認証が必要な場合に awsAuthRefresh の出力を表示",
+              "en": "Bedrock: Display awsAuthRefresh output when auth is required",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "2.0.22",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "スラッシュコマンドのスクロール時にコンテンツレイアウトがずれる問題を修正",
+              "en": "Fixed content layout shift when scrolling through slash commands",
+              "category": "fixed"
+            },
+            {
+              "ja": "IDE: thinking の有効/無効を切り替えるトグルを追加",
+              "en": "IDE: Add toggle to enable/disable thinking.",
+              "category": "added"
+            },
+            {
+              "ja": "並列ツール呼び出し時に重複した権限プロンプトが表示されるバグを修正",
+              "en": "Fix bug causing duplicate permission prompts with parallel tool calls",
+              "category": "fixed"
+            },
+            {
+              "ja": "エンタープライズ管理の MCP 許可リスト・拒否リストに対応",
+              "en": "Add support for enterprise managed MCP allowlist and denylist",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.21",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCP のツールレスポンスにおける `structuredContent` フィールドに対応",
+              "en": "Support MCP `structuredContent` field in tool responses",
+              "category": "added"
+            },
+            {
+              "ja": "インタラクティブな質問ツールを追加",
+              "en": "Added an interactive question tool",
+              "category": "added"
+            },
+            {
+              "ja": "プランモードでの質問頻度を増加",
+              "en": "Claude will now ask you questions more often in plan mode",
+              "category": "changed"
+            },
+            {
+              "ja": "Pro ユーザー向けモデルオプションに Haiku 4.5 を追加",
+              "en": "Added Haiku 4.5 as a model option for Pro users",
+              "category": "added"
+            },
+            {
+              "ja": "キューに入ったコマンドが以前のメッセージ出力にアクセスできない問題を修正",
+              "en": "Fixed an issue where queued commands don't have access to previous messages' output",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.20",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Claude Skills に対応",
+              "en": "Added support for Claude Skills",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.19",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "長時間実行される bash コマンドを終了せずに自動的にバックグラウンド実行に切り替え。BASH_DEFAULT_TIMEOUT_MS でカスタマイズ可能",
+              "en": "Auto-background long-running bash commands instead of killing them. Customize with BASH_DEFAULT_TIMEOUT_MS",
+              "category": "added"
+            },
+            {
+              "ja": "print モードで不要な Haiku 呼び出しが発生していたバグを修正",
+              "en": "Fixed a bug where Haiku was unnecessarily called in print mode",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.17",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "モデルセレクターにHaiku 4.5を追加",
+              "en": "Added Haiku 4.5 to model selector!",
+              "category": "added"
+            },
+            {
+              "ja": "Haiku 4.5は計画モードで自動的にSonnetを使用し、実行時にHaikuを使用（デフォルトでSonnetPlan）",
+              "en": "Haiku 4.5 automatically uses Sonnet in plan mode, and Haiku for execution (i.e. SonnetPlan by default)",
+              "category": "changed"
+            },
+            {
+              "ja": "サードパーティ（BedrockとVertex）はまだ自動アップグレード未対応。`ANTHROPIC_DEFAULT_HAIKU_MODEL`設定による手動アップグレードが可能",
+              "en": "3P (Bedrock and Vertex) are not automatically upgraded yet. Manual upgrading can be done through setting `ANTHROPIC_DEFAULT_HAIKU_MODEL`",
+              "category": "other"
+            },
+            {
+              "ja": "Exploreサブエージェントの導入。Haikuを活用してコードベースを効率的に検索し、コンテキストを節約",
+              "en": "Introducing the Explore subagent. Powered by Haiku it'll search through your codebase efficiently to save context!",
+              "category": "added"
+            },
+            {
+              "ja": "OTEL: HTTP_PROXYとHTTPS_PROXYに対応",
+              "en": "OTEL: support HTTP_PROXY and HTTPS_PROXY",
+              "category": "added"
+            },
+            {
+              "ja": "`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`がリリースノート取得を無効化するように変更",
+              "en": "`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` now disables release notes fetching",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.15",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "一度作成したファイルを書き込む前に再読み込みが必要だった再開時のバグを修正",
+              "en": "Fixed bug with resuming where previously created files needed to be read again before writing",
+              "category": "fixed"
+            },
+            {
+              "ja": "`-p` モードで @メンションされたファイルを書き込む前に再読み込みが必要だったバグを修正",
+              "en": "Fixed bug with `-p` mode where @-mentioned files needed to be read again before writing",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.14",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "@メンションによる MCP サーバーの切り替え機能を修正",
+              "en": "Fix @-mentioning MCP servers to toggle them on/off",
+              "category": "fixed"
+            },
+            {
+              "ja": "環境変数を含む bash の権限チェックを改善",
+              "en": "Improve permission checks for bash with inline env vars",
+              "category": "improved"
+            },
+            {
+              "ja": "ultrathink と thinking トグルの問題を修正",
+              "en": "Fix ultrathink + thinking toggle",
+              "category": "fixed"
+            },
+            {
+              "ja": "不要なログイン処理を削減",
+              "en": "Reduce unnecessary logins",
+              "category": "improved"
+            },
+            {
+              "ja": "--system-prompt をドキュメント化",
+              "en": "Document --system-prompt",
+              "category": "changed"
+            },
+            {
+              "ja": "レンダリング処理に複数の改善を実施",
+              "en": "Several improvements to rendering",
+              "category": "improved"
+            },
+            {
+              "ja": "プラグイン UI の改善",
+              "en": "Plugins UI polish",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "2.0.13",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ネイティブビルドで `/plugin` が動作しない問題を修正",
+              "en": "Fixed `/plugin` not working on native build",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.12",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プラグインシステムのリリース：カスタムコマンド、エージェント、フック、MCPサーバーによる Claude Code の拡張に対応",
+              "en": "**Plugin System Released**: Extend Claude Code with custom commands, agents, hooks, and MCP servers from marketplaces",
+              "category": "added"
+            },
+            {
+              "ja": "プラグイン管理のための `/plugin install`、`/plugin enable/disable`、`/plugin marketplace` コマンドを追加",
+              "en": "`/plugin install`, `/plugin enable/disable`, `/plugin marketplace` commands for plugin management",
+              "category": "added"
+            },
+            {
+              "ja": "チーム連携のためのリポジトリレベルのプラグイン設定（`extraKnownMarketplaces`）に対応",
+              "en": "Repository-level plugin configuration via `extraKnownMarketplaces` for team collaboration",
+              "category": "added"
+            },
+            {
+              "ja": "プラグインの構造と設定を検証する `/plugin validate` コマンドを追加",
+              "en": "`/plugin validate` command for validating plugin structure and configuration",
+              "category": "added"
+            },
+            {
+              "ja": "プラグイン発表のブログ記事を公開（https://www.anthropic.com/news/claude-code-plugins）",
+              "en": "Plugin announcement blog post at https://www.anthropic.com/news/claude-code-plugins",
+              "category": "other"
+            },
+            {
+              "ja": "プラグインのドキュメントを公開（https://code.claude.com/docs/en/plugins）",
+              "en": "Plugin documentation available at https://code.claude.com/docs/en/plugins",
+              "category": "other"
+            },
+            {
+              "ja": "`/doctor` コマンドによる包括的なエラーメッセージと診断機能を追加",
+              "en": "Comprehensive error messages and diagnostics via `/doctor` command",
+              "category": "added"
+            },
+            {
+              "ja": "`/model` セレクターのちらつきを解消",
+              "en": "Avoid flickering in `/model` selector",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/help` コマンドを改善",
+              "en": "Improvements to `/help`",
+              "category": "improved"
+            },
+            {
+              "ja": "`/resume` サマリーでのフック言及を回避",
+              "en": "Avoid mentioning hooks in `/resume` summaries",
+              "category": "changed"
+            },
+            {
+              "ja": "`/config` での \"verbose\" 設定の変更がセッション間で永続化されるように変更",
+              "en": "Changes to the \"verbose\" setting in `/config` now persist across sessions",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.11",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "システムプロンプトのサイズを1.4kトークン削減",
+              "en": "Reduced system prompt size by 1.4k tokens",
+              "category": "improved"
+            },
+            {
+              "ja": "IDE: キーボードショートカットとフォーカスの問題を修正し、よりスムーズな操作を実現",
+              "en": "IDE: Fixed keyboard shortcuts and focus issues for smoother interaction",
+              "category": "fixed"
+            },
+            {
+              "ja": "Opus フォールバック時のレート制限エラーが誤って表示される問題を修正",
+              "en": "Fixed Opus fallback rate limit errors appearing incorrectly",
+              "category": "fixed"
+            },
+            {
+              "ja": "/add-dir コマンドが誤ったデフォルトタブを選択する問題を修正",
+              "en": "Fixed /add-dir command selecting wrong default tab",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.10",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "バター のように滑らかな UI を実現するため、ターミナルレンダラーを全面書き換え",
+              "en": "Rewrote terminal renderer for buttery smooth UI",
+              "category": "improved"
+            },
+            {
+              "ja": "MCP サーバーを @メンションまたは /mcp で有効化・無効化可能に",
+              "en": "Enable/disable MCP servers by @mentioning, or in /mcp",
+              "category": "added"
+            },
+            {
+              "ja": "bash モードでシェルコマンドのタブ補完に対応",
+              "en": "Added tab completion for shell commands in bash mode",
+              "category": "added"
+            },
+            {
+              "ja": "PreToolUse フックがツール入力を変更可能に",
+              "en": "PreToolUse hooks can now modify tool inputs",
+              "category": "added"
+            },
+            {
+              "ja": "Ctrl-G でシステム設定のテキストエディタによるプロンプト編集に対応",
+              "en": "Press Ctrl-G to edit your prompt in your system's configured text editor",
+              "category": "added"
+            },
+            {
+              "ja": "コマンド内の環境変数を含む bash パーミッションチェックの不具合を修正",
+              "en": "Fixes for bash permission checks with environment variables in the command",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.9",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Bash のバックグラウンド実行が動作しなくなった回帰を修正",
+              "en": "Fix regression where bash backgrounding stopped working",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.8",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Bedrock のデフォルト Sonnet モデルを `global.anthropic.claude-sonnet-4-5-20250929-v1:0` に更新",
+              "en": "Update Bedrock default Sonnet model to `global.anthropic.claude-sonnet-4-5-20250929-v1:0`",
+              "category": "changed"
+            },
+            {
+              "ja": "IDE: チャットへのファイルとフォルダのドラッグ&ドロップに対応",
+              "en": "IDE: Add drag-and-drop support for files and folders in chat",
+              "category": "added"
+            },
+            {
+              "ja": "/context: thinking ブロックのカウント処理を修正",
+              "en": "/context: Fix counting for thinking blocks",
+              "category": "fixed"
+            },
+            {
+              "ja": "ダークターミナル上でライトテーマを使用するユーザー向けのメッセージ表示を改善",
+              "en": "Improve message rendering for users with light themes on dark terminals",
+              "category": "improved"
+            },
+            {
+              "ja": "非推奨の .claude.json 設定オプション（allowedTools、ignorePatterns、env、todoFeatureEnabled）を削除（これらは settings.json で設定すること）",
+              "en": "Remove deprecated .claude.json allowedTools, ignorePatterns, env, and todoFeatureEnabled config options (instead, configure these in your settings.json)",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.5",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "IDE: Enter と Tab による IME の意図しないメッセージ送信を修正",
+              "en": "IDE: Fix IME unintended message submission with Enter and Tab",
+              "category": "fixed"
+            },
+            {
+              "ja": "IDE: ログイン画面に「ターミナルで開く」リンクを追加",
+              "en": "IDE: Add \"Open in Terminal\" link in login screen",
+              "category": "added"
+            },
+            {
+              "ja": "未処理の OAuth 有効期限切れ 401 API エラーを修正",
+              "en": "Fix unhandled OAuth expiration 401 API errors",
+              "category": "fixed"
+            },
+            {
+              "ja": "SDK: 重複メッセージを防ぐため SDKUserMessageReplay.isReplay を追加",
+              "en": "SDK: Added SDKUserMessageReplay.isReplay to prevent duplicate messages",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "2.0.1",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Bedrock と Vertex で Sonnet 4.5 のデフォルトモデル設定変更をスキップ",
+              "en": "Skip Sonnet 4.5 default model setting change for Bedrock and Vertex",
+              "category": "changed"
+            },
+            {
+              "ja": "各種バグ修正とプレゼンテーション改善",
+              "en": "Various bug fixes and presentation improvements",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "2.0.0",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "VS Code ネイティブ拡張機能を追加",
+              "en": "New native VS Code extension",
+              "category": "added"
+            },
+            {
+              "ja": "アプリ全体の UI を刷新",
+              "en": "Fresh coat of paint throughout the whole app",
+              "category": "changed"
+            },
+            {
+              "ja": "`/rewind` でコード変更を巻き戻す会話機能を追加",
+              "en": "/rewind a conversation to undo code changes",
+              "category": "added"
+            },
+            {
+              "ja": "`/usage` コマンドでプラン制限を確認可能に",
+              "en": "/usage command to see plan limits",
+              "category": "added"
+            },
+            {
+              "ja": "Tab キーで思考表示を切り替え（セッション間で保持）",
+              "en": "Tab to toggle thinking (sticky across sessions)",
+              "category": "added"
+            },
+            {
+              "ja": "Ctrl-R で履歴検索が可能に",
+              "en": "Ctrl-R to search history",
+              "category": "added"
+            },
+            {
+              "ja": "未リリースの claude config コマンドを追加",
+              "en": "Unshipped claude config command",
+              "category": "added"
+            },
+            {
+              "ja": "フック機能で PostToolUse の 'tool_use' ids が 'tool_result' ブロックなしで見つかるエラーを削減",
+              "en": "Hooks: Reduced PostToolUse 'tool_use' ids were found without 'tool_result' blocks errors",
+              "category": "improved"
+            },
+            {
+              "ja": "Claude Code SDK を Claude Agent SDK に名称変更",
+              "en": "SDK: The Claude Code SDK is now the Claude Agent SDK",
+              "category": "changed"
+            },
+            {
+              "ja": "`--agents` フラグでサブエージェントを動的に追加可能に",
+              "en": "Add subagents dynamically with `--agents` flag",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.126",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Bedrock と Vertex で /context コマンドを有効化",
+              "en": "Enable /context command for Bedrock and Vertex",
+              "category": "added"
+            },
+            {
+              "ja": "HTTP ベースの OpenTelemetry エクスポーターに mTLS サポートを追加",
+              "en": "Add mTLS support for HTTP-based OpenTelemetry exporters",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.124",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "BashTool でログインシェルをスキップする `CLAUDE_BASH_NO_LOGIN` 環境変数（1 または true）に対応",
+              "en": "Set `CLAUDE_BASH_NO_LOGIN` environment variable to 1 or true to to skip login shell for BashTool",
+              "category": "added"
+            },
+            {
+              "ja": "Bedrock と Vertex の環境変数がすべての文字列を真と評価する不具合を修正",
+              "en": "Fix Bedrock and Vertex environment variables evaluating all strings as truthy",
+              "category": "fixed"
+            },
+            {
+              "ja": "許可が拒否された際に許可されたツールのリストを Claude に通知しないように変更",
+              "en": "No longer inform Claude of the list of allowed tools when permission is denied",
+              "category": "changed"
+            },
+            {
+              "ja": "Bash ツールの権限チェックにおけるセキュリティ脆弱性を修正",
+              "en": "Fixed security vulnerability in Bash tool permission checks",
+              "category": "fixed"
+            },
+            {
+              "ja": "大きなファイルに対する VSCode 拡張機能のパフォーマンスを改善",
+              "en": "Improved VSCode extension performance for large files",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.123",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Bash パーミッションルールが出力リダイレクションのマッチングに対応（例: `Bash(python:*)` が `python script.py > output.txt` にマッチ）",
+              "en": "Bash permission rules now support output redirections when matching (e.g., `Bash(python:*)` matches `python script.py > output.txt`)",
+              "category": "improved"
+            },
+            {
+              "ja": "\"don't think\" などの否定表現で思考モードが誤って起動する問題を修正",
+              "en": "Fixed thinking mode triggering on negation phrases like \"don't think\"",
+              "category": "fixed"
+            },
+            {
+              "ja": "トークンストリーミング中のレンダリングパフォーマンス低下を修正",
+              "en": "Fixed rendering performance degradation during token streaming",
+              "category": "fixed"
+            },
+            {
+              "ja": "スラッシュコマンドを呼び出し可能にする SlashCommand ツールを追加 https://code.claude.com/docs/en/slash-commands#SlashCommand-tool",
+              "en": "Added SlashCommand tool, which enables Claude to invoke your slash commands. https://code.claude.com/docs/en/slash-commands#SlashCommand-tool",
+              "category": "added"
+            },
+            {
+              "ja": "BashTool 環境スナップショットのロギングを強化",
+              "en": "Enhanced BashTool environment snapshot logging",
+              "category": "improved"
+            },
+            {
+              "ja": "ヘッドレスモードで会話を再開した際に思考モードが不必要に有効化される問題を修正",
+              "en": "Fixed a bug where resuming a conversation in headless mode would sometimes enable thinking unnecessarily",
+              "category": "fixed"
+            },
+            {
+              "ja": "--debug ログをファイルに移行し、tail やフィルタリングを容易に",
+              "en": "Migrated --debug logging to a file, to enable easy tailing & filtering",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.120",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "大きなプロンプト入力時に顕著だった入力遅延を修正",
+              "en": "Fix input lag during typing, especially noticeable with large prompts",
+              "category": "fixed"
+            },
+            {
+              "ja": "VSCode 拡張のコマンドレジストリとセッションダイアログのユーザー体験を改善",
+              "en": "Improved VSCode extension command registry and sessions dialog user experience",
+              "category": "improved"
+            },
+            {
+              "ja": "セッションダイアログの応答性と視覚的フィードバックを強化",
+              "en": "Enhanced sessions dialog responsiveness and visual feedback",
+              "category": "improved"
+            },
+            {
+              "ja": "worktree サポートチェックを削除し IDE 互換性の問題を修正",
+              "en": "Fixed IDE compatibility issue by removing worktree support check",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bash ツールのパーミッションチェックがプレフィックスマッチングで回避される脆弱性を修正",
+              "en": "Fixed security vulnerability where Bash tool permission checks could be bypassed using prefix matching",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.119",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "対話モード開始時に Windows でプロセスが視覚的にフリーズする問題を修正",
+              "en": "Fix Windows issue where process visually freezes on entering interactive mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP サーバーの動的ヘッダーを headersHelper 設定でサポート",
+              "en": "Support dynamic headers for MCP servers via headersHelper configuration",
+              "category": "added"
+            },
+            {
+              "ja": "ヘッドレスセッションで思考モードが動作しない問題を修正",
+              "en": "Fix thinking mode not working in headless sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "スラッシュコマンドが許可ツールを置き換えではなく更新するように修正",
+              "en": "Fix slash commands now properly update allowed tools instead of replacing them",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.117",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Ctrl-R による履歴検索を追加し、bash/zsh のように以前のコマンドを呼び出せるように対応",
+              "en": "Add Ctrl-R history search to recall previous commands like bash/zsh",
+              "category": "added"
+            },
+            {
+              "ja": "入力中のラグを修正（特に Windows 環境）",
+              "en": "Fix input lag while typing, especially on Windows",
+              "category": "fixed"
+            },
+            {
+              "ja": "acceptEdits モードで sed コマンドを自動許可コマンドに追加",
+              "en": "Add sed command to auto-allowed commands in acceptEdits mode",
+              "category": "added"
+            },
+            {
+              "ja": "Windows の PATH 比較をドライブレターに対して大文字小文字を区別しないよう修正",
+              "en": "Fix Windows PATH comparison to be case-insensitive for drive letters",
+              "category": "fixed"
+            },
+            {
+              "ja": "/add-dir の出力に権限管理のヒントを追加",
+              "en": "Add permissions management hint to /add-dir output",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.115",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "思考モードの表示を視覚効果の強化により改善",
+              "en": "Improve thinking mode display with enhanced visual effects",
+              "category": "improved"
+            },
+            {
+              "ja": "プロンプトで /t を入力して一時的に思考モードを無効化可能に",
+              "en": "Type /t to temporarily disable thinking mode in your prompt",
+              "category": "added"
+            },
+            {
+              "ja": "glob および grep ツールのパス検証を改善",
+              "en": "Improve path validation for glob and grep tools",
+              "category": "improved"
+            },
+            {
+              "ja": "ツール実行後フックの出力を簡潔化し視覚的なノイズを削減",
+              "en": "Show condensed output for post-tool hooks to reduce visual clutter",
+              "category": "improved"
+            },
+            {
+              "ja": "ローディング状態完了時の視覚フィードバックを修正",
+              "en": "Fix visual feedback when loading state completes",
+              "category": "fixed"
+            },
+            {
+              "ja": "権限リクエストダイアログの UI 一貫性を改善",
+              "en": "Improve UI consistency for permission request dialogs",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.113",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "インタラクティブモードでのパイプ入力を非推奨化",
+              "en": "Deprecated piped input in interactive mode",
+              "category": "changed"
+            },
+            {
+              "ja": "トランスクリプト切り替えのキーバインドを Ctrl+R から Ctrl+O に変更",
+              "en": "Move Ctrl+R keybinding for toggling transcript to Ctrl+O",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.112",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "トランスクリプトモード（Ctrl+R）：各アシスタントメッセージの生成に使用されたモデルを追加",
+              "en": "Transcript mode (Ctrl+R): Added the model used to generate each assistant message",
+              "category": "added"
+            },
+            {
+              "ja": "一部の Claude Max ユーザーが誤って Claude Pro ユーザーとして認識される問題を修正",
+              "en": "Addressed issue where some Claude Max users were incorrectly recognized as Claude Pro users",
+              "category": "fixed"
+            },
+            {
+              "ja": "フック：SessionEnd フックに systemMessage サポートを追加",
+              "en": "Hooks: Added systemMessage support for SessionEnd hooks",
+              "category": "added"
+            },
+            {
+              "ja": "スピナーチップを無効化する `spinnerTipsEnabled` 設定を追加",
+              "en": "Added `spinnerTipsEnabled` setting to disable spinner tips",
+              "category": "added"
+            },
+            {
+              "ja": "IDE：各種改善とバグ修正",
+              "en": "IDE: Various improvements and bug fixes",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.111",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "/model でモデル名の妥当性を検証",
+              "en": "/model now validates provided model names",
+              "category": "added"
+            },
+            {
+              "ja": "誤ったシェル構文解析が原因の Bash ツールのクラッシュを修正",
+              "en": "Fixed Bash tool crashes caused by malformed shell syntax parsing",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.110",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "/terminal-setup コマンドが WezTerm をサポート",
+              "en": "/terminal-setup command now supports WezTerm",
+              "category": "added"
+            },
+            {
+              "ja": "MCP: OAuth トークンを有効期限前に自動更新",
+              "en": "MCP: OAuth tokens now proactively refresh before expiration",
+              "category": "improved"
+            },
+            {
+              "ja": "バックグラウンド Bash プロセスの信頼性の問題を修正",
+              "en": "Fixed reliability issues with background Bash processes",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.109",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "SDK: `--include-partial-messages` CLI フラグによる部分メッセージストリーミングサポートを追加",
+              "en": "SDK: Added partial message streaming support via `--include-partial-messages` CLI flag",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.106",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Windows: パス権限マッチングを修正し、POSIX 形式（例: `Read(//c/Users/...)`）を一貫して使用するように改善",
+              "en": "Windows: Fixed path permission matching to consistently use POSIX format (e.g., `Read(//c/Users/...)`)",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.97",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "設定: /doctor でパーミッションルール構文の検証と修正提案に対応",
+              "en": "Settings: /doctor now validates permission rule syntax and suggests corrections",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.94",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Vertex: サポートされているモデルのグローバルエンドポイントに対応",
+              "en": "Vertex: add support for global endpoints for supported models",
+              "category": "added"
+            },
+            {
+              "ja": "/memory コマンドでインポートされたすべてのメモリファイルの直接編集が可能に",
+              "en": "/memory command now allows direct editing of all imported memory files",
+              "category": "improved"
+            },
+            {
+              "ja": "SDK: コールバックとしてカスタムツールを追加",
+              "en": "SDK: Add custom tools as callbacks",
+              "category": "added"
+            },
+            {
+              "ja": "/todos コマンドで現在の TODO アイテムを一覧表示する機能を追加",
+              "en": "Added /todos command to list current todo items",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.93",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Windows: クリップボードからの画像貼り付け用に alt + v ショートカットを追加",
+              "en": "Windows: Add alt + v shortcut for pasting images from clipboard",
+              "category": "added"
+            },
+            {
+              "ja": "NO_PROXY 環境変数に対応し特定のホスト名・IP のプロキシをバイパス",
+              "en": "Support NO_PROXY environment variable to bypass proxy for specified hostnames and IPs",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.90",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "設定ファイルの変更を即座に反映（再起動不要）",
+              "en": "Settings file changes take effect immediately - no restart required",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.88",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "「OAuth 認証は現在サポートされていません」エラーを修正",
+              "en": "Fixed issue causing \"OAuth authentication is currently not supported\"",
+              "category": "fixed"
+            },
+            {
+              "ja": "ステータスライン入力に `exceeds_200k_tokens` を追加",
+              "en": "Status line input now includes `exceeds_200k_tokens`",
+              "category": "added"
+            },
+            {
+              "ja": "/cost コマンドの誤った使用量トラッキングを修正",
+              "en": "Fixed incorrect usage tracking in /cost.",
+              "category": "fixed"
+            },
+            {
+              "ja": "モデルエイリアス opusplan、opus、sonnet を制御するための `ANTHROPIC_DEFAULT_SONNET_MODEL` および `ANTHROPIC_DEFAULT_OPUS_MODEL` を導入",
+              "en": "Introduced `ANTHROPIC_DEFAULT_SONNET_MODEL` and `ANTHROPIC_DEFAULT_OPUS_MODEL` for controlling model aliases opusplan, opus, and sonnet.",
+              "category": "added"
+            },
+            {
+              "ja": "Bedrock: デフォルトの Sonnet モデルを Sonnet 4 に更新",
+              "en": "Bedrock: Updated default Sonnet model to Sonnet 4",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.86",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ユーザーがコンテキスト問題をセルフデバッグできるよう /context を追加",
+              "en": "Added /context to help users self-serve debug context issues",
+              "category": "added"
+            },
+            {
+              "ja": "SDK: すべてのSDKメッセージにUUIDサポートを追加",
+              "en": "SDK: Added UUID support for all SDK messages",
+              "category": "added"
+            },
+            {
+              "ja": "SDK: ユーザーメッセージをstdoutに再生する `--replay-user-messages` を追加",
+              "en": "SDK: Added `--replay-user-messages` to replay user messages back to stdout",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.85",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ステータスライン入力にセッションコスト情報を表示",
+              "en": "Status line input now includes session cost info",
+              "category": "improved"
+            },
+            {
+              "ja": "SessionEnd フックを導入",
+              "en": "Hooks: Introduced SessionEnd hook",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.84",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ネットワークが不安定な場合の tool_use/tool_result ID 不一致エラーを修正",
+              "en": "Fix tool_use/tool_result id mismatch error when network is unstable",
+              "category": "fixed"
+            },
+            {
+              "ja": "タスク完了時に Claude がリアルタイムステアリングを無視することがある問題を修正",
+              "en": "Fix Claude sometimes ignoring real-time steering when wrapping up a task",
+              "category": "fixed"
+            },
+            {
+              "ja": "@メンション: エージェント、出力スタイル、スラッシュコマンドの編集を容易にするため ~/.claude/* ファイルをサジェストに追加",
+              "en": "@-mention: Add ~/.claude/\\* files to suggestions for easier agent, output style, and slash command editing",
+              "category": "added"
+            },
+            {
+              "ja": "デフォルトでビルトイン ripgrep を使用（無効化する場合は USE_BUILTIN_RIPGREP=0 を設定）",
+              "en": "Use built-in ripgrep by default; to opt out of this behavior, set USE_BUILTIN_RIPGREP=0",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.83",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "@-mention: パス内のスペースを含むファイルに対応",
+              "en": "@-mention: Support files with spaces in path",
+              "category": "improved"
+            },
+            {
+              "ja": "新しいシマリングスピナー",
+              "en": "New shimmering spinner",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.82",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "SDK: リクエストのキャンセル機能に対応",
+              "en": "SDK: Add request cancellation support",
+              "category": "added"
+            },
+            {
+              "ja": "SDK: カスタムパスを検索する additionalDirectories オプションを追加し、スラッシュコマンドの処理を改善",
+              "en": "SDK: New additionalDirectories option to search custom paths, improved slash command processing",
+              "category": "improved"
+            },
+            {
+              "ja": "Settings: .claude/settings.json の無効なフィールドを防ぐバリデーションを追加",
+              "en": "Settings: Validation prevents invalid fields in .claude/settings.json files",
+              "category": "added"
+            },
+            {
+              "ja": "MCP: ツール名の一貫性を改善",
+              "en": "MCP: Improve tool name consistency",
+              "category": "improved"
+            },
+            {
+              "ja": "Bash: 大きなファイルを自動読み込み時にクラッシュする問題を修正",
+              "en": "Bash: Fix crash when Claude tries to automatically read large files",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.81",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "出力スタイルをリリース。「Explanatory」「Learning」の教育的スタイルを組み込み。ドキュメント: https://code.claude.com/docs/en/output-styles",
+              "en": "Released output styles, including new built-in educational output styles \"Explanatory\" and \"Learning\". Docs: https://code.claude.com/docs/en/output-styles",
+              "category": "added"
+            },
+            {
+              "ja": "カスタムエージェントファイルが解析不能な場合の読み込みを修正",
+              "en": "Agents: Fix custom agent loading when agent files are unparsable",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.80",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "UI改善: カスタムサブエージェントの色のテキストコントラストとスピナーレンダリングの問題を修正",
+              "en": "UI improvements: Fix text contrast for custom subagent colors and spinner rendering issues",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.77",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Bash ツール: ヒアドキュメントと複数行文字列のエスケープを修正し、標準エラー出力リダイレクト処理を改善",
+              "en": "Bash tool: Fix heredoc and multiline string escaping, improve stderr redirection handling",
+              "category": "fixed"
+            },
+            {
+              "ja": "SDK: セッションサポートと権限拒否トラッキングを追加",
+              "en": "SDK: Add session support and permission denial tracking",
+              "category": "added"
+            },
+            {
+              "ja": "会話の要約時におけるトークン上限エラーを修正",
+              "en": "Fix token limit errors in conversation summarization",
+              "category": "fixed"
+            },
+            {
+              "ja": "Opus プランモード: `/model` コマンドに Opus をプランモードのみで実行し、それ以外は Sonnet を使用する設定を追加",
+              "en": "Opus Plan Mode: New setting in `/model` to run Opus only in plan mode, Sonnet otherwise",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.73",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCP: 複数の設定ファイルを `--mcp-config file1.json file2.json` でサポート",
+              "en": "MCP: Support multiple config files with `--mcp-config file1.json file2.json`",
+              "category": "added"
+            },
+            {
+              "ja": "MCP: OAuth 認証フロー中に Esc キーでキャンセル可能に",
+              "en": "MCP: Press Esc to cancel OAuth authentication flows",
+              "category": "added"
+            },
+            {
+              "ja": "Bash: コマンド検証を改善し、誤ったセキュリティ警告を削減",
+              "en": "Bash: Improved command validation and reduced false security warnings",
+              "category": "improved"
+            },
+            {
+              "ja": "UI: スピナーアニメーションとステータスラインの視覚的階層を強化",
+              "en": "UI: Enhanced spinner animations and status line visual hierarchy",
+              "category": "improved"
+            },
+            {
+              "ja": "Linux: Alpine および musl ベースのディストリビューションをサポート（ripgrep の別途インストールが必要）",
+              "en": "Linux: Added support for Alpine and musl-based distributions (requires separate ripgrep installation)",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.72",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "`/permissions` で特定のツール使用時に常に確認を求めるよう設定可能に",
+              "en": "Ask permissions: have Claude Code always ask for confirmation to use specific tools with /permissions",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.71",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "バックグラウンドコマンド: 任意の Bash コマンドをバックグラウンドで実行可能に（Ctrl-b）、Claude が作業を継続できる（開発サーバーやログ監視などに有用）",
+              "en": "Background commands: (Ctrl-b) to run any Bash command in the background so Claude can keep working (great for dev servers, tailing logs, etc.)",
+              "category": "added"
+            },
+            {
+              "ja": "ステータスラインのカスタマイズ: /statusline でターミナルプロンプトを Claude Code に追加可能",
+              "en": "Customizable status line: add your terminal prompt to Claude Code with /statusline",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.70",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "大規模なコンテキストにおけるメッセージレンダリングのパフォーマンスを最適化",
+              "en": "Performance: Optimized message rendering for better performance with large contexts",
+              "category": "improved"
+            },
+            {
+              "ja": "Windows環境でのネイティブファイル検索、ripgrep、サブエージェント機能を修正",
+              "en": "Windows: Fixed native file search, ripgrep, and subagent functionality",
+              "category": "fixed"
+            },
+            {
+              "ja": "スラッシュコマンド引数での@メンション記法に対応",
+              "en": "Added support for @-mentions in slash command arguments",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.69",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Opus をバージョン 4.1 にアップグレード",
+              "en": "Upgraded Opus to version 4.1",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.68",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "`/pr-comments` などの特定のコマンドで誤ったモデル名が使用されていた問題を修正",
+              "en": "Fix incorrect model names being used for certain commands like `/pr-comments`",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows: allow/deny ツールとプロジェクト信頼の権限チェックを改善（`.claude.json` に新しいプロジェクトエントリが作成される場合あり。必要に応じて history フィールドを手動でマージ）",
+              "en": "Windows: improve permissions checks for allow / deny tools and project trust. This may create a new project entry in `.claude.json` - manually merge the history field if desired.",
+              "category": "improved"
+            },
+            {
+              "ja": "Windows: pnpm などのコマンド実行時に「No such file or directory」エラーが発生する問題を解消するため、サブプロセスの起動処理を改善",
+              "en": "Windows: improve sub-process spawning to eliminate \"No such file or directory\" when running commands like pnpm",
+              "category": "improved"
+            },
+            {
+              "ja": "/doctor コマンドに CLAUDE.md と MCP ツールコンテキストを追加し、セルフサービスデバッグ機能を強化",
+              "en": "Enhanced /doctor command with CLAUDE.md and MCP tool context for self-serve debugging",
+              "category": "improved"
+            },
+            {
+              "ja": "SDK: ツール確認用の canUseTool コールバックサポートを追加",
+              "en": "SDK: Added canUseTool callback support for tool confirmation",
+              "category": "added"
+            },
+            {
+              "ja": "`disableAllHooks` 設定を追加",
+              "en": "Added `disableAllHooks` setting",
+              "category": "added"
+            },
+            {
+              "ja": "大規模リポジトリにおけるファイル候補表示のパフォーマンスを改善",
+              "en": "Improved file suggestions performance in large repos",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.65",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "IDE: 診断の接続安定性の問題とエラー処理を修正",
+              "en": "IDE: Fixed connection stability issues and error handling for diagnostics",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows: .bashrc ファイルがないユーザーのシェル環境セットアップを修正",
+              "en": "Windows: Fixed shell environment setup for users without .bashrc files",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.64",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Agents: モデルのカスタマイズに対応 - エージェントが使用するモデルを指定可能",
+              "en": "Agents: Added model customization support - you can now specify which model an agent should use",
+              "category": "added"
+            },
+            {
+              "ja": "Agents: 再帰的エージェントツールへの意図しないアクセスを修正",
+              "en": "Agents: Fixed unintended access to the recursive agent tool",
+              "category": "fixed"
+            },
+            {
+              "ja": "Hooks: フックJSON出力に systemMessage フィールドを追加し、警告とコンテキストの表示に対応",
+              "en": "Hooks: Added systemMessage field to hook JSON output for displaying warnings and context",
+              "category": "added"
+            },
+            {
+              "ja": "SDK: 複数ターン会話におけるユーザー入力の追跡を修正",
+              "en": "SDK: Fixed user input tracking across multi-turn conversations",
+              "category": "fixed"
+            },
+            {
+              "ja": "ファイル検索と@メンション候補に隠しファイルを追加",
+              "en": "Added hidden files to file search and @-mention suggestions",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.63",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Windows: ファイル検索、@agent メンション、カスタムスラッシュコマンドの動作を修正",
+              "en": "Windows: Fixed file search, @agent mentions, and custom slash commands functionality",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.62",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "カスタムエージェント用の @-mention サポートと入力補完を追加。@<your-custom-agent> で呼び出し可能",
+              "en": "Added @-mention support with typeahead for custom agents. @<your-custom-agent> to invoke it",
+              "category": "added"
+            },
+            {
+              "ja": "新規セッション初期化用の SessionStart フックを追加",
+              "en": "Hooks: Added SessionStart hook for new session initialization",
+              "category": "added"
+            },
+            {
+              "ja": "/add-dir コマンドがディレクトリパスの入力補完に対応",
+              "en": "/add-dir command now supports typeahead for directory paths",
+              "category": "improved"
+            },
+            {
+              "ja": "ネットワーク接続チェックの信頼性を改善",
+              "en": "Improved network connectivity check reliability",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.61",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "トランスクリプトモード（Ctrl+R）: トランスクリプトモードを終了するキーを中断ではなくEscに変更",
+              "en": "Transcript mode (Ctrl+R): Changed Esc to exit transcript mode rather than interrupt",
+              "category": "changed"
+            },
+            {
+              "ja": "設定: JSONファイルから設定を読み込む `--settings` フラグを追加",
+              "en": "Settings: Added `--settings` flag to load settings from a JSON file",
+              "category": "added"
+            },
+            {
+              "ja": "設定: シンボリックリンクである設定ファイルパスの解決を修正",
+              "en": "Settings: Fixed resolution of settings files paths that are symlinks",
+              "category": "fixed"
+            },
+            {
+              "ja": "OTEL: 認証変更後に誤った組織が報告される問題を修正",
+              "en": "OTEL: Fixed reporting of wrong organization after authentication changes",
+              "category": "fixed"
+            },
+            {
+              "ja": "スラッシュコマンド: Bashでのallowed-toolsの権限チェックを修正",
+              "en": "Slash commands: Fixed permissions checking for allowed-tools with Bash",
+              "category": "fixed"
+            },
+            {
+              "ja": "IDE: VSCode MacOSで⌘+Vによる画像貼り付けに対応",
+              "en": "IDE: Added support for pasting images in VSCode MacOS using ⌘+V",
+              "category": "added"
+            },
+            {
+              "ja": "IDE: IDE自動接続を無効化する `CLAUDE_CODE_AUTO_CONNECT_IDE=false` を追加",
+              "en": "IDE: Added `CLAUDE_CODE_AUTO_CONNECT_IDE=false` for disabling IDE auto-connection",
+              "category": "added"
+            },
+            {
+              "ja": "Claude CodeによるClaude及びユーザー提供のシェルコマンドをラップする `CLAUDE_CODE_SHELL_PREFIX` を追加",
+              "en": "Added `CLAUDE_CODE_SHELL_PREFIX` for wrapping Claude and user-provided shell commands run by Claude Code",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.60",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "特定タスク用のカスタムサブエージェントの作成に対応。/agents で開始",
+              "en": "You can now create custom subagents for specialized tasks! Run /agents to get started",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.59",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "SDK: ツール確認サポートを追加（canUseTool コールバック）",
+              "en": "SDK: Added tool confirmation support with canUseTool callback",
+              "category": "added"
+            },
+            {
+              "ja": "SDK: 生成されたプロセスの環境変数を指定可能に",
+              "en": "SDK: Allow specifying env for spawned process",
+              "category": "added"
+            },
+            {
+              "ja": "Hooks: PermissionDecision をフックに公開（「ask」を含む）",
+              "en": "Hooks: Exposed PermissionDecision to hooks (including \"ask\")",
+              "category": "added"
+            },
+            {
+              "ja": "Hooks: UserPromptSubmit が高度な JSON 出力で additionalContext に対応",
+              "en": "Hooks: UserPromptSubmit now supports additionalContext in advanced JSON output",
+              "category": "improved"
+            },
+            {
+              "ja": "Max ユーザーが Opus を指定しても Sonnet にフォールバックする問題を修正",
+              "en": "Fixed issue where some Max users that specified Opus would still see fallback to Sonnet",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.58",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "PDF ファイルの読み取りに対応",
+              "en": "Added support for reading PDFs",
+              "category": "added"
+            },
+            {
+              "ja": "MCP: 'claude mcp list' でのサーバーヘルスステータス表示を改善",
+              "en": "MCP: Improved server health status display in 'claude mcp list'",
+              "category": "improved"
+            },
+            {
+              "ja": "Hooks: フックコマンド用の CLAUDE_PROJECT_DIR 環境変数を追加",
+              "en": "Hooks: Added CLAUDE_PROJECT_DIR env var for hook commands",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.57",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "スラッシュコマンドでのモデル指定に対応",
+              "en": "Added support for specifying a model in slash commands",
+              "category": "added"
+            },
+            {
+              "ja": "許可されたツールを Claude が理解しやすくするため、権限メッセージを改善",
+              "en": "Improved permission messages to help Claude understand allowed tools",
+              "category": "improved"
+            },
+            {
+              "ja": "ターミナルラップにおいて bash 出力の末尾改行を削除する不具合を修正",
+              "en": "Fix: Remove trailing newlines from bash output in terminal wrapping",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.56",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Windows: ターミナル VT モード対応の Node.js バージョンで shift+tab によるモード切り替えを有効化",
+              "en": "Windows: Enabled shift+tab for mode switching on versions of Node.js that support terminal VT mode",
+              "category": "added"
+            },
+            {
+              "ja": "WSL IDE 検出の修正",
+              "en": "Fixes for WSL IDE detection",
+              "category": "fixed"
+            },
+            {
+              "ja": "awsRefreshHelper が .aws ディレクトリへの変更を検出できない問題を修正",
+              "en": "Fix an issue causing awsRefreshHelper changes to .aws directory not to be picked up",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.55",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Opus 4 および Sonnet 4 モデルの知識カットオフを明確化",
+              "en": "Clarified knowledge cutoff for Opus 4 and Sonnet 4 models",
+              "category": "improved"
+            },
+            {
+              "ja": "Windows: Ctrl+Z によるクラッシュを修正",
+              "en": "Windows: fixed Ctrl+Z crash",
+              "category": "fixed"
+            },
+            {
+              "ja": "SDK: エラーログのキャプチャ機能を追加",
+              "en": "SDK: Added ability to capture error logging",
+              "category": "added"
+            },
+            {
+              "ja": "プリントモードでシステムプロンプトを上書きする --system-prompt-file オプションを追加",
+              "en": "Add --system-prompt-file option to override system prompt in print mode",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.54",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Hooks: UserPromptSubmit フックとカレントディレクトリをフック入力に追加",
+              "en": "Hooks: Added UserPromptSubmit hook and the current working directory to hook inputs",
+              "category": "added"
+            },
+            {
+              "ja": "カスタムスラッシュコマンド: フロントマターに argument-hint を追加",
+              "en": "Custom slash commands: Added argument-hint to frontmatter",
+              "category": "added"
+            },
+            {
+              "ja": "Windows: OAuth でポート 45454 を使用し、ブラウザ URL を適切に構築",
+              "en": "Windows: OAuth uses port 45454 and properly constructs browser URL",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows: モード切り替えを alt + m に変更し、プランモードを適切にレンダリング",
+              "en": "Windows: mode switching now uses alt + m, and plan mode renders properly",
+              "category": "fixed"
+            },
+            {
+              "ja": "Shell: ファイル関連エラーを修正するためインメモリシェルスナップショットに切り替え",
+              "en": "Shell: Switch to in-memory shell snapshot to fix file-related errors",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.53",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "@メンションのファイル切り詰めを100行から2000行に更新",
+              "en": "Updated @-mention file truncation from 100 lines to 2000 lines",
+              "category": "changed"
+            },
+            {
+              "ja": "AWS トークン更新用のヘルパースクリプト設定を追加: awsAuthRefresh（aws sso login のようなフォアグラウンド操作用）と awsCredentialExport（STS 形式のレスポンスを返すバックグラウンド操作用）",
+              "en": "Add helper script settings for AWS token refresh: awsAuthRefresh (for foreground operations like aws sso login) and awsCredentialExport (for background operation with STS-like response).",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.52",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCPサーバー指示のサポートを追加",
+              "en": "Added support for MCP server instructions",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.51",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ネイティブWindowsに対応（Git for Windowsが必要）",
+              "en": "Added support for native Windows (requires Git for Windows)",
+              "category": "added"
+            },
+            {
+              "ja": "環境変数AWS_BEARER_TOKEN_BEDROCKによるBedrock APIキーに対応",
+              "en": "Added support for Bedrock API keys through environment variable AWS_BEARER_TOKEN_BEDROCK",
+              "category": "added"
+            },
+            {
+              "ja": "設定: /doctorで無効な設定ファイルの識別と修正が可能に",
+              "en": "Settings: /doctor can now help you identify and fix invalid setting files",
+              "category": "added"
+            },
+            {
+              "ja": "`--append-system-prompt`を対話モードでも使用可能に（--print/-pのみでなく）",
+              "en": "`--append-system-prompt` can now be used in interactive mode, not just --print/-p.",
+              "category": "changed"
+            },
+            {
+              "ja": "自動圧縮警告の閾値を60%から80%に引き上げ",
+              "en": "Increased auto-compact warning threshold from 60% to 80%",
+              "category": "changed"
+            },
+            {
+              "ja": "シェルスナップショットでスペースを含むユーザーディレクトリの処理問題を修正",
+              "en": "Fixed an issue with handling user directories with spaces for shell snapshots",
+              "category": "fixed"
+            },
+            {
+              "ja": "OTELリソースにos.type、os.version、host.arch、wsl.version（WSL上で実行時）を含めるよう変更",
+              "en": "OTEL resource now includes os.type, os.version, host.arch, and wsl.version (if running on Windows Subsystem for Linux)",
+              "category": "changed"
+            },
+            {
+              "ja": "カスタムスラッシュコマンド: サブディレクトリ内のユーザーレベルコマンドの問題を修正",
+              "en": "Custom slash commands: Fixed user-level commands in subdirectories",
+              "category": "fixed"
+            },
+            {
+              "ja": "プランモード: サブタスクから拒否されたプランが破棄される問題を修正",
+              "en": "Plan mode: Fixed issue where rejected plan from sub-task would get discarded",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.48",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "v1.0.45 で起動時にアプリがフリーズする不具合を修正",
+              "en": "Fixed a bug in v1.0.45 where the app would sometimes freeze on launch",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bash ツールにコマンド出力の最後の5行に基づく進行状況メッセージを追加",
+              "en": "Added progress messages to Bash tool based on the last 5 lines of command output",
+              "category": "added"
+            },
+            {
+              "ja": "MCP サーバー設定での変数展開サポートを追加",
+              "en": "Added expanding variables support for MCP server configuration",
+              "category": "added"
+            },
+            {
+              "ja": "Bash ツール呼び出しの信頼性向上のため、シェルスナップショットを /tmp から ~/.claude に移動",
+              "en": "Moved shell snapshots from /tmp to ~/.claude for more reliable Bash tool calls",
+              "category": "changed"
+            },
+            {
+              "ja": "Claude Code が WSL で動作する際の IDE 拡張機能パス処理を改善",
+              "en": "Improved IDE extension path handling when Claude Code runs in WSL",
+              "category": "improved"
+            },
+            {
+              "ja": "Hooks: PreCompact フックを追加",
+              "en": "Hooks: Added a PreCompact hook",
+              "category": "added"
+            },
+            {
+              "ja": "Vim モード: c、f/F、t/T を追加",
+              "en": "Vim mode: Added c, f/F, t/T",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.45",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Search（Grep）ツールを再設計し、新しい入力パラメータと機能を追加",
+              "en": "Redesigned Search (Grep) tool with new tool input parameters and features",
+              "category": "added"
+            },
+            {
+              "ja": "notebook ファイルの IDE diff を無効化し「1000ms 待機後のタイムアウト」エラーを修正",
+              "en": "Disabled IDE diffs for notebook files, fixing \"Timeout waiting after 1000ms\" error",
+              "category": "fixed"
+            },
+            {
+              "ja": "アトミック書き込みを強制し、設定ファイル破損の問題を修正",
+              "en": "Fixed config file corruption issue by enforcing atomic writes",
+              "category": "fixed"
+            },
+            {
+              "ja": "プロンプト入力の undo を Ctrl+\\_ に変更し、既存の Ctrl+U 動作の破壊を回避（zsh の undo ショートカットに合わせる）",
+              "en": "Updated prompt input undo to Ctrl+\\_ to avoid breaking existing Ctrl+U behavior, matching zsh's undo shortcut",
+              "category": "changed"
+            },
+            {
+              "ja": "Stop Hooks: /clear 後のトランスクリプトパスを修正し、ツール呼び出しでループが終了する際のトリガーを修正",
+              "en": "Stop Hooks: Fixed transcript path after /clear and fixed triggering when loop ends with tool call",
+              "category": "fixed"
+            },
+            {
+              "ja": "カスタムスラッシュコマンド: サブディレクトリに基づくコマンド名の名前空間を復元（例: .claude/commands/frontend/component.md は /component ではなく /frontend:component になる）",
+              "en": "Custom slash commands: Restored namespacing in command names based on subdirectories. For example, .claude/commands/frontend/component.md is now /frontend:component, not /component.",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.44",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "会話を共有するための /export コマンドを追加",
+              "en": "New /export command lets you quickly export a conversation for sharing",
+              "category": "added"
+            },
+            {
+              "ja": "MCP の resource_link ツール結果に対応",
+              "en": "MCP: resource_link tool results are now supported",
+              "category": "added"
+            },
+            {
+              "ja": "MCP のツールアノテーションとツールタイトルを /mcp view に表示",
+              "en": "MCP: tool annotations and tool titles now display in /mcp view",
+              "category": "improved"
+            },
+            {
+              "ja": "Ctrl+Z を Claude Code の一時停止に変更し、fg で再開可能に。プロンプト入力の取り消しは Ctrl+U に変更",
+              "en": "Changed Ctrl+Z to suspend Claude Code. Resume by running `fg`. Prompt input undo is now Ctrl+U.",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.43",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "テーマセレクターの過度な保存を修正",
+              "en": "Fixed a bug where the theme selector was saving excessively",
+              "category": "fixed"
+            },
+            {
+              "ja": "Hooks に EPIPE システムエラーのハンドリングを追加",
+              "en": "Hooks: Added EPIPE system error handling",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.42",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "`/add-dir` コマンドにチルダ（`~`）展開のサポートを追加",
+              "en": "Added tilde (`~`) expansion support to `/add-dir` command",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.41",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Hooks: Stop フックのトリガーを Stop と SubagentStop に分割",
+              "en": "Hooks: Split Stop hook triggering into Stop and SubagentStop",
+              "category": "changed"
+            },
+            {
+              "ja": "Hooks: コマンドごとのオプションタイムアウト設定を有効化",
+              "en": "Hooks: Enabled optional timeout configuration for each command",
+              "category": "added"
+            },
+            {
+              "ja": "Hooks: フック入力に \"hook_event_name\" を追加",
+              "en": "Hooks: Added \"hook_event_name\" to hook input",
+              "category": "added"
+            },
+            {
+              "ja": "MCP ツールがツールリストに二重表示されるバグを修正",
+              "en": "Fixed a bug where MCP tools would display twice in tool list",
+              "category": "fixed"
+            },
+            {
+              "ja": "`tool_decision` イベントの Bash ツール用に新しいツールパラメータ JSON を追加",
+              "en": "New tool parameters JSON for Bash tool in `tool_decision` event",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.40",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "`NODE_EXTRA_CA_CERTS` が設定されていた場合に UNABLE_TO_GET_ISSUER_CERT_LOCALLY エラーで API 接続に失敗するバグを修正",
+              "en": "Fixed a bug causing API connection errors with UNABLE_TO_GET_ISSUER_CERT_LOCALLY if `NODE_EXTRA_CA_CERTS` was set",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.39",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "OpenTelemetry ログにアクティブ時間メトリックを追加",
+              "en": "New Active Time metric in OpenTelemetry logging",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.38",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "フックをリリース。コミュニティからの意見（https://github.com/anthropics/claude-code/issues/712）に感謝。ドキュメント: https://code.claude.com/docs/en/hooks",
+              "en": "Released hooks. Special thanks to community input in https://github.com/anthropics/claude-code/issues/712. Docs: https://code.claude.com/docs/en/hooks",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.37",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ANTHROPIC_AUTH_TOKEN や apiKeyHelper 経由での `Proxy-Authorization` ヘッダー設定機能を削除",
+              "en": "Remove ability to set `Proxy-Authorization` header via ANTHROPIC_AUTH_TOKEN or apiKeyHelper",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.36",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Web検索で今日の日付を文脈に考慮するように対応",
+              "en": "Web search now takes today's date into context",
+              "category": "improved"
+            },
+            {
+              "ja": "終了時にstdio MCP serverが正常に終了しない不具合を修正",
+              "en": "Fixed a bug where stdio MCP servers were not terminating properly on exit",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.35",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCP OAuth 認証サーバーの自動検出に対応",
+              "en": "Added support for MCP OAuth Authorization Server discovery",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.34",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MaxListenersExceededWarning メッセージを引き起こすメモリリークを修正",
+              "en": "Fixed a memory leak causing a MaxListenersExceededWarning message to appear",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.33",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "セッションID対応によるロギング機能の改善",
+              "en": "Improved logging functionality with session ID support",
+              "category": "improved"
+            },
+            {
+              "ja": "プロンプト入力のアンドゥ機能を追加（Ctrl+Zとvimの'u'コマンド）",
+              "en": "Added prompt input undo functionality (Ctrl+Z and vim 'u' command)",
+              "category": "added"
+            },
+            {
+              "ja": "プランモードの改善",
+              "en": "Improvements to plan mode",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.32",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "litellm の loopback 設定を更新",
+              "en": "Updated loopback config for litellm",
+              "category": "changed"
+            },
+            {
+              "ja": "ログイン選択画面をバイパスする forceLoginMethod 設定を追加",
+              "en": "Added forceLoginMethod setting to bypass login selection screen",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.31",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "不正なJSONを含む~/.claude.jsonがリセットされるバグを修正",
+              "en": "Fixed a bug where ~/.claude.json would get reset when file contained invalid JSON",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.30",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "カスタムスラッシュコマンド：bash 出力の実行、ファイルの @-メンション、思考キーワードによる思考モードの有効化",
+              "en": "Custom slash commands: Run bash output, @-mention files, enable thinking with thinking keywords",
+              "category": "added"
+            },
+            {
+              "ja": "ファイル名マッチングによるファイルパス自動補完の改善",
+              "en": "Improved file path autocomplete with filename matching",
+              "category": "improved"
+            },
+            {
+              "ja": "Ctrl-r モードにタイムスタンプを追加し、Ctrl-c の処理を修正",
+              "en": "Added timestamps in Ctrl-r mode and fixed Ctrl-c handling",
+              "category": "added"
+            },
+            {
+              "ja": "パイプと select を用いた複雑なフィルタに対応した jq 正規表現サポートの強化",
+              "en": "Enhanced jq regex support for complex filters with pipes and select",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.29",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "カーソル移動とレンダリングでのCJK文字サポートを改善",
+              "en": "Improved CJK character support in cursor navigation and rendering",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.28",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "スラッシュコマンド: 履歴ナビゲーション中のセレクター表示を修正",
+              "en": "Slash commands: Fix selector display during history navigation",
+              "category": "fixed"
+            },
+            {
+              "ja": "API サイズ制限エラーを防ぐため、アップロード前に画像をリサイズ",
+              "en": "Resizes images before upload to prevent API size limit errors",
+              "category": "fixed"
+            },
+            {
+              "ja": "設定ディレクトリに XDG_CONFIG_HOME サポートを追加",
+              "en": "Added XDG_CONFIG_HOME support to configuration directory",
+              "category": "added"
+            },
+            {
+              "ja": "メモリ使用量のパフォーマンス最適化",
+              "en": "Performance optimizations for memory usage",
+              "category": "improved"
+            },
+            {
+              "ja": "OpenTelemetry ロギングに新しい属性（terminal.type、language）を追加",
+              "en": "New attributes (terminal.type, language) in OpenTelemetry logging",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.27",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Streamable HTTP MCP サーバーに対応",
+              "en": "Streamable HTTP MCP servers are now supported",
+              "category": "added"
+            },
+            {
+              "ja": "リモート MCP サーバー（SSE および HTTP）で OAuth に対応",
+              "en": "Remote MCP servers (SSE and HTTP) now support OAuth",
+              "category": "added"
+            },
+            {
+              "ja": "MCP リソースを @ メンションで参照可能に",
+              "en": "MCP resources can now be @-mentioned",
+              "category": "added"
+            },
+            {
+              "ja": "/resume スラッシュコマンドで Claude Code 内の会話を切り替え可能に",
+              "en": "/resume slash command to switch conversations within Claude Code",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.25",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "スラッシュコマンド: \"project\" と \"user\" プレフィックスを説明欄に移動",
+              "en": "Slash commands: moved \"project\" and \"user\" prefixes to descriptions",
+              "category": "changed"
+            },
+            {
+              "ja": "スラッシュコマンド: コマンド検出の信頼性を改善",
+              "en": "Slash commands: improved reliability for command discovery",
+              "category": "improved"
+            },
+            {
+              "ja": "Ghostty のサポートを改善",
+              "en": "Improved support for Ghostty",
+              "category": "improved"
+            },
+            {
+              "ja": "Web 検索の信頼性を改善",
+              "en": "Improved web search reliability",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.24",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "/mcp の出力を改善",
+              "en": "Improved /mcp output",
+              "category": "improved"
+            },
+            {
+              "ja": "設定の配列がマージされずに上書きされるバグを修正",
+              "en": "Fixed a bug where settings arrays got overwritten instead of merged",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.23",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "TypeScript SDK をリリース: @anthropic-ai/claude-code をインポートして開始",
+              "en": "Released TypeScript SDK: import @anthropic-ai/claude-code to get started",
+              "category": "added"
+            },
+            {
+              "ja": "Python SDK をリリース: pip install claude-code-sdk で開始",
+              "en": "Released Python SDK: pip install claude-code-sdk to get started",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "1.0.22",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "SDK: `total_cost` を `total_cost_usd` に名称変更",
+              "en": "SDK: Renamed `total_cost` to `total_cost_usd`",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.21",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "タブベースインデントのファイル編集を改善",
+              "en": "Improved editing of files with tab-based indentation",
+              "category": "improved"
+            },
+            {
+              "ja": "tool_result が一致しない tool_use エラーを修正",
+              "en": "Fix for tool_use without matching tool_result errors",
+              "category": "fixed"
+            },
+            {
+              "ja": "Claude Code 終了後に stdio MCP サーバープロセスが残る不具合を修正",
+              "en": "Fixed a bug where stdio MCP server processes would linger after quitting Claude Code",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.18",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "追加の作業ディレクトリを指定するための --add-dir CLI 引数を追加",
+              "en": "Added --add-dir CLI argument for specifying additional working directories",
+              "category": "added"
+            },
+            {
+              "ja": "-p フラグなしでストリーミング入力サポートを追加",
+              "en": "Added streaming input support without require -p flag",
+              "category": "added"
+            },
+            {
+              "ja": "起動パフォーマンスとセッションストレージのパフォーマンスを改善",
+              "en": "Improved startup performance and session storage performance",
+              "category": "improved"
+            },
+            {
+              "ja": "bash コマンドの作業ディレクトリを固定する CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR 環境変数を追加",
+              "en": "Added CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR environment variable to freeze working directory for bash commands",
+              "category": "added"
+            },
+            {
+              "ja": "MCP サーバーツールの詳細表示（/mcp）を追加",
+              "en": "Added detailed MCP server tools display (/mcp)",
+              "category": "added"
+            },
+            {
+              "ja": "MCP の認証と権限管理を改善",
+              "en": "MCP authentication and permission improvements",
+              "category": "improved"
+            },
+            {
+              "ja": "MCP SSE 接続の切断時の自動再接続機能を追加",
+              "en": "Added auto-reconnection for MCP SSE connections on disconnect",
+              "category": "added"
+            },
+            {
+              "ja": "ダイアログ表示時に貼り付けたコンテンツが失われる問題を修正",
+              "en": "Fixed issue where pasted content was lost when dialogs appeared",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.17",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "-p モードでサブタスクからのメッセージを出力（parent_tool_use_id プロパティを確認）",
+              "en": "We now emit messages from sub-tasks in -p mode (look for the parent_tool_use_id property)",
+              "category": "added"
+            },
+            {
+              "ja": "VS Code差分ツールが連続して素早く呼び出された際のクラッシュを修正",
+              "en": "Fixed crashes when the VS Code diff tool is invoked multiple times quickly",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCPサーバーリストのUI改善",
+              "en": "MCP server list UI improvements",
+              "category": "improved"
+            },
+            {
+              "ja": "Claude Codeのプロセスタイトルを「node」から「claude」に変更",
+              "en": "Update Claude Code process title to display \"claude\" instead of \"node\"",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.11",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Claude Pro サブスクリプションでも Claude Code が利用可能に",
+              "en": "Claude Code can now also be used with a Claude Pro subscription",
+              "category": "added"
+            },
+            {
+              "ja": "Claude Max プランへのスムーズな切り替えのため /upgrade を追加",
+              "en": "Added /upgrade for smoother switching to Claude Max plans",
+              "category": "added"
+            },
+            {
+              "ja": "API キーと Bedrock/Vertex/外部認証トークンからの認証 UI を改善",
+              "en": "Improved UI for authentication from API keys and Bedrock/Vertex/external auth tokens",
+              "category": "improved"
+            },
+            {
+              "ja": "シェル設定のエラーハンドリングを改善",
+              "en": "Improved shell configuration error handling",
+              "category": "improved"
+            },
+            {
+              "ja": "コンパクション時の TODO リスト処理を改善",
+              "en": "Improved todo list handling during compaction",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.10",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Markdown テーブルのサポートを追加",
+              "en": "Added markdown table support",
+              "category": "added"
+            },
+            {
+              "ja": "ストリーミングパフォーマンスを改善",
+              "en": "Improved streaming performance",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.8",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "CLOUD_ML_REGION 使用時の Vertex AI リージョンフォールバックを修正",
+              "en": "Fixed Vertex AI region fallback when using CLOUD_ML_REGION",
+              "category": "fixed"
+            },
+            {
+              "ja": "デフォルトの otel 間隔を 1秒から 5秒に変更",
+              "en": "Increased default otel interval from 1s -> 5s",
+              "category": "changed"
+            },
+            {
+              "ja": "MCP_TIMEOUT と MCP_TOOL_TIMEOUT が尊重されないエッジケースを修正",
+              "en": "Fixed edge cases where MCP_TIMEOUT and MCP_TOOL_TIMEOUT weren't being respected",
+              "category": "fixed"
+            },
+            {
+              "ja": "検索ツールが不必要に権限を要求していたリグレッションを修正",
+              "en": "Fixed a regression where search tools unnecessarily asked for permissions",
+              "category": "fixed"
+            },
+            {
+              "ja": "英語以外の言語での思考トリガーに対応",
+              "en": "Added support for triggering thinking non-English languages",
+              "category": "added"
+            },
+            {
+              "ja": "コンパクト化 UI を改善",
+              "en": "Improved compacting UI",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.7",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "`/allowed-tools` を `/permissions` にリネーム",
+              "en": "Renamed /allowed-tools -> /permissions",
+              "category": "changed"
+            },
+            {
+              "ja": "`.claude.json` の `allowedTools` と `ignorePatterns` を `settings.json` に移行",
+              "en": "Migrated allowedTools and ignorePatterns from .claude.json -> settings.json",
+              "category": "changed"
+            },
+            {
+              "ja": "`claude config` コマンドを非推奨化し、`settings.json` の直接編集を推奨",
+              "en": "Deprecated claude config commands in favor of editing settings.json",
+              "category": "changed"
+            },
+            {
+              "ja": "--print モードで --dangerously-skip-permissions が動作しないことがあるバグを修正",
+              "en": "Fixed a bug where --dangerously-skip-permissions sometimes didn't work in --print mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/install-github-app` のエラーハンドリングを改善",
+              "en": "Improved error handling for /install-github-app",
+              "category": "improved"
+            },
+            {
+              "ja": "バグ修正、UI の洗練、ツールの信頼性向上",
+              "en": "Bugfixes, UI polish, and tool reliability improvements",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.6",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "タブインデントファイルの編集信頼性を改善",
+              "en": "Improved edit reliability for tab-indented files",
+              "category": "improved"
+            },
+            {
+              "ja": "CLAUDE_CONFIG_DIR を全箇所で尊重",
+              "en": "Respect CLAUDE_CONFIG_DIR everywhere",
+              "category": "changed"
+            },
+            {
+              "ja": "不要なツール権限プロンプトを削減",
+              "en": "Reduced unnecessary tool permission prompts",
+              "category": "improved"
+            },
+            {
+              "ja": "@file の先行入力でシンボリックリンクに対応",
+              "en": "Added support for symlinks in @file typeahead",
+              "category": "added"
+            },
+            {
+              "ja": "バグ修正、UI 改良、ツール信頼性の改善",
+              "en": "Bugfixes, UI polish, and tool reliability improvements",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "1.0.4",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCP ツールエラーが正しく解析されなかったバグを修正",
+              "en": "Fixed a bug where MCP tool errors weren't being parsed correctly",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.1",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "インタリーブ思考をオプトアウトする `DISABLE_INTERLEAVED_THINKING` を追加",
+              "en": "Added `DISABLE_INTERLEAVED_THINKING` to give users the option to opt out of interleaved thinking.",
+              "category": "added"
+            },
+            {
+              "ja": "モデル参照をプロバイダー固有の名前（Bedrock は Sonnet 3.7、Console は Sonnet 4）で表示するよう改善",
+              "en": "Improved model references to show provider-specific names (Sonnet 3.7 for Bedrock, Sonnet 4 for Console)",
+              "category": "improved"
+            },
+            {
+              "ja": "ドキュメントリンクと OAuth プロセスの説明を更新",
+              "en": "Updated documentation links and OAuth process descriptions",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "1.0.0",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Claude Code が正式リリース",
+              "en": "Claude Code is now generally available",
+              "category": "added"
+            },
+            {
+              "ja": "Sonnet 4 と Opus 4 モデルを導入",
+              "en": "Introducing Sonnet 4 and Opus 4 models",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.125",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "破壊的変更: Bedrock ARN を `ANTHROPIC_MODEL` または `ANTHROPIC_SMALL_FAST_MODEL` に渡す際、エスケープされたスラッシュ（`%2F`）ではなく通常のスラッシュ（`/`）を使用する仕様に変更",
+              "en": "Breaking change: Bedrock ARN passed to `ANTHROPIC_MODEL` or `ANTHROPIC_SMALL_FAST_MODEL` should no longer contain an escaped slash (specify `/` instead of `%2F`)",
+              "category": "changed"
+            },
+            {
+              "ja": "`DEBUG=true` を削除し、全リクエストのログ記録には `ANTHROPIC_LOG=debug` を使用するよう変更",
+              "en": "Removed `DEBUG=true` in favor of `ANTHROPIC_LOG=debug`, to log all requests",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.117",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "破壊的変更: --print の JSON 出力が新しいメタデータフィールド導入に向けてネストされたメッセージオブジェクトを返すように変更",
+              "en": "Breaking change: --print JSON output now returns nested message objects, for forwards-compatibility as we introduce new metadata fields",
+              "category": "changed"
+            },
+            {
+              "ja": "settings.cleanupPeriodDays の導入",
+              "en": "Introduced settings.cleanupPeriodDays",
+              "category": "added"
+            },
+            {
+              "ja": "CLAUDE_CODE_API_KEY_HELPER_TTL_MS 環境変数の導入",
+              "en": "Introduced CLAUDE_CODE_API_KEY_HELPER_TTL_MS env var",
+              "category": "added"
+            },
+            {
+              "ja": "--debug モードを導入",
+              "en": "Introduced --debug mode",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.108",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Claude の動作中にメッセージを送信してリアルタイムで誘導可能",
+              "en": "You can now send messages to Claude while it works to steer Claude in real-time",
+              "category": "added"
+            },
+            {
+              "ja": "BASH_DEFAULT_TIMEOUT_MS と BASH_MAX_TIMEOUT_MS 環境変数を導入",
+              "en": "Introduced BASH_DEFAULT_TIMEOUT_MS and BASH_MAX_TIMEOUT_MS env vars",
+              "category": "added"
+            },
+            {
+              "ja": "-p モードで thinking が動作しないバグを修正",
+              "en": "Fixed a bug where thinking was not working in -p mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "/cost コマンドのレポート機能の不具合を修正",
+              "en": "Fixed a regression in /cost reporting",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP ウィザードインターフェースを非推奨化し他の MCP コマンドに移行",
+              "en": "Deprecated MCP wizard interface in favor of other MCP commands",
+              "category": "changed"
+            },
+            {
+              "ja": "その他多数のバグ修正と改善",
+              "en": "Lots of other bugfixes and improvements",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "0.2.107",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "CLAUDE.md ファイルから他のファイルをインポート可能に。./CLAUDE.md に @path/to/file.md を追加すると起動時に追加ファイルを読み込む",
+              "en": "CLAUDE.md files can now import other files. Add @path/to/file.md to ./CLAUDE.md to load additional files on launch",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.106",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCP SSE サーバー設定でカスタムヘッダーを指定可能に",
+              "en": "MCP SSE server configs can now specify custom headers",
+              "category": "added"
+            },
+            {
+              "ja": "MCP 権限プロンプトが正しく表示されないバグを修正",
+              "en": "Fixed a bug where MCP permission prompt didn't always show correctly",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.105",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Web 検索に対応",
+              "en": "Claude can now search the web",
+              "category": "added"
+            },
+            {
+              "ja": "システムおよびアカウントステータスを /status に移動",
+              "en": "Moved system & account status to /status",
+              "category": "other"
+            },
+            {
+              "ja": "Vim のワード移動キーバインディングを追加",
+              "en": "Added word movement keybindings for Vim",
+              "category": "added"
+            },
+            {
+              "ja": "起動、todoツール、ファイル編集のレイテンシを改善",
+              "en": "Improved latency for startup, todo tool, and file edits",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "0.2.102",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "thinking の起動信頼性を改善",
+              "en": "Improved thinking triggering reliability",
+              "category": "improved"
+            },
+            {
+              "ja": "画像とフォルダに対する @mention の信頼性を改善",
+              "en": "Improved @mention reliability for images and folders",
+              "category": "improved"
+            },
+            {
+              "ja": "1つのプロンプトに複数の大きなチャンクを貼り付け可能に",
+              "en": "You can now paste multiple large chunks into one prompt",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.100",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "スタックオーバーフローエラーによるクラッシュを修正",
+              "en": "Fixed a crash caused by a stack overflow error",
+              "category": "fixed"
+            },
+            {
+              "ja": "db ストレージをオプション化し、db サポートなしの場合は --continue と --resume を無効化",
+              "en": "Made db storage optional; missing db support disables --continue and --resume",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.98",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "auto-compact が2回実行される問題を修正",
+              "en": "Fixed an issue where auto-compact was running twice",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.96",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Claude Code が Claude Max サブスクリプションでも利用可能に (https://claude.ai/upgrade)",
+              "en": "Claude Code can now also be used with a Claude Max subscription (https://claude.ai/upgrade)",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.93",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "\"claude --continue\" と \"claude --resume\" で中断した会話を再開可能に",
+              "en": "Resume conversations from where you left off from with \"claude --continue\" and \"claude --resume\"",
+              "category": "added"
+            },
+            {
+              "ja": "Claude がタスク管理用の Todo リストにアクセスできるようになり、作業の追跡と整理が改善",
+              "en": "Claude now has access to a Todo list that helps it stay on track and be more organized",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "0.2.82",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "--disallowedTools のサポートを追加",
+              "en": "Added support for --disallowedTools",
+              "category": "added"
+            },
+            {
+              "ja": "一貫性のためツールをリネーム: LSTool → LS、View → Read など",
+              "en": "Renamed tools for consistency: LSTool -> LS, View -> Read, etc.",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.75",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Claude の作業中に Enter キーで追加メッセージをキューに追加可能",
+              "en": "Hit Enter to queue up additional messages while Claude is working",
+              "category": "added"
+            },
+            {
+              "ja": "画像ファイルをプロンプトに直接ドラッグまたは貼り付け可能",
+              "en": "Drag in or copy/paste image files directly into the prompt",
+              "category": "added"
+            },
+            {
+              "ja": "ファイルを @ メンションでコンテキストに直接追加可能",
+              "en": "@-mention files to directly add them to context",
+              "category": "added"
+            },
+            {
+              "ja": "`claude --mcp-config <path-to-file>` でワンオフ MCP サーバーの実行に対応",
+              "en": "Run one-off MCP servers with `claude --mcp-config <path-to-file>`",
+              "category": "added"
+            },
+            {
+              "ja": "ファイル名オートコンプリートのパフォーマンス改善",
+              "en": "Improved performance for filename auto-complete",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "0.2.74",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "動的に生成された API キー（apiKeyHelper 経由）のリフレッシュに対応、TTL は 5 分",
+              "en": "Added support for refreshing dynamically generated API keys (via apiKeyHelper), with a 5 minute TTL",
+              "category": "added"
+            },
+            {
+              "ja": "Task ツールでファイルの書き込みと Bash コマンドの実行が可能に",
+              "en": "Task tool can now perform writes and run bash commands",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.72",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "トークン読み込みとツール使用を示すスピナー表示を改善",
+              "en": "Updated spinner to indicate tokens loaded and tool usage",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "0.2.70",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "curl などのネットワークコマンドを Claude が使用可能に",
+              "en": "Network commands like curl are now available for Claude to use",
+              "category": "added"
+            },
+            {
+              "ja": "Claude が複数のウェブクエリを並列実行可能に",
+              "en": "Claude can now run multiple web queries in parallel",
+              "category": "added"
+            },
+            {
+              "ja": "Auto-accept モードで ESC キー1回押下により Claude を即座に中断可能に",
+              "en": "Pressing ESC once immediately interrupts Claude in Auto-accept mode",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.69",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Select コンポーネントの動作改善により UI の不具合を修正",
+              "en": "Fixed UI glitches with improved Select component behavior",
+              "category": "fixed"
+            },
+            {
+              "ja": "ターミナル出力表示の改善（テキスト切り詰めロジックを改良）",
+              "en": "Enhanced terminal output display with better text truncation logic",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "0.2.67",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "共有プロジェクトの権限ルールを .claude/settings.json に保存可能",
+              "en": "Shared project permission rules can be saved in .claude/settings.json",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.66",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プリントモード (-p) が --output-format=stream-json によるストリーミング出力に対応",
+              "en": "Print mode (-p) now supports streaming output via --output-format=stream-json",
+              "category": "added"
+            },
+            {
+              "ja": "ペースト時にメモリまたは bash モードが予期せず起動する問題を修正",
+              "en": "Fixed issue where pasting could trigger memory or bash mode unexpectedly",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.63",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCP ツールが二重に読み込まれてツール呼び出しエラーが発生していた問題を修正",
+              "en": "Fixed an issue where MCP tools were loaded twice, which caused tool call errors",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.61",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "メニューのvimスタイルキー（j/k）またはbash/emacsショートカット（Ctrl+n/p）による高速操作に対応",
+              "en": "Navigate menus with vim-style keys (j/k) or bash/emacs shortcuts (Ctrl+n/p) for faster interaction",
+              "category": "added"
+            },
+            {
+              "ja": "クリップボード画像の貼り付け機能向上のため画像検出を強化",
+              "en": "Enhanced image detection for more reliable clipboard paste functionality",
+              "category": "improved"
+            },
+            {
+              "ja": "ESCキーで会話履歴セレクターがクラッシュする問題を修正",
+              "en": "Fixed an issue where ESC key could crash the conversation history selector",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.59",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "プロンプトへの画像の直接コピー&ペースト対応",
+              "en": "Copy+paste images directly into your prompt",
+              "category": "added"
+            },
+            {
+              "ja": "bash および fetch ツールの進捗インジケーターを改善",
+              "en": "Improved progress indicators for bash and fetch tools",
+              "category": "improved"
+            },
+            {
+              "ja": "非対話モード (-p) のバグ修正",
+              "en": "Bugfixes for non-interactive mode (-p)",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.54",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "メッセージを「#」で始めることで素早くメモリーに追加",
+              "en": "Quickly add to Memory by starting your message with '#'",
+              "category": "added"
+            },
+            {
+              "ja": "ctrl+r を押すと長いツール結果の完全な出力を表示",
+              "en": "Press ctrl+r to see full output for long tool results",
+              "category": "added"
+            },
+            {
+              "ja": "MCP SSE トランスポートのサポートを追加",
+              "en": "Added support for MCP SSE transport",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.53",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "URL ペーストによる Web ページ表示機能を追加",
+              "en": "New web fetch tool lets Claude view URLs that you paste in",
+              "category": "added"
+            },
+            {
+              "ja": "JPEG 検出のバグを修正",
+              "en": "Fixed a bug with JPEG detection",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.50",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "新しいMCP \"project\" スコープにより、MCPサーバーを .mcp.json ファイルに追加してリポジトリにコミット可能に",
+              "en": "New MCP \"project\" scope now allows you to add MCP servers to .mcp.json files and commit them to your repository",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.49",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "以前の MCP サーバースコープを改名: project スコープは local に、global スコープは user に変更",
+              "en": "Previous MCP server scopes have been renamed: previous \"project\" scope is now \"local\" and \"global\" scope is now \"user\"",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.47",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Tab キーでファイル名とフォルダ名を自動補完",
+              "en": "Press Tab to auto-complete file and folder names",
+              "category": "added"
+            },
+            {
+              "ja": "Shift + Tab キーでファイル編集の自動承認を切り替え",
+              "en": "Press Shift + Tab to toggle auto-accept for file edits",
+              "category": "added"
+            },
+            {
+              "ja": "無限の会話長のための自動会話圧縮（/config で切り替え可能）",
+              "en": "Automatic conversation compaction for infinite conversation length (toggle with /config)",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.44",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "「think」「think harder」「ultrathink」と指示するだけで Claude に思考モードでの計画立案を依頼可能",
+              "en": "Ask Claude to make a plan with thinking mode: just say 'think' or 'think harder' or even 'ultrathink'",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.41",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCP_TIMEOUT 環境変数による MCP サーバー起動タイムアウトの設定に対応",
+              "en": "MCP server startup timeout can now be configured via MCP_TIMEOUT environment variable",
+              "category": "added"
+            },
+            {
+              "ja": "MCP サーバー起動時にアプリの起動をブロックしないように改善",
+              "en": "MCP server startup no longer blocks the app from starting up",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "0.2.37",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "いつでもリリースノートを表示できる /release-notes コマンドを追加",
+              "en": "New /release-notes command lets you view release notes at any time",
+              "category": "added"
+            },
+            {
+              "ja": "`claude config add/remove` コマンドでカンマまたはスペース区切りの複数値に対応",
+              "en": "`claude config add/remove` commands now accept multiple values separated by commas or spaces",
+              "category": "improved"
+            }
+          ]
+        },
+        {
+          "version": "0.2.36",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "Claude Desktop から `claude mcp add-from-claude-desktop` で MCP サーバーをインポート",
+              "en": "Import MCP servers from Claude Desktop with `claude mcp add-from-claude-desktop`",
+              "category": "added"
+            },
+            {
+              "ja": "`claude mcp add-json <n> <json>` で MCP サーバーを JSON 文字列として追加",
+              "en": "Add MCP servers as JSON strings with `claude mcp add-json <n> <json>`",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.34",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "テキスト入力用の Vim キーバインド - /vim または /config で有効化",
+              "en": "Vim bindings for text input - enable with /vim or /config",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.32",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "MCP サーバー追加用の対話的なセットアップウィザードを追加（「claude mcp add」コマンドで利用可能）",
+              "en": "Interactive MCP setup wizard: Run \"claude mcp add\" to add MCP servers with a step-by-step interface",
+              "category": "added"
+            },
+            {
+              "ja": "PersistentShell の一部の問題を修正",
+              "en": "Fix for some PersistentShell issues",
+              "category": "fixed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.31",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "カスタムスラッシュコマンド: .claude/commands/ ディレクトリの Markdown ファイルがカスタムスラッシュコマンドとして表示され、会話にプロンプトを挿入可能",
+              "en": "Custom slash commands: Markdown files in .claude/commands/ directories now appear as custom slash commands to insert prompts into your conversation",
+              "category": "added"
+            },
+            {
+              "ja": "MCP デバッグモード: --mcp-debug フラグで実行すると、MCP サーバーエラーに関する詳細情報を取得可能",
+              "en": "MCP debug mode: Run with --mcp-debug flag to get more information about MCP server errors",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.30",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "より良いターミナル互換性のため ANSI カラーテーマを追加",
+              "en": "Added ANSI color theme for better terminal compatibility",
+              "category": "added"
+            },
+            {
+              "ja": "スラッシュコマンドの引数が正しく送信されない問題を修正",
+              "en": "Fixed issue where slash command arguments weren't being sent properly",
+              "category": "fixed"
+            },
+            {
+              "ja": "(Mac のみ) API キーを macOS キーチェーンに保存するよう変更",
+              "en": "(Mac-only) API keys are now stored in macOS Keychain",
+              "category": "changed"
+            }
+          ]
+        },
+        {
+          "version": "0.2.26",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "ツール権限管理用の /approved-tools コマンドを追加",
+              "en": "New /approved-tools command for managing tool permissions",
+              "category": "added"
+            },
+            {
+              "ja": "コード可読性向上のための単語レベルの差分表示",
+              "en": "Word-level diff display for improved code readability",
+              "category": "improved"
+            },
+            {
+              "ja": "スラッシュコマンドのあいまい一致機能",
+              "en": "Fuzzy matching for slash commands",
+              "category": "added"
+            }
+          ]
+        },
+        {
+          "version": "0.2.21",
+          "releaseDate": "2025-12-19",
+          "releaseDateDisplay": "2025年12月19日",
+          "entries": [
+            {
+              "ja": "/commands のあいまい検索に対応",
+              "en": "Fuzzy matching for /commands",
+              "category": "added"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
