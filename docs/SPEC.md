@@ -683,8 +683,8 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 1. `pnpm run sync-versions` で Claude Code の新バージョンを検出
 2. `pnpm run sync-upstream` で上流 CHANGELOG 差分を検出・反映
 3. `pnpm run sync-codex-versions` で Codex の新バージョンを検出
-4. `pnpm generate` で `src/data/**/*.json` を更新
-5. `git status --porcelain -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/**/*.json'` で差分検知
+4. `pnpm generate` で `src/data/*.json` と `src/data/codex/*.json` を更新
+5. `git status --porcelain -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/*.json' 'src/data/codex/*.json'` で差分検知
 6. 差分があれば上記3系統を同一コミットで自動コミット・プッシュ（`chore: CHANGELOG を自動更新`）
 7. 各同期スクリプトの report JSON を Step Summary に集約して可視化
 
