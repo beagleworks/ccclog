@@ -102,14 +102,21 @@ const legendItems = getLegendItems(product);
   )}
 </BaseLayout>
 
-<script define:vars={{ storageKey, displayStorageKey }}>
+<script define:vars={{ storageKey, displayStorageKey, product }}>
   // 検索モード保持キーをクライアントサイドで使用
   window.__CCCLOG_STORAGE_KEY__ = storageKey;
   window.__CCCLOG_DISPLAY_STORAGE_KEY__ = displayStorageKey;
+  window.__CCCLOG_PRODUCT_ID__ = product;
 </script>
 
 <script>
   import Fuse from 'fuse.js';
+  import {
+    formatEntryHtml,
+    type ChangelogProductId,
+    type EntryLanguage,
+  } from '../lib/entry-html';
+  import { formatXCopyText, resolveXCopyLanguage, type NonCopyDisplayMode } from '../lib/x-copy-format';
 
   // 空データ時は検索UIが存在しないため、IIFEでラップして早期リターン
   (function initSearch() {
@@ -157,6 +164,7 @@ const legendItems = getLegendItems(product);
 
   // Fuse.jsインスタンスを作成
   type SearchMode = 'ja' | 'en' | 'both';
+  type ProductId = ChangelogProductId;
 
   // プロダクト別の検索モードキー（define:varsから取得）
   const STORAGE_KEY = (window as any).__CCCLOG_STORAGE_KEY__ || 'ccclog.searchMode.claude-code';
@@ -182,17 +190,48 @@ const legendItems = getLegendItems(product);
   }
 
   // 表示モード
-  type DisplayMode = 'ja' | 'en' | 'both';
+  type DisplayMode = 'ja' | 'en' | 'both' | 'copy';
   const DISPLAY_STORAGE_KEY = (window as any).__CCCLOG_DISPLAY_STORAGE_KEY__ || 'ccclog.displayMode.claude-code';
+  const PRODUCT_ID: ProductId = (window as any).__CCCLOG_PRODUCT_ID__ === 'codex' ? 'codex' : 'claude-code';
+  const PRODUCT_NAME = PRODUCT_ID === 'codex' ? 'OpenAI Codex' : 'Claude Code';
 
   function normalizeDisplayMode(raw: string | null): DisplayMode {
-    return raw === 'ja' || raw === 'en' || raw === 'both' ? raw : 'both';
+    return raw === 'ja' || raw === 'en' || raw === 'both' || raw === 'copy' ? raw : 'both';
   }
 
   function getInitialDisplayMode(): DisplayMode {
     const params = new URLSearchParams(window.location.search);
     if (params.has('display')) return normalizeDisplayMode(params.get('display'));
     return normalizeDisplayMode(sessionStorage.getItem(DISPLAY_STORAGE_KEY));
+  }
+
+  function getVisibleRows(section: Element): HTMLElement[] {
+    const rows = Array.from(section.querySelectorAll('.entry-row')) as HTMLElement[];
+    const visibleRows = rows.filter((row) => !row.classList.contains('hidden'));
+    return visibleRows.length > 0 ? visibleRows : rows;
+  }
+
+  function renderXCopyBlocks(sourceMode: NonCopyDisplayMode) {
+    const language = resolveXCopyLanguage(sourceMode);
+
+    versionSections.forEach((section) => {
+      const xCopyText = section.querySelector('.x-copy-text') as HTMLElement | null;
+      if (!xCopyText) return;
+
+      const version = section.id.replace('v', '');
+      const rows = getVisibleRows(section);
+      const entries = rows.map((row) => ({
+        ja: row.dataset.ja || '',
+        en: row.dataset.en || '',
+      }));
+
+      xCopyText.textContent = formatXCopyText({
+        productName: PRODUCT_NAME,
+        version,
+        entries,
+        language,
+      });
+    });
   }
 
   function syncDisplayUI(mode: DisplayMode) {
@@ -205,9 +244,10 @@ const legendItems = getLegendItems(product);
 
   function applyDisplayMode(mode: DisplayMode) {
     if (!changelogList) return;
-    changelogList.classList.remove('display-ja', 'display-en');
+    changelogList.classList.remove('display-ja', 'display-en', 'display-copy');
     if (mode === 'ja') changelogList.classList.add('display-ja');
     else if (mode === 'en') changelogList.classList.add('display-en');
+    else if (mode === 'copy') changelogList.classList.add('display-copy');
   }
 
   function createFuseInstance(mode: SearchMode) {
@@ -248,25 +288,14 @@ const legendItems = getLegendItems(product);
   sessionStorage.setItem(STORAGE_KEY, currentMode);
 
   let currentDisplayMode: DisplayMode = getInitialDisplayMode();
+  let lastNonCopyDisplayMode: NonCopyDisplayMode =
+    currentDisplayMode === 'copy' ? 'both' : currentDisplayMode;
   syncDisplayUI(currentDisplayMode);
   applyDisplayMode(currentDisplayMode);
+  if (currentDisplayMode === 'copy') renderXCopyBlocks(lastNonCopyDisplayMode);
   sessionStorage.setItem(DISPLAY_STORAGE_KEY, currentDisplayMode);
 
   let fuse = createFuseInstance(currentMode);
-
-  function escapeHtml(text: string): string {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  // バッククォート内を <code> 表示（エスケープ後）
-  function renderWithCode(rawText: string): string {
-    return escapeHtml(rawText).replace(/`([^`]+)`/g, '<code>$1</code>');
-  }
 
   function isExactCellMatch(rawText: string, query: string, key: 'ja' | 'en'): boolean {
     const trimmedQuery = query.trim();
@@ -279,8 +308,8 @@ const legendItems = getLegendItems(product);
     return trimmedText === trimmedQuery;
   }
 
-  function setCellHtml(element: HTMLElement, rawText: string, highlight: boolean) {
-    const rendered = renderWithCode(rawText);
+  function setCellHtml(element: HTMLElement, rawText: string, language: EntryLanguage, highlight: boolean) {
+    const rendered = formatEntryHtml(rawText, { product: PRODUCT_ID, language });
     element.innerHTML = highlight ? `<span class="highlight">${rendered}</span>` : rendered;
   }
 
@@ -295,19 +324,19 @@ const legendItems = getLegendItems(product);
     const rawEn = (row as HTMLElement).dataset.en || '';
 
     if (mode === 'ja') {
-      if (jaCell) setCellHtml(jaCell, rawJa, isExactCellMatch(rawJa, query, 'ja'));
-      if (enCell) setCellHtml(enCell, rawEn, false);
+      if (jaCell) setCellHtml(jaCell, rawJa, 'ja', isExactCellMatch(rawJa, query, 'ja'));
+      if (enCell) setCellHtml(enCell, rawEn, 'en', false);
       return;
     }
 
     if (mode === 'en') {
-      if (enCell) setCellHtml(enCell, rawEn, isExactCellMatch(rawEn, query, 'en'));
-      if (jaCell) setCellHtml(jaCell, rawJa, false);
+      if (enCell) setCellHtml(enCell, rawEn, 'en', isExactCellMatch(rawEn, query, 'en'));
+      if (jaCell) setCellHtml(jaCell, rawJa, 'ja', false);
       return;
     }
 
-    if (jaCell) setCellHtml(jaCell, rawJa, isExactCellMatch(rawJa, query, 'ja'));
-    if (enCell) setCellHtml(enCell, rawEn, isExactCellMatch(rawEn, query, 'en'));
+    if (jaCell) setCellHtml(jaCell, rawJa, 'ja', isExactCellMatch(rawJa, query, 'ja'));
+    if (enCell) setCellHtml(enCell, rawEn, 'en', isExactCellMatch(rawEn, query, 'en'));
   }
 
   function setSearchMode(mode: SearchMode) {
@@ -319,10 +348,16 @@ const legendItems = getLegendItems(product);
   }
 
   function setDisplayMode(mode: DisplayMode) {
+    if (mode !== 'copy') {
+      lastNonCopyDisplayMode = mode;
+    }
     currentDisplayMode = mode;
     sessionStorage.setItem(DISPLAY_STORAGE_KEY, mode);
     syncDisplayUI(mode);
     applyDisplayMode(mode);
+    if (mode === 'copy') {
+      renderXCopyBlocks(lastNonCopyDisplayMode);
+    }
     updateUrlParams(input.value, currentMode, currentDisplayMode);
   }
 
@@ -347,6 +382,9 @@ const legendItems = getLegendItems(product);
       });
       searchStats.hidden = true;
       noResults.hidden = true;
+      if (currentDisplayMode === 'copy') {
+        renderXCopyBlocks(lastNonCopyDisplayMode);
+      }
       updateUrlParams('', currentMode, currentDisplayMode);
       return;
     }
@@ -414,6 +452,10 @@ const legendItems = getLegendItems(product);
     } else {
       searchStats.hidden = true;
       noResults.hidden = false;
+    }
+
+    if (currentDisplayMode === 'copy') {
+      renderXCopyBlocks(lastNonCopyDisplayMode);
     }
 
     updateUrlParams(trimmedQuery, currentMode, currentDisplayMode);

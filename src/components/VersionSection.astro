@@ -1,5 +1,7 @@
 ---
 import { getEntryType, type Entry } from '../lib/get-entry-type';
+import { formatEntryHtml } from '../lib/entry-html';
+import { formatXCopyText } from '../lib/x-copy-format';
 
 interface Props {
   version: string;
@@ -11,20 +13,7 @@ interface Props {
 }
 
 const { version, releaseDateDisplay, entries, orderInMonth, product = 'claude-code' } = Astro.props;
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function formatSafeHtml(text: string): string {
-  const escaped = escapeHtml(text);
-  return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
-}
+const productName = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
 ---
 
 <article class="version-section" id={`v${version}`}>
@@ -49,13 +38,17 @@ function formatSafeHtml(text: string): string {
           const entryType = getEntryType(entry, product);
           return (
             <tr class={`entry-row ${entryType}`} data-ja={entry.ja} data-en={entry.en}>
-              <td class="entry-ja" set:html={formatSafeHtml(entry.ja)} />
-              <td class="entry-en" set:html={formatSafeHtml(entry.en)} />
+              <td class="entry-ja" set:html={formatEntryHtml(entry.ja, { product, language: 'ja' })} />
+              <td class="entry-en" set:html={formatEntryHtml(entry.en, { product, language: 'en' })} />
             </tr>
           );
         })}
       </tbody>
     </table>
+  </div>
+
+  <div class="x-copy-block">
+    <pre class="x-copy-text">{formatXCopyText({ productName, version, entries, language: 'ja' })}</pre>
   </div>
 </article>
 
@@ -105,6 +98,20 @@ function formatSafeHtml(text: string): string {
 
   .entries-table-wrapper {
     overflow-x: auto;
+  }
+
+  .x-copy-block {
+    display: none;
+    padding: 1rem;
+  }
+
+  .x-copy-text {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .entries-table {
@@ -179,6 +186,10 @@ function formatSafeHtml(text: string): string {
   :global(#changelog-list.display-en) .entry-ja { display: none; }
 
   :global(#changelog-list.display-en) .entries-table th:nth-child(2) { width: 100%; }
+
+  /* 表示モード: Xコピー（テーブルを隠してコピー用テキストを表示） */
+  :global(#changelog-list.display-copy) .entries-table-wrapper { display: none; }
+  :global(#changelog-list.display-copy) .x-copy-block { display: block; }
 
   /* 原文のみ表示時: 左ボーダーを .entry-en に移動 */
   :global(#changelog-list.display-en) .entry-row.added td:first-child { border-left: none; padding-left: 1rem; }

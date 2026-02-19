@@ -280,6 +280,9 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 - 英語列の一致判定は大文字小文字を区別しない
 - 検索結果がある月グループは自動展開
 - バッククォート内のテキストは `<code>` 表示を維持
+- 原文（英語列）の PR 番号表記を GitHub PR リンク化
+  - Codex: `#12345` → `https://github.com/openai/codex/pull/12345`
+  - Claude Code: `anthropics/claude-code#12345` → `https://github.com/anthropics/claude-code/pull/12345`
 
 #### 4.4.4 キーボード操作
 - `Escape`キー: 検索クリア
@@ -288,7 +291,7 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 #### 4.4.5 URLパラメータ
 - `?q=検索語` でページ読み込み時に検索を実行
 - `?mode=ja|en` で検索モードを指定（省略時は `both`）
-- `?display=ja|en` で表示モードを指定（省略時は `both`）
+- `?display=ja|en|copy` で表示モードを指定（省略時は `both`）
 - 複数の指定が可能: `?q=MCP&mode=ja&display=en`
 - クリーンURL方針として、`both` の場合は `mode` / `display` いずれも付与しない
 
@@ -309,13 +312,17 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 - Codex: `ccclog.searchMode.codex`
 
 #### 4.4.8 表示モード選択
-- 「日本語のみ」(`ja`) / 「原文のみ」(`en`) / 「両方」(`both`、デフォルト)
+- 「日本語のみ」(`ja`) / 「原文のみ」(`en`) / 「両方」(`both`、デフォルト) / 「Xコピー」(`copy`)
 - 検索モードと同形式のセグメントコントロール UI
 - 検索モードとは独立した設定
-- `#changelog-list` 要素に `display-ja` / `display-en` クラスを付与し CSS で列制御
+- `#changelog-list` 要素に `display-ja` / `display-en` / `display-copy` クラスを付与し CSS で表示制御
   - `both` の場合はクラスを付与しない（デフォルト表示）
 - 非表示列のテーブルヘッダーも連動して非表示
 - 英語のみ表示時はエントリタイプ左ボーダーを `.entry-en` に移動
+- `copy` の場合はテーブルを非表示にし、X貼り付け用のプレーンテキストブロックを表示
+- `copy` の本文言語は「`copy` に入る直前の表示モード」を引き継ぐ
+  - 直前が `en` の場合: 英語（`entry.en`）
+  - 直前が `ja` / `both` の場合: 日本語（`entry.ja`）
 - 状態保持の優先順位:
   1. URL パラメータが **存在する** 場合（`?display=` キーがある）→ その値を正規化して使用（無効値は `both` に正規化。sessionStorage は参照しない）
   2. URL パラメータが **存在しない** 場合 → sessionStorage の値を正規化して使用
@@ -326,6 +333,19 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 プロダクト間での干渉を避けるため、sessionStorage のキーをプロダクト別に分離：
 - Claude Code: `ccclog.displayMode.claude-code`
 - Codex: `ccclog.displayMode.codex`
+
+#### 4.4.10 Xコピーモード出力形式
+- 1バージョン単位で以下フォーマットを表示
+  ```text
+  (製品正式名) - v(バージョン)
+  ・(更新内容1)
+  ・(更新内容2)
+  ...
+  ```
+- 製品正式名:
+  - Claude Code: `Claude Code`
+  - Codex: `OpenAI Codex`
+- 箇条書きは全行 `・` プレフィックスを付与
 
 ### 4.5 レスポンシブデザイン
 - デスクトップ・モバイル両対応
@@ -384,7 +404,7 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 
 ### 4.10 フッター
 - 著作権表示: © 2026 びーぐる(Beagle Works)
-- ソーシャルリンク: X (Twitter) アイコン（著作権表示の後）
+- ソーシャルリンク: X (Twitter) と GitHub（`beagleworks/ccclog`）アイコン（著作権表示の後）
 - 外部リンク: プロダクト固有リンク（各プロダクト定義に準拠）
 
 ---
@@ -526,6 +546,7 @@ Codex は `content/codex/` ディレクトリから年を列挙して全年の J
 **翻訳プロンプト:**
 - Claude Code の変更履歴として適切な技術用語の翻訳
 - 簡潔で自然な日本語
+- 原文中の PR 番号表記（例: `(#12345)`, `#12345`）を保持
 - 各エントリを1行で翻訳
 
 **フォールバック処理:**
@@ -715,6 +736,7 @@ GitHub CHANGELOG 等の外部データを HTML として表示する際は、以
 |---------|------|
 | 1 | HTML特殊文字（`<`, `>`, `&`, `"`, `'`）をエスケープ |
 | 2 | バッククォート（`` ` ``）で囲まれた部分のみ `<code>` タグに変換 |
+| 3 | 英語列のみ PR 番号表記を安全な `<a>` タグへ変換（Codex: `#12345` / Claude Code: `anthropics/claude-code#12345`） |
 
 **対象箇所:**
 - `VersionSection.astro`: テーブルセル表示
