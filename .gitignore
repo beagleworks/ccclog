@@ -32,5 +32,4 @@ pnpm-debug.log*
 .claude/
 plans/
 
-src/data/codex/changelog-2026.json
 content/codex/CHANGELOG_2025_JA.md.bak
