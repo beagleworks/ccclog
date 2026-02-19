@@ -50,6 +50,8 @@ const productName = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
 const storageKey = `ccclog.searchMode.${product}`;
 // 表示モード保持キー（プロダクト別）
 const displayStorageKey = `ccclog.displayMode.${product}`;
+// 表示形式（プレーン）保持キー（プロダクト別）
+const plainStorageKey = `ccclog.plainMode.${product}`;
 
 // 空データ判定（検索UI/スクリプトを出すかどうか）
 const hasData = months.length > 0;
@@ -102,10 +104,11 @@ const legendItems = getLegendItems(product);
   )}
 </BaseLayout>
 
-<script define:vars={{ storageKey, displayStorageKey, product }}>
+<script define:vars={{ storageKey, displayStorageKey, plainStorageKey, product }}>
   // 検索モード保持キーをクライアントサイドで使用
   window.__CCCLOG_STORAGE_KEY__ = storageKey;
   window.__CCCLOG_DISPLAY_STORAGE_KEY__ = displayStorageKey;
+  window.__CCCLOG_PLAIN_STORAGE_KEY__ = plainStorageKey;
   window.__CCCLOG_PRODUCT_ID__ = product;
 </script>
 
@@ -189,20 +192,42 @@ const legendItems = getLegendItems(product);
     return normalizeSearchMode(sessionStorage.getItem(STORAGE_KEY));
   }
 
-  // 表示モード
-  type DisplayMode = 'ja' | 'en' | 'both' | 'copy';
+  // 表示モード（言語）
+  type DisplayMode = NonCopyDisplayMode;
   const DISPLAY_STORAGE_KEY = (window as any).__CCCLOG_DISPLAY_STORAGE_KEY__ || 'ccclog.displayMode.claude-code';
+  const PLAIN_STORAGE_KEY = (window as any).__CCCLOG_PLAIN_STORAGE_KEY__ || 'ccclog.plainMode.claude-code';
   const PRODUCT_ID: ProductId = (window as any).__CCCLOG_PRODUCT_ID__ === 'codex' ? 'codex' : 'claude-code';
   const PRODUCT_NAME = PRODUCT_ID === 'codex' ? 'OpenAI Codex' : 'Claude Code';
+  const plainToggle = document.getElementById('plain-toggle') as HTMLInputElement | null;
 
   function normalizeDisplayMode(raw: string | null): DisplayMode {
-    return raw === 'ja' || raw === 'en' || raw === 'both' || raw === 'copy' ? raw : 'both';
+    return raw === 'ja' || raw === 'en' || raw === 'both' ? raw : 'both';
   }
 
   function getInitialDisplayMode(): DisplayMode {
     const params = new URLSearchParams(window.location.search);
+    // 旧URL互換: ?display=copy は plain=ON とみなし、表示モードは both
+    if (params.get('display') === 'copy') return 'both';
     if (params.has('display')) return normalizeDisplayMode(params.get('display'));
     return normalizeDisplayMode(sessionStorage.getItem(DISPLAY_STORAGE_KEY));
+  }
+
+  function normalizePlainValue(raw: string | null): boolean {
+    return raw === '1' || raw === 'true';
+  }
+
+  function normalizePlainParam(raw: string | null): boolean {
+    if (raw === null) return false;
+    if (raw === '' || raw === '1' || raw === 'true' || raw === 'on') return true;
+    return false;
+  }
+
+  function getInitialPlainMode(): boolean {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('plain')) return normalizePlainParam(params.get('plain'));
+    // 旧URL互換: ?display=copy は plain=ON として扱う
+    if (params.get('display') === 'copy') return true;
+    return normalizePlainValue(sessionStorage.getItem(PLAIN_STORAGE_KEY));
   }
 
   function getVisibleRows(section: Element): HTMLElement[] {
@@ -211,12 +236,12 @@ const legendItems = getLegendItems(product);
     return visibleRows.length > 0 ? visibleRows : rows;
   }
 
-  function renderXCopyBlocks(sourceMode: NonCopyDisplayMode) {
+  function renderPlainBlocks(sourceMode: NonCopyDisplayMode) {
     const language = resolveXCopyLanguage(sourceMode);
 
     versionSections.forEach((section) => {
-      const xCopyText = section.querySelector('.x-copy-text') as HTMLElement | null;
-      if (!xCopyText) return;
+      const plainText = section.querySelector('.plain-text') as HTMLElement | null;
+      if (!plainText) return;
 
       const version = section.id.replace('v', '');
       const rows = getVisibleRows(section);
@@ -225,7 +250,7 @@ const legendItems = getLegendItems(product);
         en: row.dataset.en || '',
       }));
 
-      xCopyText.textContent = formatXCopyText({
+      plainText.textContent = formatXCopyText({
         productName: PRODUCT_NAME,
         version,
         entries,
@@ -244,10 +269,19 @@ const legendItems = getLegendItems(product);
 
   function applyDisplayMode(mode: DisplayMode) {
     if (!changelogList) return;
-    changelogList.classList.remove('display-ja', 'display-en', 'display-copy');
+    changelogList.classList.remove('display-ja', 'display-en');
     if (mode === 'ja') changelogList.classList.add('display-ja');
     else if (mode === 'en') changelogList.classList.add('display-en');
-    else if (mode === 'copy') changelogList.classList.add('display-copy');
+  }
+
+  function syncPlainUI(enabled: boolean) {
+    if (!plainToggle) return;
+    plainToggle.checked = enabled;
+  }
+
+  function applyPlainMode(enabled: boolean) {
+    if (!changelogList) return;
+    changelogList.classList.toggle('plain-mode', enabled);
   }
 
   function createFuseInstance(mode: SearchMode) {
@@ -267,7 +301,7 @@ const legendItems = getLegendItems(product);
     });
   }
 
-  function updateUrlParams(query: string, mode: SearchMode, display: DisplayMode) {
+  function updateUrlParams(query: string, mode: SearchMode, display: DisplayMode, plain: boolean) {
     const url = new URL(window.location.href);
     const trimmedQuery = query.trim();
 
@@ -280,6 +314,9 @@ const legendItems = getLegendItems(product);
     if (display === 'both') url.searchParams.delete('display');
     else url.searchParams.set('display', display);
 
+    if (plain) url.searchParams.set('plain', '1');
+    else url.searchParams.delete('plain');
+
     history.replaceState(null, '', url);
   }
 
@@ -288,12 +325,14 @@ const legendItems = getLegendItems(product);
   sessionStorage.setItem(STORAGE_KEY, currentMode);
 
   let currentDisplayMode: DisplayMode = getInitialDisplayMode();
-  let lastNonCopyDisplayMode: NonCopyDisplayMode =
-    currentDisplayMode === 'copy' ? 'both' : currentDisplayMode;
+  let isPlainMode = getInitialPlainMode();
   syncDisplayUI(currentDisplayMode);
   applyDisplayMode(currentDisplayMode);
-  if (currentDisplayMode === 'copy') renderXCopyBlocks(lastNonCopyDisplayMode);
+  syncPlainUI(isPlainMode);
+  applyPlainMode(isPlainMode);
+  if (isPlainMode) renderPlainBlocks(currentDisplayMode);
   sessionStorage.setItem(DISPLAY_STORAGE_KEY, currentDisplayMode);
+  sessionStorage.setItem(PLAIN_STORAGE_KEY, isPlainMode ? '1' : '0');
 
   let fuse = createFuseInstance(currentMode);
 
@@ -348,17 +387,21 @@ const legendItems = getLegendItems(product);
   }
 
   function setDisplayMode(mode: DisplayMode) {
-    if (mode !== 'copy') {
-      lastNonCopyDisplayMode = mode;
-    }
     currentDisplayMode = mode;
     sessionStorage.setItem(DISPLAY_STORAGE_KEY, mode);
     syncDisplayUI(mode);
     applyDisplayMode(mode);
-    if (mode === 'copy') {
-      renderXCopyBlocks(lastNonCopyDisplayMode);
-    }
-    updateUrlParams(input.value, currentMode, currentDisplayMode);
+    if (isPlainMode) renderPlainBlocks(mode);
+    updateUrlParams(input.value, currentMode, currentDisplayMode, isPlainMode);
+  }
+
+  function setPlainMode(enabled: boolean) {
+    isPlainMode = enabled;
+    sessionStorage.setItem(PLAIN_STORAGE_KEY, enabled ? '1' : '0');
+    syncPlainUI(enabled);
+    applyPlainMode(enabled);
+    if (enabled) renderPlainBlocks(currentDisplayMode);
+    updateUrlParams(input.value, currentMode, currentDisplayMode, enabled);
   }
 
   // 検索を実行
@@ -382,10 +425,10 @@ const legendItems = getLegendItems(product);
       });
       searchStats.hidden = true;
       noResults.hidden = true;
-      if (currentDisplayMode === 'copy') {
-        renderXCopyBlocks(lastNonCopyDisplayMode);
+      if (isPlainMode) {
+        renderPlainBlocks(currentDisplayMode);
       }
-      updateUrlParams('', currentMode, currentDisplayMode);
+      updateUrlParams('', currentMode, currentDisplayMode, isPlainMode);
       return;
     }
 
@@ -454,11 +497,11 @@ const legendItems = getLegendItems(product);
       noResults.hidden = false;
     }
 
-    if (currentDisplayMode === 'copy') {
-      renderXCopyBlocks(lastNonCopyDisplayMode);
+    if (isPlainMode) {
+      renderPlainBlocks(currentDisplayMode);
     }
 
-    updateUrlParams(trimmedQuery, currentMode, currentDisplayMode);
+    updateUrlParams(trimmedQuery, currentMode, currentDisplayMode, isPlainMode);
   }
 
   // イベントリスナーを設定
@@ -499,6 +542,10 @@ const legendItems = getLegendItems(product);
     });
   });
 
+  plainToggle?.addEventListener('change', () => {
+    setPlainMode(plainToggle.checked);
+  });
+
   // ページ読み込み時にURLパラメータから検索クエリを復元
   const urlParams = new URLSearchParams(window.location.search);
   const initialQuery = urlParams.get('q');
@@ -506,7 +553,7 @@ const legendItems = getLegendItems(product);
     input.value = initialQuery;
     performSearch(initialQuery);
   } else {
-    updateUrlParams('', currentMode, currentDisplayMode);
+    updateUrlParams('', currentMode, currentDisplayMode, isPlainMode);
   }
   })();
 </script>

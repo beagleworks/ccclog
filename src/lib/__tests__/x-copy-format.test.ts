@@ -21,7 +21,7 @@ describe('formatXCopyText', () => {
     { ja: '不具合Bを修正', en: 'Fix bug B' },
   ];
 
-  it('日本語でXコピー形式を生成する', () => {
+  it('日本語でプレーン形式を生成する', () => {
     const result = formatXCopyText({
       productName: 'Claude Code',
       version: '2.1.47',
@@ -36,7 +36,7 @@ describe('formatXCopyText', () => {
     ].join('\n'));
   });
 
-  it('英語でXコピー形式を生成する', () => {
+  it('英語でプレーン形式を生成する', () => {
     const result = formatXCopyText({
       productName: 'OpenAI Codex',
       version: '0.95.0',

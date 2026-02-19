@@ -291,9 +291,12 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 #### 4.4.5 URLパラメータ
 - `?q=検索語` でページ読み込み時に検索を実行
 - `?mode=ja|en` で検索モードを指定（省略時は `both`）
-- `?display=ja|en|copy` で表示モードを指定（省略時は `both`）
+- `?display=ja|en` で表示モード（言語）を指定（省略時は `both`）
+- `?plain=1` でプレーン表示を有効化（省略時は無効）
 - 複数の指定が可能: `?q=MCP&mode=ja&display=en`
 - クリーンURL方針として、`both` の場合は `mode` / `display` いずれも付与しない
+- `plain` が無効の場合は `plain` パラメータを付与しない
+- 後方互換として `?display=copy` は `plain=1` と同等に扱う
 
 #### 4.4.6 検索モード選択
 - ユーザーは検索対象を以下から選択可能：
@@ -312,17 +315,13 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 - Codex: `ccclog.searchMode.codex`
 
 #### 4.4.8 表示モード選択
-- 「日本語のみ」(`ja`) / 「原文のみ」(`en`) / 「両方」(`both`、デフォルト) / 「Xコピー」(`copy`)
+- 「日本語のみ」(`ja`) / 「原文のみ」(`en`) / 「両方」(`both`、デフォルト)
 - 検索モードと同形式のセグメントコントロール UI
 - 検索モードとは独立した設定
-- `#changelog-list` 要素に `display-ja` / `display-en` / `display-copy` クラスを付与し CSS で表示制御
+- `#changelog-list` 要素に `display-ja` / `display-en` クラスを付与し CSS で列制御
   - `both` の場合はクラスを付与しない（デフォルト表示）
 - 非表示列のテーブルヘッダーも連動して非表示
 - 英語のみ表示時はエントリタイプ左ボーダーを `.entry-en` に移動
-- `copy` の場合はテーブルを非表示にし、X貼り付け用のプレーンテキストブロックを表示
-- `copy` の本文言語は「`copy` に入る直前の表示モード」を引き継ぐ
-  - 直前が `en` の場合: 英語（`entry.en`）
-  - 直前が `ja` / `both` の場合: 日本語（`entry.ja`）
 - 状態保持の優先順位:
   1. URL パラメータが **存在する** 場合（`?display=` キーがある）→ その値を正規化して使用（無効値は `both` に正規化。sessionStorage は参照しない）
   2. URL パラメータが **存在しない** 場合 → sessionStorage の値を正規化して使用
@@ -334,7 +333,18 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 - Claude Code: `ccclog.displayMode.claude-code`
 - Codex: `ccclog.displayMode.codex`
 
-#### 4.4.10 Xコピーモード出力形式
+#### 4.4.10 プレーン表示トグル
+- 表示モード（言語）とは独立した ON/OFF スイッチで提供
+- ON の場合はテーブルを非表示にし、プレーンテキストブロックを表示
+- OFF の場合は通常テーブル表示
+- プレーン本文の言語は現在の表示モードに追従
+  - `en` の場合: 英語（`entry.en`）
+  - `ja` / `both` の場合: 日本語（`entry.ja`）
+- セッション保持キー（プロダクト別）:
+  - Claude Code: `ccclog.plainMode.claude-code`
+  - Codex: `ccclog.plainMode.codex`
+
+#### 4.4.11 プレーンモード出力形式
 - 1バージョン単位で以下フォーマットを表示
   ```text
   (製品正式名) - v(バージョン)

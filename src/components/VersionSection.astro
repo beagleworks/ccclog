@@ -47,8 +47,8 @@ const productName = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
     </table>
   </div>
 
-  <div class="x-copy-block">
-    <pre class="x-copy-text">{formatXCopyText({ productName, version, entries, language: 'ja' })}</pre>
+  <div class="plain-block">
+    <pre class="plain-text">{formatXCopyText({ productName, version, entries, language: 'ja' })}</pre>
   </div>
 </article>
 
@@ -100,12 +100,12 @@ const productName = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
     overflow-x: auto;
   }
 
-  .x-copy-block {
+  .plain-block {
     display: none;
     padding: 1rem;
   }
 
-  .x-copy-text {
+  .plain-text {
     margin: 0;
     font-family: var(--font-sans);
     font-size: 0.95rem;
@@ -187,9 +187,9 @@ const productName = product === 'codex' ? 'OpenAI Codex' : 'Claude Code';
 
   :global(#changelog-list.display-en) .entries-table th:nth-child(2) { width: 100%; }
 
-  /* 表示モード: Xコピー（テーブルを隠してコピー用テキストを表示） */
-  :global(#changelog-list.display-copy) .entries-table-wrapper { display: none; }
-  :global(#changelog-list.display-copy) .x-copy-block { display: block; }
+  /* 表示形式: プレーン（テーブルを隠してプレーンテキストを表示） */
+  :global(#changelog-list.plain-mode) .entries-table-wrapper { display: none; }
+  :global(#changelog-list.plain-mode) .plain-block { display: block; }
 
   /* 原文のみ表示時: 左ボーダーを .entry-en に移動 */
   :global(#changelog-list.display-en) .entry-row.added td:first-child { border-left: none; padding-left: 1rem; }
