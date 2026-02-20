@@ -26,6 +26,8 @@ const { year, years } = Astro.props;
 // Codex用のJSONを動的にインポート
 const changelogData = await import(`../../data/codex/changelog-${year}.json`);
 const { months, generatedAt } = changelogData;
+const searchIndexData = await import(`../../data/search/codex-${year}.json`);
+const searchIndex = searchIndexData.default ?? searchIndexData;
 ---
 
 <ChangelogPage
@@ -33,5 +35,6 @@ const { months, generatedAt } = changelogData;
   years={years}
   months={months}
   generatedAt={generatedAt}
+  searchIndex={searchIndex}
   product="codex"
 />

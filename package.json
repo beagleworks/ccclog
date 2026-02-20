@@ -1,16 +1,17 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "6.3.4",
+  "version": "7.0.0",
   "scripts": {
     "dev": "astro dev",
     "preview": "astro preview",
     "build": "pnpm generate && pnpm generate:og && astro build",
     "build:ci": "pnpm generate:og && astro build",
-    "generate": "pnpm generate:claude-code && pnpm generate:codex",
+    "generate": "pnpm generate:claude-code && pnpm generate:codex && pnpm generate:search-index",
     "generate:og": "tsx scripts/generate-og-image.ts",
     "generate:claude-code": "tsx scripts/generate-data.ts 2026 && tsx scripts/generate-data.ts 2025",
     "generate:codex": "tsx scripts/generate-codex-all-years.ts",
+    "generate:search-index": "tsx scripts/generate-search-index.ts",
     "sync-versions": "tsx scripts/sync-versions.ts",
     "sync-codex-versions": "tsx scripts/sync-codex-versions.ts",
     "retranslate": "tsx scripts/retranslate.ts",
@@ -20,8 +21,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
-    "astro": "^5.16.16",
-    "fuse.js": "^7.1.0"
+    "astro": "^5.16.16"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

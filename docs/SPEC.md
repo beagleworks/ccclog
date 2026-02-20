@@ -11,7 +11,7 @@ Claude Code / OpenAI Codex の変更履歴（CHANGELOG）を日本語/英語の�
 | 項目 | 技術 |
 |------|------|
 | フレームワーク | Astro 5.x（SSG） |
-| 検索エンジン | Fuse.js 7.x |
+| 検索エンジン | ビルド時生成インデックス（EN単語AND一致 / JA 2-gram） |
 | ビルドツール | tsx, TypeScript 5.x |
 | パッケージマネージャー | pnpm |
 | ホスティング | GitHub Pages |
@@ -262,22 +262,28 @@ JSON の `category` フィールドに応じて左ボーダー色を変更する
 ### 4.4 検索機能
 
 #### 4.4.1 全文検索
-- Fuse.js によるファジー検索
+- ビルド時に生成した転置インデックスJSONをクライアントで参照
 - 検索対象はモードにより日本語のみ/英語のみ/両方（デフォルトは両方）
-- 検索閾値（threshold）: 0.3
-- 位置非依存検索（ignoreLocation: true）
+- `mode=both` は OR 結合（日本語または英語のどちらか一致）
+- 英語検索は単語単位の AND 完全一致
+  - トークン規則: `[a-z0-9]+(?:-[a-z0-9]+)*`（小文字化して比較）
+  - 例: `pre-commit` は1トークン
+- 日本語検索は 2-gram 候補抽出 + `includes` による最終判定
 
 #### 4.4.2 検索UI
 - 検索ボックス（プレースホルダー: 「検索... (日本語/English)」）
 - クリアボタン（入力時に表示）
 - 検索結果件数の表示
 - 結果なし時のメッセージ表示
+- 検索インデックス読み込み失敗時は検索UIを無効化し、エラーメッセージを表示（通常の閲覧は継続可能）
+- 日本語1文字クエリ時は案内メッセージを表示
+  - `mode=ja`: 検索を実行しない
+  - `mode=both`: 英語側のみ検索
 
 #### 4.4.3 検索結果の表示
 - マッチしたエントリのみ表示
 - マッチしないバージョン・月グループを非表示
-- 検索語とセル全文が一致したセルのみハイライト表示（黄色背景）
-- 英語列の一致判定は大文字小文字を区別しない
+- ハイライトは検索判定と同一条件でセル単位に適用（黄色背景）
 - 検索結果がある月グループは自動展開
 - バッククォート内のテキストは `<code>` 表示を維持
 - 原文（英語列）の PR 番号表記を GitHub PR リンク化
@@ -457,6 +463,12 @@ npm レジストリ  +  GitHub CHANGELOG.md  +  GitHub Releases API(欠損時)
         src/data/**/changelog-{year}.json（コミット対象）
                      │
                      ▼
+            generate-search-index.ts
+                     │
+                     ▼
+      src/data/search/{product}-{year}.json（コミット対象）
+                     │
+                     ▼
       build:ci（generate:og + astro build）→ dist/
                               ├── index.html (2026)
                               └── 2025/index.html
@@ -472,6 +484,11 @@ Codex は `sync-codex-versions.ts` により GitHub Releases からバージョ�
 Codex は `content/codex/` ディレクトリから年を列挙して全年の JSON を生成する。
 - `generate-codex-all-years.ts`: content から年を列挙して `generate-data.ts` を各年で実行
 - `pnpm generate:codex` はこのスクリプトを呼び出す
+
+#### 5.1.4 検索インデックス生成
+- `generate-search-index.ts` は `src/data/[codex/]changelog-{year}.json` を走査し、`src/data/search/{product}-{year}.json` を生成する
+- 生成インデックスは Git 追跡対象で、`build:ci` では再生成しない
+- 出力時に各JSONのファイルサイズをログ表示し、1ファイル2MB（非圧縮）超過は見直し対象とする
 
 ### 5.2 sync-versions.ts（Claude Code）
 
@@ -678,9 +695,10 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 | `pnpm preview` | ビルド結果のプレビュー |
 | `pnpm build` | データ生成 + OGP画像生成 + 静的サイトビルド（ローカル向け） |
 | `pnpm build:ci` | OGP画像生成 + 静的サイトビルド（データ再生成なし、CI向け） |
-| `pnpm generate` | 全プロダクト・全年のデータ生成 |
+| `pnpm generate` | 全プロダクト・全年のデータ生成（検索インデックス生成を含む） |
 | `pnpm generate:claude-code` | Claude Code のみ生成 |
 | `pnpm generate:codex` | Codex のみ生成 |
+| `pnpm generate:search-index` | 検索インデックスJSON生成（`src/data/search/*.json`） |
 | `pnpm sync-versions` | npm レジストリから新バージョンを検出し CHANGELOG に追記（Claude Code） |
 | `pnpm sync-codex-versions` | GitHub Releases から新バージョンを検出し CHANGELOG に追記（Codex） |
 | `pnpm sync-codex-versions -- --year 2025` | Codex の指定年のみ新バージョンを検出し CHANGELOG に追記 |
@@ -714,8 +732,8 @@ Claude Code 本体の `CHANGELOG.md` が公開後に修正された場合に、�
 1. `pnpm run sync-versions` で Claude Code の新バージョンを検出
 2. `pnpm run sync-upstream` で上流 CHANGELOG 差分を検出・反映
 3. `pnpm run sync-codex-versions` で Codex の新バージョンを検出
-4. `pnpm generate` で `src/data/*.json` と `src/data/codex/*.json` を更新
-5. `git status --porcelain -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/*.json' 'src/data/codex/*.json'` で差分検知
+4. `pnpm generate` で `src/data/*.json`、`src/data/codex/*.json`、`src/data/search/*.json` を更新
+5. `git status --porcelain -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/*.json' 'src/data/codex/*.json' 'src/data/search/*.json'` で差分検知
 6. 差分があれば上記3系統を同一コミットで自動コミット・プッシュ（`chore: CHANGELOG を自動更新`）
 7. 各同期スクリプトの report JSON を Step Summary に集約して可視化
 
@@ -770,12 +788,29 @@ GitHub CHANGELOG 等の外部データを HTML として表示する際は、以
 ### 8.1 既知の制限
 - GitHub API レート制限: 認証なしで60リクエスト/時間（§5.7 参照）
 - 検索はクライアントサイドで実行されるため、データ量が増えるとパフォーマンスに影響
+- 検索インデックスはHTML内に埋め込むため、データ量増加時はページサイズが増える（2MB超過時は外部JSON `fetch` 方式へ切替検討）
 
 ### 8.2 前提条件
 - `CHANGELOG_{YEAR}_JA.md` が指定のMarkdown形式に従っていること
 - Claude Code: GitHub Releases のタグ名が `vX.Y.Z` 形式であること
 - Codex: GitHub Releases のタグ名が `rust-vX.Y.Z` 形式であること
 - リポジトリやタグ形式などの前提は §2 プロダクト定義に準拠すること
+
+### 8.3 検索インデックスの運用ルール
+
+検索インデックスの肥大化に備え、以下を運用ルールとする。
+
+| 項目 | ルール |
+|------|--------|
+| 日常監視 | `pnpm generate:search-index` 実行時のサイズログを確認する |
+| 監視対象 | `src/data/search/*.json` と検索対象ページの最終HTMLサイズ |
+| 注意閾値 | インデックスJSONが 1.5MB 超過で「要監視」扱い |
+| 対応閾値 | インデックスJSONが 2MB 超過で fetch 方式切替を着手 |
+| 切替方針 | HTML埋め込み（`<script type="application/json">`）から外部JSONの非同期取得へ移行 |
+
+補足:
+- `generate-search-index.ts` は 2MB 超過時に warning を出す。
+- 切替着手後も検索仕様（EN 単語AND一致 / JA 2-gram + includes）は維持し、データ供給経路のみ変更する。
 
 ---
 
@@ -804,6 +839,7 @@ ccclog/
 │   ├── fetch-releases.ts           # GitHub API連携
 │   ├── generate-codex-all-years.ts # Codex全年データ生成
 │   ├── generate-data.ts            # データ生成メイン（プロダクト対応）
+│   ├── generate-search-index.ts    # 検索インデックス生成
 │   ├── parse-changelog.ts          # Markdownパーサー
 │   ├── parse-codex-releases.ts     # Codex リリースノートパーサー
 │   ├── retranslate.ts              # 翻訳待ちエントリの再翻訳
@@ -819,6 +855,7 @@ ccclog/
 │   ├── data/
 │   │   ├── changelog-2026.json     # Claude Code 生成JSON（2026年）
 │   │   ├── changelog-2025.json     # Claude Code 生成JSON（2025年）
+│   │   ├── search/                 # 検索インデックスJSON
 │   │   └── codex/
 │   │       └── changelog-2026.json # Codex 生成JSON（2026年）
 │   ├── layouts/
@@ -827,6 +864,7 @@ ccclog/
 │   │   ├── get-entry-type.ts       # エントリタイプ判定
 │   │   ├── legend.ts               # カテゴリ凡例定義
 │   │   ├── products.ts             # プロダクト設定
+│   │   ├── search-normalize.ts     # 検索正規化ユーティリティ
 │   │   └── server/
 │   │       └── changelog-years.ts  # 年自動検出（サーバーサイド）
 │   └── pages/
