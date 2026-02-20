@@ -4,6 +4,37 @@
 
 ---
 
+## 2.1.49
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 隔離された git worktree で Claude を起動する `--worktree`（`-w`）フラグを追加 | Added `--worktree` (`-w`) flag to start Claude in an isolated git worktree | added |
+| サブエージェントが一時的な git worktree で作業するための `isolation: "worktree"` をサポート | Subagents support `isolation: "worktree"` for working in a temporary git worktree | added |
+| バックグラウンドエージェントを終了する Ctrl+F キーバインドを追加（3秒以内に2回押しで確認） | Added Ctrl+F keybinding to kill background agents (two-press confirmation) | added |
+| エージェント定義で `background: true` を指定することでバックグラウンドタスクとして常時実行するサポートを追加 | Agent definitions support `background: true` to always run as a background task | added |
+| プラグインがデフォルト設定用の `settings.json` を同梱可能に | Plugins can ship `settings.json` for default configuration | added |
+| モデルがリポジトリフォルダを省略した際、ファイルが見つからないエラーで修正候補パスを提案するよう修正 | Fixed file-not-found errors to suggest corrected paths when the model drops the repo folder | fixed |
+| バックグラウンドエージェント実行中にメインスレッドがアイドル状態のとき Ctrl+C および ESC が無視されていた問題を修正。3秒以内に2回押すことで全バックグラウンドエージェントを終了するよう変更 | Fixed Ctrl+C and ESC being silently ignored when background agents are running and the main thread is idle. Pressing twice within 3 seconds now kills all background agents. | fixed |
+| キャッシュヒット率を低下させていたプロンプト候補キャッシュのリグレッションを修正 | Fixed prompt suggestion cache regression that reduced cache hit rates. | fixed |
+| `--scope` 未指定時に `plugin enable` および `plugin disable` が常にユーザースコープへフォールバックしていた問題を修正し、正しいスコープを自動検出するよう変更 | Fixed `plugin enable` and `plugin disable` to auto-detect the correct scope when `--scope` is not specified, instead of always defaulting to user scope | fixed |
+| シンプルモード（`CLAUDE_CODE_SIMPLE`）に Bash ツールに加えてファイル編集ツールを追加し、シンプルモードでの直接ファイル編集を可能に | Simple mode (`CLAUDE_CODE_SIMPLE`) now includes the file edit tool in addition to the Bash tool, allowing direct file editing in simple mode. | added |
+| 安全チェックが確認応答をトリガーした際にパーミッション候補を自動設定するようになり、SDK コンシューマがパーミッションオプションを表示可能に | Permission suggestions are now populated when safety checks trigger an ask response, enabling SDK consumers to display permission options | added |
+| Max プランから 1M コンテキスト対応の Sonnet 4.5 を廃止し、同じく 1M コンテキストに対応したフロンティアモデル Sonnet 4.6 へ移行。`/model` で切り替え | Sonnet 4.5 with 1M context is being removed from the Max plan in favor of our frontier Sonnet 4.6 model, which now has 1M context. Please switch in /model. | changed |
+| `/config` で verbose モードを切り替えてもシンキングブロックの表示が更新されなかった問題を修正。メモコンパレータが verbose の変更を正しく検出するよう対応 | Fixed verbose mode not updating thinking block display when toggled via `/config` — memo comparators now correctly detect verbose changes | fixed |
+| tree-sitter パーサーを定期的にリセットすることで、長時間セッション中の WASM メモリの無制限増大を修正 | Fixed unbounded WASM memory growth during long sessions by periodically resetting the tree-sitter parser | fixed |
+| 古い yoga レイアウト参照によって引き起こされる潜在的なレンダリング問題を修正 | Fixed potential rendering issues caused by stale yoga layout references | fixed |
+| 起動時の不要な API 呼び出しをスキップすることで、非インタラクティブモード（`-p`）のパフォーマンスを改善 | Improved performance in non-interactive mode (`-p`) by skipping unnecessary API calls during startup | improved |
+| HTTP および SSE MCP サーバーの認証失敗をキャッシュし、認証が必要なサーバーへの繰り返し接続試行を回避することでパフォーマンスを改善 | Improved performance by caching authentication failures for HTTP and SSE MCP servers, avoiding repeated connection attempts to servers requiring auth | improved |
+| Yoga WASM のリニアメモリが縮小しないことによる、長時間セッション中のメモリ無制限増大を修正 | Fixed unbounded memory growth during long-running sessions caused by Yoga WASM linear memory never shrinking | fixed |
+| SDK のモデル情報に `supportsEffort`、`supportedEffortLevels`、`supportsAdaptiveThinking` フィールドを追加し、コンシューマがモデル機能を検出可能に | SDK model info now includes `supportsEffort`, `supportedEffortLevels`, and `supportsAdaptiveThinking` fields so consumers can discover model capabilities. | added |
+| セッション中に設定ファイルが変更された際に発火する `ConfigChange` フックイベントを追加し、エンタープライズのセキュリティ監査と設定変更のブロックを可能に | Added `ConfigChange` hook event that fires when configuration files change during a session, enabling enterprise security auditing and optional blocking of settings changes. | added |
+| MCP 認証失敗をキャッシュして冗長な接続試行を回避することで、起動パフォーマンスを改善 | Improved startup performance by caching MCP auth failures to avoid redundant connection attempts | improved |
+| アナリティクスのトークンカウントにおける HTTP 呼び出しを削減し、起動パフォーマンスを改善 | Improved startup performance by reducing HTTP calls for analytics token counting | improved |
+| MCP ツールのトークンカウントを単一の API 呼び出しにまとめることで、起動パフォーマンスを改善 | Improved startup performance by batching MCP tool token counting into a single API call | improved |
+| `disableAllHooks` 設定が管理設定の階層を尊重するよう修正。非管理設定でポリシーにより設定された管理フックを無効化できないよう変更 (#26637) | Fixed `disableAllHooks` setting to respect managed settings hierarchy — non-managed settings can no longer disable managed hooks set by policy (#26637) | fixed |
+| `/clear` のようなコマンドで始まるセッションで `--resume` のセッションピッカーに生の XML タグが表示されていた問題を修正。セッション ID フォールバックへ正しくフォールスルーするよう変更 | Fixed `--resume` session picker showing raw XML tags for sessions that start with commands like `/clear`. Now correctly falls through to the session ID fallback. | fixed |
+| パス安全性および作業ディレクトリブロックに関するパーミッションプロンプトを改善し、コンテキストのない素のプロンプトの代わりに制限理由を表示するよう変更 | Improved permission prompts for path safety and working directory blocks to show the reason for the restriction instead of a bare prompt with no context | improved |
+
 ## 2.1.47
 
 | 日本語 | English | Category |
