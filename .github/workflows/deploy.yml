@@ -148,7 +148,7 @@ jobs:
       - name: Detect changelog/data updates
         id: detect_changes
         run: |
-          if [ -n "$(git status --porcelain -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/*.json' 'src/data/codex/*.json')" ]; then
+          if [ -n "$(git status --porcelain -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/*.json' 'src/data/codex/*.json' 'src/data/search/*.json')" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "Changelog/data updates detected"
           else
@@ -161,7 +161,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/*.json' 'src/data/codex/*.json'
+          git add -- 'content/CHANGELOG_*.md' 'content/codex/CHANGELOG_*.md' 'src/data/*.json' 'src/data/codex/*.json' 'src/data/search/*.json'
           git commit -m "chore: CHANGELOG を自動更新"
           git push
 

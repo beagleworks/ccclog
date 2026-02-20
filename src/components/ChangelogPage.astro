@@ -16,12 +16,31 @@ interface MonthData {
   versions: any[];
 }
 
+interface SearchIndexDoc {
+  id: number;
+  version: string;
+  monthKey: string;
+  entryIndex: number;
+  ja: string;
+  en: string;
+}
+
+interface SearchIndexData {
+  version: number;
+  product: 'claude-code' | 'codex';
+  year: string;
+  docs: SearchIndexDoc[];
+  enTokenToDocIds: Record<string, number[]>;
+  ja2gramToDocIds: Record<string, number[]>;
+}
+
 interface Props {
   year: string;
   years: string[];
   months: MonthData[];
   generatedAt?: string;
   product?: 'claude-code' | 'codex';
+  searchIndex?: SearchIndexData;
 }
 
 const {
@@ -30,6 +49,7 @@ const {
   months,
   generatedAt,
   product = 'claude-code',
+  searchIndex,
 } = Astro.props;
 
 const generatedDate =
@@ -57,6 +77,17 @@ const plainStorageKey = `ccclog.plainMode.${product}`;
 const hasData = months.length > 0;
 
 const legendItems = getLegendItems(product);
+
+const emptySearchIndex: SearchIndexData = {
+  version: 1,
+  product,
+  year,
+  docs: [],
+  enTokenToDocIds: {},
+  ja2gramToDocIds: {},
+};
+const effectiveSearchIndex = searchIndex ?? emptySearchIndex;
+const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u003c');
 ---
 
 <BaseLayout
@@ -96,6 +127,8 @@ const legendItems = getLegendItems(product);
         <p>検索結果が見つかりませんでした。</p>
         <p>別のキーワードで検索してみてください。</p>
       </div>
+
+      <script id="search-index-data" type="application/json" set:html={searchIndexJson}></script>
     </>
   ) : (
     <div class="no-data">
@@ -113,23 +146,43 @@ const legendItems = getLegendItems(product);
 </script>
 
 <script>
-  import Fuse from 'fuse.js';
   import {
     formatEntryHtml,
     type ChangelogProductId,
     type EntryLanguage,
   } from '../lib/entry-html';
   import { formatXCopyText, resolveXCopyLanguage, type NonCopyDisplayMode } from '../lib/x-copy-format';
+  import {
+    isSingleJapaneseCharacterQuery,
+    normalizeJapaneseText,
+    toJapaneseBigrams,
+    tokenizeEnglish,
+    toUniqueTokens,
+  } from '../lib/search-normalize';
 
   // 空データ時は検索UIが存在しないため、IIFEでラップして早期リターン
   (function initSearch() {
-  interface SearchableEntry {
+  interface SearchIndexDoc {
+    id: number;
     version: string;
     monthKey: string;
     entryIndex: number;
     ja: string;
     en: string;
   }
+
+  interface SearchIndexData {
+    version: number;
+    product: 'claude-code' | 'codex';
+    year: string;
+    docs: SearchIndexDoc[];
+    enTokenToDocIds: Record<string, number[]>;
+    ja2gramToDocIds: Record<string, number[]>;
+  }
+
+  type SearchMode = 'ja' | 'en' | 'both';
+  type ProductId = ChangelogProductId;
+  type DisplayMode = NonCopyDisplayMode;
 
   // DOM要素を取得（空データ時は検索UIが存在しないため早期リターン）
   const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
@@ -140,34 +193,93 @@ const legendItems = getLegendItems(product);
   const clearButton = document.getElementById('clear-search') as HTMLButtonElement;
   const searchStats = document.getElementById('search-stats') as HTMLDivElement;
   const noResults = document.getElementById('no-results') as HTMLDivElement;
-  const modeButtons = document.querySelectorAll('.mode-btn') as NodeListOf<HTMLButtonElement>;
-  const displayButtons = document.querySelectorAll('.display-btn') as NodeListOf<HTMLButtonElement>;
+  const modeButtons = document.querySelectorAll<HTMLButtonElement>('.mode-btn');
+  const displayButtons = document.querySelectorAll<HTMLButtonElement>('.display-btn');
   const changelogList = document.getElementById('changelog-list');
+  const monthGroups = document.querySelectorAll<HTMLElement>('.month-group');
+  const versionSections = document.querySelectorAll<HTMLElement>('.version-section');
 
-  // 検索用データを準備
-  const searchableEntries: SearchableEntry[] = [];
-  const monthGroups = document.querySelectorAll('.month-group');
-  const versionSections = document.querySelectorAll('.version-section');
+  let searchAvailable = true;
+  function markSearchUnavailable(message: string, error?: unknown) {
+    searchAvailable = false;
+    console.error(`[search] ${message}`, error);
+    input.disabled = true;
+    input.placeholder = '検索機能をロードできませんでした';
+    clearButton.hidden = true;
+    modeButtons.forEach((button) => {
+      button.disabled = true;
+    });
+    searchStats.innerHTML = `<span class="no-results">${message}</span>`;
+    searchStats.hidden = false;
+    noResults.hidden = true;
+  }
+
+  const emptySearchIndex: SearchIndexData = {
+    version: 1,
+    product: 'claude-code',
+    year: '',
+    docs: [],
+    enTokenToDocIds: {},
+    ja2gramToDocIds: {},
+  };
+
+  const searchIndexElement = document.getElementById('search-index-data');
+  let searchIndex: SearchIndexData = emptySearchIndex;
+  if (!searchIndexElement?.textContent) {
+    markSearchUnavailable('検索機能をロードできませんでした（データが見つかりません）');
+  } else {
+    try {
+      searchIndex = JSON.parse(searchIndexElement.textContent) as SearchIndexData;
+    } catch (error) {
+      markSearchUnavailable('検索機能をロードできませんでした（データが壊れています）', error);
+    }
+  }
+
+  const docsById = new Map<number, SearchIndexDoc>();
+  const rowByCompositeKey = new Map<string, HTMLElement>();
+  const rowByDocId = new Map<number, HTMLElement>();
+  const docEnTokensById = new Map<number, Set<string>>();
+  const docJaNormalizedById = new Map<number, string>();
+
+  function makeCompositeKey(monthKey: string, version: string, entryIndex: number): string {
+    return `${monthKey}::${version}::${entryIndex}`;
+  }
+
+  function toPostingMap(record: Record<string, number[]>): Map<string, Set<number>> {
+    const map = new Map<string, Set<number>>();
+    Object.entries(record).forEach(([token, ids]) => {
+      map.set(token, new Set(ids));
+    });
+    return map;
+  }
 
   monthGroups.forEach((group) => {
-    const monthKey = group.getAttribute('data-month') || '';
-    const sections = group.querySelectorAll('.version-section');
+    const monthKey = group.dataset.month || '';
+    const sections = group.querySelectorAll<HTMLElement>('.version-section');
 
     sections.forEach((section) => {
       const version = section.id.replace('v', '');
-      const rows = section.querySelectorAll('.entry-row');
+      const rows = section.querySelectorAll<HTMLElement>('.entry-row');
 
       rows.forEach((row, entryIndex) => {
-        const ja = (row as HTMLElement).dataset.ja || '';
-        const en = (row as HTMLElement).dataset.en || '';
-        searchableEntries.push({ version, monthKey, entryIndex, ja, en });
+        rowByCompositeKey.set(makeCompositeKey(monthKey, version, entryIndex), row);
       });
     });
   });
 
-  // Fuse.jsインスタンスを作成
-  type SearchMode = 'ja' | 'en' | 'both';
-  type ProductId = ChangelogProductId;
+  searchIndex.docs.forEach((doc) => {
+    docsById.set(doc.id, doc);
+    docEnTokensById.set(doc.id, new Set(toUniqueTokens(tokenizeEnglish(doc.en))));
+    docJaNormalizedById.set(doc.id, normalizeJapaneseText(doc.ja));
+
+    const row = rowByCompositeKey.get(makeCompositeKey(doc.monthKey, doc.version, doc.entryIndex));
+    if (row) {
+      rowByDocId.set(doc.id, row);
+    }
+  });
+
+  const enPosting = toPostingMap(searchIndex.enTokenToDocIds);
+  const jaPosting = toPostingMap(searchIndex.ja2gramToDocIds);
 
   // プロダクト別の検索モードキー（define:varsから取得）
   const STORAGE_KEY = (window as any).__CCCLOG_STORAGE_KEY__ || 'ccclog.searchMode.claude-code';
@@ -192,8 +304,6 @@ const legendItems = getLegendItems(product);
     return normalizeSearchMode(sessionStorage.getItem(STORAGE_KEY));
   }
 
-  // 表示モード（言語）
-  type DisplayMode = NonCopyDisplayMode;
   const DISPLAY_STORAGE_KEY = (window as any).__CCCLOG_DISPLAY_STORAGE_KEY__ || 'ccclog.displayMode.claude-code';
   const PLAIN_STORAGE_KEY = (window as any).__CCCLOG_PLAIN_STORAGE_KEY__ || 'ccclog.plainMode.claude-code';
   const PRODUCT_ID: ProductId = (window as any).__CCCLOG_PRODUCT_ID__ === 'codex' ? 'codex' : 'claude-code';
@@ -231,7 +341,7 @@ const legendItems = getLegendItems(product);
   }
 
   function getVisibleRows(section: Element): HTMLElement[] {
-    const rows = Array.from(section.querySelectorAll('.entry-row')) as HTMLElement[];
+    const rows = Array.from(section.querySelectorAll<HTMLElement>('.entry-row'));
     const visibleRows = rows.filter((row) => !row.classList.contains('hidden'));
     return visibleRows.length > 0 ? visibleRows : rows;
   }
@@ -284,15 +394,6 @@ const legendItems = getLegendItems(product);
     changelogList.classList.toggle('plain-mode', enabled);
   }
 
-  function createFuseInstance(mode: SearchMode) {
-    const keys = mode === 'both' ? ['ja', 'en'] : [mode];
-    return new Fuse(searchableEntries, {
-      keys,
-      threshold: 0.3,
-      ignoreLocation: true,
-    });
-  }
-
   function syncModeUI(mode: SearchMode) {
     modeButtons.forEach((button) => {
       const isActive = button.dataset.mode === mode;
@@ -334,17 +435,99 @@ const legendItems = getLegendItems(product);
   sessionStorage.setItem(DISPLAY_STORAGE_KEY, currentDisplayMode);
   sessionStorage.setItem(PLAIN_STORAGE_KEY, isPlainMode ? '1' : '0');
 
-  let fuse = createFuseInstance(currentMode);
+  function intersectDocIds(postings: Set<number>[]): Set<number> {
+    if (postings.length === 0) return new Set();
 
-  function isExactCellMatch(rawText: string, query: string, key: 'ja' | 'en'): boolean {
-    const trimmedQuery = query.trim();
-    if (!trimmedQuery) return false;
+    const sorted = [...postings].sort((a, b) => a.size - b.size);
+    const [smallest, ...rest] = sorted;
+    const intersected = new Set<number>();
 
-    const trimmedText = rawText.trim();
-    if (key === 'en') {
-      return trimmedText.toLocaleLowerCase() === trimmedQuery.toLocaleLowerCase();
+    smallest.forEach((docId) => {
+      if (rest.every((posting) => posting.has(docId))) {
+        intersected.add(docId);
+      }
+    });
+
+    return intersected;
+  }
+
+  function unionDocIds(left: Set<number>, right: Set<number>): Set<number> {
+    const union = new Set(left);
+    right.forEach((docId) => union.add(docId));
+    return union;
+  }
+
+  function searchEnglishDocIds(query: string): Set<number> {
+    const queryTokens = toUniqueTokens(tokenizeEnglish(query));
+    if (queryTokens.length === 0) return new Set();
+
+    const postings: Set<number>[] = [];
+    for (const token of queryTokens) {
+      const posting = enPosting.get(token);
+      if (!posting) return new Set();
+      postings.push(posting);
     }
-    return trimmedText === trimmedQuery;
+
+    const candidates = intersectDocIds(postings);
+    const matched = new Set<number>();
+    candidates.forEach((docId) => {
+      const docTokenSet = docEnTokensById.get(docId);
+      if (docTokenSet && queryTokens.every((token) => docTokenSet.has(token))) {
+        matched.add(docId);
+      }
+    });
+    return matched;
+  }
+
+  function searchJapaneseDocIds(query: string): { ids: Set<number>; short: boolean } {
+    if (isSingleJapaneseCharacterQuery(query)) {
+      return { ids: new Set(), short: true };
+    }
+
+    const normalizedQuery = normalizeJapaneseText(query);
+    if (!normalizedQuery) {
+      return { ids: new Set(), short: false };
+    }
+
+    const queryBigrams = toUniqueTokens(toJapaneseBigrams(normalizedQuery));
+    if (queryBigrams.length === 0) {
+      return { ids: new Set(), short: false };
+    }
+
+    const postings: Set<number>[] = [];
+    for (const gram of queryBigrams) {
+      const posting = jaPosting.get(gram);
+      if (!posting) return { ids: new Set(), short: false };
+      postings.push(posting);
+    }
+
+    const candidates = intersectDocIds(postings);
+    const matched = new Set<number>();
+    candidates.forEach((docId) => {
+      const normalizedJa = docJaNormalizedById.get(docId);
+      if (normalizedJa?.includes(normalizedQuery)) {
+        matched.add(docId);
+      }
+    });
+    return { ids: matched, short: false };
+  }
+
+  function matchesEnglishCell(rawText: string, query: string): boolean {
+    const queryTokens = toUniqueTokens(tokenizeEnglish(query));
+    if (queryTokens.length === 0) return false;
+    const textTokenSet = new Set(toUniqueTokens(tokenizeEnglish(rawText)));
+    return queryTokens.every((token) => textTokenSet.has(token));
+  }
+
+  function matchesJapaneseCell(rawText: string, query: string, allowSingleJapanese: boolean): boolean {
+    if (!allowSingleJapanese && isSingleJapaneseCharacterQuery(query)) {
+      return false;
+    }
+
+    const normalizedQuery = normalizeJapaneseText(query);
+    if (!normalizedQuery) return false;
+    const normalizedText = normalizeJapaneseText(rawText);
+    return normalizedText.includes(normalizedQuery);
   }
 
   function setCellHtml(element: HTMLElement, rawText: string, language: EntryLanguage, highlight: boolean) {
@@ -353,36 +536,48 @@ const legendItems = getLegendItems(product);
   }
 
   function applyRowHighlight(
-    row: Element,
+    row: HTMLElement,
     query: string,
-    mode: SearchMode
+    mode: SearchMode,
+    allowSingleJapanese: boolean
   ) {
-    const jaCell = row.querySelector('.entry-ja') as HTMLElement;
-    const enCell = row.querySelector('.entry-en') as HTMLElement;
-    const rawJa = (row as HTMLElement).dataset.ja || '';
-    const rawEn = (row as HTMLElement).dataset.en || '';
+    const jaCell = row.querySelector<HTMLElement>('.entry-ja');
+    const enCell = row.querySelector<HTMLElement>('.entry-en');
+    const rawJa = row.dataset.ja || '';
+    const rawEn = row.dataset.en || '';
 
     if (mode === 'ja') {
-      if (jaCell) setCellHtml(jaCell, rawJa, 'ja', isExactCellMatch(rawJa, query, 'ja'));
+      if (jaCell) setCellHtml(jaCell, rawJa, 'ja', matchesJapaneseCell(rawJa, query, allowSingleJapanese));
       if (enCell) setCellHtml(enCell, rawEn, 'en', false);
       return;
     }
 
     if (mode === 'en') {
-      if (enCell) setCellHtml(enCell, rawEn, 'en', isExactCellMatch(rawEn, query, 'en'));
+      if (enCell) setCellHtml(enCell, rawEn, 'en', matchesEnglishCell(rawEn, query));
       if (jaCell) setCellHtml(jaCell, rawJa, 'ja', false);
       return;
     }
 
-    if (jaCell) setCellHtml(jaCell, rawJa, 'ja', isExactCellMatch(rawJa, query, 'ja'));
-    if (enCell) setCellHtml(enCell, rawEn, 'en', isExactCellMatch(rawEn, query, 'en'));
+    if (jaCell) setCellHtml(jaCell, rawJa, 'ja', matchesJapaneseCell(rawJa, query, allowSingleJapanese));
+    if (enCell) setCellHtml(enCell, rawEn, 'en', matchesEnglishCell(rawEn, query));
+  }
+
+  function resetToAllRows() {
+    monthGroups.forEach((group) => group.classList.remove('hidden'));
+    versionSections.forEach((section) => {
+      section.classList.remove('hidden');
+      section.querySelectorAll<HTMLElement>('.entry-row').forEach((row) => {
+        row.classList.remove('hidden');
+        applyRowHighlight(row, '', currentMode, true);
+      });
+    });
   }
 
   function setSearchMode(mode: SearchMode) {
+    if (!searchAvailable) return;
     currentMode = mode;
     sessionStorage.setItem(STORAGE_KEY, mode);
     syncModeUI(mode);
-    fuse = createFuseInstance(mode);
     performSearch(input.value);
   }
 
@@ -406,23 +601,15 @@ const legendItems = getLegendItems(product);
 
   // 検索を実行
   function performSearch(query: string) {
+    if (!searchAvailable) return;
+
     const trimmedQuery = query.trim();
 
     // 検索クリアボタンの表示制御
     clearButton.hidden = !trimmedQuery;
 
     if (!trimmedQuery) {
-      // 検索クリア: すべて表示
-      monthGroups.forEach((group) => group.classList.remove('hidden'));
-      versionSections.forEach((section) => {
-        section.classList.remove('hidden');
-        const rows = section.querySelectorAll('.entry-row');
-        rows.forEach((row) => {
-          row.classList.remove('hidden');
-          // ハイライトをリセット
-          applyRowHighlight(row, '', currentMode);
-        });
-      });
+      resetToAllRows();
       searchStats.hidden = true;
       noResults.hidden = true;
       if (isPlainMode) {
@@ -432,64 +619,89 @@ const legendItems = getLegendItems(product);
       return;
     }
 
-    // 検索実行
-    const results = fuse.search(trimmedQuery);
-    const matchedVersions = new Set<string>();
-    const matchedMonths = new Set<string>();
-    const matchedEntries = new Map<string, Set<number>>();
-    results.forEach((r) => {
-      const { version, monthKey, entryIndex } = r.item;
-      matchedVersions.add(version);
-      matchedMonths.add(monthKey);
+    const englishMatches = currentMode === 'ja' ? new Set<number>() : searchEnglishDocIds(trimmedQuery);
+    const japaneseResult = currentMode === 'en'
+      ? { ids: new Set<number>(), short: false }
+      : searchJapaneseDocIds(trimmedQuery);
 
-      const versionKey = `v${version}`;
-      if (!matchedEntries.has(versionKey)) {
-        matchedEntries.set(versionKey, new Set());
+    const showJapaneseSearchHint = currentMode !== 'en' && japaneseResult.short;
+
+    if (currentMode === 'ja' && japaneseResult.short) {
+      resetToAllRows();
+      searchStats.innerHTML = '<span class="no-results">日本語検索は2文字以上で入力してください</span>';
+      searchStats.hidden = false;
+      noResults.hidden = true;
+      if (isPlainMode) {
+        renderPlainBlocks(currentDisplayMode);
       }
-      matchedEntries.get(versionKey)!.add(entryIndex);
-    });
+      updateUrlParams(trimmedQuery, currentMode, currentDisplayMode, isPlainMode);
+      return;
+    }
 
-    // UIを更新
+    if (currentMode === 'both' && japaneseResult.short && englishMatches.size === 0) {
+      resetToAllRows();
+      searchStats.innerHTML = '<span class="no-results">日本語検索は2文字以上で入力してください</span>';
+      searchStats.hidden = false;
+      noResults.hidden = true;
+      if (isPlainMode) {
+        renderPlainBlocks(currentDisplayMode);
+      }
+      updateUrlParams(trimmedQuery, currentMode, currentDisplayMode, isPlainMode);
+      return;
+    }
+
+    const matchedDocIds = currentMode === 'ja'
+      ? japaneseResult.ids
+      : currentMode === 'en'
+      ? englishMatches
+      : unionDocIds(englishMatches, japaneseResult.ids);
+
+    const matchedSections = new Set<string>();
+    const matchedMonths = new Set<string>();
     let visibleEntryCount = 0;
 
-    monthGroups.forEach((group) => {
-      const monthKey = group.getAttribute('data-month') || '';
-      if (matchedMonths.has(monthKey)) {
-        group.classList.remove('hidden');
-        // 折りたたみを開く
-        const details = group.querySelector('details');
-        if (details) details.open = true;
-      } else {
-        group.classList.add('hidden');
-      }
+    monthGroups.forEach((group) => group.classList.add('hidden'));
+    versionSections.forEach((section) => {
+      section.classList.add('hidden');
+      section.querySelectorAll<HTMLElement>('.entry-row').forEach((row) => {
+        row.classList.add('hidden');
+      });
+    });
+
+    matchedDocIds.forEach((docId) => {
+      const doc = docsById.get(docId);
+      const row = rowByDocId.get(docId);
+      if (!doc || !row) return;
+
+      row.classList.remove('hidden');
+      matchedSections.add(`v${doc.version}`);
+      matchedMonths.add(doc.monthKey);
+      visibleEntryCount += 1;
+      applyRowHighlight(row, trimmedQuery, currentMode, !japaneseResult.short);
     });
 
     versionSections.forEach((section) => {
-      const version = section.id;
-      const versionNum = version.replace('v', '');
-
-      if (matchedVersions.has(versionNum)) {
+      if (matchedSections.has(section.id)) {
         section.classList.remove('hidden');
-        const rows = section.querySelectorAll('.entry-row');
-        const matchedIndices = matchedEntries.get(version) || new Set();
-
-        rows.forEach((row, idx) => {
-          if (matchedIndices.has(idx)) {
-            row.classList.remove('hidden');
-            visibleEntryCount++;
-            applyRowHighlight(row, trimmedQuery, currentMode);
-          } else {
-            row.classList.add('hidden');
-          }
-        });
-      } else {
-        section.classList.add('hidden');
       }
     });
 
-    // 検索統計を表示
+    monthGroups.forEach((group) => {
+      const monthKey = group.dataset.month || '';
+      if (matchedMonths.has(monthKey)) {
+        group.classList.remove('hidden');
+        const details = group.querySelector('details');
+        if (details) details.open = true;
+      }
+    });
+
     if (visibleEntryCount > 0) {
-      searchStats.innerHTML = `<span class="match-count">${visibleEntryCount}</span> 件の結果`;
+      const notice = showJapaneseSearchHint ? '（日本語検索は2文字以上で入力してください）' : '';
+      searchStats.innerHTML = `<span class="match-count">${visibleEntryCount}</span> 件の結果${notice}`;
+      searchStats.hidden = false;
+      noResults.hidden = true;
+    } else if (showJapaneseSearchHint) {
+      searchStats.innerHTML = '<span class="no-results">日本語検索は2文字以上で入力してください</span>';
       searchStats.hidden = false;
       noResults.hidden = true;
     } else {
@@ -507,33 +719,35 @@ const legendItems = getLegendItems(product);
   // イベントリスナーを設定
   let debounceTimer: number;
 
-  input.addEventListener('input', () => {
-    clearTimeout(debounceTimer);
-    debounceTimer = window.setTimeout(() => {
-      performSearch(input.value);
-    }, 150);
-  });
+  if (searchAvailable) {
+    input.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(() => {
+        performSearch(input.value);
+      }, 150);
+    });
 
-  clearButton.addEventListener('click', () => {
-    input.value = '';
-    performSearch('');
-    input.focus();
-  });
-
-  // Escapeキーで検索をクリア
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
+    clearButton.addEventListener('click', () => {
       input.value = '';
       performSearch('');
-    }
-  });
-
-  modeButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const nextMode = normalizeSearchMode(button.dataset.mode || null);
-      if (nextMode !== currentMode) setSearchMode(nextMode);
+      input.focus();
     });
-  });
+
+    // Escapeキーで検索をクリア
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        input.value = '';
+        performSearch('');
+      }
+    });
+
+    modeButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const nextMode = normalizeSearchMode(button.dataset.mode || null);
+        if (nextMode !== currentMode) setSearchMode(nextMode);
+      });
+    });
+  }
 
   displayButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -549,11 +763,13 @@ const legendItems = getLegendItems(product);
   // ページ読み込み時にURLパラメータから検索クエリを復元
   const urlParams = new URLSearchParams(window.location.search);
   const initialQuery = urlParams.get('q');
-  if (initialQuery) {
-    input.value = initialQuery;
-    performSearch(initialQuery);
-  } else {
-    updateUrlParams('', currentMode, currentDisplayMode, isPlainMode);
+  if (searchAvailable) {
+    if (initialQuery) {
+      input.value = initialQuery;
+      performSearch(initialQuery);
+    } else {
+      updateUrlParams('', currentMode, currentDisplayMode, isPlainMode);
+    }
   }
   })();
 </script>

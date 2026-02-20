@@ -48,7 +48,11 @@ https://beagleworks.github.io/ccclog/
 
 ### 検索
 
-ページ上部の検索ボックスから、日本語・英語どちらでも全文検索できます。検索モードは「日本語のみ」「原文のみ」「両方」から選べます。検索語とセル全文が一致した場合のみ、該当セルが黄色でハイライトされます（英語は大文字小文字を区別しません）。
+ページ上部の検索ボックスから、日本語・英語どちらでも検索できます。検索モードは「日本語のみ」「原文のみ」「両方」から選べます。  
+英語は単語単位の AND 完全一致（`pre-commit` は1語扱い）、日本語は 2-gram 候補抽出 + `includes` 最終判定で検索します。  
+ハイライトは検索判定と同一条件で付与されます。`mode=both` は OR 結合（日本語または英語のどちらか一致）です。  
+日本語1文字クエリは日本語検索を実行せず、「2文字以上で入力してください」を表示します（`mode=both` では英語側のみ検索）。
+検索インデックスの読み込みに失敗した場合は、検索UIを自動で無効化し、エラーメッセージを表示します（通常の閲覧は継続可能）。
 
 URL パラメータで検索状態を共有することもできます。
 
@@ -98,7 +102,8 @@ pnpm install
 | `pnpm build` | データ生成 + OGP画像生成 + 静的サイトビルド（ローカル向け） |
 | `pnpm build:ci` | OGP画像生成 + 静的サイトビルド（データ再生成なし、CI向け） |
 | `pnpm preview` | ビルド結果のプレビュー |
-| `pnpm generate` | 全プロダクトのデータ生成（JSON） |
+| `pnpm generate` | 全プロダクトのデータ生成（JSON、検索インデックス生成を含む） |
+| `pnpm generate:search-index` | 検索インデックスJSONを生成（`src/data/search/*.json`） |
 | `pnpm sync-versions` | Claude Code の新バージョン検出・追記 |
 | `pnpm sync-codex-versions` | Codex の新バージョン検出・追記 |
 | `pnpm sync-codex-versions -- --year 2025` | Codex の指定年のみ新バージョン検出・追記 |
@@ -112,6 +117,13 @@ pnpm install
 - 定期実行（`schedule`）/ 手動実行（`workflow_dispatch`）では、`sync-*` 実行後に `pnpm generate` を実行し、`content/**/*.md` と `src/data/**/*.json` を同一コミットで反映します。
 - `push` では同期を行わず、`pnpm build:ci` によるビルドとデプロイのみを実行します。
 - bot 自動コミット（`github-actions[bot]`）は push ビルド/デプロイを起動しないように制御しています。
+
+### 検索インデックス運用メモ
+
+- `pnpm generate:search-index` は各インデックスJSONのサイズをログ出力し、2MB超過時に warning を出します。
+- 監視対象は `src/data/search/*.json` と、対応ページの最終HTMLサイズです（特にエントリ数が多い年）。
+- warning が出たら、次リリースまでに外部JSONの非同期読み込み（`fetch`）方式へ切替えるタスクを起票してください。
+- 2MB未満でも 1.5MB を超えた時点で「要監視」とし、増加傾向が続く場合は早めに切替準備を開始してください。
 
 ### プロジェクト構成
 
@@ -128,7 +140,8 @@ ccclog/
 │   ├── components/              # Astroコンポーネント
 │   ├── data/                    # 生成・Git追跡されるJSONデータ
 │   │   ├── changelog-*.json     # Claude Code
-│   │   └── codex/               # Codex
+│   │   ├── codex/               # Codex
+│   │   └── search/              # 検索インデックスJSON
 │   ├── layouts/                 # レイアウト
 │   ├── lib/                     # 共通ライブラリ
 │   └── pages/                   # ページ
@@ -141,7 +154,7 @@ ccclog/
 ### 技術スタック
 
 - **フレームワーク**: Astro 5.x（SSG）
-- **検索**: Fuse.js 7.x（ファジー検索）
+- **検索**: ビルド時生成インデックス（EN単語AND一致 / JA 2-gram）
 - **ホスティング**: GitHub Pages
 - **CI/CD**: GitHub Actions
 
