@@ -8,6 +8,7 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
+| MCP OAuth 認証にステップアップ認証サポートとディスカバリーキャッシュを追加し、サーバー接続時の冗長なネットワークリクエストを削減 | Improved MCP OAuth authentication with step-up auth support and discovery caching, reducing redundant network requests during server connections | improved |
 | 隔離された git worktree で Claude を起動する `--worktree`（`-w`）フラグを追加 | Added `--worktree` (`-w`) flag to start Claude in an isolated git worktree | added |
 | サブエージェントが一時的な git worktree で作業するための `isolation: "worktree"` をサポート | Subagents support `isolation: "worktree"` for working in a temporary git worktree | added |
 | バックグラウンドエージェントを終了する Ctrl+F キーバインドを追加（3秒以内に2回押しで確認） | Added Ctrl+F keybinding to kill background agents (two-press confirmation) | added |

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-20T01:41:05.323Z",
+  "generatedAt": "2026-02-20T21:04:50.049Z",
   "months": [
     {
       "key": "2026-02",
@@ -10,6 +10,11 @@
           "releaseDate": "2026-02-20",
           "releaseDateDisplay": "2026年2月20日",
           "entries": [
+            {
+              "ja": "MCP OAuth 認証にステップアップ認証サポートとディスカバリーキャッシュを追加し、サーバー接続時の冗長なネットワークリクエストを削減",
+              "en": "Improved MCP OAuth authentication with step-up auth support and discovery caching, reducing redundant network requests during server connections",
+              "category": "improved"
+            },
             {
               "ja": "隔離された git worktree で Claude を起動する `--worktree`（`-w`）フラグを追加",
               "en": "Added `--worktree` (`-w`) flag to start Claude in an isolated git worktree",
