@@ -149,8 +149,8 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
   import {
     formatEntryHtml,
     type ChangelogProductId,
-    type EntryLanguage,
   } from '../lib/entry-html';
+  import { applyEnglishTokenHighlights } from '../lib/dom-highlight';
   import { formatXCopyText, resolveXCopyLanguage, type NonCopyDisplayMode } from '../lib/x-copy-format';
   import {
     isSingleJapaneseCharacterQuery,
@@ -457,8 +457,7 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
     return union;
   }
 
-  function searchEnglishDocIds(query: string): Set<number> {
-    const queryTokens = toUniqueTokens(tokenizeEnglish(query));
+  function searchEnglishDocIds(queryTokens: string[]): Set<number> {
     if (queryTokens.length === 0) return new Set();
 
     const postings: Set<number>[] = [];
@@ -512,8 +511,7 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
     return { ids: matched, short: false };
   }
 
-  function matchesEnglishCell(rawText: string, query: string): boolean {
-    const queryTokens = toUniqueTokens(tokenizeEnglish(query));
+  function matchesEnglishCell(rawText: string, queryTokens: string[]): boolean {
     if (queryTokens.length === 0) return false;
     const textTokenSet = new Set(toUniqueTokens(tokenizeEnglish(rawText)));
     return queryTokens.every((token) => textTokenSet.has(token));
@@ -530,36 +528,46 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
     return normalizedText.includes(normalizedQuery);
   }
 
-  function setCellHtml(element: HTMLElement, rawText: string, language: EntryLanguage, highlight: boolean) {
-    const rendered = formatEntryHtml(rawText, { product: PRODUCT_ID, language });
+  function setJapaneseCellHtml(element: HTMLElement, rawText: string, highlight: boolean) {
+    const rendered = formatEntryHtml(rawText, { product: PRODUCT_ID, language: 'ja' });
     element.innerHTML = highlight ? `<span class="highlight">${rendered}</span>` : rendered;
+  }
+
+  function setEnglishCellHtml(element: HTMLElement, rawText: string, queryTokens: string[]) {
+    const rendered = formatEntryHtml(rawText, { product: PRODUCT_ID, language: 'en' });
+    element.innerHTML = rendered;
+    if (queryTokens.length > 0) {
+      applyEnglishTokenHighlights(element, queryTokens);
+    }
   }
 
   function applyRowHighlight(
     row: HTMLElement,
     query: string,
     mode: SearchMode,
-    allowSingleJapanese: boolean
+    allowSingleJapanese: boolean,
+    englishQueryTokens: string[]
   ) {
     const jaCell = row.querySelector<HTMLElement>('.entry-ja');
     const enCell = row.querySelector<HTMLElement>('.entry-en');
     const rawJa = row.dataset.ja || '';
     const rawEn = row.dataset.en || '';
+    const englishMatched = matchesEnglishCell(rawEn, englishQueryTokens);
 
     if (mode === 'ja') {
-      if (jaCell) setCellHtml(jaCell, rawJa, 'ja', matchesJapaneseCell(rawJa, query, allowSingleJapanese));
-      if (enCell) setCellHtml(enCell, rawEn, 'en', false);
+      if (jaCell) setJapaneseCellHtml(jaCell, rawJa, matchesJapaneseCell(rawJa, query, allowSingleJapanese));
+      if (enCell) setEnglishCellHtml(enCell, rawEn, []);
       return;
     }
 
     if (mode === 'en') {
-      if (enCell) setCellHtml(enCell, rawEn, 'en', matchesEnglishCell(rawEn, query));
-      if (jaCell) setCellHtml(jaCell, rawJa, 'ja', false);
+      if (enCell) setEnglishCellHtml(enCell, rawEn, englishMatched ? englishQueryTokens : []);
+      if (jaCell) setJapaneseCellHtml(jaCell, rawJa, false);
       return;
     }
 
-    if (jaCell) setCellHtml(jaCell, rawJa, 'ja', matchesJapaneseCell(rawJa, query, allowSingleJapanese));
-    if (enCell) setCellHtml(enCell, rawEn, 'en', matchesEnglishCell(rawEn, query));
+    if (jaCell) setJapaneseCellHtml(jaCell, rawJa, matchesJapaneseCell(rawJa, query, allowSingleJapanese));
+    if (enCell) setEnglishCellHtml(enCell, rawEn, englishMatched ? englishQueryTokens : []);
   }
 
   function resetToAllRows() {
@@ -568,7 +576,7 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
       section.classList.remove('hidden');
       section.querySelectorAll<HTMLElement>('.entry-row').forEach((row) => {
         row.classList.remove('hidden');
-        applyRowHighlight(row, '', currentMode, true);
+        applyRowHighlight(row, '', currentMode, true, []);
       });
     });
   }
@@ -619,7 +627,8 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
       return;
     }
 
-    const englishMatches = currentMode === 'ja' ? new Set<number>() : searchEnglishDocIds(trimmedQuery);
+    const englishQueryTokens = currentMode === 'ja' ? [] : toUniqueTokens(tokenizeEnglish(trimmedQuery));
+    const englishMatches = currentMode === 'ja' ? new Set<number>() : searchEnglishDocIds(englishQueryTokens);
     const japaneseResult = currentMode === 'en'
       ? { ids: new Set<number>(), short: false }
       : searchJapaneseDocIds(trimmedQuery);
@@ -677,7 +686,7 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
       matchedSections.add(`v${doc.version}`);
       matchedMonths.add(doc.monthKey);
       visibleEntryCount += 1;
-      applyRowHighlight(row, trimmedQuery, currentMode, !japaneseResult.short);
+      applyRowHighlight(row, trimmedQuery, currentMode, !japaneseResult.short, englishQueryTokens);
     });
 
     versionSections.forEach((section) => {

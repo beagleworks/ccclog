@@ -1,4 +1,5 @@
-const EN_TOKEN_PATTERN = /[a-z0-9]+(?:-[a-z0-9]+)*/g;
+export const EN_TOKEN_REGEX_SOURCE = '[a-z0-9]+(?:-[a-z0-9]+)*';
+const EN_TOKEN_PATTERN = new RegExp(EN_TOKEN_REGEX_SOURCE, 'g');
 const JAPANESE_CHAR_PATTERN = /[ぁ-んァ-ヶー一-龠々]/;
 
 export function normalizeWhitespace(text: string): string {

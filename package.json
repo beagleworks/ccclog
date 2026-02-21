@@ -1,7 +1,7 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "scripts": {
     "dev": "astro dev",
     "preview": "astro preview",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "jsdom": "^28.1.0",
     "sharp": "^0.33.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
