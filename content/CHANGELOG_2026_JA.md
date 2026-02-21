@@ -4,6 +4,36 @@
 
 ---
 
+## 2.1.50
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| LSPサーバーの`startupTimeout`設定のサポートを追加 | Added support for `startupTimeout` configuration for LSP servers | added |
+| エージェントのワークツリー分離によるワークツリーの作成・削除時にカスタムVCSのセットアップとティアダウンを可能にする`WorktreeCreate`および`WorktreeRemove`フックイベントを追加 | Added `WorktreeCreate` and `WorktreeRemove` hook events, enabling custom VCS setup and teardown when agent worktree isolation creates or removes worktrees. | added |
+| 作業ディレクトリにシンボリックリンクが含まれる場合に再開セッションが表示されなくなるバグを修正。また、グレースフルシャットダウン中にフックとアナリティクスより先にセッションデータをフラッシュすることでSSH切断時のセッションデータ損失を修正 | Fixed a bug where resumed sessions could be invisible when the working directory involved symlinks, because the session storage path was resolved at different times during startup. Also fixed session data loss on SSH disconnect by flushing session data before hooks and analytics in the graceful shutdown sequence. | fixed |
+| Linux: glibc 2.30未満のシステム（RHEL 8等）でネイティブモジュールが読み込まれない問題を修正 | Linux: Fixed native modules not loading on systems with glibc older than 2.30 (e.g., RHEL 8) | fixed |
+| エージェントチームで完了済みのチームメイトタスクがセッション状態からガベージコレクションされないメモリリークを修正 | Fixed memory leak in agent teams where completed teammate tasks were never garbage collected from session state | fixed |
+| `CLAUDE_CODE_SIMPLE`がスキル、セッションメモリ、カスタムエージェント、CLAUDE.mdのトークンカウントを完全に除去しない問題を修正 | Fixed `CLAUDE_CODE_SIMPLE` to fully strip down skills, session memory, custom agents, and CLAUDE.md token counting | fixed |
+| 存在しないサーバー名を指定した際に`/mcp reconnect`がCLIをフリーズさせる問題を修正 | Fixed `/mcp reconnect` freezing the CLI when given a server name that doesn't exist | fixed |
+| 完了済みタスクの状態オブジェクトがAppStateから削除されないメモリリークを修正 | Fixed memory leak where completed task state objects were never removed from AppState | fixed |
+| エージェント定義に`isolation: worktree`のサポートを追加し、エージェントが分離されたgitワークツリー上で宣言的に動作可能に | Added support for `isolation: worktree` in agent definitions, allowing agents to declaratively run in isolated git worktrees. | added |
+| `CLAUDE_CODE_SIMPLE`モードがMCPツール、添付ファイル、フック、CLAUDE.mdファイルの読み込みも無効化し、完全にミニマルな体験を提供するよう変更 | `CLAUDE_CODE_SIMPLE` mode now also disables MCP tools, attachments, hooks, and CLAUDE.md file loading for a fully minimal experience. | changed |
+| ツール検索が有効でプロンプトが起動引数として渡された場合にMCPツールが検出されないバグを修正 | Fixed bug where MCP tools were not discovered when tool search is enabled and a prompt is passed in as a launch argument | fixed |
+| コンパクション後に内部キャッシュをクリアすることで、長時間セッションのメモリ使用量を改善 | Improved memory usage during long sessions by clearing internal caches after compaction | improved |
+| 設定済みエージェントの一覧を表示する`claude agents` CLIコマンドを追加 | Added `claude agents` CLI command to list all configured agents | added |
+| 処理済みの大きなツール結果をクリアすることで、長時間セッションのメモリ使用量を改善 | Improved memory usage during long sessions by clearing large tool results after they have been processed | improved |
+| LSP診断データが配信後にクリーンアップされず長時間セッションでメモリが際限なく増加するメモリリークを修正 | Fixed a memory leak where LSP diagnostic data was never cleaned up after delivery, causing unbounded memory growth in long sessions | fixed |
+| 完了済みタスクの出力がメモリから解放されないメモリリークを修正し、多数のタスクを含む長時間セッションのメモリ使用量を削減 | Fixed a memory leak where completed task output was not freed from memory, reducing memory usage in long sessions with many tasks | fixed |
+| Yoga WASMとUIコンポーネントのインポートを遅延させることで、ヘッドレスモード（`-p`フラグ）の起動パフォーマンスを改善 | Improved startup performance for headless mode (`-p` flag) by deferring Yoga WASM and UI component imports | improved |
+| キャッシュヒット率を低下させるプロンプト候補キャッシュのリグレッションを修正 | Fixed prompt suggestion cache regression that reduced cache hit rates | fixed |
+| ファイル履歴スナップショットに上限を設けることで、長時間セッションでのメモリの際限ない増加を修正 | Fixed unbounded memory growth in long sessions by capping file history snapshots | fixed |
+| 1Mコンテキストウィンドウのサポートを無効化する`CLAUDE_CODE_DISABLE_1M_CONTEXT`環境変数を追加 | Added `CLAUDE_CODE_DISABLE_1M_CONTEXT` environment variable to disable 1M context window support | added |
+| Opus 4.6（ファストモード）が1Mコンテキストウィンドウの完全サポートを提供 | Opus 4.6 (fast mode) now includes the full 1M context window | improved |
+| VSCode: VS Codeセッションへの`/extra-usage`コマンドのサポートを追加 | VSCode: Added `/extra-usage` command support in VS Code sessions | added |
+| クリーンアップ後もTaskOutputが直近の行を保持し続けるメモリリークを修正 | Fixed memory leak where TaskOutput retained recent lines after cleanup | fixed |
+| クリア済みのアイテムがバッキング配列に保持されるCircularBufferのメモリリークを修正 | Fixed memory leak in CircularBuffer where cleared items were retained in the backing array | fixed |
+| クリーンアップ後もChildProcessおよびAbortControllerの参照が保持されるシェルコマンド実行のメモリリークを修正 | Fixed memory leak in shell command execution where ChildProcess and AbortController references were retained after cleanup | fixed |
+
 ## 2.1.49
 
 | 日本語 | English | Category |

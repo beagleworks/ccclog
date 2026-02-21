@@ -1,10 +1,142 @@
 {
-  "generatedAt": "2026-02-20T21:04:50.049Z",
+  "generatedAt": "2026-02-21T01:39:11.010Z",
   "months": [
     {
       "key": "2026-02",
       "label": "2026年2月",
       "versions": [
+        {
+          "version": "2.1.50",
+          "releaseDate": "2026-02-21",
+          "releaseDateDisplay": "2026年2月21日",
+          "entries": [
+            {
+              "ja": "LSPサーバーの`startupTimeout`設定のサポートを追加",
+              "en": "Added support for `startupTimeout` configuration for LSP servers",
+              "category": "added"
+            },
+            {
+              "ja": "エージェントのワークツリー分離によるワークツリーの作成・削除時にカスタムVCSのセットアップとティアダウンを可能にする`WorktreeCreate`および`WorktreeRemove`フックイベントを追加",
+              "en": "Added `WorktreeCreate` and `WorktreeRemove` hook events, enabling custom VCS setup and teardown when agent worktree isolation creates or removes worktrees.",
+              "category": "added"
+            },
+            {
+              "ja": "作業ディレクトリにシンボリックリンクが含まれる場合に再開セッションが表示されなくなるバグを修正。また、グレースフルシャットダウン中にフックとアナリティクスより先にセッションデータをフラッシュすることでSSH切断時のセッションデータ損失を修正",
+              "en": "Fixed a bug where resumed sessions could be invisible when the working directory involved symlinks, because the session storage path was resolved at different times during startup. Also fixed session data loss on SSH disconnect by flushing session data before hooks and analytics in the graceful shutdown sequence.",
+              "category": "fixed"
+            },
+            {
+              "ja": "Linux: glibc 2.30未満のシステム（RHEL 8等）でネイティブモジュールが読み込まれない問題を修正",
+              "en": "Linux: Fixed native modules not loading on systems with glibc older than 2.30 (e.g., RHEL 8)",
+              "category": "fixed"
+            },
+            {
+              "ja": "エージェントチームで完了済みのチームメイトタスクがセッション状態からガベージコレクションされないメモリリークを修正",
+              "en": "Fixed memory leak in agent teams where completed teammate tasks were never garbage collected from session state",
+              "category": "fixed"
+            },
+            {
+              "ja": "`CLAUDE_CODE_SIMPLE`がスキル、セッションメモリ、カスタムエージェント、CLAUDE.mdのトークンカウントを完全に除去しない問題を修正",
+              "en": "Fixed `CLAUDE_CODE_SIMPLE` to fully strip down skills, session memory, custom agents, and CLAUDE.md token counting",
+              "category": "fixed"
+            },
+            {
+              "ja": "存在しないサーバー名を指定した際に`/mcp reconnect`がCLIをフリーズさせる問題を修正",
+              "en": "Fixed `/mcp reconnect` freezing the CLI when given a server name that doesn't exist",
+              "category": "fixed"
+            },
+            {
+              "ja": "完了済みタスクの状態オブジェクトがAppStateから削除されないメモリリークを修正",
+              "en": "Fixed memory leak where completed task state objects were never removed from AppState",
+              "category": "fixed"
+            },
+            {
+              "ja": "エージェント定義に`isolation: worktree`のサポートを追加し、エージェントが分離されたgitワークツリー上で宣言的に動作可能に",
+              "en": "Added support for `isolation: worktree` in agent definitions, allowing agents to declaratively run in isolated git worktrees.",
+              "category": "added"
+            },
+            {
+              "ja": "`CLAUDE_CODE_SIMPLE`モードがMCPツール、添付ファイル、フック、CLAUDE.mdファイルの読み込みも無効化し、完全にミニマルな体験を提供するよう変更",
+              "en": "`CLAUDE_CODE_SIMPLE` mode now also disables MCP tools, attachments, hooks, and CLAUDE.md file loading for a fully minimal experience.",
+              "category": "changed"
+            },
+            {
+              "ja": "ツール検索が有効でプロンプトが起動引数として渡された場合にMCPツールが検出されないバグを修正",
+              "en": "Fixed bug where MCP tools were not discovered when tool search is enabled and a prompt is passed in as a launch argument",
+              "category": "fixed"
+            },
+            {
+              "ja": "コンパクション後に内部キャッシュをクリアすることで、長時間セッションのメモリ使用量を改善",
+              "en": "Improved memory usage during long sessions by clearing internal caches after compaction",
+              "category": "improved"
+            },
+            {
+              "ja": "設定済みエージェントの一覧を表示する`claude agents` CLIコマンドを追加",
+              "en": "Added `claude agents` CLI command to list all configured agents",
+              "category": "added"
+            },
+            {
+              "ja": "処理済みの大きなツール結果をクリアすることで、長時間セッションのメモリ使用量を改善",
+              "en": "Improved memory usage during long sessions by clearing large tool results after they have been processed",
+              "category": "improved"
+            },
+            {
+              "ja": "LSP診断データが配信後にクリーンアップされず長時間セッションでメモリが際限なく増加するメモリリークを修正",
+              "en": "Fixed a memory leak where LSP diagnostic data was never cleaned up after delivery, causing unbounded memory growth in long sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "完了済みタスクの出力がメモリから解放されないメモリリークを修正し、多数のタスクを含む長時間セッションのメモリ使用量を削減",
+              "en": "Fixed a memory leak where completed task output was not freed from memory, reducing memory usage in long sessions with many tasks",
+              "category": "fixed"
+            },
+            {
+              "ja": "Yoga WASMとUIコンポーネントのインポートを遅延させることで、ヘッドレスモード（`-p`フラグ）の起動パフォーマンスを改善",
+              "en": "Improved startup performance for headless mode (`-p` flag) by deferring Yoga WASM and UI component imports",
+              "category": "improved"
+            },
+            {
+              "ja": "キャッシュヒット率を低下させるプロンプト候補キャッシュのリグレッションを修正",
+              "en": "Fixed prompt suggestion cache regression that reduced cache hit rates",
+              "category": "fixed"
+            },
+            {
+              "ja": "ファイル履歴スナップショットに上限を設けることで、長時間セッションでのメモリの際限ない増加を修正",
+              "en": "Fixed unbounded memory growth in long sessions by capping file history snapshots",
+              "category": "fixed"
+            },
+            {
+              "ja": "1Mコンテキストウィンドウのサポートを無効化する`CLAUDE_CODE_DISABLE_1M_CONTEXT`環境変数を追加",
+              "en": "Added `CLAUDE_CODE_DISABLE_1M_CONTEXT` environment variable to disable 1M context window support",
+              "category": "added"
+            },
+            {
+              "ja": "Opus 4.6（ファストモード）が1Mコンテキストウィンドウの完全サポートを提供",
+              "en": "Opus 4.6 (fast mode) now includes the full 1M context window",
+              "category": "improved"
+            },
+            {
+              "ja": "VSCode: VS Codeセッションへの`/extra-usage`コマンドのサポートを追加",
+              "en": "VSCode: Added `/extra-usage` command support in VS Code sessions",
+              "category": "added"
+            },
+            {
+              "ja": "クリーンアップ後もTaskOutputが直近の行を保持し続けるメモリリークを修正",
+              "en": "Fixed memory leak where TaskOutput retained recent lines after cleanup",
+              "category": "fixed"
+            },
+            {
+              "ja": "クリア済みのアイテムがバッキング配列に保持されるCircularBufferのメモリリークを修正",
+              "en": "Fixed memory leak in CircularBuffer where cleared items were retained in the backing array",
+              "category": "fixed"
+            },
+            {
+              "ja": "クリーンアップ後もChildProcessおよびAbortControllerの参照が保持されるシェルコマンド実行のメモリリークを修正",
+              "en": "Fixed memory leak in shell command execution where ChildProcess and AbortController references were retained after cleanup",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.49",
           "releaseDate": "2026-02-20",
