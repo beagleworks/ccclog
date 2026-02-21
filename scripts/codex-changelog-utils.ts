@@ -7,25 +7,9 @@
 
 import * as path from 'node:path';
 import type { ParsedEntry } from './parse-codex-releases.ts';
+export { getGitHubHeaders } from './github-headers.js';
 
 export const CONTENT_DIR = path.join(process.cwd(), 'content', 'codex');
-
-/**
- * GitHub API 用のリクエストヘッダーを生成
- */
-export function getGitHubHeaders(): Record<string, string> {
-  const headers: Record<string, string> = {
-    Accept: 'application/vnd.github.v3+json',
-    'User-Agent': 'ccclog',
-  };
-
-  const token = process.env.GITHUB_TOKEN;
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  return headers;
-}
 
 /**
  * バージョン文字列を比較

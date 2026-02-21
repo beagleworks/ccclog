@@ -1,7 +1,7 @@
 {
   "name": "ccclog",
   "type": "module",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "scripts": {
     "dev": "astro dev",
     "preview": "astro preview",
@@ -20,7 +20,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.6",
     "astro": "^5.16.16"
   },
   "devDependencies": {

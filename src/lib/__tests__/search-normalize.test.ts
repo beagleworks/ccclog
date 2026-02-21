@@ -1,27 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import {
   isSingleJapaneseCharacterQuery,
-  normalizeEnglishText,
   normalizeJapaneseText,
-  normalizeWhitespace,
   toJapaneseBigrams,
   tokenizeEnglish,
   toUniqueTokens,
 } from '../search-normalize';
 
 describe('search-normalize', () => {
-  it('空白を正規化する', () => {
-    expect(normalizeWhitespace('  foo\n\tbar  baz  ')).toBe('foo bar baz');
-  });
-
-  it('英語テキストを小文字化して正規化する', () => {
-    expect(normalizeEnglishText('  Pre-COMMIT  Hook  ')).toBe('pre-commit hook');
-  });
-
-  it('英語正規化はロケール非依存の小文字化を使う', () => {
-    expect(normalizeEnglishText('I INFO')).toBe('i info');
-  });
-
   it('日本語テキストは空白正規化のみ行う', () => {
     expect(normalizeJapaneseText('  日本語\n  テキスト ')).toBe('日本語 テキスト');
   });
@@ -37,6 +23,11 @@ describe('search-normalize', () => {
       '3',
       '1234',
     ]);
+  });
+
+  it('英語トークン抽出は空白正規化と小文字化を行う', () => {
+    expect(tokenizeEnglish('  Pre-COMMIT  Hook  ')).toEqual(['pre-commit', 'hook']);
+    expect(tokenizeEnglish('I INFO')).toEqual(['i', 'info']);
   });
 
   it('重複トークンを排除する', () => {

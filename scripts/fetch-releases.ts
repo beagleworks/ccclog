@@ -12,41 +12,12 @@
  */
 
 import { execSync } from 'node:child_process';
-
-/**
- * GitHub API 用のリクエストヘッダーを生成
- * GITHUB_TOKEN があれば認証ヘッダーを付与
- */
-function getGitHubHeaders(): Record<string, string> {
-  const headers: Record<string, string> = {
-    Accept: 'application/vnd.github.v3+json',
-    'User-Agent': 'ccclog',
-  };
-
-  const token = process.env.GITHUB_TOKEN;
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  return headers;
-}
+import { utcToJstDateString } from './date-utils.js';
+import { getGitHubHeaders } from './github-headers.js';
 
 export interface ReleaseInfo {
   version: string;
   releaseDate: string; // YYYY-MM-DD (JST)
-}
-
-/**
- * UTC日時をJST（日本標準時）に変換
- * @param utcDate UTC日時文字列 (ISO 8601形式)
- * @returns JST日付文字列 (YYYY-MM-DD)
- */
-function utcToJst(utcDate: string): string {
-  const date = new Date(utcDate);
-  // JSTはUTC+9
-  const jstOffset = 9 * 60 * 60 * 1000;
-  const jstDate = new Date(date.getTime() + jstOffset);
-  return jstDate.toISOString().split('T')[0];
 }
 
 /**
@@ -101,7 +72,7 @@ export async function fetchReleases(
         if (versionsToFetch.has(version)) {
           releases.set(version, {
             version,
-            releaseDate: utcToJst(release.published_at),
+            releaseDate: utcToJstDateString(release.published_at),
           });
           versionsToFetch.delete(version);
         }
@@ -204,7 +175,7 @@ export function fetchNpmPublishDates(packageName: string): Map<string, string> {
       // "created" と "modified" は除外
       if (version === 'created' || version === 'modified') continue;
 
-      result.set(version, utcToJst(date));
+      result.set(version, utcToJstDateString(date));
     }
 
     console.log(`   ${result.size} バージョンの公開日を取得`);

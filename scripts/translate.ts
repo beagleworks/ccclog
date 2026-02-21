@@ -175,7 +175,7 @@ export function parseTranslationsWithCategory(
  * 複数エントリを一括で翻訳+カテゴリ分類
  * CLI が利用不可またはエラーの場合は null を返す
  */
-export function translateAndClassifyBatch(
+function translateAndClassifyBatch(
   entries: string[],
   productLabel: string,
 ): TranslationWithCategory[] | null {

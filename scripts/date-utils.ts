@@ -15,6 +15,13 @@ export function utcToJst(utcDate: string): Date {
 }
 
 /**
+ * UTC日時をJSTの日付文字列（YYYY-MM-DD）に変換
+ */
+export function utcToJstDateString(utcDate: string): string {
+  return utcToJst(utcDate).toISOString().split('T')[0];
+}
+
+/**
  * 現在の年を取得（JST基準）
  */
 export function getCurrentYearJst(): number {

@@ -2,11 +2,11 @@ export const EN_TOKEN_REGEX_SOURCE = '[a-z0-9]+(?:-[a-z0-9]+)*';
 const EN_TOKEN_PATTERN = new RegExp(EN_TOKEN_REGEX_SOURCE, 'g');
 const JAPANESE_CHAR_PATTERN = /[ぁ-んァ-ヶー一-龠々]/;
 
-export function normalizeWhitespace(text: string): string {
+function normalizeWhitespace(text: string): string {
   return text.trim().replace(/\s+/g, ' ');
 }
 
-export function normalizeEnglishText(text: string): string {
+function normalizeEnglishText(text: string): string {
   return normalizeWhitespace(text).toLowerCase();
 }
 
