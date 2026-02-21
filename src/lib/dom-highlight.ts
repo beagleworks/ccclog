@@ -1,4 +1,4 @@
-import { EN_TOKEN_REGEX_SOURCE } from './search-normalize';
+import { EN_TOKEN_REGEX_SOURCE, normalizeJapaneseText } from './search-normalize';
 
 function collectHighlightRanges(text: string, tokenSet: Set<string>): Array<{ start: number; end: number }> {
   const lowerText = text.toLowerCase();
@@ -41,12 +41,7 @@ function replaceTextNodeWithHighlights(textNode: Text, ranges: Array<{ start: nu
   textNode.parentNode.replaceChild(fragment, textNode);
 }
 
-export function applyEnglishTokenHighlights(root: HTMLElement, tokens: string[]): void {
-  const normalizedTokens = Array.from(new Set(tokens.map((token) => token.trim().toLowerCase()).filter(Boolean)));
-
-  if (normalizedTokens.length === 0) return;
-  const tokenSet = new Set(normalizedTokens);
-
+function collectTextNodes(root: HTMLElement): Text[] {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   const textNodes: Text[] = [];
 
@@ -57,10 +52,52 @@ export function applyEnglishTokenHighlights(root: HTMLElement, tokens: string[])
     currentNode = walker.nextNode();
   }
 
+  return textNodes;
+}
+
+function collectJapaneseHighlightRanges(
+  text: string,
+  normalizedQuery: string
+): Array<{ start: number; end: number }> {
+  if (!normalizedQuery) return [];
+
+  const ranges: Array<{ start: number; end: number }> = [];
+  let cursor = 0;
+
+  while (cursor < text.length) {
+    const index = text.indexOf(normalizedQuery, cursor);
+    if (index === -1) break;
+    ranges.push({ start: index, end: index + normalizedQuery.length });
+    cursor = index + normalizedQuery.length;
+  }
+
+  return ranges;
+}
+
+export function applyEnglishTokenHighlights(root: HTMLElement, tokens: string[]): void {
+  const normalizedTokens = Array.from(new Set(tokens.map((token) => token.trim().toLowerCase()).filter(Boolean)));
+
+  if (normalizedTokens.length === 0) return;
+  const tokenSet = new Set(normalizedTokens);
+  const textNodes = collectTextNodes(root);
+
   textNodes.forEach((textNode) => {
     const original = textNode.nodeValue ?? '';
     if (!original) return;
     const ranges = collectHighlightRanges(original, tokenSet);
+    replaceTextNodeWithHighlights(textNode, ranges);
+  });
+}
+
+export function applyJapaneseSubstringHighlights(root: HTMLElement, query: string): void {
+  const normalizedQuery = normalizeJapaneseText(query);
+  if (!normalizedQuery) return;
+
+  const textNodes = collectTextNodes(root);
+  textNodes.forEach((textNode) => {
+    const original = textNode.nodeValue ?? '';
+    if (!original) return;
+    const ranges = collectJapaneseHighlightRanges(original, normalizedQuery);
     replaceTextNodeWithHighlights(textNode, ranges);
   });
 }

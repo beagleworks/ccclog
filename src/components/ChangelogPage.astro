@@ -150,7 +150,12 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
     formatEntryHtml,
     type ChangelogProductId,
   } from '../lib/entry-html';
-  import { applyEnglishTokenHighlights } from '../lib/dom-highlight';
+  import { applyEnglishTokenHighlights, applyJapaneseSubstringHighlights } from '../lib/dom-highlight';
+  import {
+    applyRowHighlight as applyRowHighlightRuntime,
+    resetToAllRows as resetToAllRowsRuntime,
+    type SearchMode as RuntimeSearchMode,
+  } from '../lib/changelog-search-runtime';
   import { formatXCopyText, resolveXCopyLanguage, type NonCopyDisplayMode } from '../lib/x-copy-format';
   import {
     isSingleJapaneseCharacterQuery,
@@ -180,7 +185,7 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
     ja2gramToDocIds: Record<string, number[]>;
   }
 
-  type SearchMode = 'ja' | 'en' | 'both';
+  type SearchMode = RuntimeSearchMode;
   type ProductId = ChangelogProductId;
   type DisplayMode = NonCopyDisplayMode;
 
@@ -528,9 +533,12 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
     return normalizedText.includes(normalizedQuery);
   }
 
-  function setJapaneseCellHtml(element: HTMLElement, rawText: string, highlight: boolean) {
+  function setJapaneseCellHtml(element: HTMLElement, rawText: string, query: string, highlight: boolean) {
     const rendered = formatEntryHtml(rawText, { product: PRODUCT_ID, language: 'ja' });
-    element.innerHTML = highlight ? `<span class="highlight">${rendered}</span>` : rendered;
+    element.innerHTML = rendered;
+    if (highlight) {
+      applyJapaneseSubstringHighlights(element, query);
+    }
   }
 
   function setEnglishCellHtml(element: HTMLElement, rawText: string, queryTokens: string[]) {
@@ -548,36 +556,26 @@ const searchIndexJson = JSON.stringify(effectiveSearchIndex).replace(/</g, '\\u0
     allowSingleJapanese: boolean,
     englishQueryTokens: string[]
   ) {
-    const jaCell = row.querySelector<HTMLElement>('.entry-ja');
-    const enCell = row.querySelector<HTMLElement>('.entry-en');
-    const rawJa = row.dataset.ja || '';
-    const rawEn = row.dataset.en || '';
-    const englishMatched = matchesEnglishCell(rawEn, englishQueryTokens);
-
-    if (mode === 'ja') {
-      if (jaCell) setJapaneseCellHtml(jaCell, rawJa, matchesJapaneseCell(rawJa, query, allowSingleJapanese));
-      if (enCell) setEnglishCellHtml(enCell, rawEn, []);
-      return;
-    }
-
-    if (mode === 'en') {
-      if (enCell) setEnglishCellHtml(enCell, rawEn, englishMatched ? englishQueryTokens : []);
-      if (jaCell) setJapaneseCellHtml(jaCell, rawJa, false);
-      return;
-    }
-
-    if (jaCell) setJapaneseCellHtml(jaCell, rawJa, matchesJapaneseCell(rawJa, query, allowSingleJapanese));
-    if (enCell) setEnglishCellHtml(enCell, rawEn, englishMatched ? englishQueryTokens : []);
+    applyRowHighlightRuntime({
+      row,
+      query,
+      mode,
+      allowSingleJapanese,
+      englishQueryTokens,
+      matchesEnglishCell,
+      matchesJapaneseCell,
+      setJapaneseCellHtml,
+      setEnglishCellHtml,
+    });
   }
 
   function resetToAllRows() {
-    monthGroups.forEach((group) => group.classList.remove('hidden'));
-    versionSections.forEach((section) => {
-      section.classList.remove('hidden');
-      section.querySelectorAll<HTMLElement>('.entry-row').forEach((row) => {
-        row.classList.remove('hidden');
+    resetToAllRowsRuntime({
+      monthGroups,
+      versionSections,
+      resetRowHighlight: (row) => {
         applyRowHighlight(row, '', currentMode, true, []);
-      });
+      },
     });
   }
 
