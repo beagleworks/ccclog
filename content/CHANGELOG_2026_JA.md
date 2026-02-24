@@ -4,6 +4,21 @@
 
 ---
 
+## 2.1.51
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 外部ビルド向けの `claude remote-control` サブコマンドを追加し、すべてのユーザーがローカル環境でのサービングを利用可能に | Added `claude remote-control` subcommand for external builds, enabling local environment serving for all users. | added |
+| プラグインマーケットプレイスのデフォルト git タイムアウトを 30 秒から 120 秒に変更し、`CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS` による設定に対応 | Updated plugin marketplace default git timeout from 30s to 120s and added `CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS` to configure. | changed |
+| npm ソースからプラグインをインストールする際のカスタム npm レジストリおよびバージョン固定のサポートを追加 | Added support for custom npm registries and specific version pinning when installing plugins from npm sources | added |
+| シェルスナップショットが利用可能な場合、BashTool がデフォルトでログインシェル（`-l` フラグ）をスキップするよう変更し、コマンド実行パフォーマンスを改善（以前は `CLAUDE_BASH_NO_LOGIN=true` の設定が必要） | BashTool now skips login shell (`-l` flag) by default when a shell snapshot is available, improving command execution performance. Previously this required setting `CLAUDE_BASH_NO_LOGIN=true`. | improved |
+| インタラクティブモードでワークスペーストラストの承認なしに `statusLine` および `fileSuggestion` フックコマンドが実行可能なセキュリティ問題を修正 | Fixed a security issue where `statusLine` and `fileSuggestion` hook commands could execute without workspace trust acceptance in interactive mode. | fixed |
+| ツール結果のディスク永続化の閾値を 100K 文字から 50K 文字に縮小し、コンテキストウィンドウ使用量の削減と会話の継続性を改善 | Tool results larger than 50K characters are now persisted to disk (previously 100K). This reduces context window usage and improves conversation longevity. | improved |
+| WebSocket 再接続などによる `control_response` メッセージの重複が API 400 エラーを引き起こすバグを修正 | Fixed a bug where duplicate `control_response` messages (e.g. from WebSocket reconnects) could cause API 400 errors by pushing duplicate assistant messages into the conversation. | fixed |
+| SDK 呼び出し元がアカウント情報を同期的に提供できる環境変数 `CLAUDE_CODE_ACCOUNT_UUID`、`CLAUDE_CODE_USER_EMAIL`、`CLAUDE_CODE_ORGANIZATION_UUID` を追加し、初期テレメトリイベントにアカウントメタデータが欠落するレースコンディションを解消 | Added `CLAUDE_CODE_ACCOUNT_UUID`, `CLAUDE_CODE_USER_EMAIL`, and `CLAUDE_CODE_ORGANIZATION_UUID` environment variables for SDK callers to provide account info synchronously, eliminating a race condition where early telemetry events lacked account metadata. | added |
+| プラグインの SKILL.md の description が YAML 配列またはその他の非文字列型の場合にスラッシュコマンドのオートコンプリートがクラッシュするバグを修正 | Fixed slash command autocomplete crashing when a plugin's SKILL.md description is a YAML array or other non-string type | fixed |
+| `/model` ピッカーでピン留めされたモデルバージョンの表示を生のモデル ID から人間が読みやすいラベル（例: "Sonnet 4.5"）に変更し、新バージョン利用可能時のアップグレードヒントを追加 | The `/model` picker now shows human-readable labels (e.g., "Sonnet 4.5") instead of raw model IDs for pinned model versions, with an upgrade hint when a newer version is available. | improved |
+
 ## 2.1.50
 
 | 日本語 | English | Category |
