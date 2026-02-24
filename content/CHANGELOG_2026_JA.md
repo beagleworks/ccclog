@@ -24,6 +24,7 @@
 | SDK 呼び出し元がアカウント情報を同期的に提供できる環境変数 `CLAUDE_CODE_ACCOUNT_UUID`、`CLAUDE_CODE_USER_EMAIL`、`CLAUDE_CODE_ORGANIZATION_UUID` を追加し、初期テレメトリイベントにアカウントメタデータが欠落するレースコンディションを解消 | Added `CLAUDE_CODE_ACCOUNT_UUID`, `CLAUDE_CODE_USER_EMAIL`, and `CLAUDE_CODE_ORGANIZATION_UUID` environment variables for SDK callers to provide account info synchronously, eliminating a race condition where early telemetry events lacked account metadata. | added |
 | プラグインの SKILL.md の description が YAML 配列またはその他の非文字列型の場合にスラッシュコマンドのオートコンプリートがクラッシュするバグを修正 | Fixed slash command autocomplete crashing when a plugin's SKILL.md description is a YAML array or other non-string type | fixed |
 | `/model` ピッカーでピン留めされたモデルバージョンの表示を生のモデル ID から人間が読みやすいラベル（例: "Sonnet 4.5"）に変更し、新バージョン利用可能時のアップグレードヒントを追加 | The `/model` picker now shows human-readable labels (e.g., "Sonnet 4.5") instead of raw model IDs for pinned model versions, with an upgrade hint when a newer version is available. | improved |
+| macOS plist または Windows Registry による管理設定の指定に対応（詳細: https://code.claude.com/docs/en/settings#settings-files） | Managed settings can now be set via macOS plist or Windows Registry. Learn more at https://code.claude.com/docs/en/settings#settings-files | added |
 
 ## 2.1.50
 

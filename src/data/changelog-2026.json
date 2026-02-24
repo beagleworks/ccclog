@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-24T09:16:05.061Z",
+  "generatedAt": "2026-02-24T21:10:15.365Z",
   "months": [
     {
       "key": "2026-02",
@@ -71,6 +71,11 @@
               "ja": "`/model` ピッカーでピン留めされたモデルバージョンの表示を生のモデル ID から人間が読みやすいラベル（例: \"Sonnet 4.5\"）に変更し、新バージョン利用可能時のアップグレードヒントを追加",
               "en": "The `/model` picker now shows human-readable labels (e.g., \"Sonnet 4.5\") instead of raw model IDs for pinned model versions, with an upgrade hint when a newer version is available.",
               "category": "improved"
+            },
+            {
+              "ja": "macOS plist または Windows Registry による管理設定の指定に対応（詳細: https://code.claude.com/docs/en/settings#settings-files）",
+              "en": "Managed settings can now be set via macOS plist or Windows Registry. Learn more at https://code.claude.com/docs/en/settings#settings-files",
+              "category": "added"
             }
           ]
         },
