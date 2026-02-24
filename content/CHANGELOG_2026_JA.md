@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.52
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| VS Code: Windows での拡張機能クラッシュを修正（"command 'claude-vscode.editor.openLast' not found"） | VS Code: Fixed extension crash on Windows ("command 'claude-vscode.editor.openLast' not found") | fixed |
+
 ## 2.1.51
 
 | 日本語 | English | Category |

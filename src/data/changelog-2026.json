@@ -1,10 +1,22 @@
 {
-  "generatedAt": "2026-02-24T03:52:56.771Z",
+  "generatedAt": "2026-02-24T09:16:05.061Z",
   "months": [
     {
       "key": "2026-02",
       "label": "2026年2月",
       "versions": [
+        {
+          "version": "2.1.52",
+          "releaseDate": "2026-02-24",
+          "releaseDateDisplay": "2026年2月24日",
+          "entries": [
+            {
+              "ja": "VS Code: Windows での拡張機能クラッシュを修正（\"command 'claude-vscode.editor.openLast' not found\"）",
+              "en": "VS Code: Fixed extension crash on Windows (\"command 'claude-vscode.editor.openLast' not found\")",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.51",
           "releaseDate": "2026-02-24",
