@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.56
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| VS Code: "command 'claude-vscode.editor.openLast' not found" クラッシュの別原因を修正 | VS Code: Fixed another cause of "command 'claude-vscode.editor.openLast' not found" crashes | fixed |
+
 ## 2.1.55
 
 | 日本語 | English | Category |
