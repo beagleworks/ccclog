@@ -4,6 +4,19 @@
 
 ---
 
+## 2.1.53
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| メッセージのレンダリング前にユーザー入力が一時的に消えるUIのちらつきを修正 | Fixed a UI flicker where user input would briefly disappear after submission before the message rendered | fixed |
+| エージェントの一括終了（ctrl+f）でエージェントごとではなく単一の集約通知を送信するよう修正し、コマンドキューを適切にクリアするよう修正 | Fixed bulk agent kill (ctrl+f) to send a single aggregate notification instead of one per agent, and to properly clear the command queue | fixed |
+| Remote Control 使用時にグレースフルシャットダウンで古いセッションが残ることがある問題を、テアダウンのネットワーク呼び出しを並列化することで修正 | Fixed graceful shutdown sometimes leaving stale sessions when using Remote Control by parallelizing teardown network calls | fixed |
+| 初回起動時に `--worktree` が無視されることがある問題を修正 | Fixed `--worktree` sometimes being ignored on first launch | fixed |
+| Windows でのパニック（"switch on corrupted value"）を修正 | Fixed a panic ("switch on corrupted value") on Windows | fixed |
+| Windows で多数のプロセスを起動した際にクラッシュが発生する問題を修正 | Fixed a crash that could occur when spawning many processes on Windows | fixed |
+| Linux x64 および Windows x64 の WebAssembly インタープリタのクラッシュを修正 | Fixed a crash in the WebAssembly interpreter on Linux x64 & Windows x64 | fixed |
+| Windows ARM64 で2分後にクラッシュが発生することがある問題を修正 | Fixed a crash that sometimes occurred after 2 minutes on Windows ARM64 | fixed |
+
 ## 2.1.52
 
 | 日本語 | English | Category |

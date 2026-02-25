@@ -1,10 +1,57 @@
 {
-  "generatedAt": "2026-02-24T21:10:15.365Z",
+  "generatedAt": "2026-02-25T01:39:12.816Z",
   "months": [
     {
       "key": "2026-02",
       "label": "2026年2月",
       "versions": [
+        {
+          "version": "2.1.53",
+          "releaseDate": "2026-02-25",
+          "releaseDateDisplay": "2026年2月25日",
+          "entries": [
+            {
+              "ja": "メッセージのレンダリング前にユーザー入力が一時的に消えるUIのちらつきを修正",
+              "en": "Fixed a UI flicker where user input would briefly disappear after submission before the message rendered",
+              "category": "fixed"
+            },
+            {
+              "ja": "エージェントの一括終了（ctrl+f）でエージェントごとではなく単一の集約通知を送信するよう修正し、コマンドキューを適切にクリアするよう修正",
+              "en": "Fixed bulk agent kill (ctrl+f) to send a single aggregate notification instead of one per agent, and to properly clear the command queue",
+              "category": "fixed"
+            },
+            {
+              "ja": "Remote Control 使用時にグレースフルシャットダウンで古いセッションが残ることがある問題を、テアダウンのネットワーク呼び出しを並列化することで修正",
+              "en": "Fixed graceful shutdown sometimes leaving stale sessions when using Remote Control by parallelizing teardown network calls",
+              "category": "fixed"
+            },
+            {
+              "ja": "初回起動時に `--worktree` が無視されることがある問題を修正",
+              "en": "Fixed `--worktree` sometimes being ignored on first launch",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows でのパニック（\"switch on corrupted value\"）を修正",
+              "en": "Fixed a panic (\"switch on corrupted value\") on Windows",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows で多数のプロセスを起動した際にクラッシュが発生する問題を修正",
+              "en": "Fixed a crash that could occur when spawning many processes on Windows",
+              "category": "fixed"
+            },
+            {
+              "ja": "Linux x64 および Windows x64 の WebAssembly インタープリタのクラッシュを修正",
+              "en": "Fixed a crash in the WebAssembly interpreter on Linux x64 & Windows x64",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows ARM64 で2分後にクラッシュが発生することがある問題を修正",
+              "en": "Fixed a crash that sometimes occurred after 2 minutes on Windows ARM64",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.52",
           "releaseDate": "2026-02-24",
