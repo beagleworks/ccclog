@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.55
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| WindowsでEINVALエラーが発生するBashToolの不具合を修正 | Fixed BashTool failing on Windows with EINVAL error | fixed |
+
 ## 2.1.53
 
 | 日本語 | English | Category |

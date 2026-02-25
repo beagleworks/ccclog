@@ -1,10 +1,22 @@
 {
-  "generatedAt": "2026-02-25T01:39:12.816Z",
+  "generatedAt": "2026-02-25T03:52:33.861Z",
   "months": [
     {
       "key": "2026-02",
       "label": "2026年2月",
       "versions": [
+        {
+          "version": "2.1.55",
+          "releaseDate": "2026-02-25",
+          "releaseDateDisplay": "2026年2月25日",
+          "entries": [
+            {
+              "ja": "WindowsでEINVALエラーが発生するBashToolの不具合を修正",
+              "en": "Fixed BashTool failing on Windows with EINVAL error",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.53",
           "releaseDate": "2026-02-25",
