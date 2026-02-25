@@ -1,10 +1,87 @@
 {
-  "generatedAt": "2026-02-19T00:41:15.403Z",
+  "generatedAt": "2026-02-25T21:10:43.943Z",
   "months": [
     {
       "key": "2026-02",
       "label": "2026年2月",
       "versions": [
+        {
+          "version": "0.105.0",
+          "releaseDate": "2026-02-26",
+          "releaseDateDisplay": "2026年2月26日",
+          "entries": [
+            {
+              "ja": "TUI でフェンスコードブロックおよび diff のシンタックスハイライトを追加、ライブプレビュー付き `/theme` ピッカーを追加、ライト/ダーク両ターミナル向けのテーマ対応 diff カラーを改善。(#11447, #12581)",
+              "en": "The TUI now syntax-highlights fenced code blocks and diffs, adds a `/theme` picker with live preview, and uses better theme-aware diff colors for light and dark terminals. (#11447, #12581)",
+              "category": "new-features"
+            },
+            {
+              "ja": "TUI でスペースバーを長押しすることで音声入力を録音・文字起こしし、プロンプトとして直接入力可能に。(#3381)",
+              "en": "You can now dictate prompts by holding the spacebar to record and transcribe voice input directly in the TUI. (#3381)",
+              "category": "new-features"
+            },
+            {
+              "ja": "マルチエージェントワークフローの実行・追跡を改善：`spawn_agents_on_csv` で CSV からの作業展開と進捗/ETA 表示に対応、ニックネーム・改善されたピッカー・子スレッド承認プロンプトの表示によりサブエージェントの追跡が容易に。(#10935, #12320, #12327, #12332, #12570, #12767)",
+              "en": "Multi-agent workflows are easier to run and track: `spawn_agents_on_csv` can fan out work from a CSV with built-in progress/ETA, and sub-agents are easier to follow with nicknames, a cleaner picker, and visible child-thread approval prompts. (#10935, #12320, #12327, #12332, #12570, #12767)",
+              "category": "new-features"
+            },
+            {
+              "ja": "TUI に新しい便利コマンドを追加：`/copy` で最新のアシスタント返答全文をコピー、`/clear` および `Ctrl-L` でスレッドコンテキストを保持したままスクリーンをクリア（`/clear` は新規チャット開始も可能）。(#12444, #12520, #12613, #12628)",
+              "en": "The TUI picked up new convenience commands: `/copy` copies the latest complete assistant reply, while `/clear` and `Ctrl-L` clear the screen without losing thread context, with `/clear` also able to start a fresh chat. (#12444, #12520, #12613, #12628)",
+              "category": "new-features"
+            },
+            {
+              "ja": "承認制御をより柔軟化：コマンドに対する追加サンドボックス権限のリクエスト機能を追加、承認を完全に無効にすることなく特定の承認プロンプト種別を自動拒否する設定に対応。(#11871, #12087)",
+              "en": "Approval controls are more flexible: Codex can now ask for extra sandbox permissions for a command, and you can auto-reject specific approval prompt types without turning approvals off entirely. (#11871, #12087)",
+              "category": "new-features"
+            },
+            {
+              "ja": "アプリサーバークライアントのスレッド操作を強化：`thread/list` にタイトル検索を追加、read/list レスポンスおよび通知でスレッドステータスを公開、`thread/resume` で最新ターンをインライン返却することで再接続時のデータ損失を軽減。(#11776, #11786, #12578)",
+              "en": "App-server clients can do more with threads: `thread/list` can search by title, thread status is exposed in read/list responses and notifications, and `thread/resume` returns the latest turn inline so reconnects are less lossy. (#11776, #11786, #12578)",
+              "category": "new-features"
+            },
+            {
+              "ja": "TUI で折り返し表示された長いリンクのクリック可能性を維持、複数のビューにおける関連するクリッピングおよびレイアウトの問題も修正。(#12067)",
+              "en": "Long links in the TUI stay clickable when wrapped, which also fixes related clipping and layout issues in several views. (#12067)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "TUI のインタラクションに関する複数のエッジケースを修正：より多くのターミナルでキュー済みメッセージの編集が可能に、最終回答のストリーミング中に Enter を押してもフォローアッププロンプトがスタックしなくなるよう修正、承認ダイアログが正しいリクエスト ID で応答するよう修正。(#12240, #12569, #12746)",
+              "en": "Several TUI interaction edge cases were fixed: queued-message editing now works in more terminals, follow-up prompts no longer get stuck if you press Enter while a final answer is still streaming, and approval dialogs now respond with the correct request id. (#12240, #12569, #12746)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "チャットコンポーザーの `@` パースの信頼性を向上：`npx -y @scope/pkg@latest` のようなコマンドで誤ってファイルピッカーが開いたり送信がブロックされる問題を修正。(#12643)",
+              "en": "`@` parsing in the chat composer is more reliable, so commands like `npx -y @scope/pkg@latest` no longer accidentally open the file picker or block submission. (#12643)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "アプリサーバーの WebSocket 処理の堅牢性を向上：切断後もスレッドリスナーを維持するよう改善、Ctrl-C で再起動前に処理中のターンの完了を待機するよう変更、`permessage-deflate` を送信する WebSocket クライアントの接続に対応。(#12373, #12517, #12629)",
+              "en": "App-server websocket handling is more robust: thread listeners survive disconnects, Ctrl-C waits for in-flight turns before restarting, and websocket clients that send `permessage-deflate` can connect successfully. (#12373, #12517, #12629)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "Linux のサンドボックス化されたコマンドに最小限の `/dev` を提供し、エントロピーや標準デバイスノードを必要とするツールの失敗を修正。(#12081)",
+              "en": "Linux sandboxed commands now get a minimal `/dev`, fixing failures in tools that need entropy or other standard device nodes. (#12081)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "`js_repl` でキャッチされないカーネル障害のエラー報告を改善、障害後のクリーンな回復に対応、ネストされたツール呼び出しからの `view_image` 結果の正しい添付に対応。(#12636, #12725)",
+              "en": "`js_repl` now reports uncaught kernel failures more clearly, recovers cleanly afterward, and correctly attaches `view_image` results from nested tool calls. (#12636, #12725)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "Bugcrowd への報告ガイダンスを含む公開セキュリティポリシーを追加。(#12193)",
+              "en": "Added a public security policy with Bugcrowd reporting guidance. (#12193)",
+              "category": "documentation"
+            },
+            {
+              "ja": "インストールおよびローカルワークフローのドキュメントを更新：`cargo install --locked cargo-nextest` の使用、および完全なフィーチャーカバレッジが必要な場合を除く通常の `--all-features` ビルドの回避を推奨。(#12377, #12429)",
+              "en": "Updated install and local workflow docs to use `cargo install --locked cargo-nextest` and to avoid routine `--all-features` builds unless you specifically need full feature coverage. (#12377, #12429)",
+              "category": "documentation"
+            }
+          ]
+        },
         {
           "version": "0.104.0",
           "releaseDate": "2026-02-18",

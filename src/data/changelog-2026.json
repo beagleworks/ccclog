@@ -1,10 +1,22 @@
 {
-  "generatedAt": "2026-02-25T09:16:12.456Z",
+  "generatedAt": "2026-02-25T21:10:33.561Z",
   "months": [
     {
       "key": "2026-02",
       "label": "2026年2月",
       "versions": [
+        {
+          "version": "2.1.58",
+          "releaseDate": "2026-02-26",
+          "releaseDateDisplay": "2026年2月26日",
+          "entries": [
+            {
+              "ja": "リモートコントロールをより多くのユーザーに展開",
+              "en": "Expand Remote Control to more users",
+              "category": "changed"
+            }
+          ]
+        },
         {
           "version": "2.1.56",
           "releaseDate": "2026-02-25",

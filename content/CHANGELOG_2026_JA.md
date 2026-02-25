@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.58
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| リモートコントロールをより多くのユーザーに展開 | Expand Remote Control to more users | changed |
+
 ## 2.1.56
 
 | 日本語 | English | Category |
