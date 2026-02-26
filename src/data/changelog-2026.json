@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-26T01:39:35.870Z",
+  "generatedAt": "2026-02-26T06:21:19.615Z",
   "months": [
     {
       "key": "2026-02",
@@ -43,6 +43,11 @@
             {
               "ja": "作業ディレクトリが削除された際にシェルコマンドが明確なエラーメッセージを表示しない不具合を修正",
               "en": "Fixed shell commands not showing a clear error message when the working directory has been deleted",
+              "category": "fixed"
+            },
+            {
+              "ja": "複数のClaude Codeインスタンスが同時実行された際に認証情報が消去される可能性があった設定ファイルの破損を修正",
+              "en": "Fixed config file corruption that could wipe authentication when multiple Claude Code instances ran simultaneously",
               "category": "fixed"
             }
           ]

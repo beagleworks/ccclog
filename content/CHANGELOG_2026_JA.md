@@ -15,6 +15,7 @@
 | 完了済みサブエージェントのタスク状態を解放することで、マルチエージェントセッションのメモリ使用量を改善 | Improved memory usage in multi-agent sessions by releasing completed subagent task state | improved |
 | 複数の Claude Code インスタンスを同時実行した際の MCP OAuth トークン更新の競合状態を修正 | Fixed MCP OAuth token refresh race condition when running multiple Claude Code instances simultaneously | fixed |
 | 作業ディレクトリが削除された際にシェルコマンドが明確なエラーメッセージを表示しない不具合を修正 | Fixed shell commands not showing a clear error message when the working directory has been deleted | fixed |
+| 複数のClaude Codeインスタンスが同時実行された際に認証情報が消去される可能性があった設定ファイルの破損を修正 | Fixed config file corruption that could wipe authentication when multiple Claude Code instances ran simultaneously | fixed |
 
 ## 2.1.58
 
