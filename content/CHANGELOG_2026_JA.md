@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.61
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Windows上での同時書き込みによるconfigファイルの破損を修正 | Fixed concurrent writes corrupting config file on Windows | fixed |
+
 ## 2.1.59
 
 | 日本語 | English | Category |
