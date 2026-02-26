@@ -4,6 +4,18 @@
 
 ---
 
+## 2.1.59
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 有用なコンテキストをauto-memoryに自動保存するように対応。/memory で管理可能 | Claude automatically saves useful context to auto-memory. Manage with /memory | added |
+| コードブロックが存在する場合にインタラクティブな選択UIを表示する `/copy` コマンドを追加。個別のコードブロックまたは全レスポンスの選択が可能 | Added `/copy` command to show an interactive picker when code blocks are present, allowing selection of individual code blocks or the full response. | added |
+| 複合 bash コマンド（例: `cd /tmp && git fetch && git push`）に対する「常に許可」プレフィックス候補を改善。コマンド全体を一つとして扱う代わりに、サブコマンドごとにより適切なプレフィックスを算出するように変更 | Improved "always allow" prefix suggestions for compound bash commands (e.g. `cd /tmp && git fetch && git push`) to compute smarter per-subcommand prefixes instead of treating the whole command as one | improved |
+| 短いタスクリストの並び順を改善 | Improved ordering of short task lists | improved |
+| 完了済みサブエージェントのタスク状態を解放することで、マルチエージェントセッションのメモリ使用量を改善 | Improved memory usage in multi-agent sessions by releasing completed subagent task state | improved |
+| 複数の Claude Code インスタンスを同時実行した際の MCP OAuth トークン更新の競合状態を修正 | Fixed MCP OAuth token refresh race condition when running multiple Claude Code instances simultaneously | fixed |
+| 作業ディレクトリが削除された際にシェルコマンドが明確なエラーメッセージを表示しない不具合を修正 | Fixed shell commands not showing a clear error message when the working directory has been deleted | fixed |
+
 ## 2.1.58
 
 | 日本語 | English | Category |

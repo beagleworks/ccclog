@@ -1,10 +1,52 @@
 {
-  "generatedAt": "2026-02-25T21:10:33.561Z",
+  "generatedAt": "2026-02-26T01:39:35.870Z",
   "months": [
     {
       "key": "2026-02",
       "label": "2026年2月",
       "versions": [
+        {
+          "version": "2.1.59",
+          "releaseDate": "2026-02-26",
+          "releaseDateDisplay": "2026年2月26日",
+          "entries": [
+            {
+              "ja": "有用なコンテキストをauto-memoryに自動保存するように対応。/memory で管理可能",
+              "en": "Claude automatically saves useful context to auto-memory. Manage with /memory",
+              "category": "added"
+            },
+            {
+              "ja": "コードブロックが存在する場合にインタラクティブな選択UIを表示する `/copy` コマンドを追加。個別のコードブロックまたは全レスポンスの選択が可能",
+              "en": "Added `/copy` command to show an interactive picker when code blocks are present, allowing selection of individual code blocks or the full response.",
+              "category": "added"
+            },
+            {
+              "ja": "複合 bash コマンド（例: `cd /tmp && git fetch && git push`）に対する「常に許可」プレフィックス候補を改善。コマンド全体を一つとして扱う代わりに、サブコマンドごとにより適切なプレフィックスを算出するように変更",
+              "en": "Improved \"always allow\" prefix suggestions for compound bash commands (e.g. `cd /tmp && git fetch && git push`) to compute smarter per-subcommand prefixes instead of treating the whole command as one",
+              "category": "improved"
+            },
+            {
+              "ja": "短いタスクリストの並び順を改善",
+              "en": "Improved ordering of short task lists",
+              "category": "improved"
+            },
+            {
+              "ja": "完了済みサブエージェントのタスク状態を解放することで、マルチエージェントセッションのメモリ使用量を改善",
+              "en": "Improved memory usage in multi-agent sessions by releasing completed subagent task state",
+              "category": "improved"
+            },
+            {
+              "ja": "複数の Claude Code インスタンスを同時実行した際の MCP OAuth トークン更新の競合状態を修正",
+              "en": "Fixed MCP OAuth token refresh race condition when running multiple Claude Code instances simultaneously",
+              "category": "fixed"
+            },
+            {
+              "ja": "作業ディレクトリが削除された際にシェルコマンドが明確なエラーメッセージを表示しない不具合を修正",
+              "en": "Fixed shell commands not showing a clear error message when the working directory has been deleted",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.58",
           "releaseDate": "2026-02-26",
