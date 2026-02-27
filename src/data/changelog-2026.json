@@ -1,10 +1,22 @@
 {
-  "generatedAt": "2026-02-26T23:08:33.707Z",
+  "generatedAt": "2026-02-27T03:50:52.385Z",
   "months": [
     {
       "key": "2026-02",
       "label": "2026年2月",
       "versions": [
+        {
+          "version": "2.1.62",
+          "releaseDate": "2026-02-27",
+          "releaseDateDisplay": "2026年2月27日",
+          "entries": [
+            {
+              "ja": "プロンプト提案キャッシュのキャッシュヒット率が低下する不具合を修正",
+              "en": "Fixed prompt suggestion cache regression that reduced cache hit rates",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.61",
           "releaseDate": "2026-02-27",

@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.62
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| プロンプト提案キャッシュのキャッシュヒット率が低下する不具合を修正 | Fixed prompt suggestion cache regression that reduced cache hit rates | fixed |
+
 ## 2.1.61
 
 | 日本語 | English | Category |
