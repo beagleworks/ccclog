@@ -4,6 +4,27 @@
 
 ---
 
+## 0.106.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| macOS および Linux 向け直接インストールスクリプトを追加し、既存のプラットフォームペイロード（`codex` および `rg` を含む）を使用して GitHub リリースアセットとして公開 (#12740) | Added a direct install script for macOS and Linux and publish it as a GitHub release asset, using the existing platform payload (including `codex` and `rg`) (#12740) | new-features |
+| app-server v2 スレッド API を拡張し、実験的なスレッドスコープのリアルタイムエンドポイント/通知と、アーカイブせずにライブスレッドをアンロードする `thread/unsubscribe` フローを追加 (#12715, #10954) | Expanded the app-server v2 thread API with experimental thread-scoped realtime endpoints/notifications and a `thread/unsubscribe` flow to unload live threads without archiving them (#12715, #10954) | new-features |
+| `js_repl` を `/experimental` に昇格し、ユーザー向け警告付きの起動時互換性チェックを追加、検証済み最小 Node バージョンを `22.22.0` に引き下げ (#12712, #12824, #12857) | Promoted `js_repl` to `/experimental`, added startup compatibility checks with user-visible warnings, and lowered the validated minimum Node version to `22.22.0` (#12712, #12824, #12857) | new-features |
+| Default コラボレーションモード（Plan モードのみでなく）でも `request_user_input` を有効化 (#12735) | Enabled `request_user_input` in Default collaboration mode (not just Plan mode) (#12735) | new-features |
+| API ユーザー向け CLI モデル一覧に `5.3-codex` を表示 (#12808) | Made `5.3-codex` visible in the CLI model list for API users (#12808) | new-features |
+| 差分ベースの忘却と使用状況を考慮したメモリ選択によりメモリ動作を改善 (#12900, #12909) | Improved memory behavior with diff-based forgetting and usage-aware memory selection (#12900, #12909) | new-features |
+| タイムアウト関連の HTTP 400 ハンドシェイク失敗時のリトライと、選択モデルが対応している場合の WebSocket v2 優先使用により、リアルタイム WebSocket の信頼性を向上 (#12791, #12838) | Improved realtime websocket reliability by retrying timeout-related HTTP 400 handshake failures and preferring WebSocket v2 when supported by the selected model (#12791, #12838) | bug-fixes |
+| サンドボックスラッパーが欠落し、期待されるファイルシステム制限をバイパスしうる zsh-fork シェル実行パスの問題を修正 (#12800) | Fixed a zsh-fork shell execution path that could drop sandbox wrappers and bypass expected filesystem restrictions (#12800) | bug-fixes |
+| 過大なペーストによるハングやクラッシュを防ぐため、TUI および app-server に約 100 万文字の入力サイズ上限を追加し、明示的なエラーレスポンスを返すよう対応 (#12823) | Added a shared ~1M-character input size cap in the TUI and app-server to prevent hangs/crashes on oversized pastes, with explicit error responses (#12823) | bug-fixes |
+| TUI のローカルファイルリンク表示を改善し、絶対パスを非表示にしつつ行・列参照は表示を維持 (#12705, #12870) | Improved TUI local file-link rendering to hide absolute paths while preserving visible line/column references (#12705, #12870) | bug-fixes |
+| TUI でのサブエージェントに対する `Ctrl-C` ハンドリングを修正 (#12911) | Fixed `Ctrl-C` handling for sub-agents in the TUI (#12911) | bug-fixes |
+| 認証/オンボーディングフローにおける古いサインイン成功リンクを修正 (#12805) | Fixed a stale sign-in success link in the auth/onboarding flow (#12805) | documentation |
+| リモート/デバイス認証ログインシナリオ向け CLI ログインヒントを明確化 (#12813) | Clarified the CLI login hint for remote/device-auth login scenarios (#12813) | documentation |
+| 組み込み `codex-network-proxy` のポリシー判定およびブロックに対する構造化 OTEL 監査ログを追加 (#12046) | Added structured OTEL audit logging for embedded `codex-network-proxy` policy decisions and blocks (#12046) | chores |
+| `steer` フィーチャーフラグを削除し、TUI コンポーザーで常時有効の steer パスに統一 (#12026) | Removed the `steer` feature flag and standardized on the always-on steer path in the TUI composer (#12026) | chores |
+| サブエージェント起動時に高コストな履歴メタデータスキャンをスキップすることでサブエージェントの起動オーバーヘッドを削減 (#12918) | Reduced sub-agent startup overhead by skipping expensive history metadata scans for subagent spawns (#12918) | chores |
+
 ## 0.105.0
 
 | 日本語 | English | Category |
