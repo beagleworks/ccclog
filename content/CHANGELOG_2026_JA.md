@@ -4,6 +4,37 @@
 
 ---
 
+## 2.1.63
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `/simplify` および `/batch` バンドルスラッシュコマンドを追加 | Added `/simplify` and `/batch` bundled slash commands | added |
+| `/cost` などのローカルスラッシュコマンドの出力がUIでシステムメッセージではなくユーザー送信メッセージとして表示される不具合を修正 | Fixed local slash command output like /cost appearing as user-sent messages instead of system messages in the UI | fixed |
+| 同一リポジトリの git ワークツリー間でプロジェクト設定と自動メモリを共有するよう変更 | Project configs & auto memory now shared across git worktrees of the same repository | changed |
+| claude.ai の MCP サーバーを利用不可にするための環境変数 `ENABLE_CLAUDEAI_MCP_SERVERS=false` を追加 | Added `ENABLE_CLAUDEAI_MCP_SERVERS=false` env var to opt out from making claude.ai MCP servers available | added |
+| `/model` コマンドのスラッシュコマンドメニューに現在アクティブなモデルを表示するよう改善 | Improved `/model` command to show the currently active model in the slash command menu | improved |
+| シェルコマンドの代わりに URL へ JSON を POST し JSON を受け取る HTTP フックを追加 | Added HTTP hooks, which can POST JSON to a URL and receive JSON instead of running a shell command | added |
+| ブリッジポーリングループにおけるリスナーリークを修正 | Fixed listener leak in bridge polling loop | fixed |
+| MCP OAuth フローのクリーンアップにおけるリスナーリークを修正 | Fixed listener leak in MCP OAuth flow cleanup | fixed |
+| MCP OAuth 認証時に手動での URL 貼り付けによるフォールバックを追加。localhost への自動リダイレクトが機能しない場合、コールバック URL を貼り付けて認証を完了可能 | Added manual URL paste fallback during MCP OAuth authentication. If the automatic localhost redirect doesn't work, you can paste the callback URL to complete authentication. | added |
+| フック設定メニューのナビゲーション時のメモリリークを修正 | Fixed memory leak when navigating hooks configuration menu | fixed |
+| 自動承認時のインタラクティブなパーミッションハンドラーにおけるリスナーリークを修正 | Fixed listener leak in interactive permission handler during auto-approvals | fixed |
+| ファイル数キャッシュが glob の除外パターンを無視する不具合を修正 | Fixed file count cache ignoring glob ignore patterns | fixed |
+| bash コマンドプレフィックスキャッシュのメモリリークを修正 | Fixed memory leak in bash command prefix cache | fixed |
+| サーバー再接続時の MCP ツール・リソースキャッシュのリークを修正 | Fixed MCP tool/resource cache leak on server reconnect | fixed |
+| IDE ホスト IP 検出キャッシュがポートをまたいで誤って結果を共有する不具合を修正 | Fixed IDE host IP detection cache incorrectly sharing results across ports | fixed |
+| トランスポート再接続時の WebSocket リスナーリークを修正 | Fixed WebSocket listener leak on transport reconnect | fixed |
+| 長時間セッションで無制限に増大する可能性があった git ルート検出キャッシュのメモリリークを修正 | Fixed memory leak in git root detection cache that could cause unbounded growth in long-running sessions | fixed |
+| 長時間セッションで無制限に増大する JSON パースキャッシュのメモリリークを修正 | Fixed memory leak in JSON parsing cache that grew unbounded over long sessions | fixed |
+| VSCode: リモートセッションが会話履歴に表示されない不具合を修正 | VSCode: Fixed remote sessions not appearing in conversation history | fixed |
+| 初回接続フラッシュ中に新規メッセージが過去メッセージと混在してサーバーに届き、メッセージ順序の乱れを引き起こす REPL ブリッジの競合状態を修正 | Fixed a race condition in the REPL bridge where new messages could arrive at the server interleaved with historical messages during the initial connection flush, causing message ordering issues. | fixed |
+| 長時間稼働するチームメートが会話コンパクション後も AppState に全メッセージを保持し続けるメモリリークを修正 | Fixed memory leak where long-running teammates retained all messages in AppState even after conversation compaction | fixed |
+| MCP サーバーの fetch キャッシュが切断時にクリアされず、頻繁に再接続するサーバーでメモリ使用量が増大するメモリリークを修正 | Fixed a memory leak where MCP server fetch caches were not cleared on disconnect, causing growing memory usage with servers that reconnect frequently | fixed |
+| コンテキストコンパクション時にサブエージェントの重いプログレスメッセージのペイロードを除去し、長時間セッションにおけるメモリ使用量を改善 | Improved memory usage in long sessions with subagents by stripping heavy progress message payloads during context compaction | improved |
+| `/copy` ピッカーに「常に全レスポンスをコピー」オプションを追加。選択後、以降の `/copy` コマンドはコードブロックピッカーをスキップして全レスポンスを直接コピー | Added "Always copy full response" option to the `/copy` picker. When selected, future `/copy` commands will skip the code block picker and copy the full response directly. | added |
+| VSCode: セッション一覧にセッションのリネームおよび削除アクションを追加 | VSCode: Added session rename and remove actions to the sessions list | added |
+| `/clear` 実行時にキャッシュ済みスキルがリセットされず、新しい会話に古いスキルの内容が残存する不具合を修正 | Fixed `/clear` not resetting cached skills, which could cause stale skill content to persist in the new conversation | fixed |
+
 ## 2.1.62
 
 | 日本語 | English | Category |
