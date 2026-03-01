@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-02-19T00:41:22.361Z",
+  "generatedAt": "2026-03-01T06:14:26.279Z",
   "months": [
     {
-      "key": "2025-12",
-      "label": "2025年12月",
+      "key": "2026-03",
+      "label": "2026年3月",
       "versions": [
         {
           "version": "0.77.0",
-          "releaseDate": "2025-12-21",
-          "releaseDateDisplay": "2025年12月21日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "TUI2: ターミナル間でマウスホイール + トラックパッドのスクロールを正規化し、`tui.scroll_*` 設定を追加（PR #8357）",
@@ -54,8 +54,8 @@
         },
         {
           "version": "0.76.0",
-          "releaseDate": "2025-12-20",
-          "releaseDateDisplay": "2025年12月20日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "macOS DMG ビルドターゲットを追加 (PR #8207)",
@@ -151,8 +151,8 @@
         },
         {
           "version": "0.75.0",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "スプラッシュスクリーンを追加 (#8270)",
@@ -173,8 +173,8 @@
         },
         {
           "version": "0.74.0",
-          "releaseDate": "2025-12-19",
-          "releaseDateDisplay": "2025年12月19日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "知識・推論・コーディングを改善した最新フロンティアモデル gpt-5.2-codex を導入",
@@ -550,8 +550,8 @@
         },
         {
           "version": "0.73.0",
-          "releaseDate": "2025-12-16",
-          "releaseDateDisplay": "2025年12月16日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "セッションキャプチャ改善のためのゴーストスナップショット v2 を追加 (PR #8055)",
@@ -602,8 +602,8 @@
         },
         {
           "version": "0.72.0",
-          "releaseDate": "2025-12-13",
-          "releaseDateDisplay": "2025年12月13日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "Config API のクリーンアップ: 新しい config API とよりクリーンな config 読み込みフロー (#7924)",
@@ -734,8 +734,8 @@
         },
         {
           "version": "0.71.0",
-          "releaseDate": "2025-12-12",
-          "releaseDateDisplay": "2025年12月12日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "知識・推論・コーディングを改善した最新フロンティアモデル gpt-5.2 を導入",
@@ -836,8 +836,8 @@
         },
         {
           "version": "0.69.0",
-          "releaseDate": "2025-12-11",
-          "releaseDateDisplay": "2025年12月11日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "スキル: 明示的なスキル選択時に SKILL.md の内容をターンに注入。スキルはセッションごとに一度読み込み、ファイルが読めない場合は警告を表示",
@@ -913,8 +913,8 @@
         },
         {
           "version": "0.66.0",
-          "releaseDate": "2025-12-09",
-          "releaseDateDisplay": "2025年12月9日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "Execpolicy の強化: TUI で承認後にコマンドプレフィックスをホワイトリスト化。サンドボックスの拒否時に修正案を提示。シェル MCP に execpolicy を統合。フォールバックチェックでパイプラインセグメントを検査し安全でない操作を検出",
@@ -1190,8 +1190,8 @@
         },
         {
           "version": "0.65.0",
-          "releaseDate": "2025-12-05",
-          "releaseDateDisplay": "2025年12月5日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "Codex Max をデフォルトモデルに変更。async-in-sync コードに関連する TUI パニックを修正 (#7566)",
@@ -1432,8 +1432,8 @@
         },
         {
           "version": "0.64.0",
-          "releaseDate": "2025-12-03",
-          "releaseDateDisplay": "2025年12月3日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "next_minor_version スクリプトでパッチ番号をリセットするよう修正 (#7050)",
@@ -1836,17 +1836,11 @@
               "category": "bug-fixes"
             }
           ]
-        }
-      ]
-    },
-    {
-      "key": "2025-11",
-      "label": "2025年11月",
-      "versions": [
+        },
         {
           "version": "0.63.0",
-          "releaseDate": "2025-11-22",
-          "releaseDateDisplay": "2025年11月22日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "ウェブ検索を有効にすると `Invalid value: 'other'.` エラーが発生するバグを修正",
@@ -1872,8 +1866,8 @@
         },
         {
           "version": "0.61.0",
-          "releaseDate": "2025-11-21",
-          "releaseDateDisplay": "2025年11月21日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "ExecPolicy2 の統合と exec-server の準備: コアに ExecPolicy2 を統合し exec-server のリファクタリングと移行準備、新しいポリシーエンジン導入のためのクイックスタートドキュメントを追加",
@@ -1899,8 +1893,8 @@
         },
         {
           "version": "0.60.1",
-          "releaseDate": "2025-11-20",
-          "releaseDateDisplay": "2025年11月20日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "APIユーザーのデフォルトモデルをgpt-5.1-codexに変更",
@@ -1911,8 +1905,8 @@
         },
         {
           "version": "0.59.0",
-          "releaseDate": "2025-11-20",
-          "releaseDateDisplay": "2025年11月20日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "最新のフロンティアエージェントコーディングモデル GPT-5.1-Codex-Max を導入。より高い信頼性、より速い反復、長時間のプロジェクト規模のワークフローをサポート",
@@ -2408,8 +2402,8 @@
         },
         {
           "version": "0.58.0",
-          "releaseDate": "2025-11-14",
-          "releaseDateDisplay": "2025年11月14日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "gpt-5.1 モデルファミリーをサポート",
@@ -2600,8 +2594,8 @@
         },
         {
           "version": "0.57.0",
-          "releaseDate": "2025-11-10",
-          "releaseDateDisplay": "2025年11月10日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "TUI の使い勝手向上: スラッシュコマンドリストでの Ctrl-N/P ナビゲーションと、バックトラック時に /status のノイズをスキップ",
@@ -2722,8 +2716,8 @@
         },
         {
           "version": "0.56.0",
-          "releaseDate": "2025-11-08",
-          "releaseDateDisplay": "2025年11月8日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "よりコンパクトでコスト効率の高い GPT-5-Codex の新モデル GPT-5-Codex-Mini を導入",
@@ -2884,8 +2878,8 @@
         },
         {
           "version": "0.55.0",
-          "releaseDate": "2025-11-05",
-          "releaseDateDisplay": "2025年11月5日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "\"fix: pin musl 1.2.5 for DNS fixes\" をリバート (#6222)",
@@ -2901,8 +2895,8 @@
         },
         {
           "version": "0.54.0",
-          "releaseDate": "2025-11-05",
-          "releaseDateDisplay": "2025年11月5日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "DNS 修正のため musl 1.2.5 にピン留め（⚠️ v0.55.0 で取り消し）(#6189)",
@@ -3120,17 +3114,11 @@
               "category": "bug-fixes"
             }
           ]
-        }
-      ]
-    },
-    {
-      "key": "2025-10",
-      "label": "2025年10月",
-      "versions": [
+        },
         {
           "version": "0.53.0",
-          "releaseDate": "2025-10-31",
-          "releaseDateDisplay": "2025年10月31日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "エラー 400 の問題を修正",
@@ -3211,8 +3199,8 @@
         },
         {
           "version": "0.52.0",
-          "releaseDate": "2025-10-31",
-          "releaseDateDisplay": "2025年10月31日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "TUI 改善: ストリーミング中にキューメッセージを表示、Windows 自動モードガイダンス、undo 操作、圧縮プロンプトの設定可能化",
@@ -3593,8 +3581,8 @@
         },
         {
           "version": "0.50.0",
-          "releaseDate": "2025-10-26",
-          "releaseDateDisplay": "2025年10月26日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "/feedback を改善し、より良い診断情報を取得可能に (#5661, #5663)",
@@ -3685,8 +3673,8 @@
         },
         {
           "version": "0.49.0",
-          "releaseDate": "2025-10-25",
-          "releaseDateDisplay": "2025年10月25日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "(変更履歴のエントリはありません)",
@@ -3697,8 +3685,8 @@
         },
         {
           "version": "0.48.0",
-          "releaseDate": "2025-10-24",
-          "releaseDateDisplay": "2025年10月24日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "`--add-dir` で追加の作業ディレクトリを指定可能に",
@@ -4089,8 +4077,8 @@
         },
         {
           "version": "0.47.0",
-          "releaseDate": "2025-10-18",
-          "releaseDateDisplay": "2025年10月18日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "Codex CLI の改善とバグ修正",
@@ -4236,8 +4224,8 @@
         },
         {
           "version": "0.46.0",
-          "releaseDate": "2025-10-09",
-          "releaseDateDisplay": "2025年10月9日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "MCP サポートの改善: streamable HTTP サーバー対応（ベアラートークン / OAuth ログインのオプション付き）、experimental_use_rmcp_client フラグの導入",
@@ -4393,8 +4381,8 @@
         },
         {
           "version": "0.45.0",
-          "releaseDate": "2025-10-07",
-          "releaseDateDisplay": "2025年10月7日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "⚠️ `codex login --api-key` を `codex login --with-api-key` に変更し、stdin からキーを読み取るようにしてセキュリティを向上",
@@ -4455,8 +4443,8 @@
         },
         {
           "version": "0.44.0",
-          "releaseDate": "2025-10-04",
-          "releaseDateDisplay": "2025年10月4日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "UI リフレッシュ！チャットコンポーザー、ボトムペイン、モデルピッカー、アップグレードナッジを更新 (#4240, #4316, #4178, #4405)",
@@ -4979,17 +4967,11 @@
               "category": "new-features"
             }
           ]
-        }
-      ]
-    },
-    {
-      "key": "2025-09",
-      "label": "2025年9月",
-      "versions": [
+        },
         {
           "version": "0.42.0",
-          "releaseDate": "2025-09-27",
-          "releaseDateDisplay": "2025年9月27日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "実験的な Rust SDK ベースの MCP クライアントを導入 (#4252)",
@@ -5110,8 +5092,8 @@
         },
         {
           "version": "0.41.0",
-          "releaseDate": "2025-09-25",
-          "releaseDateDisplay": "2025年9月25日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "レート制限の可視化: リセット時刻の表示 (#4111) とレート制限時の使用量表示 (#4102)",
@@ -5222,8 +5204,8 @@
         },
         {
           "version": "0.40.0",
-          "releaseDate": "2025-09-24",
-          "releaseDateDisplay": "2025年9月24日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "デフォルトモデルを `gpt-5-codex` に変更 (#4076)",
@@ -5394,8 +5376,8 @@
         },
         {
           "version": "0.39.0",
-          "releaseDate": "2025-09-19",
-          "releaseDateDisplay": "2025年9月19日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "新しい `/review` コマンドを導入 (#3774)",
@@ -5471,8 +5453,8 @@
         },
         {
           "version": "0.38.0",
-          "releaseDate": "2025-09-18",
-          "releaseDateDisplay": "2025年9月18日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "gh 呼び出し時に --repo を指定するよう修正 (#3806)",
@@ -5483,8 +5465,8 @@
         },
         {
           "version": "0.37.0",
-          "releaseDate": "2025-09-18",
-          "releaseDateDisplay": "2025年9月18日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "npm リリースプロセスを \"trusted publishing\" に更新 (#3431)（⚠️ バグにより効果は v38 以降）",
@@ -5580,8 +5562,8 @@
         },
         {
           "version": "0.36.0",
-          "releaseDate": "2025-09-16",
-          "releaseDateDisplay": "2025年9月16日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "⚠️ 環境変数からの OPENAI_API_KEY 読み込みを廃止。`codex login --api-key` で一度設定すれば auth.json に保存 (#3189)",
@@ -5872,8 +5854,8 @@
         },
         {
           "version": "0.35.0",
-          "releaseDate": "2025-09-16",
-          "releaseDateDisplay": "2025年9月16日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "(変更履歴のエントリはありません)",
@@ -5884,8 +5866,8 @@
         },
         {
           "version": "0.34.0",
-          "releaseDate": "2025-09-11",
-          "releaseDateDisplay": "2025年9月11日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "外部 MCP サーバーの初期化を妨げる問題のホットフィックス (#3436)",
@@ -5901,8 +5883,8 @@
         },
         {
           "version": "0.33.0",
-          "releaseDate": "2025-09-11",
-          "releaseDateDisplay": "2025年9月11日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "#3179 の POSIX 統合がリグレッションを引き起こしたため取り消し (#3430)",
@@ -5968,8 +5950,8 @@
         },
         {
           "version": "0.32.0",
-          "releaseDate": "2025-09-11",
-          "releaseDateDisplay": "2025年9月11日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "MCP: サーバー動作時に UA サフィックスを追加、安定性/互換性の調整 (#3395)",
@@ -6040,8 +6022,8 @@
         },
         {
           "version": "0.31.0",
-          "releaseDate": "2025-09-09",
-          "releaseDateDisplay": "2025年9月9日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "MCP サーバーの `startup_timeout_ms` オプションを追加（Windows ユーザーに特に有用） (#3182)",
@@ -6157,8 +6139,8 @@
         },
         {
           "version": "0.30.0",
-          "releaseDate": "2025-09-06",
-          "releaseDateDisplay": "2025年9月6日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "⚠️ プロジェクトの .env ファイルの自動読み込みを廃止 (#3184)",
@@ -6284,8 +6266,8 @@
         },
         {
           "version": "0.29.0",
-          "releaseDate": "2025-09-03",
-          "releaseDateDisplay": "2025年9月3日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "Android/Termux サポート: arboard 依存を非対応ターゲットでゲート (#2895)",
@@ -6376,8 +6358,8 @@
         },
         {
           "version": "0.28.0",
-          "releaseDate": "2025-09-03",
-          "releaseDateDisplay": "2025年9月3日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "TUI: タイピングのラグを修正 (#2922)",
@@ -6450,17 +6432,11 @@
               "category": "chores"
             }
           ]
-        }
-      ]
-    },
-    {
-      "key": "2025-08",
-      "label": "2025年8月",
-      "versions": [
+        },
         {
           "version": "0.27.0",
-          "releaseDate": "2025-08-29",
-          "releaseDateDisplay": "2025年8月29日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "MCP 安定性: Mutex を早期にドロップしロック順序の問題を回避 (#2878, #2876)",
@@ -6496,8 +6472,8 @@
         },
         {
           "version": "0.26.0",
-          "releaseDate": "2025-08-29",
-          "releaseDateDisplay": "2025年8月29日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "カスタム /prompts: ~/.codex/prompts からプロンプトを読み込み (#2696)",
@@ -6608,8 +6584,8 @@
         },
         {
           "version": "0.25.0",
-          "releaseDate": "2025-08-27",
-          "releaseDateDisplay": "2025年8月27日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "Core: 長時間稼働サーバーで手動クリーンアップを行うための remove_conversation API を追加 (#2613)",
@@ -6685,8 +6661,8 @@
         },
         {
           "version": "0.24.0",
-          "releaseDate": "2025-08-27",
-          "releaseDateDisplay": "2025年8月27日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "キュー済みメッセージ (#2637)",
@@ -6947,8 +6923,8 @@
         },
         {
           "version": "0.23.0",
-          "releaseDate": "2025-08-20",
-          "releaseDateDisplay": "2025年8月20日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "TUI で /mcp コマンドに対応、承認を制御する /approvals スラッシュコマンドを追加 (#2430, #2474)",
@@ -7069,8 +7045,8 @@
         },
         {
           "version": "0.22.0",
-          "releaseDate": "2025-08-16",
-          "releaseDateDisplay": "2025年8月16日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "ログインサーバーを Python から Rust に移行し、#2000 および #2044 の問題を改善 (#2294)",
@@ -7096,8 +7072,8 @@
         },
         {
           "version": "0.21.0",
-          "releaseDate": "2025-08-12",
-          "releaseDateDisplay": "2025年8月12日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "プロンプトキャッシュキーを送信してキャッシュを改善（トークン効率が向上） (#2200)",
@@ -7143,8 +7119,8 @@
         },
         {
           "version": "0.20.0",
-          "releaseDate": "2025-08-09",
-          "releaseDateDisplay": "2025年8月9日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "npm リリースの @openai/codex が TypeScript CLI へのフォールバックではなく Rust CLI を直接実行するよう変更 (#2035, #2048)",
@@ -7165,8 +7141,8 @@
         },
         {
           "version": "0.19.0",
-          "releaseDate": "2025-08-08",
-          "releaseDateDisplay": "2025年8月8日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "(変更履歴のエントリはありません)",
@@ -7177,8 +7153,8 @@
         },
         {
           "version": "0.16.0",
-          "releaseDate": "2025-08-08",
-          "releaseDateDisplay": "2025年8月8日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "キャパシティに関するエラーメッセージの軽微な修正 (#1947)",
@@ -7189,8 +7165,8 @@
         },
         {
           "version": "0.15.0",
-          "releaseDate": "2025-08-08",
-          "releaseDateDisplay": "2025年8月8日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "デフォルトモデルを `gpt-5` に変更",
@@ -7211,8 +7187,8 @@
         },
         {
           "version": "0.14.0",
-          "releaseDate": "2025-08-07",
-          "releaseDateDisplay": "2025年8月7日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "会話ビューから一部の内部メッセージを削除 (#1868, #1866)",
@@ -7228,8 +7204,8 @@
         },
         {
           "version": "0.13.0",
-          "releaseDate": "2025-08-06",
-          "releaseDateDisplay": "2025年8月6日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "OpenAI の新しいオープンウェイトモデルで Codex CLI を使用するための `--oss` フラグを追加",
@@ -7240,8 +7216,8 @@
         },
         {
           "version": "0.12.0",
-          "releaseDate": "2025-08-05",
-          "releaseDateDisplay": "2025年8月5日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "0.11.0 で発生したリグレッションを修正 (#1826)",
@@ -7252,8 +7228,8 @@
         },
         {
           "version": "0.11.0",
-          "releaseDate": "2025-08-02",
-          "releaseDateDisplay": "2025年8月2日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "コピー＆ペーストが正常に動作するよう修正",
@@ -7286,17 +7262,11 @@
               "category": "new-features"
             }
           ]
-        }
-      ]
-    },
-    {
-      "key": "2025-07",
-      "label": "2025年7月",
-      "versions": [
+        },
         {
           "version": "0.10.0",
-          "releaseDate": "2025-07-25",
-          "releaseDateDisplay": "2025年7月25日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "デフォルトで「信頼済み」となるコマンドを拡大 (#1668)",
@@ -7317,8 +7287,8 @@
         },
         {
           "version": "0.9.0",
-          "releaseDate": "2025-07-23",
-          "releaseDateDisplay": "2025年7月23日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "`codex mcp` の多数の修正",
@@ -7339,8 +7309,8 @@
         },
         {
           "version": "0.8.0",
-          "releaseDate": "2025-07-19",
-          "releaseDateDisplay": "2025年7月19日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "TUI と `codex exec` でモデル応答をストリーミング表示 (#1594)",
@@ -7381,8 +7351,8 @@
         },
         {
           "version": "0.7.0",
-          "releaseDate": "2025-07-15",
-          "releaseDateDisplay": "2025年7月15日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "(変更履歴のエントリはありません)",
@@ -7393,8 +7363,8 @@
         },
         {
           "version": "0.6.0",
-          "releaseDate": "2025-07-13",
-          "releaseDateDisplay": "2025年7月13日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "`codex` ツール呼び出しに関連する通知の `id` がリクエスト ID と一致するよう修正",
@@ -7415,8 +7385,8 @@
         },
         {
           "version": "0.5.0",
-          "releaseDate": "2025-07-11",
-          "releaseDateDisplay": "2025年7月11日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "新しい設定オプション `model_supports_reasoning_summaries` を追加 (#1524)",
@@ -7447,8 +7417,8 @@
         },
         {
           "version": "0.4.0",
-          "releaseDate": "2025-07-09",
-          "releaseDateDisplay": "2025年7月9日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "組み込み OpenAI モデルプロバイダーで環境変数 `OPENAI_BASE_URL` を尊重するよう変更",
@@ -7469,8 +7439,8 @@
         },
         {
           "version": "0.3.0",
-          "releaseDate": "2025-07-08",
-          "releaseDateDisplay": "2025年7月8日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "非 ASCII 文字により CLI がクラッシュする問題を修正",
@@ -7491,8 +7461,8 @@
         },
         {
           "version": "0.2.0",
-          "releaseDate": "2025-07-01",
-          "releaseDateDisplay": "2025年7月1日",
+          "releaseDate": "2026-03-01",
+          "releaseDateDisplay": "2026年3月1日",
           "entries": [
             {
               "ja": "(変更履歴のエントリはありません)",
