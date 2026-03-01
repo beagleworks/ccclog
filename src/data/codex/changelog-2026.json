@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-03-01T06:14:25.933Z",
+  "generatedAt": "2026-03-01T09:06:11.938Z",
   "months": [
     {
-      "key": "2026-03",
-      "label": "2026年3月",
+      "key": "2026-02",
+      "label": "2026年2月",
       "versions": [
         {
           "version": "0.106.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-27",
+          "releaseDateDisplay": "2026年2月27日",
           "entries": [
             {
               "ja": "macOS および Linux 向け直接インストールスクリプトを追加し、既存のプラットフォームペイロード（`codex` および `rg` を含む）を使用して GitHub リリースアセットとして公開 (#12740)",
@@ -94,8 +94,8 @@
         },
         {
           "version": "0.105.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-26",
+          "releaseDateDisplay": "2026年2月26日",
           "entries": [
             {
               "ja": "TUI でフェンスコードブロックおよび diff のシンタックスハイライトを追加、ライブプレビュー付き `/theme` ピッカーを追加、ライト/ダーク両ターミナル向けのテーマ対応 diff カラーを改善。(#11447, #12581)",
@@ -171,8 +171,8 @@
         },
         {
           "version": "0.104.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-18",
+          "releaseDateDisplay": "2026年2月18日",
           "entries": [
             {
               "ja": "ネットワークプロキシにおけるWebSocketプロキシ用の `WS_PROXY`/`WSS_PROXY` 環境変数（小文字バリアントを含む）のサポートを追加",
@@ -218,8 +218,8 @@
         },
         {
           "version": "0.103.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-18",
+          "releaseDateDisplay": "2026年2月18日",
           "entries": [
             {
               "ja": "アプリ一覧のレスポンスに`app_metadata`、ブランディング、ラベルなどの詳細情報を追加し、クライアントが追加リクエストなしでより完全なアプリカードを表示可能に。(#11706)",
@@ -250,8 +250,8 @@
         },
         {
           "version": "0.102.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-18",
+          "releaseDateDisplay": "2026年2月18日",
           "entries": [
             {
               "ja": "TUIでの権限履歴の表示改善やサンドボックス読み取りアクセス付与のスラッシュコマンド追加など、権限フローを統一化。(#11633, #11512, #11550, #11639)",
@@ -332,8 +332,8 @@
         },
         {
           "version": "0.101.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-13",
+          "releaseDateDisplay": "2026年2月13日",
           "entries": [
             {
               "ja": "メモリファイルに作業ディレクトリを含めるよう変更し、異なるプロジェクトディレクトリ間を切り替えた際のメモリ動作を改善 (#11591)",
@@ -369,8 +369,8 @@
         },
         {
           "version": "0.100.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-13",
+          "releaseDateDisplay": "2026年2月13日",
           "entries": [
             {
               "ja": "ツールコール間で状態を永続化できる実験的なフィーチャーゲート付きJavaScript REPLランタイム（`js_repl`）を追加し、オプションでランタイムパスのオーバーライドに対応（#10674）",
@@ -461,8 +461,8 @@
         },
         {
           "version": "0.99.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-12",
+          "releaseDateDisplay": "2026年2月12日",
           "entries": [
             {
               "ja": "実行中のターン中に直接シェルコマンドを実行しても中断されなくなり、ターンがアクティブな状態でコマンドを同時実行可能に (#10513)",
@@ -553,8 +553,8 @@
         },
         {
           "version": "0.98.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-06",
+          "releaseDateDisplay": "2026年2月6日",
           "entries": [
             {
               "ja": "GPT-5.3-Codex を導入。[詳細はこちら](https://openai.com/index/introducing-gpt-5-3-codex/)",
@@ -600,8 +600,8 @@
         },
         {
           "version": "0.97.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-05",
+          "releaseDateDisplay": "2026年2月5日",
           "entries": [
             {
               "ja": "MCP/アプリツール承認に対してセッション単位の「許可して記憶」オプションを追加し、同じツールへの繰り返し呼び出しをセッション中に自動承認可能に (#10584)",
@@ -687,8 +687,8 @@
         },
         {
           "version": "0.96.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-05",
+          "releaseDateDisplay": "2026年2月5日",
           "entries": [
             {
               "ja": "`thread/compact` を v2 app-server API に非同期トリガー RPC として追加し、クライアントが圧縮を即座に開始して完了を別途追跡可能にした (#10445)",
@@ -759,8 +759,8 @@
         },
         {
           "version": "0.95.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-04",
+          "releaseDateDisplay": "2026年2月4日",
           "entries": [
             {
               "ja": "macOS において `codex app <path>` を追加。CLI から Codex Desktop を起動し、不足している場合は DMG を自動ダウンロード (#10418)",
@@ -846,8 +846,8 @@
         },
         {
           "version": "0.94.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-02-03",
+          "releaseDateDisplay": "2026年2月3日",
           "entries": [
             {
               "ja": "プランモードがデフォルトで有効化され、プランプロンプトでのインタラクションガイダンスを更新 (#10313, #10308, #10329)",
@@ -890,11 +890,17 @@
               "category": "documentation"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "key": "2026-01",
+      "label": "2026年1月",
+      "versions": [
         {
           "version": "0.93.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-31",
+          "releaseDateDisplay": "2026年1月31日",
           "entries": [
             {
               "ja": "SOCKS5プロキシリスナーをポリシー制御と設定ゲーティング機能付きで追加 (#9803)",
@@ -980,8 +986,8 @@
         },
         {
           "version": "0.92.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-27",
+          "releaseDateDisplay": "2026年1月27日",
           "entries": [
             {
               "ja": "API v2 スレッドが起動時に動的ツールを注入し、呼び出しと応答をサーバーとコアツールパイプライン経由でエンドツーエンドでルーティング可能に",
@@ -1077,8 +1083,8 @@
         },
         {
           "version": "0.91.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-26",
+          "releaseDateDisplay": "2026年1月26日",
           "entries": [
             {
               "ja": "サブエージェントの最大許可数を6に削減し、エージェントのファンアウト動作におけるリソース使用量とガードレールを強化",
@@ -1089,8 +1095,8 @@
         },
         {
           "version": "0.90.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-26",
+          "releaseDateDisplay": "2026年1月26日",
           "entries": [
             {
               "ja": "ネットワークサンドボックスプロキシにポリシー適用機能を追加し、外部ネットワークアクセスの制御を強化 (#8442)",
@@ -1176,8 +1182,8 @@
         },
         {
           "version": "0.89.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-23",
+          "releaseDateDisplay": "2026年1月23日",
           "entries": [
             {
               "ja": "互換性のため `/approvals` を残しつつ、より短い承認セットを持つ `/permissions` コマンドを追加 (#9561)",
@@ -1238,8 +1244,8 @@
         },
         {
           "version": "0.88.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-22",
+          "releaseDateDisplay": "2026年1月22日",
           "entries": [
             {
               "ja": "ヘッドレス環境でデバイスコード認証をスタンドアロンフォールバックとして追加 (#9333)",
@@ -1295,8 +1301,8 @@
         },
         {
           "version": "0.87.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-17",
+          "releaseDateDisplay": "2026年1月17日",
           "entries": [
             {
               "ja": "ユーザーメッセージのメタデータ（テキスト要素とバイト範囲）がプロトコル/アプリサーバー/コアを通じてラウンドトリップするようになり、UI アノテーションが履歴の再構築後も保持されるように改善 (#9331)",
@@ -1352,8 +1358,8 @@
         },
         {
           "version": "0.86.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-16",
+          "releaseDateDisplay": "2026年1月16日",
           "entries": [
             {
               "ja": "スキルのメタデータ（名前、説明、アイコン、ブランドカラー、デフォルトプロンプト）を `SKILL.toml` で定義可能にし、アプリサーバーとTUIで表示できるよう対応（#9125）",
@@ -1399,8 +1405,8 @@
         },
         {
           "version": "0.85.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-16",
+          "releaseDateDisplay": "2026年1月16日",
           "entries": [
             {
               "ja": "App-server v2 がコラボレーションツールの呼び出しをターンストリーム内のアイテムイベントとして出力するようになり、クライアントでエージェント連携をリアルタイムでレンダリング可能に (#9213)",
@@ -1436,8 +1442,8 @@
         },
         {
           "version": "0.84.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-15",
+          "releaseDateDisplay": "2026年1月15日",
           "entries": [
             {
               "ja": "テキスト要素に追加のメタデータを含めるよう Rust プロトコル/型を拡張し、より豊富なクライアントレンダリングとスキーマの進化を可能にする (#9235)",
@@ -1453,8 +1459,8 @@
         },
         {
           "version": "0.81.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-15",
+          "releaseDateDisplay": "2026年1月15日",
           "entries": [
             {
               "ja": "デフォルト API モデルを gpt-5.2-codex に変更 (#9188)",
@@ -1525,8 +1531,8 @@
         },
         {
           "version": "0.80.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-10",
+          "releaseDateDisplay": "2026年1月10日",
           "entries": [
             {
               "ja": "プロトコルとアプリサーバーに会話/スレッドフォークエンドポイントを追加し、クライアントがセッションを新しいスレッドに分岐可能に (#8866)",
@@ -1597,8 +1603,8 @@
         },
         {
           "version": "0.79.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-07",
+          "releaseDateDisplay": "2026年1月7日",
           "entries": [
             {
               "ja": "マルチ会話「エージェント制御」を追加し、セッションがプログラム的に他の会話を生成またはメッセージ送信可能に (#8783, #8788)",
@@ -1694,8 +1700,8 @@
         },
         {
           "version": "0.78.0",
-          "releaseDate": "2026-03-01",
-          "releaseDateDisplay": "2026年3月1日",
+          "releaseDate": "2026-01-07",
+          "releaseDateDisplay": "2026年1月7日",
           "entries": [
             {
               "ja": "`Ctrl+G` で現在のプロンプトを設定済みの外部エディタ（`$VISUAL`/`$EDITOR`）で開き、編集内容をTUIに同期する機能を追加 (#7606)",
