@@ -4,6 +4,26 @@
 
 ---
 
+## 0.107.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| スレッドをサブエージェントにフォークできるようになり、現在の会話を離れずに作業を分岐しやすくなった。(#12499) | You can now fork a thread into sub-agents, making it easier to branch work without leaving the current conversation. (#12499) | new-features |
+| リアルタイム音声セッションでマイクとスピーカーデバイスの選択・設定の永続化が可能になり、文字起こしとの整合性を高めたフォーマットで音声を送信するよう改善。(#12849, #12850, #13030) | Realtime voice sessions now let you pick microphone and speaker devices, persist those choices, and send audio in a format better aligned with transcription. (#12849, #12850, #13030) | new-features |
+| カスタムツールがプレーンテキストに限らず、画像などの構造化コンテンツを含むマルチモーダル出力を返せるように対応。(#12948) | Custom tools can now return multimodal output, including structured content like images, instead of being limited to plain text. (#12948) | new-features |
+| アプリサーバーがより豊富なモデル可用性とアップグレードメタデータを公開するようになり、TUI がそれを利用してプランで制限されたモデルを限定実行ツールチップで説明するように改善。(#12958, #12972, #13021) | The app server now exposes richer model availability and upgrade metadata, and the TUI uses it to explain plan-gated models with limited-run tooltips. (#12958, #12972, #13021) | new-features |
+| メモリが設定可能になり、保存済みメモリ状態を完全リセットするための新コマンド `codex debug clear-memories` を追加。(#12997, #12999, #13002, #13085) | Memories are now configurable, and there is a new `codex debug clear-memories` command to fully reset saved memory state when needed. (#12997, #12999, #13002, #13085) | new-features |
+| `thread/resume` による再接続時に、保留中の承認・入力要求を復元するようになり、クライアントの状態不整合を解消。(#12560) | Reconnecting with `thread/resume` now restores pending approval and input requests instead of leaving clients out of sync. (#12560) | bug-fixes |
+| `thread/start` が無関係なアプリサーバーリクエストをブロックしなくなり、MCP 認証チェックなどの低速な起動パスでの停止を軽減。(#13033) | `thread/start` no longer blocks unrelated app-server requests, reducing stalls during slow startup paths such as MCP auth checks. (#13033) | bug-fixes |
+| インタラクティブなターミナルセッションで最終アシスタント応答が二重に表示される問題を修正。(#13082) | Interactive terminal sessions no longer print the final assistant response twice. (#13082) | bug-fixes |
+| 大きな貼り付けコンテンツのプレースホルダーがファイル補完後も正しく保持されるようになり、`0.106.0` からのリグレッションを修正。(#13070) | Large pasted-content placeholders now survive file completion correctly, fixing a regression from `0.106.0`. (#13070) | bug-fixes |
+| プラン情報なしで登録された ChatGPT アカウントがアカウント読み込みを正しく処理するようになり、繰り返しログイン問題を修正。(#13072) | ChatGPT accounts that arrive without plan info now handle account reads correctly instead of triggering repeated login issues. (#13072) | bug-fixes |
+| TUI における差分レンダリングがテーマカラーをより適切に反映するようになり、Windows Terminal などの低色環境でもより見やすく表示されるよう改善。(#13016, #13037) | Diff rendering in the TUI now respects theme colors better and displays more cleanly in Windows Terminal and other low-color environments. (#13016, #13037) | bug-fixes |
+| MCP OAuth ログインフローで、`resource` パラメータを必要とするサーバー向けに設定済みの `oauth_resource` 値を正しく転送するよう修正。(#12866) | MCP OAuth login flows now forward configured `oauth_resource` values correctly for servers that require a `resource` parameter. (#12866) | bug-fixes |
+| サンドボックス化されたネットワークアクセスによる依存関係インストール失敗をエスカレーション候補として明確に扱うよう、サンドボックスエスカレーションのガイダンスを更新。(#13051) | Updated sandbox escalation guidance so dependency-install failures caused by sandboxed network access are more clearly treated as escalation candidates. (#13051) | documentation |
+| Linux での制限付き読み取り専用処理の改善と Windows での `~/.ssh` などの機密ディレクトリへのアクセス回避により、サンドボックスのファイルシステム動作を強化。(#12369, #12835) | Tightened sandbox filesystem behavior by improving restricted read-only handling on Linux and avoiding sensitive directories like `~/.ssh` on Windows. (#12369, #12835) | chores |
+| エスカレートされたシェルコマンドが再実行時にサンドボックス設定を維持するようになり、承認時に意図した制限が失われる問題を修正。(#12839) | Escalated shell commands now keep their sandbox configuration when rerun, closing a gap where approvals could lose the intended restrictions. (#12839) | chores |
+
 ## 0.106.0
 
 | 日本語 | English | Category |
