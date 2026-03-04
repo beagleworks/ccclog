@@ -209,6 +209,59 @@ describe('main()', () => {
     expect(result.changed).toBe(false);
   });
 
+  it('上流 CHANGELOG から削除されたバージョンが除去される', async () => {
+    // 2.1.41 はローカルにあるが上流 CHANGELOG にはない
+    const contentWithDeleted = `# Claude Code 変更履歴 (2026年)
+
+---
+
+## 2.1.44
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 既存エントリ | Entry for 2.1.44 | added |
+
+## 2.1.42
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 既存エントリ | Entry for 2.1.42 | fixed |
+
+## 2.1.41
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 削除対象 | Deleted entry | other |
+`;
+    fs.writeFileSync(
+      path.join(tmpDir, 'content', 'CHANGELOG_2026_JA.md'),
+      contentWithDeleted,
+      'utf-8'
+    );
+
+    const { result } = await main([]);
+
+    expect(result.removedVersions).toBe(1);
+    expect(result.changed).toBe(true);
+
+    const written = fs.readFileSync(
+      path.join(tmpDir, 'content', 'CHANGELOG_2026_JA.md'),
+      'utf-8'
+    );
+    // 2.1.41 は除去されている
+    expect(written).not.toContain('## 2.1.41');
+    expect(written).not.toContain('Deleted entry');
+    // 他のバージョンは残っている
+    expect(written).toContain('## 2.1.44');
+    expect(written).toContain('## 2.1.42');
+  });
+
+  it('上流削除バージョンがない場合は removedVersions=0', async () => {
+    const { result } = await main([]);
+
+    expect(result.removedVersions).toBe(0);
+  });
+
   it('未記載0件でも版順崩れがあれば changed=true で正規化される', async () => {
     const outOfOrder = LOCAL_CHANGELOG.replace(
       '## 2.1.44',

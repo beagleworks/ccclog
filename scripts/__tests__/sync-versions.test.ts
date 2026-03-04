@@ -8,6 +8,7 @@ import {
   splitChangelogContent,
   sortVersionsDescending,
   type VersionInfo,
+  type ParsedChangelogSections,
 } from '../sync-versions';
 import type { ReleaseInfo } from '../fetch-releases';
 
@@ -203,6 +204,47 @@ describe('sortVersionsDescending', () => {
 
     expect(sorted).toEqual(['2.1.44', '2.1.43', '2.1.42']);
     expect(original).toEqual(['2.1.42', '2.1.44', '2.1.43']);
+  });
+});
+
+describe('upstream version removal via splitChangelogContent', () => {
+  it('sections Map からバージョンを削除して normalizeAndMergeParsedSections で再構築すると除去される', () => {
+    const content = `# Claude Code 変更履歴 (2026年)
+
+---
+
+## 2.1.44
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 既存 | Existing 44 | added |
+
+## 2.1.43
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 削除対象 | To be removed | other |
+
+## 2.1.42
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 既存 | Existing 42 | fixed |
+`;
+
+    const parsed = splitChangelogContent(content);
+    expect(parsed).not.toBeNull();
+    expect(parsed!.sections.has('2.1.43')).toBe(true);
+
+    // 上流削除をシミュレート
+    parsed!.sections.delete('2.1.43');
+
+    const result = normalizeAndMergeParsedSections(parsed!, []);
+
+    expect(result).not.toContain('## 2.1.43');
+    expect(result).not.toContain('To be removed');
+    expect(result).toContain('## 2.1.44');
+    expect(result).toContain('## 2.1.42');
   });
 });
 

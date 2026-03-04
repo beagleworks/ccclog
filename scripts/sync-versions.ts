@@ -427,7 +427,7 @@ export function normalizeAndMergeParsedSections(
 /**
  * CHANGELOG_{YEAR}_JA.md を更新（新規追加 + 版順正規化）
  */
-export function appendToChangelog(year: number, sections: string[]): string | null {
+export function appendToChangelog(year: number, sections: string[], versionsToRemove: string[] = []): string | null {
   const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${year}_JA.md`);
 
   if (!fs.existsSync(filePath)) {
@@ -442,6 +442,11 @@ export function appendToChangelog(year: number, sections: string[]): string | nu
     return null;
   }
 
+  // 上流削除バージョンの除去（§5.2.4）
+  for (const version of versionsToRemove) {
+    parsed.sections.delete(version);
+  }
+
   const newContent = normalizeAndMergeParsedSections(parsed, sections);
   if (newContent === content) {
     return null;
@@ -449,11 +454,11 @@ export function appendToChangelog(year: number, sections: string[]): string | nu
 
   fs.writeFileSync(filePath, newContent, 'utf-8');
 
-  if (sections.length > 0) {
-    console.log(`  ${filePath} を更新しました（${sections.length} バージョン追加 + 版順正規化）`);
-  } else {
-    console.log(`  ${filePath} を更新しました（版順正規化）`);
-  }
+  const parts: string[] = [];
+  if (sections.length > 0) parts.push(`${sections.length} バージョン追加`);
+  if (versionsToRemove.length > 0) parts.push(`${versionsToRemove.length} バージョン除去`);
+  parts.push('版順正規化');
+  console.log(`  ${filePath} を更新しました（${parts.join(' + ')}）`);
   return filePath;
 }
 
@@ -465,6 +470,7 @@ interface MainResult {
   changed: boolean;
   changedFiles: string[];
   addedVersions: number;
+  removedVersions: number;
   translatedEntries: number;
   warnings: string[];
 }
@@ -495,6 +501,7 @@ export async function main(rawArgs: string[]): Promise<{ result: MainResult; rep
 
   // 5. 年ごとに処理
   let totalAdded = 0;
+  let totalRemoved = 0;
   let translatedEntries = 0;
   const changedFiles: string[] = [];
   const warnings: string[] = [];
@@ -586,20 +593,31 @@ export async function main(rawArgs: string[]): Promise<{ result: MainResult; rep
       console.log(`  npm-only スキップ: ${npmOnlySkippedCount}件`);
     }
 
-    // CHANGELOG に反映（新規追加 + 版順正規化）
-    const changedFile = appendToChangelog(year, sections);
+    // 7. 上流削除バージョンの検出（§5.2.4）
+    const versionsToRemove: string[] = [];
+    for (const version of existingVersions) {
+      if (!githubChangelog.has(version)) {
+        versionsToRemove.push(version);
+        console.log(`  [upstream_removed] v${version} は上流 CHANGELOG から削除されたため除去`);
+      }
+    }
+    totalRemoved += versionsToRemove.length;
+
+    // CHANGELOG に反映（新規追加 + 上流削除除去 + 版順正規化）
+    const changedFile = appendToChangelog(year, sections, versionsToRemove);
     if (changedFile) {
       changedFiles.push(path.relative(process.cwd(), changedFile));
     }
   }
 
-  console.log(`\n=== 完了: ${totalAdded} バージョンを追加しました ===`);
+  console.log(`\n=== 完了: ${totalAdded} バージョン追加, ${totalRemoved} バージョン除去 ===`);
   return {
     reportOptions: parsed.report,
     result: {
       changed: changedFiles.length > 0,
       changedFiles,
       addedVersions: totalAdded,
+      removedVersions: totalRemoved,
       translatedEntries,
       warnings,
     },
@@ -619,6 +637,7 @@ if (isDirectRun) {
         changedFiles: result.changedFiles,
         elapsedMs: Date.now() - start,
         addedVersions: result.addedVersions,
+        removedVersions: result.removedVersions,
         translatedEntries: result.translatedEntries,
         warnings: result.warnings,
       };
