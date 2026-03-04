@@ -1,10 +1,22 @@
 {
-  "generatedAt": "2026-03-04T01:48:05.648Z",
+  "generatedAt": "2026-03-04T03:50:00.327Z",
   "months": [
     {
       "key": "2026-03",
       "label": "2026年3月",
       "versions": [
+        {
+          "version": "2.1.66",
+          "releaseDate": "2026-03-04",
+          "releaseDateDisplay": "2026年3月4日",
+          "entries": [
+            {
+              "ja": "不要なエラーログ出力を削減",
+              "en": "Reduced spurious error logging",
+              "category": "improved"
+            }
+          ]
+        },
         {
           "version": "2.1.64",
           "releaseDate": "2026-03-03",

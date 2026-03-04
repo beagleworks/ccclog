@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.66
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 不要なエラーログ出力を削減 | Reduced spurious error logging | improved |
+
 ## 2.1.64
 
 | 日本語 | English | Category |
