@@ -1,10 +1,32 @@
 {
-  "generatedAt": "2026-03-04T03:50:00.327Z",
+  "generatedAt": "2026-03-04T12:10:11.911Z",
   "months": [
     {
       "key": "2026-03",
       "label": "2026年3月",
       "versions": [
+        {
+          "version": "2.1.68",
+          "releaseDate": "2026-03-04",
+          "releaseDateDisplay": "2026年3月4日",
+          "entries": [
+            {
+              "ja": "Max および Team サブスクライバーにおける Opus 4.6 のデフォルト effort を中程度に変更。ほとんどのタスクに適した速度と精度のバランスが取れた設定で、`/model` でいつでも変更可能",
+              "en": "Opus 4.6 now defaults to medium effort for Max and Team subscribers. Medium effort works well for most tasks — it's the sweet spot between speed and thoroughness. You can change this anytime with `/model`",
+              "category": "changed"
+            },
+            {
+              "ja": "次のターンで高い effort を有効にする \"ultrathink\" キーワードを再導入",
+              "en": "Re-introduced the \"ultrathink\" keyword to enable high effort for the next turn",
+              "category": "added"
+            },
+            {
+              "ja": "ファーストパーティ API の Claude Code から Opus 4 および 4.1 を削除し、これらのモデルを固定していたユーザーは自動的に Opus 4.6 へ移行",
+              "en": "Removed Opus 4 and 4.1 from Claude Code on the first-party API — users with these models pinned are automatically moved to Opus 4.6",
+              "category": "changed"
+            }
+          ]
+        },
         {
           "version": "2.1.66",
           "releaseDate": "2026-03-04",

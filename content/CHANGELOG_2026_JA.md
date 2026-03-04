@@ -4,6 +4,14 @@
 
 ---
 
+## 2.1.68
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Max および Team サブスクライバーにおける Opus 4.6 のデフォルト effort を中程度に変更。ほとんどのタスクに適した速度と精度のバランスが取れた設定で、`/model` でいつでも変更可能 | Opus 4.6 now defaults to medium effort for Max and Team subscribers. Medium effort works well for most tasks — it's the sweet spot between speed and thoroughness. You can change this anytime with `/model` | changed |
+| 次のターンで高い effort を有効にする "ultrathink" キーワードを再導入 | Re-introduced the "ultrathink" keyword to enable high effort for the next turn | added |
+| ファーストパーティ API の Claude Code から Opus 4 および 4.1 を削除し、これらのモデルを固定していたユーザーは自動的に Opus 4.6 へ移行 | Removed Opus 4 and 4.1 from Claude Code on the first-party API — users with these models pinned are automatically moved to Opus 4.6 | changed |
+
 ## 2.1.66
 
 | 日本語 | English | Category |
