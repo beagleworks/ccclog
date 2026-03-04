@@ -425,7 +425,7 @@ export function normalizeAndMergeParsedSections(
 }
 
 /**
- * CHANGELOG_{YEAR}_JA.md を更新（新規追加 + 版順正規化）
+ * CHANGELOG_{YEAR}_JA.md を更新（新規追加 + 上流削除除去 + 版順正規化）
  */
 export function appendToChangelog(year: number, sections: string[], versionsToRemove: string[] = []): string | null {
   const filePath = path.join(process.cwd(), 'content', `CHANGELOG_${year}_JA.md`);

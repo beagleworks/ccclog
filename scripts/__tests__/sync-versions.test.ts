@@ -8,7 +8,6 @@ import {
   splitChangelogContent,
   sortVersionsDescending,
   type VersionInfo,
-  type ParsedChangelogSections,
 } from '../sync-versions';
 import type { ReleaseInfo } from '../fetch-releases';
 
