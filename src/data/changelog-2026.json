@@ -1,6 +1,329 @@
 {
-  "generatedAt": "2026-02-28T06:08:05.373Z",
+  "generatedAt": "2026-03-04T01:48:05.648Z",
   "months": [
+    {
+      "key": "2026-03",
+      "label": "2026年3月",
+      "versions": [
+        {
+          "version": "2.1.64",
+          "releaseDate": "2026-03-03",
+          "releaseDateDisplay": "2026年3月3日",
+          "entries": [
+            {
+              "ja": "`claude server` に永続セッションサポートを追加: `session_key` を持つ接続は WebSocket 切断後も維持され、サーバー再起動をまたいで再開可能。新フラグ: `--workspace`、`--idle-timeout`、`--max-sessions`",
+              "en": "Added persistent session support to `claude server`: connections with a `session_key` survive WebSocket disconnects and can be resumed across server restarts. New flags: `--workspace`, `--idle-timeout`, `--max-sessions`.",
+              "category": "added"
+            },
+            {
+              "ja": "ワークツリーまたは同一ディレクトリ分離による複数の同時セッションのホスティングに対応した `claude remote-control server` を追加",
+              "en": "Added `claude remote-control server` for hosting multiple concurrent sessions with worktree or same-dir isolation",
+              "category": "added"
+            },
+            {
+              "ja": "`/remote-control` および `claude remote-control` に、claude.ai/code に表示されるカスタムセッションタイトルを設定するためのオプションの name 引数を追加（`/remote-control My Project` または `--name \"My Project\"`）",
+              "en": "Added optional name argument to `/remote-control` and `claude remote-control` (`/remote-control My Project` or `--name \"My Project\"`) to set a custom session title visible in claude.ai/code",
+              "category": "added"
+            },
+            {
+              "ja": "音声STTが新たに10言語追加でサポート対象（計20言語）— ロシア語、ポーランド語、トルコ語、オランダ語、ウクライナ語、ギリシャ語、チェコ語、デンマーク語、スウェーデン語、ノルウェー語",
+              "en": "Added Voice STT support for 10 new languages (20 total) — Russian, Polish, Turkish, Dutch, Ukrainian, Greek, Czech, Danish, Swedish, Norwegian",
+              "category": "added"
+            },
+            {
+              "ja": "ロゴとスピナーにエフォートレベルの表示（例: \"with low effort\"）を追加し、有効なエフォート設定を確認しやすく改善",
+              "en": "Added effort level display (e.g., \"with low effort\") to the logo and spinner, making it easier to see which effort setting is active",
+              "category": "added"
+            },
+            {
+              "ja": "`claude --agent` 使用時のターミナルタイトルへのエージェント名表示を追加",
+              "en": "Added agent name display in terminal title when using `claude --agent`",
+              "category": "added"
+            },
+            {
+              "ja": "`httpProxyPort` でカスタム MITM プロキシを使用する際に `gh`、`gcloud`、`terraform` などの Go プログラムが TLS 証明書を検証できるようにする `sandbox.enableWeakerNetworkIsolation` 設定を追加（macOS のみ）",
+              "en": "Added `sandbox.enableWeakerNetworkIsolation` setting (macOS only) to allow Go programs like `gh`, `gcloud`, and `terraform` to verify TLS certificates when using a custom MITM proxy with `httpProxyPort`",
+              "category": "added"
+            },
+            {
+              "ja": "Claude のシステムプロンプトから組み込みのコミット・PR ワークフロー指示を除去できる `includeGitInstructions` 設定（および `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` 環境変数）を追加",
+              "en": "Added `includeGitInstructions` setting (and `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` env var) to remove built-in commit and PR workflow instructions from Claude's system prompt",
+              "category": "added"
+            },
+            {
+              "ja": "再起動なしで保留中のプラグイン変更を有効化する `/reload-plugins` コマンドを追加",
+              "en": "Added `/reload-plugins` command to activate pending plugin changes without restarting",
+              "category": "added"
+            },
+            {
+              "ja": "macOS および Windows で Claude Code Desktop を案内するスタートアップ時のプロンプトを追加（最大3回表示、非表示化可能）",
+              "en": "Added a one-time startup prompt suggesting Claude Code Desktop on macOS and Windows (max 3 showings, dismissible)",
+              "category": "added"
+            },
+            {
+              "ja": "スキルが SKILL.md コンテンツ内で自身のディレクトリを参照するための `${CLAUDE_SKILL_DIR}` 変数を追加",
+              "en": "Added `${CLAUDE_SKILL_DIR}` variable for skills to reference their own directory in SKILL.md content",
+              "category": "added"
+            },
+            {
+              "ja": "CLAUDE.md または `.claude/rules/*.md` ファイルがコンテキストに読み込まれた際に発火する `InstructionsLoaded` フックイベントを追加",
+              "en": "Added `InstructionsLoaded` hook event that fires when CLAUDE.md or `.claude/rules/*.md` files are loaded into context",
+              "category": "added"
+            },
+            {
+              "ja": "フックイベントに `agent_id`（サブエージェント用）と `agent_type`（サブエージェントおよび `--agent` 用）を追加",
+              "en": "Added `agent_id` (for subagents) and `agent_type` (for subagents and `--agent`) to hook events",
+              "category": "added"
+            },
+            {
+              "ja": "`--worktree` セッション実行時、ステータスラインフックコマンドに name・path・branch・元リポジトリディレクトリを含む `worktree` フィールドを追加",
+              "en": "Added `worktree` field to status line hook commands with name, path, branch, and original repo directory when running in a `--worktree` session",
+              "category": "added"
+            },
+            {
+              "ja": "バックグラウンドタスクインジケーターへのスケジュール済みスキルトリガーの追加、およびスケジュールとカウントダウンを表示する詳細ダイアログを追加",
+              "en": "Added scheduled skill triggers to the background tasks indicator with a detail dialog showing schedule and countdown",
+              "category": "added"
+            },
+            {
+              "ja": "インストール前に表示されるプラグイン信頼警告に組織固有のコンテキストを付加するため、マネージド設定に `pluginTrustMessage` を追加",
+              "en": "Added `pluginTrustMessage` in managed settings to append organization-specific context to the plugin trust warning shown before installation",
+              "category": "added"
+            },
+            {
+              "ja": "Team プラン OAuth ユーザーにも Enterprise と同様にポリシー制限の取得（例: リモートコントロール制限）を追加",
+              "en": "Added policy limit fetching (e.g., remote control restrictions) for Team plan OAuth users, not just Enterprise",
+              "category": "added"
+            },
+            {
+              "ja": "`strictKnownMarketplaces` に `hostPattern` 制限と併用してファイル/ディレクトリのマーケットプレイスソースを正規表現マッチングする `pathPattern` を追加",
+              "en": "Added `pathPattern` to `strictKnownMarketplaces` for regex-matching file/directory marketplace sources alongside `hostPattern` restrictions",
+              "category": "added"
+            },
+            {
+              "ja": "gitリポジトリ内のサブディレクトリを指定するプラグインソースタイプ `git-subdir` を追加",
+              "en": "Added plugin source type `git-subdir` to point to a subdirectory within a git repo",
+              "category": "added"
+            },
+            {
+              "ja": "自動メモリディレクトリを直接パスで上書きするための環境変数 `CLAUDE_CODE_AUTO_MEMORY_PATH` を追加",
+              "en": "Added `CLAUDE_CODE_AUTO_MEMORY_PATH` env var to override the auto-memory directory with a direct path",
+              "category": "added"
+            },
+            {
+              "ja": "MCP サーバー向けに、標準ディスカバリが失敗した場合のカスタム OAuth メタデータディスカバリ URL を指定する `oauth.authServerMetadataUrl` 設定オプションを追加",
+              "en": "Added `oauth.authServerMetadataUrl` config option for MCP servers to specify a custom OAuth metadata discovery URL when standard discovery fails",
+              "category": "added"
+            },
+            {
+              "ja": "`acceptEdits` モードにおいて、シンボリックリンクされた親ディレクトリ経由で新規ファイルを書き込むことで作業ディレクトリを逸脱できるシンボリックリンクバイパスを修正",
+              "en": "Fixed symlink bypass where writing new files through a symlinked parent directory could escape the working directory in `acceptEdits` mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "管理設定で `allowManagedDomainsOnly` が有効な場合、許可されていないドメインへのアクセス承認をユーザーに求めていた不具合を修正 — 非許可ドメインはバイパスなしで自動的にブロックされるように変更",
+              "en": "Fixed sandbox prompting users to approve non-allowed domains when `allowManagedDomainsOnly` is enabled in managed settings — non-allowed domains are now blocked automatically with no bypass",
+              "category": "fixed"
+            },
+            {
+              "ja": "スキルの allowed-tools に列挙された場合に、インタラクティブツール（例: `AskUserQuestion`）が許可プロンプトをバイパスして空の回答で暗黙的に自動許可される問題を修正",
+              "en": "Fixed interactive tools (e.g., `AskUserQuestion`) being silently auto-allowed when listed in a skill's allowed-tools, bypassing the permission prompt and running with empty answers",
+              "category": "fixed"
+            },
+            {
+              "ja": "ワーキングツリーに大きな未追跡バイナリファイルが存在する場合にコミット時に数GB規模のメモリスパイクが発生する問題を修正",
+              "en": "Fixed multi-GB memory spike when committing with large untracked binary files in the working tree",
+              "category": "fixed"
+            },
+            {
+              "ja": "入力ボックスに下書きテキストがある場合に Escape が実行中のターンを中断しない問題を修正。上矢印キーでキュー済みメッセージを編集用に引き戻し、Ctrl+U で入力行をクリア可能",
+              "en": "Fixed Escape not interrupting a running turn when the input box has draft text. Use Up arrow to pull queued messages back for editing, or Ctrl+U to clear the input line.",
+              "category": "fixed"
+            },
+            {
+              "ja": "リモートコントロールセッションでローカルスラッシュコマンド（`/voice`、`/cost`）を実行したときにAndroidアプリがクラッシュする問題を修正",
+              "en": "Fixed Android app crash when running local slash commands (`/voice`, `/cost`) in Remote Control sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "長時間セッションで古いメッセージ配列バージョンが React Compiler の `memoCache` に蓄積するメモリリークを修正",
+              "en": "Fixed a memory leak where old message array versions accumulated in React Compiler `memoCache` over long sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "長いセッションでREPLのレンダースコープが蓄積されるメモリリークを修正（1000ターンで約35MB）",
+              "en": "Fixed a memory leak where REPL render scopes accumulated over long sessions (~35MB over 1000 turns)",
+              "category": "fixed"
+            },
+            {
+              "ja": "インプロセスのチームメートにおいて、チームメートの存続期間中に親の会話履歴全体がピン留めされ、`/clear` や自動コンパクト後のGCが妨げられていたメモリ保持の問題を修正",
+              "en": "Fixed memory retention in in-process teammates where the parent's full conversation history was pinned for the teammate's lifetime, preventing GC after `/clear` or auto-compact",
+              "category": "fixed"
+            },
+            {
+              "ja": "インタラクティブモードで長時間のセッション中にフックイベントが無制限に蓄積されるメモリリークを修正",
+              "en": "Fixed a memory leak in interactive mode where hook events could accumulate unboundedly during long sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--mcp-config` が破損ファイルを参照した際のハングを修正",
+              "en": "Fixed hang when `--mcp-config` points to a corrupted file",
+              "category": "fixed"
+            },
+            {
+              "ja": "スキル・プラグインが多数インストールされている場合の起動が遅い問題を修正",
+              "en": "Fixed slow startup when many skills/plugins are installed",
+              "category": "fixed"
+            },
+            {
+              "ja": "`cd <outside-dir> && rm/mv/cp ...` 実行時のパーミッションプロンプトが「`<dir>/` の読み取りを許可」のみを表示していた問題を修正し、連鎖する書き込みコマンドも表示されるよう対応",
+              "en": "Fixed `cd <outside-dir> && rm/mv/cp ...` permission prompt to mention the chained write command instead of only showing \"allow reading from <dir>/\"",
+              "category": "fixed"
+            },
+            {
+              "ja": "`cd <outside-dir> && <cmd>` の権限確認プロンプトで「Yes, allow reading from <dir>/」のみ表示される問題を修正し、チェーンされたコマンドも正しく表示されるように対応",
+              "en": "Fixed `cd <outside-dir> && <cmd>` permission prompt to surface the chained command instead of only showing \"Yes, allow reading from <dir>/\"",
+              "category": "fixed"
+            },
+            {
+              "ja": "条件付き `.claude/rules/*.md` ファイル（`paths:` フロントマター付き）およびネストされた CLAUDE.md ファイルがプリントモード（`claude -p`）で読み込まれない問題を修正",
+              "en": "Fixed conditional `.claude/rules/*.md` files (with `paths:` frontmatter) and nested CLAUDE.md files not loading in print mode (`claude -p`)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/clear` がすべてのセッションキャッシュを完全にクリアしない問題を修正、長時間セッションでのメモリ保持量を削減",
+              "en": "Fixed `/clear` not fully clearing all session caches, reducing memory retention in long sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "スクロールバック境界でアニメーション要素が引き起こすターミナルのちらつきを修正",
+              "en": "Fixed terminal flicker caused by animated elements at the scrollback boundary",
+              "category": "fixed"
+            },
+            {
+              "ja": "macOS で MCP サーバーと OAuth を使用した際の UI フレームドロップを修正（2.1.x からのリグレッション）",
+              "en": "Fixed UI frame drops on macOS when using MCP servers with OAuth (regression from 2.1.x)",
+              "category": "fixed"
+            },
+            {
+              "ja": "同期デバッグログのフラッシュによりタイピング中に断続的に発生するフレームの停止を修正",
+              "en": "Fixed occasional frame stalls during typing caused by synchronous debug log flushes",
+              "category": "fixed"
+            },
+            {
+              "ja": "`TeammateIdle` および `TaskCompleted` フックで `{\"continue\": false, \"stopReason\": \"...\"}` によるチームメート停止をサポートするよう修正（`Stop` フックの動作に準拠）",
+              "en": "Fixed `TeammateIdle` and `TaskCompleted` hooks to support `{\"continue\": false, \"stopReason\": \"...\"}` to stop the teammate, matching `Stop` hook behavior",
+              "category": "fixed"
+            },
+            {
+              "ja": "`WorktreeCreate` と `WorktreeRemove` プラグインフックが暗黙的に無視される問題を修正",
+              "en": "Fixed `WorktreeCreate` and `WorktreeRemove` plugin hooks being silently ignored",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラグインまたは SDK コンシューマーが登録した `WorktreeCreate` フックがサイレントに無視される問題を修正",
+              "en": "Fixed `WorktreeCreate` hooks registered by plugins or SDK consumers being silently ignored",
+              "category": "fixed"
+            },
+            {
+              "ja": "スキルの説明にコロンを含む場合（例: \"Triggers include: X, Y, Z\"）にSKILL.mdフロントマターから読み込みに失敗する問題を修正",
+              "en": "Fixed skill descriptions with colons (e.g., \"Triggers include: X, Y, Z\") failing to load from SKILL.md frontmatter",
+              "category": "fixed"
+            },
+            {
+              "ja": "`description:` フロントマターフィールドがないプロジェクトスキルが Claude の利用可能なスキル一覧に表示されない問題を修正",
+              "en": "Fixed project skills without a `description:` frontmatter field not appearing in Claude's available skills list",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCPサーバーのすべてのツールで同一のトークン数が表示される `/context` の問題を修正 (#なし)",
+              "en": "Fixed `/context` showing identical token counts for all MCP tools from a server",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows上でモデルがGit BashでCMDスタイルの`2>nul`リダイレクトを使用した際に`nul`ファイルが実際に作成されてしまう問題を修正",
+              "en": "Fixed literal `nul` file creation on Windows when the model uses CMD-style `2>nul` redirection in Git Bash",
+              "category": "fixed"
+            },
+            {
+              "ja": "サブエージェントのトランスクリプト展開表示（Ctrl+O）で各ツール呼び出しの下に余分な空白行が表示される問題を修正",
+              "en": "Fixed extra blank lines appearing below each tool call in the expanded subagent transcript view (Ctrl+O)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/config` の検索ボックスにフォーカスがあり空の場合、Tab/矢印キーで設定タブを循環できない問題を修正",
+              "en": "Fixed Tab/arrow keys not cycling Settings tabs when `/config` search box is focused but empty",
+              "category": "fixed"
+            },
+            {
+              "ja": "サービスキー OAuth セッション（CCR コンテナ）がプロファイルスコープのエンドポイントへの 403 エラーにより `[ERROR]` ログを大量出力する問題を修正",
+              "en": "Fixed service key OAuth sessions (CCR containers) spamming `[ERROR]` logs with 403s from profile-scoped endpoints",
+              "category": "fixed"
+            },
+            {
+              "ja": "「Remote Control active」ステータスインジケーターの色が不統一だった問題を修正",
+              "en": "Fixed inconsistent color for \"Remote Control active\" status indicator",
+              "category": "fixed"
+            },
+            {
+              "ja": "入力途中でのディクテーション時に音声波形カーソルが最初のサフィックス文字を覆う問題を修正",
+              "en": "Fixed Voice waveform cursor covering the first suffix letter when dictating mid-input",
+              "category": "fixed"
+            },
+            {
+              "ja": "ウォームアップ中に音声入力が約2個に制限せず5個全てのスペースを表示していた問題を修正（「keep holding…」ヒントとの整合性対応）",
+              "en": "Fixed Voice input showing all 5 spaces during warmup instead of capping at ~2 (aligning with the \"keep holding…\" hint)",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP バイナリコンテンツ処理の改善: PDF・Office ドキュメント・音声を返すツールが、生の base64 を会話コンテキストにダンプする代わりに、デコードされたバイトを正しいファイル拡張子でディスクに保存するよう変更。WebFetch もバイナリレスポンスをサマリーと共に保存。",
+              "en": "Improved MCP binary content handling: tools returning PDFs, Office documents, or audio now save decoded bytes to disk with the correct file extension instead of dumping raw base64 into the conversation context. WebFetch also saves binary responses alongside its summary.",
+              "category": "improved"
+            },
+            {
+              "ja": "メッセージ更新間で `onSubmit` を安定させることで、長時間セッションのメモリ使用量を改善",
+              "en": "Improved memory usage in long sessions by stabilizing `onSubmit` across message updates",
+              "category": "improved"
+            },
+            {
+              "ja": "LSP ツールのレンダリングとメモリコンテキスト構築を改善し、ファイル全体を読み込まないように変更",
+              "en": "Improved LSP tool rendering and memory context building to no longer read entire files",
+              "category": "improved"
+            },
+            {
+              "ja": "セッションアップロードとメモリ同期を改善し、サイズ/バイナリチェック前に大容量ファイルをメモリへ読み込まないよう対応",
+              "en": "Improved session upload and memory sync to avoid reading large files into memory before size/binary checks",
+              "category": "improved"
+            },
+            {
+              "ja": "存在確認時のファイルコンテンツ読み込みを回避し、ファイル操作パフォーマンスを改善 (6 箇所)",
+              "en": "Improved file operation performance by avoiding reading file contents for existence checks (6 sites)",
+              "category": "improved"
+            },
+            {
+              "ja": "`--append-system-prompt-file` と `--system-prompt-file` がインタラクティブモードでも動作することを明確化するためドキュメントを改善（以前はプリントモードのみと記載されていた）",
+              "en": "Improved documentation to clarify that `--append-system-prompt-file` and `--system-prompt-file` work in interactive mode (the docs previously said print mode only)",
+              "category": "improved"
+            },
+            {
+              "ja": "Ctrl+O のシンキングサマリー表示を全内容ではなく `✻ Thinking…` スタブのみ表示するよう変更（元に戻すには settings.json で `showThinkingSummaries: true` を設定）",
+              "en": "Changed thinking summaries in Ctrl+O to show a `✻ Thinking…` stub instead of full content. Set `showThinkingSummaries: true` in settings.json to restore.",
+              "category": "changed"
+            },
+            {
+              "ja": "[VSCode] タイトルなしかつ空のアクティブセッションにリネームと削除アイコンが表示される問題を修正",
+              "en": "[VSCode] Fixed rename and remove icons showing on the current active session when it is untitled and empty",
+              "category": "fixed"
+            },
+            {
+              "ja": "[VSCode] 一部のツールでタイムラインに空白のドットが表示される問題を修正",
+              "en": "[VSCode] Fixed blank dot appearing in the timeline for some tools",
+              "category": "fixed"
+            }
+          ]
+        }
+      ]
+    },
     {
       "key": "2026-02",
       "label": "2026年2月",
