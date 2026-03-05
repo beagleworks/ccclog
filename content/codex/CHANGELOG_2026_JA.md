@@ -4,6 +4,24 @@
 
 ---
 
+## 0.110.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| スキル、MCPエントリ、アプリコネクタをコンフィグまたはローカルマーケットプレイスから読み込めるプラグインシステムを追加し、アプリサーバーからプラグインを有効化するインストールエンドポイントを実装。(#12864, #13333, #13401, #13422) | Added a plugin system that can load skills, MCP entries, and app connectors from config or a local marketplace, with an install endpoint for enabling plugins from the app server. (#12864, #13333, #13401, #13422) | new-features |
+| TUIマルチエージェントフローを拡張し、承認プロンプト、`/agent`による有効化、明確化されたプロンプト、序数ニックネーム、ロールラベル付きハンドオフコンテキストを追加。(#12995, #13246, #13404, #13412, #13505) | Expanded the TUI multi-agent flow with approval prompts, `/agent`-based enablement, clearer prompts, ordinal nicknames, and role-labeled handoff context. (#12995, #13246, #13404, #13412, #13505) | new-features |
+| TUIへの永続的な `/fast` トグルと、アプリサーバーへの `fast` および `flex` サービスティアのサポートを追加。(#13212, #13334, #13391) | Added a persisted `/fast` toggle in the TUI and app-server support for `fast` and `flex` service tiers. (#13212, #13334, #13391) | new-features |
+| ワークスペーススコープの書き込み、メモリ設定のリネーム、古い情報や汚染されたデータの保存を防ぐガードレールによりメモリ機能を改善。(#13008, #13088, #13237, #13467) | Improved memories with workspace-scoped writes, renamed memory settings, and guardrails against saving stale or polluted facts. (#13008, #13088, #13237, #13467) | new-features |
+| Windows用の直接インストーラースクリプトをリリース成果物に追加。(#12741) | Added a direct Windows installer script to published release artifacts. (#12741) | new-features |
+| `@` ファイルメンションにおいて、親ディレクトリの `.gitignore` ルールが有効なリポジトリファイルを隠す問題を修正。(#13250) | Fixed `@` file mentions so parent-directory `.gitignore` rules no longer hide valid repository files. (#13250) | bug-fixes |
+| シェル状態の正しい再利用および `/status`・`Esc`・保留メッセージ処理・起動/プロファイルの競合状態を修正し、サブエージェントの速度と安定性を向上。(#12935, #13052, #13130, #13131, #13235, #13240, #13248) | Made sub-agents faster and more reliable by reusing shell state correctly and fixing `/status`, `Esc`, pending-message handling, and startup/profile race conditions. (#12935, #13052, #13130, #13131, #13235, #13240, #13248) | bug-fixes |
+| CLIオーバーライドが信頼済みプロジェクトローカルMCPトランスポートに正しく適用されるよう、プロジェクトトラストのパース処理を修正。(#13090) | Fixed project trust parsing so CLI overrides apply correctly to trusted project-local MCP transports. (#13090) | bug-fixes |
+| 読み取り専用サンドボックスポリシーにおいて、ネットワークアクセスが明示的に有効化されている場合に正しく保持されるよう修正。(#13409) | Fixed read-only sandbox policies so network access is preserved when it is explicitly enabled. (#13409) | bug-fixes |
+| 複数行の環境変数エクスポートのキャプチャとセッション状態におけるWindows状態DBパスの処理を修正。(#12642, #13336) | Fixed multiline environment export capture and Windows state DB path handling in session state. (#12642, #13336) | bug-fixes |
+| TUIでターミナルテーマカラーが正しくレンダリングされるよう、ANSI/base16シンタックスハイライトを修正。(#13382) | Fixed ANSI/base16 syntax highlighting so terminal-themed colors render correctly in the TUI. (#13382) | bug-fixes |
+| サービスティア、プラグインインストール、未読み込みスレッドのリネーム、新しい `skills/changed` 通知に関するアプリサーバードキュメントを拡充。(#13282, #13391, #13414, #13422) | Expanded app-server docs around service tiers, plugin installation, renaming unloaded threads, and the new `skills/changed` notification. (#13282, #13391, #13414, #13422) | documentation |
+| 現行プロトコルへの移行に伴い、レガシーアプリサーバーv1のWebSocket/RPC インターフェースを削除。(#13364, #13375, #13397) | Removed the remaining legacy app-server v1 websocket/RPC surfaces in favor of the current protocol. (#13364, #13375, #13397) | chores |
+
 ## 0.107.0
 
 | 日本語 | English | Category |
