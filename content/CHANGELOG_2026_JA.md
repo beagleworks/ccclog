@@ -4,6 +4,114 @@
 
 ---
 
+## 2.1.69
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Claude API および Anthropic SDK を使用したアプリケーション構築のための `/claude-api` スキルを追加 | Added the `/claude-api` skill for building applications with the Claude API and Anthropic SDK | added |
+| 空のbashプロンプト（`!`）でCtrl+Uを押すとbashモードを終了できるように追加（`escape`および`backspace`と同様の動作） | Added Ctrl+U on an empty bash prompt (`!`) to exit bash mode, matching `escape` and `backspace` | added |
+| インタビュー質問の選択肢選択にテンキー入力を追加（以前はQWERTY上部の数字キーのみ対応） | Added numeric keypad support for selecting options in Claude's interview questions (previously only the number row above QWERTY worked) | added |
+| `/remote-control` および `claude remote-control` にオプションの名前引数を追加（`/remote-control My Project` または `--name "My Project"`）し、claude.ai/code に表示されるカスタムセッションタイトルを設定可能に | Added optional name argument to `/remote-control` and `claude remote-control` (`/remote-control My Project` or `--name "My Project"`) to set a custom session title visible in claude.ai/code | added |
+| 音声STTの対応言語を10言語追加（合計20言語）— ロシア語、ポーランド語、トルコ語、オランダ語、ウクライナ語、ギリシャ語、チェコ語、デンマーク語、スウェーデン語、ノルウェー語 | Added Voice STT support for 10 new languages (20 total) — Russian, Polish, Turkish, Dutch, Ukrainian, Greek, Czech, Danish, Swedish, Norwegian | added |
+| ロゴとスピナーにエフォートレベルの表示（例：「with low effort」）を追加し、どのエフォート設定が有効か確認しやすくなった | Added effort level display (e.g., "with low effort") to the logo and spinner, making it easier to see which effort setting is active | added |
+| `claude --agent` 使用時のターミナルタイトルへのエージェント名表示を追加 | Added agent name display in terminal title when using `claude --agent` | added |
+| `sandbox.enableWeakerNetworkIsolation` 設定を追加（macOS のみ）。`httpProxyPort` でカスタム MITM プロキシを使用する際に、`gh`、`gcloud`、`terraform` などの Go プログラムが TLS 証明書を検証できるようにする | Added `sandbox.enableWeakerNetworkIsolation` setting (macOS only) to allow Go programs like `gh`, `gcloud`, and `terraform` to verify TLS certificates when using a custom MITM proxy with `httpProxyPort` | added |
+| `includeGitInstructions` 設定（および `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` 環境変数）を追加し、Claudeのシステムプロンプトから組み込みのコミット・PRワークフロー手順を削除可能に | Added `includeGitInstructions` setting (and `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` env var) to remove built-in commit and PR workflow instructions from Claude's system prompt | added |
+| 再起動なしに保留中のプラグイン変更を有効化する `/reload-plugins` コマンドを追加 | Added `/reload-plugins` command to activate pending plugin changes without restarting | added |
+| macOSおよびWindowsでClaude Code Desktopを提案する起動時ワンタイムプロンプトを追加（最大3回表示、非表示化可能） | Added a one-time startup prompt suggesting Claude Code Desktop on macOS and Windows (max 3 showings, dismissible) | added |
+| スキルが SKILL.md コンテンツ内で自身のディレクトリを参照できる `${CLAUDE_SKILL_DIR}` 変数を追加 | Added `${CLAUDE_SKILL_DIR}` variable for skills to reference their own directory in SKILL.md content | added |
+| CLAUDE.md または `.claude/rules/*.md` ファイルがコンテキストに読み込まれた際に発火する `InstructionsLoaded` フックイベントを追加 | Added `InstructionsLoaded` hook event that fires when CLAUDE.md or `.claude/rules/*.md` files are loaded into context | added |
+| フック イベントに `agent_id`（サブエージェント用）と `agent_type`（サブエージェントおよび `--agent` 用）を追加 | Added `agent_id` (for subagents) and `agent_type` (for subagents and `--agent`) to hook events | added |
+| `--worktree` セッション実行時に、名前・パス・ブランチ・元リポジトリディレクトリを含む `worktree` フィールドをステータスラインフックコマンドに追加 | Added `worktree` field to status line hook commands with name, path, branch, and original repo directory when running in a `--worktree` session | added |
+| マネージド設定に `pluginTrustMessage` を追加し、インストール前に表示されるプラグイン信頼警告に組織固有のコンテキストを追記できるように対応 | Added `pluginTrustMessage` in managed settings to append organization-specific context to the plugin trust warning shown before installation | added |
+| チームプランのOAuthユーザーにも、エンタープライズ限定だったポリシー制限取得（例: リモートコントロール制限）を対応 | Added policy limit fetching (e.g., remote control restrictions) for Team plan OAuth users, not just Enterprise | added |
+| `strictKnownMarketplaces` に `pathPattern` を追加し、`hostPattern` の制限に加えてファイル/ディレクトリのマーケットプレイスソースの正規表現マッチングに対応 | Added `pathPattern` to `strictKnownMarketplaces` for regex-matching file/directory marketplace sources alongside `hostPattern` restrictions | added |
+| gitリポジトリ内のサブディレクトリを指定するプラグインソースタイプ `git-subdir` を追加 | Added plugin source type `git-subdir` to point to a subdirectory within a git repo | added |
+| MCP サーバーで標準ディスカバリーが失敗した場合にカスタム OAuth メタデータディスカバリー URL を指定できる `oauth.authServerMetadataUrl` 設定オプションを追加 | Added `oauth.authServerMetadataUrl` config option for MCP servers to specify a custom OAuth metadata discovery URL when standard discovery fails | added |
+| ネストされたスキル探索が `node_modules` などの gitignore 対象ディレクトリからスキルを読み込む可能性があったセキュリティ問題を修正 | Fixed a security issue where nested skill discovery could load skills from gitignored directories like `node_modules` | fixed |
+| 初回実行時に `.mcp.json` のすべてのサーバーが暗黙的に有効化される信頼ダイアログの不具合を修正。サーバーごとの承認ダイアログが期待通り表示されるように | Fixed trust dialog silently enabling all `.mcp.json` servers on first run. You'll now see the per-server approval dialog as expected | fixed |
+| `claude remote-control` が npm インストール時に "bad option: --sdk-url" でクラッシュする問題を修正 (anthropics/claude-code#28334) | Fixed `claude remote-control` crashing immediately on npm installs with "bad option: --sdk-url" (anthropics/claude-code#28334) | fixed |
+| `--model claude-opus-4-0` および `--model claude-opus-4-1` が非推奨の Opus バージョンに解決される問題を修正 | Fixed `--model claude-opus-4-0` and `--model claude-opus-4-1` resolving to deprecated Opus versions instead of current | fixed |
+| 複数のOAuth MCPサーバー使用時にmacOSキーチェーンが破損する問題を修正。大きなOAuthメタデータのblobが`security -i`の標準入力バッファをオーバーフローし、古い認証情報がサイレントに残留して`/login`プロンプトが繰り返し表示される原因となっていた問題に対処 | Fixed macOS keychain corruption when using multiple OAuth MCP servers. Large OAuth metadata blobs could overflow the `security -i` stdin buffer, silently leaving stale credentials behind and causing repeated `/login` prompts. | fixed |
+| トークンリフレッシュ中にプロファイルエンドポイントが一時的に失敗した際、`.credentials.json` の `subscriptionType` が失われる（"Claude Pro"/"Claude Max" の代わりに "Claude API" と表示される）問題を修正 (anthropics/claude-code#30185) | Fixed `.credentials.json` losing `subscriptionType` (showing "Claude API" instead of "Claude Pro"/"Claude Max") when the profile endpoint transiently fails during token refresh (anthropics/claude-code#30185) | fixed |
+| サンドボックス化された Bash コマンド実行後に、Linux の作業ディレクトリにゴーストドットファイル（`.bashrc`、`HEAD` など）が未追跡ファイルとして表示される問題を修正 | Fixed ghost dotfiles (`.bashrc`, `HEAD`, etc.) appearing as untracked files in the working directory after sandboxed Bash commands on Linux | fixed |
+| SSH経由のGhosttyでShift+Enterが改行を挿入せず`[27;2;13~`を出力してしまう問題を修正 | Fixed Shift+Enter printing `[27;2;13~` instead of inserting a newline in Ghostty over SSH | fixed |
+| Claudeの処理中にメッセージを送信した際にスタッシュ（Ctrl+S）がクリアされるバグを修正 | Fixed stash (Ctrl+S) being cleared when submitting a message while Claude is working | fixed |
+| 多数のファイル編集を含む長いセッションで ctrl+o（トランスクリプト切り替え）が数秒間フリーズする問題を修正 | Fixed ctrl+o (transcript toggle) freezing for many seconds in long sessions with lots of file edits | fixed |
+| プランモードのフィードバック入力で複数行テキスト入力がサポートされていなかった問題を修正（バックスラッシュ+EnterおよびShift+Enterで改行を挿入可能に） | Fixed plan mode feedback input not supporting multi-line text entry (backslash+Enter and Shift+Enter now insert newlines) | fixed |
+| 入力ボックス上部の空行にカーソルが移動しない問題を修正 | Fixed cursor not moving down into blank lines at the top of the input box | fixed |
+| トランスクリプトファイルにタイムスタンプが欠落または不正なエントリが含まれる場合に `/stats` がクラッシュする問題を修正 | Fixed `/stats` crash when transcript files contain entries with missing or malformed timestamps | fixed |
+| 長いセッションでストリーミングエラー発生後に一時的なフリーズが起きる問題を修正（1行削除のためにトランスクリプト全体を書き直していたが、その場での切り捨てに変更） | Fixed a brief hang after a streaming error on long sessions (the transcript was being fully rewritten to drop one line; it is now truncated in place) | fixed |
+| `--setting-sources user` 指定時に動的に検出されたプロジェクトスキルがブロックされない問題を修正 | Fixed `--setting-sources user` not blocking dynamically discovered project skills | fixed |
+| ワークツリーがメインリポジトリ内にネストされている場合（例: `claude -w`）に CLAUDE.md、スラッシュコマンド、エージェント、ルールが重複して読み込まれる問題を修正 | Fixed duplicate CLAUDE.md, slash commands, agents, and rules when running from a worktree nested inside its main repo (e.g. `claude -w`) | fixed |
+| `/plugin` 操作後にプラグインの Stop/SessionEnd 等のフックが発火しない問題を修正 | Fixed plugin Stop/SessionEnd/etc hooks not firing after any `/plugin` operation | fixed |
+| 2つのプラグインが同じ `${CLAUDE_PLUGIN_ROOT}/...` コマンドテンプレートを使用している場合にプラグインフックがサイレントに破棄される問題を修正 | Fixed plugin hooks being silently dropped when two plugins use the same `${CLAUDE_PLUGIN_ROOT}/...` command template | fixed |
+| 長時間実行される SDK/CCR セッションで会話メッセージが不必要に保持されていたメモリリークを修正 | Fixed memory leak in long-running SDK/CCR sessions where conversation messages were retained unnecessarily | fixed |
+| セッションがツールバッチ途中で中断された後に再開する際、フォークされたエージェント（自動圧縮・要約）で発生していた API 400 エラーを修正 | Fixed API 400 errors in forked agents (autocompact, summarization) when resuming sessions that were interrupted mid-tool-batch | fixed |
+| 孤立したツール結果から始まる会話を再開した際に発生する「unexpected tool_use_id found in tool_result blocks」エラーを修正 | Fixed "unexpected tool_use_id found in tool_result blocks" error when resuming conversations that start with an orphaned tool result | fixed |
+| Agent ツールの `name` パラメータを通じてチームメイトが意図せずネストされたチームメイトを生成してしまう問題を修正 | Fixed teammates accidentally spawning nested teammates via the Agent tool's `name` parameter | fixed |
+| 会話の圧縮中に `CLAUDE_CODE_MAX_OUTPUT_TOKENS` が無視される問題を修正 | Fixed `CLAUDE_CODE_MAX_OUTPUT_TOKENS` being ignored during conversation compaction | fixed |
+| SDKコンシューマー（Claude Code Remote Web UI、VSCode拡張機能）において `/compact` のサマリーがユーザーバブルとしてレンダリングされる問題を修正 | Fixed `/compact` summary rendering as a user bubble in SDK consumers (Claude Code Remote web UI, VSCode extension) | fixed |
+| 音声認識の起動失敗後（モジュールロードの競合状態、コールドGrowthBook）にスペースバーが押しっぱなし状態になる不具合を修正 | Fixed voice space bar getting stuck after a failed voice activation (module loading race, cold GrowthBook) | fixed |
+| Windows でのワークツリーファイルコピーを修正 (#なし) | Fixed worktree file copy on Windows | fixed |
+| Windows でのグローバル `.claude` フォルダ検出を修正 | Fixed global `.claude` folder detection on Windows | fixed |
+| `acceptEdits` モードにおいて、シンボリックリンクされた親ディレクトリ経由で新規ファイルを書き込む際に作業ディレクトリを脱出できるシンボリックリンクバイパスを修正 | Fixed symlink bypass where writing new files through a symlinked parent directory could escape the working directory in `acceptEdits` mode | fixed |
+| マネージド設定で `allowManagedDomainsOnly` が有効な場合に、許可されていないドメインへのアクセス承認をユーザーに求めていたサンドボックスの問題を修正 — 非許可ドメインはバイパス不可で自動的にブロックされるように変更 | Fixed sandbox prompting users to approve non-allowed domains when `allowManagedDomainsOnly` is enabled in managed settings — non-allowed domains are now blocked automatically with no bypass | fixed |
+| スキルの allowed-tools に列挙されたインタラクティブツール（例: `AskUserQuestion`）が、権限プロンプトをバイパスして空の回答で自動許可されていた問題を修正 | Fixed interactive tools (e.g., `AskUserQuestion`) being silently auto-allowed when listed in a skill's allowed-tools, bypassing the permission prompt and running with empty answers | fixed |
+| 作業ツリーに大容量の未追跡バイナリファイルが存在する場合にコミット時に発生する数GB規模のメモリスパイクを修正 | Fixed multi-GB memory spike when committing with large untracked binary files in the working tree | fixed |
+| 入力ボックスに下書きテキストがある状態でも、Escapeキーで実行中のターンを中断できない問題を修正。キューに積まれたメッセージを編集用に引き戻すには上矢印キー、入力行をクリアするにはCtrl+Uを使用する。 | Fixed Escape not interrupting a running turn when the input box has draft text. Use Up arrow to pull queued messages back for editing, or Ctrl+U to clear the input line. | fixed |
+| リモートコントロールセッションでローカルスラッシュコマンド（`/voice`、`/cost`）を実行した際にAndroidアプリがクラッシュする問題を修正 | Fixed Android app crash when running local slash commands (`/voice`, `/cost`) in Remote Control sessions | fixed |
+| 長時間セッションで古いメッセージ配列のバージョンが React Compiler の `memoCache` に蓄積するメモリリークを修正 | Fixed a memory leak where old message array versions accumulated in React Compiler `memoCache` over long sessions | fixed |
+| 長時間セッションでREPLレンダースコープが蓄積するメモリリークを修正（1000ターンで約35MB） | Fixed a memory leak where REPL render scopes accumulated over long sessions (~35MB over 1000 turns) | fixed |
+| インプロセスのチームメートにおけるメモリ保持の問題を修正（親の完全な会話履歴がチームメートのライフタイム中にピン留めされ、`/clear` または自動コンパクト後にGCが妨げられていた問題） | Fixed memory retention in in-process teammates where the parent's full conversation history was pinned for the teammate's lifetime, preventing GC after `/clear` or auto-compact | fixed |
+| インタラクティブモードにおいて、長時間セッション中にフックイベントが無制限に蓄積されるメモリリークを修正 | Fixed a memory leak in interactive mode where hook events could accumulate unboundedly during long sessions | fixed |
+| `--mcp-config` が破損ファイルを指す際のハング現象を修正 | Fixed hang when `--mcp-config` points to a corrupted file | fixed |
+| スキルやプラグインが多数インストールされている場合の起動の遅延を修正 | Fixed slow startup when many skills/plugins are installed | fixed |
+| `cd <outside-dir> && <cmd>` の権限プロンプトで、「Yes, allow reading from <dir>/」のみが表示される問題を修正し、連結されたコマンドも表示されるように対応 | Fixed `cd <outside-dir> && <cmd>` permission prompt to surface the chained command instead of only showing "Yes, allow reading from <dir>/" | fixed |
+| 条件付き `.claude/rules/*.md` ファイル（`paths:` frontmatter を含む）およびネストされた CLAUDE.md ファイルが、プリントモード（`claude -p`）で読み込まれない不具合を修正 | Fixed conditional `.claude/rules/*.md` files (with `paths:` frontmatter) and nested CLAUDE.md files not loading in print mode (`claude -p`) | fixed |
+| `/clear` がセッションキャッシュを完全にクリアしない問題を修正し、長時間セッションでのメモリ保持を削減 | Fixed `/clear` not fully clearing all session caches, reducing memory retention in long sessions | fixed |
+| スクロールバック境界でのアニメーション要素によるターミナルのちらつきを修正 | Fixed terminal flicker caused by animated elements at the scrollback boundary | fixed |
+| macOSでOAuth使用のMCPサーバー利用時にUIのフレームドロップが発生する問題を修正（2.1.xからのリグレッション） | Fixed UI frame drops on macOS when using MCP servers with OAuth (regression from 2.1.x) | fixed |
+| タイピング中に同期デバッグログのフラッシュが引き起こす断続的なフレームストールを修正 | Fixed occasional frame stalls during typing caused by synchronous debug log flushes | fixed |
+| `TeammateIdle` および `TaskCompleted` フックで `{"continue": false, "stopReason": "..."}` によるチームメートの停止をサポートするよう修正（`Stop` フックの挙動に合わせる） | Fixed `TeammateIdle` and `TaskCompleted` hooks to support `{"continue": false, "stopReason": "..."}` to stop the teammate, matching `Stop` hook behavior | fixed |
+| `WorktreeCreate` および `WorktreeRemove` プラグインフックが無視される不具合を修正 | Fixed `WorktreeCreate` and `WorktreeRemove` plugin hooks being silently ignored | fixed |
+| SKILL.md のフロントマターからコロンを含むスキル説明（例: "Triggers include: X, Y, Z"）が読み込めない不具合を修正 | Fixed skill descriptions with colons (e.g., "Triggers include: X, Y, Z") failing to load from SKILL.md frontmatter | fixed |
+| `description:` フロントマターフィールドのないプロジェクトスキルが Claude の利用可能なスキル一覧に表示されない問題を修正 | Fixed project skills without a `description:` frontmatter field not appearing in Claude's available skills list | fixed |
+| `/context` でMCPサーバーの全ツールに同一のトークン数が表示される問題を修正 | Fixed `/context` showing identical token counts for all MCP tools from a server | fixed |
+| Windows 環境で Git Bash 使用時にモデルが CMD 形式の `2>nul` リダイレクトを使用した際にリテラルの `nul` ファイルが作成される問題を修正 | Fixed literal `nul` file creation on Windows when the model uses CMD-style `2>nul` redirection in Git Bash | fixed |
+| サブエージェントのトランスクリプト展開表示（Ctrl+O）で、各ツール呼び出しの下に余分な空行が表示される問題を修正 | Fixed extra blank lines appearing below each tool call in the expanded subagent transcript view (Ctrl+O) | fixed |
+| `/config` の検索ボックスにフォーカスがあり空の状態でも、Tab/矢印キーで設定タブを切り替えられない問題を修正 | Fixed Tab/arrow keys not cycling Settings tabs when `/config` search box is focused but empty | fixed |
+| サービスキー OAuth セッション（CCR コンテナ）がプロファイルスコープのエンドポイントへの 403 により `[ERROR]` ログを大量出力する問題を修正 | Fixed service key OAuth sessions (CCR containers) spamming `[ERROR]` logs with 403s from profile-scoped endpoints | fixed |
+| 「リモートコントロール有効」ステータスインジケーターの色の不一致を修正 | Fixed inconsistent color for "Remote Control active" status indicator | fixed |
+| 入力途中でディクテーション中に音声波形カーソルが最初のサフィックス文字を覆う問題を修正 | Fixed Voice waveform cursor covering the first suffix letter when dictating mid-input | fixed |
+| ウォームアップ中に音声入力が最大2スペース程度に収まらず5スペースすべて表示される不具合を修正（「keep holding…」ヒントの表示と統一） | Fixed Voice input showing all 5 spaces during warmup instead of capping at ~2 (aligning with the "keep holding…" hint) | fixed |
+| スピナーのアニメーションループ（50ms）を周囲のシェルから分離することでパフォーマンスを改善し、ターン中のレンダリングおよびCPUオーバーヘッドを削減 | Improved spinner performance by isolating the 50ms animation loop from the surrounding shell, reducing render and CPU overhead during turns | improved |
+| React Compiler によるネイティブバイナリの UI レンダリングパフォーマンスを改善 | Improved UI rendering performance in native binaries with React Compiler | improved |
+| `--worktree` 起動時のgitサブプロセスを排除し、起動パスを改善 | Improved `--worktree` startup by eliminating a git subprocess on the startup path | improved |
+| 管理設定の解決時に冗長な設定ファイルの再読み込みを排除することで、macOS の起動を改善 | Improved macOS startup by eliminating redundant settings-file reloads when managed settings resolve | improved |
+| 不要なキーチェーン検索をスキップすることで、Claude.ai エンタープライズ/チームユーザーの macOS 起動を改善 | Improved macOS startup for Claude.ai enterprise/team users by skipping an unnecessary keychain lookup | improved |
+| MCP `-p` 起動時に claude.ai 設定の取得とローカル接続をパイプライン化し、逐次バッチ処理の代わりに並行プールを使用することで起動を改善 | Improved MCP `-p` startup by pipelining claude.ai config fetch with local connections and using a concurrency pool instead of sequential batching | improved |
+| 再レンダリングのカクつきを引き起こしていた、知覚できないウォームアップパルスアニメーションを削除し、音声起動を改善 | Improved voice startup by removing imperceptible warmup pulse animations that were causing re-render stutter | improved |
+| MCPバイナリコンテンツの処理を改善：PDF、Officeドキュメント、音声を返すツールが、生のbase64をコンテキストにダンプする代わりに、正しい拡張子でデコードされたバイト列をディスクに保存するよう変更。WebFetchもバイナリレスポンスをサマリーとともに保存するよう対応 | Improved MCP binary content handling: tools returning PDFs, Office documents, or audio now save decoded bytes to disk with the correct file extension instead of dumping raw base64 into the conversation context. WebFetch also saves binary responses alongside its summary. | improved |
+| メッセージ更新をまたいで `onSubmit` を安定化させることで、長時間セッションにおけるメモリ使用量を改善 | Improved memory usage in long sessions by stabilizing `onSubmit` across message updates | improved |
+| LSPツールのレンダリングとメモリコンテキスト構築を改善し、ファイル全体を読み込まないように変更 | Improved LSP tool rendering and memory context building to no longer read entire files | improved |
+| サイズ・バイナリチェック前に大容量ファイルをメモリに読み込まないよう、セッションアップロードとメモリ同期を改善 | Improved session upload and memory sync to avoid reading large files into memory before size/binary checks | improved |
+| ファイル存在確認における内容読み込みを回避し、ファイル操作のパフォーマンスを改善（6箇所） | Improved file operation performance by avoiding reading file contents for existence checks (6 sites) | improved |
+| `--append-system-prompt-file` および `--system-prompt-file` がインタラクティブモードでも動作することを明確化するためにドキュメントを改善（以前はプリントモードのみと記載されていた） | Improved documentation to clarify that `--append-system-prompt-file` and `--system-prompt-file` work in interactive mode (the docs previously said print mode only) | improved |
+| Yoga WASMの事前読み込みを遅延させることでベースラインメモリを約16MB削減 | Reduced baseline memory by ~16MB by deferring Yoga WASM preloading | improved |
+| stream-json出力を使用したSDKおよびCCRセッションのメモリ使用量を削減 | Reduced memory footprint for SDK and CCR sessions using stream-json output | improved |
+| 大規模セッション（圧縮済み履歴を含む）の再開時のメモリ使用量を削減 | Reduced memory usage when resuming large sessions (including compacted history) | improved |
+| マルチエージェントタスクにおいて、サブエージェントの最終レポートをより簡潔にすることでトークン使用量を削減 | Reduced token usage on multi-agent tasks with more concise subagent final reports | improved |
+| Pro/Max/Team Premium の Sonnet 4.5 ユーザーを Sonnet 4.6 へ自動移行するよう変更 | Changed Sonnet 4.5 users on Pro/Max/Team Premium to be automatically migrated to Sonnet 4.6 | changed |
+| `/resume` ピッカーに最初のプロンプトではなく最新のプロンプトを表示するよう変更。これにより、一部のタイトルが `(session)` と表示される問題も解消 | Changed the `/resume` picker to show your most recent prompt instead of the first one. This also resolves some titles appearing as `(session)`. | fixed |
+| claude.ai MCPコネクタの接続失敗時に、ツールリストから黙って消える代わりに通知を表示するよう変更 | Changed claude.ai MCP connector failures to show a notification instead of silently disappearing from the tool list | improved |
+| サンプルコマンド候補の生成をHaiku呼び出しから決定的な方法に変更 | Changed example command suggestions to be generated deterministically instead of calling Haiku | changed |
+| コンパクション後の再開時に、続行前のプリアンブル要約を生成しないよう変更 | Changed resuming after compaction to no longer produce a preamble recap before continuing | changed |
+| [SDK] タスク作成時に `activeForm` フィールドが不要になるよう変更 — スピナーはタスクのサブジェクトにフォールバック | [SDK] Changed task creation to no longer require the `activeForm` field — the spinner falls back to the task subject | changed |
+| [VSCode] 圧縮表示を折りたたみ可能な「Compacted chat」カードとして追加し、その内部にサマリーを表示 | [VSCode] Added compaction display as a collapsible "Compacted chat" card with the summary inside | added |
+| [VSCode] パーミッションモードピッカーが、有効なClaude Code設定（管理/ポリシー設定を含む）の `permissions.disableBypassPermissionsMode` を参照するよう対応。`disable` に設定された場合、バイパスパーミッションモードがピッカーから非表示になる | [VSCode] The permission mode picker now respects `permissions.disableBypassPermissionsMode` from your effective Claude Code settings (including managed/policy settings) — when set to `disable`, bypass permissions mode is hidden from the picker | added |
+| [VSCode] チャットパネルでRTLテキスト（アラビア語、ヘブライ語、ペルシャ語）が逆向きに表示される問題を修正（v2.1.63のリグレッション） | [VSCode] Fixed RTL text (Arabic, Hebrew, Persian) rendering reversed in the chat panel (regression in v2.1.63) | fixed |
+
 ## 2.1.68
 
 | 日本語 | English | Category |
