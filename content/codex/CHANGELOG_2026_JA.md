@@ -4,6 +4,18 @@
 
 ---
 
+## 0.111.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Fast モードがデフォルトで有効になり、TUI ヘッダーにセッションが Fast モードか Standard モードかを表示。(#13450, #13446) | Fast mode is now enabled by default, and the TUI header shows whether the session is running in Fast or Standard mode. (#13450, #13446) | new-features |
+| `js_repl` でローカルの `.js` および `.mjs` ファイルを動的インポート可能になり、REPL からワークスペーススクリプトを再利用しやすく改善。(#13437) | `js_repl` can now dynamically import local `.js` and `.mjs` files, making it easier to reuse workspace scripts from the REPL. (#13437) | new-features |
+| セッション開始時に有効なプラグインをモデルへ通知するようになり、インストール済みの MCP・アプリ・スキルの検出を改善。(#13433) | Codex now tells the model which plugins are enabled at session start, improving discovery of installed MCPs, apps, and skills. (#13433) | new-features |
+| App-server v2 において MCP elicitation を生イベントではなく構造化されたリクエスト/レスポンスフローとして公開し、クライアント統合を簡素化。(#13425) | App-server v2 now exposes MCP elicitation as a structured request/response flow instead of raw events, which simplifies client integrations. (#13425) | new-features |
+| クライアント向けの画像ワークフローサポートを拡張。画像生成イベントのクライアントサイド処理と、画像対応 Web 検索のモデルメタデータに対応。(#13512, #13538) | Expanded image workflow support for clients, including client-side handling of image-generation events and model metadata for image-capable web search. (#13512, #13538) | new-features |
+| スレッド再開時に保存済みの git コンテキストを維持しアプリを有効状態に保つことで、`codex resume` 後の破損した状態を回避。(#13504, #13533) | Resuming a thread now preserves its stored git context and keeps apps enabled, avoiding broken state after `codex resume`. (#13504, #13533) | bug-fixes |
+| スライドデッキやスプレッドシートの例を含む、アーティファクトワークフロー向けのサンプルスキルドキュメントを追加。(#13525) | Added sample skill documentation for artifact workflows, including slide deck and spreadsheet examples. (#13525) | documentation |
+
 ## 0.110.0
 
 | 日本語 | English | Category |

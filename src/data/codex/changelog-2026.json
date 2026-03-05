@@ -1,10 +1,52 @@
 {
-  "generatedAt": "2026-03-05T03:51:08.364Z",
+  "generatedAt": "2026-03-05T21:09:18.745Z",
   "months": [
     {
       "key": "2026-03",
       "label": "2026年3月",
       "versions": [
+        {
+          "version": "0.111.0",
+          "releaseDate": "2026-03-06",
+          "releaseDateDisplay": "2026年3月6日",
+          "entries": [
+            {
+              "ja": "Fast モードがデフォルトで有効になり、TUI ヘッダーにセッションが Fast モードか Standard モードかを表示。(#13450, #13446)",
+              "en": "Fast mode is now enabled by default, and the TUI header shows whether the session is running in Fast or Standard mode. (#13450, #13446)",
+              "category": "new-features"
+            },
+            {
+              "ja": "`js_repl` でローカルの `.js` および `.mjs` ファイルを動的インポート可能になり、REPL からワークスペーススクリプトを再利用しやすく改善。(#13437)",
+              "en": "`js_repl` can now dynamically import local `.js` and `.mjs` files, making it easier to reuse workspace scripts from the REPL. (#13437)",
+              "category": "new-features"
+            },
+            {
+              "ja": "セッション開始時に有効なプラグインをモデルへ通知するようになり、インストール済みの MCP・アプリ・スキルの検出を改善。(#13433)",
+              "en": "Codex now tells the model which plugins are enabled at session start, improving discovery of installed MCPs, apps, and skills. (#13433)",
+              "category": "new-features"
+            },
+            {
+              "ja": "App-server v2 において MCP elicitation を生イベントではなく構造化されたリクエスト/レスポンスフローとして公開し、クライアント統合を簡素化。(#13425)",
+              "en": "App-server v2 now exposes MCP elicitation as a structured request/response flow instead of raw events, which simplifies client integrations. (#13425)",
+              "category": "new-features"
+            },
+            {
+              "ja": "クライアント向けの画像ワークフローサポートを拡張。画像生成イベントのクライアントサイド処理と、画像対応 Web 検索のモデルメタデータに対応。(#13512, #13538)",
+              "en": "Expanded image workflow support for clients, including client-side handling of image-generation events and model metadata for image-capable web search. (#13512, #13538)",
+              "category": "new-features"
+            },
+            {
+              "ja": "スレッド再開時に保存済みの git コンテキストを維持しアプリを有効状態に保つことで、`codex resume` 後の破損した状態を回避。(#13504, #13533)",
+              "en": "Resuming a thread now preserves its stored git context and keeps apps enabled, avoiding broken state after `codex resume`. (#13504, #13533)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "スライドデッキやスプレッドシートの例を含む、アーティファクトワークフロー向けのサンプルスキルドキュメントを追加。(#13525)",
+              "en": "Added sample skill documentation for artifact workflows, including slide deck and spreadsheet examples. (#13525)",
+              "category": "documentation"
+            }
+          ]
+        },
         {
           "version": "0.110.0",
           "releaseDate": "2026-03-05",
