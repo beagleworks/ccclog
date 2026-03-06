@@ -4,6 +4,40 @@
 
 ---
 
+## 2.1.70
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| サードパーティゲートウェイで `ANTHROPIC_BASE_URL` を使用した際のAPI 400エラーを修正 — ツール検索がプロキシエンドポイントを正しく検出し、`tool_reference` ブロックを無効化するよう対応 | Fixed API 400 errors when using `ANTHROPIC_BASE_URL` with a third-party gateway — tool search now correctly detects proxy endpoints and disables `tool_reference` blocks | fixed |
+| カスタムBedrockの推論プロファイルや標準的なClaudeの命名パターンに一致しないモデル識別子を使用した際の `API Error: 400 This model does not support the effort parameter` を修正 | Fixed `API Error: 400 This model does not support the effort parameter` when using custom Bedrock inference profiles or other model identifiers not matching standard Claude naming patterns | fixed |
+| `ToolSearch` 直後にモデルのレスポンスが空になる問題を修正 — サーバーがプロンプト末尾にシステムプロンプト形式のタグでツールスキーマをレンダリングし、モデルが早期停止してしまう問題に対処 | Fixed empty model responses immediately after `ToolSearch` — the server renders tool schemas with system-prompt-style tags at the prompt tail, which could confuse models into stopping early | fixed |
+| `instructions` を持つMCPサーバーが最初のターン後に接続した際のプロンプトキャッシュバストを修正 | Fixed prompt-cache bust when an MCP server with `instructions` connects after the first turn | fixed |
+| 低速SSH接続での入力時にEnterキーが送信の代わりに改行を挿入する問題を修正 | Fixed Enter inserting a newline instead of submitting when typing over a slow SSH connection | fixed |
+| PowerShell の `Set-Clipboard` を使用することで、Windows/WSL 上でクリップボードが非ASCII文字（CJK、絵文字）を破損する問題を修正 | Fixed clipboard corrupting non-ASCII text (CJK, emoji) on Windows/WSL by using PowerShell `Set-Clipboard` | fixed |
+| VS Code統合ターミナルから起動した際にWindows上で余分なVS Codeウィンドウが開く問題を修正 | Fixed extra VS Code windows opening at startup on Windows when running from the VS Code integrated terminal | fixed |
+| Windowsネイティブバイナリでボイスモードが「native audio module could not be loaded」で失敗する問題を修正 | Fixed voice mode failing on Windows native binary with "native audio module could not be loaded" | fixed |
+| 設定で `voiceEnabled: true` が指定されている場合にセッション開始時にプッシュトゥトークが有効にならない問題を修正 | Fixed push-to-talk not activating on session start when `voiceEnabled: true` was set in settings | fixed |
+| `#NNN` 形式の参照を含むMarkdownリンクが、リンク先URLではなく現在のリポジトリを誤って参照する問題を修正 | Fixed markdown links containing `#NNN` references incorrectly pointing to the current repository instead of the linked URL | fixed |
+| プロジェクトの `.claude/settings.json` にレガシーなOpusモデル文字列が固定されている場合に「Model updated to Opus 4.6」通知が繰り返し表示される問題を修正 | Fixed repeated "Model updated to Opus 4.6" notification when a project's `.claude/settings.json` has a legacy Opus model string pinned | fixed |
+| `/plugin` でプラグインがインストール済みとして誤表示される問題を修正 | Fixed plugins showing as inaccurately installed in `/plugin` | fixed |
+| マーケットプレイスインストール後に自動更新を行うことで、起動直後にプラグインが「not found in marketplace」エラーを表示する問題を修正 | Fixed plugins showing "not found in marketplace" errors on fresh startup by auto-refreshing after marketplace installation | fixed |
+| 古いgitバージョンで `/security-review` コマンドが `unknown option merge-base` で失敗する問題を修正 | Fixed `/security-review` command failing with `unknown option merge-base` on older git versions | fixed |
+| `/color` コマンドでデフォルトカラーに戻す手段がなかった問題を修正 — `/color default`、`/color gray`、`/color reset`、`/color none` でデフォルトに復元可能に | Fixed `/color` command having no way to reset back to the default color — `/color default`, `/color gray`, `/color reset`, and `/color none` now restore the default | fixed |
+| `AskUserQuestion` プレビューダイアログで、ノート入力欄へのキーストロークごとにMarkdownレンダリングが再実行されるパフォーマンス低下を修正 | Fixed a performance regression in the `AskUserQuestion` preview dialog that re-ran markdown rendering on every keystroke in the notes input | fixed |
+| 起動初期に読み込まれた機能フラグのディスクキャッシュが更新されず、セッションをまたいで古い値が残り続ける問題を修正 | Fixed feature flags read during early startup never refreshing their disk cache, causing stale values to persist across sessions | fixed |
+| Claude Code Remote環境で `permissions.defaultMode` の `acceptEdits` および `plan` 以外の設定値が適用される問題を修正 — 該当値は無視されるよう対応 | Fixed `permissions.defaultMode` settings values other than `acceptEdits` or `plan` being applied in Claude Code Remote environments — they are now ignored | fixed |
+| `--resume` のたびにスキルリストが再注入される問題を修正（再開ごとに約600トークンの節約） | Fixed skill listing being re-injected on every `--resume` (~600 tokens saved per resume) | fixed |
+| VS Codeのテレポートセッションでテレポートマーカーがレンダリングされない問題を修正 | Fixed teleport marker not rendering in VS Code teleported sessions | fixed |
+| マイクが無音を検出した際のエラーメッセージを改善し、「音声が検出されない」場合との区別を明確化 | Improved error message when microphone captures silence to distinguish from "no speech detected" | improved |
+| 要約リクエストで画像を保持するようコンパクションを改善し、プロンプトキャッシュの再利用による高速化・低コスト化を実現 | Improved compaction to preserve images in the summarizer request, allowing prompt cache reuse for faster and cheaper compaction | improved |
+| Claudeの処理中でも `/rename` が機能するよう改善（従来はサイレントにキューイングされていた） | Improved `/rename` to work while Claude is processing, instead of being silently queued | improved |
+| ターン中のプロンプト入力の再レンダリングを約74%削減 | Reduced prompt input re-renders during turns by ~74% | improved |
+| カスタムCA証明書を使用しないユーザーの起動時メモリを約426KB削減 | Reduced startup memory by ~426KB for users without custom CA certificates | improved |
+| Remote Control の `/poll` レートを接続中は10分に1回に削減（従来は1〜2秒）し、サーバー負荷を約300分の1に低減。再接続への影響はなく、トランスポートロスト時は即座に高速ポーリングに復帰 | Reduced Remote Control `/poll` rate to once per 10 minutes while connected (was 1–2s), cutting server load ~300×. Reconnection is unaffected — transport loss immediately wakes fast polling. | improved |
+| [VSCode] VS CodeのアクティビティバーにすべてのClaude Codeセッションを一覧表示するスパークアイコンを追加 — セッションはフルエディターとして開く | [VSCode] Added spark icon in VS Code activity bar that lists all Claude Code sessions, with sessions opening as full editors | added |
+| [VSCode] VS Codeでプランのフルマークダウンドキュメントビューを追加 — フィードバック提供のためのコメント追加に対応 | [VSCode] Added full markdown document view for plans in VS Code, with support for adding comments to provide feedback | added |
+| [VSCode] ネイティブMCPサーバー管理ダイアログを追加 — チャットパネルで `/mcp` を使用してサーバーの有効化・無効化、再接続、ターミナルを切り替えずにOAuth認証の管理が可能 | [VSCode] Added native MCP server management dialog — use `/mcp` in the chat panel to enable/disable servers, reconnect, and manage OAuth authentication without switching to the terminal | added |
+
 ## 2.1.69
 
 | 日本語 | English | Category |
