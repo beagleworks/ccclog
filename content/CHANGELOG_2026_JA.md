@@ -4,6 +4,39 @@
 
 ---
 
+## 2.1.71
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 定期的な間隔でプロンプトまたはスラッシュコマンドを実行する `/loop` コマンドを追加（例: `/loop 5m check the deploy`） | Added `/loop` command to run a prompt or slash command on a recurring interval (e.g. `/loop 5m check the deploy`) | added |
+| セッション内で繰り返しプロンプトを実行するクロンスケジューリングツールを追加 | Added cron scheduling tools for recurring prompts within a session | added |
+| `keybindings.json` でボイスアクティベーションキーをリバインド可能にする `voice:pushToTalk` キーバインドを追加（デフォルト: スペース）— `meta+k` のような modifier+letter の組み合わせはタイピングへの干渉がゼロ | Added `voice:pushToTalk` keybinding to make the voice activation key rebindable in `keybindings.json` (default: space) — modifier+letter combos like `meta+k` have zero typing interference | added |
+| `fmt`、`comm`、`cmp`、`numfmt`、`expr`、`test`、`printf`、`getconf`、`seq`、`tsort`、`pr` を bash 自動承認許可リストに追加 | Added `fmt`, `comm`, `cmp`, `numfmt`, `expr`, `test`, `printf`, `getconf`, `seq`, `tsort`, and `pr` to the bash auto-approval allowlist | added |
+| キーストロークの処理が停止するがプロセスは生き続けるという、長時間セッションでの stdin フリーズを修正 | Fixed stdin freeze in long-running sessions where keystrokes stop being processed but the process stays alive | fixed |
+| システムスリープ復帰後に CoreAudio の初期化がメインスレッドをブロックすることで発生していた、ボイスモード有効時の起動時 5〜8 秒のフリーズを修正 | Fixed a 5–8 second startup freeze for users with voice mode enabled, caused by CoreAudio initialization blocking the main thread after system wake | fixed |
+| 多数の claude.ai プロキシコネクターが期限切れの OAuth トークンを同時にリフレッシュする際に発生していた起動時 UI フリーズを修正 | Fixed startup UI freeze when many claude.ai proxy connectors refresh an expired OAuth token simultaneously | fixed |
+| フォークされた会話（`/fork`）が同一のプランファイルを共有し、一方のフォークでのプラン編集が他方を上書きしていた問題を修正 | Fixed forked conversations (`/fork`) sharing the same plan file, which caused plan edits in one fork to overwrite the other | fixed |
+| 画像処理失敗時に Read ツールが過大な画像をコンテキストに追加し、画像が多い長時間セッションでその後のターンが壊れる問題を修正 | Fixed the Read tool putting oversized images into context when image processing failed, breaking subsequent turns in long image-heavy sessions | fixed |
+| ヒアドキュメントのコミットメッセージを含む複合 bash コマンドに対する誤検知の権限プロンプトを修正 | Fixed false-positive permission prompts for compound bash commands containing heredoc commit messages | fixed |
+| 複数の Claude Code インスタンスを同時実行した際にプラグインのインストールが失われる問題を修正 | Fixed plugin installations being lost when running multiple Claude Code instances | fixed |
+| OAuth トークンのリフレッシュ後に claude.ai コネクターが再接続できなくなる問題を修正 | Fixed claude.ai connectors failing to reconnect after OAuth token refresh | fixed |
+| claude.ai MCP コネクターの起動通知が、以前に接続済みのものだけでなく組織設定済みのすべてのコネクターに表示されていた問題を修正 | Fixed claude.ai MCP connector startup notifications appearing for every org-configured connector instead of only previously connected ones | fixed |
+| バックグラウンドエージェントの完了通知に出力ファイルパスが含まれず、コンテキスト圧縮後に親エージェントがエージェントの結果を回復しにくかった問題を修正 | Fixed background agent completion notifications missing the output file path, which made it difficult for parent agents to recover agent results after context compaction | fixed |
+| コマンドがゼロ以外のステータスで終了した際の Bash ツールのエラーメッセージに出力が重複していた問題を修正 | Fixed duplicate output in Bash tool error messages when commands exit with non-zero status | fixed |
+| ローカルに Chrome がないマシンで実行した後、Chrome 拡張機能の自動検出が「未インストール」のまま永続的にスタックする問題を修正 | Fixed Chrome extension auto-detection getting permanently stuck on "not installed" after running on a machine without local Chrome | fixed |
+| マーケットプレイスがブランチ/タグの ref に固定されている場合に `/plugin marketplace update` がマージコンフリクトで失敗する問題を修正 | Fixed `/plugin marketplace update` failing with merge conflicts when the marketplace is pinned to a branch/tag ref | fixed |
+| `/plugin marketplace add owner/repo@ref` で `@` の解析が誤っていた問題を修正 — 以前は `#` のみが ref セパレーターとして機能しており、`strictKnownMarketplaces` 使用時に診断困難なエラーが発生していた | Fixed `/plugin marketplace add owner/repo@ref` incorrectly parsing `@` — previously only `#` worked as a ref separator, causing undiagnosable errors with `strictKnownMarketplaces` | fixed |
+| 末尾スラッシュあり・なしで同じディレクトリを追加した際に `/permissions` の Workspace タブに重複エントリが表示される問題を修正 | Fixed duplicate entries in `/permissions` Workspace tab when the same directory is added with and without a trailing slash | fixed |
+| チームエージェントが設定されている場合に `--print` が永久にハングする問題を修正 — 終了ループが長期実行中の `in_process_teammate` タスクを待機しないように変更 | Fixed `--print` hanging forever when team agents are configured — the exit loop no longer waits on long-lived `in_process_teammate` tasks | fixed |
+| `ToolSearch` 呼び出しのたびに REPL に「❯ Tool loaded.」が表示される問題を修正 | Fixed "❯ Tool loaded." appearing in the REPL after every `ToolSearch` call | fixed |
+| モデルが mingw スタイルのパスを使用する際に Windows で `cd <cwd> && git ...` の確認プロンプトが表示される問題を修正 | Fixed prompting for `cd <cwd> && git ...` on Windows when the model uses a mingw-style path | fixed |
+| ネイティブ画像プロセッサーの読み込みを初回使用時まで遅延させることで起動時間を改善 | Improved startup time by deferring native image processor loading to first use | improved |
+| ラップトップのスリープ復帰後のブリッジセッション再接続を、最大 10 分待機する代わりに数秒以内に完了するよう改善 | Improved bridge session reconnection to complete within seconds after laptop wake from sleep, instead of waiting up to 10 minutes | improved |
+| `/plugin uninstall` がプロジェクトスコープのプラグインを `.claude/settings.json` ではなく `.claude/settings.local.json` で無効化するよう改善し、チームメンバーへの影響を回避 | Improved `/plugin uninstall` to disable project-scoped plugins in `.claude/settings.local.json` instead of modifying `.claude/settings.json`, so changes don't affect teammates | improved |
+| プラグイン提供の MCP サーバーの重複排除を改善 — 手動設定済みサーバーと重複するサーバー（同一コマンド/URL）はスキップされ、接続やツールセットの重複を防止。抑制済みサーバーは `/plugin` メニューに表示 | Improved plugin-provided MCP server deduplication — servers that duplicate a manually-configured server (same command/URL) are now skipped, preventing duplicate connections and tool sets. Suppressions are shown in the `/plugin` menu. | improved |
+| デバッグログがデフォルトで書き込まれなくなったため、`/debug` がセッション途中でデバッグログのトグルに変更 | Updated `/debug` to toggle debug logging on mid-session, since debug logs are no longer written by default | changed |
+| 未認証の組織登録済み claude.ai コネクターに対する起動時の通知ノイズを削除 | Removed startup notification noise for unauthenticated org-registered claude.ai connectors | changed |
+
 ## 2.1.70
 
 | 日本語 | English | Category |
