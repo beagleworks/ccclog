@@ -4,6 +4,22 @@
 
 ---
 
+## 0.112.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| （翻訳待ち） | Added `@plugin` mentions so users can reference plugins directly in chat and auto-include their associated MCP/app/skill context. (#13510) | new-features |
+| （翻訳待ち） | Added a new model-selection surface update so the latest model catalog changes are surfaced in the TUI picker flow. (#13617) | new-features |
+| （翻訳待ち） | Merged executable permission profiles into per-turn sandbox policy for zsh-fork skill execution, allowing safer, additive privilege handling for tool runs. (#13496) | new-features |
+| （翻訳待ち） | Fixed JS REPL state handling so previously-initialized bindings persist after a failed cell, reducing brittle restarts during iterative sessions. (#13482) | bug-fixes |
+| （翻訳待ち） | Treated `SIGTERM` like Ctrl-C for graceful app-server websocket shutdown instead of abrupt termination behavior. (#13594) | bug-fixes |
+| （翻訳待ち） | Hardened js_repl image emission to accept only `data:` URLs, preventing external URL forwarding through `emitImage`. (#13507) | bug-fixes |
+| （翻訳待ち） | Ensured Linux bubblewrap sandbox runs always unshare the user namespace to keep isolation consistent even for root-owned invocations. (#13624) | bug-fixes |
+| （翻訳待ち） | Improved macOS sandbox network and unix-socket handling in Seatbelt, improving reliability for constrained subprocess environments. (#12702) | bug-fixes |
+| （翻訳待ち） | Surfaced feedback/diagnostics earlier in the workflow so connectivity and diagnostics are visible before later steps. (#13604) | bug-fixes |
+| （翻訳待ち） | Clarified js_repl image guidance (emission and encoding semantics), including clearer usage around repeated `emitImage` calls. (#13639) | documentation |
+| （翻訳待ち） | Fixed a small codespell warning in the TUI theme picker path. (#13605) | chores |
+
 ## 0.111.0
 
 | 日本語 | English | Category |
