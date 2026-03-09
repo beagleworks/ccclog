@@ -8,17 +8,17 @@
 
 | 日本語 | English | Category |
 |--------|---------|----------|
-| （翻訳待ち） | Added `@plugin` mentions so users can reference plugins directly in chat and auto-include their associated MCP/app/skill context. (#13510) | new-features |
-| （翻訳待ち） | Added a new model-selection surface update so the latest model catalog changes are surfaced in the TUI picker flow. (#13617) | new-features |
-| （翻訳待ち） | Merged executable permission profiles into per-turn sandbox policy for zsh-fork skill execution, allowing safer, additive privilege handling for tool runs. (#13496) | new-features |
-| （翻訳待ち） | Fixed JS REPL state handling so previously-initialized bindings persist after a failed cell, reducing brittle restarts during iterative sessions. (#13482) | bug-fixes |
-| （翻訳待ち） | Treated `SIGTERM` like Ctrl-C for graceful app-server websocket shutdown instead of abrupt termination behavior. (#13594) | bug-fixes |
-| （翻訳待ち） | Hardened js_repl image emission to accept only `data:` URLs, preventing external URL forwarding through `emitImage`. (#13507) | bug-fixes |
-| （翻訳待ち） | Ensured Linux bubblewrap sandbox runs always unshare the user namespace to keep isolation consistent even for root-owned invocations. (#13624) | bug-fixes |
-| （翻訳待ち） | Improved macOS sandbox network and unix-socket handling in Seatbelt, improving reliability for constrained subprocess environments. (#12702) | bug-fixes |
-| （翻訳待ち） | Surfaced feedback/diagnostics earlier in the workflow so connectivity and diagnostics are visible before later steps. (#13604) | bug-fixes |
-| （翻訳待ち） | Clarified js_repl image guidance (emission and encoding semantics), including clearer usage around repeated `emitImage` calls. (#13639) | documentation |
-| （翻訳待ち） | Fixed a small codespell warning in the TUI theme picker path. (#13605) | chores |
+| ユーザーがチャット内でプラグインを直接参照し、関連する MCP/アプリ/スキルのコンテキストを自動インクルードできるよう、`@plugin` メンションを追加。(#13510) | Added `@plugin` mentions so users can reference plugins directly in chat and auto-include their associated MCP/app/skill context. (#13510) | new-features |
+| TUI ピッカーフローに最新モデルカタログの変更を反映する新しいモデル選択画面を追加。(#13617) | Added a new model-selection surface update so the latest model catalog changes are surfaced in the TUI picker flow. (#13617) | new-features |
+| zsh-fork スキル実行において、実行可能パーミッションプロファイルをターンごとのサンドボックスポリシーに統合し、ツール実行における安全で加算的な権限ハンドリングを実現。(#13496) | Merged executable permission profiles into per-turn sandbox policy for zsh-fork skill execution, allowing safer, additive privilege handling for tool runs. (#13496) | new-features |
+| JS REPL の状態管理を修正し、セル実行失敗後も初期化済みのバインディングを維持することで、反復的なセッション中の不安定な再起動を軽減。(#13482) | Fixed JS REPL state handling so previously-initialized bindings persist after a failed cell, reducing brittle restarts during iterative sessions. (#13482) | bug-fixes |
+| アプリサーバーのWebSocketを即時切断ではなくグレースフルシャットダウンするため、`SIGTERM` を Ctrl-C と同様に処理するよう変更。(#13594) | Treated `SIGTERM` like Ctrl-C for graceful app-server websocket shutdown instead of abrupt termination behavior. (#13594) | bug-fixes |
+| `emitImage` 経由での外部 URL 転送を防ぐため、js_repl の画像出力を `data:` URL のみ受け付けるよう強化。(#13507) | Hardened js_repl image emission to accept only `data:` URLs, preventing external URL forwarding through `emitImage`. (#13507) | bug-fixes |
+| Linux bubblewrap サンドボックスが root 所有の呼び出しでも常にユーザー名前空間をアンシェアし、分離の一貫性を維持するよう対応。(#13624) | Ensured Linux bubblewrap sandbox runs always unshare the user namespace to keep isolation consistent even for root-owned invocations. (#13624) | bug-fixes |
+| macOS サンドボックスのネットワークおよび unix ソケット処理を Seatbelt で改善し、制約付きサブプロセス環境での信頼性を向上。(#12702) | Improved macOS sandbox network and unix-socket handling in Seatbelt, improving reliability for constrained subprocess environments. (#12702) | bug-fixes |
+| ワークフローの早い段階でフィードバック/診断情報を表示し、後続ステップの前に接続状況と診断が確認できるように改善。(#13604) | Surfaced feedback/diagnostics earlier in the workflow so connectivity and diagnostics are visible before later steps. (#13604) | bug-fixes |
+| `emitImage` の繰り返し呼び出しに関する説明を含め、js_repl の画像ガイダンス（出力およびエンコードのセマンティクス）を明確化。 (#13639) | Clarified js_repl image guidance (emission and encoding semantics), including clearer usage around repeated `emitImage` calls. (#13639) | documentation |
+| TUIテーマピッカーのパスにおける軽微なcodespell警告を修正。(#13605) | Fixed a small codespell warning in the TUI theme picker path. (#13605) | chores |
 
 ## 0.111.0
 

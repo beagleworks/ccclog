@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-08T21:04:34.504Z",
+  "generatedAt": "2026-03-09T03:22:44.521Z",
   "months": [
     {
       "key": "2026-03",
@@ -11,57 +11,57 @@
           "releaseDateDisplay": "2026年3月9日",
           "entries": [
             {
-              "ja": "（翻訳待ち）",
+              "ja": "ユーザーがチャット内でプラグインを直接参照し、関連する MCP/アプリ/スキルのコンテキストを自動インクルードできるよう、`@plugin` メンションを追加。(#13510)",
               "en": "Added `@plugin` mentions so users can reference plugins directly in chat and auto-include their associated MCP/app/skill context. (#13510)",
               "category": "new-features"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "TUI ピッカーフローに最新モデルカタログの変更を反映する新しいモデル選択画面を追加。(#13617)",
               "en": "Added a new model-selection surface update so the latest model catalog changes are surfaced in the TUI picker flow. (#13617)",
               "category": "new-features"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "zsh-fork スキル実行において、実行可能パーミッションプロファイルをターンごとのサンドボックスポリシーに統合し、ツール実行における安全で加算的な権限ハンドリングを実現。(#13496)",
               "en": "Merged executable permission profiles into per-turn sandbox policy for zsh-fork skill execution, allowing safer, additive privilege handling for tool runs. (#13496)",
               "category": "new-features"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "JS REPL の状態管理を修正し、セル実行失敗後も初期化済みのバインディングを維持することで、反復的なセッション中の不安定な再起動を軽減。(#13482)",
               "en": "Fixed JS REPL state handling so previously-initialized bindings persist after a failed cell, reducing brittle restarts during iterative sessions. (#13482)",
               "category": "bug-fixes"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "アプリサーバーのWebSocketを即時切断ではなくグレースフルシャットダウンするため、`SIGTERM` を Ctrl-C と同様に処理するよう変更。(#13594)",
               "en": "Treated `SIGTERM` like Ctrl-C for graceful app-server websocket shutdown instead of abrupt termination behavior. (#13594)",
               "category": "bug-fixes"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "`emitImage` 経由での外部 URL 転送を防ぐため、js_repl の画像出力を `data:` URL のみ受け付けるよう強化。(#13507)",
               "en": "Hardened js_repl image emission to accept only `data:` URLs, preventing external URL forwarding through `emitImage`. (#13507)",
               "category": "bug-fixes"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "Linux bubblewrap サンドボックスが root 所有の呼び出しでも常にユーザー名前空間をアンシェアし、分離の一貫性を維持するよう対応。(#13624)",
               "en": "Ensured Linux bubblewrap sandbox runs always unshare the user namespace to keep isolation consistent even for root-owned invocations. (#13624)",
               "category": "bug-fixes"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "macOS サンドボックスのネットワークおよび unix ソケット処理を Seatbelt で改善し、制約付きサブプロセス環境での信頼性を向上。(#12702)",
               "en": "Improved macOS sandbox network and unix-socket handling in Seatbelt, improving reliability for constrained subprocess environments. (#12702)",
               "category": "bug-fixes"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "ワークフローの早い段階でフィードバック/診断情報を表示し、後続ステップの前に接続状況と診断が確認できるように改善。(#13604)",
               "en": "Surfaced feedback/diagnostics earlier in the workflow so connectivity and diagnostics are visible before later steps. (#13604)",
               "category": "bug-fixes"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "`emitImage` の繰り返し呼び出しに関する説明を含め、js_repl の画像ガイダンス（出力およびエンコードのセマンティクス）を明確化。 (#13639)",
               "en": "Clarified js_repl image guidance (emission and encoding semantics), including clearer usage around repeated `emitImage` calls. (#13639)",
               "category": "documentation"
             },
             {
-              "ja": "（翻訳待ち）",
+              "ja": "TUIテーマピッカーのパスにおける軽微なcodespell警告を修正。(#13605)",
               "en": "Fixed a small codespell warning in the TUI theme picker path. (#13605)",
               "category": "chores"
             }
