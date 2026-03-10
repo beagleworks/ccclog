@@ -4,6 +4,62 @@
 
 ---
 
+## 2.1.72
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `ENABLE_TOOL_SEARCH` が設定されている場合、`ANTHROPIC_BASE_URL` があってもツール検索が有効になるよう修正 | Fixed tool search to activate even with `ANTHROPIC_BASE_URL` as long as `ENABLE_TOOL_SEARCH` is set. | fixed |
+| `/copy` に `w` キーを追加 — クリップボードを介さずフォーカス中の選択をファイルに直接書き込む（SSH環境で有用） | Added `w` key in `/copy` to write the focused selection directly to a file, bypassing the clipboard (useful over SSH) | added |
+| `/plan` にオプションの説明引数を追加（例: `/plan fix the auth bug`）— プランモードに入り即座に開始 | Added optional description argument to `/plan` (e.g., `/plan fix the auth bug`) that enters plan mode and immediately starts | added |
+| `EnterWorktree` セッションを終了する `ExitWorktree` ツールを追加 | Added `ExitWorktree` tool to leave an `EnterWorktree` session | added |
+| セッション途中でスケジュール済みcronジョブを即時停止する環境変数 `CLAUDE_CODE_DISABLE_CRON` を追加 | Added `CLAUDE_CODE_DISABLE_CRON` environment variable to immediately stop scheduled cron jobs mid-session | added |
+| `lsof`、`pgrep`、`tput`、`ss`、`fd`、`fdfind` をbash自動承認許可リストに追加し、一般的な読み取り専用操作の権限プロンプトを削減 | Added `lsof`, `pgrep`, `tput`, `ss`, `fd`, and `fdfind` to the bash auto-approval allowlist, reducing permission prompts for common read-only operations | added |
+| Agent ツールの `model` パラメータを復元し、呼び出しごとのモデル上書きに対応 | Restored the `model` parameter on the Agent tool for per-invocation model overrides | fixed |
+| エフォートレベルをlow/medium/highに簡略化（maxを廃止）し、新しいシンボル（○ ◐ ●）と常時表示アイコンの代わりに短い通知を採用。`/effort auto` でデフォルトにリセット可能 | Simplified effort levels to low/medium/high (removed max) with new symbols (○ ◐ ●) and a brief notification instead of a persistent icon. Use `/effort auto` to reset to default | changed |
+| `/config` を改善 — Escapeで変更をキャンセル、Enterで保存して閉じる、Spaceで設定をトグル | Improved `/config` — Escape now cancels changes, Enter saves and closes, Space toggles settings | improved |
+| 複数セッションを同時実行している場合、上矢印の履歴で現在のセッションのメッセージを優先表示するよう改善 | Improved up-arrow history to show current session's messages first when running multiple concurrent sessions | improved |
+| リポジトリ名や一般的な開発用語（regex、OAuth、JSON）に対する音声入力の文字起こし精度を改善 | Improved voice input transcription accuracy for repo names and common dev terms (regex, OAuth, JSON) | improved |
+| bashコマンドのパースをネイティブモジュールに切り替え、初期化の高速化とメモリリークを解消 | Improved bash command parsing by switching to a native module — faster initialization and no memory leak | improved |
+| バンドルサイズを約510KB削減 | Reduced bundle size by ~510 KB | improved |
+| 自動インジェクト時にCLAUDE.mdのHTMLコメント（`<!-- ... -->`）をClaudeから非表示に変更。Readツールで読み込んだ場合は引き続き表示される | Changed CLAUDE.md HTML comments (`<!-- ... -->`) to be hidden from Claude when auto-injected. Comments remain visible when read with the Read tool | changed |
+| バックグラウンドタスクやフックの応答が遅い場合に終了が遅くなる問題を修正 | Fixed slow exits when background tasks or hooks were slow to respond | fixed |
+| エージェントタスクの進捗が「Initializing…」で止まる問題を修正 | Fixed agent task progress stuck on "Initializing…" | fixed |
+| フック有効スキルがモデルから呼び出された際にスキルフックがイベントごとに2回発火する問題を修正 | Fixed skill hooks firing twice per event when a hooks-enabled skill is invoked by the model | fixed |
+| 音声モードの複数の問題を修正: 断続的な入力遅延、プッシュトゥトーク解放後の誤った「No speech detected」エラー、送信後に古いトランスクリプトがプロンプトに再入力される問題 | Fixed several voice mode issues: occasional input lag, false "No speech detected" errors after releasing push-to-talk, and stale transcripts re-filling the prompt after submission | fixed |
+| `--compact` 後に `--continue` が最新地点から再開されない問題を修正 | Fixed `--continue` not resuming from the most recent point after `--compact` | fixed |
+| bashセキュリティパースのエッジケースを修正 | Fixed bash security parsing edge cases | fixed |
+| `.git` サフィックスなしのマーケットプレイスgit URL（Azure DevOps、AWS CodeCommit）に対応 | Added support for marketplace git URLs without `.git` suffix (Azure DevOps, AWS CodeCommit) | added |
+| gitがstderrを出力しない場合でも診断情報を表示するよう、マーケットプレイスのクローン失敗メッセージを改善 | Improved marketplace clone failure messages to show diagnostic info even when git produces no stderr | improved |
+| プラグインの複数の問題を修正: OneDriveフォルダでの `EEXIST` エラーによるWindows上インストール失敗、プロジェクトスコープのインストールが存在する場合にマーケットプレイスがユーザースコープのインストールをブロックする問題、`CLAUDE_CODE_PLUGIN_CACHE_DIR` がリテラルの `~` ディレクトリを作成する問題、マーケットプレイス専用フィールドを含む `plugin.json` の読み込み失敗 | Fixed several plugin issues: installation failing on Windows with `EEXIST` error in OneDrive folders, marketplace blocking user-scope installs when a project-scope install exists, `CLAUDE_CODE_PLUGIN_CACHE_DIR` creating literal `~` directories, and `plugin.json` with marketplace-only fields failing to load | fixed |
+| 長時間セッションでフィードバックサーベイが頻繁に表示される問題を修正 | Fixed feedback survey appearing too frequently in long sessions | fixed |
+| 起動時に無関係な設定書き込みで `--effort` CLIフラグがリセットされる問題を修正 | Fixed `--effort` CLI flag being reset by unrelated settings writes on startup | fixed |
+| バックグラウンドのCtrl+Bクエリが `/clear` 後にトランスクリプトを失う、または新しい会話を破壊する問題を修正 | Fixed backgrounded Ctrl+B queries losing their transcript or corrupting the new conversation after `/clear` | fixed |
+| `/clear` がバックグラウンドのエージェント・bashタスクを強制終了する問題を修正 — フォアグラウンドのタスクのみクリア対象に変更 | Fixed `/clear` killing background agent/bash tasks — only foreground tasks are now cleared | fixed |
+| ワークツリーの分離に関する問題を修正: Taskツールの再開時にcwdが復元されない問題、およびバックグラウンドタスク通知に `worktreePath` と `worktreeBranch` が欠落する問題 | Fixed worktree isolation issues: Task tool resume not restoring cwd, and background task notifications missing `worktreePath` and `worktreeBranch` | fixed |
+| Claudeが処理中に `/model` を実行しても結果が表示されない問題を修正 | Fixed `/model` not displaying results when run while Claude is working | fixed |
+| プランモードの権限プロンプトのテキスト入力で数字キーが入力の代わりにメニュー選択として処理される問題を修正 | Fixed digit keys selecting menu options instead of typing in plan mode permission prompt's text input | fixed |
+| サンドボックスの権限に関する問題を修正: 特定のファイル書き込み操作がプロンプトなく誤って許可される問題、および `/tmp/claude/` などの許可リスト済みディレクトリへの出力リダイレクトが不要なプロンプトを表示する問題 | Fixed sandbox permission issues: certain file write operations incorrectly allowed without prompting, and output redirections to allowlisted directories (like `/tmp/claude/`) prompting unnecessarily | fixed |
+| 長時間セッションでのCPU使用率を改善 | Improved CPU utilization in long sessions | improved |
+| SDK `query()` 呼び出しのプロンプトキャッシュ無効化を修正し、入力トークンコストを最大12倍削減 | Fixed prompt cache invalidation in SDK `query()` calls, reducing input token costs up to 12x | fixed |
+| クエリキャンセル後にEscapeキーが無反応になる問題を修正 | Fixed Escape key becoming unresponsive after cancelling a query | fixed |
+| バックグラウンドエージェントまたはタスク実行中にCtrl+Cの二重押しで終了できない問題を修正 | Fixed double Ctrl+C not exiting when background agents or tasks are running | fixed |
+| チームエージェントがリーダーのモデルを継承するよう修正 | Fixed team agents to inherit the leader's model | fixed |
+| 「Always Allow」が以後マッチしない権限ルールを保存してしまう問題を修正 | Fixed "Always Allow" saving permission rules that never match again | fixed |
+| フックの複数の問題を修正: `transcript_path` が再開・フォークされたセッションで誤ったディレクトリを指す問題、エージェントの `prompt` が設定書き込みのたびにsettings.jsonから削除される問題、PostToolUseのブロック理由が二重表示される問題、非同期フックがbashの `read -r` でstdinを受け取れない問題、バリデーションエラーメッセージが検証に失敗するサンプルを表示する問題 | Fixed several hooks issues: `transcript_path` pointing to the wrong directory for resumed/forked sessions, agent `prompt` being silently deleted from settings.json on every settings write, PostToolUse block reason displaying twice, async hooks not receiving stdin with bash `read -r`, and validation error message showing an example that fails validation | fixed |
+| ReadがU+2028/U+2029文字を含むファイルを返した際のDesktop/SDKのセッションクラッシュを修正 | Fixed session crashes in Desktop/SDK when Read returned files containing U+2028/U+2029 characters | fixed |
+| `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` が設定されている場合でも終了時にターミナルタイトルがクリアされる問題を修正 | Fixed terminal title being cleared on exit even when `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` was set | fixed |
+| 権限ルールのマッチングに関する複数の問題を修正: ヒアドキュメント・埋め込み改行・引数なしのコマンドにワイルドカードルールがマッチしない問題、環境変数プレフィックス付きコマンドで `sandbox.excludedCommands` が機能しない問題、ネストされたCLIツールで「always allow」が過度に広いプレフィックスを提案する問題、denyルールがすべてのコマンド形式に適用されない問題 | Fixed several permission rule matching issues: wildcard rules not matching commands with heredocs, embedded newlines, or no arguments; `sandbox.excludedCommands` failing with env var prefixes; "always allow" suggesting overly broad prefixes for nested CLI tools; and deny rules not applying to all command forms | fixed |
+| Bashのdata-URL出力から生成される画像のサイズ超過・切り詰め問題を修正 | Fixed oversized and truncated images from Bash data-URL output | fixed |
+| Bedrock APIエラーを含むセッションを再開した際のクラッシュを修正 | Fixed a crash when resuming sessions that contained Bedrock API errors | fixed |
+| Edit、Bash、Grepツール入力での断続的な「expected boolean, received string」バリデーションエラーを修正 | Fixed intermittent "expected boolean, received string" validation errors on Edit, Bash, and Grep tool inputs | fixed |
+| 最初のメッセージに改行を含む会話からフォークした際にセッションタイトルが複数行になる問題を修正 | Fixed multi-line session titles when forking from a conversation whose first message contained newlines | fixed |
+| キュー済みメッセージに添付画像が表示されない問題、および↑キーでキュー済みメッセージを編集する際に画像が失われる問題を修正 | Fixed queued messages not showing attached images, and images being lost when pressing ↑ to edit a queued message | fixed |
+| 並列ツール呼び出しでRead/WebFetch/Globの失敗が兄弟タスクをキャンセルする問題を修正 — カスケードはBashエラーのみに限定 | Fixed parallel tool calls where a failed Read/WebFetch/Glob would cancel its siblings — only Bash errors now cascade | fixed |
+| VSCode: 統合ターミナルのスクロール速度がネイティブターミナルと一致しない問題を修正 | VSCode: Fixed scroll speed in integrated terminals not matching native terminals | fixed |
+| VSCode: 旧キーバインドを使用するユーザーでShift+Enterが改行挿入の代わりに入力を送信してしまう問題を修正 | VSCode: Fixed Shift+Enter submitting input instead of inserting a newline for users with older keybindings | fixed |
+| VSCode: 入力ボーダーにエフォートレベルインジケーターを追加 | VSCode: Added effort level indicator on the input border | added |
+| VSCode: `vscode://anthropic.claude-code/open` URIハンドラーを追加 — `prompt` および `session` クエリパラメータ付きで新しいClaude Codeタブをプログラムから開くことが可能 | VSCode: Added `vscode://anthropic.claude-code/open` URI handler to open a new Claude Code tab programmatically, with optional `prompt` and `session` query parameters | added |
+
 ## 2.1.71
 
 | 日本語 | English | Category |
