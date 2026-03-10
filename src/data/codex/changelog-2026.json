@@ -1,10 +1,92 @@
 {
-  "generatedAt": "2026-03-09T03:22:44.521Z",
+  "generatedAt": "2026-03-10T06:14:34.124Z",
   "months": [
     {
       "key": "2026-03",
       "label": "2026年3月",
       "versions": [
+        {
+          "version": "0.113.0",
+          "releaseDate": "2026-03-10",
+          "releaseDateDisplay": "2026年3月10日",
+          "entries": [
+            {
+              "ja": "実行中のターンがランタイムで追加権限を要求できる組み込み `request_permissions` ツールを追加し、承認コールの新しい TUI レンダリングにも対応。(#13092, #14004)",
+              "en": "Added a built-in `request_permissions` tool so running turns can request additional permissions at runtime, with new TUI rendering for those approval calls. (#13092, #14004)",
+              "category": "new-features"
+            },
+            {
+              "ja": "プラグインワークフローを拡張し、厳選マーケットプレイスの検索、`plugin/list` メタデータの充実、インストール時の認証チェック、`plugin/uninstall` エンドポイントを追加。(#13712, #13540, #13685, #14111)",
+              "en": "Expanded plugin workflows with curated marketplace discovery, richer `plugin/list` metadata, install-time auth checks, and a `plugin/uninstall` endpoint. (#13712, #13540, #13685, #14111)",
+              "category": "new-features"
+            },
+            {
+              "ja": "アプリサーバーのコマンド実行を stdin/stdout/stderr のストリーミングおよび TTY/PTY サポートで強化し、`exec` を新しいインプロセスアプリサーバーパスに接続。(#13640, #14005)",
+              "en": "Upgraded app-server command execution with streaming stdin/stdout/stderr plus TTY/PTY support, and wired `exec` to the new in-process app server path. (#13640, #14005)",
+              "category": "new-features"
+            },
+            {
+              "ja": "Web 検索設定でオン/オフだけでなく、フィルターやロケーションなどのツール設定全体を指定可能に。(#13675)",
+              "en": "Web search settings now support full tool configuration (for example filters and location), not just on/off. (#13675)",
+              "category": "new-features"
+            },
+            {
+              "ja": "新しい permission-profile 設定言語を追加し、より精密なポリシー制御のためにファイルシステム/ネットワークサンドボックスポリシーの処理を分離。(#13434, #13439, #13440, #13448, #13449, #13453)",
+              "en": "Added the new permission-profile config language and split filesystem/network sandbox policy plumbing for more precise policy control. (#13434, #13439, #13440, #13448, #13449, #13453)",
+              "category": "new-features"
+            },
+            {
+              "ja": "画像生成の出力ファイルをカレントワーキングディレクトリに保存するよう変更。(#13607)",
+              "en": "Image generation now saves output files into the current working directory. (#13607)",
+              "category": "new-features"
+            },
+            {
+              "ja": "クラウド要件フェッチの認証エラーハンドリングを修正し、401 エラーで汎用的なワークスペース設定エラーの代わりに通常の認証回復メッセージを表示するよう修正。(#14049)",
+              "en": "Fixed auth error handling for cloud requirements fetch so 401s trigger the normal auth-recovery messaging instead of a generic workspace-config failure. (#14049)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "プロジェクトの信頼確立前に `git` コマンドが実行されないよう、トラストブートストラップを修正。(#13804)",
+              "en": "Fixed trust bootstrap to avoid running `git` commands before project trust is established. (#13804)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "PTY の `TerminateProcess` 成功ハンドリングの誤りやサンドボックス起動時の cwd バリデーション強化など、Windows 実行時のエッジケースを修正。(#13989, #13833, #13742)",
+              "en": "Fixed Windows execution edge cases, including incorrect PTY `TerminateProcess` success handling and stricter sandbox startup cwd validation. (#13989, #13833, #13742)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "TUI セッションで厳選プラグインが期待通りに読み込まれるよう、プラグイン起動時の動作を修正。(#14050)",
+              "en": "Fixed plugin startup behavior so curated plugins are loaded in TUI sessions as expected. (#14050)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "グローバルワイルドカード（`*`）ドメインを拒否しつつスコープ付きワイルドカードは維持することで、ネットワークプロキシポリシーのパース処理を堅牢化。(#13789)",
+              "en": "Hardened network proxy policy parsing by rejecting global wildcard (`*`) domains while preserving scoped wildcard support. (#13789)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "macOS 自動化権限の承認ペイロードについて、サポートされる両方の入力形式を受け入れるよう互換性を修正。(#13683)",
+              "en": "Fixed approval payload compatibility for macOS automation permissions by accepting both supported input shapes. (#13683)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "不要な REPL エラー低減のため、永続バインディングおよび再宣言リカバリに関する `js_repl` のガイダンスを明確化。(#13803)",
+              "en": "Clarified `js_repl` guidance for persistent bindings and redeclaration recovery to reduce avoidable REPL errors. (#13803)",
+              "category": "documentation"
+            },
+            {
+              "ja": "ログを専用 SQLite DB に移行、フィードバックログへのタイムスタンプ追加、古いデータの削除、保持期間/行数制限の厳格化により、ログ/ストレージのオーバーヘッドを削減。(#13645, #13688, #13734, #13763, #13772, #13781)",
+              "en": "Reduced log/storage overhead by moving logs to a dedicated SQLite DB, adding timestamps to feedback logs, pruning old data, and tightening retention/row limits. (#13645, #13688, #13734, #13763, #13772, #13781)",
+              "category": "chores"
+            },
+            {
+              "ja": "CLI リリースを winget に公開することで、Windows ディストリビューションの自動化を改善。(#12943)",
+              "en": "Improved Windows distribution automation by publishing CLI releases to winget. (#12943)",
+              "category": "chores"
+            }
+          ]
+        },
         {
           "version": "0.112.0",
           "releaseDate": "2026-03-09",
