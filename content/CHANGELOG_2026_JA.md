@@ -4,6 +4,37 @@
 
 ---
 
+## 2.1.73
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| モデルピッカーのエントリをカスタムプロバイダーのモデルID（例: Bedrock 推論プロファイル ARN）にマッピングする `modelOverrides` 設定を追加 | Added `modelOverrides` setting to map model picker entries to custom provider model IDs (e.g. Bedrock inference profile ARNs) | added |
+| 企業プロキシや `NODE_EXTRA_CA_CERTS` による SSL 証明書エラーで OAuth ログインや接続確認が失敗した際に、実行可能なガイダンスを表示するよう追加 | Added actionable guidance when OAuth login or connectivity checks fail due to SSL certificate errors (corporate proxies, `NODE_EXTRA_CA_CERTS`) | added |
+| 複雑な Bash コマンドへの権限プロンプトが原因で発生するフリーズおよび CPU 100% ループを修正 | Fixed freezes and 100% CPU loops triggered by permission prompts for complex bash commands | fixed |
+| 大規模な `.claude/skills/` ディレクトリを持つリポジトリで `git pull` 実行時など、多数のスキルファイルが同時に変更された際に Claude Code がフリーズするデッドロックを修正 | Fixed a deadlock that could freeze Claude Code when many skill files changed at once (e.g. during `git pull` in a repo with a large `.claude/skills/` directory) | fixed |
+| 同一プロジェクトディレクトリで複数の Claude Code セッションを実行した際に Bash ツールの出力が失われる問題を修正 | Fixed Bash tool output being lost when running multiple Claude Code sessions in the same project directory | fixed |
+| Bedrock・Vertex・Microsoft Foundry 上で `model: opus`/`sonnet`/`haiku` を指定したサブエージェントが古いモデルバージョンに暗黙的にダウングレードされる問題を修正 | Fixed subagents with `model: opus`/`sonnet`/`haiku` being silently downgraded to older model versions on Bedrock, Vertex, and Microsoft Foundry | fixed |
+| サブエージェントが起動したバックグラウンドの Bash プロセスがエージェント終了時にクリーンアップされない問題を修正 | Fixed background bash processes spawned by subagents not being cleaned up when the agent exits | fixed |
+| `/resume` のピッカーに現在のセッションが表示される問題を修正 | Fixed `/resume` showing the current session in the picker | fixed |
+| `/ide` でエクステンションの自動インストール時に `onInstall is not defined` でクラッシュする問題を修正 | Fixed `/ide` crashing with `onInstall is not defined` when auto-installing the extension | fixed |
+| Bedrock・Vertex・Foundry 上およびテレメトリ無効時に `/loop` が利用できない問題を修正 | Fixed `/loop` not being available on Bedrock/Vertex/Foundry and when telemetry was disabled | fixed |
+| `--resume` または `--continue` でセッションを再開した際に SessionStart フックが二重に発火する問題を修正 | Fixed SessionStart hooks firing twice when resuming a session via `--resume` or `--continue` | fixed |
+| JSON 出力フックがターンごとにモデルのコンテキストへ no-op の system-reminder メッセージを注入する問題を修正 | Fixed JSON-output hooks injecting no-op system-reminder messages into the model's context on every turn | fixed |
+| 低速な接続と新規録音が重なった際にボイスモードのセッションが破損する問題を修正 | Fixed voice mode session corruption when a slow connection overlaps a new recording | fixed |
+| ネイティブビルドで Linux サンドボックスが "ripgrep (rg) not found" により起動に失敗する問題を修正 | Fixed Linux sandbox failing to start with "ripgrep (rg) not found" on native builds | fixed |
+| Amazon Linux 2 およびその他の glibc 2.26 系システムで Linux ネイティブモジュールが読み込まれない問題を修正 | Fixed Linux native modules not loading on Amazon Linux 2 and other glibc 2.26 systems | fixed |
+| Remote Control 経由で画像を受信した際に発生する "media_type: Field required" API エラーを修正 | Fixed "media_type: Field required" API error when receiving images via Remote Control | fixed |
+| Desktop フォルダが既に存在する Windows 環境で `/heapdump` が `EEXIST` エラーで失敗する問題を修正 | Fixed `/heapdump` failing on Windows with `EEXIST` error when the Desktop folder already exists | fixed |
+| Claude の応答を中断した後の上矢印キーの動作を改善 — 中断されたプロンプトの復元と会話の巻き戻しを一操作で実行するよう変更 | Improved Up arrow after interrupting Claude — now restores the interrupted prompt and rewinds the conversation in one step | improved |
+| 起動時の IDE 検出速度を改善 | Improved IDE detection speed at startup | improved |
+| macOS におけるクリップボードからの画像貼り付けパフォーマンスを改善 | Improved clipboard image pasting performance on macOS | improved |
+| `/effort` を Claude の応答中でも `/model` と同様に機能するよう改善 | Improved `/effort` to work while Claude is responding, matching `/model` behavior | improved |
+| 素早いプッシュ・トゥ・トーク再押下時の一時的な接続障害を自動リトライするよう、ボイスモードを改善 | Improved voice mode to automatically retry transient connection failures during rapid push-to-talk re-press | improved |
+| Remote Control のスポーンモード選択プロンプトにコンテキスト情報を追加し改善 | Improved the Remote Control spawn mode selection prompt with better context | improved |
+| Bedrock・Vertex・Microsoft Foundry におけるデフォルトの Opus モデルを Opus 4.6 に変更（旧: Opus 4.1） | Changed default Opus model on Bedrock, Vertex, and Microsoft Foundry to Opus 4.6 (was Opus 4.1) | changed |
+| `/output-style` コマンドを非推奨化 — 代わりに `/config` を使用。出力スタイルはプロンプトキャッシュの最適化のためセッション開始時に固定されるよう変更 | Deprecated `/output-style` command — use `/config` instead. Output style is now fixed at session start for better prompt caching | changed |
+| VSCode: プロキシ環境下または Bedrock/Vertex 上で Claude 4.5 モデルを使用するユーザーに発生する HTTP 400 エラーを修正 | VSCode: Fixed HTTP 400 errors for users behind proxies or on Bedrock/Vertex with Claude 4.5 models | fixed |
+
 ## 2.1.72
 
 | 日本語 | English | Category |
