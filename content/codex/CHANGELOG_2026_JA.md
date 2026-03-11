@@ -4,6 +4,23 @@
 
 ---
 
+## 0.114.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| より独立したコーディングワークフローのための実験的なコードモードを追加。(#13418) | Added an experimental code mode for more isolated coding workflows. (#13418) | new-features |
+| `SessionStart` および `Stop` フックイベントを持つ実験的なフックエンジンを追加。(#13276) | Added an experimental hooks engine with `SessionStart` and `Stop` hook events. (#13276) | new-features |
+| WebSocket アプリサーバーのデプロイにおいて、同一リスナー上で `GET /readyz` および `GET /healthz` を公開し、ヘルスチェックを容易化。(#13782) | WebSocket app-server deployments now expose `GET /readyz` and `GET /healthz` on the same listener for easier health checks. (#13782) | new-features |
+| バンドル済みシステムスキルを完全に無効化する設定スイッチを追加。(#13792) | Added a config switch to disable bundled system skills entirely. (#13792) | new-features |
+| ハンドオフ時にリアルタイムのトランスクリプトコンテキストを引き継ぐようにし、ターン間の作業移譲時の継続性を改善。(#14132) | Handoffs now carry realtime transcript context, which improves continuity when work is transferred between turns. (#14132) | new-features |
+| `$` メンションピッカーにおいてスキル・アプリ・プラグインのラベルを明確化し、プラグインを優先表示するよう改善。(#14147, #14163) | Improved the `$` mention picker by clearly labeling Skills, Apps, and Plugins, and by surfacing plugins first. (#14147, #14163) | new-features |
+| Linux 環境で並行ユーザーシェル検索により発生する `tmux` クラッシュを修正。(#13900) | Fixed a Linux `tmux` crash caused by concurrent user-shell lookups. (#13900) | bug-fixes |
+| 有効化チェックを厳格化し、非対応セッションでアプリが有効になる問題を修正。(#14011) | Fixed apps being enabled in unsupported sessions by tightening the enablement check. (#14011) | bug-fixes |
+| 実行途中で終了後に再開した際、再オープンされたスレッドが進行中のまま停止する問題を修正。(#14125) | Fixed reopened threads getting stuck as in-progress after quitting mid-run and then resuming later. (#14125) | bug-fixes |
+| レガシーの `workspace-write` 動作を維持しつつ、新しいパーミッションプロファイルが旧ビルドでより安全にデグレードするようパーミッション処理を修正。(#13957, #14107) | Fixed permission handling so legacy `workspace-write` behavior is preserved and newer permission profiles degrade more safely on older builds. (#13957, #14107) | bug-fixes |
+| 付与されたパーミッションがターンをまたいで持続し、拒否スタイルの設定や `apply_patch` でも正しく機能するよう承認フローを修正。(#14009, #14055, #14118, #14165) | Fixed approval flows so granted permissions persist across turns, work with reject-style configs, and are honored by `apply_patch`. (#14009, #14055, #14118, #14165) | bug-fixes |
+| Python SDK の生成された v2 スキーマ型の基盤を整備し、プラットフォーム固有のランタイムバイナリをピン留め。(#13953) | Laid the groundwork for the Python SDK’s generated v2 schema types and pinned platform-specific runtime binaries. (#13953) | chores |
+
 ## 0.113.0
 
 | 日本語 | English | Category |
