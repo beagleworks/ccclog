@@ -4,6 +4,28 @@
 
 ---
 
+## 2.1.74
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `/context` コマンドに実行可能な提案を追加 — コンテキストが重いツール、メモリの肥大化、容量警告を特定し、具体的な最適化ヒントを提示 | Added actionable suggestions to `/context` command — identifies context-heavy tools, memory bloat, and capacity warnings with specific optimization tips | added |
+| 自動メモリの保存先をカスタムディレクトリで指定できる `autoMemoryDirectory` 設定を追加 | Added `autoMemoryDirectory` setting to configure a custom directory for auto-memory storage | added |
+| ジェネレーターが途中で終了した際にストリーミング API レスポンスバッファが解放されず、Node.js/npm コードパスで RSS が際限なく増加するメモリリークを修正 | Fixed memory leak where streaming API response buffers were not released when the generator was terminated early, causing unbounded RSS growth on the Node.js/npm code path | fixed |
+| マネージドポリシーの `ask` ルールがユーザーの `allow` ルールやスキルの `allowed-tools` によって回避される問題を修正 | Fixed managed policy `ask` rules being bypassed by user `allow` rules or skill `allowed-tools` | fixed |
+| エージェントのフロントマター `model:` フィールドおよび `--agents` JSON 設定でフルモデル ID（例: `claude-opus-4-5`）が警告なく無視される問題を修正 — エージェントが `--model` と同じモデル値を受け付けるように対応 | Fixed full model IDs (e.g., `claude-opus-4-5`) being silently ignored in agent frontmatter `model:` field and `--agents` JSON config — agents now accept the same model values as `--model` | fixed |
+| コールバックポートが使用中の場合に MCP OAuth 認証がハングする問題を修正 | Fixed MCP OAuth authentication hanging when the callback port is already in use | fixed |
+| HTTP 200 でエラーを返す OAuth サーバー（例: Slack）において、リフレッシュトークン期限切れ後に再認証が促されない問題を修正 | Fixed MCP OAuth refresh never prompting for re-auth after the refresh token expires, for OAuth servers that return errors with HTTP 200 (e.g. Slack) | fixed |
+| マイクのアクセス許可を一度も付与していないユーザーの macOS ネイティブバイナリで音声モードが警告なく失敗する問題を修正 — バイナリに `audio-input` エンタイトルメントを追加し macOS が正しくプロンプトを表示するように対応 | Fixed voice mode silently failing on the macOS native binary for users whose terminal had never been granted microphone permission — the binary now includes the `audio-input` entitlement so macOS prompts correctly | fixed |
+| `SessionEnd` フック が `hook.timeout` の設定に関わらず終了時に 1.5 秒後に強制終了される問題を修正 — `CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS` で設定可能に | Fixed `SessionEnd` hooks being killed after 1.5 s on exit regardless of `hook.timeout` — now configurable via `CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS` | fixed |
+| マーケットプレイスプラグインのローカルソースに対して REPL 内で `/plugin install` が失敗する問題を修正 | Fixed `/plugin install` failing inside the REPL for marketplace plugins with local sources | fixed |
+| マーケットプレイスの更新時に git サブモジュールが同期されない問題を修正 — サブモジュール内のプラグインソースが更新後に壊れないように対応 | Fixed marketplace update not syncing git submodules — plugin sources in submodules no longer break after update | fixed |
+| 引数を含む未知のスラッシュコマンドが入力を警告なく破棄する問題を修正 — 入力内容を警告として表示するように対応 | Fixed unknown slash commands with arguments silently dropping input — now shows your input as a warning | fixed |
+| Windows Terminal、conhost、VS Code 統合ターミナルでヘブライ語・アラビア語などの RTL テキストが正しく表示されない問題を修正 | Fixed Hebrew, Arabic, and other RTL text not rendering correctly in Windows Terminal, conhost, and VS Code integrated terminal | fixed |
+| ファイル URI の形式が不正なために LSP サーバーが Windows で動作しない問題を修正 | Fixed LSP servers not working on Windows due to malformed file URIs | fixed |
+| `--plugin-dir` を変更し、同名のインストール済みマーケットプレイスプラグインをローカル開発コピーで上書きできるように対応（マネージド設定で強制有効化されているプラグインを除く） | Changed `--plugin-dir` so local dev copies now override installed marketplace plugins with the same name (unless that plugin is force-enabled by managed settings) | changed |
+| [VSCode] Untitled セッションの削除ボタンが機能しない問題を修正 | [VSCode] Fixed delete button not working for Untitled sessions | fixed |
+| [VSCode] 統合ターミナルでのスクロールホイールの応答性をターミナル対応のアクセラレーションで改善 | [VSCode] Improved scroll wheel responsiveness in the integrated terminal with terminal-aware acceleration | improved |
+
 ## 2.1.73
 
 | 日本語 | English | Category |
