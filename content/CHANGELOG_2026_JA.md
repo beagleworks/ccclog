@@ -4,6 +4,30 @@
 
 ---
 
+## 2.1.75
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| MaxプランおよびTeam・Enterpriseプランにおいて、Opus 4.6のデフォルトコンテキストウィンドウを1Mトークンに拡大（従来は追加使用が必要だった） | Added 1M context window for Opus 4.6 by default for Max, Team, and Enterprise plans (previously required extra usage) | added |
+| セッションのプロンプトバーの色を設定できる `/color` コマンドを全ユーザー向けに追加 | Added `/color` command for all users to set a prompt-bar color for your session | added |
+| `/rename` 使用時にプロンプトバーへのセッション名表示を追加 | Added session name display on the prompt bar when using `/rename` | added |
+| メモリファイルに最終更新タイムスタンプを追加し、Claudeが記憶の新旧を判断しやすくなるように改善 | Added last-modified timestamps to memory files, helping Claude reason about which memories are fresh vs. stale | added |
+| フック確認のパーミッションプロンプトにフックのソース（settings/plugin/skill）表示を追加 | Added hook source display (settings/plugin/skill) in permission prompts when a hook requires confirmation | added |
+| 新規インストール時に `/voice` を2回トグルしないと音声モードが正しく起動しない問題を修正 | Fixed voice mode not activating correctly on fresh installs without toggling `/voice` twice | fixed |
+| `/model` または Option+P でモデルを切り替えた後、Claude Codeヘッダーのモデル名表示が更新されない問題を修正 | Fixed the Claude Code header not updating the displayed model name after switching models with `/model` or Option+P | fixed |
+| 添付ファイルメッセージの計算結果が undefined を返した際にセッションがクラッシュする問題を修正 | Fixed session crash when an attachment message computation returns undefined values | fixed |
+| パイプを含むコマンドで `!` が壊れるBashツールの問題を修正（例: `jq 'select(.x != .y)'` が正しく動作するように） | Fixed Bash tool mangling `!` in piped commands (e.g., `jq 'select(.x != .y)'` now works correctly) | fixed |
+| 組織によって強制無効化されているプラグインが `/plugin` のInstalledタブに表示される問題を修正 | Fixed managed-disabled plugins showing up in the `/plugin` Installed tab — plugins force-disabled by your organization are now hidden | fixed |
+| thinkingブロックおよび `tool_use` ブロックのトークン推定が過剰にカウントされ、コンテキスト圧縮が早まる問題を修正 | Fixed token estimation over-counting for thinking and `tool_use` blocks, preventing premature context compaction | fixed |
+| マーケットプレイス設定パスが破損した際のハンドリングを修正 | Fixed corrupted marketplace config path handling | fixed |
+| フォークまたは継続したセッションを `/resume` した後にセッション名が失われる問題を修正 | Fixed `/resume` losing session names after resuming a forked or continued session | fixed |
+| Configタブを開いた後、Escキーで `/status` ダイアログが閉じられない問題を修正 | Fixed Esc not closing the `/status` dialog after visiting the Config tab | fixed |
+| プランの承認・却下時における入力処理の問題を修正 | Fixed input handling when accepting or rejecting a plan | fixed |
+| エージェントチームのフッターヒントに「↓ to expand」と誤表示される問題を修正（正しくは「shift + ↓ to expand」） | Fixed footer hint in agent teams showing "↓ to expand" instead of the correct "shift + ↓ to expand" | fixed |
+| macOSの非MDM環境における起動パフォーマンスを改善（不要なサブプロセス生成をスキップ） | Improved startup performance on macOS non-MDM machines by skipping unnecessary subprocess spawns | improved |
+| 非同期フックの完了メッセージをデフォルトで非表示に変更（`--verbose` またはトランスクリプトモードで確認可能） | Suppressed async hook completion messages by default (visible with `--verbose` or transcript mode) | changed |
+| 破壊的変更: `C:\ProgramData\ClaudeCode\managed-settings.json` への非推奨Windowsマネージド設定フォールバックを削除（`C:\Program Files\ClaudeCode\managed-settings.json` を使用すること） | Breaking change: Removed deprecated Windows managed settings fallback at `C:\ProgramData\ClaudeCode\managed-settings.json` — use `C:\Program Files\ClaudeCode\managed-settings.json` | changed |
+
 ## 2.1.74
 
 | 日本語 | English | Category |
