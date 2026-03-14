@@ -4,6 +4,46 @@
 
 ---
 
+## 2.1.76
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| MCP エリシテーションのサポートを追加 — MCP サーバーがインタラクティブなダイアログ（フォームフィールドまたはブラウザ URL）経由でタスク中に構造化された入力を要求できるように | Added MCP elicitation support — MCP servers can now request structured input mid-task via an interactive dialog (form fields or browser URL) | added |
+| レスポンスをサーバーに返す前にインターセプト・オーバーライドするための `Elicitation` および `ElicitationResult` フックを追加 | Added new `Elicitation` and `ElicitationResult` hooks to intercept and override responses before they're sent back | added |
+| セッションの表示名を起動時に設定する `-n` / `--name <name>` CLI フラグを追加 | Added `-n` / `--name <name>` CLI flag to set a display name for the session at startup | added |
+| 大規模モノレポで必要なディレクトリのみを git sparse-checkout でチェックアウトするための `claude --worktree` 用 `worktree.sparsePaths` 設定を追加 | Added `worktree.sparsePaths` setting for `claude --worktree` in large monorepos to check out only the directories you need via git sparse-checkout | added |
+| コンパクション完了後に発火する `PostCompact` フックを追加 | Added `PostCompact` hook that fires after compaction completes | added |
+| モデルのエフォートレベルを設定する `/effort` スラッシュコマンドを追加 | Added `/effort` slash command to set model effort level | added |
+| セッション品質サーベイを追加 — エンタープライズ管理者は `feedbackSurveyRate` 設定でサンプルレートを設定可能 | Added session quality survey — enterprise admins can configure the sample rate via the `feedbackSurveyRate` setting | added |
+| 会話のコンパクション後に遅延ツール（`ToolSearch` 経由でロード）の入力スキーマが失われ、配列・数値パラメータが型エラーで拒否される問題を修正 | Fixed deferred tools (loaded via `ToolSearch`) losing their input schemas after conversation compaction, causing array and number parameters to be rejected with type errors | fixed |
+| スラッシュコマンドに「Unknown skill」が表示される問題を修正 | Fixed slash commands showing "Unknown skill" | fixed |
+| プランが承認済みにもかかわらずプランモードが再承認を求める問題を修正 | Fixed plan mode asking for re-approval after the plan was already accepted | fixed |
+| パーミッションダイアログまたはプランエディタが開いている間、ボイスモードがキー入力を飲み込む問題を修正 | Fixed voice mode swallowing keypresses while a permission dialog or plan editor was open | fixed |
+| npm 経由でインストールした場合に Windows で `/voice` が動作しない問題を修正 | Fixed `/voice` not working on Windows when installed via npm | fixed |
+| 1M コンテキストのセッションで `model:` フロントマターを持つスキル呼び出し時に「Context limit reached」が誤って表示される問題を修正 | Fixed spurious "Context limit reached" when invoking a skill with `model:` frontmatter on a 1M-context session | fixed |
+| 非標準モデル文字列使用時に「adaptive thinking is not supported on this model」エラーが発生する問題を修正 | Fixed "adaptive thinking is not supported on this model" error when using non-standard model strings | fixed |
+| クォートされた引数に `#` が含まれる場合に `Bash(cmd:*)` パーミッションルールがマッチしない問題を修正 | Fixed `Bash(cmd:*)` permission rules not matching when a quoted argument contains `#` | fixed |
+| Bash パーミッションダイアログの「次回から確認しない」でパイプや複合コマンドの生のコマンド全体が表示される問題を修正 | Fixed "don't ask again" in the Bash permission dialog showing the full raw command for pipes and compound commands | fixed |
+| 連続した失敗後に自動コンパクションが無限リトライし続ける問題を修正 — サーキットブレーカーが 3 回試行後に停止するように | Fixed auto-compaction retrying indefinitely after consecutive failures — a circuit breaker now stops after 3 attempts | fixed |
+| 再接続成功後も MCP の再接続スピナーが残り続ける問題を修正 | Fixed MCP reconnect spinner persisting after successful reconnection | fixed |
+| LSP マネージャーがマーケットプレイスの調整前に初期化された際に LSP プラグインがサーバーを登録しない問題を修正 | Fixed LSP plugins not registering servers when the LSP Manager initialized before marketplaces were reconciled | fixed |
+| tmux over SSH でのクリップボードコピーを修正 — ターミナルへの直接書き込みと tmux クリップボード統合の両方を試みるように | Fixed clipboard copying in tmux over SSH — now attempts both direct terminal write and tmux clipboard integration | fixed |
+| `/export` の成功メッセージにフルファイルパスでなくファイル名のみが表示される問題を修正 | Fixed `/export` showing only the filename instead of the full file path in the success message | fixed |
+| テキスト選択後に新しいメッセージへトランスクリプトが自動スクロールしない問題を修正 | Fixed transcript not auto-scrolling to new messages after selecting text | fixed |
+| ログイン方法選択画面で Escape キーが機能しない問題を修正 | Fixed Escape key not working to exit the login method selection screen | fixed |
+| リモートコントロールの複数の問題を修正: サーバーがアイドル環境を回収した際にセッションがサイレントに終了する問題、高速なメッセージが一括処理されず一件ずつキューイングされる問題、JWT 更新後に古い作業アイテムが再配信される問題 | Fixed several Remote Control issues: sessions silently dying when the server reaps an idle environment, rapid messages being queued one-at-a-time instead of batched, and stale work items causing redelivery after JWT refresh | fixed |
+| WebSocket の長時間切断後にブリッジセッションが回復できない問題を修正 | Fixed bridge sessions failing to recover after extended WebSocket disconnects | fixed |
+| ソフト非表示コマンドの正確な名前を入力してもスラッシュコマンドが見つからない問題を修正 | Fixed slash commands not found when typing the exact name of a soft-hidden command | fixed |
+| git refs を直接読み取り、リモートブランチがすでにローカルで利用可能な場合の冗長な `git fetch` をスキップすることで `--worktree` の起動パフォーマンスを改善 | Improved `--worktree` startup performance by reading git refs directly and skipping redundant `git fetch` when the remote branch is already available locally | improved |
+| バックグラウンドエージェントの動作を改善 — バックグラウンドエージェントを強制終了した際に途中の結果が会話コンテキストに保持されるように | Improved background agent behavior — killing a background agent now preserves its partial results in the conversation context | improved |
+| モデルフォールバック通知を改善 — 冗長モードの裏に隠れることなく常に表示され、人間が読みやすいモデル名を使用するように | Improved model fallback notifications — now always visible instead of hidden behind verbose mode, with human-friendly model names | improved |
+| ダークターミナルテーマでのブロック引用の可読性を改善 — テキストが薄暗い表示ではなく左バー付きのイタリック体で表示されるように | Improved blockquote readability on dark terminal themes — text is now italic with a left bar instead of dim | improved |
+| 古いワークツリーのクリーンアップを改善 — 並列実行の中断後に残ったワークツリーが自動的にクリーンアップされるように | Improved stale worktree cleanup — worktrees left behind after an interrupted parallel run are now automatically cleaned up | improved |
+| リモートコントロールのセッションタイトルを改善 — 「Interactive session」ではなく最初のプロンプトから導出されるように | Improved Remote Control session titles — now derived from your first prompt instead of showing "Interactive session" | improved |
+| `/voice` を改善 — 有効化時にディクテーション言語を表示し、音声入力で `language` 設定がサポートされていない場合に警告を表示するように | Improved `/voice` to show your dictation language on enable and warn when your `language` setting isn't supported for voice input | improved |
+| `--plugin-dir` がサブコマンドをサポートするために 1 つのパスのみ受け付けるように変更 — 複数ディレクトリの指定には `--plugin-dir` を繰り返し使用 | Updated `--plugin-dir` to only accept one path to support subcommands — use repeated `--plugin-dir` for multiple directories | changed |
+| [VSCode] gitignore のパターンにカンマが含まれている場合、@メンションのファイルピッカーからファイルタイプ全体がサイレントに除外される問題を修正 | [VSCode] Fixed gitignore patterns containing commas silently excluding entire filetypes from the @-mention file picker | fixed |
+
 ## 2.1.75
 
 | 日本語 | English | Category |
