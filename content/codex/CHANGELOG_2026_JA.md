@@ -4,6 +4,24 @@
 
 ---
 
+## 0.115.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| サポート対象モデルが `view_image` および `codex.emitImage(..., detail: "original")` を通じてフル解像度の画像検査をリクエスト可能になり、精密な視覚タスクに対応。 (#14175) | Supported models can now request full-resolution image inspection through both `view_image` and `codex.emitImage(..., detail: "original")`, which helps with precision visual tasks. (#14175) | new-features |
+| `js_repl` に `codex.cwd` と `codex.homeDir` を公開し、保存済みの `codex.tool(...)` / `codex.emitImage(...)` 参照がセル間で継続して機能するように改善。 (#14385, #14503) | `js_repl` now exposes `codex.cwd` and `codex.homeDir`, and saved `codex.tool(...)` / `codex.emitImage(...)` references keep working across cells. (#14385, #14503) | new-features |
+| リアルタイム WebSocket セッションに専用の文字起こしモードを追加し、`codex` ツールを通じた v2 ハンドオフと統一された `[realtime]` セッション設定をサポート。 (#14554, #14556, #14606) | Realtime websocket sessions gained a dedicated transcription mode, plus v2 handoff support through the `codex` tool, with a unified `[realtime]` session config. (#14554, #14556, #14606) | new-features |
+| v2 アプリサーバーにファイルの読み書き・コピー・ディレクトリ操作・パス監視のファイルシステム RPC を公開し、同 API と連携するための新しい Python SDK を追加。 (#14245, #14435) | The v2 app-server now exposes filesystem RPCs for file reads, writes, copies, directory operations, and path watching, and there is a new Python SDK for integrating with that API. (#14245, #14435) | new-features |
+| Smart Approvals がコア・アプリサーバー・TUI においてレビューリクエストをガーディアンサブエージェント経由でルーティング可能になり、フォローアップ承認時の繰り返し設定を削減。 (#13860, #14668) | Smart Approvals can now route review requests through a guardian subagent in core, app-server, and TUI, reducing repeated setup work on follow-up approvals. (#13860, #14668) | new-features |
+| アプリ統合で Responses API のツール検索フローを採用し、不足ツールの提案機能を追加、アクティブモデルが検索ベースのルックアップに対応していない場合のフォールバック処理を改善。 (#14274, #14287, #14732) | App integrations now use the Responses API tool-search flow, can suggest missing tools, and fall back cleanly when the active model does not support search-based lookup. (#14274, #14287, #14732) | new-features |
+| 生成されたサブエージェントがサンドボックスおよびネットワークルールをより確実に継承するよう改善（プロジェクトプロファイルの階層適用・ホスト承認の永続化・シンボリックリンクによる書き込み可能ルートを含む）。 (#14619, #14650, #14674, #14807) | Spawned subagents now inherit sandbox and network rules more reliably, including project-profile layering, persisted host approvals, and symlinked writable roots. (#14619, #14650, #14674, #14807) | bug-fixes |
+| 動的ツールのレスポンスに U+2028 または U+2029 文字が含まれる場合に `js_repl` がハングする問題を修正。 (#14421) | `js_repl` no longer hangs when dynamic tool responses contain literal U+2028 or U+2029 characters. (#14421) | bug-fixes |
+| サブエージェント作成後に TUI の終了がスタックする問題を修正し、ターン割り込み時にバックグラウンドターミナルがデフォルトで破棄されないよう変更。 (#14816, #14602) | The TUI no longer stalls on exit after creating subagents, and interrupting a turn no longer tears down background terminals by default. (#14816, #14602) | bug-fixes |
+| `codex exec --profile` がスレッドの開始・再開時にプロファイルスコープの設定を正しく保持するよう修正。 (#14524) | `codex exec --profile` once again preserves profile-scoped settings when starting or resuming a thread. (#14524) | bug-fixes |
+| MCP およびエリシテーションフローの堅牢性を向上（安全なツール名の正規化・承認プロンプトでの `tool_params` 保持を含む）。 (#14491, #14605, #14769) | MCP and elicitation flows are more robust, with safer tool-name normalization and preserved `tool_params` in approval prompts. (#14491, #14605, #14769) | bug-fixes |
+| ローカルネットワークプロキシが CONNECT トラフィックを明示的な HTTP/1 として処理するよう変更し、HTTP プロキシクライアントとの互換性を改善。 (#14395) | The local network proxy now serves CONNECT traffic as explicit HTTP/1, improving compatibility with HTTP proxy clients. (#14395) | bug-fixes |
+| サブエージェント待機ツールの名称を `wait_agent` に統一し、`spawn_agent` および `send_input` との命名を整合。 (#14631) | The subagent wait tool is now consistently named `wait_agent`, aligning it with `spawn_agent` and `send_input`. (#14631) | chores |
+
 ## 0.114.0
 
 | 日本語 | English | Category |

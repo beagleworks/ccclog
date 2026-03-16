@@ -1,10 +1,82 @@
 {
-  "generatedAt": "2026-03-16T06:31:07.527Z",
+  "generatedAt": "2026-03-16T21:12:25.976Z",
   "months": [
     {
       "key": "2026-03",
       "label": "2026年3月",
       "versions": [
+        {
+          "version": "0.115.0",
+          "releaseDate": "2026-03-17",
+          "releaseDateDisplay": "2026年3月17日",
+          "entries": [
+            {
+              "ja": "サポート対象モデルが `view_image` および `codex.emitImage(..., detail: \"original\")` を通じてフル解像度の画像検査をリクエスト可能になり、精密な視覚タスクに対応。 (#14175)",
+              "en": "Supported models can now request full-resolution image inspection through both `view_image` and `codex.emitImage(..., detail: \"original\")`, which helps with precision visual tasks. (#14175)",
+              "category": "new-features"
+            },
+            {
+              "ja": "`js_repl` に `codex.cwd` と `codex.homeDir` を公開し、保存済みの `codex.tool(...)` / `codex.emitImage(...)` 参照がセル間で継続して機能するように改善。 (#14385, #14503)",
+              "en": "`js_repl` now exposes `codex.cwd` and `codex.homeDir`, and saved `codex.tool(...)` / `codex.emitImage(...)` references keep working across cells. (#14385, #14503)",
+              "category": "new-features"
+            },
+            {
+              "ja": "リアルタイム WebSocket セッションに専用の文字起こしモードを追加し、`codex` ツールを通じた v2 ハンドオフと統一された `[realtime]` セッション設定をサポート。 (#14554, #14556, #14606)",
+              "en": "Realtime websocket sessions gained a dedicated transcription mode, plus v2 handoff support through the `codex` tool, with a unified `[realtime]` session config. (#14554, #14556, #14606)",
+              "category": "new-features"
+            },
+            {
+              "ja": "v2 アプリサーバーにファイルの読み書き・コピー・ディレクトリ操作・パス監視のファイルシステム RPC を公開し、同 API と連携するための新しい Python SDK を追加。 (#14245, #14435)",
+              "en": "The v2 app-server now exposes filesystem RPCs for file reads, writes, copies, directory operations, and path watching, and there is a new Python SDK for integrating with that API. (#14245, #14435)",
+              "category": "new-features"
+            },
+            {
+              "ja": "Smart Approvals がコア・アプリサーバー・TUI においてレビューリクエストをガーディアンサブエージェント経由でルーティング可能になり、フォローアップ承認時の繰り返し設定を削減。 (#13860, #14668)",
+              "en": "Smart Approvals can now route review requests through a guardian subagent in core, app-server, and TUI, reducing repeated setup work on follow-up approvals. (#13860, #14668)",
+              "category": "new-features"
+            },
+            {
+              "ja": "アプリ統合で Responses API のツール検索フローを採用し、不足ツールの提案機能を追加、アクティブモデルが検索ベースのルックアップに対応していない場合のフォールバック処理を改善。 (#14274, #14287, #14732)",
+              "en": "App integrations now use the Responses API tool-search flow, can suggest missing tools, and fall back cleanly when the active model does not support search-based lookup. (#14274, #14287, #14732)",
+              "category": "new-features"
+            },
+            {
+              "ja": "生成されたサブエージェントがサンドボックスおよびネットワークルールをより確実に継承するよう改善（プロジェクトプロファイルの階層適用・ホスト承認の永続化・シンボリックリンクによる書き込み可能ルートを含む）。 (#14619, #14650, #14674, #14807)",
+              "en": "Spawned subagents now inherit sandbox and network rules more reliably, including project-profile layering, persisted host approvals, and symlinked writable roots. (#14619, #14650, #14674, #14807)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "動的ツールのレスポンスに U+2028 または U+2029 文字が含まれる場合に `js_repl` がハングする問題を修正。 (#14421)",
+              "en": "`js_repl` no longer hangs when dynamic tool responses contain literal U+2028 or U+2029 characters. (#14421)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "サブエージェント作成後に TUI の終了がスタックする問題を修正し、ターン割り込み時にバックグラウンドターミナルがデフォルトで破棄されないよう変更。 (#14816, #14602)",
+              "en": "The TUI no longer stalls on exit after creating subagents, and interrupting a turn no longer tears down background terminals by default. (#14816, #14602)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "`codex exec --profile` がスレッドの開始・再開時にプロファイルスコープの設定を正しく保持するよう修正。 (#14524)",
+              "en": "`codex exec --profile` once again preserves profile-scoped settings when starting or resuming a thread. (#14524)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "MCP およびエリシテーションフローの堅牢性を向上（安全なツール名の正規化・承認プロンプトでの `tool_params` 保持を含む）。 (#14491, #14605, #14769)",
+              "en": "MCP and elicitation flows are more robust, with safer tool-name normalization and preserved `tool_params` in approval prompts. (#14491, #14605, #14769)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "ローカルネットワークプロキシが CONNECT トラフィックを明示的な HTTP/1 として処理するよう変更し、HTTP プロキシクライアントとの互換性を改善。 (#14395)",
+              "en": "The local network proxy now serves CONNECT traffic as explicit HTTP/1, improving compatibility with HTTP proxy clients. (#14395)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "サブエージェント待機ツールの名称を `wait_agent` に統一し、`spawn_agent` および `send_input` との命名を整合。 (#14631)",
+              "en": "The subagent wait tool is now consistently named `wait_agent`, aligning it with `spawn_agent` and `send_input`. (#14631)",
+              "category": "chores"
+            }
+          ]
+        },
         {
           "version": "0.114.0",
           "releaseDate": "2026-03-11",
