@@ -4,6 +4,55 @@
 
 ---
 
+## 2.1.77
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Claude Opus 4.6 のデフォルト最大出力トークン上限を 64k トークンに、Opus 4.6 および Sonnet 4.6 モデルの上限を 128k トークンに引き上げ | Increased default maximum output token limits for Claude Opus 4.6 to 64k tokens, and the upper bound for Opus 4.6 and Sonnet 4.6 models to 128k tokens | changed |
+| `denyRead` 領域内での読み取りアクセスを再許可する `allowRead` サンドボックスファイルシステム設定を追加 | Added `allowRead` sandbox filesystem setting to re-allow read access within `denyRead` regions | added |
+| `/copy` にオプションのインデックス指定を追加：`/copy N` で N 番目に新しいアシスタントの返答をコピー可能 | `/copy` now accepts an optional index: `/copy N` copies the Nth-latest assistant response | added |
+| 複合 bash コマンド（例：`cd src && npm test`）に対する「Always Allow」が、サブコマンド単位ではなく文字列全体に対して単一のルールを保存し、無効なルールと繰り返しの権限プロンプトが発生する不具合を修正 | Fixed "Always Allow" on compound bash commands (e.g. `cd src && npm test`) saving a single rule for the full string instead of per-subcommand, leading to dead rules and repeated permission prompts | fixed |
+| スラッシュコマンドオーバーレイの繰り返し開閉時に自動アップデーターが重複してバイナリダウンロードを開始し、数十ギガバイトのメモリを消費する不具合を修正 | Fixed auto-updater starting overlapping binary downloads when the slash-command overlay repeatedly opened and closed, accumulating tens of gigabytes of memory | fixed |
+| メモリ抽出書き込みとメイントランスクリプトの競合により、`--resume` が最近の会話履歴を無通知でトランケートする不具合を修正 | Fixed `--resume` silently truncating recent conversation history due to a race between memory-extraction writes and the main transcript | fixed |
+| PreToolUse フックが `"allow"` を返すことで、エンタープライズ管理設定を含む `deny` 権限ルールを迂回できる不具合を修正 | Fixed PreToolUse hooks returning `"allow"` bypassing `deny` permission rules, including enterprise managed settings | fixed |
+| CRLF ファイルの上書きや CRLF ディレクトリへのファイル作成時に、Write ツールが無通知で改行コードを変換する不具合を修正 | Fixed Write tool silently converting line endings when overwriting CRLF files or creating files in CRLF directories | fixed |
+| 進捗メッセージがコンパクション後も残ることによる長時間セッションでのメモリ増加を修正 | Fixed memory growth in long-running sessions from progress messages surviving compaction | fixed |
+| API が非ストリーミングモードにフォールバックした際にコストとトークン使用量が記録されない不具合を修正 | Fixed cost and token usage not being tracked when the API falls back to non-streaming mode | fixed |
+| `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` がベータツールスキーマフィールドを除去せず、プロキシゲートウェイがリクエストを拒否する不具合を修正 | Fixed `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` not stripping beta tool-schema fields, causing proxy gateways to reject requests | fixed |
+| システム一時ディレクトリのパスにスペースが含まれる場合、Bash ツールが成功したコマンドに対してエラーを報告する不具合を修正 | Fixed Bash tool reporting errors for successful commands when the system temp directory path contains spaces | fixed |
+| ペースト直後に入力した際にペースト内容が失われる不具合を修正 | Fixed paste being lost when typing immediately after pasting | fixed |
+| `/feedback` テキスト入力内での Ctrl+D が前方削除として動作し、2 回目の押下でセッションを終了できない不具合を修正 | Fixed Ctrl+D in `/feedback` text input deleting forward instead of the second press exiting the session | fixed |
+| 0 バイトの画像ファイルをプロンプトにドラッグした際の API エラーを修正 | Fixed API error when dragging a 0-byte image file into the prompt | fixed |
+| Claude Desktop セッションが OAuth の代わりにターミナル CLI で設定した API キーを誤って使用する不具合を修正 | Fixed Claude Desktop sessions incorrectly using the terminal CLI's configured API key instead of OAuth | fixed |
+| 同一モノレポの異なるサブディレクトリの `git-subdir` プラグインがプラグインキャッシュで衝突する不具合を修正 | Fixed `git-subdir` plugins at different subdirectories of the same monorepo commit colliding in the plugin cache | fixed |
+| ターミナル UI で順序付きリストの番号が描画されない不具合を修正 | Fixed ordered list numbers not rendering in terminal UI | fixed |
+| 以前のクラッシュから再開したエージェントワークツリーが、古いワークツリーのクリーンアップ処理によって削除されることがある競合状態を修正 | Fixed a race condition where stale-worktree cleanup could delete an agent worktree just resumed from a previous crash | fixed |
+| エージェント実行中に `/mcp` 等のダイアログを開いた際の入力デッドロックを修正 | Fixed input deadlock when opening `/mcp` or similar dialogs while the agent is running | fixed |
+| vim NORMAL モードで Backspace キーと Delete キーが機能しない不具合を修正 | Fixed Backspace and Delete keys not working in vim NORMAL mode | fixed |
+| vim モードのオン・オフ切り替え時にステータスラインが更新されない不具合を修正 | Fixed status line not updating when vim mode is toggled on or off | fixed |
+| VS Code、Cursor およびその他の xterm.js ベースのターミナルで Cmd+クリック時にハイパーリンクが 2 回開く不具合を修正 | Fixed hyperlinks opening twice on Cmd+click in VS Code, Cursor, and other xterm.js-based terminals | fixed |
+| デフォルト設定の tmux 内でバックグラウンドカラーがターミナルデフォルトとして描画される不具合を修正 | Fixed background colors rendering as terminal-default inside tmux with default configuration | fixed |
+| SSH 経由の tmux 上でテキストを選択した際に iTerm2 セッションがクラッシュする不具合を修正 | Fixed iTerm2 session crash when selecting text inside tmux over SSH | fixed |
+| tmux セッションでのクリップボードコピーが無通知で失敗する不具合を修正；コピー完了のトーストに `⌘V` または tmux の `prefix+]` どちらで貼り付けるかを表示するよう改善 | Fixed clipboard copy silently failing in tmux sessions; copy toast now indicates whether to paste with `⌘V` or tmux `prefix+]` | fixed |
+| 設定・権限・サンドボックスダイアログのリスト操作中に `←`/`→` キーが誤ってタブを切り替える不具合を修正 | Fixed `←`/`→` accidentally switching tabs in settings, permissions, and sandbox dialogs while navigating lists | fixed |
+| tmux または screen 内で Claude Code を起動した際に IDE 連携が自動接続されない不具合を修正 | Fixed IDE integration not auto-connecting when Claude Code is launched inside tmux or screen | fixed |
+| 右端でクリップされた CJK 文字が隣接する UI 要素にはみ出して表示される不具合を修正 | Fixed CJK characters visually bleeding into adjacent UI elements when clipped at the right edge | fixed |
+| リーダーが終了した際にチームメイトペインが閉じない不具合を修正 | Fixed teammate panes not closing when the leader exits | fixed |
+| iTerm2 オートモードでネイティブ分割ペインのチームメイト向けに iTerm2 が検出されない不具合を修正 | Fixed iTerm2 auto mode not detecting iTerm2 for native split-pane teammates | fixed |
+| キーチェーン認証情報をモジュールロードと並列で読み込むことにより、macOS での起動を高速化（約 60ms 短縮） | Faster startup on macOS (~60ms) by reading keychain credentials in parallel with module loading | improved |
+| フォークの多いセッションや非常に大きなセッションでの `--resume` を高速化 — 読み込みを最大 45% 高速化、ピークメモリを約 100〜150MB 削減 | Faster `--resume` on fork-heavy and very large sessions — up to 45% faster loading and ~100-150MB less peak memory | improved |
+| Esc による非ストリーミング API リクエストの中断を改善 | Improved Esc to abort in-flight non-streaming API requests | improved |
+| `claude plugin validate` でスキル・エージェント・コマンドのフロントマターおよび `hooks/hooks.json` のチェックを追加し、YAML パースエラーとスキーマ違反を検出可能に改善 | Improved `claude plugin validate` to check skill, agent, and command frontmatter plus `hooks/hooks.json`, catching YAML parse errors and schema violations | improved |
+| バックグラウンド bash タスクの出力が 5GB を超えた場合に強制終了し、ディスクを使い果たすプロセスの暴走を防止 | Background bash tasks are now killed if output exceeds 5GB, preventing runaway processes from filling disk | added |
+| プランを承認した際にプランの内容からセッション名を自動生成するよう対応 | Sessions are now auto-named from plan content when you accept a plan | added |
+| ヘッドレスモードのプラグインインストールを `CLAUDE_CODE_PLUGIN_SEED_DIR` と正しく組み合わせられるよう改善 | Improved headless mode plugin installation to compose correctly with `CLAUDE_CODE_PLUGIN_SEED_DIR` | improved |
+| `apiKeyHelper` が 10 秒以上かかる場合にメインループをブロックしないよう通知を表示 | Show a notice when `apiKeyHelper` takes longer than 10s, preventing it from blocking the main loop | improved |
+| Agent ツールの `resume` パラメーターを廃止 — 以前に起動したエージェントを継続するには `SendMessage({to: agentId})` を使用 | The Agent tool no longer accepts a `resume` parameter — use `SendMessage({to: agentId})` to continue a previously spawned agent | changed |
+| `SendMessage` がエラーを返す代わりに、停止中のエージェントをバックグラウンドで自動再開するよう変更 | `SendMessage` now auto-resumes stopped agents in the background instead of returning an error | changed |
+| `/fork` を `/branch` に改名（`/fork` はエイリアスとして継続使用可能） | Renamed `/fork` to `/branch` (`/fork` still works as an alias) | changed |
+| [VSCode] プランプレビュータブのタイトルを「Claude's Plan」ではなくプランの見出しを使用するよう改善 | [VSCode] Improved plan preview tab titles to use the plan's heading instead of "Claude's Plan" | improved |
+| [VSCode] macOS で option+クリックがネイティブ選択を起動しない場合、フッターに `macOptionClickForcesSelection` 設定への案内を表示 | [VSCode] When option+click doesn't trigger native selection on macOS, the footer now points to the `macOptionClickForcesSelection` setting | improved |
+
 ## 2.1.76
 
 | 日本語 | English | Category |
