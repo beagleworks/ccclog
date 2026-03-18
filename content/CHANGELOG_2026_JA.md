@@ -4,6 +4,29 @@
 
 ---
 
+## 2.1.79
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `claude auth login` に Anthropic Console（API課金）認証用の `--console` フラグを追加 (#なし) | Added `--console` flag to `claude auth login` for Anthropic Console (API billing) authentication | added |
+| `/config` メニューに「ターン所要時間を表示」トグルを追加 | Added "Show turn duration" toggle to the `/config` menu | added |
+| 明示的な stdin なしでサブプロセスとして起動した場合（例: Python の `subprocess.run`）に `claude -p` がハングする問題を修正 | Fixed `claude -p` hanging when spawned as a subprocess without explicit stdin (e.g. Python `subprocess.run`) | fixed |
+| `-p`（print）モードで Ctrl+C が機能しない問題を修正 | Fixed Ctrl+C not working in `-p` (print) mode | fixed |
+| ストリーミング中に `/btw` がトリガーされた際、サイドの質問に答える代わりにメインエージェントの出力を返す問題を修正 | Fixed `/btw` returning the main agent's output instead of answering the side question when triggered during streaming | fixed |
+| `voiceEnabled: true` が設定されている場合に起動時ボイスモードが正しく有効化されない問題を修正 | Fixed voice mode not activating correctly on startup when `voiceEnabled: true` is set | fixed |
+| `/permissions` での左右矢印キーによるタブナビゲーションが機能しない問題を修正 | Fixed left/right arrow tab navigation in `/permissions` | fixed |
+| `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` が起動時のターミナルタイトル設定を抑制しない問題を修正 | Fixed `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` not preventing terminal title from being set on startup | fixed |
+| ワークスペーストラストによりブロックされている場合にカスタムステータスラインが何も表示されない問題を修正 | Fixed custom status line showing nothing when workspace trust is blocking it | fixed |
+| エンタープライズユーザーがレートリミット（429）エラー時に再試行できない問題を修正 | Fixed enterprise users being unable to retry on rate limit (429) errors | fixed |
+| インタラクティブな `/resume` でセッションを切り替えた際に `SessionEnd` フックが発火しない問題を修正 | Fixed `SessionEnd` hooks not firing when using interactive `/resume` to switch sessions | fixed |
+| 全シナリオで起動時のメモリ使用量を約18MB削減 | Improved startup memory usage by ~18MB across all scenarios | improved |
+| 非ストリーミングAPIフォールバックに1回あたり2分のタイムアウトを追加し、セッションが無期限にハングするのを防止 | Improved non-streaming API fallback with a 2-minute per-attempt timeout, preventing sessions from hanging indefinitely | improved |
+| `CLAUDE_CODE_PLUGIN_SEED_DIR` がプラットフォームのパス区切り文字（Unix では `:`、Windows では `;`）で区切られた複数のシードディレクトリをサポート | `CLAUDE_CODE_PLUGIN_SEED_DIR` now supports multiple seed directories separated by the platform path delimiter (`:` on Unix, `;` on Windows) | changed |
+| [VSCode] `/remote-control` を追加 — セッションを claude.ai/code にブリッジしてブラウザやスマートフォンから続行可能 | [VSCode] Added `/remote-control` — bridge your session to claude.ai/code to continue from a browser or phone | added |
+| [VSCode] セッションタブに最初のメッセージをもとにAI生成タイトルを付与する機能を追加 | [VSCode] Session tabs now get AI-generated titles based on your first message | added |
+| [VSCode] レスポンス完了後にthinkingピルが「Thought for Ns」ではなく「Thinking」と表示される問題を修正 | [VSCode] Fixed the thinking pill showing "Thinking" instead of "Thought for Ns" after a response completes | fixed |
+| [VSCode] 左サイドバーからセッションを開いた際にセッションdiffボタンが表示されない問題を修正 | [VSCode] Fixed missing session diff button when opening sessions from the left sidebar | fixed |
+
 ## 2.1.78
 
 | 日本語 | English | Category |
