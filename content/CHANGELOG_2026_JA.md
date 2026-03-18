@@ -4,6 +4,37 @@
 
 ---
 
+## 2.1.78
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| APIエラー（レート制限、認証失敗など）によりターンが終了した際に発火する `StopFailure` フックイベントを追加 (#なし) | Added `StopFailure` hook event that fires when the turn ends due to an API error (rate limit, auth failure, etc.) | added |
+| プラグインのアップデート後も状態が保持されるプラグイン永続ステート用変数 `${CLAUDE_PLUGIN_DATA}` を追加。`/plugin uninstall` 実行時に削除前の確認プロンプトを表示 | Added `${CLAUDE_PLUGIN_DATA}` variable for plugin persistent state that survives plugin updates; `/plugin uninstall` prompts before deleting it | added |
+| プラグイン同梱エージェントのフロントマターに `effort`・`maxTurns`・`disallowedTools` のサポートを追加 | Added `effort`, `maxTurns`, and `disallowedTools` frontmatter support for plugin-shipped agents | added |
+| tmux 上で `set -g allow-passthrough on` を設定時、ターミナル通知（iTerm2/Kitty/Ghostty のポップアップ、プログレスバー）が外側のターミナルに正しく伝達されるよう対応 | Terminal notifications (iTerm2/Kitty/Ghostty popups, progress bar) now reach the outer terminal when running inside tmux with `set -g allow-passthrough on` | fixed |
+| レスポンステキストを生成しながら1行ずつストリーミング表示するよう変更 | Response text now streams line-by-line as it's generated | improved |
+| Linux のサンドボックス Bash 上で `git log HEAD` が「ambiguous argument」エラーで失敗する問題、およびスタブファイルが作業ディレクトリの `git status` を汚染する問題を修正 | Fixed `git log HEAD` failing with "ambiguous argument" inside sandboxed Bash on Linux, and stub files polluting `git status` in the working directory | fixed |
+| サブエージェントを使用した大規模セッション（5MB超）で `cc log` および `--resume` が会話履歴をサイレントに切り捨てる問題を修正 | Fixed `cc log` and `--resume` silently truncating conversation history on large sessions (>5 MB) that used subagents | fixed |
+| APIエラーがストップフックをトリガーし、ブロッキングエラーがモデルに再送されることで発生する無限ループを修正 | Fixed infinite loop when API errors triggered stop hooks that re-fed blocking errors to the model | fixed |
+| `deny: ["mcp__servername"]` の権限ルールがモデルへの送信前に MCP サーバーツールを除外せず、ブロック対象のツールを参照・実行できてしまう問題を修正 | Fixed `deny: ["mcp__servername"]` permission rules not removing MCP server tools before sending to the model, allowing it to see and attempt blocked tools | fixed |
+| `sandbox.filesystem.allowWrite` が絶対パスで機能しない問題を修正（従来は `//` プレフィックスが必要だった） | Fixed `sandbox.filesystem.allowWrite` not working with absolute paths (previously required `//` prefix) | fixed |
+| `/sandbox` の Dependencies タブが macOS 上で macOS 固有の情報ではなく Linux の前提条件を表示する問題を修正 | Fixed `/sandbox` Dependencies tab showing Linux prerequisites on macOS instead of macOS-specific info | fixed |
+| **セキュリティ:** `sandbox.enabled: true` が設定されているが依存関係が不足している場合にサンドボックスがサイレント無効化される問題を修正 — 起動時に警告を明示表示するよう変更 | **Security:** Fixed silent sandbox disable when `sandbox.enabled: true` is set but dependencies are missing — now shows a visible startup warning | fixed |
+| `bypassPermissions` モードで `.git`・`.claude` 等の保護ディレクトリがプロンプトなしに書き込み可能になっていた問題を修正 | Fixed `.git`, `.claude`, and other protected directories being writable without a prompt in `bypassPermissions` mode | fixed |
+| ノーマルモードでの ctrl+u がreadline の kill-line ではなくスクロールになっていた問題を修正（ctrl+u/ctrl+d の半ページスクロールはトランスクリプトモード専用に移動） | Fixed ctrl+u in normal mode scrolling instead of readline kill-line (ctrl+u/ctrl+d half-page scroll moved to transcript mode only) | fixed |
+| ボイスモードのモディファイアキー組み合わせによるプッシュトゥトーク（例: ctrl+k）が即時起動せず長押しが必要になっていた問題を修正 | Fixed voice mode modifier-combo push-to-talk keybindings (e.g. ctrl+k) requiring a hold instead of activating immediately | fixed |
+| WSL2（WSLg、Windows 11）でボイスモードが動作しない問題を修正。WSL1/Windows 10 ユーザーには明確なエラーメッセージを表示 | Fixed voice mode not working on WSL2 with WSLg (Windows 11); WSL1/Win10 users now get a clear error | fixed |
+| `--worktree` フラグがワークツリーディレクトリからスキルとフックを読み込まない問題を修正 | Fixed `--worktree` flag not loading skills and hooks from the worktree directory | fixed |
+| `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` および `includeGitInstructions` 設定がシステムプロンプトの git ステータスセクションを抑制しない問題を修正 | Fixed `CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS` and `includeGitInstructions` setting not suppressing the git status section in the system prompt | fixed |
+| VS Code を Dock/Spotlight から起動した際に Bash ツールが Homebrew 等の PATH 依存バイナリを検出できない問題を修正 | Fixed Bash tool not finding Homebrew and other PATH-dependent binaries when VS Code is launched from Dock/Spotlight | fixed |
+| トゥルーカラーをアドバタイズしない VS Code/Cursor/code-server ターミナルで Claude のオレンジ色が薄くなる問題を修正 | Fixed washed-out Claude orange color in VS Code/Cursor/code-server terminals that don't advertise truecolor support | fixed |
+| `/model` ピッカーにカスタムエントリを追加できる環境変数 `ANTHROPIC_CUSTOM_MODEL_OPTION` を追加。表示名と説明用に `_NAME`・`_DESCRIPTION` サフィックス付き変数もサポート | Added `ANTHROPIC_CUSTOM_MODEL_OPTION` env var to add a custom entry to the `/model` picker, with optional `_NAME` and `_DESCRIPTION` suffixed vars for display | added |
+| Haiku モデル使用時に環境変数 `ANTHROPIC_BETAS` がサイレントに無視される問題を修正 | Fixed `ANTHROPIC_BETAS` environment variable being silently ignored when using Haiku models | fixed |
+| キューに積まれたプロンプトが改行なしで連結される問題を修正 | Fixed queued prompts being concatenated without a newline separator | fixed |
+| 大規模セッション再開時のメモリ使用量と起動時間を改善 | Improved memory usage and startup time when resuming large sessions | improved |
+| [VSCode] 認証済み状態でサイドバーを開いた際にログイン画面が一瞬フラッシュする問題を修正 | [VSCode] Fixed a brief flash of the login screen when opening the sidebar while already authenticated | fixed |
+| [VSCode] Opus 選択時に「API Error: Rate limit reached」が発生する問題を修正 — プラン階層が不明なサブスクライバーにはモデルドロップダウンで 1M コンテキスト版を表示しないよう変更 | [VSCode] Fixed "API Error: Rate limit reached" when selecting Opus — model dropdown no longer offers 1M context variant to subscribers whose plan tier is unknown | fixed |
+
 ## 2.1.77
 
 | 日本語 | English | Category |
