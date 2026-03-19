@@ -4,6 +4,28 @@
 
 ---
 
+## 2.1.80
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| ステータスラインスクリプトに `rate_limits` フィールドを追加 — Claude.ai のレート制限使用状況（5時間・7日間ウィンドウの `used_percentage` と `resets_at`）を表示可能に | Added `rate_limits` field to statusline scripts for displaying Claude.ai rate limit usage (5-hour and 7-day windows with `used_percentage` and `resets_at`) | added |
+| `source: 'settings'` プラグインマーケットプレイスソースを追加 — settings.json にプラグインエントリをインラインで宣言可能に | Added `source: 'settings'` plugin marketplace source — declare plugin entries inline in settings.json | added |
+| ファイルパターンマッチングに加え、プラグインヒントへの CLI ツール使用検出を追加 | Added CLI tool usage detection to plugin tips, in addition to file pattern matching | added |
+| スキルおよびスラッシュコマンドのフロントマターに `effort` サポートを追加 — 呼び出し時にモデルのエフォートレベルを上書き可能に | Added `effort` frontmatter support for skills and slash commands to override the model effort level when invoked | added |
+| `--channels`（リサーチプレビュー）を追加 — MCP サーバーからセッションへのメッセージプッシュを許可 | Added `--channels` (research preview) — allow MCP servers to push messages into your session | added |
+| `--resume` で並列ツール結果が欠落する問題を修正 — 並列ツール呼び出しを含むセッションで、`[Tool result missing]` プレースホルダーではなくすべての tool_use/tool_result ペアが正しく復元されるように | Fixed `--resume` dropping parallel tool results — sessions with parallel tool calls now restore all tool_use/tool_result pairs instead of showing `[Tool result missing]` placeholders | fixed |
+| ブラウザ以外の TLS フィンガープリントに対する Cloudflare ボット検出が原因で音声モードの WebSocket が失敗する問題を修正 | Fixed voice mode WebSocket failures caused by Cloudflare bot detection on non-browser TLS fingerprints | fixed |
+| API プロキシ・Bedrock・Vertex 経由でファイングレインなツールストリーミングを使用した際に 400 エラーが発生する問題を修正 | Fixed 400 errors when using fine-grained tool streaming through API proxies, Bedrock, or Vertex | fixed |
+| ゲートウェイおよびサードパーティプロバイダーのデプロイ環境（機能しない環境）で `/remote-control` が表示される問題を修正 | Fixed `/remote-control` appearing for gateway and third-party provider deployments where it cannot function | fixed |
+| `/sandbox` タブ切り替えが Tab キーおよび矢印キーに反応しない問題を修正 | Fixed `/sandbox` tab switching not responding to Tab or arrow keys | fixed |
+| 大規模 git リポジトリにおける `@` ファイルオートコンプリートの応答性を改善 | Improved responsiveness of `@` file autocomplete in large git repositories | improved |
+| `/effort` に auto が現在解決するレベルの表示を追加し、ステータスバーの表示と一致するように改善 | Improved `/effort` to show what auto currently resolves to, matching the status bar indicator | improved |
+| `/permissions` を改善 — リスト内から Tab キーおよび矢印キーでタブ切り替えが可能に | Improved `/permissions` — Tab and arrow keys now switch tabs from within a list | improved |
+| バックグラウンドタスクパネルを改善 — リストビューから左矢印キーで閉じられるように | Improved background tasks panel — left arrow now closes from the list view | improved |
+| プラグインインストールのヒントを簡略化 — 2ステップのフローではなく単一の `/plugin install` コマンドに統一 | Simplified plugin install tips to use a single `/plugin install` command instead of a two-step flow | changed |
+| 大規模リポジトリでの起動時メモリ使用量を削減（25万ファイルのリポジトリで約 80 MB 削減） | Reduced memory usage on startup in large repositories (~80 MB saved on 250k-file repos) | improved |
+| `remote-settings.json` が前回セッションからキャッシュされている場合に、マネージド設定（`enabledPlugins`・`permissions.defaultMode`・ポリシー設定の環境変数）が起動時に適用されない問題を修正 | Fixed managed settings (`enabledPlugins`, `permissions.defaultMode`, policy-set env vars) not being applied at startup when `remote-settings.json` was cached from a prior session | fixed |
+
 ## 2.1.79
 
 | 日本語 | English | Category |
