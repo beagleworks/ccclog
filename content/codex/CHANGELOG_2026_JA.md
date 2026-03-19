@@ -4,6 +4,21 @@
 
 ---
 
+## 0.116.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| App-server TUI にオンボーディング中のデバイスコード認証による ChatGPT サインインのサポートを追加し、既存の ChatGPT トークンの更新にも対応。(#14952) | App-server TUI now supports device-code ChatGPT sign-in during onboarding and can refresh existing ChatGPT tokens. (#14952) | new-features |
+| プラグインのセットアップを改善：不足しているプラグインやコネクタのインストール促進、設定済みサジェストの許可リスト適用、リモートでのインストール/アンインストール状態の同期に対応。(#14896, #15022, #14878) | Plugin setup is smoother: Codex can prompt to install missing plugins or connectors, honor a configured suggestion allowlist, and sync install/uninstall state remotely. (#14896, #15022, #14878) | new-features |
+| プロンプトを実行前・履歴への記録前にブロックまたは補完できる `userpromptsubmit` フックを追加。(#14626) | Added a `userpromptsubmit` hook so prompts can be blocked or augmented before execution and before they enter history. (#14626) | new-features |
+| リアルタイムセッションの開始時に直近のスレッドコンテキストを反映するよう改善し、音声再生中の自己割り込みを抑制。(#14829, #14827) | Realtime sessions now start with recent thread context and are less likely to self-interrupt during audio playback. (#14829, #14827) | new-features |
+| WebSocket のプレウォームが `turn/start` を遅延させる初回ターンのストール問題を修正；起動時にタイムアウトしてクリーンにフォールバックするよう改善。(#14838) | Fixed a first-turn stall where websocket prewarm could delay `turn/start`; startup now times out and falls back cleanly. (#14838) | bug-fixes |
+| App-server TUI のリモート再開/フォーク時の会話履歴を復元し、レガシーストリームイベントによる重複ライブ字幕出力を解消。(#14930, #14892) | Restored conversation history for remote resume/fork in the app-server TUI and stopped duplicate live transcript output from legacy stream events. (#14930, #14892) | bug-fixes |
+| シンボリックリンクのチェックアウト、書き込み可能ルートの欠如、Ubuntu/AppArmor ホストにおける Linux サンドボックスの起動を改善；利用可能な場合はシステムの `bwrap` を優先使用するよう変更。(#14849, #14890, #14963) | Improved Linux sandbox startup on symlinked checkouts, missing writable roots, and Ubuntu/AppArmor hosts by preferring system `bwrap` when available. (#14849, #14890, #14963) | bug-fixes |
+| エージェントジョブのファイナライズ競合状態を修正し、ワーカースレッドのステータスポーリング過多を軽減。(#14843) | Fixed an agent job finalization race and reduced status polling churn for worker threads. (#14843) | bug-fixes |
+| 生成された app-server モデルに関する Python SDK の公開 API ドキュメント、サンプル、ウォークスルーを更新。(#14446) | Refreshed the Python SDK public API docs, examples, and walkthrough around the generated app-server models. (#14446) | documentation |
+| CI の再現性向上のため、`setup-zig` GitHub Action をイミュータブルな SHA に固定。(#14858) | Pinned the `setup-zig` GitHub Action to an immutable SHA for more reproducible CI. (#14858) | chores |
+
 ## 0.115.0
 
 | 日本語 | English | Category |
