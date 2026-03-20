@@ -4,6 +4,38 @@
 
 ---
 
+## 2.1.81
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| スクリプト向け `-p` 呼び出し用の `--bare` フラグを追加 — フック、LSP、プラグイン同期、スキルディレクトリ走査をスキップ。`ANTHROPIC_API_KEY` または `--settings` 経由の `apiKeyHelper` が必須（OAuthおよびキーチェーン認証は無効）、自動メモリも完全無効 | Added `--bare` flag for scripted `-p` calls — skips hooks, LSP, plugin sync, and skill directory walks; requires `ANTHROPIC_API_KEY` or an `apiKeyHelper` via `--settings` (OAuth and keychain auth disabled); auto-memory fully disabled | added |
+| `--channels` 権限リレーを追加 — permission capability を宣言したチャンネルサーバーがツール承認プロンプトをスマートフォンに転送可能 | Added `--channels` permission relay — channel servers that declare the permission capability can forward tool approval prompts to your phone | added |
+| 1つのセッションがOAuthトークンをリフレッシュした際に、複数の同時セッションで再認証が繰り返し要求される問題を修正 | Fixed multiple concurrent Claude Code sessions requiring repeated re-authentication when one session refreshes its OAuth token | fixed |
+| ボイスモードでリトライ失敗が握り潰され、実際のエラーの代わりに誤解を招く「ネットワークを確認してください」メッセージが表示される問題を修正 | Fixed voice mode silently swallowing retry failures and showing a misleading "check your network" message instead of the actual error | fixed |
+| サーバーがWebSocket接続を無通知で切断した際にボイスモードのオーディオが復旧しない問題を修正 | Fixed voice mode audio not recovering when the server silently drops the WebSocket connection | fixed |
+| `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` が structured-outputs ベータヘッダーを抑制せず、Vertex/Bedrock に転送するプロキシゲートウェイで400エラーが発生する問題を修正 | Fixed `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` not suppressing the structured-outputs beta header, causing 400 errors on proxy gateways forwarding to Vertex/Bedrock | fixed |
+| 他のマネージド設定が未構成のTeam/Enterpriseオーグで `--channels` が迂回されてしまう問題を修正 | Fixed `--channels` bypass for Team/Enterprise orgs with no other managed settings configured | fixed |
+| Node.js 18 でのクラッシュを修正 | Fixed a crash on Node.js 18 | fixed |
+| 文字列にダッシュを含む Bash コマンドで不要な権限プロンプトが表示される問題を修正 | Fixed unnecessary permission prompts for Bash commands containing dashes in strings | fixed |
+| セッション中にプラグインディレクトリが削除された際、プラグインフックがプロンプト送信をブロックする問題を修正 | Fixed plugin hooks blocking prompt submission when the plugin directory is deleted mid-session | fixed |
+| タスクがポーリング間隔の間に完了した場合にバックグラウンドエージェントのタスク出力が無限にハングするレース条件を修正 | Fixed a race condition where background agent task output could hang indefinitely when the task completed between polling intervals | fixed |
+| ワークツリー内のセッションを再開した際に、そのワークツリーへ自動的に切り替えるように対応 | Resuming a session that was in a worktree now switches back to that worktree | fixed |
+| アクティブなレスポンス中に使用した際に `/btw` がペーストしたテキストを含めない問題を修正 | Fixed `/btw` not including pasted text when used during an active response | fixed |
+| tmux 環境下で素早い Cmd+Tab 後のペーストがクリップボードコピーより先行する可能性があるレース条件を修正 | Fixed a race where fast Cmd+Tab followed by paste could beat the clipboard copy under tmux | fixed |
+| 自動生成されたセッション説明でターミナルのタブタイトルが更新されない問題を修正 | Fixed terminal tab title not updating with an auto-generated session description | fixed |
+| 非表示のフックアタッチメントがトランスクリプトモードのメッセージ数を水増しする問題を修正 | Fixed invisible hook attachments inflating the message count in transcript mode | fixed |
+| Remote Control セッションが汎用タイトルを表示し、最初のプロンプトから派生したタイトルにならない問題を修正 | Fixed Remote Control sessions showing a generic title instead of deriving from the first prompt | fixed |
+| `/rename` が Remote Control セッションのタイトルを同期しない問題を修正 | Fixed `/rename` not syncing the title for Remote Control sessions | fixed |
+| Remote Control の `/exit` がセッションを確実にアーカイブしない問題を修正 | Fixed Remote Control `/exit` not reliably archiving the session | fixed |
+| MCP の読み取り・検索ツール呼び出しを「Queried {server}」の1行に折りたたむよう改善（Ctrl+O で展開可能） | Improved MCP read/search tool calls to collapse into a single "Queried {server}" line (expand with Ctrl+O) | improved |
+| `!` bash モードの発見性を改善 — インタラクティブなコマンド実行が必要な際にClaudeが提案するように対応 | Improved `!` bash mode discoverability — Claude now suggests it when you need to run an interactive command | improved |
+| プラグインの鮮度を改善 — refトラッキングされたプラグインが上流の変更を取得するために毎回ロード時に再クローンするように対応 | Improved plugin freshness — ref-tracked plugins now re-clone on every load to pick up upstream changes | improved |
+| Remote Control セッションのタイトルが3番目のメッセージ以降に更新されるよう改善 | Improved Remote Control session titles to refresh after your third message | improved |
+| Dynamic Client Registration 未対応のサーバー向けに、MCP OAuthがClient ID Metadata Document（CIMD / SEP-991）をサポートするよう更新 | Updated MCP OAuth to support Client ID Metadata Document (CIMD / SEP-991) for servers without Dynamic Client Registration | changed |
+| プランモードでデフォルトの「コンテキストをクリア」オプションを非表示に変更（`"showClearContextOnPlanAccept": true` で復元可能） | Changed plan mode to hide the "clear context" option by default (restore with `"showClearContextOnPlanAccept": true`) | changed |
+| 描画の問題により、Windows（Windows Terminal上のWSLを含む）での行単位レスポンスストリーミングを無効化 | Disabled line-by-line response streaming on Windows (including WSL in Windows Terminal) due to rendering issues | changed |
+| [VSCode] Git Bash使用時のBashツールにおけるWindows PATH継承を修正（v2.1.78のリグレッション） | [VSCode] Fixed Windows PATH inheritance for Bash tool when using Git Bash (regression in v2.1.78) | fixed |
+
 ## 2.1.80
 
 | 日本語 | English | Category |

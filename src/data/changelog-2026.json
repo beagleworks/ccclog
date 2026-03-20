@@ -1,10 +1,152 @@
 {
-  "generatedAt": "2026-03-19T23:07:45.873Z",
+  "generatedAt": "2026-03-20T23:07:16.690Z",
   "months": [
     {
       "key": "2026-03",
       "label": "2026年3月",
       "versions": [
+        {
+          "version": "2.1.81",
+          "releaseDate": "2026-03-21",
+          "releaseDateDisplay": "2026年3月21日",
+          "entries": [
+            {
+              "ja": "スクリプト向け `-p` 呼び出し用の `--bare` フラグを追加 — フック、LSP、プラグイン同期、スキルディレクトリ走査をスキップ。`ANTHROPIC_API_KEY` または `--settings` 経由の `apiKeyHelper` が必須（OAuthおよびキーチェーン認証は無効）、自動メモリも完全無効",
+              "en": "Added `--bare` flag for scripted `-p` calls — skips hooks, LSP, plugin sync, and skill directory walks; requires `ANTHROPIC_API_KEY` or an `apiKeyHelper` via `--settings` (OAuth and keychain auth disabled); auto-memory fully disabled",
+              "category": "added"
+            },
+            {
+              "ja": "`--channels` 権限リレーを追加 — permission capability を宣言したチャンネルサーバーがツール承認プロンプトをスマートフォンに転送可能",
+              "en": "Added `--channels` permission relay — channel servers that declare the permission capability can forward tool approval prompts to your phone",
+              "category": "added"
+            },
+            {
+              "ja": "1つのセッションがOAuthトークンをリフレッシュした際に、複数の同時セッションで再認証が繰り返し要求される問題を修正",
+              "en": "Fixed multiple concurrent Claude Code sessions requiring repeated re-authentication when one session refreshes its OAuth token",
+              "category": "fixed"
+            },
+            {
+              "ja": "ボイスモードでリトライ失敗が握り潰され、実際のエラーの代わりに誤解を招く「ネットワークを確認してください」メッセージが表示される問題を修正",
+              "en": "Fixed voice mode silently swallowing retry failures and showing a misleading \"check your network\" message instead of the actual error",
+              "category": "fixed"
+            },
+            {
+              "ja": "サーバーがWebSocket接続を無通知で切断した際にボイスモードのオーディオが復旧しない問題を修正",
+              "en": "Fixed voice mode audio not recovering when the server silently drops the WebSocket connection",
+              "category": "fixed"
+            },
+            {
+              "ja": "`CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` が structured-outputs ベータヘッダーを抑制せず、Vertex/Bedrock に転送するプロキシゲートウェイで400エラーが発生する問題を修正",
+              "en": "Fixed `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` not suppressing the structured-outputs beta header, causing 400 errors on proxy gateways forwarding to Vertex/Bedrock",
+              "category": "fixed"
+            },
+            {
+              "ja": "他のマネージド設定が未構成のTeam/Enterpriseオーグで `--channels` が迂回されてしまう問題を修正",
+              "en": "Fixed `--channels` bypass for Team/Enterprise orgs with no other managed settings configured",
+              "category": "fixed"
+            },
+            {
+              "ja": "Node.js 18 でのクラッシュを修正",
+              "en": "Fixed a crash on Node.js 18",
+              "category": "fixed"
+            },
+            {
+              "ja": "文字列にダッシュを含む Bash コマンドで不要な権限プロンプトが表示される問題を修正",
+              "en": "Fixed unnecessary permission prompts for Bash commands containing dashes in strings",
+              "category": "fixed"
+            },
+            {
+              "ja": "セッション中にプラグインディレクトリが削除された際、プラグインフックがプロンプト送信をブロックする問題を修正",
+              "en": "Fixed plugin hooks blocking prompt submission when the plugin directory is deleted mid-session",
+              "category": "fixed"
+            },
+            {
+              "ja": "タスクがポーリング間隔の間に完了した場合にバックグラウンドエージェントのタスク出力が無限にハングするレース条件を修正",
+              "en": "Fixed a race condition where background agent task output could hang indefinitely when the task completed between polling intervals",
+              "category": "fixed"
+            },
+            {
+              "ja": "ワークツリー内のセッションを再開した際に、そのワークツリーへ自動的に切り替えるように対応",
+              "en": "Resuming a session that was in a worktree now switches back to that worktree",
+              "category": "fixed"
+            },
+            {
+              "ja": "アクティブなレスポンス中に使用した際に `/btw` がペーストしたテキストを含めない問題を修正",
+              "en": "Fixed `/btw` not including pasted text when used during an active response",
+              "category": "fixed"
+            },
+            {
+              "ja": "tmux 環境下で素早い Cmd+Tab 後のペーストがクリップボードコピーより先行する可能性があるレース条件を修正",
+              "en": "Fixed a race where fast Cmd+Tab followed by paste could beat the clipboard copy under tmux",
+              "category": "fixed"
+            },
+            {
+              "ja": "自動生成されたセッション説明でターミナルのタブタイトルが更新されない問題を修正",
+              "en": "Fixed terminal tab title not updating with an auto-generated session description",
+              "category": "fixed"
+            },
+            {
+              "ja": "非表示のフックアタッチメントがトランスクリプトモードのメッセージ数を水増しする問題を修正",
+              "en": "Fixed invisible hook attachments inflating the message count in transcript mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "Remote Control セッションが汎用タイトルを表示し、最初のプロンプトから派生したタイトルにならない問題を修正",
+              "en": "Fixed Remote Control sessions showing a generic title instead of deriving from the first prompt",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/rename` が Remote Control セッションのタイトルを同期しない問題を修正",
+              "en": "Fixed `/rename` not syncing the title for Remote Control sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "Remote Control の `/exit` がセッションを確実にアーカイブしない問題を修正",
+              "en": "Fixed Remote Control `/exit` not reliably archiving the session",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP の読み取り・検索ツール呼び出しを「Queried {server}」の1行に折りたたむよう改善（Ctrl+O で展開可能）",
+              "en": "Improved MCP read/search tool calls to collapse into a single \"Queried {server}\" line (expand with Ctrl+O)",
+              "category": "improved"
+            },
+            {
+              "ja": "`!` bash モードの発見性を改善 — インタラクティブなコマンド実行が必要な際にClaudeが提案するように対応",
+              "en": "Improved `!` bash mode discoverability — Claude now suggests it when you need to run an interactive command",
+              "category": "improved"
+            },
+            {
+              "ja": "プラグインの鮮度を改善 — refトラッキングされたプラグインが上流の変更を取得するために毎回ロード時に再クローンするように対応",
+              "en": "Improved plugin freshness — ref-tracked plugins now re-clone on every load to pick up upstream changes",
+              "category": "improved"
+            },
+            {
+              "ja": "Remote Control セッションのタイトルが3番目のメッセージ以降に更新されるよう改善",
+              "en": "Improved Remote Control session titles to refresh after your third message",
+              "category": "improved"
+            },
+            {
+              "ja": "Dynamic Client Registration 未対応のサーバー向けに、MCP OAuthがClient ID Metadata Document（CIMD / SEP-991）をサポートするよう更新",
+              "en": "Updated MCP OAuth to support Client ID Metadata Document (CIMD / SEP-991) for servers without Dynamic Client Registration",
+              "category": "changed"
+            },
+            {
+              "ja": "プランモードでデフォルトの「コンテキストをクリア」オプションを非表示に変更（`\"showClearContextOnPlanAccept\": true` で復元可能）",
+              "en": "Changed plan mode to hide the \"clear context\" option by default (restore with `\"showClearContextOnPlanAccept\": true`)",
+              "category": "changed"
+            },
+            {
+              "ja": "描画の問題により、Windows（Windows Terminal上のWSLを含む）での行単位レスポンスストリーミングを無効化",
+              "en": "Disabled line-by-line response streaming on Windows (including WSL in Windows Terminal) due to rendering issues",
+              "category": "changed"
+            },
+            {
+              "ja": "[VSCode] Git Bash使用時のBashツールにおけるWindows PATH継承を修正（v2.1.78のリグレッション）",
+              "en": "[VSCode] Fixed Windows PATH inheritance for Bash tool when using Git Bash (regression in v2.1.78)",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.80",
           "releaseDate": "2026-03-20",
