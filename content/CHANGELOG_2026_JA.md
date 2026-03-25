@@ -65,8 +65,25 @@
 | Linux: `claude-cli://` プロトコルハンドラの登録時に `XDG_DATA_HOME` を尊重するよう対応 | Linux: respect `XDG_DATA_HOME` when registering the `claude-cli://` protocol handler | fixed |
 | readline の forward-char をシャドウしないよう、「バックグラウンドエージェントをすべて停止」のキーバインドを `Ctrl+F` から `Ctrl+X Ctrl+K` に変更 | Changed "stop all background agents" keybinding from `Ctrl+F` to `Ctrl+X Ctrl+K` to stop shadowing readline forward-char | changed |
 | バックグラウンドタスクの出力ファイルパスに対して `Read` を使用する方式に移行し、`TaskOutput` ツールを非推奨化 | Deprecated `TaskOutput` tool in favor of using `Read` on the background task's output file path | changed |
+| ストリーミング失敗時のノンストリーミングフォールバックを無効化する環境変数 `CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK` を追加 | Added `CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK` env var to disable the non-streaming fallback when streaming fails | added |
+| プラグインオプション（`manifest.userConfig`）を外部から利用可能に — プラグインは有効化時に設定を促すことができ、`sensitive: true` の値は macOS ではキーチェーン、その他のプラットフォームでは保護された認証情報ファイルに保存される | Plugin options (`manifest.userConfig`) now available externally — plugins can prompt for configuration at enable time, with `sensitive: true` values stored in keychain (macOS) or protected credentials file (other platforms) | added |
+| クリップボードから貼り付けた画像のディスク上のパスをファイル操作で参照可能に | Claude can now reference the on-disk path of clipboard-pasted images for file operations | added |
+| `Ctrl+L` で画面をクリアして強制的に全再描画 — Cmd+K で UI が部分的に空白になった際の復旧に使用。プロンプト入力のクリアには `Ctrl+U` またはダブル Esc を使用 | `Ctrl+L` now clears the screen and forces a full redraw — use this to recover when Cmd+K leaves the UI partially blank. Use `Ctrl+U` or double-Esc to clear prompt input. | added |
+| `--bare -p`（SDK パターン）の API リクエストまでの速度を約 14% 向上 | `--bare -p` (SDK pattern) is ~14% faster to the API request | improved |
+| Memory: `MEMORY.md` インデックスのトランケートを 200 行に加え 25KB でも適用 | Memory: `MEMORY.md` index now truncates at 25KB as well as 200 lines | changed |
+| `--channels` が有効な場合に `AskUserQuestion` およびプランモードのツールを無効化 | Disabled `AskUserQuestion` and plan-mode tools when `--channels` is active | changed |
+| ツール呼び出し失敗中に貼り付け画像がキューに入ると発生する API 400 エラーを修正 | Fixed API 400 error when a pasted image was queued during a failing tool call | fixed |
+| SSE 接続が呼び出し中に切断され再接続の試みが尽きた場合に MCP ツール呼び出しが無限にハングする問題を修正 | Fixed MCP tool calls hanging indefinitely when an SSE connection drops mid-call and exhausts its reconnection attempts | fixed |
+| バックグラウンドエージェントが最初のユーザーメッセージより前に完了した場合に Remote Control のセッションタイトルに生の XML が表示される問題を修正 | Fixed Remote Control session titles showing raw XML when a background agent completed before the first user message | fixed |
+| 再開したトランスクリプトチェーンのプログレスメッセージのギャップにより、コンテナ再起動後にリモートセッションの会話履歴が失われる問題を修正 | Fixed remote sessions forgetting conversation history after a container restart due to progress-message gaps in the resumed transcript chain | fixed |
+| 一時的な認証エラー発生時にリモートセッションが自動的にリトライせず再ログインを要求する問題を修正 | Fixed remote sessions requiring re-login on transient auth errors instead of retrying automatically | fixed |
+| Linux のサンドボックスモードで `rg ... \| wc -l` などのパイプコマンドがハングして `0` を返す問題を修正 | Fixed `rg ... \| wc -l` and similar piped commands hanging and returning `0` in sandbox mode on Linux | fixed |
+| CJK IME が全角スペースを挿入する際に音声入力のホールド操作が反応しない問題を修正 | Fixed voice input hold-to-talk not activating when a CJK IME inserts a full-width space | fixed |
+| ワークツリー名にスラッシュが含まれる場合に `--worktree` がサイレントにハングする問題を修正 | Fixed `--worktree` hanging silently when the worktree name contained a forward slash | fixed |
 | [VSCode] バックエンドが60秒間応答しない場合、スピナーが赤くなり「応答なし」と表示されるように | [VSCode] Spinner now turns red with "Not responding" when the backend hasn't responded for 60 seconds | improved |
 | [VSCode] URLからセッションを再開した際、または再起動後にセッション履歴が正しく読み込まれない問題を修正 | [VSCode] Fixed session history not loading correctly when reopening a session via URL or after restart | fixed |
+| [VSCode] キーボードナビゲーション可能な rewind ピッカーを開く Esc 二回押し（または `/rewind`）を追加 | [VSCode] Added Esc-twice (or `/rewind`) to open a keyboard-navigable rewind picker | added |
+| [VSCode] セッションキャッシュが古くなった後に「Fork conversation from here」および rewind 操作がサイレントに失敗する問題を修正 | [VSCode] Fixed "Fork conversation from here" and rewind actions failing silently after the session cache goes stale | fixed |
 
 ## 2.1.81
 

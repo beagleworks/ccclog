@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-25T06:28:32.502Z",
+  "generatedAt": "2026-03-25T09:16:23.284Z",
   "months": [
     {
       "key": "2026-03",
@@ -296,6 +296,81 @@
               "category": "changed"
             },
             {
+              "ja": "ストリーミング失敗時のノンストリーミングフォールバックを無効化する環境変数 `CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK` を追加",
+              "en": "Added `CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK` env var to disable the non-streaming fallback when streaming fails",
+              "category": "added"
+            },
+            {
+              "ja": "プラグインオプション（`manifest.userConfig`）を外部から利用可能に — プラグインは有効化時に設定を促すことができ、`sensitive: true` の値は macOS ではキーチェーン、その他のプラットフォームでは保護された認証情報ファイルに保存される",
+              "en": "Plugin options (`manifest.userConfig`) now available externally — plugins can prompt for configuration at enable time, with `sensitive: true` values stored in keychain (macOS) or protected credentials file (other platforms)",
+              "category": "added"
+            },
+            {
+              "ja": "クリップボードから貼り付けた画像のディスク上のパスをファイル操作で参照可能に",
+              "en": "Claude can now reference the on-disk path of clipboard-pasted images for file operations",
+              "category": "added"
+            },
+            {
+              "ja": "`Ctrl+L` で画面をクリアして強制的に全再描画 — Cmd+K で UI が部分的に空白になった際の復旧に使用。プロンプト入力のクリアには `Ctrl+U` またはダブル Esc を使用",
+              "en": "`Ctrl+L` now clears the screen and forces a full redraw — use this to recover when Cmd+K leaves the UI partially blank. Use `Ctrl+U` or double-Esc to clear prompt input.",
+              "category": "added"
+            },
+            {
+              "ja": "`--bare -p`（SDK パターン）の API リクエストまでの速度を約 14% 向上",
+              "en": "`--bare -p` (SDK pattern) is ~14% faster to the API request",
+              "category": "improved"
+            },
+            {
+              "ja": "Memory: `MEMORY.md` インデックスのトランケートを 200 行に加え 25KB でも適用",
+              "en": "Memory: `MEMORY.md` index now truncates at 25KB as well as 200 lines",
+              "category": "changed"
+            },
+            {
+              "ja": "`--channels` が有効な場合に `AskUserQuestion` およびプランモードのツールを無効化",
+              "en": "Disabled `AskUserQuestion` and plan-mode tools when `--channels` is active",
+              "category": "changed"
+            },
+            {
+              "ja": "ツール呼び出し失敗中に貼り付け画像がキューに入ると発生する API 400 エラーを修正",
+              "en": "Fixed API 400 error when a pasted image was queued during a failing tool call",
+              "category": "fixed"
+            },
+            {
+              "ja": "SSE 接続が呼び出し中に切断され再接続の試みが尽きた場合に MCP ツール呼び出しが無限にハングする問題を修正",
+              "en": "Fixed MCP tool calls hanging indefinitely when an SSE connection drops mid-call and exhausts its reconnection attempts",
+              "category": "fixed"
+            },
+            {
+              "ja": "バックグラウンドエージェントが最初のユーザーメッセージより前に完了した場合に Remote Control のセッションタイトルに生の XML が表示される問題を修正",
+              "en": "Fixed Remote Control session titles showing raw XML when a background agent completed before the first user message",
+              "category": "fixed"
+            },
+            {
+              "ja": "再開したトランスクリプトチェーンのプログレスメッセージのギャップにより、コンテナ再起動後にリモートセッションの会話履歴が失われる問題を修正",
+              "en": "Fixed remote sessions forgetting conversation history after a container restart due to progress-message gaps in the resumed transcript chain",
+              "category": "fixed"
+            },
+            {
+              "ja": "一時的な認証エラー発生時にリモートセッションが自動的にリトライせず再ログインを要求する問題を修正",
+              "en": "Fixed remote sessions requiring re-login on transient auth errors instead of retrying automatically",
+              "category": "fixed"
+            },
+            {
+              "ja": "Linux のサンドボックスモードで `rg ... | wc -l` などのパイプコマンドがハングして `0` を返す問題を修正",
+              "en": "Fixed `rg ... | wc -l` and similar piped commands hanging and returning `0` in sandbox mode on Linux",
+              "category": "fixed"
+            },
+            {
+              "ja": "CJK IME が全角スペースを挿入する際に音声入力のホールド操作が反応しない問題を修正",
+              "en": "Fixed voice input hold-to-talk not activating when a CJK IME inserts a full-width space",
+              "category": "fixed"
+            },
+            {
+              "ja": "ワークツリー名にスラッシュが含まれる場合に `--worktree` がサイレントにハングする問題を修正",
+              "en": "Fixed `--worktree` hanging silently when the worktree name contained a forward slash",
+              "category": "fixed"
+            },
+            {
               "ja": "[VSCode] バックエンドが60秒間応答しない場合、スピナーが赤くなり「応答なし」と表示されるように",
               "en": "[VSCode] Spinner now turns red with \"Not responding\" when the backend hasn't responded for 60 seconds",
               "category": "improved"
@@ -303,6 +378,16 @@
             {
               "ja": "[VSCode] URLからセッションを再開した際、または再起動後にセッション履歴が正しく読み込まれない問題を修正",
               "en": "[VSCode] Fixed session history not loading correctly when reopening a session via URL or after restart",
+              "category": "fixed"
+            },
+            {
+              "ja": "[VSCode] キーボードナビゲーション可能な rewind ピッカーを開く Esc 二回押し（または `/rewind`）を追加",
+              "en": "[VSCode] Added Esc-twice (or `/rewind`) to open a keyboard-navigable rewind picker",
+              "category": "added"
+            },
+            {
+              "ja": "[VSCode] セッションキャッシュが古くなった後に「Fork conversation from here」および rewind 操作がサイレントに失敗する問題を修正",
+              "en": "[VSCode] Fixed \"Fork conversation from here\" and rewind actions failing silently after the session cache goes stale",
               "category": "fixed"
             }
           ]
