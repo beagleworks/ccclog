@@ -4,6 +4,70 @@
 
 ---
 
+## 2.1.83
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `managed-settings.d/` ドロップインディレクトリを `managed-settings.json` と並行して追加し、独立したポリシーフラグメントをアルファベット順にマージしてデプロイできるようにした | Added `managed-settings.d/` drop-in directory alongside `managed-settings.json`, letting separate teams deploy independent policy fragments that merge alphabetically | added |
+| `CwdChanged` および `FileChanged` フックイベントを追加（direnv などのリアクティブな環境管理に対応） | Added `CwdChanged` and `FileChanged` hook events for reactive environment management (e.g., direnv) | added |
+| サンドボックスが有効だが起動できない場合に、非サンドボックスで実行する代わりにエラーで終了する `sandbox.failIfUnavailable` 設定を追加 | Added `sandbox.failIfUnavailable` setting to exit with an error when sandbox is enabled but cannot start, instead of running unsandboxed | added |
+| `disableDeepLinkRegistration` 設定を追加し、`claude-cli://` プロトコルハンドラの登録を無効化可能に (#なし) | Added `disableDeepLinkRegistration` setting to prevent `claude-cli://` protocol handler registration | added |
+| サブプロセス環境（Bash ツール、フック、MCP stdio サーバー）から Anthropic およびクラウドプロバイダーの認証情報を除去するための `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1` を追加 | Added `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1` to strip Anthropic and cloud provider credentials from subprocess environments (Bash tool, hooks, MCP stdio servers) | added |
+| トランスクリプト検索を追加 — トランスクリプトモード（`Ctrl+O`）で `/` を押すと検索、`n`/`N` でマッチ箇所を移動可能 | Added transcript search — press `/` in transcript mode (`Ctrl+O`) to search, `n`/`N` to step through matches | added |
+| 外部エディタを開くエイリアスとして `Ctrl+X Ctrl+E` を追加（readline ネイティブバインディング；`Ctrl+G` も引き続き使用可能） | Added `Ctrl+X Ctrl+E` as an alias for opening the external editor (readline-native binding; `Ctrl+G` still works) | added |
+| 画像を貼り付けるとカーソル位置に `[Image #N]` チップが挿入され、プロンプト内で位置による参照が可能に | Pasted images now insert an `[Image #N]` chip at the cursor so you can reference them positionally in your prompt | added |
+| エージェントがフロントマターで `initialPrompt` を宣言することで最初のターンを自動送信可能に | Agents can now declare `initialPrompt` in frontmatter to auto-submit a first turn | added |
+| `chat:killAgents` と `chat:fastMode` が `~/.claude/keybindings.json` によるキーバインドの再割り当てに対応 | `chat:killAgents` and `chat:fastMode` are now rebindable via `~/.claude/keybindings.json` | added |
+| 終了後にマウストラッキングエスケープシーケンスがシェルプロンプトに漏れる問題を修正 | Fixed mouse tracking escape sequences leaking to shell prompt after exit | fixed |
+| macOS でのClaud Code の終了時ハング を修正 | Fixed Claude Code hanging on exit on macOS | fixed |
+| 数秒間アイドル状態になった後に画面が一瞬白くなる問題を修正 | Fixed screen flashing blank after being idle for a few seconds | fixed |
+| 共通行が少ない非常に大きなファイルの差分表示時にハングする問題を修正 — 差分処理は5秒後にタイムアウトし、適切にフォールバックするように変更 | Fixed a hang when diffing very large files with few common lines — diffs now time out after 5 seconds and fall back gracefully | fixed |
+| 音声入力が有効な場合にネイティブオーディオモジュールを先行ロードすることで起きていた、起動時1〜8秒のUIフリーズを修正 | Fixed a 1–8 second UI freeze on startup when voice input was enabled, caused by eagerly loading the native audio module | fixed |
+| 起動時のリグレッションを修正: claude.ai の MCP 設定取得で約3秒待機してしまう問題を解消 | Fixed a startup regression where Claude Code would wait ~3s for claude.ai MCP config fetch before proceeding | fixed |
+| `--mcp-config` CLIフラグが `allowedMcpServers`/`deniedMcpServers` の管理ポリシー適用を回避できていた問題を修正 | Fixed `--mcp-config` CLI flag bypassing `allowedMcpServers`/`deniedMcpServers` managed policy enforcement | fixed |
+| claude.ai の MCP コネクター（Slack、Gmail 等）がシングルターンの `--print` モードで利用できない問題を修正 | Fixed claude.ai MCP connectors (Slack, Gmail, etc.) not being available in single-turn `--print` mode | fixed |
+| Claude Code 終了時に `caffeinate` プロセスが正常に終了せず Mac がスリープしない問題を修正 (#なし) | Fixed `caffeinate` process not properly terminating when Claude Code exits, preventing Mac from sleeping | fixed |
+| タブ補完で `!` プレフィックスのコマンド候補を選択した際に bash モードが有効にならない問題を修正 | Fixed bash mode not activating when tab-accepting `!`-prefixed command suggestions | fixed |
+| 候補をナビゲート後にスラッシュコマンドの選択状態が古いまま残り、誤ったコマンドがハイライトされる問題を修正 | Fixed stale slash command selection showing wrong highlighted command after navigating suggestions | fixed |
+| `/config` メニューで検索カーソルとリスト選択が同時に表示される問題を修正 | Fixed `/config` menu showing both the search cursor and list selection at the same time | fixed |
+| コンテキスト圧縮後にバックグラウンドサブエージェントが見えなくなり、重複エージェントが生成される可能性がある問題を修正 | Fixed background subagents becoming invisible after context compaction, which could cause duplicate agents to be spawned | fixed |
+| クリーンアップ中に git または API 呼び出しがハングした際、バックグラウンドエージェントのタスクが「実行中」状態のまま止まる問題を修正 | Fixed background agent tasks staying stuck in "running" state when git or API calls hang during cleanup | fixed |
+| アップグレード後の初回起動時に `--channels` が「Channels are not currently available」と表示される問題を修正 | Fixed `--channels` showing "Channels are not currently available" on first launch after upgrade | fixed |
+| アンインストール済みプラグインのフックが次のセッションまで発火し続ける問題を修正 | Fixed uninstalled plugin hooks continuing to fire until the next session | fixed |
+| ストリーミングレスポンス中のキューコマンドのちらつきを修正 | Fixed queued commands flickering during streaming responses | fixed |
+| メッセージ処理中にスラッシュコマンドを送信した際、テキストとしてモデルに送信されてしまう問題を修正 | Fixed slash commands being sent to the model as text when submitted while a message is processing | fixed |
+| 折りたたまれたread/searchグループが画面外にスクロールした後に完了した際のスクロールバックのジャンプを修正 | Fixed scrollback jumping when collapsed read/search groups finish after scrolling offscreen | fixed |
+| モデルの思考開始・終了時にスクロールバックが先頭に飛ぶ問題を修正 | Fixed scrollback jumping to top when the model starts or stops thinking | fixed |
+| フックのプログレス/アタッチメントメッセージが parentUuid チェーンを分岐させることで発生する、再開時の SDK セッション履歴消失を修正 | Fixed SDK session history loss on resume caused by hook progress/attachment messages forking the parentUuid chain | fixed |
+| マウスをターミナルウィンドウの外でリリースした際に選択時コピーが発火しない問題を修正 | Fixed copy-on-select not firing when you release the mouse outside the terminal window | fixed |
+| 高さが制限されたリストでアイテムがオーバーフローした際にゴースト文字が表示される問題を修正 | Fixed ghost characters appearing in height-constrained lists when items overflow | fixed |
+| アイドル状態のプロンプトで `Ctrl+B` が readline の backward-char と干渉する問題を修正 — フォアグラウンドタスクをバックグラウンド化できる場合のみ発火するように変更 | Fixed `Ctrl+B` interfering with readline backward-char at an idle prompt — it now only fires when a foreground task can be backgrounded | fixed |
+| `cleanupPeriodDays` 設定が無視され、ツール結果ファイルが削除されない問題を修正 | Fixed tool result files never being cleaned up, ignoring the `cleanupPeriodDays` setting | fixed |
+| ボイスのホールドトゥトークを離した後、最大3秒間スペースキーが無効になる問題を修正 | Fixed space key being swallowed for up to 3 seconds after releasing voice hold-to-talk | fixed |
+| Linuxの音声ハードウェアなし（Docker、ヘッドレス、WSL1）環境で音声モード使用時にALSAライブラリエラーがターミナルUIを破損する問題を修正 | Fixed ALSA library errors corrupting the terminal UI when using voice mode on Linux without audio hardware (Docker, headless, WSL1) | fixed |
+| Termux/Android 環境で `which` の起動がカーネルにより制限される場合のボイスモード SoX 検出を修正 | Fixed voice mode SoX detection on Termux/Android where spawning `which` is kernel-restricted | fixed |
+| リモートコントロールセッションが実行中にもかかわらずウェブセッション一覧でアイドル状態と表示される問題を修正 | Fixed Remote Control sessions showing as Idle in the web session list while actively running | fixed |
+| 設定駆動モードにおいて、フッターナビゲーションが非表示の Remote Control ピルを選択してしまう問題を修正 | Fixed footer navigation selecting an invisible Remote Control pill in config-driven mode | fixed |
+| リモートセッションでツール使用IDが無限に蓄積するメモリリークを修正 | Fixed memory leak in remote sessions where tool use IDs accumulate indefinitely | fixed |
+| Bedrock SDK のコールドスタートレイテンシをプロファイル取得と他の起動処理を並列化して改善 | Improved Bedrock SDK cold-start latency by overlapping profile fetch with other boot work | improved |
+| 大規模セッションにおける `--resume` のメモリ使用量と起動レイテンシを改善 | Improved `--resume` memory usage and startup latency on large sessions | improved |
+| プラグイン起動を改善 — コマンド、スキル、エージェントが再取得なしにディスクキャッシュから読み込まれるように | Improved plugin startup — commands, skills, and agents now load from disk cache without re-fetching | improved |
+| リモートコントロールのセッションタイトルを改善: AI生成タイトルが最初のメッセージから数秒以内に表示されるように | Improved Remote Control session titles: AI-generated titles now appear within seconds of the first message | improved |
+| `WebFetch` がサイト運営者に Claude Code のトラフィックを `robots.txt` で識別・許可リスト登録できるよう、`Claude-User` として識別するように改善 | Improved `WebFetch` to identify as `Claude-User` so site operators can recognize and allowlist Claude Code traffic via `robots.txt` | improved |
+| 大きなページに対する `WebFetch` のピークメモリ使用量を削減 | Reduced `WebFetch` peak memory usage for large pages | improved |
+| 長時間セッションにおけるスクロールバックのリセット頻度をターンごとから約50メッセージごとに削減 | Reduced scrollback resets in long sessions from once per turn to once per ~50 messages | improved |
+| 未認証 HTTP/SSE MCP サーバー使用時の `claude -p` 起動を高速化（約600ms短縮） | Faster `claude -p` startup with unauthenticated HTTP/SSE MCP servers (~600ms saved) | improved |
+| Bashゴーストテキスト候補に、直前に実行したコマンドを即座に含めるよう改善 | Bash ghost-text suggestions now include just-submitted commands immediately | improved |
+| 非ストリーミングフォールバックのトークン上限（21k → 64k）とタイムアウト（120s → 300s ローカル）を拡大し、フォールバックリクエストが途中で打ち切られる可能性を低減 | Increased non-streaming fallback token cap (21k → 64k) and timeout (120s → 300s local) so fallback requests are less likely to be truncated | improved |
+| レスポンスが返る前にプロンプトを中断した場合、入力内容が自動的に復元され、編集して再送信できるように | Interrupting a prompt before any response now automatically restores your input so you can edit and resubmit | improved |
+| Claude が応答中でも `/status` が機能するように改善（ターン終了まで待機する必要がなくなった） | `/status` now works while Claude is responding, instead of being queued until the turn finishes | improved |
+| org管理コネクタと重複するプラグインMCPサーバーを、2つ目の接続として実行する代わりに抑制するように変更 | Plugin MCP servers that duplicate an org-managed connector are now suppressed instead of running a second connection | changed |
+| Linux: `claude-cli://` プロトコルハンドラの登録時に `XDG_DATA_HOME` を尊重するよう対応 | Linux: respect `XDG_DATA_HOME` when registering the `claude-cli://` protocol handler | fixed |
+| readline の forward-char をシャドウしないよう、「バックグラウンドエージェントをすべて停止」のキーバインドを `Ctrl+F` から `Ctrl+X Ctrl+K` に変更 | Changed "stop all background agents" keybinding from `Ctrl+F` to `Ctrl+X Ctrl+K` to stop shadowing readline forward-char | changed |
+| バックグラウンドタスクの出力ファイルパスに対して `Read` を使用する方式に移行し、`TaskOutput` ツールを非推奨化 | Deprecated `TaskOutput` tool in favor of using `Read` on the background task's output file path | changed |
+| [VSCode] バックエンドが60秒間応答しない場合、スピナーが赤くなり「応答なし」と表示されるように | [VSCode] Spinner now turns red with "Not responding" when the backend hasn't responded for 60 seconds | improved |
+| [VSCode] URLからセッションを再開した際、または再起動後にセッション履歴が正しく読み込まれない問題を修正 | [VSCode] Fixed session history not loading correctly when reopening a session via URL or after restart | fixed |
+
 ## 2.1.81
 
 | 日本語 | English | Category |
