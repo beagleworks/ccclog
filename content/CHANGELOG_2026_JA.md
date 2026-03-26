@@ -4,6 +4,51 @@
 
 ---
 
+## 2.1.84
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Windows 向け PowerShell ツールをオプトインプレビューとして追加 | Added PowerShell tool for Windows as an opt-in preview. Learn more at https://code.claude.com/docs/en/tools-reference#powershell-tool | added |
+| サードパーティ（Bedrock、Vertex、Foundry）のピン留めデフォルトモデルに対するefffort/thinkingケイパビリティ検出をオーバーライドする環境変数 `ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU}_MODEL_SUPPORTS` と、`/model` ピッカーのラベルをカスタマイズする `_MODEL_NAME`/`_DESCRIPTION` を追加 | Added `ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU}_MODEL_SUPPORTS` env vars to override effort/thinking capability detection for pinned default models for 3p (Bedrock, Vertex, Foundry), and `_MODEL_NAME`/`_DESCRIPTION` to customize the `/model` picker label | added |
+| ストリーミングのアイドル監視タイムアウト閾値を設定する環境変数 `CLAUDE_STREAM_IDLE_TIMEOUT_MS` を追加（デフォルト90秒） | Added `CLAUDE_STREAM_IDLE_TIMEOUT_MS` env var to configure the streaming idle watchdog threshold (default 90s) | added |
+| `TaskCreate` でタスクが作成された際に発火する `TaskCreated` フックを追加 | Added `TaskCreated` hook that fires when a task is created via `TaskCreate` | added |
+| `WorktreeCreate` フックの `type: "http"` サポートを追加 — レスポンス JSON の `hookSpecificOutput.worktreePath` で作成した worktree パスを返すことが可能 | Added `WorktreeCreate` hook support for `type: "http"` — return the created worktree path via `hookSpecificOutput.worktreePath` in the response JSON | added |
+| チーム/エンタープライズ管理者がチャンネルプラグインの許可リストを定義できる管理設定 `allowedChannelPlugins` を追加 | Added `allowedChannelPlugins` managed setting for team/enterprise admins to define a channel plugin allowlist | added |
+| デバッグのタイムアウト調査のため、APIリクエストに `x-client-request-id` ヘッダーを追加 | Added `x-client-request-id` header to API requests for debugging timeouts | added |
+| 75分以上経過後に戻ったユーザーに `/clear` を促すアイドルリターンプロンプトを追加し、古いセッションでの不要なトークン再キャッシュを削減 | Added idle-return prompt that nudges users returning after 75+ minutes to `/clear`, reducing unnecessary token re-caching on stale sessions | added |
+| ディープリンク（`claude-cli://`）が、検出リストの先頭にあるターミナルではなく、ユーザーが優先するターミナルで開くように変更 | Deep links (`claude-cli://`) now open in your preferred terminal instead of whichever terminal happens to be first in the detection list | improved |
+| ルールとスキルの `paths:` フロントマターが glob の YAML リスト形式に対応 | Rules and skills `paths:` frontmatter now accepts a YAML list of globs | added |
+| MCPツールの説明とサーバー指示を2KBに制限し、OpenAPI生成サーバーによるコンテキストの肥大化を防止 | MCP tool descriptions and server instructions are now capped at 2KB to prevent OpenAPI-generated servers from bloating context | changed |
+| ローカルおよびclaude.aiコネクタの両方で設定されたMCPサーバーの重複を排除 — ローカル設定を優先 | MCP servers configured both locally and via claude.ai connectors are now deduplicated — the local config wins | improved |
+| バックグラウンドの bash タスクがインタラクティブなプロンプトで止まっているように見える場合、約45秒後に通知を表示するように対応 | Background bash tasks that appear stuck on an interactive prompt now surface a notification after ~45 seconds | improved |
+| トークン数が1M以上の場合、"1512.6k" の代わりに "1.5m" と表示されるよう変更 | Token counts ≥1M now display as "1.5m" instead of "1512.6k" | improved |
+| `ToolSearch` が有効な場合（MCPツールを設定しているユーザーを含む）のグローバルシステムプロンプトキャッシュに対応 | Global system-prompt caching now works when `ToolSearch` is enabled, including for users with MCP tools configured | fixed |
+| ボイスプッシュトゥトークを修正: ボイスキー長押し時にテキスト入力へ文字が漏れる問題を解消し、トランスクリプトが正しい位置に挿入されるよう修正 | Fixed voice push-to-talk: holding the voice key no longer leaks characters into the text input, and transcripts now insert at the correct position | fixed |
+| フッターアイテムにフォーカスがある際に上下矢印キーが反応しない問題を修正 | Fixed up/down arrow keys being unresponsive when a footer item is focused | fixed |
+| 複数行入力の行頭で `Ctrl+U`（行頭までを削除）が無効になっていた不具合を修正し、連続して `Ctrl+U` を押すと行をまたいでクリアされるように対応 | Fixed `Ctrl+U` (kill-to-line-start) being a no-op at line boundaries in multiline input, so repeated `Ctrl+U` now clears across lines | fixed |
+| デフォルトのコードバインディングを null でアンバインド（例: `"ctrl+x ctrl+k": null`）した際、プレフィックスキーが解放されずコード待機モードに入ってしまう問題を修正 | Fixed null-unbinding a default chord binding (e.g. `"ctrl+x ctrl+k": null`) still entering chord-wait mode instead of freeing the prefix key | fixed |
+| マウスイベントによってトランスクリプト検索入力欄にリテラルの "mouse" テキストが挿入される問題を修正 | Fixed mouse events inserting literal "mouse" text into transcript search input | fixed |
+| 外部セッションが `--json-schema` を使用し、サブエージェントもスキーマを指定する場合にワークフローのサブエージェントが API 400 で失敗する問題を修正 | Fixed workflow subagents failing with API 400 when the outer session uses `--json-schema` and the subagent also specifies a schema | fixed |
+| 一部のターミナルでユーザーメッセージバブル内の特定の絵文字の背景色が欠落していた問題を修正 | Fixed missing background color behind certain emoji in user message bubbles on some terminals | fixed |
+| `Edit(.claude)` の許可ルールを持つユーザーで「このセッション中に Claude が自身の設定を編集することを許可する」権限オプションが保持されない問題を修正 (#なし) | Fixed the "allow Claude to edit its own settings for this session" permission option not sticking for users with `Edit(.claude)` allow rules | fixed |
+| 大きなファイル編集時に添付スニペットの生成でハングする問題を修正 | Fixed a hang when generating attachment snippets for large edited files | fixed |
+| MCPツール/リソースキャッシュのサーバー再接続時のリークを修正 | Fixed MCP tool/resource cache leak on server reconnect | fixed |
+| 部分クローンリポジトリ（Scalar/GVFS）で大量の blob ダウンロードが発生する起動パフォーマンス問題を修正 | Fixed a startup performance issue where partial clone repositories (Scalar/GVFS) triggered mass blob downloads | fixed |
+| ネイティブターミナルのカーソルがテキスト入力キャレットを追跡しない問題を修正し、IMEコンポジション（CJK入力）のインライン表示とスクリーンリーダーによる入力位置の追跡に対応 | Fixed native terminal cursor not tracking the text input caret, so IME composition (CJK input) now renders inline and screen readers can follow the input position | fixed |
+| macOS でのキーチェーン読み取りの一時的な失敗によって発生する「Not logged in」エラーの誤検知を修正 | Fixed spurious "Not logged in" errors on macOS caused by transient keychain read failures | fixed |
+| コアツールがバイパス有効化前に遅延される可能性があったコールドスタート時の競合状態を修正し、型付きパラメータでの Edit/Write が InputValidationError で失敗する問題を解消 | Fixed cold-start race where core tools could be deferred without their bypass active, causing Edit/Write to fail with InputValidationError on typed parameters | fixed |
+| Windows ドライブルート（`C:\`、`C:\Windows` など）の危険な削除に対する検出を改善 | Improved detection for dangerous removals of Windows drive roots (`C:\`, `C:\Windows`, etc.) | improved |
+| スラッシュコマンドおよびエージェントの読み込みと並行して `setup()` を実行することで、インタラクティブ起動を約30ms改善 | Improved interactive startup by ~30ms by running `setup()` in parallel with slash command and agent loading | improved |
+| MCPサーバー使用時の `claude "prompt"` 起動を改善 — すべてのサーバーの接続を待たずに REPL を即時レンダリングするように変更 | Improved startup for `claude "prompt"` with MCP servers — the REPL now renders immediately instead of blocking until all servers connect | improved |
+| ブロック時に汎用的な「未有効化」メッセージの代わりに具体的な理由を表示するよう Remote Control を改善 | Improved Remote Control to show a specific reason when blocked instead of a generic "not yet enabled" message | improved |
+| p90 プロンプトキャッシュ率を改善 | Improved p90 prompt cache rate | improved |
+| メッセージウィンドウをコンパクションおよびグループ変更の影響を受けないようにすることで、長いセッションでのスクロール先頭へのリセットを削減 | Reduced scroll-to-top resets in long sessions by making the message window immune to compaction and grouping changes | improved |
+| アニメーション付きツールの進行状況がビューポート上部にスクロールした際のターミナルのちらつきを軽減 | Reduced terminal flickering when animated tool progress scrolls above the viewport | improved |
+| issue/PR参照のクリック可能リンク化を`owner/repo#123`形式で記述した場合のみに変更 — 単独の`#123`は自動リンクされなくなった | Changed issue/PR references to only become clickable links when written as `owner/repo#123` — bare `#123` is no longer auto-linked | changed |
+| 現在の認証設定で利用できないスラッシュコマンド（`/voice`、`/mobile`、`/chrome`、`/upgrade` など）を表示から非表示に変更 | Slash commands unavailable for the current auth setup (`/voice`, `/mobile`, `/chrome`, `/upgrade`, etc.) are now hidden instead of shown | changed |
+| [VSCode] レート制限警告バナーに使用率とリセット時間を追加 | [VSCode] Added rate limit warning banner with usage percentage and reset time | added |
+| すべてのビルドで `/stats` のスクリーンショット（Ctrl+S）が動作するようになり、16倍高速化 | Stats screenshot (Ctrl+S in /stats) now works in all builds and is 16× faster | improved |
+
 ## 2.1.83
 
 | 日本語 | English | Category |
