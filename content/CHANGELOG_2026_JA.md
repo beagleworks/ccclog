@@ -4,6 +4,41 @@
 
 ---
 
+## 2.1.85
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `CLAUDE_CODE_MCP_SERVER_NAME` および `CLAUDE_CODE_MCP_SERVER_URL` 環境変数を MCP `headersHelper` スクリプトに追加し、1つのヘルパーで複数のサーバーに対応可能に | Added `CLAUDE_CODE_MCP_SERVER_NAME` and `CLAUDE_CODE_MCP_SERVER_URL` environment variables to MCP `headersHelper` scripts, allowing one helper to serve multiple servers | added |
+| パーミッションルール構文（例: `Bash(git *)`）を使用したフックへの条件付き `if` フィールドを追加し、プロセスの生成オーバーヘッドを削減 | Added conditional `if` field for hooks using permission rule syntax (e.g., `Bash(git *)`) to filter when they run, reducing process spawning overhead | added |
+| スケジュールタスク（`/loop`、`CronCreate`）の実行時にトランスクリプトへタイムスタンプマーカーを追加 | Added timestamp markers in transcripts when scheduled tasks (`/loop`, `CronCreate`) fire | added |
+| 画像ペースト時の `[Image #N]` プレースホルダーの末尾にスペースを追加 | Added trailing space after `[Image #N]` placeholder when pasting images | added |
+| ディープリンククエリ（`claude-cli://open?q=…`）が最大5,000文字をサポートし、長い事前入力プロンプトに対して「スクロールして確認」の警告を表示 | Deep link queries (`claude-cli://open?q=…`) now support up to 5,000 characters, with a "scroll to review" warning for long pre-filled prompts | added |
+| MCP OAuth が RFC 9728 Protected Resource Metadata ディスカバリーに従って認可サーバーを検索するように対応 | MCP OAuth now follows RFC 9728 Protected Resource Metadata discovery to find the authorization server | added |
+| 組織ポリシー（`managed-settings.json`）によってブロックされたプラグインのインストール・有効化を禁止し、マーケットプレイスビューからも非表示に | Plugins blocked by organization policy (`managed-settings.json`) can no longer be installed or enabled, and are hidden from marketplace views | changed |
+| PreToolUse フックが `updatedInput` と `permissionDecision: "allow"` を同時に返すことで `AskUserQuestion` を解決できるようになり、独自 UI で回答を収集するヘッドレス統合に対応 | PreToolUse hooks can now satisfy `AskUserQuestion` by returning `updatedInput` alongside `permissionDecision: "allow"`, enabling headless integrations that collect answers via their own UI | added |
+| OpenTelemetry の tool_result イベントにおける `tool_parameters` を `OTEL_LOG_TOOL_DETAILS=1` でのみ出力するように変更 | `tool_parameters` in OpenTelemetry tool_result events are now gated behind `OTEL_LOG_TOOL_DETAILS=1` | changed |
+| 会話がコンパクトリクエスト自体に収まらないほど大きくなった場合に `/compact` が「context exceeded」で失敗する問題を修正 | Fixed `/compact` failing with "context exceeded" when the conversation has grown too large for the compact request itself to fit | fixed |
+| プラグインのインストール先と設定ファイル内の宣言先が異なる場合に `/plugin enable` および `/plugin disable` が失敗する問題を修正 | Fixed `/plugin enable` and `/plugin disable` failing when a plugin's install location differs from where it's declared in settings | fixed |
+| `WorktreeCreate` フックが実行される前に非 git リポジトリで `--worktree` がエラー終了する問題を修正 | Fixed `--worktree` exiting with an error in non-git repositories before the `WorktreeCreate` hook could run | fixed |
+| `deniedMcpServers` 設定が claude.ai MCP サーバーをブロックしない問題を修正 | Fixed `deniedMcpServers` setting not blocking claude.ai MCP servers | fixed |
+| マルチモニター環境でコンピューターユースツールの `switch_display` が「このセッションでは利用不可」を返す問題を修正 | Fixed `switch_display` in the computer-use tool returning "not available in this session" on multi-monitor setups | fixed |
+| `OTEL_LOGS_EXPORTER`、`OTEL_METRICS_EXPORTER`、または `OTEL_TRACES_EXPORTER` を `none` に設定した際にクラッシュする問題を修正 | Fixed crash when `OTEL_LOGS_EXPORTER`, `OTEL_METRICS_EXPORTER`, or `OTEL_TRACES_EXPORTER` is set to `none` | fixed |
+| ネイティブビルド以外で diff のシンタックスハイライトが機能しない問題を修正 | Fixed diff syntax highlighting not working in non-native builds | fixed |
+| リフレッシュトークンが存在する場合に MCP ステップアップ認可が失敗する問題を修正 — `403 insufficient_scope` で昇格スコープを要求するサーバーが再認可フローを正しくトリガーするように | Fixed MCP step-up authorization failing when a refresh token exists — servers requesting elevated scopes via `403 insufficient_scope` now correctly trigger the re-authorization flow | fixed |
+| ストリーミングレスポンスが中断された際のリモートセッションにおけるメモリリークを修正 | Fixed memory leak in remote sessions when a streaming response is interrupted | fixed |
+| リトライ時に新しい TCP 接続を使用することで、エッジ接続の切り替え時に発生する持続的な ECONNRESET エラーを修正 | Fixed persistent ECONNRESET errors during edge connection churn by using a fresh TCP connection on retry | fixed |
+| 特定のスラッシュコマンド実行後にプロンプトがキューに詰まり、上矢印キーで履歴を取得できなくなる問題を修正 | Fixed prompts getting stuck in the queue after running certain slash commands, with up-arrow unable to retrieve them | fixed |
+| Python Agent SDK 修正: `--mcp-config` 経由で渡された `type:'sdk'` の MCP サーバーが起動時に除外される問題を修正 | Fixed Python Agent SDK: `type:'sdk'` MCP servers passed via `--mcp-config` are no longer dropped during startup | fixed |
+| SSH 経由または VS Code 統合ターミナルで実行時にプロンプトに生のキーシーケンスが表示される問題を修正 | Fixed raw key sequences appearing in the prompt when running over SSH or in the VS Code integrated terminal | fixed |
+| パーミッションが解決された後もリモートコントロールのセッションステータスが「要対応」のままになる問題を修正 | Fixed Remote Control session status staying stuck on "Requires Action" after a permission is resolved | fixed |
+| 先読みサジェストが shift+enter および meta+enter を横取りして改行が挿入できない問題を修正 | Fixed shift+enter and meta+enter being intercepted by typeahead suggestions instead of inserting newlines | fixed |
+| ストリーミング中に上スクロールすると古いコンテンツが残留して表示される問題を修正 | Fixed stale content bleeding through when scrolling up during streaming | fixed |
+| Ghostty、Kitty、WezTerm 等 Kitty キーボードプロトコル対応ターミナルにおいて、終了後も拡張キーボードモードが解除されずに Ctrl+C や Ctrl+D が正常に動作しない問題を修正 | Fixed terminal left in enhanced keyboard mode after exit in Ghostty, Kitty, WezTerm, and other terminals supporting the Kitty keyboard protocol — Ctrl+C and Ctrl+D now work correctly after quitting | fixed |
+| 大規模リポジトリでの @メンション ファイル自動補完のパフォーマンスを改善 | Improved @-mention file autocomplete performance on large repositories | improved |
+| PowerShell の危険なコマンド検出を改善 | Improved PowerShell dangerous command detection | improved |
+| WASM の yoga-layout を純粋な TypeScript 実装に置き換え、大きなトランスクリプトでのスクロールパフォーマンスを改善 | Improved scroll performance with large transcripts by replacing WASM yoga-layout with a pure TypeScript implementation | improved |
+| 大規模セッションでコンパクション実行時の UI のちらつきを軽減 | Reduced UI stutter when compaction triggers on large sessions | improved |
+
 ## 2.1.84
 
 | 日本語 | English | Category |

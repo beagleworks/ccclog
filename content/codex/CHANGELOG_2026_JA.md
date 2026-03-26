@@ -4,6 +4,26 @@
 
 ---
 
+## 0.117.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| プラグインがファーストクラスのワークフローに昇格：起動時にプロダクトスコープのプラグインを同期し、`/plugins` で一覧表示、より明確な認証・セットアップ処理でインストール・削除に対応。(#15041, #15042, #15195, #15215, #15217, #15264, #15275, #15342, #15580, #15606, #15802) | Plugins are now a first-class workflow: Codex can sync product-scoped plugins at startup, browse them in `/plugins`, and install or remove them with clearer auth/setup handling. (#15041, #15042, #15195, #15215, #15217, #15264, #15275, #15342, #15580, #15606, #15802) | new-features |
+| サブエージェントが `/root/agent_a` のような可読なパスベースのアドレスを使用するようになり、マルチエージェント v2 ワークフロー向けに構造化されたエージェント間メッセージングとエージェント一覧表示を追加。(#15313, #15515, #15556, #15570, #15621, #15647) | Sub-agents now use readable path-based addresses like `/root/agent_a`, with structured inter-agent messaging and agent listing for multi-agent v2 workflows. (#15313, #15515, #15556, #15570, #15621, #15647) | new-features |
+| `/title` によるターミナルタイトル選択が従来の TUI とアプリサーバー TUI の両方で動作するようになり、並列セッションの識別が容易に。(#12334, #15860) | The `/title` terminal-title picker now works in both the classic TUI and the app-server TUI, making parallel sessions easier to tell apart. (#12334, #15860) | new-features |
+| アプリサーバークライアントが `!` シェルコマンドの送信、ファイルシステム変更の監視、Bearer トークン認証によるリモート WebSocket サーバーへの接続に対応。(#14988, #14533, #14847, #14853) | App-server clients can now send `!` shell commands, watch filesystem changes, and connect to remote websocket servers with bearer-token auth. (#14988, #14533, #14847, #14853) | new-features |
+| 画像ワークフローを改善：コードモードで `view_image` が画像 URL を返すように変更、生成画像を TUI から再オープン可能に、画像生成履歴がセッション再開後も保持されるように修正。(#15072, #15154, #15223) | Image workflows got smoother: `view_image` now returns image URLs for code mode, generated images are reopenable from the TUI, and image-generation history survives resume. (#15072, #15154, #15223) | new-features |
+| アプリサーバー TUI でプロンプト履歴の呼び出しがセッションをまたいで機能するように対応。(#14945) | Prompt history recall now works in the app-server TUI, including across sessions. (#14945) | new-features |
+| `tui_app_server` でライブ推論サマリーや `/review` 出力が重複表示される問題を修正、バックプレッシャー時にトランスクリプトテキストが破棄される問題も解消。(#15758, #15839, #15759) | `tui_app_server` no longer duplicates live reasoning summaries or `/review` output, and it preserves transcript text instead of dropping it under backpressure. (#15758, #15839, #15759) | bug-fixes |
+| `tui_app_server` での ChatGPT ログインがローカルブラウザを再度開くように修正、`Ctrl+C` でクリーンにキャンセル可能に、ログアウト状態での起動失敗も解消。(#15672, #15673, #15670) | ChatGPT login in `tui_app_server` now opens the local browser again, cancels cleanly on `Ctrl+C`, and no longer fails startup when you're logged out. (#15672, #15673, #15670) | bug-fixes |
+| 早期終了時のターミナル状態復元を安定化してシェル破損を回避、tmux ユーザー向けに `Shift+Left` のキューメッセージ編集ショートカットも修正。(#15671, #15480) | Early exits now restore terminal state reliably, avoiding broken shell state after quitting; tmux users also get a working queued-message edit shortcut on `Shift+Left`. (#15671, #15480) | bug-fixes |
+| 古い `bubblewrap` を使用する旧ディストリビューションでの Linux サンドボックスツール呼び出しの安定性を改善、Windows の制限トークンサンドボックスでより多くのスプリットポリシーカーブアウトレイアウトに対応。(#15693, #14172) | Linux sandboxed tool calls are more reliable on older distributions with older `bubblewrap`, and Windows restricted-token sandboxing now supports more split-policy carveout layouts. (#15693, #14172) | bug-fixes |
+| リモートマルチエージェントセッションでエージェントの生 ID の代わりに名前を表示するように変更、ターンステアリングの競合状態からのより安定した復旧に対応。(#15513, #15714, #15163) | Remote multi-agent sessions now show agent names instead of raw IDs and recover more gracefully from stale turn-steering races. (#15513, #15714, #15163) | bug-fixes |
+| プラグインバックのメンション処理とプロダクトゲーティングの動作を改善：明示的なメンションのコンテキストが失われる問題とプラグインが誤ってフィルタリングされる問題を修正。(#15372, #15263, #15279) | Plugin-backed mentions and product gating now behave more predictably, fixing cases where explicit mentions lost context or plugins were filtered incorrectly. (#15372, #15263, #15279) | bug-fixes |
+| アプリサーバーおよび exec サーバーのドキュメント・スキーマフィクスチャを拡充：exec サーバーセットアップ、ファイルシステム監視 RPC、リアルタイムトランスクリプト通知、Python の新しい `thread.run(...)` クイックスタートフローを追加。(#15089, #14533, #15344, #15088) | Expanded the app-server and exec-server docs/schema fixtures to cover exec-server setup, filesystem watch RPCs, realtime transcript notifications, and the new Python `thread.run(...)` quickstart flow. (#15089, #14533, #15344, #15088) | documentation |
+| アプリサーバーバックの TUI をデフォルトで有効化、通常ビルドでプラグイン・アプリのロールアウトフラグもオンに変更。(#15661, #15713, #15719, #15820) | The app-server-backed TUI is now enabled by default, and the plugin/app rollout flags have been flipped on in normal builds. (#15661, #15713, #15719, #15820) | chores |
+| レガシーアーティファクトツールを削除、ツールサーフェス整理の一環として旧 `read_file` および `grep_files` ハンドラを廃止。(#15851, #15864, #15773, #15775) | Removed the legacy artifact tool and retired the old `read_file` and `grep_files` handlers as part of ongoing tool-surface cleanup. (#15851, #15864, #15773, #15775) | chores |
+
 ## 0.116.0
 
 | 日本語 | English | Category |
