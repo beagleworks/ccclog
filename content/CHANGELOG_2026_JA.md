@@ -4,6 +4,37 @@
 
 ---
 
+## 2.1.86
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| APIリクエストに `X-Claude-Code-Session-Id` ヘッダーを追加し、プロキシがボディを解析せずにセッション単位でリクエストを集約できるよう対応 | Added `X-Claude-Code-Session-Id` header to API requests so proxies can aggregate requests by session without parsing the body | added |
+| GrepおよびファイルオートコンプリートがJujutsuおよびSaplingのメタデータを走査しないよう、VCSディレクトリ除外リストに `.jj` および `.sl` を追加 | Added `.jj` and `.sl` to VCS directory exclusion lists so Grep and file autocomplete don't descend into Jujutsu or Sapling metadata | added |
+| v2.1.85以前に作成されたセッションで `--resume` が "tool_use ids were found without tool_result blocks" エラーで失敗する不具合を修正 | Fixed `--resume` failing with "tool_use ids were found without tool_result blocks" on sessions created before v2.1.85 | fixed |
+| 条件付きスキルやルールが設定されている場合に、プロジェクトルート外のファイル（例: `~/.claude/CLAUDE.md`）でWrite/Edit/Readが失敗する不具合を修正 | Fixed Write/Edit/Read failing on files outside the project root (e.g., `~/.claude/CLAUDE.md`) when conditional skills or rules are configured | fixed |
+| スキル呼び出しのたびに不要な設定のディスク書き込みが発生し、Windowsでパフォーマンス低下や設定ファイル破損を引き起こす不具合を修正 | Fixed unnecessary config disk writes on every skill invocation that could cause performance issues and config corruption on Windows | fixed |
+| トランスクリプトファイルが大きい長時間セッションで `/feedback` 使用時にメモリ不足クラッシュが発生する可能性を修正 | Fixed potential out-of-memory crash when using `/feedback` on very long sessions with large transcript files | fixed |
+| `--bare` モードでインタラクティブセッション中にMCPツールが失われ、ターン中にエンキューされたメッセージが無音で破棄される不具合を修正 | Fixed `--bare` mode dropping MCP tools in interactive sessions and silently discarding messages enqueued mid-turn | fixed |
+| `c` ショートカットがOAuthログインURLの完全なURLではなく約20文字しかコピーしない不具合を修正 | Fixed the `c` shortcut copying only ~20 characters of the OAuth login URL instead of the full URL | fixed |
+| 狭いターミナルで複数行にわたる場合、マスク入力（例: OAuthコードのペースト）でトークンの先頭が漏れる不具合を修正 | Fixed masked input (e.g., OAuth code paste) leaking the start of the token when wrapping across multiple lines on narrow terminals | fixed |
+| v2.1.83以降、macOS/LinuxでオフィシャルマーケットプレイスのプラグインスクリプトがPermission deniedで失敗する不具合を修正 | Fixed official marketplace plugin scripts failing with "Permission denied" on macOS/Linux since v2.1.83 | fixed |
+| 複数のClaude Codeインスタンスを起動中に一方で `/model` を使用した際、ステータスラインに別セッションのモデルが表示される不具合を修正 | Fixed statusline showing another session's model when running multiple Claude Code instances and using `/model` in one of them | fixed |
+| 長い会話の末尾でホイールスクロールまたはクリック選択後、新しいメッセージにスクロールが追従しない不具合を修正 | Fixed scroll not following new messages after wheel scroll or click-to-select at the bottom of a long conversation | fixed |
+| `/plugin` のアンインストールダイアログで `n` を押した際、データディレクトリを保持したまま正しくプラグインをアンインストールするよう修正 | Fixed `/plugin` uninstall dialog: pressing `n` now correctly uninstalls the plugin while preserving its data directory | fixed |
+| クリック後にEnterを押すとレスポンスが届くまでトランスクリプトが空白になるリグレッションを修正 | Fixed a regression where pressing Enter after clicking could leave the transcript blank until the response arrived | fixed |
+| キーワードを削除した後も `ultrathink` ヒントが残り続ける不具合を修正 | Fixed `ultrathink` hint lingering after deleting the keyword | fixed |
+| 長いセッションでmarkdown/ハイライトのレンダーキャッシュがコンテンツ文字列全体を保持し続けることによるメモリ増加を修正 | Fixed memory growth in long sessions from markdown/highlight render caches retaining full content strings | fixed |
+| 多数のclaude.ai MCPコネクタが設定されている場合の起動時イベントループのストールを低減（macOSキーチェーンキャッシュを5秒から30秒に延長） | Reduced startup event-loop stalls when many claude.ai MCP connectors are configured (macOS keychain cache extended from 5s to 30s) | improved |
+| `@` でファイルを参照する際のトークンオーバーヘッドを削減（生の文字列コンテンツをJSONエスケープしないよう変更） | Reduced token overhead when mentioning files with `@` — raw string content no longer JSON-escaped | improved |
+| ツール説明から動的コンテンツを除去することで、Bedrock・Vertex・Foundryユーザーのプロンプトキャッシュヒット率を改善 | Improved prompt cache hit rate for Bedrock, Vertex, and Foundry users by removing dynamic content from tool descriptions | improved |
+| 「Saved N memories」通知内のメモリファイル名がホバー時にハイライト表示され、クリックで開けるよう対応 | Memory filenames in the "Saved N memories" notice now highlight on hover and open on click | improved |
+| コンテキスト使用量削減のため、`/skills` 一覧のスキル説明を250文字に制限 | Skill descriptions in the `/skills` listing are now capped at 250 characters to reduce context usage | changed |
+| `/skills` メニューをアルファベット順にソートし、スキャンしやすく変更 | Changed `/skills` menu to sort alphabetically for easier scanning | changed |
+| プランの制限によってAutoモードが無効な場合、「temporarily unavailable」に代わり「unavailable for your plan」を表示するよう変更 | Auto mode now shows "unavailable for your plan" when disabled by plan restrictions (was "temporarily unavailable") | changed |
+| [VSCode] 長時間の処理中に拡張機能が誤って「Not responding」を表示する不具合を修正 | [VSCode] Fixed extension incorrectly showing "Not responding" during long-running operations | fixed |
+| [VSCode] OAuthトークン更新後（ログインから8時間後）にMaxプランユーザーのモデルがSonnetにリセットされる不具合を修正 | [VSCode] Fixed extension defaulting Max plan users to Sonnet after the OAuth token refreshes (8 hours after login) | fixed |
+| Readツールがコンパクトな行番号形式を採用し、変更のない再読み込みを重複排除することでトークン使用量を削減 | Read tool now uses compact line-number format and deduplicates unchanged re-reads, reducing token usage | improved |
+
 ## 2.1.85
 
 | 日本語 | English | Category |

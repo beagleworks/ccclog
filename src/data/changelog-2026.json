@@ -1,10 +1,147 @@
 {
-  "generatedAt": "2026-03-26T23:07:37.337Z",
+  "generatedAt": "2026-03-27T23:09:57.332Z",
   "months": [
     {
       "key": "2026-03",
       "label": "2026年3月",
       "versions": [
+        {
+          "version": "2.1.86",
+          "releaseDate": "2026-03-28",
+          "releaseDateDisplay": "2026年3月28日",
+          "entries": [
+            {
+              "ja": "APIリクエストに `X-Claude-Code-Session-Id` ヘッダーを追加し、プロキシがボディを解析せずにセッション単位でリクエストを集約できるよう対応",
+              "en": "Added `X-Claude-Code-Session-Id` header to API requests so proxies can aggregate requests by session without parsing the body",
+              "category": "added"
+            },
+            {
+              "ja": "GrepおよびファイルオートコンプリートがJujutsuおよびSaplingのメタデータを走査しないよう、VCSディレクトリ除外リストに `.jj` および `.sl` を追加",
+              "en": "Added `.jj` and `.sl` to VCS directory exclusion lists so Grep and file autocomplete don't descend into Jujutsu or Sapling metadata",
+              "category": "added"
+            },
+            {
+              "ja": "v2.1.85以前に作成されたセッションで `--resume` が \"tool_use ids were found without tool_result blocks\" エラーで失敗する不具合を修正",
+              "en": "Fixed `--resume` failing with \"tool_use ids were found without tool_result blocks\" on sessions created before v2.1.85",
+              "category": "fixed"
+            },
+            {
+              "ja": "条件付きスキルやルールが設定されている場合に、プロジェクトルート外のファイル（例: `~/.claude/CLAUDE.md`）でWrite/Edit/Readが失敗する不具合を修正",
+              "en": "Fixed Write/Edit/Read failing on files outside the project root (e.g., `~/.claude/CLAUDE.md`) when conditional skills or rules are configured",
+              "category": "fixed"
+            },
+            {
+              "ja": "スキル呼び出しのたびに不要な設定のディスク書き込みが発生し、Windowsでパフォーマンス低下や設定ファイル破損を引き起こす不具合を修正",
+              "en": "Fixed unnecessary config disk writes on every skill invocation that could cause performance issues and config corruption on Windows",
+              "category": "fixed"
+            },
+            {
+              "ja": "トランスクリプトファイルが大きい長時間セッションで `/feedback` 使用時にメモリ不足クラッシュが発生する可能性を修正",
+              "en": "Fixed potential out-of-memory crash when using `/feedback` on very long sessions with large transcript files",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--bare` モードでインタラクティブセッション中にMCPツールが失われ、ターン中にエンキューされたメッセージが無音で破棄される不具合を修正",
+              "en": "Fixed `--bare` mode dropping MCP tools in interactive sessions and silently discarding messages enqueued mid-turn",
+              "category": "fixed"
+            },
+            {
+              "ja": "`c` ショートカットがOAuthログインURLの完全なURLではなく約20文字しかコピーしない不具合を修正",
+              "en": "Fixed the `c` shortcut copying only ~20 characters of the OAuth login URL instead of the full URL",
+              "category": "fixed"
+            },
+            {
+              "ja": "狭いターミナルで複数行にわたる場合、マスク入力（例: OAuthコードのペースト）でトークンの先頭が漏れる不具合を修正",
+              "en": "Fixed masked input (e.g., OAuth code paste) leaking the start of the token when wrapping across multiple lines on narrow terminals",
+              "category": "fixed"
+            },
+            {
+              "ja": "v2.1.83以降、macOS/LinuxでオフィシャルマーケットプレイスのプラグインスクリプトがPermission deniedで失敗する不具合を修正",
+              "en": "Fixed official marketplace plugin scripts failing with \"Permission denied\" on macOS/Linux since v2.1.83",
+              "category": "fixed"
+            },
+            {
+              "ja": "複数のClaude Codeインスタンスを起動中に一方で `/model` を使用した際、ステータスラインに別セッションのモデルが表示される不具合を修正",
+              "en": "Fixed statusline showing another session's model when running multiple Claude Code instances and using `/model` in one of them",
+              "category": "fixed"
+            },
+            {
+              "ja": "長い会話の末尾でホイールスクロールまたはクリック選択後、新しいメッセージにスクロールが追従しない不具合を修正",
+              "en": "Fixed scroll not following new messages after wheel scroll or click-to-select at the bottom of a long conversation",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/plugin` のアンインストールダイアログで `n` を押した際、データディレクトリを保持したまま正しくプラグインをアンインストールするよう修正",
+              "en": "Fixed `/plugin` uninstall dialog: pressing `n` now correctly uninstalls the plugin while preserving its data directory",
+              "category": "fixed"
+            },
+            {
+              "ja": "クリック後にEnterを押すとレスポンスが届くまでトランスクリプトが空白になるリグレッションを修正",
+              "en": "Fixed a regression where pressing Enter after clicking could leave the transcript blank until the response arrived",
+              "category": "fixed"
+            },
+            {
+              "ja": "キーワードを削除した後も `ultrathink` ヒントが残り続ける不具合を修正",
+              "en": "Fixed `ultrathink` hint lingering after deleting the keyword",
+              "category": "fixed"
+            },
+            {
+              "ja": "長いセッションでmarkdown/ハイライトのレンダーキャッシュがコンテンツ文字列全体を保持し続けることによるメモリ増加を修正",
+              "en": "Fixed memory growth in long sessions from markdown/highlight render caches retaining full content strings",
+              "category": "fixed"
+            },
+            {
+              "ja": "多数のclaude.ai MCPコネクタが設定されている場合の起動時イベントループのストールを低減（macOSキーチェーンキャッシュを5秒から30秒に延長）",
+              "en": "Reduced startup event-loop stalls when many claude.ai MCP connectors are configured (macOS keychain cache extended from 5s to 30s)",
+              "category": "improved"
+            },
+            {
+              "ja": "`@` でファイルを参照する際のトークンオーバーヘッドを削減（生の文字列コンテンツをJSONエスケープしないよう変更）",
+              "en": "Reduced token overhead when mentioning files with `@` — raw string content no longer JSON-escaped",
+              "category": "improved"
+            },
+            {
+              "ja": "ツール説明から動的コンテンツを除去することで、Bedrock・Vertex・Foundryユーザーのプロンプトキャッシュヒット率を改善",
+              "en": "Improved prompt cache hit rate for Bedrock, Vertex, and Foundry users by removing dynamic content from tool descriptions",
+              "category": "improved"
+            },
+            {
+              "ja": "「Saved N memories」通知内のメモリファイル名がホバー時にハイライト表示され、クリックで開けるよう対応",
+              "en": "Memory filenames in the \"Saved N memories\" notice now highlight on hover and open on click",
+              "category": "improved"
+            },
+            {
+              "ja": "コンテキスト使用量削減のため、`/skills` 一覧のスキル説明を250文字に制限",
+              "en": "Skill descriptions in the `/skills` listing are now capped at 250 characters to reduce context usage",
+              "category": "changed"
+            },
+            {
+              "ja": "`/skills` メニューをアルファベット順にソートし、スキャンしやすく変更",
+              "en": "Changed `/skills` menu to sort alphabetically for easier scanning",
+              "category": "changed"
+            },
+            {
+              "ja": "プランの制限によってAutoモードが無効な場合、「temporarily unavailable」に代わり「unavailable for your plan」を表示するよう変更",
+              "en": "Auto mode now shows \"unavailable for your plan\" when disabled by plan restrictions (was \"temporarily unavailable\")",
+              "category": "changed"
+            },
+            {
+              "ja": "[VSCode] 長時間の処理中に拡張機能が誤って「Not responding」を表示する不具合を修正",
+              "en": "[VSCode] Fixed extension incorrectly showing \"Not responding\" during long-running operations",
+              "category": "fixed"
+            },
+            {
+              "ja": "[VSCode] OAuthトークン更新後（ログインから8時間後）にMaxプランユーザーのモデルがSonnetにリセットされる不具合を修正",
+              "en": "[VSCode] Fixed extension defaulting Max plan users to Sonnet after the OAuth token refreshes (8 hours after login)",
+              "category": "fixed"
+            },
+            {
+              "ja": "Readツールがコンパクトな行番号形式を採用し、変更のない再読み込みを重複排除することでトークン使用量を削減",
+              "en": "Read tool now uses compact line-number format and deduplicates unchanged re-reads, reducing token usage",
+              "category": "improved"
+            }
+          ]
+        },
         {
           "version": "2.1.85",
           "releaseDate": "2026-03-27",
