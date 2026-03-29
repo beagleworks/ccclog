@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.87
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Cowork Dispatch のメッセージが配信されない問題を修正 | Fixed messages in Cowork Dispatch not getting delivered | fixed |
+
 ## 2.1.86
 
 | 日本語 | English | Category |
