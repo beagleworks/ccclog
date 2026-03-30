@@ -7622,7 +7622,7 @@
     {
       "id": 952,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "実験的な Rust SDK ベースの MCP クライアントを導入 (#4252)",
       "en": "Experimental Rust SDK–based MCP client introduced (#4252)"
@@ -7630,7 +7630,7 @@
     {
       "id": 953,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "レスポンス処理とプロキシを簡素化・安全化する `responses-api-proxy` コンポーネントを追加 (#4246)",
       "en": "New responses-api-proxy component to simplify and secure response handling/proxying (#4246)"
@@ -7638,7 +7638,7 @@
     {
       "id": 954,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "プロセス可視性を制限するセキュアモード `CODEX_SECURE_MODE=1` を追加 (#4220)",
       "en": "Added secure mode: CODEX_SECURE_MODE=1 to restrict process observability (#4220)"
@@ -7646,7 +7646,7 @@
     {
       "id": 955,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "`codex exec` イベントの明示化: item.started と出力表示の改善 (#4177, #4250, #4113)",
       "en": "More explicit codex exec events, including item.started and improved output display (#4177, #4250, #4113)"
@@ -7654,7 +7654,7 @@
     {
       "id": 956,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "より安全なコマンド実行: コアでの危険コマンドチェックと Windows 固有の安全性 (#4211, #4119)",
       "en": "Safer command execution: dangerous command checks in core and Windows-specific safety (#4211, #4119)"
@@ -7662,7 +7662,7 @@
     {
       "id": 957,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "UX 改善: /status 刷新、ページレスセッション一覧、承認を ListSelectionView に移行、MCP ツール呼び出しスタイル改善、ストリーミング中のステータスインジケーター非表示 (#3194, #4275, #3871, #4101, #4196)",
       "en": "UX improvements: revamped /status, pageless session list, approvals in ListSelectionView, better MCP tool call styling, hiding status indicator during streaming (#3194, #4275, #3871, #4101, #4196)"
@@ -7670,7 +7670,7 @@
     {
       "id": 958,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "安定性と正確性: 圧縮時のトークン使用量修正、SSE マウントの信頼性向上、前の会話編集時のバグ修正 (#4281, #4264, #4237)",
       "en": "Stability and correctness: token usage fix for compaction, SSE mounting reliability, improving bugs on editing previous conversations (#4281, #4264, #4237)"
@@ -7678,7 +7678,7 @@
     {
       "id": 959,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "IDE 拡張: `.codex` ディレクトリ未存在時の API キーログインを修正 (#4258)",
       "en": "IDE extension: fix login with API key when .codex directory is missing (#4258)"
@@ -7686,7 +7686,7 @@
     {
       "id": 960,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "内部クリーンアップとリファクタリング: 状態、フッターロジック、未使用コードの整理 (#4174, #4259, #4310)",
       "en": "Internal cleanup and refactors for state, footer logic, and unused code (#4174, #4259, #4310)"
@@ -7694,7 +7694,7 @@
     {
       "id": 961,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "/status のフォローアップ (#4304)",
       "en": "/status followup (#4304)"
@@ -7702,7 +7702,7 @@
     {
       "id": 962,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "todo-list ツールサポートを追加 (#4255)",
       "en": "Add todo-list tool support (#4255)"
@@ -7710,7 +7710,7 @@
     {
       "id": 963,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "状態リファクタリング Part 2 (#4229)",
       "en": "ref: state - 2 (#4229)"
@@ -7718,7 +7718,7 @@
     {
       "id": 964,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "codex exec テストヘルパーを追加 (#4254)",
       "en": "Add codex exec testing helpers (#4254)"
@@ -7726,7 +7726,7 @@
     {
       "id": 965,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "サンドボックスドキュメントのタイポを修正 (#4256)",
       "en": "fix typo in sandbox doc (#4256)"
@@ -7734,7 +7734,7 @@
     {
       "id": 966,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "修正 (#4251)",
       "en": "fix (#4251)"
@@ -7742,7 +7742,7 @@
     {
       "id": 967,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "幅を小さくリサイズした際のバグを修正 (#4248)",
       "en": "fix bug when resizing to a smaller width (#4248)"
@@ -7750,7 +7750,7 @@
     {
       "id": 968,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "サンドボックスでテストがクリーンに通るよう修正 (#4067)",
       "en": "make tests pass cleanly in sandbox (#4067)"
@@ -7758,7 +7758,7 @@
     {
       "id": 969,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "エラーメッセージを修正 (#4204)",
       "en": "Fix error message (#4204)"
@@ -7766,7 +7766,7 @@
     {
       "id": 970,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "attempt_stream_responses() を stream_responses() から分離してリファクタリング (#4194)",
       "en": "chore: refactor attempt_stream_responses() out of stream_responses() (#4194)"
@@ -7774,7 +7774,7 @@
     {
       "id": 971,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "codespell アクションを v2.1 に更新 (#4205)",
       "en": "github: update codespell action to v2.1 in workflow (#4205)"
@@ -7782,7 +7782,7 @@
     {
       "id": 972,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "非 gpt-5 モデルで text パラメータを送信 (#4195)",
       "en": "Send text parameter for non-gpt-5 models (#4195)"
@@ -7790,7 +7790,7 @@
     {
       "id": 973,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 21,
       "ja": "env_flags から未使用の値を削除 (#4188)",
       "en": "chore: drop unused values from env_flags (#4188)"
@@ -7798,7 +7798,7 @@
     {
       "id": 974,
       "version": "0.42.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 22,
       "ja": "ツール実装を簡素化 (#4160)",
       "en": "Simplify tool implementations (#4160)"
@@ -7806,7 +7806,7 @@
     {
       "id": 975,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "レート制限の可視化: リセット時刻の表示 (#4111) とレート制限時の使用量表示 (#4102)",
       "en": "Rate limits visibility: see when limits reset (#4111) and usage when rate limited (#4102)"
@@ -7814,7 +7814,7 @@
     {
       "id": 976,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "`exec` モードで `output-schema` による出力スキーマ指定が可能に (#4079)",
       "en": "You can specify output schema in exec mode using output-schema (#4079)"
@@ -7822,7 +7822,7 @@
     {
       "id": 977,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "Ripgrep (`rg`) を npm リリースにバンドルし、@vscode/ripgrep の postinstall 失敗問題を解消 (#3660)",
       "en": "Ripgrep (rg) is now vendored into the npm release, fixing postinstall failures (#3660)"
@@ -7830,7 +7830,7 @@
     {
       "id": 978,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "readiness ツールを追加 (#4090)",
       "en": "feat: readiness tool (#4090)"
@@ -7838,7 +7838,7 @@
     {
       "id": 979,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "圧縮時に指示を変更しないよう修正 (#4088)",
       "en": "chore: compact do not modify instructions (#4088)"
@@ -7846,7 +7846,7 @@
     {
       "id": 980,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "codex カードレイアウトをリファクタリング (#4069)",
       "en": "refactor codex card layout (#4069)"
@@ -7854,7 +7854,7 @@
     {
       "id": 981,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "テストで anyhow::Result を使用してエラー伝播 (#4105)",
       "en": "Use anyhow::Result in tests for error propagation (#4105)"
@@ -7862,7 +7862,7 @@
     {
       "id": 982,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "exec に include-plan-tool フラグを追加 (#3461)",
       "en": "[exec] add include-plan-tool flag and print it nicely (#3461)"
@@ -7870,7 +7870,7 @@
     {
       "id": 983,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "アルファリリース時に npm publish --tag alpha を使用するよう修正 (#4112)",
       "en": "fix: npm publish --tag alpha when building an alpha release (#4112)"
@@ -7878,7 +7878,7 @@
     {
       "id": 984,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "serde を 1.0.224 から 1.0.226 にアップグレード (#4031)",
       "en": "chore(deps): bump serde from 1.0.224 to 1.0.226 (#4031)"
@@ -7886,7 +7886,7 @@
     {
       "id": 985,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "log を 0.4.27 から 0.4.28 にアップグレード (#4027)",
       "en": "chore(deps): bump log from 0.4.27 to 0.4.28 (#4027)"
@@ -7894,7 +7894,7 @@
     {
       "id": 986,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "tempfile を 3.20.0 から 3.22.0 にアップグレード (#4030)",
       "en": "chore(deps): bump tempfile from 3.20.0 to 3.22.0 (#4030)"
@@ -7902,7 +7902,7 @@
     {
       "id": 987,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "自動圧縮の閾値を 250k に更新 (#4135)",
       "en": "nit: update auto compact to 250k (#4135)"
@@ -7910,7 +7910,7 @@
     {
       "id": 988,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "自動圧縮の指示オーバーライドを削除 (#4137)",
       "en": "nit: drop instruction override for auto-compact (#4137)"
@@ -7918,7 +7918,7 @@
     {
       "id": 989,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "readiness を専用 utils クレートに抽出 (#4140)",
       "en": "chore: extract readiness in a dedicated utils crate (#4140)"
@@ -7926,7 +7926,7 @@
     {
       "id": 990,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "自動圧縮の閾値を 350k トークンに更新 (#4156)",
       "en": "nit: 350k tokens (#4156)"
@@ -7934,7 +7934,7 @@
     {
       "id": 991,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "Rust 1.90 にアップグレード (#4124)",
       "en": "chore: upgrade to Rust 1.90 (#4124)"
@@ -7942,7 +7942,7 @@
     {
       "id": 992,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "gh run list の曖昧な動作に対する許容を追加 (#4162)",
       "en": "fix: add tolerance for ambiguous behavior in gh run list (#4162)"
@@ -7950,7 +7950,7 @@
     {
       "id": 993,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "once_cell 依存関係を複数クレートから削除 (#4154)",
       "en": "chore: remove once_cell dependency from multiple crates (#4154)"
@@ -7958,7 +7958,7 @@
     {
       "id": 994,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "unicode-width を 0.1.14 から 0.2.1 にアップグレード (#2156)",
       "en": "chore(deps): bump unicode-width from 0.1.14 to 0.2.1 (#2156)"
@@ -7966,7 +7966,7 @@
     {
       "id": 995,
       "version": "0.41.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "chrono を 0.4.41 から 0.4.42 にアップグレード (#4028)",
       "en": "chore(deps): bump chrono from 0.4.41 to 0.4.42 (#4028)"
@@ -7974,7 +7974,7 @@
     {
       "id": 996,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "デフォルトモデルを `gpt-5-codex` に変更 (#4076)",
       "en": "Default model is now gpt-5-codex (#4076)"
@@ -7982,7 +7982,7 @@
     {
       "id": 997,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "`gpt-5-codex` で 220k トークン到達時に自動圧縮を実行 (#4093)",
       "en": "Autocompaction is triggered automatically for gpt-5-codex when hitting 220k tokens (#4093)"
@@ -7990,7 +7990,7 @@
     {
       "id": 998,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "使用制限を `/status` で表示 (#4053)",
       "en": "Usage limits are now visible in /status (#4053)"
@@ -7998,7 +7998,7 @@
     {
       "id": 999,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "新しい `/review` コマンド: 特定コミット、ベースブランチ、カスタム指示でのレビュー (#3961)",
       "en": "New /review commands: review specific commit, against a base branch, or custom instructions (#3961)"
@@ -8006,7 +8006,7 @@
     {
       "id": 1000,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "MCP ツール呼び出しのデフォルトタイムアウトを 60 秒に設定、config.toml の `tool_timeout_sec` で個別変更可能 (#3959)",
       "en": "Default timeout for MCP tool calls is 60s, overridable via tool_timeout_sec in config.toml (#3959)"
@@ -8014,7 +8014,7 @@
     {
       "id": 1001,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "try_parse_word_only_commands_sequence() がコマンドを順序通り返すよう修正 (#3881)",
       "en": "fix: update try_parse_word_only_commands_sequence() to return commands in order (#3881)"
@@ -8022,7 +8022,7 @@
     {
       "id": 1002,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "キャッシュを壊さないよう統一シェル tell を使用 (#3814)",
       "en": "Use a unified shell tell to not break cache (#3814)"
@@ -8030,7 +8030,7 @@
     {
       "id": 1003,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "レスポンスモックヘルパーを共有ライブラリに移動 (#3878)",
       "en": "Move responses mocking helpers to a shared lib (#3878)"
@@ -8038,7 +8038,7 @@
     {
       "id": 1004,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "フィクスチャの代わりにヘルパーを使用 (#3888)",
       "en": "Use helpers instead of fixtures (#3888)"
@@ -8046,7 +8046,7 @@
     {
       "id": 1005,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "スラッシュコマンドポップアップの位置揃えを修正 (#3937)",
       "en": "fix alignment in slash command popup (#3937)"
@@ -8054,7 +8054,7 @@
     {
       "id": 1006,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "起動時の画面クリアを廃止 (#3925)",
       "en": "don't clear screen on startup (#3925)"
@@ -8062,7 +8062,7 @@
     {
       "id": 1007,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "イベントストリーム前にキーボード拡張検出をキャッシュ (#3950)",
       "en": "Cache keyboard enhancement detection before event streams (#3950)"
@@ -8070,7 +8070,7 @@
     {
       "id": 1008,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "レート制限を UI に転送 (#3965)",
       "en": "Forward Rate limits to the UI (#3965)"
@@ -8078,7 +8078,7 @@
     {
       "id": 1009,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "TUI: レート制限表示 (#3977)",
       "en": "Tui: Rate limits (#3977)"
@@ -8086,7 +8086,7 @@
     {
       "id": 1010,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "non_sandbox_test ヘルパーを追加 (#3880)",
       "en": "Add non_sandbox_test helper (#3880)"
@@ -8094,7 +8094,7 @@
     {
       "id": 1011,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "cargo バージョンを統一 (#4044)",
       "en": "chore: unify cargo versions (#4044)"
@@ -8102,7 +8102,7 @@
     {
       "id": 1012,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "clippy ルールを追加 Part 2 (#4057)",
       "en": "chore: more clippy rules 2 (#4057)"
@@ -8110,7 +8110,7 @@
     {
       "id": 1013,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "StreamController を簡素化 (#3928)",
       "en": "simplify StreamController (#3928)"
@@ -8118,7 +8118,7 @@
     {
       "id": 1014,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "TUI: バックトラッキングを修正 (#4020)",
       "en": "Tui: fix backtracking (#4020)"
@@ -8126,7 +8126,7 @@
     {
       "id": 1015,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "/status に移行したため /limits を削除 (#4055)",
       "en": "Remove /limits after moving to /status (#4055)"
@@ -8134,7 +8134,7 @@
     {
       "id": 1016,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "BottomPane にビュースタックを追加 (#4026)",
       "en": "feat: Add view stack to BottomPane (#4026)"
@@ -8142,7 +8142,7 @@
     {
       "id": 1017,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 21,
       "ja": "制限警告のコピーを変更 (#4059)",
       "en": "Change limits warning copy (#4059)"
@@ -8150,7 +8150,7 @@
     {
       "id": 1018,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 22,
       "ja": "冗長なクロージャに対する clippy 修正 (#4058)",
       "en": "chore: clippy on redundant closure (#4058)"
@@ -8158,7 +8158,7 @@
     {
       "id": 1019,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 23,
       "ja": "/review のブランチモードプロンプトを修正 (#4061)",
       "en": "Fix branch mode prompt for /review (#4061)"
@@ -8166,7 +8166,7 @@
     {
       "id": 1020,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 24,
       "ja": "レート制限のヘッダーと構造体を変更 (#4060)",
       "en": "Change headers and struct of rate limits (#4060)"
@@ -8174,7 +8174,7 @@
     {
       "id": 1021,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 25,
       "ja": "ページャーオーバーレイのページ間クリアを修正 (#3952)",
       "en": "Fix pager overlay clear between pages (#3952)"
@@ -8182,7 +8182,7 @@
     {
       "id": 1022,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 26,
       "ja": "セッション終了時の codex resume メッセージを修正 (#3957)",
       "en": "fix codex resume message at end of session (#3957)"
@@ -8190,7 +8190,7 @@
     {
       "id": 1023,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 27,
       "ja": "圧縮メッセージ内の長いユーザーメッセージを切り詰め (#4068)",
       "en": "Truncate potentially long user messages in compact message (#4068)"
@@ -8198,7 +8198,7 @@
     {
       "id": 1024,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 28,
       "ja": "notifier テストを追加 (#4064)",
       "en": "Add notifier tests (#4064)"
@@ -8206,7 +8206,7 @@
     {
       "id": 1025,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 29,
       "ja": "ストリームリトライテストで TestCodex ビルダーを使用 (#4096)",
       "en": "Use TestCodex builder in stream retry tests (#4096)"
@@ -8214,7 +8214,7 @@
     {
       "id": 1026,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 30,
       "ja": "undo 用の git ツールを追加 (#3914)",
       "en": "feat: git tooling for undo (#3914)"
@@ -8222,7 +8222,7 @@
     {
       "id": 1027,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 31,
       "ja": "使用量データの調整 (#4082)",
       "en": "fix: usage data tweaks (#4082)"
@@ -8230,7 +8230,7 @@
     {
       "id": 1028,
       "version": "0.40.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 32,
       "ja": "レート制限警告を追加 (#4075)",
       "en": "Rate limits warning (#4075)"
@@ -8238,7 +8238,7 @@
     {
       "id": 1029,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "新しい `/review` コマンドを導入 (#3774)",
       "en": "New /review command introduced (#3774)"
@@ -8246,7 +8246,7 @@
     {
       "id": 1030,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "会話とサンドボックスの cwd を別々の関心事として分離 (#3874)",
       "en": "fix: ensure cwd for conversation and sandbox are separate concerns (#3874)"
@@ -8254,7 +8254,7 @@
     {
       "id": 1031,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "\"HistoryCells 対応のトランスクリプトビューリファクタリング\" を再適用 (#3753)",
       "en": "Reland \"refactor transcript view to handle HistoryCells\" (#3753)"
@@ -8262,7 +8262,7 @@
     {
       "id": 1032,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "TUI: 通知欠落時のエラーを修正 (#3867)",
       "en": "fix error on missing notifications in tui (#3867)"
@@ -8270,7 +8270,7 @@
     {
       "id": 1033,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "tokio mutex と async 関数を使用してワーカーのブロックを防止 (#3850)",
       "en": "chore: use tokio mutex and async function to prevent blocking a worker (#3850)"
@@ -8278,7 +8278,7 @@
     {
       "id": 1034,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "Rust の参照に関する軽微な問題を修正 (#3849)",
       "en": "fix: some nit Rust reference issues (#3849)"
@@ -8286,7 +8286,7 @@
     {
       "id": 1035,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "TUI 終了時に codex resume のヒントを表示 (#3757)",
       "en": "hint for codex resume on tui exit (#3757)"
@@ -8294,7 +8294,7 @@
     {
       "id": 1036,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "自動圧縮時に ESC ボタンが動作するよう修正 (#3857)",
       "en": "Make ESC button work when auto-compaction (#3857)"
@@ -8302,7 +8302,7 @@
     {
       "id": 1037,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "アニメーションを統一 (#3729)",
       "en": "Unify animations (#3729)"
@@ -8310,7 +8310,7 @@
     {
       "id": 1038,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "uuid_v7 に切り替え、ConversationId の使用を厳格化 (#3819)",
       "en": "Switch to uuid_v7 and tighten ConversationId usage (#3819)"
@@ -8318,7 +8318,7 @@
     {
       "id": 1039,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "テストを一時的に無視 (#3777)",
       "en": "bug: Ignore tests for now (#3777)"
@@ -8326,7 +8326,7 @@
     {
       "id": 1040,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "\"Codex CLI harness, sandboxing, and approvals\" セクションを更新 (#3822)",
       "en": "chore: update \"Codex CLI harness, sandboxing, and approvals\" section (#3822)"
@@ -8334,7 +8334,7 @@
     {
       "id": 1041,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "ターン通知でエージェントの返信テキストを使用 (#3756)",
       "en": "Use agent reply text in turn notifications (#3756)"
@@ -8342,7 +8342,7 @@
     {
       "id": 1042,
       "version": "0.39.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "AGENTS.md: 不足コマンドのインストール手順を追加 (#3807)",
       "en": "AGENTS.md: Add instruction to install missing commands (#3807)"
@@ -8350,7 +8350,7 @@
     {
       "id": 1043,
       "version": "0.38.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "gh 呼び出し時に --repo を指定するよう修正 (#3806)",
       "en": "fix: specify --repo when calling gh (#3806)"
@@ -8358,7 +8358,7 @@
     {
       "id": 1044,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "npm リリースプロセスを \"trusted publishing\" に更新 (#3431)（⚠️ バグにより効果は v38 以降）",
       "en": "Updated npm release process to use \"trusted publishing\" (#3431) (bug delayed benefit to v0.38.0)"
@@ -8366,7 +8366,7 @@
     {
       "id": 1045,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "承認時とターン終了時に通知を送信 (#3329)",
       "en": "notifications on approvals and turn end (#3329)"
@@ -8374,7 +8374,7 @@
     {
       "id": 1046,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "rust-release.yml のプレリリースロジックを復元 (#3659)",
       "en": "chore: restore prerelease logic in rust-release.yml (#3659)"
@@ -8382,7 +8382,7 @@
     {
       "id": 1047,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "serde_json を 1.0.143 から 1.0.145 にアップグレード (#3617)",
       "en": "chore(deps): bump serde_json from 1.0.143 to 1.0.145 (#3617)"
@@ -8390,7 +8390,7 @@
     {
       "id": 1048,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "serde の依存関係を簡素化 (#3664)",
       "en": "chore: simplify dep so serde=1 in Cargo.toml (#3664)"
@@ -8398,7 +8398,7 @@
     {
       "id": 1049,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "serde を 1.0.219 から 1.0.223 にアップグレード (#3618)",
       "en": "chore(deps): bump serde from 1.0.219 to 1.0.223 (#3618)"
@@ -8406,7 +8406,7 @@
     {
       "id": 1050,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "wildmatch を 2.4.0 から 2.5.0 にアップグレード (#3619)",
       "en": "chore(deps): bump wildmatch from 2.4.0 to 2.5.0 (#3619)"
@@ -8414,7 +8414,7 @@
     {
       "id": 1051,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "パーミッションの位置揃えを修正 (45bccd36)",
       "en": "fix permissions alignment (45bccd36)"
@@ -8422,7 +8422,7 @@
     {
       "id": 1052,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "読み取り専用エスカレーションを修正 (#3673)",
       "en": "fix: read-only escalations (#3673)"
@@ -8430,7 +8430,7 @@
     {
       "id": 1053,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "Azure モデルプロバイダーの例を更新 (#3680)",
       "en": "Update azure model provider example (#3680)"
@@ -8438,7 +8438,7 @@
     {
       "id": 1054,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "検索アイテムを永続化 (#3745)",
       "en": "Persist search items (#3745)"
@@ -8446,7 +8446,7 @@
     {
       "id": 1055,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "SendUserTurn で EnvironmentContext を記録 (#3678)",
       "en": "fix: Record EnvironmentContext in SendUserTurn (#3678)"
@@ -8454,7 +8454,7 @@
     {
       "id": 1056,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "レビューモードのコア更新 (#3701)",
       "en": "Review mode core updates (#3701)"
@@ -8462,7 +8462,7 @@
     {
       "id": 1057,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "thinking 出力のスタイルを変更 (#3755)",
       "en": "restyle thinking outputs (#3755)"
@@ -8470,7 +8470,7 @@
     {
       "id": 1058,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "レビュー出力時の開発者メッセージを追加 (#3758)",
       "en": "Add dev message upon review out (#3758)"
@@ -8478,7 +8478,7 @@
     {
       "id": 1059,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "npm install 前に pnpm がインストール済みであることを確認 (#3763)",
       "en": "fix: ensure pnpm is installed before running npm install (#3763)"
@@ -8486,7 +8486,7 @@
     {
       "id": 1060,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "publish-npm を専用ジョブにして適切なパーミッションを設定 (#3767)",
       "en": "fix: make publish-npm its own job with specific permissions (#3767)"
@@ -8494,7 +8494,7 @@
     {
       "id": 1061,
       "version": "0.37.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "gh 呼び出し時に --repo を指定するよう修正 (#3806)",
       "en": "fix: specify --repo when calling gh (#3806)"
@@ -8502,7 +8502,7 @@
     {
       "id": 1062,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "⚠️ 環境変数からの OPENAI_API_KEY 読み込みを廃止。`codex login --api-key` で一度設定すれば auth.json に保存 (#3189)",
       "en": "⚠️ Breaking: OPENAI_API_KEY is no longer read from the environment. Use codex login --api-key once (#3189)"
@@ -8510,7 +8510,7 @@
     {
       "id": 1063,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "GPT-5-Codex モデルを導入し、性能と制御性を向上",
       "en": "Introducing GPT-5-Codex model with improved performance and steerability"
@@ -8518,7 +8518,7 @@
     {
       "id": 1064,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "`codex resume` による過去セッション再開機能を追加 (#3537, #3625)",
       "en": "Resuming old conversations with codex resume (#3537, #3625)"
@@ -8526,7 +8526,7 @@
     {
       "id": 1065,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "統合実行の改善と信頼性向上: 競合状態修正、タイムアウト時のコマンド出力、パッチ解析時の実行防止、サンドボックスタイムアウト処理改善 (#3288, #3479, #3644, #3576, #3382, #3435)",
       "en": "Unified execution improvements and reliability: race condition fix, command output on timeouts, no exec when parsed as patch, sandbox timeout handling (#3288, #3479, #3644, #3576, #3382, #3435)"
@@ -8534,7 +8534,7 @@
     {
       "id": 1066,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "認証とログイン体験の改善: ログイン整備、API キーとの同時ログイン修正、URL 文字修正、カスタムプロバイダーの認証ステータス修正 (#3632, #3611, #3639, #3581)",
       "en": "Auth and login polish: login flow, fix simultaneous API key/ChatGPT login, stray URL chars, custom provider auth status (#3632, #3611, #3639, #3581)"
@@ -8542,7 +8542,7 @@
     {
       "id": 1067,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "JSON-RPC と MCP: SetDefaultModel、UserInfo、reasoning_effort、初期 MCP インターフェースとドキュメント (#3512, #3529, #3428, #3506, #3543, #3507, #3345, #3514)",
       "en": "JSON-RPC and MCP: SetDefaultModel, UserInfo, reasoning_effort, initial MCP interface and docs (#3512, #3529, #3428, #3506, #3543, #3507, #3345, #3514)"
@@ -8550,7 +8550,7 @@
     {
       "id": 1068,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "TUI オンボーディングと UI 改善: 新しいオンボーディングフロー、アニメーション、resume 時のヘッダー統一、間隔/パディング改善、中断スタイル (#3398, #3631, #3590, #3627, #3615, #3592, #3469, #3471, #3472, #3474, #3470, #3650, #3534)",
       "en": "TUI onboarding and polish: new flow and animation, consistent headers on resume, spacing/padding, interruption styling (#3398, #3631, #3590, #3627, #3615, #3592, #3469, #3471, #3472, #3474, #3470, #3650, #3534)"
@@ -8558,7 +8558,7 @@
     {
       "id": 1069,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "コアプラットフォーム: 実験的自動コンテキスト圧縮、デフォルトサンドボックス拡張、Azure Responses API 対応、ロギング改善 (#3446, #3483, #3528, #3542, #3488, #3489, #3508)",
       "en": "Core platform: experimental auto context compaction, expanded default sandbox, Azure Responses API workaround, logging improvements (#3446, #3483, #3528, #3542, #3488, #3489, #3508)"
@@ -8566,7 +8566,7 @@
     {
       "id": 1070,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "MIN_ANIMATION_HEIGHT を修正し show_animation の計算を正確化 (#3656)",
       "en": "fix: change MIN_ANIMATION_HEIGHT so show_animation is calculated correctly (#3656)"
@@ -8574,7 +8574,7 @@
     {
       "id": 1071,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "gpt-5 プロンプトにファイル参照ガイドラインを追加 (#3651)",
       "en": "Add file reference guidelines to gpt-5 prompt (#3651)"
@@ -8582,7 +8582,7 @@
     {
       "id": 1072,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "小さい端末でアニメーションをスキップ (#3647)",
       "en": "feat: skip animations on small terminals (#3647)"
@@ -8590,7 +8590,7 @@
     {
       "id": 1073,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "リネーム (#3648)",
       "en": "chore: rename (#3648)"
@@ -8598,7 +8598,7 @@
     {
       "id": 1074,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "参照を追加 (#3633)",
       "en": "fix: add references (#3633)"
@@ -8606,7 +8606,7 @@
     {
       "id": 1075,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "prerelease:true に設定 (#3645)",
       "en": "chore: set prerelease:true for now (#3645)"
@@ -8614,7 +8614,7 @@
     {
       "id": 1076,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "tracing-subscriber を 0.3.19 から 0.3.20 にアップグレード (#3620)",
       "en": "chore(deps): bump tracing-subscriber from 0.3.19 to 0.3.20 (#3620)"
@@ -8622,7 +8622,7 @@
     {
       "id": 1077,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "slab を 0.4.10 から 0.4.11 にアップグレード (#3635)",
       "en": "chore(deps): bump slab from 0.4.10 to 0.4.11 (#3635)"
@@ -8630,7 +8630,7 @@
     {
       "id": 1078,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "プリセットフィルターの厳格化、ストレージロードログの抑制、ロールアウトプロンプトをデフォルトで有効化 (#3628)",
       "en": "feat: tighten preset filter, tame storage load logs, enable rollout prompt by default (#3628)"
@@ -8638,7 +8638,7 @@
     {
       "id": 1079,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "resume 時に中断を表示 (#3629)",
       "en": "Show abort in the resume (#3629)"
@@ -8646,7 +8646,7 @@
     {
       "id": 1080,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "gpt-5-code 用プロンプトを更新 (#3624)",
       "en": "chore: update prompts for gpt-5-code (#3624)"
@@ -8654,7 +8654,7 @@
     {
       "id": 1081,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "ヘッダーに推論レベルを追加 (#3622)",
       "en": "feat: add reasoning level to header (#3622)"
@@ -8662,7 +8662,7 @@
     {
       "id": 1082,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "\"HistoryCells 対応のトランスクリプトビューリファクタリング\" を取り消し (#3614)",
       "en": "Revert \"refactor transcript view to handle HistoryCells\" (#3614)"
@@ -8670,7 +8670,7 @@
     {
       "id": 1083,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 21,
       "ja": "API キー使用時にモデルを表示しない (#3607)",
       "en": "Don't show the model for apikey (#3607)"
@@ -8678,7 +8678,7 @@
     {
       "id": 1084,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 22,
       "ja": "モデルファミリーと apply_patch の一貫性を修正 (#3603)",
       "en": "fix: model family and apply_patch consistency (#3603)"
@@ -8686,7 +8686,7 @@
     {
       "id": 1085,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 23,
       "ja": "TUI: full-auto をデフォルトプリセットに更新 (#3608)",
       "en": "fix(tui): update full-auto to default preset (#3608)"
@@ -8694,7 +8694,7 @@
     {
       "id": 1086,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 24,
       "ja": "codespell で frames ファイルをスキップ (#3606)",
       "en": "Skip frames files in codespell (#3606)"
@@ -8702,7 +8702,7 @@
     {
       "id": 1087,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 25,
       "ja": "完全な生の推論イベントテキストを追加 (#3605)",
       "en": "Append full raw reasoning event text (#3605)"
@@ -8710,7 +8710,7 @@
     {
       "id": 1088,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 26,
       "ja": "EventMsg Optional を修正 (#3604)",
       "en": "Fix EventMsg Optional (#3604)"
@@ -8718,7 +8718,7 @@
     {
       "id": 1089,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 27,
       "ja": "gpt-5-code 用の単一ブランチ (#3601)",
       "en": "Single branch for gpt-5-code (#3601)"
@@ -8726,7 +8726,7 @@
     {
       "id": 1090,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 28,
       "ja": "モデル保存を更新 (#3589)",
       "en": "feat: update model save (#3589)"
@@ -8734,7 +8734,7 @@
     {
       "id": 1091,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 29,
       "ja": "gpt-5-code モデルセレクターを修正 (#3598)",
       "en": "Fix gpt-5-code model selector (#3598)"
@@ -8742,7 +8742,7 @@
     {
       "id": 1092,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 30,
       "ja": "モデルファミリーごとのプロンプトを追加 (#3597)",
       "en": "Add per-model-family prompts (#3597)"
@@ -8750,7 +8750,7 @@
     {
       "id": 1093,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 31,
       "ja": "ユーザー履歴メッセージのプレフィックス幅を揃える (#3467)",
       "en": "Align user history message prefix width (#3467)"
@@ -8758,7 +8758,7 @@
     {
       "id": 1094,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 32,
       "ja": "モデルアップグレードプロンプトを ChatGPT 認証の後ろにゲート (#3586)",
       "en": "Gate model upgrade prompt behind ChatGPT auth (#3586)"
@@ -8766,7 +8766,7 @@
     {
       "id": 1095,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 33,
       "ja": "output_lines() を bool の代わりに構造体を取るよう更新 (#3591)",
       "en": "chore: update output_lines() to take a struct instead of bools (#3591)"
@@ -8774,7 +8774,7 @@
     {
       "id": 1096,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 34,
       "ja": "圧縮後の resume/forking を処理 (#3533)",
       "en": "Handle resuming/forking after compact (#3533)"
@@ -8782,7 +8782,7 @@
     {
       "id": 1097,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 35,
       "ja": "HistoryCells 対応のトランスクリプトビューリファクタリング (#3538)",
       "en": "refactor transcript view to handle HistoryCells (#3538)"
@@ -8790,7 +8790,7 @@
     {
       "id": 1098,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 36,
       "ja": "gpt-5-code モデルで実験的推論サマリーをデフォルト化 (#3560)",
       "en": "Default gpt-5-code models to experimental reasoning summaries (#3560)"
@@ -8798,7 +8798,7 @@
     {
       "id": 1099,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 37,
       "ja": "暗号化された CoT を常にリクエスト (#3539)",
       "en": "Always request encrypted cot (#3539)"
@@ -8806,7 +8806,7 @@
     {
       "id": 1100,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 38,
       "ja": "レビューモード（コア） (#3401)",
       "en": "Review Mode (Core) (#3401)"
@@ -8814,7 +8814,7 @@
     {
       "id": 1101,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 39,
       "ja": "None の reasoning effort を修正 (#3536)",
       "en": "fix: NIT None reasoning effort (#3536)"
@@ -8822,7 +8822,7 @@
     {
       "id": 1102,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 40,
       "ja": "reasoning effort をオプショナルに (#3527)",
       "en": "feat: reasoning effort as optional (#3527)"
@@ -8830,7 +8830,7 @@
     {
       "id": 1103,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 41,
       "ja": "モデル保存を修正 (#3525)",
       "en": "bug: fix model save (#3525)"
@@ -8838,7 +8838,7 @@
     {
       "id": 1104,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 42,
       "ja": "README に IDE セクションを追加 (#3494)",
       "en": "add(readme): IDE (#3494)"
@@ -8846,7 +8846,7 @@
     {
       "id": 1105,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 43,
       "ja": "デフォルトを image に修正 (#3501)",
       "en": "bug: default to image (#3501)"
@@ -8854,7 +8854,7 @@
     {
       "id": 1106,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 44,
       "ja": "使用量制限 CTA のフォーマットに PlanType enum を使用 (#3495)",
       "en": "Use PlanType enum when formatting usage-limit CTA (#3495)"
@@ -8862,7 +8862,7 @@
     {
       "id": 1107,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 45,
       "ja": "gpt-5 モデルファミリー全体に同じ特性を割り当て (#3490)",
       "en": "Assign the entire gpt-5 model family same characteristics (#3490)"
@@ -8870,7 +8870,7 @@
     {
       "id": 1108,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 46,
       "ja": "fork 時にコンポーザーをクリア (#3445)",
       "en": "Clear composer on fork (#3445)"
@@ -8878,7 +8878,7 @@
     {
       "id": 1109,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 47,
       "ja": "gh 呼び出しで -f の代わりに -F を使用 (#3486)",
       "en": "fix: use -F instead of -f for force=true in gh call (#3486)"
@@ -8886,7 +8886,7 @@
     {
       "id": 1110,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 48,
       "ja": "ロールアウトアイテムに Compact と Turn Context を追加 (#3444)",
       "en": "Add Compact and Turn Context to the rollout items (#3444)"
@@ -8894,7 +8894,7 @@
     {
       "id": 1111,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 49,
       "ja": "apply-patch: 置換のソートとリグレッションテストを追加 (#3425)",
       "en": "apply-patch: sort replacements and add regression tests (#3425)"
@@ -8902,7 +8902,7 @@
     {
       "id": 1112,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 50,
       "ja": "rust-release.yml が latest-alpha-cli ブランチを更新するよう変更 (#3458)",
       "en": "chore: rust-release.yml should update the latest-alpha-cli branch (#3458)"
@@ -8910,7 +8910,7 @@
     {
       "id": 1113,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 51,
       "ja": "generate_mcp_types.py の出力が lib.rs と一致することを確認するチェックを追加 (#3450)",
       "en": "fix: add check to ensure output of generate_mcp_types.py matches lib.rs (#3450)"
@@ -8918,7 +8918,7 @@
     {
       "id": 1114,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 52,
       "ja": "fork がロールアウトをファイルから読むよう変更 (#3440)",
       "en": "Change forking to read the rollout from file (#3440)"
@@ -8926,7 +8926,7 @@
     {
       "id": 1115,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 53,
       "ja": "generate_mcp_types.py の出力が lib.rs と一致することを確認 (#3439)",
       "en": "fix: ensure output of generate_mcp_types.py matches lib.rs (#3439)"
@@ -8934,7 +8934,7 @@
     {
       "id": 1116,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 54,
       "ja": "信頼済みディレクトリ受入時に projects テーブルを壊さないよう修正 (#3434)",
       "en": "fix trampling projects table when accepting trusted dirs (#3434)"
@@ -8942,7 +8942,7 @@
     {
       "id": 1117,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 55,
       "ja": "ワークスペースルートを環境コンテキストに配置 (#3375)",
       "en": "put workspace roots in the environment context (#3375)"
@@ -8950,7 +8950,7 @@
     {
       "id": 1118,
       "version": "0.36.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 56,
       "ja": "不安定なテストを修正 (#3596, #3564)",
       "en": "Fix flaky tests (#3596, #3564)"
@@ -8958,7 +8958,7 @@
     {
       "id": 1119,
       "version": "0.35.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "(変更履歴のエントリはありません)",
       "en": "(No changelog entries)"
@@ -8966,7 +8966,7 @@
     {
       "id": 1120,
       "version": "0.34.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "外部 MCP サーバーの初期化を妨げる問題のホットフィックス (#3436)",
       "en": "Hotfix for issue that prevented Codex from initializing external MCP servers (#3436)"
@@ -8974,7 +8974,7 @@
     {
       "id": 1121,
       "version": "0.34.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "モデルと推論の変更を永続化 (#2799)",
       "en": "Persist model & reasoning changes (#2799)"
@@ -8982,7 +8982,7 @@
     {
       "id": 1122,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "#3179 の POSIX 統合がリグレッションを引き起こしたため取り消し (#3430)",
       "en": "Revert POSIX unification (#3179) due to regression (#3430)"
@@ -8990,7 +8990,7 @@
     {
       "id": 1123,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "TUI の Markdown レンダラーを新しいカスタム実装に置き換え (#3396)",
       "en": "Replace tui_markdown with a custom markdown renderer (#3396)"
@@ -8998,7 +8998,7 @@
     {
       "id": 1124,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "alt+delete で右側の単語を削除 (#3394)",
       "en": "alt+delete deletes the word to the right of the cursor (#3394)"
@@ -9006,7 +9006,7 @@
     {
       "id": 1125,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "ロールアウトアイテムを導入 (#3380)",
       "en": "Introduce rollout items (#3380)"
@@ -9014,7 +9014,7 @@
     {
       "id": 1126,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "MCP サーバーとして使用時にユーザーエージェントサフィックスを設定 (#3395)",
       "en": "Set a user agent suffix when used as a mcp server (#3395)"
@@ -9022,7 +9022,7 @@
     {
       "id": 1127,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "不要な #[allow(dead_code)] アノテーションを削除 (#3357)",
       "en": "fix: remove unnecessary #[allow(dead_code)] annotation (#3357)"
@@ -9030,7 +9030,7 @@
     {
       "id": 1128,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "initial history をプロトコルに移動 (#3422)",
       "en": "Move initial history to protocol (#3422)"
@@ -9038,7 +9038,7 @@
     {
       "id": 1129,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "UserMessageEvent に画像を追加 (#3400)",
       "en": "Added images to UserMessageEvent (#3400)"
@@ -9046,7 +9046,7 @@
     {
       "id": 1130,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "空ファイル chatwidget_stream_tests.rs を削除 (#3356)",
       "en": "fix: remove empty file: chatwidget_stream_tests.rs (#3356)"
@@ -9054,7 +9054,7 @@
     {
       "id": 1131,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "ドキュメント: codex exec の見出しタイポを修正 (#2703)",
       "en": "docs: fix codex exec heading typo (#2703)"
@@ -9062,7 +9062,7 @@
     {
       "id": 1132,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "getting-started.md の壊れたリンクを削除 (#2858)",
       "en": "Remove a broken link to prompting_guide.md in docs/getting-started.md (#2858)"
@@ -9070,7 +9070,7 @@
     {
       "id": 1133,
       "version": "0.33.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "認証関連テストの回復力を向上 (#3427)",
       "en": "Improved resiliency of two auth-related tests (#3427)"
@@ -9078,7 +9078,7 @@
     {
       "id": 1134,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "MCP: サーバー動作時に UA サフィックスを追加、安定性/互換性の調整 (#3395)",
       "en": "MCP: add UA suffix when acting as a server; stability/compat tweaks (#3395)"
@@ -9086,7 +9086,7 @@
     {
       "id": 1135,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "OSS: apply_patch の OSS 互換性を拡大 (#2811)",
       "en": "OSS: Broader apply_patch OSS compatibility (#2811)"
@@ -9094,7 +9094,7 @@
     {
       "id": 1136,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "ロールアウト: 初期基盤と rollout_path をレスポンスに含める (#3380, #3352)",
       "en": "Rollouts: initial groundwork and rollout_path included in responses (#3380, #3352)"
@@ -9102,7 +9102,7 @@
     {
       "id": 1137,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "TUI: Alt+Delete で次の単語を削除 (#3394)",
       "en": "TUI: Alt+Delete deletes the next word (#3394)"
@@ -9110,7 +9110,7 @@
     {
       "id": 1138,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "プロトコル/型: ArchiveConversation リクエスト、エクスポートと TS 型の改善 (#3353, #3222, #3270, #3219)",
       "en": "Protocol/Types: ArchiveConversation request; small exports and TS type improvements (#3353, #3222, #3270, #3219)"
@@ -9118,7 +9118,7 @@
     {
       "id": 1139,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "CI/ビルド: nextest による高速テスト、shear の追加、macOS パーミッション調整 (#3338, #3323, #3334)",
       "en": "CI/Build: faster tests with nextest, add shear; minor macOS permission adjustment (#3338, #3323, #3334)"
@@ -9126,7 +9126,7 @@
     {
       "id": 1140,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "ドキュメント: config.md のシェルクォーティングを明確化 (#3169)",
       "en": "Docs: clarified shell quoting in config (#3169)"
@@ -9134,7 +9134,7 @@
     {
       "id": 1141,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "reasoning アイテム ID を送信しない (#3390)",
       "en": "Do not send reasoning item IDs (#3390)"
@@ -9142,7 +9142,7 @@
     {
       "id": 1142,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "config.responses_originator_header を環境変数に置き換え (#3388)",
       "en": "Replace config.responses_originator_header_internal_override with env var (#3388)"
@@ -9150,7 +9150,7 @@
     {
       "id": 1143,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "fail fast を無効化 (#3387)",
       "en": "No fail fast (#3387)"
@@ -9158,7 +9158,7 @@
     {
       "id": 1144,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "apply_patch の \"failed to find expected lines\" メッセージを調整 (#3374)",
       "en": "tweak \"failed to find expected lines\" message in apply_patch (#3374)"
@@ -9166,7 +9166,7 @@
     {
       "id": 1145,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "不要な #[allow(dead_code)] アノテーションを削除 (#3357)",
       "en": "fix: remove unnecessary #[allow(dead_code)] annotation (#3357)"
@@ -9174,7 +9174,7 @@
     {
       "id": 1146,
       "version": "0.32.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "POSIX 統合とスナップショットセッション (#3179)（⚠️ v33 で revert）",
       "en": "feat: POSIX unification and snapshot sessions (#3179) (⚠️ reverted in v33)"
@@ -9182,7 +9182,7 @@
     {
       "id": 1147,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "MCP サーバーの `startup_timeout_ms` オプションを追加（Windows ユーザーに特に有用） (#3182)",
       "en": "MCP per-server startup_timeout_ms option added, especially useful for Windows users (#3182)"
@@ -9190,7 +9190,7 @@
     {
       "id": 1148,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "MCP スタートアップのエラー処理とフォールトトレランスを改善 (#3243)",
       "en": "Improved MCP startup error handling and fault tolerance (#3243)"
@@ -9198,7 +9198,7 @@
     {
       "id": 1149,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "macOS で Finder から ctrl+v での画像貼り付けを修正 (#3211)",
       "en": "Fix image pasting from Finder with ctrl+v on macOS (#3211)"
@@ -9206,7 +9206,7 @@
     {
       "id": 1150,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "保留中の OAuth ログインをキャンセルして localhost ポートを解放 (#3217)",
       "en": "Added logic to cancel pending oauth login to free up localhost port (#3217)"
@@ -9214,7 +9214,7 @@
     {
       "id": 1151,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "thinking タイマーに分/時間を表示 (#3220)",
       "en": "feat(tui): show minutes/hours in thinking timer (#3220)"
@@ -9222,7 +9222,7 @@
     {
       "id": 1152,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "/status 出力に CLI バージョンを追加 (#3223)",
       "en": "Added CLI version to /status output (#3223)"
@@ -9230,7 +9230,7 @@
     {
       "id": 1153,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "toml ファイルからのモデルファミリー設定オーバーライドを尊重 (#3176)",
       "en": "respect overrides for model family configuration from toml file (#3176)"
@@ -9238,7 +9238,7 @@
     {
       "id": 1154,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "create_github_release.sh を Python で書き直し (#3226)",
       "en": "chore: rewrite create_github_release.sh in Python (#3226)"
@@ -9246,7 +9246,7 @@
     {
       "id": 1155,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "create_github_release: テンポラリディレクトリに新しいクローンを作成 (#3228)",
       "en": "chore: change create_github_release to create a fresh clone in a temp directory (#3228)"
@@ -9254,7 +9254,7 @@
     {
       "id": 1156,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "ローカルクローンのオーバーヘッドを避けるため gh を使用 (#3230)",
       "en": "chore: use gh instead of git to avoid overhead of a local clone (#3230)"
@@ -9262,7 +9262,7 @@
     {
       "id": 1157,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "create_github_release で --publish-alpha または --publish-release を取るよう変更 (#3231)",
       "en": "fix: change create_github_release to take --publish-alpha or --publish-release (#3231)"
@@ -9270,7 +9270,7 @@
     {
       "id": 1158,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "トークン使用量/コンテキスト情報をセッションレベルに移動 (#3221)",
       "en": "Move token usage/context information to session level (#3221)"
@@ -9278,7 +9278,7 @@
     {
       "id": 1159,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "Ctrl+C で空でないプロンプトをクリア (#3285)",
       "en": "Clear non-empty prompts with ctrl+c (#3285)"
@@ -9286,7 +9286,7 @@
     {
       "id": 1160,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "生の UUID の代わりに ConversationId を使用 (#3282)",
       "en": "Use ConversationId instead of raw Uuids (#3282)"
@@ -9294,7 +9294,7 @@
     {
       "id": 1161,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "ドキュメント: Memory with AGENTS.md セクションへの壊れたリンクを修正 (#3300)",
       "en": "docs: fix broken link to the \"Memory with AGENTS.md\" section (#3300)"
@@ -9302,7 +9302,7 @@
     {
       "id": 1162,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "insta を 1.43.1 から 1.43.2 にアップグレード (#3294)",
       "en": "chore(deps): bump insta from 1.43.1 to 1.43.2 (#3294)"
@@ -9310,7 +9310,7 @@
     {
       "id": 1163,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "tree-sitter を 0.25.8 から 0.25.9 にアップグレード (#3295)",
       "en": "chore(deps): bump tree-sitter from 0.25.8 to 0.25.9 (#3295)"
@@ -9318,7 +9318,7 @@
     {
       "id": 1164,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "clap を 4.5.45 から 4.5.47 にアップグレード (#3296)",
       "en": "chore(deps): bump clap from 4.5.45 to 4.5.47 (#3296)"
@@ -9326,7 +9326,7 @@
     {
       "id": 1165,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "image を 0.25.6 から 0.25.8 にアップグレード (#3297)",
       "en": "chore(deps): bump image from 0.25.6 to 0.25.8 (#3297)"
@@ -9334,7 +9334,7 @@
     {
       "id": 1166,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "actions/setup-node を v5 にアップグレード (#3316)",
       "en": "chore: upgrade to actions/setup-node@v5 (#3316)"
@@ -9342,7 +9342,7 @@
     {
       "id": 1167,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "MCP の getUserAgent メソッドを追加 (#3320)",
       "en": "Add a getUserAgent MCP method (#3320)"
@@ -9350,7 +9350,7 @@
     {
       "id": 1168,
       "version": "0.31.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 21,
       "ja": "提案されたコマンドのプレビューをハイライト (#3319)",
       "en": "Highlight Proposed Command preview (#3319)"
@@ -9358,7 +9358,7 @@
     {
       "id": 1169,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "⚠️ プロジェクトの .env ファイルの自動読み込みを廃止 (#3184)",
       "en": "⚠️ Breaking: Stop loading project .env files automatically (#3184)"
@@ -9366,7 +9366,7 @@
     {
       "id": 1170,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "セキュリティ: リクエストを保存しない; 保留中の OAuth ログインをキャンセルしてポートを解放 (#3212, #3217)",
       "en": "Security: Never store requests; cancel pending OAuth login to free port (#3212, #3217)"
@@ -9374,7 +9374,7 @@
     {
       "id": 1171,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "コア/インフラ: ロールアウトポリシー導入、共有 HTTP クライアント、残りコンテキストサイズの改善、推論サマリー設定/処理の改良、サンドボックスシェルツール説明の修正、サーバー通知のシリアライゼーション改善 (#3116, #3110, #3190, #3171, #3138, #3069, #3193)",
       "en": "Core/infra: Introduce rollout policy; shared HTTP client; improved remaining context size; refined reasoning summary; corrected sandbox shell description; improved server notification serialization (#3116, #3110, #3190, #3171, #3138, #3069, #3193)"
@@ -9382,7 +9382,7 @@
     {
       "id": 1172,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "TUI/UX: 大コマンドの承認ダイアログ修正、モーダル中のタイマー一時停止、ページャー自動スクロール、bash シンタックスハイライト、Mac キーグリフ、ゼロ高さパニック回避、@ ファイル検索の改善 (#3087, #3131, #3167, #3142, #3143, #3133, #2981)",
       "en": "TUI/UX: Fix approval dialog for large commands; pause timer during modals; pager auto-scroll; bash highlighting; mac glyphs; avoid zero-height panic; improved @ file search (#3087, #3131, #3167, #3142, #3143, #3133, #2981)"
@@ -9390,7 +9390,7 @@
     {
       "id": 1173,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "DevEx/ドキュメント: VS Code 推奨拡張機能、AGENTS.md プロンプトと説明、API キーガイダンス更新、CI 修正 (#3172, #3122, #3132, #3112, #3130)",
       "en": "DevEx/docs: Recommended VS Code extensions; AGENTS.md prompt and clarifications; updated API key guidance; CI fixes (#3172, #3122, #3132, #3112, #3130)"
@@ -9398,7 +9398,7 @@
     {
       "id": 1174,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "依存関係: uuid と wiremock をアップグレード (#2493, #2666)",
       "en": "Deps: Bump uuid and wiremock (#2493, #2666)"
@@ -9406,7 +9406,7 @@
     {
       "id": 1175,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "Windows: フルアクセスモードで承認不要に (#2988)",
       "en": "Windows: no more asking for approvals on Full Access mode (#2988)"
@@ -9414,7 +9414,7 @@
     {
       "id": 1176,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "resume が完了するまで非表示 (#3218)",
       "en": "hide resume until it's complete (#3218)"
@@ -9422,7 +9422,7 @@
     {
       "id": 1177,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "AttachImage TUI イベントを削除 (#3191)",
       "en": "refactor: remove AttachImage tui event (#3191)"
@@ -9430,7 +9430,7 @@
     {
       "id": 1178,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "UNIX での ZSH 検出を改善 (#3187)",
       "en": "ZSH on UNIX system and better detection (#3187)"
@@ -9438,7 +9438,7 @@
     {
       "id": 1179,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "MCP: セッション resume と履歴一覧を追加 (#3185)",
       "en": "MCP: add session resume + history listing (#3185)"
@@ -9446,7 +9446,7 @@
     {
       "id": 1180,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "serde_as アノテーションを修正しテストで検証 (#3170)",
       "en": "fix: fix serde_as annotation and verify with test (#3170)"
@@ -9454,7 +9454,7 @@
     {
       "id": 1181,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "ExecCommandOutputDeltaEvent.chunk に効率的なワイヤーフォーマットを使用 (#3163)",
       "en": "fix: use a more efficient wire format for ExecCommandOutputDeltaEvent.chunk (#3163)"
@@ -9462,7 +9462,7 @@
     {
       "id": 1182,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "リクエスト送信前にコールバックをマップに追加し競合状態を修正 (#3146)",
       "en": "fix: add callback to map before sending request to fix race condition (#3146)"
@@ -9470,7 +9470,7 @@
     {
       "id": 1183,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "TUI: セッション resume ピッカー (--resume) とクイック resume (--continue) を追加 (#3135)",
       "en": "TUI: Add session resume picker (--resume) and quick resume (--continue) (#3135)"
@@ -9478,7 +9478,7 @@
     {
       "id": 1184,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "/mcp 出力を更新 (#3134)",
       "en": "Update /mcp output (#3134)"
@@ -9486,7 +9486,7 @@
     {
       "id": 1185,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "MCP サンドボックス呼び出し (#3128)",
       "en": "MCP sandbox call (#3128)"
@@ -9494,7 +9494,7 @@
     {
       "id": 1186,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "UserMsgs をカテゴリに分割して TUI に返送 (#3127)",
       "en": "Dividing UserMsgs into categories to send it back to the tui (#3127)"
@@ -9502,7 +9502,7 @@
     {
       "id": 1187,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "セッション再開時に Response Items から EventMsgs をリプレイ (#3123)",
       "en": "Replay EventMsgs from Response Items when resuming a session with history (#3123)"
@@ -9510,7 +9510,7 @@
     {
       "id": 1188,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "プロンプトからキーワードの太字を削除 (#3121)",
       "en": "remove bold the keyword from prompt (#3121)"
@@ -9518,7 +9518,7 @@
     {
       "id": 1189,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "use_experimental_reasoning_summary toml キーの設定をドキュメント化 (#3118)",
       "en": "document use_experimental_reasoning_summary toml key config (#3118)"
@@ -9526,7 +9526,7 @@
     {
       "id": 1190,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 21,
       "ja": "認証 URL パラメータにオリジネーターを含める (#3117)",
       "en": "Include originator in authentication URL parameters (#3117)"
@@ -9534,7 +9534,7 @@
     {
       "id": 1191,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 22,
       "ja": "MCP サーバーの read config インターフェースを更新 (#3093)",
       "en": "Update read config interface (#3093)"
@@ -9542,7 +9542,7 @@
     {
       "id": 1192,
       "version": "0.30.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 23,
       "ja": "verbosity 設定をクリーンアップ (#3056)",
       "en": "chore: Clean up verbosity config (#3056)"
@@ -9550,7 +9550,7 @@
     {
       "id": 1193,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "Android/Termux サポート: arboard 依存を非対応ターゲットでゲート (#2895)",
       "en": "Android/Termux support by gating arboard on unsupported targets (#2895)"
@@ -9558,7 +9558,7 @@
     {
       "id": 1194,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "std fs API を使用した安定的なクロスプラットフォームファイルロック (#2894)",
       "en": "Stable, cross-platform file locking using std fs APIs (#2894)"
@@ -9566,7 +9566,7 @@
     {
       "id": 1195,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "認証の統合: CodexAuth と AuthManager を core クレートに移動 (#3074)",
       "en": "Auth consolidation: CodexAuth and AuthManager moved into the core crate (#3074)"
@@ -9574,7 +9574,7 @@
     {
       "id": 1196,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "API キー使用時のレート制限ハンドリングを復元 (#3070)",
       "en": "Rate-limit handling restored for API-key usage (#3070)"
@@ -9582,7 +9582,7 @@
     {
       "id": 1197,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "Core rollout リファクタ: rollout モジュールの抽出、リスト API の追加、ファイルヘッドの返却 (#1634)",
       "en": "Core rollout refactor: extract rollout module, add listing API, return file heads (#1634)"
@@ -9590,7 +9590,7 @@
     {
       "id": 1198,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "exec/apply_patch で `cd foo && ...` をサポート、TUI のちらつきを修正、ratatui Stylize を優先使用 (#3083, #2918, #3068)",
       "en": "Support `cd foo && ...` in exec/apply_patch, fix TUI flicker, prefer ratatui Stylize (#3083, #2918, #3068)"
@@ -9598,7 +9598,7 @@
     {
       "id": 1199,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "npm パッケージに Windows ARM64 実行ファイルを同梱 (#3067)",
       "en": "Include Windows ARM64 executable in the npm package (#3067)"
@@ -9606,7 +9606,7 @@
     {
       "id": 1200,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "最新の検索ツールに切り替え (#3086)",
       "en": "Switch to the latest search tool (#3086)"
@@ -9614,7 +9614,7 @@
     {
       "id": 1201,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "@ 検索結果が保留中の場合にローディング状態を表示 (#3061)",
       "en": "Show loading state when @ search results are pending (#3061)"
@@ -9622,7 +9622,7 @@
     {
       "id": 1202,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "TUI: MCP ドキュメントのハイパーリンクを修正 (#2907)",
       "en": "TUI: fix MCP docs hyperlink in empty_mcp_output (#2907)"
@@ -9630,7 +9630,7 @@
     {
       "id": 1203,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "履歴読み込みの統一 (#2736)",
       "en": "Unify history loading (#2736)"
@@ -9638,7 +9638,7 @@
     {
       "id": 1204,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "実験的な推論サマリーを使用 (#3071)",
       "en": "Use experimental reasoning summary (#3071)"
@@ -9646,7 +9646,7 @@
     {
       "id": 1205,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "gpt-oss 互換性の改善 (#2461)",
       "en": "Improve gpt-oss compatibility (#2461)"
@@ -9654,7 +9654,7 @@
     {
       "id": 1206,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "apply-patch: lark 文法を修正 (#2651)",
       "en": "apply-patch: fix lark grammar (#2651)"
@@ -9662,7 +9662,7 @@
     {
       "id": 1207,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "Docs: agents.md へのリンクを更新 (#3089)",
       "en": "Docs: update link to agents.md (#3089)"
@@ -9670,7 +9670,7 @@
     {
       "id": 1208,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "Docs: config.md のタイポを修正 (#3082)",
       "en": "Docs: fix typo of config.md (#3082)"
@@ -9678,7 +9678,7 @@
     {
       "id": 1209,
       "version": "0.29.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "thiserror を 2.0.12 から 2.0.16 にバンプ (#2667)",
       "en": "Bump thiserror from 2.0.12 to 2.0.16 (#2667)"
@@ -9686,7 +9686,7 @@
     {
       "id": 1210,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "TUI: タイピングのラグを修正 (#2922)",
       "en": "Fix laggy typing (#2922)"
@@ -9694,7 +9694,7 @@
     {
       "id": 1211,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "メッセージスタイリングの刷新 (#2877)",
       "en": "Rework message styling (#2877)"
@@ -9702,7 +9702,7 @@
     {
       "id": 1212,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "ストリーミングエージェントメッセージの余分な空行を削除 (#3065)",
       "en": "Remove extra blank lines in streamed agent messages (#3065)"
@@ -9710,7 +9710,7 @@
     {
       "id": 1213,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "AGENTS.md が存在する場合に \"/init\" 提案を非表示 (#3038)",
       "en": "Hide \"/init\" suggestion when AGENTS.md exists (#3038)"
@@ -9718,7 +9718,7 @@
     {
       "id": 1214,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "空入力での Enter を無視し、空メッセージのキューイングを防止 (#3047)",
       "en": "Ignore Enter on empty input to avoid queuing blank messages (#3047)"
@@ -9726,7 +9726,7 @@
     {
       "id": 1215,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "get_cursor_position エラーをキャッチしてクラッシュを防止 (#2870)",
       "en": "Catch get_cursor_position errors to avoid crashes (#2870)"
@@ -9734,7 +9734,7 @@
     {
       "id": 1216,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "無効コマンドメッセージの余分な引用符を削除 (#3035)",
       "en": "Remove extra quote from disabled-command message (#3035)"
@@ -9742,7 +9742,7 @@
     {
       "id": 1217,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "Windows ARM ビルドに Windows 11 ARM を活用 (#3062)",
       "en": "Leverage Windows 11 ARM for Windows ARM builds (#3062)"
@@ -9750,7 +9750,7 @@
     {
       "id": 1218,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "リリースビルド用 Windows 11 ARM イメージに zstd をインストール (#3066)",
       "en": "Install zstd on Windows 11 ARM image for releases (#3066)"
@@ -9758,7 +9758,7 @@
     {
       "id": 1219,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "PR 作成時にリリースビルド用 Windows キャッシュを事前構築 (#2884)",
       "en": "Populate Windows cache for release builds when PRs are opened (#2884)"
@@ -9766,7 +9766,7 @@
     {
       "id": 1220,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "config リファレンステーブルを修正 (#3063)",
       "en": "Fix config reference table (#3063)"
@@ -9774,7 +9774,7 @@
     {
       "id": 1221,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "ドキュメントリファクタ後の PR テンプレートリンクを更新 (#2982)",
       "en": "Update PR template link after docs refactor (#2982)"
@@ -9782,7 +9782,7 @@
     {
       "id": 1222,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "ユーザーがモデルを変更した際のログを追加 (#3060)",
       "en": "Add logs when users change the model (#3060)"
@@ -9790,7 +9790,7 @@
     {
       "id": 1223,
       "version": "0.28.0",
-      "monthKey": "2025-09",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "regex-lite を 0.1.7 にバンプ (#3010)",
       "en": "Bump regex-lite to 0.1.7 (#3010)"
@@ -9798,7 +9798,7 @@
     {
       "id": 1224,
       "version": "0.27.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "MCP 安定性: Mutex を早期にドロップしロック順序の問題を回避 (#2878, #2876)",
       "en": "MCP stability: drop mutexes earlier and avoid lock ordering pitfalls (#2878, #2876)"
@@ -9806,7 +9806,7 @@
     {
       "id": 1225,
       "version": "0.27.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "チャネル信頼性: 無制限チャネルに切り替えてスタールを防止 (#2874)",
       "en": "Channel reliability: switch to unbounded channel to prevent stalls (#2874)"
@@ -9814,7 +9814,7 @@
     {
       "id": 1226,
       "version": "0.27.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "不要な flush() 呼び出しを削除 (#2873)",
       "en": "Remove unnecessary flush() calls (#2873)"
@@ -9822,7 +9822,7 @@
     {
       "id": 1227,
       "version": "0.27.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "CI: リリースビルドを修正、cargo clippy に --profile を指定 (#2871, #2864)",
       "en": "CI: fix release build; specify --profile for cargo clippy (#2871, #2864)"
@@ -9830,7 +9830,7 @@
     {
       "id": 1228,
       "version": "0.27.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "Docs: より安全な Homebrew スニペット (#2868)",
       "en": "Docs: safer Homebrew snippet (#2868)"
@@ -9838,7 +9838,7 @@
     {
       "id": 1229,
       "version": "0.27.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "Docs: AGENTS.md に `just fix -p` を提案 (#2881)",
       "en": "Docs: suggest `just fix -p` in AGENTS.md (#2881)"
@@ -9846,7 +9846,7 @@
     {
       "id": 1230,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "カスタム /prompts: ~/.codex/prompts からプロンプトを読み込み (#2696)",
       "en": "Custom /prompts loaded from ~/.codex/prompts (#2696)"
@@ -9854,7 +9854,7 @@
     {
       "id": 1231,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "新しい \"View Image\" ツール: ローカル画像をエージェント的に表示 (#2723)",
       "en": "New \"View Image\" tool to let Codex agentically view local images (#2723)"
@@ -9862,7 +9862,7 @@
     {
       "id": 1232,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "MCP GetConfig エンドポイント: 解決済み設定の検査用 (#2725)",
       "en": "MCP GetConfig endpoint to inspect resolved settings (#2725)"
@@ -9870,7 +9870,7 @@
     {
       "id": 1233,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "Windows での画像貼り付けを修正、バースト貼り付けの処理を改善 (#2683)",
       "en": "Fix image pasting in Windows + improve burst paste handling (#2683)"
@@ -9878,7 +9878,7 @@
     {
       "id": 1234,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "アクティブなタスク中のスラッシュコマンドを禁止 (#2792)",
       "en": "Prevent slash commands during an active task (#2792)"
@@ -9886,7 +9886,7 @@
     {
       "id": 1235,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "サスペンド (^Z) 時のカーソル位置を修正 (#2690)",
       "en": "Fix cursor position when suspending (^Z) (#2690)"
@@ -9894,7 +9894,7 @@
     {
       "id": 1236,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "二重行とぶら下がりリストマーカーを削減 (#2789)",
       "en": "Reduce doubled lines and hanging list markers (#2789)"
@@ -9902,7 +9902,7 @@
     {
       "id": 1237,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "README/ドキュメントの大規模リファクタとナビゲーション整備 (#2724)",
       "en": "Major README/docs refactor and navigation (#2724)"
@@ -9910,7 +9910,7 @@
     {
       "id": 1238,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "CHANGELOG をリリースページにリンク (#2780)",
       "en": "CHANGELOG now points to Releases page (#2780)"
@@ -9918,7 +9918,7 @@
     {
       "id": 1239,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "VS Code Extension の Issue テンプレートを追加 (#2853)",
       "en": "Add VS Code Extension issue template (#2853)"
@@ -9926,7 +9926,7 @@
     {
       "id": 1240,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "CI リリースビルドを修正 (#2864)",
       "en": "Fix CI release build (#2864)"
@@ -9934,7 +9934,7 @@
     {
       "id": 1241,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "incoming_tx のクローンによるデッドロックを修正 (#2747)",
       "en": "Bug fix: clone of incoming_tx can lead to deadlock (#2747)"
@@ -9942,7 +9942,7 @@
     {
       "id": 1242,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "#2371 のポストコミットフィードバックに対するフォローアップ (#2852)",
       "en": "Following up on #2371 post commit feedback (#2852)"
@@ -9950,7 +9950,7 @@
     {
       "id": 1243,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "ウェルカムメッセージのスラッシュコマンドを太字に変更 (#2762)",
       "en": "UI: Make slash commands bold in welcome message (#2762)"
@@ -9958,7 +9958,7 @@
     {
       "id": 1244,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "OAuth 成功画面の表記を \"Codex CLI\" から \"Codex\" に変更 (#2737)",
       "en": "Changed OAuth success screen to use \"Codex\" rather than \"Codex CLI\" (#2737)"
@@ -9966,7 +9966,7 @@
     {
       "id": 1245,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "compact のレースコンディションを修正 (#2746)",
       "en": "Race condition in compact (#2746)"
@@ -9974,7 +9974,7 @@
     {
       "id": 1246,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "MCP サーバーの stderr をテスト出力に表示 (#2849)",
       "en": "chore: print stderr from MCP server to test output (#2849)"
@@ -9982,7 +9982,7 @@
     {
       "id": 1247,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "test_shell_command_approval のフレーク性デバッグを容易化 (#2848)",
       "en": "chore: try to make it easier to debug test flakiness (#2848)"
@@ -9990,7 +9990,7 @@
     {
       "id": 1248,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "clippy で uninlined_format_args を必須に (#2845)",
       "en": "chore: require uninlined_format_args from clippy (#2845)"
@@ -9998,7 +9998,7 @@
     {
       "id": 1249,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "codex-rs/config.md を新しい場所へのリンクとして復元 (#2778)",
       "en": "Added back codex-rs/config.md to link to new location (#2778)"
@@ -10006,7 +10006,7 @@
     {
       "id": 1250,
       "version": "0.26.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "UI に送り返すデルタ数を制限 (#2776)",
       "en": "fix: limit the number of deltas sent back to the UI (#2776)"
@@ -10014,7 +10014,7 @@
     {
       "id": 1251,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "Core: 長時間稼働サーバーで手動クリーンアップを行うための remove_conversation API を追加 (#2613)",
       "en": "Core: remove_conversation API for manual cleanup in long-lived servers (#2613)"
@@ -10022,7 +10022,7 @@
     {
       "id": 1252,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "TUI: トランスクリプト/差分ビューでマウスホイールによる代替スクロールに対応 (#2686)",
       "en": "TUI: mouse wheel alternate scrolling in transcript/diff views (#2686)"
@@ -10030,7 +10030,7 @@
     {
       "id": 1253,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "TUI: Alt+Ctrl+H で前の単語を削除（Alt+Backspace と同等）に対応 (#2717)",
       "en": "TUI: Alt+Ctrl+H deletes the previous word (parity with Alt+Backspace) (#2717)"
@@ -10038,7 +10038,7 @@
     {
       "id": 1254,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "Execution: task_started イベントにコンテキストウィンドウを含めるよう変更、ターンごとにモデルが変わる可能性に対応 (#2752)",
       "en": "Execution: include context window on task_started events; model may vary per turn (#2752)"
@@ -10046,7 +10046,7 @@
     {
       "id": 1255,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "トランスクリプトの行折り返しをキャッシュし、長いトランスクリプトの応答性を維持 (#2739)",
       "en": "Cache transcript line wraps to keep long transcripts responsive (#2739)"
@@ -10054,7 +10054,7 @@
     {
       "id": 1256,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "ターン実行中にトランスクリプト行が差分ビューに追加される問題を修正 (#2721)",
       "en": "Fix transcript lines appending to diff while a turn is running (#2721)"
@@ -10062,7 +10062,7 @@
     {
       "id": 1257,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "絵文字の表示改善: 適切な間隔と ⌨️ 絵文字バリアント (#2735, #2728)",
       "en": "Improve emoji rendering: proper spacing and ⌨️ emoji variant (#2735, #2728)"
@@ -10070,7 +10070,7 @@
     {
       "id": 1258,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "ESC キーでキュー済みメッセージをコンポーザーに戻す (#2687)",
       "en": "ESC with queued messages returns them to the composer (#2687)"
@@ -10078,7 +10078,7 @@
     {
       "id": 1259,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "マルチバイトテキスト近くのプレースホルダーをバックスペースした際のクラッシュを防止 (#2674)",
       "en": "Prevent crash when backspacing placeholders near multibyte text (#2674)"
@@ -10086,7 +10086,7 @@
     {
       "id": 1260,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "apply_patch で Exec デルタを送信しないよう修正 (#2742)",
       "en": "Don't send Exec deltas on apply_patch (#2742)"
@@ -10094,7 +10094,7 @@
     {
       "id": 1261,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "git_diff_against_sha をより堅牢に（カスタムドライバーを無視、ダッシュ付きファイル名を処理）(#2749)",
       "en": "Make git_diff_against_sha more robust (ignore custom drivers; handle dash-prefixed files) (#2749)"
@@ -10102,7 +10102,7 @@
     {
       "id": 1262,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "インタラクティブ実行時のテスト負荷を削減 (#2707)",
       "en": "Reduce test load when running interactively (#2707)"
@@ -10110,7 +10110,7 @@
     {
       "id": 1263,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "履歴内のアシスタントメッセージの重複を排除 (#2758)",
       "en": "Deduplicate assistant messages in history (#2758)"
@@ -10118,7 +10118,7 @@
     {
       "id": 1264,
       "version": "0.25.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "Codex GitHub Action を一時的に削除 (#2729)",
       "en": "Remove the Codex GitHub Action for now (#2729)"
@@ -10126,7 +10126,7 @@
     {
       "id": 1265,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "キュー済みメッセージ (#2637)",
       "en": "Queued messages (#2637)"
@@ -10134,7 +10134,7 @@
     {
       "id": 1266,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "画像ファイルのコピー&ペースト / ドラッグ&ドロップ (#2567, #1695)",
       "en": "Copy Paste / Drag & Drop image files (#2567, #1695)"
@@ -10142,7 +10142,7 @@
     {
       "id": 1267,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "トランスクリプトモード (Ctrl+T) とスクロール機能 (#2525, #2562, #2592)",
       "en": "Transcript mode (Ctrl+T) with scrolling ability (#2525, #2562, #2592)"
@@ -10150,7 +10150,7 @@
     {
       "id": 1268,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "前のメッセージから会話を編集/再開 (esc-esc) (#2607, #2575)",
       "en": "Edit/resume conversation (esc-esc) from previous messages (#2607, #2575)"
@@ -10158,7 +10158,7 @@
     {
       "id": 1269,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "--search オプション指定時の Web 検索 (#2371)",
       "en": "Web search when using explicit --search option (#2371)"
@@ -10166,7 +10166,7 @@
     {
       "id": 1270,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "CoT をデフォルトで非表示、ステータスインジケーターにヘッダーを表示 (#2316)",
       "en": "Hide CoT by default; show headers in status indicator (#2316)"
@@ -10174,7 +10174,7 @@
     {
       "id": 1271,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "diff 出力をページャーで表示（ハンクヘッダー付き）(#2568, #2488)",
       "en": "Show diff output in pager with hunk headers (#2568, #2488)"
@@ -10182,7 +10182,7 @@
     {
       "id": 1272,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "コマンド承認 UI の簡素化 (#2708)",
       "en": "Simplify command approval UI (#2708)"
@@ -10190,7 +10190,7 @@
     {
       "id": 1273,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "Esc/Ctrl+C 割り込みハンドリングの統一 (#2661, #2691)",
       "en": "Unify Esc/Ctrl+C interrupt handling (#2661, #2691)"
@@ -10198,7 +10198,7 @@
     {
       "id": 1274,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "Windows PowerShell での貼り付けを修正 (#2544)",
       "en": "Fix Windows PowerShell paste (#2544)"
@@ -10206,7 +10206,7 @@
     {
       "id": 1275,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "長時間実行シェルコマンド exec_command/write_stdin のサポート (#2574)",
       "en": "Add support for long-running shell commands exec_command/write_stdin (#2574)"
@@ -10214,7 +10214,7 @@
     {
       "id": 1276,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "apply_patch の信頼性向上 (#2646, #2477)",
       "en": "Improve apply_patch reliability (#2646, #2477)"
@@ -10222,7 +10222,7 @@
     {
       "id": 1277,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "リトライ回数の上限設定 (#2701)",
       "en": "Cap retry counts (#2701)"
@@ -10230,7 +10230,7 @@
     {
       "id": 1278,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "MCP ツールの決定的ソートによるキャッシュヒット率の改善 (#2611)",
       "en": "Improve cache hit rate by sorting MCP tools deterministically (#2611)"
@@ -10238,7 +10238,7 @@
     {
       "id": 1279,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "GPT-5 向け model_verbosity 設定の追加 (#2108)",
       "en": "Add model_verbosity config for GPT-5 (#2108)"
@@ -10246,7 +10246,7 @@
     {
       "id": 1280,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "git ルートまでのすべての AGENTS.md ファイルを読み込み (#2532)",
       "en": "Read all AGENTS.md files up to git root (#2532)"
@@ -10254,7 +10254,7 @@
     {
       "id": 1281,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "ワークツリーでの git ルート解決を修正 (#2585)",
       "en": "Fix git root resolution in worktrees (#2585)"
@@ -10262,7 +10262,7 @@
     {
       "id": 1282,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "エラーメッセージとハンドリングの改善 (#2695, #2587, #2640, #2540)",
       "en": "Improve error messages & handling (#2695, #2587, #2640, #2540)"
@@ -10270,7 +10270,7 @@
     {
       "id": 1283,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "モデルへの割り込みとフィードバック提供機能を追加 (#2381)",
       "en": "Add ability to interrupt and provide feedback to the model (#2381)"
@@ -10278,7 +10278,7 @@
     {
       "id": 1284,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "集約出力の送信 (#2364)",
       "en": "Send aggregated output (#2364)"
@@ -10286,7 +10286,7 @@
     {
       "id": 1285,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "トランスクリプトのヒント表示 (#2605)",
       "en": "Transcript hint (#2605)"
@@ -10294,7 +10294,7 @@
     {
       "id": 1286,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 21,
       "ja": "コマンド出力の統合、トランスクリプトで完全なコマンドを表示 (#2590)",
       "en": "Coalesce command output; show unabridged commands in transcript (#2590)"
@@ -10302,7 +10302,7 @@
     {
       "id": 1287,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 22,
       "ja": "トランスクリプトに思考過程を表示 (#2538)",
       "en": "Show thinking in transcript (#2538)"
@@ -10310,7 +10310,7 @@
     {
       "id": 1288,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 23,
       "ja": "履歴にアップグレードバナーを表示 (#2537)",
       "en": "Show upgrade banner in history (#2537)"
@@ -10318,7 +10318,7 @@
     {
       "id": 1289,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 24,
       "ja": "起動時にクリアの代わりにスクロール (#2535)",
       "en": "Scroll instead of clear on boot (#2535)"
@@ -10326,7 +10326,7 @@
     {
       "id": 1290,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 25,
       "ja": "下部パディングを1行に削減 (#2704)",
       "en": "Reduce bottom padding to 1 line (#2704)"
@@ -10334,7 +10334,7 @@
     {
       "id": 1291,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 26,
       "ja": "キュー済みメッセージをイタリック表示 (#2693)",
       "en": "Queued messages rendered italic (#2693)"
@@ -10342,7 +10342,7 @@
     {
       "id": 1292,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 27,
       "ja": "Windows で PowerShell にコマンド生成をブリッジ (#2319)",
       "en": "Bridge command generation to PowerShell on Windows (#2319)"
@@ -10350,7 +10350,7 @@
     {
       "id": 1293,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 28,
       "ja": "MCP サーバー未設定時にドキュメントをリンク (#2516)",
       "en": "Link docs when no MCP servers configured (#2516)"
@@ -10358,7 +10358,7 @@
     {
       "id": 1294,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 29,
       "ja": "AuthManager の追加と GetAuthStatus コマンドの強化 (#2577)",
       "en": "Add AuthManager and enhance GetAuthStatus command (#2577)"
@@ -10366,7 +10366,7 @@
     {
       "id": 1295,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 30,
       "ja": "MCP サーバーに認証関連メソッドとイベントを追加 (#2496)",
       "en": "Added auth-related methods and events to MCP server (#2496)"
@@ -10374,7 +10374,7 @@
     {
       "id": 1296,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 31,
       "ja": "トークンリフレッシュがシームレスに動作しないバグを修正 (#2699)",
       "en": "Fixed token refresh to work seamlessly (#2699)"
@@ -10382,7 +10382,7 @@
     {
       "id": 1297,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 32,
       "ja": "Windows でパス区切りにバックスラッシュを使用 (#2684)",
       "en": "Use backslash as path separator on Windows (#2684)"
@@ -10390,7 +10390,7 @@
     {
       "id": 1298,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 33,
       "ja": "MCP structuredContent を関数呼び出しレスポンスとして優先送信 (#2594)",
       "en": "Prefer sending MCP structuredContent as function call response (#2594)"
@@ -10398,7 +10398,7 @@
     {
       "id": 1299,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 34,
       "ja": "サスペンド動作の改善 (#2569)",
       "en": "Improve suspend behavior (#2569)"
@@ -10406,7 +10406,7 @@
     {
       "id": 1300,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 35,
       "ja": "内部社員のログインを修正 (#2528)",
       "en": "Fix login for internal employees (#2528)"
@@ -10414,7 +10414,7 @@
     {
       "id": 1301,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 36,
       "ja": "wezterm でのリサイズを修正 (#2600)",
       "en": "Fix resize on wezterm (#2600)"
@@ -10422,7 +10422,7 @@
     {
       "id": 1302,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 37,
       "ja": "タブ補完後にカーソルを末尾に移動 (#2362)",
       "en": "Tab-completing a command moves cursor to end (#2362)"
@@ -10430,7 +10430,7 @@
     {
       "id": 1303,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 38,
       "ja": "非トゥルーカラー端末でのシマーしきい値を調整 (#2533)",
       "en": "Tweak shimmer thresholds for non-true-color terminals (#2533)"
@@ -10438,7 +10438,7 @@
     {
       "id": 1304,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 39,
       "ja": "絵文字のパディングを修正 (#2702)",
       "en": "Fix emoji padding (#2702)"
@@ -10446,7 +10446,7 @@
     {
       "id": 1305,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 40,
       "ja": "ビルド修正: ToolsConfigParams の導入 (#2663)",
       "en": "Fix broken build on main; introduce ToolsConfigParams (#2663)"
@@ -10454,7 +10454,7 @@
     {
       "id": 1306,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 41,
       "ja": "バックトラック中の Draw イベントでフレームをスケジュールしない (#2692)",
       "en": "Do not schedule frames for Draw events in backtrack (#2692)"
@@ -10462,7 +10462,7 @@
     {
       "id": 1307,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 42,
       "ja": "端末を検出しリクエストヘッダーに含める (#2437)",
       "en": "Detect terminal and include in request headers (#2437)"
@@ -10470,7 +10470,7 @@
     {
       "id": 1308,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 43,
       "ja": "send_user_turn に認証を追加 (#2688)",
       "en": "Add auth to send_user_turn (#2688)"
@@ -10478,7 +10478,7 @@
     {
       "id": 1309,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 44,
       "ja": "ExecSessionManager のスコープを Session に限定 (#2664)",
       "en": "Scope ExecSessionManager to Session instead of global singleton (#2664)"
@@ -10486,7 +10486,7 @@
     {
       "id": 1310,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 45,
       "ja": "apply_patch のデフォルトフリーフォームツールを無効化 (#2643)",
       "en": "Disable default freeform tool for apply_patch (#2643)"
@@ -10494,7 +10494,7 @@
     {
       "id": 1311,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 46,
       "ja": "オンボーディング画面を別の \"app\" にリファクタリング (#2524)",
       "en": "Refactor onboarding screen to a separate \"app\" (#2524)"
@@ -10502,7 +10502,7 @@
     {
       "id": 1312,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 47,
       "ja": "tokio + EventStream を使用して crossterm イベントを処理 (#2489)",
       "en": "Switch to tokio + EventStream for crossterm events (#2489)"
@@ -10510,7 +10510,7 @@
     {
       "id": 1313,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 48,
       "ja": "trust されたプロジェクトの [projects] テーブルを明示的に書き込み (#2523)",
       "en": "Write explicit [projects] tables for trusted projects (#2523)"
@@ -10518,7 +10518,7 @@
     {
       "id": 1314,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 49,
       "ja": "README の更新 (#2564)",
       "en": "Update README.md (#2564)"
@@ -10526,7 +10526,7 @@
     {
       "id": 1315,
       "version": "0.24.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 50,
       "ja": "AGENTS.md のタイポを修正 (#2518)",
       "en": "Fix typo in AGENTS.md (#2518)"
@@ -10534,7 +10534,7 @@
     {
       "id": 1316,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "TUI で /mcp コマンドに対応、承認を制御する /approvals スラッシュコマンドを追加 (#2430, #2474)",
       "en": "New commands: support /mcp in TUI and /approvals slash command (#2430, #2474)"
@@ -10542,7 +10542,7 @@
     {
       "id": 1317,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "実行時に推論努力とモデルを変更可能に、GPT-5 モデルに \"minimal\" 努力レベルを追加 (#2435, #2326)",
       "en": "Reasoning controls: change effort and model at runtime; add \"minimal\" for GPT-5 (#2435, #2326)"
@@ -10550,7 +10550,7 @@
     {
       "id": 1318,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "ChatGPT 未サインイン時にログインオプションを表示、ChatGPT 認証トークンの自動リフレッシュ (#2440, #2484)",
       "en": "Auth: show login options when not signed in; auto-refresh ChatGPT auth token (#2440, #2484)"
@@ -10558,7 +10558,7 @@
     {
       "id": 1319,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "UI/UX: Ghostty Ctrl-b/Ctrl-f フォールバック、Ctrl+H でバックスペース、タブ補完後のカーソル位置修正、カラー/アクセシビリティ更新 (#2427, #2412, #2442, #2401, #2421)",
       "en": "UI/UX: Ghostty Ctrl-b/Ctrl-f fallback, Ctrl+H as backspace, cursor tweak after tab, color/accessibility updates (#2427, #2412, #2442, #2401, #2421)"
@@ -10566,7 +10566,7 @@
     {
       "id": 1320,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "リリースに zip アーカイブバイナリを追加、Windows x86_64 用 DotSlash エントリ、Rust 1.89 へアップグレード (#2438, #2361, #2465, #2467)",
       "en": "Distribution: zip archived binaries, DotSlash for Windows x86_64, upgrade to Rust 1.89 (#2438, #2361, #2465, #2467)"
@@ -10574,7 +10574,7 @@
     {
       "id": 1321,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "/diff コマンドの進行状況インジケーターを表示 (#2245)",
       "en": "Show progress indicator for /diff command (#2245)"
@@ -10582,7 +10582,7 @@
     {
       "id": 1322,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "/prompts をローテーションプレースホルダーに置換 (#2314)",
       "en": "Replace /prompts with a rotating placeholder (#2314)"
@@ -10590,7 +10590,7 @@
     {
       "id": 1323,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "MCP サーバーコマンドで ChatGPT を使用した認証を有効化 (#2373)",
       "en": "Added MCP server command to enable authentication using ChatGPT (#2373)"
@@ -10598,7 +10598,7 @@
     {
       "id": 1324,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 8,
       "ja": "EventMsg::TurnAborted の導入 (#2365)",
       "en": "Introduce EventMsg::TurnAborted (#2365)"
@@ -10606,7 +10606,7 @@
     {
       "id": 1325,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 9,
       "ja": "現在のタスクコンテキストをオーバーライドする操作を追加 (#2431)",
       "en": "Add an operation to override current task context (#2431)"
@@ -10614,7 +10614,7 @@
     {
       "id": 1326,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 10,
       "ja": "/status でセッション ID の箇条書き位置を移動 (#2462)",
       "en": "Move session ID bullet in /status (#2462)"
@@ -10622,7 +10622,7 @@
     {
       "id": 1327,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 11,
       "ja": "Diff コマンド (#2476)",
       "en": "Diff command (#2476)"
@@ -10630,7 +10630,7 @@
     {
       "id": 1328,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 12,
       "ja": "apply patch サマリーのステータス文字に色付け (#2337)",
       "en": "Color the status letter in apply patch summary (#2337)"
@@ -10638,7 +10638,7 @@
     {
       "id": 1329,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 13,
       "ja": "ローカルコンポーザー履歴で同一の連続エントリをスキップ (#2352)",
       "en": "Skip identical consecutive entries in local composer history (#2352)"
@@ -10646,7 +10646,7 @@
     {
       "id": 1330,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 14,
       "ja": "重複した \"Successfully logged in\" メッセージを削除 (#2357)",
       "en": "Remove duplicated \"Successfully logged in\" message (#2357)"
@@ -10654,7 +10654,7 @@
     {
       "id": 1331,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 15,
       "ja": "sysprompt 等をコンテキスト残量 % から除外 (#2446)",
       "en": "Exclude sysprompt etc. from context left % (#2446)"
@@ -10662,7 +10662,7 @@
     {
       "id": 1332,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 16,
       "ja": "レビュー決定レスポンスの欠落したスペースを修正 (#2457)",
       "en": "Fix missing spacing in review decision response (#2457)"
@@ -10670,7 +10670,7 @@
     {
       "id": 1333,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 17,
       "ja": "ファイルが1つだけの場合の apply patch を修正 (#2468)",
       "en": "Fix apply patch when only one file is rendered (#2468)"
@@ -10678,7 +10678,7 @@
     {
       "id": 1334,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 18,
       "ja": "他のプロバイダー使用時にもサインイン画面が表示される問題を修正 (#2475)",
       "en": "Fix: Sign in appearing even if using other providers (#2475)"
@@ -10686,7 +10686,7 @@
     {
       "id": 1335,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 19,
       "ja": "codex-protocol クレートの導入 (#2355)",
       "en": "Introduce codex-protocol crate (#2355)"
@@ -10694,7 +10694,7 @@
     {
       "id": 1336,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 20,
       "ja": "ログインフローの非同期化 (#2393)",
       "en": "Async-ify login flow (#2393)"
@@ -10702,7 +10702,7 @@
     {
       "id": 1337,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 21,
       "ja": "クライアントヘッダーの追加 (#2487)",
       "en": "Client headers (#2487)"
@@ -10710,7 +10710,7 @@
     {
       "id": 1338,
       "version": "0.23.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 22,
       "ja": "sandbox_workspace_write の writable_roots をドキュメント化 (#2464)",
       "en": "Document writable_roots for sandbox_workspace_write (#2464)"
@@ -10718,7 +10718,7 @@
     {
       "id": 1339,
       "version": "0.22.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "ログインサーバーを Python から Rust に移行し、#2000 および #2044 の問題を改善 (#2294)",
       "en": "#2294 moves the login server from Python to Rust, which should help with both #2000 and #2044."
@@ -10726,7 +10726,7 @@
     {
       "id": 1340,
       "version": "0.22.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "Markdown ストリーミングのサポートを追加 (#2029)",
       "en": "#2029 adds support for markdown streaming"
@@ -10734,7 +10734,7 @@
     {
       "id": 1341,
       "version": "0.22.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "\"light\" 背景使用時に差分がより読みやすくなるよう UI 表示を改善 (#2270)",
       "en": "#2270 improves the UI treatment of diffs so they are more readable when using a light background"
@@ -10742,7 +10742,7 @@
     {
       "id": 1342,
       "version": "0.22.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "Ctrl+Z で TUI をサスペンド可能に (#2113)",
       "en": "#2113 ctrl-z can be used to suspend the TUI"
@@ -10750,7 +10750,7 @@
     {
       "id": 1343,
       "version": "0.21.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "プロンプトキャッシュキーを送信してキャッシュを改善（トークン効率が向上） (#2200)",
       "en": "Send prompt cache key for better caching (should improve token efficiency!) (#2200)"
@@ -10758,7 +10758,7 @@
     {
       "id": 1344,
       "version": "0.21.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "複数行コマンドを分割して可読性を向上 (#2202)",
       "en": "Split multiline commands to improve readability (#2202)"
@@ -10766,7 +10766,7 @@
     {
       "id": 1345,
       "version": "0.21.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "exec コマンドをパースして UI で見やすくフォーマット (#2095)",
       "en": "Parse exec commands and format them more nicely in the UI (#2095)"
@@ -10774,7 +10774,7 @@
     {
       "id": 1346,
       "version": "0.21.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "`applypatch` コマンドを `apply_patch` コマンド文字列として認識 (#2186)",
       "en": "Recognize `applypatch` command as `apply_patch` command string (#2186)"
@@ -10782,7 +10782,7 @@
     {
       "id": 1347,
       "version": "0.21.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "ツール呼び出し結果に出力切り詰めメッセージを含め、モデルが期待した完全な出力を取得できなかったことを通知 (#2183)",
       "en": "Include output truncation message in tool call results to tell the model when it did not get the full output from a command that it might have expected (#2183)"
@@ -10790,7 +10790,7 @@
     {
       "id": 1348,
       "version": "0.21.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "`/compact` コマンド後にフィードバックメッセージを表示し、デルタが送信されない問題を修正 (#2162)",
       "en": "Show feedback message after `/compact` command, fixing an issue when no deltas were sent (#2162)"
@@ -10798,7 +10798,7 @@
     {
       "id": 1349,
       "version": "0.21.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "`apply_patch` の差分プレビューを表示 (#2050)",
       "en": "Show diff preview for `apply_patch` (#2050)"
@@ -10806,7 +10806,7 @@
     {
       "id": 1350,
       "version": "0.21.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 7,
       "ja": "MCP ツール用 JSON スキーマのサニタイズを追加して内部 JsonSchema 列挙型との互換性を確保 (#1975)",
       "en": "Add JSON schema sanitization for MCP tools to ensure compatibility with internal JsonSchema enum (#1975)"
@@ -10814,7 +10814,7 @@
     {
       "id": 1351,
       "version": "0.20.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "npm リリースの @openai/codex が TypeScript CLI へのフォールバックではなく Rust CLI を直接実行するよう変更 (#2035, #2048)",
       "en": "npm release of @openai/codex now runs Rust CLI instead of falling back to TypeScript CLI (#2035, #2048)"
@@ -10822,7 +10822,7 @@
     {
       "id": 1352,
       "version": "0.20.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "Windows: Python プログラムを一時ファイルに書き込むよう修正、PopKeyboardEnhancementFlags の失敗を無視 (#2019)",
       "en": "Windows: write Python to temp file instead of long string arg; ignore PopKeyboardEnhancementFlags failure (#2019)"
@@ -10830,7 +10830,7 @@
     {
       "id": 1353,
       "version": "0.20.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "`codex login` での Python 証明書の問題を修正 (#2042)",
       "en": "Fix Python certificates issue with codex login (#2042)"
@@ -10838,7 +10838,7 @@
     {
       "id": 1354,
       "version": "0.19.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "(変更履歴のエントリはありません)",
       "en": "(No changelog entries)"
@@ -10846,7 +10846,7 @@
     {
       "id": 1355,
       "version": "0.16.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "キャパシティに関するエラーメッセージの軽微な修正 (#1947)",
       "en": "Small fix for an error message around capacity: #1947"
@@ -10854,7 +10854,7 @@
     {
       "id": 1356,
       "version": "0.15.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "デフォルトモデルを `gpt-5` に変更",
       "en": "`gpt-5` is the default model!"
@@ -10862,7 +10862,7 @@
     {
       "id": 1357,
       "version": "0.15.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "モデルがユーザーへの確認要否を判断する新オプション `--ask-for-approval on-request` を追加（既存の `on-failure` と `never` の中間的な動作）",
       "en": "new `--ask-for-approval on-request` option where the model decides whether to prompt the user (which is somewhat of a balance between the existing `on-failure` and `never`) options"
@@ -10870,7 +10870,7 @@
     {
       "id": 1358,
       "version": "0.15.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "フォルダを信頼済みとした際に `--sandbox workspace-write` と `--ask-for-approval on-request` を使用する新しいオンボーディングフローを追加（Git リポジトリでの推奨デフォルト）",
       "en": "new onboarding flow that uses `--sandbox workspace-write` and `--ask-for-approval on-request` as the configuration when users mark a folder is trusted (recommended default when working in a Git repo)"
@@ -10878,7 +10878,7 @@
     {
       "id": 1359,
       "version": "0.14.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "会話ビューから一部の内部メッセージを削除 (#1868, #1866)",
       "en": "Removed some internal messaging from the conversation view (#1868, #1866)"
@@ -10886,7 +10886,7 @@
     {
       "id": 1360,
       "version": "0.14.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "`codex exec` が `InternalAgentDied` を表示する問題を修正 (#1864)",
       "en": "Fixed issue where `codex exec` was printing `InternalAgentDied` (#1864)"
@@ -10894,7 +10894,7 @@
     {
       "id": 1361,
       "version": "0.13.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "OpenAI の新しいオープンウェイトモデルで Codex CLI を使用するための `--oss` フラグを追加",
       "en": "Introduces the `--oss` flag so Codex CLI can be used with the new open-weight models from OpenAI"
@@ -10902,7 +10902,7 @@
     {
       "id": 1362,
       "version": "0.12.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "0.11.0 で発生したリグレッションを修正 (#1826)",
       "en": "Fix regression introduced in 0.11.0 (#1826)"
@@ -10910,7 +10910,7 @@
     {
       "id": 1363,
       "version": "0.11.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "コピー＆ペーストが正常に動作するよう修正",
       "en": "copy/paste works now"
@@ -10918,7 +10918,7 @@
     {
       "id": 1364,
       "version": "0.11.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "ターミナルのネイティブスクロールを使用するよう変更",
       "en": "use the terminal's native scrolling"
@@ -10926,7 +10926,7 @@
     {
       "id": 1365,
       "version": "0.11.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "`/compact` コマンドのサポートを追加",
       "en": "adds support for the `/compact` command"
@@ -10934,7 +10934,7 @@
     {
       "id": 1366,
       "version": "0.11.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "実験的なプランニングツールを導入",
       "en": "introduces an experimental planning tool"
@@ -10942,7 +10942,7 @@
     {
       "id": 1367,
       "version": "0.11.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "`apply_patch` がセッションのサンドボックス経由で実行されるよう修正（セキュリティ修正）",
       "en": "security fix to ensure `apply_patch` is run through the sandbox for the session"
@@ -10950,7 +10950,7 @@
     {
       "id": 1368,
       "version": "0.11.0",
-      "monthKey": "2025-08",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "CLI が新バージョンを確認し、古い場合に通知する機能を追加",
       "en": "CLI now checks for new versions and lets you know if you are out of date"
@@ -10958,7 +10958,7 @@
     {
       "id": 1369,
       "version": "0.10.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "デフォルトで「信頼済み」となるコマンドを拡大 (#1668)",
       "en": "More commands are \"trusted\" by default (#1668)"
@@ -10966,7 +10966,7 @@
     {
       "id": 1370,
       "version": "0.10.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "TUI ヘッダーの UI 不整合を修正 (#1675)",
       "en": "Fix UI inconsistency in the TUI header (#1675)"
@@ -10974,7 +10974,7 @@
     {
       "id": 1371,
       "version": "0.10.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "`.jsonl` ログに Git 状態の一部を記録 (#1598)",
       "en": "Record some Git state in the `.jsonl` log (#1598)"
@@ -10982,7 +10982,7 @@
     {
       "id": 1372,
       "version": "0.9.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "`codex mcp` の多数の修正",
       "en": "Numerous fixes to `codex mcp`"
@@ -10990,7 +10990,7 @@
     {
       "id": 1373,
       "version": "0.9.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "Codex が終了時にスポーンしたシェルコマンドに `SIGTERM` を送信するよう修正（Linux のみ）(#1626)",
       "en": "Ensure shell commands spawned by Codex get `SIGTERM` when `codex` is killed (Linux only) (#1626)"
@@ -10998,7 +10998,7 @@
     {
       "id": 1374,
       "version": "0.9.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "ripgrep/`rg` の特定フラグを自動承認しないよう変更 (#1644)",
       "en": "Do not auto-approve certain flags for ripgrep/`rg` (#1644)"
@@ -11006,7 +11006,7 @@
     {
       "id": 1375,
       "version": "0.8.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "TUI と `codex exec` でモデル応答をストリーミング表示 (#1594)",
       "en": "Stream model responses in TUI and `codex exec` (#1594)"
@@ -11014,7 +11014,7 @@
     {
       "id": 1376,
       "version": "0.8.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "`ctrl-d` をコンポーザーが空の場合のみ TUI を終了するよう変更 (#1589)",
       "en": "Change `ctrl-d` to only exit TUI when composer is empty (#1589)"
@@ -11022,7 +11022,7 @@
     {
       "id": 1377,
       "version": "0.8.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "`~/.codex/sessions` フォルダを `YYYY/MM/DD` サブフォルダで整理し、ファイルシステムのパフォーマンスを改善 (#1596)",
       "en": "Reorganize `~/.codex/sessions` folder with `YYYY/MM/DD` subfolders to improve filesystem performance (#1596)"
@@ -11030,7 +11030,7 @@
     {
       "id": 1378,
       "version": "0.8.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "長い MCP ツール名の処理を修正 (#1571)",
       "en": "Fix handling of long MCP tool names (#1571)"
@@ -11038,7 +11038,7 @@
     {
       "id": 1379,
       "version": "0.8.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "`codex exec` に `--json` フラグを追加し、JSONL 形式で stdout に出力 (#1603)",
       "en": "Add `--json` flag to `codex exec` for JSONL output to stdout (#1603)"
@@ -11046,7 +11046,7 @@
     {
       "id": 1380,
       "version": "0.8.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 5,
       "ja": "npm 版で Codex CLI と Node.js プロセスが同時に終了するよう改善 (#1590)",
       "en": "Ensure Codex CLI and Node.js processes exit together in npm version (#1590)"
@@ -11054,7 +11054,7 @@
     {
       "id": 1381,
       "version": "0.8.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 6,
       "ja": "Windows の npm パッケージでクラッシュを防ぐため TypeScript 版へのフォールバックを追加 (#1590)",
       "en": "Add fallback to TypeScript version on Windows for npm package to prevent crashes (#1590)"
@@ -11062,7 +11062,7 @@
     {
       "id": 1382,
       "version": "0.7.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "(変更履歴のエントリはありません)",
       "en": "(No changelog entries)"
@@ -11070,7 +11070,7 @@
     {
       "id": 1383,
       "version": "0.6.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "`codex` ツール呼び出しに関連する通知の `id` がリクエスト ID と一致するよう修正",
       "en": "`id` for notifications associated with a `codex` tool call now match the request id"
@@ -11078,7 +11078,7 @@
     {
       "id": 1384,
       "version": "0.6.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "大量ペースト時の要約機能を追加",
       "en": "Paste summarization for large pastes"
@@ -11086,7 +11086,7 @@
     {
       "id": 1385,
       "version": "0.6.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "Codex Web と連携する実験的な `codex apply` コマンドを追加",
       "en": "Experimental `codex apply` command to interact with Codex Web"
@@ -11094,7 +11094,7 @@
     {
       "id": 1386,
       "version": "0.5.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "新しい設定オプション `model_supports_reasoning_summaries` を追加 (#1524)",
       "en": "Added new config option: `model_supports_reasoning_summaries` (#1524)"
@@ -11102,7 +11102,7 @@
     {
       "id": 1387,
       "version": "0.5.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "依存関係を更新し、Rust 1.88 でビルドするように変更 (#1494)",
       "en": "Updated dependencies and now build with Rust 1.88 (#1494)"
@@ -11110,7 +11110,7 @@
     {
       "id": 1388,
       "version": "0.5.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "未サポートの `/compact` への参照を削除 (#1503)",
       "en": "Removed reference to `/compact` as it is not supported yet (#1503)"
@@ -11118,7 +11118,7 @@
     {
       "id": 1389,
       "version": "0.5.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 3,
       "ja": "npm 経由でインストール時、`process.platform === \"android\"` で Rust CLI を実行するよう修正 (#1488)",
       "en": "Fixed `process.platform === \"android\"` to run Rust CLI when installed via npm (#1488)"
@@ -11126,7 +11126,7 @@
     {
       "id": 1390,
       "version": "0.5.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 4,
       "ja": "生成されるシェル補完で `codex-cli` ではなく `codex` を使用するよう修正 (#1496)",
       "en": "Fixed generated shell completions to use `codex` instead of `codex-cli` (#1496)"
@@ -11134,7 +11134,7 @@
     {
       "id": 1391,
       "version": "0.4.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "組み込み OpenAI モデルプロバイダーで環境変数 `OPENAI_BASE_URL` を尊重するよう変更",
       "en": "Honor the `OPENAI_BASE_URL` environment variable for the built-in openai model provider"
@@ -11142,7 +11142,7 @@
     {
       "id": 1392,
       "version": "0.4.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "プロファイル定義時に `model_reasoning_effort` と `model_reasoning_summary` の設定に対応",
       "en": "Support `model_reasoning_effort` and `model_reasoning_summary` when defining a profile"
@@ -11150,7 +11150,7 @@
     {
       "id": 1393,
       "version": "0.4.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "Homebrew フォーミュラで `generate_completions_from_executable()` を使用するため、CLI に `completion` サブコマンドを追加 (PR #1491)",
       "en": "Add a `completion` subcommand to the CLI in pr#1491 so we can ultimately add `generate_completions_from_executable()` to our Homebrew formula: https://github.com/Homebrew/homebrew-core/blob/main/Formula/c/codex.rb"
@@ -11158,7 +11158,7 @@
     {
       "id": 1394,
       "version": "0.3.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "非 ASCII 文字により CLI がクラッシュする問題を修正",
       "en": "Fixes an issue where non-ASCII characters were crashing the CLI"
@@ -11166,7 +11166,7 @@
     {
       "id": 1395,
       "version": "0.3.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 1,
       "ja": "`--sandbox` フラグのサポートを追加し、このオプションに関する config.toml の破壊的変更を実施",
       "en": "Adds support for a `--sandbox` flag and makes some breaking changes to `config.toml` around this option"
@@ -11174,7 +11174,7 @@
     {
       "id": 1396,
       "version": "0.3.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 2,
       "ja": "モデルプロバイダーへのリクエスト時にカスタム HTTP ヘッダーを設定可能に",
       "en": "Makes it possible to configure custom HTTP headers when making requests to model providers"
@@ -11182,7 +11182,7 @@
     {
       "id": 1397,
       "version": "0.2.0",
-      "monthKey": "2025-07",
+      "monthKey": "2025-10",
       "entryIndex": 0,
       "ja": "(変更履歴のエントリはありません)",
       "en": "(No changelog entries)"
