@@ -4,6 +4,20 @@
 
 ---
 
+## 0.118.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Windowsサンドボックスの実行で、環境変数だけに頼らずOSレベルの通信制御によるプロキシ限定ネットワークを強制可能に。 (#12220) | Windows sandbox runs can now enforce proxy-only networking with OS-level egress rules, instead of relying on environment variables alone. (#12220) | new-features |
+| app-serverクライアントがデバイスコードフローによるChatGPTサインインに対応。ブラウザコールバックログインが不安定または利用不可な場合に有効。 (#15525) | App-server clients can now start ChatGPT sign-in with a device code flow, which helps when browser callback login is unreliable or unavailable. (#15525) | new-features |
+| `codex exec` がプロンプトと標準入力を併用するワークフローに対応。パイプ入力しながらコマンドライン引数で別途プロンプトを渡すことが可能に。 (#15917) | `codex exec` now supports the prompt-plus-stdin workflow, so you can pipe input and still pass a separate prompt on the command line. (#15917) | new-features |
+| カスタムモデルプロバイダーが短命なBearerトークンを動的に取得・更新可能に。設定や環境変数の静的な認証情報に限定されなくなった。 (#16286, #16287, #16288) | Custom model providers can now fetch and refresh short-lived bearer tokens dynamically, instead of being limited to static credentials from config or environment variables. (#16286, #16287, #16288) | new-features |
+| プロジェクトローカルの `.codex` ファイルを初回作成時も保護するよう修正。初回書き込みで通常の承認チェックが迂回されていた問題を解消。 (#15067) | Project-local `.codex` files are now protected even on first creation, closing a gap where the initial write could bypass normal approval checks. (#15067) | bug-fixes |
+| Linuxサンドボックスの起動が安定化。通常のマルチエントリ `PATH` でも信頼済みシステムの `bwrap` を正しく検出できるよう修正。 (#15791, #15973) | Linux sandbox launches are more reliable because Codex once again finds a trusted system `bwrap` on normal multi-entry `PATH`s. (#15791, #15973) | bug-fixes |
+| app-serverバックエンドのTUIで複数のワークフローを修復。フック通知の再生、`/copy` と `/resume <name>` の動作、`/agent` の古いスレッド表示、スキルピッカーの2ページ目以降のスクロールをそれぞれ修正。 (#16013, #16021, #16050, #16014, #16109, #16110) | The app-server-backed TUI regained several missing workflows: hook notifications replay correctly, `/copy` and `/resume <name>` work again, `/agent` no longer shows stale threads, and the skills picker scrolls past the first page. (#16013, #16021, #16050, #16014, #16109, #16110) | bug-fixes |
+| MCPの起動が安定化。ローカルサーバーの起動待機時間を延長し、ハンドシェイク失敗時に正常起動に見えていた問題を修正してTUIに警告を表示するよう改善。 (#16080, #16041) | MCP startup is more robust: local servers get a longer startup window, and failed handshakes surface warnings in the TUI again instead of looking like clean startups. (#16080, #16041) | bug-fixes |
+| Windowsで `apply_patch` が不要な書き込み可能ルートを追加しなくなり、不必要なACL処理によるエラーが発生しにくくなった。 (#16030) | On Windows, `apply_patch` is less likely to fail because it no longer adds redundant writable roots that could trigger unnecessary ACL churn. (#16030) | bug-fixes |
+
 ## 0.117.0
 
 | 日本語 | English | Category |
