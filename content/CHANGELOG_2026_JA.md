@@ -4,6 +4,52 @@
 
 ---
 
+## 2.1.88
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| フリッカーのないオルタネートスクリーンレンダリングとスクロールバック仮想化を有効にする環境変数 `CLAUDE_CODE_NO_FLICKER=1` を追加 | Added `CLAUDE_CODE_NO_FLICKER=1` environment variable to opt into flicker-free alt-screen rendering with virtualized scrollback | added |
+| 自動モードの分類拒否後に発火する `PermissionDenied` フックを追加 — `{retry: true}` を返すことでモデルに再試行を許可可能 | Added `PermissionDenied` hook that fires after auto mode classifier denials — return `{retry: true}` to tell the model it can retry | added |
+| `@` メンション入力補完候補に名前付きサブエージェントを追加 | Added named subagents to `@` mention typeahead suggestions | added |
+| セッション中にツールスキーマのバイト数が変化することで生じる長時間セッションでのプロンプトキャッシュミスを修正 | Fixed prompt cache misses in long sessions caused by tool schema bytes changing mid-session | fixed |
+| 多数のファイルを読み込む長時間セッションでネストされた CLAUDE.md が数十回再注入される問題を修正 | Fixed nested CLAUDE.md files being re-injected dozens of times in long sessions that read many files | fixed |
+| Edit/Write ツールが Windows で CRLF を二重化し、Markdown のハードラインブレーク（末尾スペース2つ）を除去する問題を修正 | Fixed Edit/Write tools doubling CRLF on Windows and stripping Markdown hard line breaks (two trailing spaces) | fixed |
+| 複数スキーマを持つワークフローで約50%の失敗率を引き起こす `StructuredOutput` スキーマキャッシュのバグを修正 | Fixed `StructuredOutput` schema cache bug causing ~50% failure rate in workflows with multiple schemas | fixed |
+| 大きな JSON 入力が長時間実行セッションの LRU キャッシュキーとして保持され続けるメモリリークを修正 | Fixed memory leak where large JSON inputs were retained as LRU cache keys in long-running sessions | fixed |
+| Edit ツールを非常に大きなファイル（1 GiB超）に使用した際のメモリ不足クラッシュの可能性を修正 | Fixed a potential out-of-memory crash when the Edit tool was used on very large files (>1 GiB) | fixed |
+| 大きなセッションファイル（50MB超）からメッセージを削除する際のクラッシュを修正 | Fixed a crash when removing a message from very large session files (over 50MB) | fixed |
+| トランスクリプトに旧バージョン CLI または書き込み中断によるツール結果が含まれる場合の `--resume` クラッシュを修正 | Fixed `--resume` crash when transcript contains a tool result from an older CLI version or interrupted write | fixed |
+| API がエンタイトルメントエラーを返した際に誤って「Rate limit reached」と表示される問題を修正 — 実際のエラーと対処ヒントを表示するように変更 | Fixed misleading "Rate limit reached" message when the API returned an entitlement error — now shows the actual error with actionable hints | fixed |
+| LSP サーバーがクラッシュ後にゾンビ状態になる問題を修正 — セッション再起動を待たず次のリクエスト時に自動再起動するように変更 | Fixed LSP server zombie state after crash — server now restarts on next request instead of failing until session restart | fixed |
+| フックの `if` 条件フィルタが複合コマンド（`ls && git push`）や環境変数プレフィックス付きコマンド（`FOO=bar git push`）にマッチしない問題を修正 | Fixed hooks `if` condition filtering not matching compound commands (`ls && git push`) or commands with env-var prefixes (`FOO=bar git push`) | fixed |
+| `~/.claude/history.jsonl` の 4KB 境界に位置する CJK 文字や絵文字を含むプロンプト履歴エントリが無音で消失する問題を修正 | Fixed prompt history entries containing CJK or emoji being silently dropped when they fall on a 4KB boundary in `~/.claude/history.jsonl` | fixed |
+| 統計キャッシュ形式変更時に `/stats` が30日超の履歴データを失う問題を修正 | Fixed `/stats` losing historical data beyond 30 days when the stats cache format changes | fixed |
+| `/stats` がサブエージェント・フークの使用量を除外してトークン数を過少計上する問題を修正 | Fixed `/stats` undercounting tokens by excluding subagent/fork usage | fixed |
+| 長時間セッションでスクロールアップ時にスクロールバックが消える問題を修正 | Fixed scrollback disappearing when scrolling up in long sessions | fixed |
+| 並列ツール使用が多い際にターミナルのスクロールバックで折りたたまれた検索・読み取りグループのバッジが重複する問題を修正 | Fixed collapsed search/read group badges duplicating in terminal scrollback during heavy parallel tool use | fixed |
+| 通知の `invalidates` が現在表示中の通知を即座にクリアしない問題を修正 | Fixed notification `invalidates` not clearing the currently-displayed notification immediately | fixed |
+| 処理中にバックグラウンドメッセージが届いた場合にサブミット後にプロンプトが一瞬消える問題を修正 | Fixed prompt briefly disappearing after submit when background messages arrived during processing | fixed |
+| `/btw` の長いレスポンスがスクロール不可の状態でクリップされる問題を修正 — スクロール可能なビューポートでレンダリングするように変更 | Fixed long `/btw` responses being clipped with no way to scroll — responses now render in a scrollable viewport | fixed |
+| デーヴァナーガリーやその他の結合記号を含むテキストがアシスタント出力で切り捨てられる問題を修正 | Fixed Devanagari and other combining-mark text being truncated in assistant output | fixed |
+| レイアウトシフト後にメインスクリーン端末でレンダリングアーティファクトが発生する問題を修正 | Fixed rendering artifacts on main-screen terminals after layout shifts | fixed |
+| macOS Apple Silicon でボイスモードがマイクのアクセス許可をリクエストできない問題を修正 | Fixed voice mode failing to request microphone permission on macOS Apple Silicon | fixed |
+| 一部の修飾キーの組み合わせでボイスのプッシュ・トゥ・トークが有効化されない問題を修正 | Fixed voice push-to-talk not activating for some modifier-combo bindings | fixed |
+| Windows でボイスモードが「WebSocket upgrade rejected with HTTP 101」で失敗する問題を修正 | Fixed voice mode on Windows failing with "WebSocket upgrade rejected with HTTP 101" | fixed |
+| Windows Terminal Preview 1.25 で Shift+Enter が改行挿入ではなくサブミットになる問題を修正 | Fixed Shift+Enter submitting instead of inserting a newline on Windows Terminal Preview 1.25 | fixed |
+| tmux 内の iTerm2 でストリーミング中に定期的な UI のちらつきが発生する問題を修正 | Fixed periodic UI jitter during streaming in iTerm2 when running inside tmux | fixed |
+| Windows PowerShell 5.1 で `git push` などのコマンドが stderr に進捗を書き込む際に PowerShell ツールが誤って失敗と報告する問題を修正 | Fixed PowerShell tool incorrectly reporting failures when commands like `git push` wrote progress to stderr on Windows PowerShell 5.1 | fixed |
+| SDK のエラー結果メッセージ（`error_during_execution`、`error_max_turns`）が説明付きで `is_error: true` を正しくセットするよう修正 | Fixed SDK error result messages (`error_during_execution`, `error_max_turns`) to correctly set `is_error: true` with descriptive messages | fixed |
+| Ctrl+B でセッションをバックグラウンド化した際にタスク通知が失われる問題を修正 | Fixed task notifications being lost when backgrounding a session with Ctrl+B | fixed |
+| PreToolUse/PostToolUse フックが Write/Edit/Read ツールに対して `file_path` を絶対パスで提供しない問題を修正 | Fixed PreToolUse/PostToolUse hooks not providing `file_path` as an absolute path for Write/Edit/Read tools | fixed |
+| PowerShell のバージョン（5.1 vs 7+）に応じた適切な構文ガイダンスをツールプロンプトに追加することで改善 | Improved PowerShell tool prompt with version-appropriate syntax guidance (5.1 vs 7+) | improved |
+| インタラクティブセッションでのシンキングサマリーのデフォルト生成を廃止 — 設定で `showThinkingSummaries: true` を指定することで復元可能 | Thinking summaries are no longer generated by default in interactive sessions — set `showThinkingSummaries: true` in settings to restore | changed |
+| 自動モードで拒否されたコマンドは通知に表示され、`/permissions` の「Recent」タブにも記録されるように変更 | Auto mode denied commands now show a notification and appear in `/permissions` → Recent tab | changed |
+| `/env` が PowerShell ツールコマンドにも適用されるように変更（以前は Bash のみ対象） | `/env` now applies to PowerShell tool commands (previously only affected Bash) | changed |
+| `/usage` で Pro および Enterprise プランの冗長な「Current week (Sonnet only)」バーを非表示に変更 | `/usage` now hides redundant "Current week (Sonnet only)" bar for Pro and Enterprise plans | changed |
+| 折りたたまれたツールサマリーで ls/tree/du の表示を「Read N files」から「Listed N directories」に変更 | Collapsed tool summary now shows "Listed N directories" for ls/tree/du instead of "Read N files" | changed |
+| 画像ペースト時に末尾スペースが挿入されなくなるよう修正 | Image paste no longer inserts a trailing space | fixed |
+| 空のプロンプトへの `!command` ペーストが bash モードに移行するよう変更 — 手入力の `!` と同じ動作に統一 | Pasting `!command` into an empty prompt now enters bash mode, matching typed `!` behavior | changed |
+
 ## 2.1.87
 
 | 日本語 | English | Category |
