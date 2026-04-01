@@ -4,6 +4,63 @@
 
 ---
 
+## 2.1.89
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `PreToolUse` フックに `"defer"` 権限決定を追加 — ヘッドレスセッションがツール呼び出し時に一時停止し、`-p --resume` で再開してフックが再評価できるように対応 | Added `"defer"` permission decision to `PreToolUse` hooks — headless sessions can pause at a tool call and resume with `-p --resume` to have the hook re-evaluate | added |
+| フリッカーのない代替スクリーンレンダリングと仮想スクロールバックを有効にする環境変数 `CLAUDE_CODE_NO_FLICKER=1` を追加 | Added `CLAUDE_CODE_NO_FLICKER=1` environment variable to opt into flicker-free alt-screen rendering with virtualized scrollback | added |
+| 自動モードの分類器による拒否後に発火する `PermissionDenied` フックを追加 — `{retry: true}` を返すことでモデルに再試行を指示可能 | Added `PermissionDenied` hook that fires after auto mode classifier denials — return `{retry: true}` to tell the model it can retry | added |
+| `@` メンションの入力補完候補に名前付きサブエージェントを追加 | Added named subagents to `@` mention typeahead suggestions | added |
+| `-p` モード向けに `MCP_CONNECTION_NONBLOCKING=true` を追加してMCP接続待機を完全にスキップできるようにし、`--mcp-config` のサーバー接続を最も遅いサーバーへのブロッキングではなく5秒で上限を設けるよう変更 | Added `MCP_CONNECTION_NONBLOCKING=true` for `-p` mode to skip the MCP connection wait entirely, and bounded `--mcp-config` server connections at 5s instead of blocking on the slowest server | added |
+| 自動モード：拒否されたコマンドが通知を表示するようになり、`/permissions` → Recent タブに表示され、`r` で再試行可能 | Auto mode: denied commands now show a notification and appear in `/permissions` → Recent tab where you can retry with `r` | improved |
+| `Edit(//path/**)` および `Read(//path/**)` のルールが、リクエストされたパスだけでなく解決済みシンボリックリンクのターゲットもチェックするよう修正 | Fixed `Edit(//path/**)` and `Read(//path/**)` allow rules to check the resolved symlink target, not just the requested path | fixed |
+| 一部の修飾キー組み合わせでボイスプッシュトゥトークが有効化されない問題、およびWindowsでボイスモードが "WebSocket upgrade rejected with HTTP 101" で失敗する問題を修正 | Fixed voice push-to-talk not activating for some modifier-combo bindings, and voice mode on Windows failing with "WebSocket upgrade rejected with HTTP 101" | fixed |
+| WindowsでのEdit/WriteツールによるCRLFの二重化およびMarkdownのハード改行（末尾2スペース）の削除を修正 | Fixed Edit/Write tools doubling CRLF on Windows and stripping Markdown hard line breaks (two trailing spaces) | fixed |
+| 複数スキーマ使用時に約50%の失敗率を引き起こす `StructuredOutput` スキーマキャッシュのバグを修正 | Fixed `StructuredOutput` schema cache bug causing ~50% failure rate when using multiple schemas | other |
+| 長時間セッションにおいて大きな JSON 入力が LRU キャッシュキーとして保持されるメモリリークを修正 | Fixed memory leak where large JSON inputs were retained as LRU cache keys in long-running sessions | fixed |
+| 非常に大きなセッションファイル（50MB超）からメッセージを削除した際のクラッシュを修正 | Fixed a crash when removing a message from very large session files (over 50MB) | fixed |
+| クラッシュ後のLSPサーバーのゾンビ状態を修正 — セッション再起動まで失敗し続ける代わりに、次のリクエスト時にサーバーが再起動するように変更 | Fixed LSP server zombie state after crash — server now restarts on next request instead of failing until session restart | fixed |
+| `~/.claude/history.jsonl` の 4KB 境界にかかる CJK 文字や絵文字を含むプロンプト履歴エントリがサイレントに削除される問題を修正 | Fixed prompt history entries containing CJK or emoji being silently dropped when they fall on a 4KB boundary in `~/.claude/history.jsonl` | fixed |
+| `/stats` でサブエージェントの使用量が除外されることによるトークン数の過少カウントと、統計キャッシュフォーマット変更時に30日超の履歴データが失われる問題を修正 | Fixed `/stats` undercounting tokens by excluding subagent usage, and losing historical data beyond 30 days when the stats cache format changes | fixed |
+| `-p --resume` において遅延ツールの入力が 64KB を超えるまたは遅延マーカーが存在しない場合にハングする問題、および `-p --continue` で遅延ツールが再開されない問題を修正 | Fixed `-p --resume` hangs when the deferred tool input exceeds 64KB or no deferred marker exists, and `-p --continue` not resuming deferred tools | fixed |
+| macOS で `claude-cli://` ディープリンクが開かない問題を修正 | Fixed `claude-cli://` deep links not opening on macOS | fixed |
+| MCPツールエラーがサーバーから複数要素のエラーコンテンツを返す際に最初のコンテンツブロックのみに切り捨てられる問題を修正 | Fixed MCP tool errors truncating to only the first content block when the server returns multi-element error content | fixed |
+| SDKを通じて画像付きメッセージを送信する際に、スキルリマインダーやその他のシステムコンテキストが欠落する問題を修正 | Fixed skill reminders and other system context being dropped when sending messages with images via the SDK | fixed |
+| Write/Edit/Read ツールにおいて PreToolUse/PostToolUse フックが `file_path` を絶対パスで受け取るよう修正し、ドキュメントの仕様と一致させた | Fixed PreToolUse/PostToolUse hooks to receive `file_path` as an absolute path for Write/Edit/Read tools, matching the documented behavior | fixed |
+| autocompact のスラッシュループを修正 — コンパクト後にコンテキストが即座に上限まで再充填される状況を3回連続で検出した場合、APIコールを浪費し続ける代わりに、対処可能なエラーメッセージを出力して停止するように変更 | Fixed autocompact thrash loop — now detects when context refills to the limit immediately after compacting three times in a row and stops with an actionable error instead of burning API calls | fixed |
+| 長時間セッション中にツールスキーマのバイト列が変化することで発生していたプロンプトキャッシュのキャッシュミスを修正 | Fixed prompt cache misses in long sessions caused by tool schema bytes changing mid-session | fixed |
+| 多数のファイルを読み込む長いセッションで、ネストされた CLAUDE.md ファイルが何十回も再注入される問題を修正 | Fixed nested CLAUDE.md files being re-injected dozens of times in long sessions that read many files | fixed |
+| 古いCLIバージョンまたは中断された書き込みによるツール結果がトランスクリプトに含まれている場合に`--resume`がクラッシュする問題を修正 | Fixed `--resume` crash when transcript contains a tool result from an older CLI version or interrupted write | fixed |
+| APIがエンタイトルメントエラーを返した際に誤って表示されていた「Rate limit reached」メッセージを修正し、実際のエラーと対処のヒントを表示するように変更 | Fixed misleading "Rate limit reached" message when the API returned an entitlement error — now shows the actual error with actionable hints | fixed |
+| フック `if` 条件フィルタリングが複合コマンド（`ls && git push`）や環境変数プレフィックス付きコマンド（`FOO=bar git push`）にマッチしない問題を修正 | Fixed hooks `if` condition filtering not matching compound commands (`ls && git push`) or commands with env-var prefixes (`FOO=bar git push`) | fixed |
+| 並列ツールの多用時にターミナルのスクロールバックで折りたたまれた検索/読み取りグループバッジが重複する問題を修正 | Fixed collapsed search/read group badges duplicating in terminal scrollback during heavy parallel tool use | fixed |
+| 通知の `invalidates` が現在表示中の通知を即座にクリアしない問題を修正 | Fixed notification `invalidates` not clearing the currently-displayed notification immediately | fixed |
+| 処理中にバックグラウンドメッセージが届いた際、送信後にプロンプトが一瞬消える問題を修正 | Fixed prompt briefly disappearing after submit when background messages arrived during processing | fixed |
+| アシスタント出力でデーヴァナーガリーやその他の結合文字テキストが切り捨てられる問題を修正 | Fixed Devanagari and other combining-mark text being truncated in assistant output | fixed |
+| レイアウトシフト後のメイン画面ターミナルにおけるレンダリングアーティファクトを修正 | Fixed rendering artifacts on main-screen terminals after layout shifts | fixed |
+| macOS Apple Silicon でボイスモードがマイク権限を要求できない問題を修正 (#なし) | Fixed voice mode failing to request microphone permission on macOS Apple Silicon | fixed |
+| Windows Terminal Preview 1.25 で Shift+Enter が改行挿入ではなく送信される問題を修正 (#なし) | Fixed Shift+Enter submitting instead of inserting a newline on Windows Terminal Preview 1.25 | fixed |
+| tmux 内で実行中の iTerm2 におけるストリーミング中の断続的な UI のちらつきを修正 | Fixed periodic UI jitter during streaming in iTerm2 when running inside tmux | fixed |
+| Windows PowerShell 5.1 で `git push` などのコマンドが stderr に進捗を出力する際、PowerShell ツールが誤って失敗と報告する問題を修正 | Fixed PowerShell tool incorrectly reporting failures when commands like `git push` wrote progress to stderr on Windows PowerShell 5.1 | fixed |
+| Editツールを非常に大きなファイル（1 GiB超）に使用した際のメモリ不足クラッシュの可能性を修正 | Fixed a potential out-of-memory crash when the Edit tool was used on very large files (>1 GiB) | fixed |
+| `ls`/`tree`/`du` コマンドの折りたたみツールサマリーを「Read N files」から「Listed N directories」に改善 | Improved collapsed tool summary to show "Listed N directories" for `ls`/`tree`/`du` instead of "Read N files" | improved |
+| Bashツールにフォーマッター/リンターコマンドが既読ファイルを変更した際に警告を表示する機能を追加し、古い編集エラーを防止 | Improved Bash tool to warn when a formatter/linter command modifies files you have previously read, preventing stale-edit errors | improved |
+| `@`メンションのタイプアヘッドで、類似した名前のMCPリソースよりもソースファイルを上位に表示するよう改善 | Improved `@`-mention typeahead to rank source files above MCP resources with similar names | improved |
+| PowerShell ツールプロンプトにバージョン別（5.1 vs 7+）の構文ガイダンスを追加 | Improved PowerShell tool prompt with version-appropriate syntax guidance (5.1 vs 7+) | improved |
+| `Bash` で `sed -n` や `cat` を使って参照したファイルに対し、別途 `Read` を呼び出さずに `Edit` が動作するよう変更 | Changed `Edit` to work on files viewed via `Bash` with `sed -n` or `cat`, without requiring a separate `Read` call first | changed |
+| 50K文字を超えるフックの出力を、コンテキストに直接注入する代わりに、ファイルパスとプレビューとともにディスクに保存するよう変更 | Changed hook output over 50K characters to be saved to disk with a file path + preview instead of being injected directly into context | changed |
+| settings.json の `cleanupPeriodDays: 0` をバリデーションエラーで拒否するように変更（以前はサイレントにトランスクリプトの永続化を無効化していた） | Changed `cleanupPeriodDays: 0` in settings.json to be rejected with a validation error — it previously silently disabled transcript persistence | fixed |
+| インタラクティブセッションでのシンキングサマリーをデフォルトで非生成に変更 — 復元するには settings.json で `showThinkingSummaries: true` を設定 | Changed thinking summaries to no longer be generated by default in interactive sessions — set `showThinkingSummaries: true` in settings.json to restore | changed |
+| `TaskCreated` フックイベントとそのブロッキング動作をドキュメント化 | Documented `TaskCreated` hook event and its blocking behavior | other |
+| Ctrl+B で実行中のコマンドをバックグラウンド化した際にタスク通知を保持するよう修正 | Preserved task notifications when backgrounding a running command with Ctrl+B | fixed |
+| Windows の PowerShell ツールにおいて、ダブルクォートと空白の両方を含む外部コマンド引数は自動許可の代わりにプロンプトを表示するよう変更（PS 5.1 引数分割のセキュリティ強化） | PowerShell tool on Windows: external-command arguments containing both a double-quote and whitespace now prompt instead of auto-allowing (PS 5.1 argument-splitting hardening) | improved |
+| `/env` が PowerShell ツールコマンドにも適用されるように対応（以前は Bash のみ） | `/env` now applies to PowerShell tool commands (previously only affected Bash) | improved |
+| Pro および Enterprise プランで冗長な「今週（Sonnet のみ）」バーを `/usage` で非表示化 | `/usage` now hides redundant "Current week (Sonnet only)" bar for Pro and Enterprise plans | improved |
+| 画像の貼り付け後に末尾のスペースが挿入されなくなった修正 | Image paste no longer inserts a trailing space | fixed |
+| 空のプロンプトに `!command` を貼り付けるとbashモードに入るようになり、`!` を直接入力した場合の動作と一致するように修正 | Pasting `!command` into an empty prompt now enters bash mode, matching typed `!` behavior | fixed |
+| エイプリルフール限定で `/buddy` が登場 — コードを見守る小さな生き物を孵化させる | `/buddy` is here for April 1st — hatch a small creature that watches you code | added |
+
 ## 2.1.87
 
 | 日本語 | English | Category |
