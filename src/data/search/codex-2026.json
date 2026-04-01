@@ -2238,7 +2238,7 @@
     {
       "id": 279,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "SOCKS5プロキシリスナーをポリシー制御と設定ゲーティング機能付きで追加 (#9803)",
       "en": "Added an optional SOCKS5 proxy listener with policy enforcement and config gating. (#9803)"
@@ -2246,7 +2246,7 @@
     {
       "id": 280,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "プランモードで提案されたプランを専用TUIビューにストリーミング表示、クイックモード切替用の`/plan`ショートカットを機能ゲート追加 (#9786, #10103)",
       "en": "Plan mode now streams proposed plans into a dedicated TUI view, plus a feature-gated `/plan` shortcut for quick mode switching. (#9786, #10103)"
@@ -2254,7 +2254,7 @@
     {
       "id": 281,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "TUIでコネクタを参照する`/apps`と、アプリプロンプト挿入用の`$`記法を追加 (#9728)",
       "en": "Added `/apps` to browse connectors in TUI and `$` insertion for app prompts. (#9728)"
@@ -2262,7 +2262,7 @@
     {
       "id": 282,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "app-serverが外部認証モードで動作可能に、ホストアプリからChatGPT認証トークンを受け取り、必要時に更新を要求 (#10012)",
       "en": "App-server can now run in external auth mode, accepting ChatGPT auth tokens from a host app and requesting refreshes when needed. (#10012)"
@@ -2270,7 +2270,7 @@
     {
       "id": 283,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "スマート承認をデフォルトで有効化、MCPツール呼び出し時に明示的な承認プロンプトを表示 (#10286, #10200)",
       "en": "Smart approvals are now enabled by default, with explicit approval prompts for MCP tool calls. (#10286, #10200)"
@@ -2278,7 +2278,7 @@
     {
       "id": 284,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "SQLiteベースのログデータベースを導入、ログクライアント改善、thread-idフィルタリング、保持期間設定、ヒューリスティック着色に対応 (#10086, #10087, #10150, #10151, #10229, #10228)",
       "en": "Introduced a SQLite-backed log database with an improved logs client, thread-id filtering, retention, and heuristic coloring. (#10086, #10087, #10150, #10151, #10229, #10228)"
@@ -2286,7 +2286,7 @@
     {
       "id": 285,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "MCPツールの画像出力が、画像ブロックが先頭でない場合や部分的に不正な形式でも確実にレンダリング (#9815)",
       "en": "MCP tool image outputs render reliably even when image blocks aren’t first or are partially malformed. (#9815)"
@@ -2294,7 +2294,7 @@
     {
       "id": 286,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "入力履歴の呼び出し時にローカル画像添付とリッチテキスト要素を復元 (#9628)",
       "en": "Input history recall now restores local image attachments and rich text elements. (#9628)"
@@ -2302,7 +2302,7 @@
     {
       "id": 287,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "ファイル検索がセッションCWD変更を追跡、マルチルートトラバーサルとパフォーマンス向上に対応 (#9279, #9939, #10240)",
       "en": "File search now tracks session CWD changes and supports multi-root traversal with better performance. (#9279, #9939, #10240)"
@@ -2310,7 +2310,7 @@
     {
       "id": 288,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "スレッド再開時に最初のターンが実際に開始されるまで`updated_at`を更新しないよう変更 (#9950)",
       "en": "Resuming a thread no longer updates `updated_at` until the first turn actually starts. (#9950)"
@@ -2318,7 +2318,7 @@
     {
       "id": 289,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 10,
       "ja": "シェルスナップショットがstdinを継承しないよう変更、起動スクリプトによるハングを回避 (#9735)",
       "en": "Shell snapshots no longer inherit stdin, avoiding hangs from startup scripts. (#9735)"
@@ -2326,7 +2326,7 @@
     {
       "id": 290,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 11,
       "ja": "WebSocketプロキシ失敗時にHTTPにフォールバック (#10139)",
       "en": "Connections fall back to HTTP when WebSocket proxies fail. (#10139)"
@@ -2334,7 +2334,7 @@
     {
       "id": 291,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 12,
       "ja": "app-serverのAuthMode使用方法と動作をドキュメント化 (#10191)",
       "en": "Documented app-server AuthMode usage and behavior. (#10191)"
@@ -2342,7 +2342,7 @@
     {
       "id": 292,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 13,
       "ja": "Rustツールチェーンをバージョン1.93にアップグレード (#10080)",
       "en": "Upgraded the Rust toolchain to 1.93. (#10080)"
@@ -2350,7 +2350,7 @@
     {
       "id": 293,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 14,
       "ja": "リポジトリで使用するpnpmバージョンを更新 (#9992, #10161)",
       "en": "Updated pnpm versions used in the repo. (#9992, #10161)"
@@ -2358,7 +2358,7 @@
     {
       "id": 294,
       "version": "0.93.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 15,
       "ja": "Bazelビルドとrunfilesハンドリングの改善、リモートキャッシュ圧縮を含む (#10079, #10098, #10102, #10104)",
       "en": "Bazel build and runfiles handling improvements, including remote cache compression. (#10079, #10098, #10102, #10104)"
@@ -2366,7 +2366,7 @@
     {
       "id": 295,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "API v2 スレッドが起動時に動的ツールを注入し、呼び出しと応答をサーバーとコアツールパイプライン経由でエンドツーエンドでルーティング可能に",
       "en": "API v2 threads can now inject dynamic tools at startup and route their calls/responses end-to-end through the server and core tool pipeline. (#9539)"
@@ -2374,7 +2374,7 @@
     {
       "id": 296,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "アプリサーバーのスレッドリストにフィルタリングを追加し、大規模なスレッドセットの閲覧を容易化",
       "en": "Added filtering on the thread list in the app server to make large thread sets easier to browse. (#9897)"
@@ -2382,7 +2382,7 @@
     {
       "id": 297,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "アーカイブされたロールアウトをアクティブセッションに復元する `thread/unarchive` RPC を導入",
       "en": "Introduced a `thread/unarchive` RPC to restore archived rollouts back into active sessions. (#9843)"
@@ -2390,7 +2390,7 @@
     {
       "id": 298,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "MCP サーバーが `config.toml` で OAuth スコープを定義可能になり、ログイン時の `--scopes` 指定が不要に",
       "en": "MCP servers can now define OAuth scopes in `config.toml`, reducing the need to pass `--scopes` on each login. (#9647)"
@@ -2398,7 +2398,7 @@
     {
       "id": 299,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "マルチエージェント連携を強化し、エクスプローラーロール、改善されたコラボレーションイベントマッピング、最大深度ガードレールを追加",
       "en": "Multi-agent collaboration is more capable and safer, with an explorer role, better collab event mapping, and max-depth guardrails. (#9817, #9818, #9918, #9899)"
@@ -2406,7 +2406,7 @@
     {
       "id": 300,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "キャッシュされた `web_search` をデフォルトのクライアント動作に設定",
       "en": "Cached `web_search` is now the default client behavior. (#9974)"
@@ -2414,7 +2414,7 @@
     {
       "id": 301,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "メイン Tokio スレッドでのブロッキング送信を回避し、高ストリーミングスループット下での TUI デッドロック/フリーズを修正",
       "en": "Fixed a TUI deadlock/freeze under high streaming throughput by avoiding blocking sends on the main Tokio thread. (#9951)"
@@ -2422,7 +2422,7 @@
     {
       "id": 302,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "`web_search` ツールがすべてのアクションタイプを処理・表示し、スタック状態ではなく進行中のアクティビティを表示",
       "en": "The `web_search` tool now handles and displays all action types, and shows in-progress activity instead of appearing stuck. (#9960)"
@@ -2430,7 +2430,7 @@
     {
       "id": 303,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "サブエージェントのビジーウェイト排除により、コラボレーションフローでの高 CPU 使用率を削減",
       "en": "Reduced high CPU usage in collaboration flows by eliminating busy-waiting on subagents. (#9776)"
@@ -2438,7 +2438,7 @@
     {
       "id": 304,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "`codex resume --last --json` でプロンプトが引数の競合エラーなく正しくパースされるように修正",
       "en": "Fixed `codex resume --last --json` so prompts parse correctly without conflicting argument errors. (#9475)"
@@ -2446,7 +2446,7 @@
     {
       "id": 305,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 10,
       "ja": "Windows サンドボックスのログが UTF-8 を安全に処理し、マルチバイトコンテンツの切り捨て時の失敗を防止",
       "en": "Windows sandbox logging now handles UTF-8 safely, preventing failures when truncating multibyte content. (#8647)"
@@ -2454,7 +2454,7 @@
     {
       "id": 306,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 11,
       "ja": "`request_user_input` を Plan/Pair モード以外で拒否し、無効なツール呼び出しを防止",
       "en": "`request_user_input` is now rejected outside Plan/Pair modes to prevent invalid tool calls. (#9955)"
@@ -2462,7 +2462,7 @@
     {
       "id": 307,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 12,
       "ja": "コントリビューションガイドラインを更新し、オンボーディングとワークフローの期待値を明確化",
       "en": "Updated the contribution guidelines for clearer onboarding and workflow expectations. (#9933)"
@@ -2470,7 +2470,7 @@
     {
       "id": 308,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 13,
       "ja": "プロトコル/MCP ドキュメントを更新し、`thread/unarchive` と更新された `request_user_input` の question 形状を反映",
       "en": "Refreshed protocol/MCP docs to reflect `thread/unarchive` and the updated `request_user_input` question shape. (#9843, #9890)"
@@ -2478,7 +2478,7 @@
     {
       "id": 309,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 14,
       "ja": "Homebrew 経由のセルフアップデートで明示的な cask upgrade コマンドを使用し、警告と曖昧性を回避",
       "en": "Self-update via Homebrew now uses an explicit cask upgrade command to avoid warnings and ambiguity. (#9823)"
@@ -2486,7 +2486,7 @@
     {
       "id": 310,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 15,
       "ja": "リリースパッケージングでバンドル zip を一貫して `dist/` に書き込み",
       "en": "Release packaging now consistently writes the bundle zip to `dist/`. (#9934)"
@@ -2494,7 +2494,7 @@
     {
       "id": 311,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 16,
       "ja": "Rust ワークスペースの主要な依存関係（`axum`、`tracing`、`globset`、`tokio-test` など）を更新",
       "en": "Updated key dependencies in the Rust workspace (including `axum`, `tracing`, `globset`, and `tokio-test`). (#9880, #9882, #9883, #9884)"
@@ -2502,7 +2502,7 @@
     {
       "id": 312,
       "version": "0.92.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 17,
       "ja": "機能ステージの命名を公開成熟度ステージに統一し、開発中機能の警告を明確化",
       "en": "Aligned feature stage naming with public maturity stages and added clearer warnings for underdevelopment features. (#9929, #9954)"
@@ -2510,7 +2510,7 @@
     {
       "id": 313,
       "version": "0.91.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "サブエージェントの最大許可数を6に削減し、エージェントのファンアウト動作におけるリソース使用量とガードレールを強化",
       "en": "Reduced the maximum allowed number of sub-agents to 6 to tighten resource usage and guardrails in agent fan-out behavior (#9861)"
@@ -2518,7 +2518,7 @@
     {
       "id": 314,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "ネットワークサンドボックスプロキシにポリシー適用機能を追加し、外部ネットワークアクセスの制御を強化 (#8442)",
       "en": "Added a network sandbox proxy with policy enforcement to better control outbound network access. (#8442)"
@@ -2526,7 +2526,7 @@
     {
       "id": 315,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "アプリサーバーとMCP統合を介したコネクタサポートの第一段階を導入、設定とドキュメントを更新 (#9667)",
       "en": "Introduced the first phase of connectors support via the app server and MCP integration, including new config/docs updates. (#9667)"
@@ -2534,7 +2534,7 @@
     {
       "id": 316,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "TUIでコラボレーションモードをベータ版として提供、計画→実行の引き継ぎを明確化し、モード選択（コーディング vs プラン）を簡素化 (#9690, #9712, #9802, #9834)",
       "en": "Shipped collaboration mode as beta in the TUI, with a clearer plan → execute handoff and simplified mode selection (Coding vs Plan). (#9690, #9712, #9802, #9834)"
@@ -2542,7 +2542,7 @@
     {
       "id": 317,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "エフェメラルスレッドを追加し、生成されたスレッドのコラボレーションツール来歴メタデータを改善 (#9765, #9769)",
       "en": "Added ephemeral threads and improved collaboration tool provenance metadata for spawned threads. (#9765, #9769)"
@@ -2550,7 +2550,7 @@
     {
       "id": 318,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "WebSocket接続でプロキシ設定に対応 (#9719)",
       "en": "WebSocket connections now support proxy configuration. (#9719)"
@@ -2558,7 +2558,7 @@
     {
       "id": 319,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "マルチエージェントの制限をより厳格化",
       "en": "More strict limitation on multi-agents"
@@ -2566,7 +2566,7 @@
     {
       "id": 320,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "複数行の引用符付き引数に対する実行ポリシーの解析を修正 (#9565)",
       "en": "Fixed exec policy parsing for multiline quoted arguments. (#9565)"
@@ -2574,7 +2574,7 @@
     {
       "id": 321,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "`--yolo` がリポジトリ外で失敗する代わりに git リポジトリチェックをスキップするよう変更 (#9590)",
       "en": "`--yolo` now skips the git repository check instead of failing outside a repo. (#9590)"
@@ -2582,7 +2582,7 @@
     {
       "id": 322,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "順序が前後するイベントの処理とワーキングディレクトリが異なる場合のプロンプト表示により、再開の信頼性を向上 (#9512, #9731)",
       "en": "Improved resume reliability by handling out-of-order events and prompting for the working directory when it differs. (#9512, #9731)"
@@ -2590,7 +2590,7 @@
     {
       "id": 323,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "カーソルが要素の左端にある場合、バックスペースでテキスト要素が削除されないよう修正 (#9630)",
       "en": "Backspace no longer deletes a text element when the cursor is at the element’s left edge. (#9630)"
@@ -2598,7 +2598,7 @@
     {
       "id": 324,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 10,
       "ja": "設定読み込みエラーをより明確で実用的な内容に改善 (#9746)",
       "en": "Config loading errors are clearer and more actionable across surfaces. (#9746)"
@@ -2606,7 +2606,7 @@
     {
       "id": 325,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 11,
       "ja": "デフォルトモデル選択でフィルタされたプリセットを考慮し、無効なデフォルトを回避 (#9782)",
       "en": "Default model selection now respects filtered presets to avoid invalid defaults. (#9782)"
@@ -2614,7 +2614,7 @@
     {
       "id": 326,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 12,
       "ja": "実験的コラボレーションプロンプトテンプレートのタイポを修正 (#9716)",
       "en": "Corrected a typo in the experimental collaboration prompt template. (#9716)"
@@ -2622,7 +2622,7 @@
     {
       "id": 327,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 13,
       "ja": "新しいコネクタ設定画面のドキュメントを追加 (#9667)",
       "en": "Added documentation for the new connectors configuration surface. (#9667)"
@@ -2630,7 +2630,7 @@
     {
       "id": 328,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 14,
       "ja": "バンドルされているモデルカタログとプリセットを更新 (#9726)",
       "en": "Refreshed the bundled model catalog/presets. (#9726)"
@@ -2638,7 +2638,7 @@
     {
       "id": 329,
       "version": "0.90.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 15,
       "ja": "Node 24互換性のためGitHub Actionsを更新 (#9722)",
       "en": "Updated GitHub Actions for Node 24 compatibility. (#9722)"
@@ -2646,7 +2646,7 @@
     {
       "id": 330,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "互換性のため `/approvals` を残しつつ、より短い承認セットを持つ `/permissions` コマンドを追加 (#9561)",
       "en": "Added a `/permissions` command with a shorter approval set while keeping `/approvals` for compatibility. (#9561)"
@@ -2654,7 +2654,7 @@
     {
       "id": 331,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "個別スキルの有効化・無効化を可能にする `/skill` UI を追加 (#9627)",
       "en": "Added a `/skill` UI to enable or disable individual skills. (#9627)"
@@ -2662,7 +2662,7 @@
     {
       "id": 332,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "スラッシュコマンド選択を改善し、あいまい一致よりも完全一致と前方一致を優先 (#9629)",
       "en": "Improved slash-command selection by prioritizing exact and prefix matches over fuzzy matches. (#9629)"
@@ -2670,7 +2670,7 @@
     {
       "id": 333,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "アプリサーバーが `thread/read` に対応し、`thread/list` でアーカイブされたスレッドをフィルタリング可能に (#9569, #9571)",
       "en": "App server now supports `thread/read` and can filter archived threads in `thread/list`. (#9569, #9571)"
@@ -2678,7 +2678,7 @@
     {
       "id": 334,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "アプリサーバークライアントが階層的な `config.toml` 解決に対応し、`config/read` が指定された cwd から有効な設定を計算可能に (#9510)",
       "en": "App server clients now support layered `config.toml` resolution and `config/read` can compute effective config from a given cwd. (#9510)"
@@ -2686,7 +2686,7 @@
     {
       "id": 335,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "リリース成果物に公開された設定スキーマの安定した URL を追加 (#9572)",
       "en": "Release artifacts now include a stable URL for the published config schema. (#9572)"
@@ -2694,7 +2694,7 @@
     {
       "id": 336,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "`~//...` のようなパス上で HOME からチルダ展開がエスケープされるのを防止 (#9621)",
       "en": "Prevented tilde expansion from escaping HOME on paths like `~//...`. (#9621)"
@@ -2702,7 +2702,7 @@
     {
       "id": 337,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "TUI のターン計測をアシスタントメッセージ間でリセットし、経過時間が最新の応答を反映するように改善 (#9599)",
       "en": "TUI turn timing now resets between assistant messages so elapsed time reflects the latest response. (#9599)"
@@ -2710,7 +2710,7 @@
     {
       "id": 338,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "MCP サブコマンドのドキュメントを現在の CLI 動作に合わせて更新 (#9622)",
       "en": "Updated MCP subcommand docs to match current CLI behavior. (#9622)"
@@ -2718,7 +2718,7 @@
     {
       "id": 339,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "`skills/list` プロトコルの README サンプルを最新のレスポンス形式に更新 (#9623)",
       "en": "Refreshed the `skills/list` protocol README example to match the latest response shape. (#9623)"
@@ -2726,7 +2726,7 @@
     {
       "id": 340,
       "version": "0.89.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 10,
       "ja": "TUI2 実験とその関連設定・ドキュメントを削除し、Codex をターミナルネイティブ UI に維持 (#9640)",
       "en": "Removed the TUI2 experiment and its related config/docs, keeping Codex on the terminal-native UI. (#9640)"
@@ -2734,7 +2734,7 @@
     {
       "id": 341,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "ヘッドレス環境でデバイスコード認証をスタンドアロンフォールバックとして追加 (#9333)",
       "en": "Added device-code auth as a standalone fallback in headless environments. (#9333)"
@@ -2742,7 +2742,7 @@
     {
       "id": 342,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "信頼されたフォルダからのみ設定を読み込み、シンボリックリンクされた `config.toml` の解決を修正 (#9533, #9445)",
       "en": "Load configs from trusted folders only and fix symlinked `config.toml` resolution. (#9533, #9445)"
@@ -2750,7 +2750,7 @@
     {
       "id": 343,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "Azure エンドポイントの無効な入力エラーを修正 (#9387)",
       "en": "Fixed Azure endpoint invalid input errors. (#9387)"
@@ -2758,7 +2758,7 @@
     {
       "id": 344,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "コアランタイムのメモリリークを解決 (#9543)",
       "en": "Resolved a memory leak in core runtime. (#9543)"
@@ -2766,7 +2766,7 @@
     {
       "id": 345,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "中断されたターンの繰り返しを防止 (#9043)",
       "en": "Prevented interrupted turns from repeating. (#9043)"
@@ -2774,7 +2774,7 @@
     {
       "id": 346,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "WSL TUI の画像ペースト機能の不具合を修正 (#9473)",
       "en": "Fixed WSL TUI image paste regression. (#9473)"
@@ -2782,7 +2782,7 @@
     {
       "id": 347,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "MCP ドキュメントリンクを最新の宛先に更新 (#9490)",
       "en": "Updated MCP documentation link to the current destination. (#9490)"
@@ -2790,7 +2790,7 @@
     {
       "id": 348,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "ドキュメント内の \"Multi-agents\" の命名誤りを修正 (#9542)",
       "en": "Corrected a “Multi-agents” naming typo in docs. (#9542)"
@@ -2798,7 +2798,7 @@
     {
       "id": 349,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "コラボレーションモードの開発者向け手順を追加 (#9424)",
       "en": "Added developer instructions for collaboration modes. (#9424)"
@@ -2806,7 +2806,7 @@
     {
       "id": 350,
       "version": "0.88.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "Rust 1.92 にアップグレードし、コア Rust 依存関係を更新 (#8860, #9465, #9466, #9467, #9468, #9469)",
       "en": "Upgraded to Rust 1.92 and refreshed core Rust dependencies. (#8860, #9465, #9466, #9467, #9468, #9469)"
@@ -2814,7 +2814,7 @@
     {
       "id": 351,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "ユーザーメッセージのメタデータ（テキスト要素とバイト範囲）がプロトコル/アプリサーバー/コアを通じてラウンドトリップするようになり、UI アノテーションが履歴の再構築後も保持されるように改善 (#9331)",
       "en": "User message metadata (text elements and byte ranges) now round-trips through protocol/app-server/core so UI annotations can survive history rebuilds. (#9331)"
@@ -2822,7 +2822,7 @@
     {
       "id": 352,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "コラボレーション待機呼び出しが1つのリクエストで複数の ID をブロックできるようになり、マルチスレッド調整が簡素化 (#9294)",
       "en": "Collaboration wait calls can block on multiple IDs in one request, simplifying multi-thread coordination. (#9294)"
@@ -2830,7 +2830,7 @@
     {
       "id": 353,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "ユーザーシェルコマンドがユーザースナップショット下で実行されるようになり、エイリアスとシェル設定が尊重されるように改善 (#9357)",
       "en": "User shell commands now run under the user snapshot so aliases and shell config are honored. (#9357)"
@@ -2838,7 +2838,7 @@
     {
       "id": 354,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "TUI がスポーン/未購読スレッドからの承認リクエストを表示するように改善 (#9232)",
       "en": "The TUI now surfaces approval requests from spawned/unsubscribed threads. (#9232)"
@@ -2846,7 +2846,7 @@
     {
       "id": 355,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "圧縮時のトークン推定が正確になり、長時間セッション中の予算管理が改善 (#9337)",
       "en": "Token estimation during compaction is now accurate, improving budgeting during long sessions. (#9337)"
@@ -2854,7 +2854,7 @@
     {
       "id": 356,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "MCP CallToolResult が `content` と `structuredContent` の両方に `threadId` を含むようになり、互換性のために定義済み出力スキーマを返すように改善 (#9338)",
       "en": "MCP CallToolResult now includes `threadId` in both `content` and `structuredContent`, and returns a defined output schema for compatibility. (#9338)"
@@ -2862,7 +2862,7 @@
     {
       "id": 357,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "TUI の「Worked for」セパレーターが実際の作業が発生した後にのみ表示されるように改善 (#8958)",
       "en": "The TUI “Worked for” separator only appears after actual work has occurred. (#8958)"
@@ -2870,7 +2870,7 @@
     {
       "id": 358,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "パイプされた非 PTY コマンドが標準入力待ちでハングしなくなるよう修正 (#9369)",
       "en": "Piped non-PTY commands no longer hang waiting on stdin. (#9369)"
@@ -2878,7 +2878,7 @@
     {
       "id": 359,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "MCP インターフェースドキュメントが構造化出力スキーマと `threadId` の動作を反映するよう更新 (#9338)",
       "en": "MCP interface docs updated to reflect structured output schema and `threadId` behavior. (#9338)"
@@ -2886,7 +2886,7 @@
     {
       "id": 360,
       "version": "0.87.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "Windows ビルドがデフォルトで PowerShell UTF-8 機能を有効化 (#9195)",
       "en": "Windows builds enable the PowerShell UTF-8 feature by default. (#9195)"
@@ -2894,7 +2894,7 @@
     {
       "id": 361,
       "version": "0.86.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "スキルのメタデータ（名前、説明、アイコン、ブランドカラー、デフォルトプロンプト）を `SKILL.toml` で定義可能にし、アプリサーバーとTUIで表示できるよう対応（#9125）",
       "en": "Skill metadata can now be defined in `SKILL.toml` (names, descriptions, icons, brand color, default prompt) and surfaced in the app server and TUI (#9125)"
@@ -2902,7 +2902,7 @@
     {
       "id": 362,
       "version": "0.86.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "クライアントがウェブ検索を明示的に無効化し、ヘッダー経由で適格性を通知してサーバー側のロールアウト制御と連携可能に（#9249）",
       "en": "Clients can explicitly disable web search and signal eligibility via a header to align with server-side rollout controls (#9249)"
@@ -2910,7 +2910,7 @@
     {
       "id": 363,
       "version": "0.86.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "MCPエリシテーションの受け入れ時に、コンテンツを期待するサーバーのためnullではなく空のJSONペイロードを送信するよう変更（#9196）",
       "en": "Accepting an MCP elicitation now sends an empty JSON payload instead of null to satisfy servers expecting content (#9196)"
@@ -2918,7 +2918,7 @@
     {
       "id": 364,
       "version": "0.86.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "入力プロンプトのプレースホルダースタイルを非イタリックに戻し、ターミナルレンダリング問題を回避（#9307）",
       "en": "Input prompt placeholder styling is back to non-italic to avoid terminal rendering issues (#9307)"
@@ -2926,7 +2926,7 @@
     {
       "id": 365,
       "version": "0.86.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "空のペーストイベントでクリップボード画像読み取りがトリガーされないよう修正（#9318）",
       "en": "Empty paste events no longer trigger clipboard image reads (#9318)"
@@ -2934,7 +2934,7 @@
     {
       "id": 366,
       "version": "0.86.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "統合execがバックグラウンドプロセスをクリーンアップし、リスナー停止後の遅延Endイベントを防止（#9304）",
       "en": "Unified exec cleans up background processes to prevent late End events after listeners stop (#9304)"
@@ -2942,7 +2942,7 @@
     {
       "id": 367,
       "version": "0.86.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "オーケストレータープロンプトをリフレッシュし、内部ルーティング動作を改善（#9301）",
       "en": "Refresh the orchestrator prompt to improve internal routing behavior (#9301)"
@@ -2950,7 +2950,7 @@
     {
       "id": 368,
       "version": "0.86.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "`needs_follow_up` の冗長なエラーログ出力を削減（#9272）",
       "en": "Reduce noisy `needs_follow_up` error logging (#9272)"
@@ -2958,7 +2958,7 @@
     {
       "id": 369,
       "version": "0.85.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "App-server v2 がコラボレーションツールの呼び出しをターンストリーム内のアイテムイベントとして出力するようになり、クライアントでエージェント連携をリアルタイムでレンダリング可能に (#9213)",
       "en": "App-server v2 now emits collaboration tool calls as item events in the turn stream, so clients can render agent coordination in real time. (#9213)"
@@ -2966,7 +2966,7 @@
     {
       "id": 370,
       "version": "0.85.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "コラボレーションツールのエージェント制御を強化: `spawn_agent` がエージェントロールプリセットを受け付け、`send_input` が実行中のエージェントを中断してからメッセージを配信可能に (#9275, #9276)",
       "en": "Collaboration tools gained richer agent control: `spawn_agent` accepts an agent role preset, and `send_input` can optionally interrupt a running agent before delivering the message. (#9275, #9276)"
@@ -2974,7 +2974,7 @@
     {
       "id": 371,
       "version": "0.85.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "`/models` メタデータにアップグレード移行用のマークダウンを追加し、クライアントがモデルアップグレード提案時により詳細なガイダンスを表示可能に (#9219)",
       "en": "`/models` metadata now includes upgrade migration markdown so clients can display richer guidance when suggesting model upgrades. (#9219)"
@@ -2982,7 +2982,7 @@
     {
       "id": 372,
       "version": "0.85.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "[revert] Linux サンドボックスが、ユーザー名前空間が利用できない場合に Landlock のみの制限にフォールバックし、サンドボックスルール適用前に `no_new_privs` を設定するように変更 (#9250)",
       "en": "[revert] Linux sandboxing now falls back to Landlock-only restrictions when user namespaces are unavailable, and sets `no_new_privs` before applying sandbox rules. (#9250)"
@@ -2990,7 +2990,7 @@
     {
       "id": 373,
       "version": "0.85.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "`codex resume --last` が現在の作業ディレクトリを尊重し、`--all` で明示的に上書き可能に (#9245)",
       "en": "`codex resume --last` now respects the current working directory, with `--all` as an explicit override. (#9245)"
@@ -2998,7 +2998,7 @@
     {
       "id": 374,
       "version": "0.85.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "標準入力プロンプトのデコードが BOM/UTF-16 に対応し、無効なエンコーディングに対してより明確なエラーを提供 (#9151)",
       "en": "Stdin prompt decoding now handles BOMs/UTF-16 and provides clearer errors for invalid encodings. (#9151)"
@@ -3006,7 +3006,7 @@
     {
       "id": 375,
       "version": "0.84.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "テキスト要素に追加のメタデータを含めるよう Rust プロトコル/型を拡張し、より豊富なクライアントレンダリングとスキーマの進化を可能にする (#9235)",
       "en": "Extend the Rust protocol/types to include additional metadata on text elements, enabling richer client rendering and schema evolution (#9235)"
@@ -3014,7 +3014,7 @@
     {
       "id": 376,
       "version": "0.84.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "リリースビルドジョブのタイムアウトを延長することで、Rust リリースパイプライン（特に Windows）の不安定性を軽減 (#9242)",
       "en": "Reduce flaky Rust release pipelines (notably on Windows) by increasing the release build job timeout (#9242)"
@@ -3022,7 +3022,7 @@
     {
       "id": 377,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "デフォルト API モデルを gpt-5.2-codex に変更 (#9188)",
       "en": "Default API model moved to gpt-5.2-codex. (#9188)"
@@ -3030,7 +3030,7 @@
     {
       "id": 378,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "`codex mcp-server` の `codex` ツールがレスポンスに `threadId` を含むよう変更し、`codex-reply` ツールで使用可能に。#3712 を修正。ドキュメントを https://developers.openai.com/codex/guides/agents-sdk/ で更新 (#9192)",
       "en": "The `codex` tool in `codex mcp-server` now includes the `threadId` in the response so it can be used with the `codex-reply` tool, fixing #3712. The documentation has been updated at https://developers.openai.com/codex/guides/agents-sdk/. (#9192)"
@@ -3038,7 +3038,7 @@
     {
       "id": 379,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "ヘッドレス実行時にデバイスコードログインへ自動切り替えし、ブラウザなしでのサインインに対応 (#8756)",
       "en": "Headless runs now switch to device-code login automatically so sign-in works without a browser. (#8756)"
@@ -3046,7 +3046,7 @@
     {
       "id": 380,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "Linux サンドボックスでパスを読み取り専用でマウント可能にし、ファイルの書き込みからより保護 (#9112)",
       "en": "Linux sandbox can mount paths read-only to better protect files from writes. (#9112)"
@@ -3054,7 +3054,7 @@
     {
       "id": 381,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "`tui` で部分的なツール呼び出しのレンダリングをサポート",
       "en": "Support partial tool calls rendering in `tui`"
@@ -3062,7 +3062,7 @@
     {
       "id": 382,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "代替スクリーン処理を改善し、Zellij のスクロールバックが壊れないよう修正。設定/フラグで制御可能に (#8555)",
       "en": "Alternate-screen handling now avoids breaking Zellij scrollback and adds a config/flag to control it. (#8555)"
@@ -3070,7 +3070,7 @@
     {
       "id": 383,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "Windows で読み取り専用サンドボックスポリシー実行時に、危険なコマンドの前に正しくプロンプト表示 (#9117)",
       "en": "Windows correctly prompts before unsafe commands when running with a read-only sandbox policy. (#9117)"
@@ -3078,7 +3078,7 @@
     {
       "id": 384,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "Config.toml とルールのパースエラーを、サイレント失敗ではなく app-server クライアント/TUI に報告 (#9182, #9011)",
       "en": "Config.toml and rules parsing errors are reported to app-server clients/TUI instead of failing silently. (#9182, #9011)"
@@ -3086,7 +3086,7 @@
     {
       "id": 385,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "macOS のシステム設定でプロキシ検出時のクラッシュを回避 (#8954)",
       "en": "Worked around a macOS system-configuration crash in proxy discovery. (#8954)"
@@ -3094,7 +3094,7 @@
     {
       "id": 386,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "無効なユーザー画像アップロード時に、サイレント置換ではなくエラーを表示 (#9146)",
       "en": "Invalid user image uploads now surface an error instead of being silently replaced. (#9146)"
@@ -3102,7 +3102,7 @@
     {
       "id": 387,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 10,
       "ja": "`config.toml` の検証用 JSON Schema を生成し `docs/` で公開 (#8956)",
       "en": "Published a generated JSON Schema for `config.toml` in `docs/` to validate configs. (#8956)"
@@ -3110,7 +3110,7 @@
     {
       "id": 388,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 11,
       "ja": "ブラケット付きペーストが信頼できない端末向けの TUI ペーストバースト状態マシンをドキュメント化 (#9020)",
       "en": "Documented the TUI paste-burst state machine for terminals without reliable bracketed paste. (#9020)"
@@ -3118,7 +3118,7 @@
     {
       "id": 389,
       "version": "0.81.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 12,
       "ja": "Bazel ビルドサポートを追加。コントリビューター向けに `just bazel-codex` ヘルパーも追加 (#8875, #9177)",
       "en": "Added Bazel build support plus a `just bazel-codex` helper for contributors. (#8875, #9177)"
@@ -3126,7 +3126,7 @@
     {
       "id": 390,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "プロトコルとアプリサーバーに会話/スレッドフォークエンドポイントを追加し、クライアントがセッションを新しいスレッドに分岐可能に (#8866)",
       "en": "Add conversation/thread fork endpoints in the protocol and app server so clients can branch a session into a new thread. (#8866)"
@@ -3134,7 +3134,7 @@
     {
       "id": 391,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "`requirement/list` 経由で requirements を公開し、クライアントが `requirements.toml` を読み取ってエージェントモード UX を調整可能に (#8800)",
       "en": "Expose requirements via `requirement/list` so clients can read `requirements.toml` and adjust agent-mode UX. (#8800)"
@@ -3142,7 +3142,7 @@
     {
       "id": 392,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "可観測性のための追加カウンターを含むメトリクス機能を導入 (#8318, #8910)",
       "en": "Introduce metrics capabilities with additional counters for observability. (#8318, #8910)"
@@ -3150,7 +3150,7 @@
     {
       "id": 393,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "アップグレード/縮退モード用のプロンプトと `/elevate-sandbox` コマンドを含む昇格サンドボックスのオンボーディングを追加 (#8789)",
       "en": "Add elevated sandbox onboarding with prompts for upgrade/degraded mode plus the `/elevate-sandbox` command. (#8789)"
@@ -3158,7 +3158,7 @@
     {
       "id": 394,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "v2 API ユーザー入力を通じた明示的なスキル呼び出しに対応 (#8864)",
       "en": "Allow explicit skill invocations through v2 API user input. (#8864)"
@@ -3166,7 +3166,7 @@
     {
       "id": 395,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "Codex CLI サブプロセスが再び `LD_LIBRARY_PATH`/`DYLD_LIBRARY_PATH` などの環境変数を継承し、ランタイム問題を回避。#8945 で説明されているように、これらの環境変数をサブプロセス(特に GPU 関連)に渡さないと 10 倍以上のパフォーマンス低下が発生していた。詳細な調査とレポートを提供した @johnzfitch に感謝 (#8951)",
       "en": "Codex CLI subprocesses again inherit env vars like `LD_LIBRARY_PATH`/`DYLD_LIBRARY_PATH` to avoid runtime issues. As explained in #8945, failure to pass along these environment variables to subprocesses that expect them (notably GPU-related ones), was causing 10x+ performance regressions! Special thanks to @johnzfitch for the detailed investigation and write-up in #8945. (#8951)"
@@ -3174,7 +3174,7 @@
     {
       "id": 396,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "TUI/TUI2 の `/review <instructions>` がプレーンテキスト送信ではなくレビューフローを起動するように変更 (#8823)",
       "en": "`/review <instructions>` in TUI/TUI2 now launches the review flow instead of sending plain text. (#8823)"
@@ -3182,7 +3182,7 @@
     {
       "id": 397,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "パッチ承認の「このセッションで許可」が以前承認されたファイルに対して保持されるように修正 (#8451)",
       "en": "Patch approval “allow this session” now sticks for previously approved files. (#8451)"
@@ -3190,7 +3190,7 @@
     {
       "id": 398,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "現在のモデルがピッカーから非表示の場合でもモデルアップグレードプロンプトを表示 (#8802)",
       "en": "Model upgrade prompt now appears even if the current model is hidden from the picker. (#8802)"
@@ -3198,7 +3198,7 @@
     {
       "id": 399,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "Windows の貼り付け処理が非 ASCII マルチライン入力を確実にサポート。#8021 でこの修正の基礎を築いた @occurrent に感謝 (#8774)",
       "en": "Windows paste handling now supports non-ASCII multiline input reliably. Special thanks to @occurrent laying the groundwork for this fix in #8021! (#8774)"
@@ -3206,7 +3206,7 @@
     {
       "id": 400,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 10,
       "ja": "Git apply のパス解析がクォート/エスケープされたパスと `/dev/null` を正しく処理し、変更の誤分類を回避 (#8824)",
       "en": "Git apply path parsing now handles quoted/escaped paths and `/dev/null` correctly to avoid misclassified changes. (#8824)"
@@ -3214,7 +3214,7 @@
     {
       "id": 401,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 11,
       "ja": "アプリサーバーの README にスキルサポートと使用方法を文書化 (#8853)",
       "en": "App-server README now documents skills support and usage. (#8853)"
@@ -3222,7 +3222,7 @@
     {
       "id": 402,
       "version": "0.80.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 12,
       "ja": "スキル作成ドキュメントで YAML フロントマターのフォーマットとクォート規則を明確化 (#8610)",
       "en": "Skill-creator docs clarify YAML frontmatter formatting and quoting rules. (#8610)"
@@ -3230,7 +3230,7 @@
     {
       "id": 403,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "マルチ会話「エージェント制御」を追加し、セッションがプログラム的に他の会話を生成またはメッセージ送信可能に (#8783, #8788)",
       "en": "Add multi-conversation “agent control” so a session can spawn or message other conversations programmatically (#8783, #8788)"
@@ -3238,7 +3238,7 @@
     {
       "id": 404,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "app-server に `thread/rollback` を追加し、IDE クライアントが履歴を書き換えずに最後の N ターンを取り消し可能に (#8454)",
       "en": "Add app-server `thread/rollback` so IDE clients can undo the last N turns without rewriting history (#8454)"
@@ -3246,7 +3246,7 @@
     {
       "id": 405,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "`web_search_cached` を追加し、ライブリクエストの代替としてキャッシュのみの Web 検索結果を有効化 (#8795)",
       "en": "Add `web_search_cached` to enable cached-only Web Search results as a safer alternative to live requests (#8795)"
@@ -3254,7 +3254,7 @@
     {
       "id": 406,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "グローバル実行フラグ（model/json/sandbox トグル等）を `codex exec resume` の後に渡すことが可能に (#8440)",
       "en": "Allow global exec flags (model/json/sandbox toggles, etc.) to be passed after `codex exec resume` (#8440)"
@@ -3262,7 +3262,7 @@
     {
       "id": 407,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "TUI にリポジトリの TOML ファイルで制御される時間/バージョン対象のアナウンスティップを表示 (#8752)",
       "en": "Show time/version-targeted announcement tips in the TUI, driven by a TOML file in the repo (#8752)"
@@ -3270,7 +3270,7 @@
     {
       "id": 408,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "アナリティクス動作を制御する `[analytics] enabled=...` 設定セクションを追加 (#8350)",
       "en": "Add an `[analytics] enabled=...` config section to control analytics behavior (#8350)"
@@ -3278,7 +3278,7 @@
     {
       "id": 409,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "TUI2 トランスクリプトを修正し、ストリーミングされたマークダウンがリサイズ時に再フローし、コピー/ペーストがソフトラップを保持するように改善 (#8761)",
       "en": "Fix TUI2 transcripts so streamed markdown reflows on resize and copy/paste preserves soft wraps (#8761)"
@@ -3286,7 +3286,7 @@
     {
       "id": 410,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "`apply_patch` のパースを空白でパディングされた `*** Begin Patch` / `*** End Patch` マーカーに対して寛容に (#8746)",
       "en": "Make `apply_patch` parsing tolerant of whitespace-padded `*** Begin Patch` / `*** End Patch` markers (#8746)"
@@ -3294,7 +3294,7 @@
     {
       "id": 411,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "git ルートをチェックする前に現在の作業ディレクトリからの相対パスをレンダリングし、非 git ワークスペースでの出力を改善 (#8771)",
       "en": "Render paths relative to the current working directory before checking git roots, improving output in non-git workspaces (#8771)"
@@ -3302,7 +3302,7 @@
     {
       "id": 412,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "`CODEX_MANAGED_CONFIG_PATH` が本番環境で管理設定を上書きしないようにし、ポリシーバイパスを解消 (#8762)",
       "en": "Prevent `CODEX_MANAGED_CONFIG_PATH` from overriding managed config in production, closing a policy bypass (#8762)"
@@ -3310,7 +3310,7 @@
     {
       "id": 413,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 10,
       "ja": "app-server の会話がクライアントから渡された設定を尊重することを保証 (#8765)",
       "en": "Ensure app-server conversations respect the config passed in by the client (#8765)"
@@ -3318,7 +3318,7 @@
     {
       "id": 414,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 11,
       "ja": "TUI UX の不具合を軽減: 入力履歴の閲覧時にポップアップを抑制、コピー「ピル」のレンダリングを修正、中断時にバックグラウンドターミナルをクリア (#8772, #8777, #8786)",
       "en": "Reduce TUI UX glitches: suppress popups when browsing input history, fix copy “pill” rendering, and clear background terminals on interrupt (#8772, #8777, #8786)"
@@ -3326,7 +3326,7 @@
     {
       "id": 415,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 12,
       "ja": "ヘッドレス/リモートセットアップのオンボーディング/ログインガイダンスを明確化し、ユーザーを `codex login --device-auth` に誘導 (#8753)",
       "en": "Clarify onboarding/login guidance for headless/remote setups by steering users to `codex login --device-auth` (#8753)"
@@ -3334,7 +3334,7 @@
     {
       "id": 416,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 13,
       "ja": "ツール/設定で使用されるモデル例を現在の `gpt-5.2` ネーミングに更新 (#8566)",
       "en": "Update model examples used in tooling/config to current `gpt-5.2` naming (#8566)"
@@ -3342,7 +3342,7 @@
     {
       "id": 417,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 14,
       "ja": "スキル検出を設定レイヤースタックを使用するようにリファクタリングし、すべての設定済みスキルフォルダを考慮 (#8497)",
       "en": "Refactor skills discovery to use the config layer stack so all configured skill folders are considered (#8497)"
@@ -3350,7 +3350,7 @@
     {
       "id": 418,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 15,
       "ja": "リリース作成時に GitHub リリースノートを自動生成 (#8799)",
       "en": "Auto-populate GitHub release notes at release creation time (#8799)"
@@ -3358,7 +3358,7 @@
     {
       "id": 419,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 16,
       "ja": "`apply_patch` のテストシナリオを追加してカバレッジを強化 (#8230)",
       "en": "Add more `apply_patch` test scenarios to harden coverage (#8230)"
@@ -3366,7 +3366,7 @@
     {
       "id": 420,
       "version": "0.79.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 17,
       "ja": "統合された exec イベント発行を調整し、PTY が存在する場合のみ「begin」を送信 (#8780)",
       "en": "Tweak unified exec event emission to only send “begin” when a PTY is present (#8780)"
@@ -3374,7 +3374,7 @@
     {
       "id": 421,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 0,
       "ja": "`Ctrl+G` で現在のプロンプトを設定済みの外部エディタ（`$VISUAL`/`$EDITOR`）で開き、編集内容をTUIに同期する機能を追加 (#7606)",
       "en": "Add `Ctrl+G` to open the current prompt in your configured external editor (`$VISUAL`/`$EDITOR`) and sync edits back into the TUI. (#7606)"
@@ -3382,7 +3382,7 @@
     {
       "id": 422,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 1,
       "ja": "プロジェクト対応の設定レイヤーをサポート: リポジトリローカルの `.codex/config.toml` を読み込み、設定可能な `project_root_markers` を尊重し、`/etc/codex/config.toml` などのシステム設定とマージ (#8354, #8359, #8461)",
       "en": "Support project-aware config layering: load repo-local `.codex/config.toml`, honor configurable `project_root_markers`, and merge that with system config like `/etc/codex/config.toml`. (#8354, #8359, #8461)"
@@ -3390,7 +3390,7 @@
     {
       "id": 423,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 2,
       "ja": "macOS で MDM 提供の TOML ペイロードによるエンタープライズ管理設定要件をサポート (#8743)",
       "en": "Support enterprise-managed configuration requirements on macOS via an MDM-provided TOML payload. (#8743)"
@@ -3398,7 +3398,7 @@
     {
       "id": 424,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 3,
       "ja": "`tui2` のトランスクリプトナビゲーションを改善: マルチクリック選択、コピーショートカット/アフォーダンス、ドラッグ可能な自動非表示スクロールバーを追加 (#8462, #8471, #8728)",
       "en": "Improve `tui2` transcript navigation with multi-click selection, a copy shortcut/affordance, and a draggable auto-hiding scrollbar. (#8462, #8471, #8728)"
@@ -3406,7 +3406,7 @@
     {
       "id": 425,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 4,
       "ja": "Windows PowerShell セッションを UTF-8 モードで開始し、エンコーディング関連のプロンプト/出力問題を軽減 (#7902)",
       "en": "Start Windows PowerShell sessions in UTF-8 mode to reduce encoding-related prompt/output issues. (#7902)"
@@ -3414,7 +3414,7 @@
     {
       "id": 426,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 5,
       "ja": "実行ポリシールールに人間が読める形式の正当化理由を含めることが可能になり、ポリシー読み込みは統一された設定レイヤースタックに従うよう変更 (#8349, #8453, #8751)",
       "en": "Exec policy rules can now include human-readable justifications, and policy loading follows the unified config-layer stack. (#8349, #8453, #8751)"
@@ -3422,7 +3422,7 @@
     {
       "id": 427,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 6,
       "ja": "モデルが1ターンで複数のツール呼び出しを返す場合の失敗を修正: Chat Completions API が期待する形式でツール呼び出しを出力 (#8556)",
       "en": "Fix failures when the model returns multiple tool calls in a single turn by emitting tool calls in the format the Chat Completions API expects. (#8556)"
@@ -3430,7 +3430,7 @@
     {
       "id": 428,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 7,
       "ja": "`/review` がセッションの作業ディレクトリから差分を計算するよう修正し、ランタイムcwdオーバーライド使用時もベースブランチ検出が正しく動作するよう改善 (#8738)",
       "en": "Make `/review` compute diffs from the session’s working directory so base-branch detection works correctly with runtime cwd overrides. (#8738)"
@@ -3438,7 +3438,7 @@
     {
       "id": 429,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 8,
       "ja": "レガシーの Chat Completions ストリーミング終端文字を適切に処理し、不正な SSE パースエラーを回避 (#8708)",
       "en": "Handle the legacy Chat Completions streaming terminator cleanly to avoid spurious SSE parse errors. (#8708)"
@@ -3446,7 +3446,7 @@
     {
       "id": 430,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 9,
       "ja": "`tui2` のレンダリング/入力エッジケースを修正（画面破損、スクロールの粘着性、選択/コピーの正確性） (#8463, #8695, #8449)",
       "en": "Fix a set of `tui2` rendering/input edge cases (screen corruption, scroll stickiness, and selection/copy correctness). (#8463, #8695, #8449)"
@@ -3454,7 +3454,7 @@
     {
       "id": 431,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 10,
       "ja": "CLI パッケージング時の `ripgrep` ダウンロード失敗時の診断を改善し、失敗のデバッグを容易化 (#8486)",
       "en": "Improve diagnostics when `ripgrep` download fails during CLI packaging so failures are easier to debug. (#8486)"
@@ -3462,7 +3462,7 @@
     {
       "id": 432,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 11,
       "ja": "alpha/stable バージョン文字列のパース時のパニックを回避 (#8406)",
       "en": "Avoid a panic when parsing alpha/stable version strings. (#8406)"
@@ -3470,7 +3470,7 @@
     {
       "id": 433,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 12,
       "ja": "ユーザードキュメントを開発者ドキュメントサイトへのリンクに置き換え・重複排除（スキルドキュメントを含む） (#8662, #8407)",
       "en": "Replace and de-duplicate user docs with links to the developer documentation site (including skills docs). (#8662, #8407)"
@@ -3478,7 +3478,7 @@
     {
       "id": 434,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 13,
       "ja": "設定ドキュメントを明確化（`developer_instructions` オプションを含む） (#8376, #8701)",
       "en": "Clarify configuration documentation, including the `developer_instructions` option. (#8376, #8701)"
@@ -3486,7 +3486,7 @@
     {
       "id": 435,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 14,
       "ja": "README の壊れたリンクを修正 (#8682)",
       "en": "Fix broken README links. (#8682)"
@@ -3494,7 +3494,7 @@
     {
       "id": 436,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 15,
       "ja": "TUI のパフォーマンスチューニング: 再描画スケジューリングの上限設定とストリーミング中の不要な再レンダリングを削減し、CPU 使用率を低減 (#8499, #8681, #8693)",
       "en": "Performance tuning for TUIs: cap redraw scheduling and reduce unnecessary rerenders during streaming to lower CPU usage. (#8499, #8681, #8693)"
@@ -3502,7 +3502,7 @@
     {
       "id": 437,
       "version": "0.78.0",
-      "monthKey": "2026-01",
+      "monthKey": "2026-02",
       "entryIndex": 16,
       "ja": "`codex-rs` 全体の Rust 依存関係を更新 (#8414, #8596, #8597)",
       "en": "Update Rust dependencies across `codex-rs`. (#8414, #8596, #8597)"
