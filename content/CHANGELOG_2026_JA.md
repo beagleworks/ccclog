@@ -4,6 +4,30 @@
 
 ---
 
+## 2.1.90
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `/powerup` を追加 — アニメーションデモ付きで Claude Code の機能を学べるインタラクティブレッスン | Added `/powerup` — interactive lessons teaching Claude Code features with animated demos | added |
+| `git pull` 失敗時に既存のマーケットプレイスキャッシュを保持する環境変数 `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE` を追加（オフライン環境で有用） | Added `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE` env var to keep the existing marketplace cache when `git pull` fails, useful in offline environments | added |
+| `.husky` を保護対象ディレクトリに追加（acceptEdits モード） | Added `.husky` to protected directories (acceptEdits mode) | added |
+| 使用制限に達した際にレート制限ダイアログが繰り返し自動表示され、最終的にセッションがクラッシュする無限ループを修正 | Fixed an infinite loop where the rate-limit options dialog would repeatedly auto-open after hitting your usage limit, eventually crashing the session | fixed |
+| deferred tools・MCP サーバー・カスタムエージェントを使用するユーザーで `--resume` が初回リクエスト時にプロンプトキャッシュを完全にミスする問題を修正（v2.1.69 以降のリグレッション） | Fixed `--resume` causing a full prompt-cache miss on the first request for users with deferred tools, MCP servers, or custom agents (regression since v2.1.69) | fixed |
+| PostToolUse のフォーマット保存フックが連続編集の間にファイルを書き換えた場合に `Edit`/`Write` が「File content has changed」で失敗する問題を修正 | Fixed `Edit`/`Write` failing with "File content has changed" when a PostToolUse format-on-save hook rewrites the file between consecutive edits | fixed |
+| JSON を stdout に出力してコード 2 で終了する `PreToolUse` フックがツール呼び出しを正しくブロックしない問題を修正 | Fixed `PreToolUse` hooks that emit JSON to stdout and exit with code 2 not correctly blocking the tool call | fixed |
+| ツール呼び出し中に CLAUDE.md が自動読み込みされた際、折りたたまれた検索・読み取りのサマリーバッジがフルスクリーンのスクロールバックに複数表示される問題を修正 | Fixed collapsed search/read summary badge appearing multiple times in fullscreen scrollback when a CLAUDE.md file auto-loads during a tool call | fixed |
+| auto モードで、本来許可された操作であっても明示的なユーザー指示（「push しないで」「X の前に Y を待って」など）が無視される問題を修正 | Fixed auto mode not respecting explicit user boundaries ("don't push", "wait for X before Y") even when the action would otherwise be allowed | fixed |
+| ライトテーマのターミナルでクリック展開のホバーテキストがほぼ見えない問題を修正 | Fixed click-to-expand hover text being nearly invisible on light terminal themes | fixed |
+| 不正なツール入力がパーミッションダイアログに到達した際の UI クラッシュを修正 | Fixed UI crash when malformed tool input reached the permission dialog | fixed |
+| `/model`・`/config` などの選択画面でスクロール時にヘッダーが消える問題を修正 | Fixed headers disappearing when scrolling `/model`, `/config`, and other selection screens | fixed |
+| PowerShell のツールパーミッションチェックを強化：末尾の `&` によるバックグラウンドジョブ回避・`-ErrorAction Break` によるデバッガーハング・アーカイブ展開の TOCTOU・パース失敗時のフォールバック deny ルール劣化を修正 | Hardened PowerShell tool permission checks: fixed trailing `&` background job bypass, `-ErrorAction Break` debugger hang, archive-extraction TOCTOU, and parse-fail fallback deny-rule degradation | fixed |
+| キャッシュキー検索時に MCP ツールスキーマをターンごとに JSON.stringify していた処理を削除しパフォーマンスを改善 | Improved performance: eliminated per-turn JSON.stringify of MCP tool schemas on cache-key lookup | improved |
+| SSE トランスポートの大きなストリームフレーム処理を二乗時間から線形時間に改善 | Improved performance: SSE transport now handles large streamed frames in linear time (was quadratic) | improved |
+| 長い会話の SDK セッションでトランスクリプト書き込みが二乗的に遅くなる問題を改善 | Improved performance: SDK sessions with long conversations no longer slow down quadratically on transcript writes | improved |
+| 多数のプロジェクトを持つユーザーの読み込み時間改善のため、`/resume` の全プロジェクトビューでプロジェクトセッションを並列読み込みするよう改善 | Improved `/resume` all-projects view to load project sessions in parallel, improving load times for users with many projects | improved |
+| `--resume` ピッカーで `claude -p` や SDK 経由で作成されたセッションを表示しないよう変更 | Changed `--resume` picker to no longer show sessions created by `claude -p` or SDK invocations | changed |
+| `Get-DnsClientCache` および `ipconfig /displaydns` を自動許可から削除（DNS キャッシュのプライバシー保護） | Removed `Get-DnsClientCache` and `ipconfig /displaydns` from auto-allow (DNS cache privacy) | changed |
+
 ## 2.1.89
 
 | 日本語 | English | Category |
