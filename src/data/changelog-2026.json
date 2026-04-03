@@ -1,10 +1,82 @@
 {
-  "generatedAt": "2026-04-02T01:40:40.159Z",
+  "generatedAt": "2026-04-03T01:40:08.590Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "2.1.91",
+          "releaseDate": "2026-04-03",
+          "releaseDateDisplay": "2026年4月3日",
+          "entries": [
+            {
+              "ja": "`_meta[\"anthropic/maxResultSizeChars\"]` アノテーション（最大500K）による MCP ツール結果の永続化オーバーライドを追加し、DBスキーマなど大きな結果をトランケーションなしで通過可能に",
+              "en": "Added MCP tool result persistence override via `_meta[\"anthropic/maxResultSizeChars\"]` annotation (up to 500K), allowing larger results like DB schemas to pass through without truncation",
+              "category": "added"
+            },
+            {
+              "ja": "スキル・カスタムスラッシュコマンド・プラグインコマンドのインラインシェル実行を無効化する `disableSkillShellExecution` 設定を追加",
+              "en": "Added `disableSkillShellExecution` setting to disable inline shell execution in skills, custom slash commands, and plugin commands",
+              "category": "added"
+            },
+            {
+              "ja": "`claude-cli://open?q=` ディープリンクでの複数行プロンプトをサポート（エンコードされた改行 `%0A` が拒否されなくなった）",
+              "en": "Added support for multi-line prompts in `claude-cli://open?q=` deep links (encoded newlines `%0A` no longer rejected)",
+              "category": "added"
+            },
+            {
+              "ja": "プラグインが `bin/` 以下に実行ファイルを同梱し、Bash ツールからベアコマンドとして呼び出し可能に",
+              "en": "Plugins can now ship executables under `bin/` and invoke them as bare commands from the Bash tool",
+              "category": "added"
+            },
+            {
+              "ja": "非同期トランスクリプト書き込みのサイレント失敗時に `--resume` で会話履歴が失われる可能性があったトランスクリプトチェーン切断を修正",
+              "en": "Fixed transcript chain breaks on `--resume` that could lose conversation history when async transcript writes fail silently",
+              "category": "fixed"
+            },
+            {
+              "ja": "iTerm2・kitty・WezTerm・Ghostty・Windows Terminal で `cmd+delete` が行頭まで削除されない不具合を修正",
+              "en": "Fixed `cmd+delete` not deleting to start of line on iTerm2, kitty, WezTerm, Ghostty, and Windows Terminal",
+              "category": "fixed"
+            },
+            {
+              "ja": "コンテナ再起動後にリモートセッションのプランモードがプランファイルを見失い、プラン編集時の権限プロンプトやプラン承認モーダルが空になる不具合を修正",
+              "en": "Fixed plan mode in remote sessions losing track of the plan file after a container restart, which caused permission prompts on plan edits and an empty plan-approval modal",
+              "category": "fixed"
+            },
+            {
+              "ja": "settings.json の `permissions.defaultMode: \"auto\"` に対する JSON スキーマバリデーションを修正",
+              "en": "Fixed JSON schema validation for `permissions.defaultMode: \"auto\"` in settings.json",
+              "category": "fixed"
+            },
+            {
+              "ja": "Windows のバージョンクリーンアップがアクティブバージョンのロールバックコピーを保護しない不具合を修正",
+              "en": "Fixed Windows version cleanup not protecting the active version's rollback copy",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/feedback` がスラッシュメニューから消えるのではなく、利用不可の理由を表示するように改善",
+              "en": "`/feedback` now explains why it's unavailable instead of disappearing from the slash menu",
+              "category": "improved"
+            },
+            {
+              "ja": "`/claude-api` スキルのエージェント設計パターンに関するガイダンスを改善（ツールサーフェスの決定・コンテキスト管理・キャッシュ戦略を含む）",
+              "en": "Improved `/claude-api` skill guidance for agent design patterns including tool surface decisions, context management, and caching strategy",
+              "category": "improved"
+            },
+            {
+              "ja": "`Bun.stripANSI` を経由することで Bun 上の `stripAnsi` を高速化し、パフォーマンスを改善",
+              "en": "Improved performance: faster `stripAnsi` on Bun by routing through `Bun.stripANSI`",
+              "category": "improved"
+            },
+            {
+              "ja": "Edit ツールがより短い `old_string` アンカーを使用するようになり、出力トークン数を削減",
+              "en": "Edit tool now uses shorter `old_string` anchors, reducing output tokens",
+              "category": "improved"
+            }
+          ]
+        },
         {
           "version": "2.1.90",
           "releaseDate": "2026-04-02",

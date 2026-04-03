@@ -4,6 +4,24 @@
 
 ---
 
+## 2.1.91
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `_meta["anthropic/maxResultSizeChars"]` アノテーション（最大500K）による MCP ツール結果の永続化オーバーライドを追加し、DBスキーマなど大きな結果をトランケーションなしで通過可能に | Added MCP tool result persistence override via `_meta["anthropic/maxResultSizeChars"]` annotation (up to 500K), allowing larger results like DB schemas to pass through without truncation | added |
+| スキル・カスタムスラッシュコマンド・プラグインコマンドのインラインシェル実行を無効化する `disableSkillShellExecution` 設定を追加 | Added `disableSkillShellExecution` setting to disable inline shell execution in skills, custom slash commands, and plugin commands | added |
+| `claude-cli://open?q=` ディープリンクでの複数行プロンプトをサポート（エンコードされた改行 `%0A` が拒否されなくなった） | Added support for multi-line prompts in `claude-cli://open?q=` deep links (encoded newlines `%0A` no longer rejected) | added |
+| プラグインが `bin/` 以下に実行ファイルを同梱し、Bash ツールからベアコマンドとして呼び出し可能に | Plugins can now ship executables under `bin/` and invoke them as bare commands from the Bash tool | added |
+| 非同期トランスクリプト書き込みのサイレント失敗時に `--resume` で会話履歴が失われる可能性があったトランスクリプトチェーン切断を修正 | Fixed transcript chain breaks on `--resume` that could lose conversation history when async transcript writes fail silently | fixed |
+| iTerm2・kitty・WezTerm・Ghostty・Windows Terminal で `cmd+delete` が行頭まで削除されない不具合を修正 | Fixed `cmd+delete` not deleting to start of line on iTerm2, kitty, WezTerm, Ghostty, and Windows Terminal | fixed |
+| コンテナ再起動後にリモートセッションのプランモードがプランファイルを見失い、プラン編集時の権限プロンプトやプラン承認モーダルが空になる不具合を修正 | Fixed plan mode in remote sessions losing track of the plan file after a container restart, which caused permission prompts on plan edits and an empty plan-approval modal | fixed |
+| settings.json の `permissions.defaultMode: "auto"` に対する JSON スキーマバリデーションを修正 | Fixed JSON schema validation for `permissions.defaultMode: "auto"` in settings.json | fixed |
+| Windows のバージョンクリーンアップがアクティブバージョンのロールバックコピーを保護しない不具合を修正 | Fixed Windows version cleanup not protecting the active version's rollback copy | fixed |
+| `/feedback` がスラッシュメニューから消えるのではなく、利用不可の理由を表示するように改善 | `/feedback` now explains why it's unavailable instead of disappearing from the slash menu | improved |
+| `/claude-api` スキルのエージェント設計パターンに関するガイダンスを改善（ツールサーフェスの決定・コンテキスト管理・キャッシュ戦略を含む） | Improved `/claude-api` skill guidance for agent design patterns including tool surface decisions, context management, and caching strategy | improved |
+| `Bun.stripANSI` を経由することで Bun 上の `stripAnsi` を高速化し、パフォーマンスを改善 | Improved performance: faster `stripAnsi` on Bun by routing through `Bun.stripANSI` | improved |
+| Edit ツールがより短い `old_string` アンカーを使用するようになり、出力トークン数を削減 | Edit tool now uses shorter `old_string` anchors, reducing output tokens | improved |
+
 ## 2.1.90
 
 | 日本語 | English | Category |
