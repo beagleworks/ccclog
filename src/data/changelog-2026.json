@@ -1,10 +1,122 @@
 {
-  "generatedAt": "2026-04-03T01:40:08.590Z",
+  "generatedAt": "2026-04-04T01:39:52.116Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "2.1.92",
+          "releaseDate": "2026-04-04",
+          "releaseDateDisplay": "2026年4月4日",
+          "entries": [
+            {
+              "ja": "リモート管理設定が最新の状態で取得されるまで CLI の起動をブロックし、取得失敗時は終了する `forceRemoteSettingsRefresh` ポリシー設定を追加",
+              "en": "Added `forceRemoteSettingsRefresh` policy setting: when set, the CLI blocks startup until remote managed settings are freshly fetched, and exits if the fetch fails (fail-closed)",
+              "category": "added"
+            },
+            {
+              "ja": "ログイン画面の「サードパーティプラットフォーム」選択時にアクセス可能な、AWS 認証・リージョン設定・認証情報の検証・モデル固定をガイドする対話型 Bedrock セットアップウィザードを追加",
+              "en": "Added interactive Bedrock setup wizard accessible from the login screen when selecting \"3rd-party platform\" — guides you through AWS authentication, region configuration, credential verification, and model pinning",
+              "category": "added"
+            },
+            {
+              "ja": "サブスクリプションユーザー向け `/cost` にモデル別・キャッシュヒット別の内訳を追加",
+              "en": "Added per-model and cache-hit breakdown to `/cost` for subscription users",
+              "category": "added"
+            },
+            {
+              "ja": "`/release-notes` を対話型バージョン選択式に変更",
+              "en": "`/release-notes` is now an interactive version picker",
+              "category": "changed"
+            },
+            {
+              "ja": "Remote Control のセッション名がデフォルトでホスト名をプレフィックスとして使用するように変更（例: `myhost-graceful-unicorn`）、`--remote-control-session-name-prefix` で上書き可能",
+              "en": "Remote Control session names now use your hostname as the default prefix (e.g. `myhost-graceful-unicorn`), overridable with `--remote-control-session-name-prefix`",
+              "category": "changed"
+            },
+            {
+              "ja": "プロンプトキャッシュの有効期限切れ後にセッションへ戻った際、次のターンでキャッシュなしで送信されるおおよそのトークン数を示すフッターヒントを Pro ユーザー向けに追加",
+              "en": "Pro users now see a footer hint when returning to a session after the prompt cache has expired, showing roughly how many tokens the next turn will send uncached",
+              "category": "added"
+            },
+            {
+              "ja": "長時間実行セッション中に tmux ウィンドウが削除・番号変更された後、「Could not determine pane count」エラーでサブエージェントの生成が永続的に失敗する問題を修正",
+              "en": "Fixed subagent spawning permanently failing with \"Could not determine pane count\" after tmux windows are killed or renumbered during a long-running session",
+              "category": "fixed"
+            },
+            {
+              "ja": "小型高速モデルが `ok:false` を返した際に prompt-type Stop フックが誤って失敗する問題を修正し、非 Stop prompt-type フックの `preventContinuation:true` セマンティクスを復元",
+              "en": "Fixed prompt-type Stop hooks incorrectly failing when the small fast model returns `ok:false`, and restored `preventContinuation:true` semantics for non-Stop prompt-type hooks",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミング時に配列・オブジェクトフィールドが JSON エンコード文字列として送出される場合のツール入力バリデーション失敗を修正",
+              "en": "Fixed tool input validation failures when streaming emits array/object fields as JSON-encoded strings",
+              "category": "fixed"
+            },
+            {
+              "ja": "拡張思考がホワイトスペースのみのテキストブロックを実際のコンテンツと一緒に生成した際に発生する API 400 エラーを修正",
+              "en": "Fixed an API 400 error that could occur when extended thinking produced a whitespace-only text block alongside real content",
+              "category": "fixed"
+            },
+            {
+              "ja": "オートパイロットのキー入力や連続プロンプトの数字衝突によるフィードバックサーベイの誤送信を修正",
+              "en": "Fixed accidental feedback survey submissions from auto-pilot keypresses and consecutive-prompt digit collisions",
+              "category": "fixed"
+            },
+            {
+              "ja": "フルスクリーンモードの処理中にテキスト選択が存在する際、「esc to clear」と並んで「esc to interrupt」ヒントが誤表示される問題を修正",
+              "en": "Fixed misleading \"esc to interrupt\" hint appearing alongside \"esc to clear\" when a text selection exists in fullscreen mode during processing",
+              "category": "fixed"
+            },
+            {
+              "ja": "Homebrew インストールの更新プロンプトが正しい cask のリリースチャンネルを使用するよう修正（`claude-code` → stable、`claude-code@latest` → latest）",
+              "en": "Fixed Homebrew install update prompts to use the cask's release channel (`claude-code` → stable, `claude-code@latest` → latest)",
+              "category": "fixed"
+            },
+            {
+              "ja": "複数行プロンプトで行末にいる際に `ctrl+e` が次の行末にジャンプする問題を修正",
+              "en": "Fixed `ctrl+e` jumping to the end of the next line when already at end of line in multiline prompts",
+              "category": "fixed"
+            },
+            {
+              "ja": "DEC 2026 対応端末（iTerm2・Ghostty 等）のフルスクリーンモードでスクロールアップ時に同一メッセージが2か所に表示される問題を修正",
+              "en": "Fixed an issue where the same message could appear at two positions when scrolling up in fullscreen mode (iTerm2, Ghostty, and other terminals with DEC 2026 support)",
+              "category": "fixed"
+            },
+            {
+              "ja": "アイドル復帰時の「/clear to save X tokens」ヒントがセッションの累計トークン数ではなく現在のコンテキストサイズを表示するよう修正",
+              "en": "Fixed idle-return \"/clear to save X tokens\" hint showing cumulative session tokens instead of current context size",
+              "category": "fixed"
+            },
+            {
+              "ja": "claude.ai の未認証コネクタと重複するプラグイン MCP サーバーがセッション開始時に「connecting」のまま固まる問題を修正",
+              "en": "Fixed plugin MCP servers stuck \"connecting\" on session start when they duplicate a claude.ai connector that is unauthenticated",
+              "category": "fixed"
+            },
+            {
+              "ja": "大きなファイルに対する Write ツールの差分計算速度を改善（タブ・`&`・`$` を含むファイルで 60% 高速化）",
+              "en": "Improved Write tool diff computation speed for large files (60% faster on files with tabs/`&`/`$`)",
+              "category": "improved"
+            },
+            {
+              "ja": "`/tag` コマンドを削除",
+              "en": "Removed `/tag` command",
+              "category": "changed"
+            },
+            {
+              "ja": "`/vim` コマンドを削除（Vim モードの切り替えは `/config` → Editor mode から）",
+              "en": "Removed `/vim` command (toggle vim mode via `/config` → Editor mode)",
+              "category": "changed"
+            },
+            {
+              "ja": "Linux サンドボックスで npm ビルドとネイティブビルドの両方に `apply-seccomp` ヘルパーを同梱し、サンドボックス化されたコマンドの Unix ソケットブロック機能を復元",
+              "en": "Linux sandbox now ships the `apply-seccomp` helper in both npm and native builds, restoring unix-socket blocking for sandboxed commands",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.91",
           "releaseDate": "2026-04-03",

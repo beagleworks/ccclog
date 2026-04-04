@@ -4,6 +4,32 @@
 
 ---
 
+## 2.1.92
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| リモート管理設定が最新の状態で取得されるまで CLI の起動をブロックし、取得失敗時は終了する `forceRemoteSettingsRefresh` ポリシー設定を追加 | Added `forceRemoteSettingsRefresh` policy setting: when set, the CLI blocks startup until remote managed settings are freshly fetched, and exits if the fetch fails (fail-closed) | added |
+| ログイン画面の「サードパーティプラットフォーム」選択時にアクセス可能な、AWS 認証・リージョン設定・認証情報の検証・モデル固定をガイドする対話型 Bedrock セットアップウィザードを追加 | Added interactive Bedrock setup wizard accessible from the login screen when selecting "3rd-party platform" — guides you through AWS authentication, region configuration, credential verification, and model pinning | added |
+| サブスクリプションユーザー向け `/cost` にモデル別・キャッシュヒット別の内訳を追加 | Added per-model and cache-hit breakdown to `/cost` for subscription users | added |
+| `/release-notes` を対話型バージョン選択式に変更 | `/release-notes` is now an interactive version picker | changed |
+| Remote Control のセッション名がデフォルトでホスト名をプレフィックスとして使用するように変更（例: `myhost-graceful-unicorn`）、`--remote-control-session-name-prefix` で上書き可能 | Remote Control session names now use your hostname as the default prefix (e.g. `myhost-graceful-unicorn`), overridable with `--remote-control-session-name-prefix` | changed |
+| プロンプトキャッシュの有効期限切れ後にセッションへ戻った際、次のターンでキャッシュなしで送信されるおおよそのトークン数を示すフッターヒントを Pro ユーザー向けに追加 | Pro users now see a footer hint when returning to a session after the prompt cache has expired, showing roughly how many tokens the next turn will send uncached | added |
+| 長時間実行セッション中に tmux ウィンドウが削除・番号変更された後、「Could not determine pane count」エラーでサブエージェントの生成が永続的に失敗する問題を修正 | Fixed subagent spawning permanently failing with "Could not determine pane count" after tmux windows are killed or renumbered during a long-running session | fixed |
+| 小型高速モデルが `ok:false` を返した際に prompt-type Stop フックが誤って失敗する問題を修正し、非 Stop prompt-type フックの `preventContinuation:true` セマンティクスを復元 | Fixed prompt-type Stop hooks incorrectly failing when the small fast model returns `ok:false`, and restored `preventContinuation:true` semantics for non-Stop prompt-type hooks | fixed |
+| ストリーミング時に配列・オブジェクトフィールドが JSON エンコード文字列として送出される場合のツール入力バリデーション失敗を修正 | Fixed tool input validation failures when streaming emits array/object fields as JSON-encoded strings | fixed |
+| 拡張思考がホワイトスペースのみのテキストブロックを実際のコンテンツと一緒に生成した際に発生する API 400 エラーを修正 | Fixed an API 400 error that could occur when extended thinking produced a whitespace-only text block alongside real content | fixed |
+| オートパイロットのキー入力や連続プロンプトの数字衝突によるフィードバックサーベイの誤送信を修正 | Fixed accidental feedback survey submissions from auto-pilot keypresses and consecutive-prompt digit collisions | fixed |
+| フルスクリーンモードの処理中にテキスト選択が存在する際、「esc to clear」と並んで「esc to interrupt」ヒントが誤表示される問題を修正 | Fixed misleading "esc to interrupt" hint appearing alongside "esc to clear" when a text selection exists in fullscreen mode during processing | fixed |
+| Homebrew インストールの更新プロンプトが正しい cask のリリースチャンネルを使用するよう修正（`claude-code` → stable、`claude-code@latest` → latest） | Fixed Homebrew install update prompts to use the cask's release channel (`claude-code` → stable, `claude-code@latest` → latest) | fixed |
+| 複数行プロンプトで行末にいる際に `ctrl+e` が次の行末にジャンプする問題を修正 | Fixed `ctrl+e` jumping to the end of the next line when already at end of line in multiline prompts | fixed |
+| DEC 2026 対応端末（iTerm2・Ghostty 等）のフルスクリーンモードでスクロールアップ時に同一メッセージが2か所に表示される問題を修正 | Fixed an issue where the same message could appear at two positions when scrolling up in fullscreen mode (iTerm2, Ghostty, and other terminals with DEC 2026 support) | fixed |
+| アイドル復帰時の「/clear to save X tokens」ヒントがセッションの累計トークン数ではなく現在のコンテキストサイズを表示するよう修正 | Fixed idle-return "/clear to save X tokens" hint showing cumulative session tokens instead of current context size | fixed |
+| claude.ai の未認証コネクタと重複するプラグイン MCP サーバーがセッション開始時に「connecting」のまま固まる問題を修正 | Fixed plugin MCP servers stuck "connecting" on session start when they duplicate a claude.ai connector that is unauthenticated | fixed |
+| 大きなファイルに対する Write ツールの差分計算速度を改善（タブ・`&`・`$` を含むファイルで 60% 高速化） | Improved Write tool diff computation speed for large files (60% faster on files with tabs/`&`/`$`) | improved |
+| `/tag` コマンドを削除 | Removed `/tag` command | changed |
+| `/vim` コマンドを削除（Vim モードの切り替えは `/config` → Editor mode から） | Removed `/vim` command (toggle vim mode via `/config` → Editor mode) | changed |
+| Linux サンドボックスで npm ビルドとネイティブビルドの両方に `apply-seccomp` ヘルパーを同梱し、サンドボックス化されたコマンドの Unix ソケットブロック機能を復元 | Linux sandbox now ships the `apply-seccomp` helper in both npm and native builds, restoring unix-socket blocking for sandboxed commands | fixed |
+
 ## 2.1.91
 
 | 日本語 | English | Category |
