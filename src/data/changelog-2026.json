@@ -1,10 +1,142 @@
 {
-  "generatedAt": "2026-04-04T01:39:52.116Z",
+  "generatedAt": "2026-04-07T23:13:38.408Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "2.1.94",
+          "releaseDate": "2026-04-08",
+          "releaseDateDisplay": "2026年4月8日",
+          "entries": [
+            {
+              "ja": "Amazon Bedrock（Mantle 搭載）のサポートを追加（`CLAUDE_CODE_USE_MANTLE=1` で有効化）",
+              "en": "Added support for Amazon Bedrock powered by Mantle, set `CLAUDE_CODE_USE_MANTLE=1`",
+              "category": "added"
+            },
+            {
+              "ja": "APIキー、Bedrock/Vertex/Foundry、Team、Enterpriseユーザーのデフォルトエフォートレベルを medium から high に変更（`/effort` で制御可能）",
+              "en": "Changed default effort level from medium to high for API-key, Bedrock/Vertex/Foundry, Team, and Enterprise users (control this with `/effort`)",
+              "category": "changed"
+            },
+            {
+              "ja": "Slack MCP のメッセージ送信ツール呼び出し時に、クリック可能なチャンネルリンク付きのコンパクトな `Slacked #channel` ヘッダーを追加",
+              "en": "Added compact `Slacked #channel` header with a clickable channel link for Slack MCP send-message tool calls",
+              "category": "added"
+            },
+            {
+              "ja": "プラグインの出力スタイル向けに `keep-coding-instructions` フロントマターフィールドのサポートを追加",
+              "en": "Added `keep-coding-instructions` frontmatter field support for plugin output styles",
+              "category": "added"
+            },
+            {
+              "ja": "`UserPromptSubmit` フックにセッションタイトルを設定するための `hookSpecificOutput.sessionTitle` を追加",
+              "en": "Added `hookSpecificOutput.sessionTitle` to `UserPromptSubmit` hooks for setting the session title",
+              "category": "added"
+            },
+            {
+              "ja": "`\"skills\": [\"./\"]` で宣言されたプラグインスキルの呼び出し名を、ディレクトリのベース名ではなくフロントマターの `name` を使用するように変更し、インストール方法に依存しない安定した名前を付与",
+              "en": "Plugin skills declared via `\"skills\": [\"./\"]` now use the skill's frontmatter `name` for the invocation name instead of the directory basename, giving a stable name across install methods",
+              "category": "changed"
+            },
+            {
+              "ja": "長い Retry-After ヘッダーを伴う 429 レート制限レスポンス後にエージェントがフリーズしているように見える問題を修正（エラーが即座に表示されるように）",
+              "en": "Fixed agents appearing stuck after a 429 rate-limit response with a long Retry-After header — the error now surfaces immediately instead of silently waiting",
+              "category": "fixed"
+            },
+            {
+              "ja": "ログインキーチェーンがロックまたはパスワードが同期ずれの場合に macOS のコンソールログインが \"Not logged in\" として黙って失敗する問題を修正（エラーが表示されるようになり、`claude doctor` で診断可能に）",
+              "en": "Fixed Console login on macOS silently failing with \"Not logged in\" when the login keychain is locked or its password is out of sync — the error is now surfaced and `claude doctor` diagnoses the fix",
+              "category": "fixed"
+            },
+            {
+              "ja": "YAML フロントマターで定義されたプラグインスキルフックが黙って無視される問題を修正",
+              "en": "Fixed plugin skill hooks defined in YAML frontmatter being silently ignored",
+              "category": "fixed"
+            },
+            {
+              "ja": "`CLAUDE_PLUGIN_ROOT` が未設定の場合にプラグインフックが \"No such file or directory\" で失敗する問題を修正",
+              "en": "Fixed plugin hooks failing with \"No such file or directory\" when `CLAUDE_PLUGIN_ROOT` was not set",
+              "category": "fixed"
+            },
+            {
+              "ja": "起動時にローカルマーケットプレイスプラグインの `${CLAUDE_PLUGIN_ROOT}` がインストール済みキャッシュではなくマーケットプレイスのソースディレクトリに解決される問題を修正",
+              "en": "Fixed `${CLAUDE_PLUGIN_ROOT}` resolving to the marketplace source directory instead of the installed cache for local-marketplace plugins on startup",
+              "category": "fixed"
+            },
+            {
+              "ja": "長時間のセッションでスクロールバックに同じ差分が繰り返し表示されたり、空白ページが表示される問題を修正",
+              "en": "Fixed scrollback showing the same diff repeated and blank pages in long-running sessions",
+              "category": "fixed"
+            },
+            {
+              "ja": "トランスクリプト内の複数行ユーザープロンプトで、折り返し行がテキストの下ではなく `❯` キャレットの下にインデントされる問題を修正",
+              "en": "Fixed multiline user prompts in the transcript indenting wrapped lines under the `❯` caret instead of under the text",
+              "category": "fixed"
+            },
+            {
+              "ja": "検索入力欄で Shift+Space がスペース文字ではなく \"space\" という文字列を挿入する問題を修正",
+              "en": "Fixed Shift+Space inserting the literal word \"space\" instead of a space character in search inputs",
+              "category": "fixed"
+            },
+            {
+              "ja": "xterm.js ベースのターミナル（VS Code、Hyper、Tabby）内で tmux 使用時にハイパーリンクをクリックすると2つのブラウザタブが開く問題を修正",
+              "en": "Fixed hyperlinks opening two browser tabs when clicked inside tmux running in an xterm.js-based terminal (VS Code, Hyper, Tabby)",
+              "category": "fixed"
+            },
+            {
+              "ja": "スクロール中にコンテンツの高さが変化するとゴーストラインが累積する alt-screen のレンダリングバグを修正",
+              "en": "Fixed an alt-screen rendering bug where content height changes mid-scroll could leave compounding ghost lines",
+              "category": "fixed"
+            },
+            {
+              "ja": "`settings.json` の `env` 経由で設定した際に `FORCE_HYPERLINK` 環境変数が無視される問題を修正",
+              "en": "Fixed `FORCE_HYPERLINK` environment variable being ignored when set via `settings.json` `env`",
+              "category": "fixed"
+            },
+            {
+              "ja": "ダイアログ内でネイティブターミナルカーソルが選択タブを追跡しない問題を修正（スクリーンリーダーや拡大ツールがタブ操作を追従可能に）",
+              "en": "Fixed native terminal cursor not tracking the selected tab in dialogs, so screen readers and magnifiers can follow tab navigation",
+              "category": "fixed"
+            },
+            {
+              "ja": "`us.` 推論プロファイル ID を使用することで Bedrock での Sonnet 3.5 v2 の呼び出し問題を修正",
+              "en": "Fixed Bedrock invocation of Sonnet 3.5 v2 by using the `us.` inference profile ID",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーム途中で中断した際に SDK/print モードで会話履歴に部分的なアシスタントレスポンスが保持されない問題を修正",
+              "en": "Fixed SDK/print mode not preserving the partial assistant response in conversation history when interrupted mid-stream",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--resume` が `cd` コマンドを表示する代わりに、同一リポジトリの他の worktree から直接セッションを再開できるように改善",
+              "en": "Improved `--resume` to resume sessions from other worktrees of the same repo directly instead of printing a `cd` command",
+              "category": "improved"
+            },
+            {
+              "ja": "チャンク境界が UTF-8 シーケンスを分割する際に stream-json の入出力で CJK やその他のマルチバイトテキストが U+FFFD に文字化けする問題を修正",
+              "en": "Fixed CJK and other multibyte text being corrupted with U+FFFD in stream-json input/output when chunk boundaries split a UTF-8 sequence",
+              "category": "fixed"
+            },
+            {
+              "ja": "[VSCode] セッション開始時のコールドオープンにおけるサブプロセス処理を削減",
+              "en": "[VSCode] Reduced cold-open subprocess work on starting a session",
+              "category": "improved"
+            },
+            {
+              "ja": "[VSCode] タイピングや矢印キー使用中にマウスがリスト上にあるとドロップダウンメニューが誤った項目を選択する問題を修正",
+              "en": "[VSCode] Fixed dropdown menus selecting the wrong item when the mouse was over the list while typing or using arrow keys",
+              "category": "fixed"
+            },
+            {
+              "ja": "[VSCode] `settings.json` のパースに失敗した際に警告バナーを追加し、パーミッションルールが適用されていないことをユーザーに通知",
+              "en": "[VSCode] Added a warning banner when `settings.json` files fail to parse, so users know their permission rules are not being applied",
+              "category": "added"
+            }
+          ]
+        },
         {
           "version": "2.1.92",
           "releaseDate": "2026-04-04",
