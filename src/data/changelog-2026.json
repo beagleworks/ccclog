@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-08T06:34:43.529Z",
+  "generatedAt": "2026-04-08T13:58:10.222Z",
   "months": [
     {
       "key": "2026-04",
@@ -11,9 +11,9 @@
           "releaseDateDisplay": "2026年4月8日",
           "entries": [
             {
-              "ja": "（翻訳待ち）",
+              "ja": "`AWS_BEARER_TOKEN_BEDROCK` または `CLAUDE_CODE_SKIP_BEDROCK_AUTH` 使用時に `403 \"Authorization header is missing\"` で Bedrock リクエストが失敗する問題を修正（2.1.94 でのリグレッション）",
               "en": "Fixed Bedrock requests failing with `403 \"Authorization header is missing\"` when using `AWS_BEARER_TOKEN_BEDROCK` or `CLAUDE_CODE_SKIP_BEDROCK_AUTH` (regression in 2.1.94)",
-              "category": "other"
+              "category": "fixed"
             }
           ]
         },
