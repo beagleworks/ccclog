@@ -4,6 +4,57 @@
 
 ---
 
+## 2.1.97
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `NO_FLICKER` モードでプロンプト・編集差分統計付き1行ツール要約・最終レスポンスを表示するフォーカスビュー切り替え（`Ctrl+O`）を追加 | Added focus view toggle (`Ctrl+O`) in `NO_FLICKER` mode showing prompt, one-line tool summary with edit diffstats, and final response | added |
+| ステータスラインコマンドをN秒ごとに再実行する `refreshInterval` ステータスライン設定を追加 | Added `refreshInterval` status line setting to re-run the status line command every N seconds | added |
+| ステータスラインのJSON入力に `workspace.git_worktree` を追加（現在のディレクトリがリンクされたgitワークツリー内にある場合に設定） | Added `workspace.git_worktree` to the status line JSON input, set when the current directory is inside a linked git worktree | added |
+| `/agents` でライブなサブエージェントインスタンスを持つエージェントタイプの横に `● N running` インジケーターを追加 | Added `● N running` indicator in `/agents` next to agent types with live subagent instances | added |
+| Cedar ポリシーファイル（`.cedar`, `.cedarpolicy`）のシンタックスハイライトを追加 | Added syntax highlighting for Cedar policy files (`.cedar`, `.cedarpolicy`) | added |
+| 保護されたパスへの書き込みを承認した後、`--dangerously-skip-permissions` が暗黙的に accept-edits モードにダウングレードされる問題を修正 | Fixed `--dangerously-skip-permissions` being silently downgraded to accept-edits mode after approving a write to a protected path | fixed |
+| Bashツールのパーミッションを修正・強化し、環境変数プレフィックスとネットワークリダイレクトのチェックを厳格化、一般的なコマンドでの誤確認プロンプトを削減 | Fixed and hardened Bash tool permissions, tightening checks around env-var prefixes and network redirects, and reducing false prompts on common commands | fixed |
+| JavaScriptのプロトタイププロパティ名（例: `toString`）に一致するパーミッションルール名が`settings.json`を無視させる問題を修正 | Fixed permission rules with names matching JavaScript prototype properties (e.g. `toString`) causing `settings.json` to be silently ignored | fixed |
+| 管理設定の許可ルールが管理者による削除後もプロセス再起動まで有効なままになる問題を修正 | Fixed managed-settings allow rules remaining active after an admin removed them until process restart | fixed |
+| セッション中に設定の `permissions.additionalDirectories` の変更が反映されない問題を修正 | Fixed `permissions.additionalDirectories` changes in settings not applying mid-session | fixed |
+| `settings.permissions.additionalDirectories` からディレクトリを削除すると、`--add-dir` で渡した同一ディレクトリへのアクセスまで失われる問題を修正 | Fixed removing a directory from `settings.permissions.additionalDirectories` revoking access to the same directory passed via `--add-dir` | fixed |
+| MCP HTTP/SSE接続においてサーバー再接続時に約50 MB/時の未解放バッファが蓄積する問題を修正 | Fixed MCP HTTP/SSE connections accumulating ~50 MB/hr of unreleased buffers when servers reconnect | fixed |
+| 再起動後のトークンリフレッシュ時に MCP OAuth の `oauth.authServerMetadataUrl` が反映されない問題を修正し、ADFS などの IdP に対応 | Fixed MCP OAuth `oauth.authServerMetadataUrl` not being honored on token refresh after restart, fixing ADFS and similar IdPs | fixed |
+| サーバーが小さな `Retry-After` を返す際に約13秒で全リトライ試行が消費される429エラーの問題を修正；指数バックオフを最小待機時間として適用 | Fixed 429 retries burning all attempts in ~13 seconds when the server returns a small `Retry-After` — exponential backoff now applies as a minimum | fixed |
+| コンテキスト圧縮後にレート制限アップグレードオプションが消える問題を修正 | Fixed rate-limit upgrade options disappearing after context compaction | fixed |
+| `/resume` ピッカーの複数の問題を修正: `--resume <name>` で開いた際に編集不可になる問題、Ctrl+A リロード時に検索内容が消える問題、空リスト時にナビゲーション操作が無効になる問題、タスクステータステキストが会話サマリーを上書きする問題、およびプロジェクト間のキャッシュ陳腐化問題 | Fixed several `/resume` picker issues: `--resume <name>` opening uneditable, Ctrl+A reload wiping search, empty list swallowing navigation, task-status text replacing conversation summary, and cross-project staleness | fixed |
+| `--resume` 時に編集ファイルが10KB超の場合にファイル編集のdiffが消える問題を修正 | Fixed file-edit diffs disappearing on `--resume` when the edited file was larger than 10KB | fixed |
+| `--resume` のキャッシュミスと、添付メッセージがトランスクリプトに保存されないことによるターン途中の入力消失を修正 | Fixed `--resume` cache misses and lost mid-turn input from attachment messages not being saved to the transcript | fixed |
+| Claudeが作業中に入力したメッセージがトランスクリプトに保存されない問題を修正 | Fixed messages typed while Claude is working not being persisted to the transcript | fixed |
+| 長いセッションでプロンプト型の `Stop`/`SubagentStop` フックが失敗する問題と、フック評価の API エラーで実際のメッセージの代わりに "JSON validation failed" と表示される問題を修正 | Fixed prompt-type `Stop`/`SubagentStop` hooks failing on long sessions, and hook evaluator API errors displaying "JSON validation failed" instead of the actual message | fixed |
+| worktreeアイソレーションまたは`cwd:`オーバーライドを使用したサブエージェントが、作業ディレクトリを親セッションのBashツールに漏洩する問題を修正 | Fixed subagents with worktree isolation or `cwd:` override leaking their working directory back to the parent session's Bash tool | fixed |
+| コンパクション処理がプロンプト長超過リトライ時に複数のMBサイズのサブエージェントトランスクリプトファイルを重複書き込みする問題を修正 | Fixed compaction writing duplicate multi-MB subagent transcript files on prompt-too-long retries | fixed |
+| リモートに新しいコミットがある場合でも `claude plugin update` が git ベースのマーケットプレイスプラグインに対して「最新バージョンです」と報告する不具合を修正 | Fixed `claude plugin update` reporting "already at the latest version" for git-based marketplace plugins when the remote had newer commits | fixed |
+| プラグインのフロントマターの `name` が YAML の真偽値キーワードの場合にスラッシュコマンドピッカーが壊れる問題を修正 | Fixed slash command picker breaking when a plugin's frontmatter `name` is a YAML boolean keyword | fixed |
+| `NO_FLICKER` モードで折り返された URL をコピーする際、改行箇所にスペースが挿入される問題を修正 | Fixed copying wrapped URLs in `NO_FLICKER` mode inserting spaces at line breaks | fixed |
+| zellij 内で実行時の `NO_FLICKER` モードにおけるスクロールレンダリングのアーティファクトを修正 | Fixed scroll rendering artifacts in `NO_FLICKER` mode when running inside zellij | fixed |
+| `NO_FLICKER` モードで MCP ツール結果にホバーした際のクラッシュを修正 | Fixed a crash in `NO_FLICKER` mode when hovering over MCP tool results | fixed |
+| `NO_FLICKER` モードで API リトライ後にストリーミング状態が残留するメモリリークを修正 | Fixed a `NO_FLICKER` mode memory leak where API retries left stale streaming state | fixed |
+| Windows Terminal の `NO_FLICKER` モードにおけるマウスホイールスクロールの遅延を修正 | Fixed slow mouse-wheel scrolling in `NO_FLICKER` mode on Windows Terminal | fixed |
+| 24行未満のターミナルで `NO_FLICKER` モード時にカスタムステータスラインが表示されない問題を修正 | Fixed custom status line not displaying in `NO_FLICKER` mode on terminals shorter than 24 rows | fixed |
+| Warpの`NO_FLICKER`モードでShift+EnterおよびAlt/Cmd+矢印キーのショートカットが機能しない問題を修正 | Fixed Shift+Enter and Alt/Cmd+arrow shortcuts not working in Warp with `NO_FLICKER` mode | fixed |
+| Windowsのちらつき防止モードでコピー時に韓国語・日本語・Unicode文字が文字化けする問題を修正 | Fixed Korean/Japanese/Unicode text becoming garbled when copied in no-flicker mode on Windows | fixed |
+| `AWS_BEARER_TOKEN_BEDROCK` または `ANTHROPIC_BEDROCK_BASE_URL` が空文字列に設定されている場合（GitHub Actions の未設定入力の挙動）に Bedrock SigV4 認証が失敗する問題を修正 | Fixed Bedrock SigV4 authentication failing when `AWS_BEARER_TOKEN_BEDROCK` or `ANTHROPIC_BEDROCK_BASE_URL` are set to empty strings (as GitHub Actions does for unset inputs) | fixed |
+| Accept Edits モードで、安全な環境変数やプロセスラッパーを前置したファイルシステムコマンド（例: `LANG=C rm foo`、`timeout 5 mkdir out`）を自動承認するように改善 | Improved Accept Edits mode to auto-approve filesystem commands prefixed with safe env vars or process wrappers (e.g. `LANG=C rm foo`, `timeout 5 mkdir out`) | improved |
+| auto モードと bypass-permissions モードでサンドボックスのネットワークアクセスプロンプトを自動承認するよう改善 | Improved auto mode and bypass-permissions mode to auto-approve sandbox network access prompts | improved |
+| サンドボックスを改善: `sandbox.network.allowMachLookup` が macOS で有効化 | Improved sandbox: `sandbox.network.allowMachLookup` now takes effect on macOS | improved |
+| 画像処理を改善: ペーストまたは添付された画像が、Readツールで読み込んだ画像と同じトークンバジェットに圧縮されるように | Improved image handling: pasted and attached images are now compressed to the same token budget as images read via the Read tool | improved |
+| スラッシュコマンドおよび `@` メンションの補完を CJK 句読点の後にもトリガーするよう改善し、日本語・中国語入力で `/` や `@` の前にスペースが不要に | Improved slash command and `@`-mention completion to trigger after CJK sentence punctuation, so Japanese/Chinese input no longer requires a space before `/` or `@` | improved |
+| Bridgeセッションのclaude.aiセッションカードにローカルgitリポジトリ、ブランチ、作業ディレクトリを表示するよう改善 | Improved Bridge sessions to show the local git repo, branch, and working directory on the claude.ai session card | improved |
+| フッターレイアウトを改善: インジケーター（Focus、通知）がモードインジケーター行の下に折り返されず、同一行に留まるよう変更 | Improved footer layout: indicators (Focus, notifications) now stay on the mode-indicator row instead of wrapping below | improved |
+| コンテキスト残量低下の警告を、常時表示の行ではなく一時的なフッター通知として表示するよう改善 | Improved context-low warning to show as a transient footer notification instead of a persistent row | improved |
+| マークダウンの引用ブロックで、折り返し行にも左バーが連続表示されるよう改善 | Improved markdown blockquotes to show a continuous left bar across wrapped lines | improved |
+| 空のフックエントリのスキップと編集前ファイルコピーの保存上限設定によるセッショントランスクリプトサイズの改善 | Improved session transcript size by skipping empty hook entries and capping stored pre-edit file copies | improved |
+| トランスクリプトの精度を改善: ブロックごとのエントリにストリーミングのプレースホルダーではなく最終トークン使用量を格納 | Improved transcript accuracy: per-block entries now carry the final token usage instead of the streaming placeholder | improved |
+| Bash ツールの OTEL トレーシングを改善: トレーシング有効時にサブプロセスが W3C `TRACEPARENT` 環境変数を継承するように | Improved Bash tool OTEL tracing: subprocesses now inherit a W3C `TRACEPARENT` env var when tracing is enabled | improved |
+| `/claude-api` スキルを Claude API に加えて Managed Agents もカバーするよう更新 | Updated `/claude-api` skill to cover Managed Agents alongside the Claude API | changed |
+
 ## 2.1.96
 
 | 日本語 | English | Category |
