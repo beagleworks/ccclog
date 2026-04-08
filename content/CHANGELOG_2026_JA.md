@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.96
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| （翻訳待ち） | Fixed Bedrock requests failing with `403 "Authorization header is missing"` when using `AWS_BEARER_TOKEN_BEDROCK` or `CLAUDE_CODE_SKIP_BEDROCK_AUTH` (regression in 2.1.94) | other |
+
 ## 2.1.94
 
 | 日本語 | English | Category |
