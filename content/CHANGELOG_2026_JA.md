@@ -4,6 +4,68 @@
 
 ---
 
+## 2.1.98
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| ログイン画面で「サードパーティプラットフォーム」を選択した際にアクセス可能なインタラクティブな Google Vertex AI セットアップウィザードを追加（GCP 認証、プロジェクトおよびリージョンの設定、認証情報の検証、モデルのピン留めをガイド） | Added interactive Google Vertex AI setup wizard accessible from the login screen when selecting "3rd-party platform", guiding you through GCP authentication, project and region configuration, credential verification, and model pinning | added |
+| 環境変数 `CLAUDE_CODE_PERFORCE_MODE` を追加：設定時、読み取り専用ファイルへの Edit/Write/NotebookEdit が暗黙的に上書きされる代わりに `p4 edit` のヒントを表示して失敗するよう変更 | Added `CLAUDE_CODE_PERFORCE_MODE` env var: when set, Edit/Write/NotebookEdit fail on read-only files with a `p4 edit` hint instead of silently overwriting them | added |
+| バックグラウンドスクリプトからのイベントをストリーミングする Monitor ツールを追加 | Added Monitor tool for streaming events from background scripts | added |
+| `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB` 設定時にLinux上でPID名前空間分離によるサブプロセスのサンドボックス化を追加、およびセッションごとのスクリプト実行回数を制限する `CLAUDE_CODE_SCRIPT_CAPS` 環境変数を追加 | Added subprocess sandboxing with PID namespace isolation on Linux when `CLAUDE_CODE_SUBPROCESS_ENV_SCRUB` is set, and `CLAUDE_CODE_SCRIPT_CAPS` env var to limit per-session script invocations | added |
+| printモードにクロスユーザープロンプトキャッシュ改善のための `--exclude-dynamic-system-prompt-sections` フラグを追加 | Added `--exclude-dynamic-system-prompt-sections` flag to print mode for improved cross-user prompt caching | added |
+| ステータスラインのJSON入力に `workspace.git_worktree` を追加、現在のディレクトリがリンクされたgitワークツリー内にある場合に設定 | Added `workspace.git_worktree` to the status line JSON input, set whenever the current directory is inside a linked git worktree | added |
+| OTELトレーシングが有効な場合、Bash ツールのサブプロセスに W3C `TRACEPARENT` 環境変数を追加し、子プロセスのスパンが Claude Code のトレースツリーに正しく紐付けられるよう対応 | Added W3C `TRACEPARENT` env var to Bash tool subprocesses when OTEL tracing is enabled, so child-process spans correctly parent to Claude Code's trace tree | added |
+| LSP: 初期化リクエストの `clientInfo` を通じて、言語サーバーへ Claude Code 自身を識別する情報を送信するように対応 | LSP: Claude Code now identifies itself to language servers via `clientInfo` in the initialize request | added |
+| バックスラッシュエスケープされたフラグが読み取り専用として自動許可され、任意コードが実行される可能性があった Bash ツールのパーミッションバイパスを修正 | Fixed a Bash tool permission bypass where a backslash-escaped flag could be auto-allowed as read-only and lead to arbitrary code execution | fixed |
+| autoモードおよびbypass-permissionsモードにおいて、複合的なBashコマンドが安全確認と明示的な確認ルールの強制パーミッションプロンプトを回避していた問題を修正 | Fixed compound Bash commands bypassing forced permission prompts for safety checks and explicit ask rules in auto and bypass-permissions modes | fixed |
+| 環境変数プレフィックス付きの読み取り専用コマンドが、既知の安全な変数（`LANG`、`TZ`、`NO_COLOR` など）以外でもプロンプトを表示しない問題を修正 | Fixed read-only commands with env-var prefixes not prompting unless the var is known-safe (`LANG`, `TZ`, `NO_COLOR`, etc.) | fixed |
+| `/dev/tcp/...` や `/dev/udp/...` へのリダイレクトが自動許可され、プロンプトが表示されない問題を修正 | Fixed redirects to `/dev/tcp/...` or `/dev/udp/...` not prompting instead of auto-allowing | fixed |
+| ストリーミングレスポンスが停止した際、非ストリーミングモードへフォールバックせずタイムアウトしていた問題を修正 | Fixed stalled streaming responses timing out instead of falling back to non-streaming mode | fixed |
+| サーバーが小さい `Retry-After` を返す場合に 429 リトライが約 13 秒ですべての試行を消費してしまう問題を修正、指数バックオフを最小値として適用 | Fixed 429 retries burning all attempts in ~13s when the server returns a small `Retry-After` — exponential backoff now applies as a minimum | fixed |
+| MCP OAuth の `oauth.authServerMetadataUrl` 設定オーバーライドが再起動後のトークンリフレッシュ時に反映されない問題を修正（ADFS および類似の IdP に影響） | Fixed MCP OAuth `oauth.authServerMetadataUrl` config override not being honored on token refresh after restart, affecting ADFS and similar IdPs | fixed |
+| xterm および VS Code 統合ターミナルで kitty キーボードプロトコルが有効な場合に大文字が小文字に変換される問題を修正 | Fixed capital letters being dropped to lowercase on xterm and VS Code integrated terminal when the kitty keyboard protocol is active | fixed |
+| macOSのテキスト置換で、置換テキストが挿入されずトリガーワードが削除される問題を修正 | Fixed macOS text replacements deleting the trigger word instead of inserting the substitution | fixed |
+| Bash経由で保護されたパスへの書き込みを承認した後、`--dangerously-skip-permissions` が暗黙的に accept-edits モードにダウングレードされる問題を修正 | Fixed `--dangerously-skip-permissions` being silently downgraded to accept-edits mode after approving a write to a protected path via Bash | fixed |
+| 管理設定の許可ルールが管理者による削除後もプロセス再起動まで有効のままになる問題を修正 | Fixed managed-settings allow rules remaining active after an admin removed them, until process restart | fixed |
+| `permissions.additionalDirectories` の変更がセッション中に反映されない問題を修正——削除されたディレクトリへのアクセスは即座に無効化され、追加されたディレクトリも再起動不要で有効化 | Fixed `permissions.additionalDirectories` changes not applying mid-session — removed directories lose access immediately and added ones work without restart | fixed |
+| `additionalDirectories` からディレクトリを削除すると `--add-dir` で渡した同じディレクトリへのアクセスが取り消される問題を修正 | Fixed removing a directory from `additionalDirectories` revoking access to the same directory passed via `--add-dir` | fixed |
+| `Bash(cmd:*)` および `Bash(git commit *)` のワイルドカード権限ルールが余分なスペースやタブを含むコマンドにマッチしない問題を修正 | Fixed `Bash(cmd:*)` and `Bash(git commit *)` wildcard permission rules failing to match commands with extra spaces or tabs | fixed |
+| `cd` と他のセグメントを組み合わせたパイプコマンドで `Bash(...)` の拒否ルールがプロンプトにダウングレードされる問題を修正 | Fixed `Bash(...)` deny rules being downgraded to a prompt for piped commands that mix `cd` with other segments | fixed |
+| `cut -d /`、`paste -d /`、`column -s /`、`awk '{print $1}' file`、および `%` を含むファイル名に対する誤った Bash 権限プロンプトを修正 | Fixed false Bash permission prompts for `cut -d /`, `paste -d /`, `column -s /`, `awk '{print $1}' file`, and filenames containing `%` | fixed |
+| JavaScriptのプロトタイププロパティ名（例: `toString`）と一致する権限ルールにより`settings.json`がサイレントに無視される問題を修正 | Fixed permission rules with names matching JavaScript prototype properties (e.g. `toString`) causing `settings.json` to be silently ignored | fixed |
+| `--dangerously-skip-permissions` 使用時にエージェントチームメンバーがリーダーのパーミッションモードを継承しない問題を修正 | Fixed agent team members not inheriting the leader's permission mode when using `--dangerously-skip-permissions` | fixed |
+| フルスクリーンモードでMCPツール結果にホバーした際のクラッシュを修正 | Fixed a crash in fullscreen mode when hovering over MCP tool results | fixed |
+| フルスクリーンモードで折り返されたURLをコピーした際に改行位置へスペースが挿入される問題を修正 | Fixed copying wrapped URLs in fullscreen mode inserting spaces at line breaks | fixed |
+| `--resume` 時に編集ファイルが 10KB を超える場合にファイル編集の差分が UI から消える問題を修正 | Fixed file-edit diffs disappearing from the UI on `--resume` when the edited file was larger than 10KB | fixed |
+| `/resume` ピッカーの複数の不具合を修正（`--resume <name>` で開いたときに編集不可になる問題、フィルターのリロードで検索状態がリセットされる問題、リストが空のときに矢印キーが無効になる問題、プロジェクト間での情報の陳腐化、一時的なタスクステータステキストが会話の要約を上書きする問題） | Fixed several `/resume` picker issues: `--resume <name>` opening uneditable, filter reload wiping search state, empty list swallowing arrow keys, cross-project staleness, and transient task-status text replacing conversation summaries | fixed |
+| `/export` が絶対パスおよび `~` を無視する問題と、ユーザー指定の拡張子を `.txt` に黙って書き換える問題を修正 | Fixed `/export` not honoring absolute paths and `~`, and silently rewriting user-supplied extensions to `.txt` | fixed |
+| 未知または将来のモデル ID に対して `/effort max` が拒否される問題を修正 | Fixed `/effort max` being denied for unknown or future model IDs | fixed |
+| プラグインのフロントマター `name` が YAML のブール値キーワードの場合にスラッシュコマンドピッカーが壊れる問題を修正 | Fixed slash command picker breaking when a plugin's frontmatter `name` is a YAML boolean keyword | fixed |
+| レート制限のアップセルテキストがメッセージの再マウント後に非表示になる問題を修正 | Fixed rate-limit upsell text being hidden after message remounts | fixed |
+| `_meta["anthropic/maxResultSizeChars"]` を持つ MCP ツールがトークンベースの永続化レイヤーをバイパスしない問題を修正 | Fixed MCP tools with `_meta["anthropic/maxResultSizeChars"]` not bypassing the token-based persist layer | fixed |
+| 前のトランスクリプトが処理中にプッシュトゥトークキーを再度長押しした際、入力に大量のスペース文字が混入するボイスモードの不具合を修正 | Fixed voice mode leaking dozens of space characters into the input when re-holding the push-to-talk key while the previous transcript is still processing | fixed |
+| npmベースのインストール環境において `DISABLE_AUTOUPDATER` がnpmレジストリのバージョンチェックとシンボリックリンクの変更を完全に抑制できていなかった問題を修正 | Fixed `DISABLE_AUTOUPDATER` not fully suppressing the npm registry version check and symlink modification on npm-based installs | fixed |
+| Remote Control の権限ハンドラーエントリがセッション終了まで保持され続けるメモリリークを修正 | Fixed a memory leak where Remote Control permission handler entries were retained for the lifetime of the session | fixed |
+| エラーで失敗したバックグラウンドサブエージェントが親エージェントに部分的な進捗を報告しない問題を修正 | Fixed background subagents that fail with an error not reporting partial progress to the parent agent | fixed |
+| 長いセッションで prompt-type の Stop/SubagentStop フックが失敗する問題と、フック評価APIのエラーで実際のメッセージの代わりに「JSON validation failed」と表示される問題を修正 | Fixed prompt-type Stop/SubagentStop hooks failing on long sessions, and hook evaluator API errors showing "JSON validation failed" instead of the real message | fixed |
+| フィードバックサーベイを閉じた際のレンダリングを修正 | Fixed feedback survey rendering when dismissed | fixed |
+| 作業ディレクトリ外のパターンファイルを読み込む際に Bash の `grep -f FILE` / `rg -f FILE` がプロンプトを表示しない問題を修正 | Fixed Bash `grep -f FILE` / `rg -f FILE` not prompting when reading a pattern file outside the working directory | fixed |
+| 未追跡ファイルを含むワークツリーを誤って削除する、古いサブエージェントのワークツリークリーンアップ処理を修正 | Fixed stale subagent worktree cleanup removing worktrees that contain untracked files | fixed |
+| macOS で `sandbox.network.allowMachLookup` が有効にならない問題を修正 | Fixed `sandbox.network.allowMachLookup` not taking effect on macOS | fixed |
+| `/resume` のフィルターヒントラベルを改善し、フィルターインジケーターにプロジェクト/ワークツリー/ブランチ名を追加 | Improved `/resume` filter hint labels and added project/worktree/branch names in the filter indicator | improved |
+| フッターのインジケーター（フォーカス、通知）が狭いターミナル幅で折り返されず、モードインジケーター行に収まるよう改善 | Improved footer indicators (Focus, notifications) to stay on the mode-indicator row instead of wrapping at narrow terminal widths | improved |
+| `/agents` にタブレイアウトを導入し、Running タブでライブサブエージェントを表示、Library タブに「Run agent」と「View running instance」アクションを追加 | Improved `/agents` with a tabbed layout: a Running tab shows live subagents, and the Library tab adds Run agent and View running instance actions | improved |
+| 再起動なしにプラグイン提供のスキルを読み込めるよう `/reload-plugins` を改善 | Improved `/reload-plugins` to pick up plugin-provided skills without requiring a restart | improved |
+| Accept Edits モードで、安全な環境変数またはプロセスラッパーが付与されたファイルシステムコマンドを自動承認するよう改善 | Improved Accept Edits mode to auto-approve filesystem commands prefixed with safe env vars or process wrappers | improved |
+| Vim モードを改善: NORMAL モードの `j`/`k` で履歴のナビゲーションおよび入力境界でのフッターピル選択が可能に | Improved Vim mode: `j`/`k` in NORMAL mode now navigate history and select the footer pill at the input boundary | improved |
+| `--debug` なしでの自己診断が可能なよう、トランスクリプト上のフックエラーに stderr の最初の行を含めるよう改善 | Improved hook errors in the transcript to include the first line of stderr for self-diagnosis without `--debug` | improved |
+| OTEL トレーシングを改善: concurrent SDK 呼び出し時に interaction スパンが全ターンを正しくラップするよう修正し、ヘッドレスターンではターンごとにスパンを終了するよう変更 | Improved OTEL tracing: interaction spans now correctly wrap full turns under concurrent SDK calls, and headless turns end spans per-turn | improved |
+| トランスクリプトエントリがストリーミングのプレースホルダーではなく最終的なトークン使用量を保持するよう改善 | Improved transcript entries to carry final token usage instead of streaming placeholders | improved |
+| `/claude-api` スキルを更新し、Claude API に加えて Managed Agents にも対応 | Updated the `/claude-api` skill to cover Managed Agents alongside Claude API | changed |
+| [VSCode] `CLAUDE_CODE_GIT_BASH_PATH` が設定されているか Git がデフォルトの場所にインストールされている場合に Windows で発生する "requires git-bash" の誤検知エラーを修正 | [VSCode] Fixed false-positive "requires git-bash" error on Windows when `CLAUDE_CODE_GIT_BASH_PATH` is set or Git is installed at a default location | fixed |
+| `DISABLE_COMPACT` が設定されている場合に `CLAUDE_CODE_MAX_CONTEXT_TOKENS` が正しく従うよう修正 | Fixed `CLAUDE_CODE_MAX_CONTEXT_TOKENS` to honor `DISABLE_COMPACT` when it is set. | fixed |
+| `DISABLE_COMPACT` が設定されている場合に `/compact` のヒントを非表示化 | Dropped `/compact` hints when `DISABLE_COMPACT` is set. | changed |
+
 ## 2.1.97
 
 | 日本語 | English | Category |
