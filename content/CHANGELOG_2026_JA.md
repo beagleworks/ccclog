@@ -4,6 +4,57 @@
 
 ---
 
+## 2.1.101
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| ローカルの Claude Code 使用状況からチームメンバー向けオンボーディングガイドを生成する `/team-onboarding` コマンドを追加 | Added `/team-onboarding` command to generate a teammate ramp-up guide from your local Claude Code usage | added |
+| OSのCA証明書ストアをデフォルトで信頼するように対応し、追加設定なしでエンタープライズTLSプロキシが動作可能に（バンドルされたCAのみを使用する場合は `CLAUDE_CODE_CERT_STORE=bundled` を設定） | Added OS CA certificate store trust by default, so enterprise TLS proxies work without extra setup (set `CLAUDE_CODE_CERT_STORE=bundled` to use only bundled CAs) | added |
+| `/ultraplan` などのリモートセッション機能が、ウェブでの事前セットアップなしにデフォルトのクラウド環境を自動作成するように対応 | `/ultraplan` and other remote-session features now auto-create a default cloud environment instead of requiring web setup first | improved |
+| Claudeが構造化メッセージではなくプレーンテキストで応答した場合に一度リトライするようブリーフモードを改善 | Improved brief mode to retry once when Claude responds with plain text instead of a structured message | improved |
+| フォーカスモードを改善: 最終メッセージのみが表示されることを踏まえ、より自己完結したサマリーを生成 | Improved focus mode: Claude now writes more self-contained summaries since it knows you only see its final message | improved |
+| ツールが現在のコンテキストで利用できない場合に、その理由と次のステップを説明するエラーメッセージを改善 | Improved tool-not-available errors to explain why and how to proceed when the model calls a tool that exists but isn't available in the current context | improved |
+| レート制限のリトライメッセージを改善し、不透明な秒数カウントダウンの代わりに、どの制限に達したかといつリセットされるかを表示するよう変更 | Improved rate-limit retry messages to show which limit was hit and when it resets instead of an opaque seconds countdown | improved |
+| 利用可能な場合にAPIが提供する説明を拒否エラーメッセージに含めるよう改善 | Improved refusal error messages to include the API-provided explanation when available | improved |
+| `/rename` または `--name` で設定されたセッションタイトルを `claude -p --resume <name>` で受け付けられるように改善 | Improved `claude -p --resume <name>` to accept session titles set via `/rename` or `--name` | improved |
+| `settings.json` の未認識フックイベント名があってもファイル全体が無視されないよう設定の堅牢性を改善 | Improved settings resilience: an unrecognized hook event name in `settings.json` no longer causes the entire file to be ignored | improved |
+| `allowManagedHooksOnly` が設定されている場合に、管理設定によって強制有効化されたプラグインのフックが実行されるよう改善 | Improved plugin hooks from plugins force-enabled by managed settings to run when `allowManagedHooksOnly` is set | improved |
+| マーケットプレイスの更新に失敗した際、古いバージョンを黙って表示する代わりに警告を表示するよう `/plugin` および `claude plugin update` を改善 | Improved `/plugin` and `claude plugin update` to show a warning when the marketplace could not be refreshed, instead of silently reporting a stale version | improved |
+| 組織または認証設定がウェブ上の Claude Code に到達できない場合、プランモードの「Refine with Ultraplan」オプションを非表示にするよう改善 | Improved plan mode to hide the "Refine with Ultraplan" option when the user's org or auth setup can't reach Claude Code on the web | improved |
+| ベータトレーシングを改善し、`OTEL_LOG_USER_PROMPTS`・`OTEL_LOG_TOOL_DETAILS`・`OTEL_LOG_TOOL_CONTENT` を反映するよう対応；オプトインしない限り機密スパン属性を出力しないよう変更 | Improved beta tracing to honor `OTEL_LOG_USER_PROMPTS`, `OTEL_LOG_TOOL_DETAILS`, and `OTEL_LOG_TOOL_CONTENT`; sensitive span attributes are no longer emitted unless opted in | improved |
+| `for await` からの `break` または `await using` 使用時にサブプロセスと一時ファイルをクリーンアップするよう SDK の `query()` を改善 | Improved SDK `query()` to clean up subprocess and temp files when consumers `break` from `for await` or use `await using` | improved |
+| LSP バイナリ検出で使用される POSIX の `which` フォールバックにおけるコマンドインジェクション脆弱性を修正 | Fixed a command injection vulnerability in the POSIX `which` fallback used by LSP binary detection | fixed |
+| 長時間セッションでバーチャルスクローラーのメッセージリストの履歴コピーが大量に保持されるメモリリークを修正 | Fixed a memory leak where long sessions retained dozens of historical copies of the message list in the virtual scroller | fixed |
+| 大規模セッションでローダーが有効な会話ではなく行き止まりブランチに固定され、`--resume`/`--continue` が会話コンテキストを失う問題を修正 | Fixed `--resume`/`--continue` losing conversation context on large sessions when the loader anchored on a dead-end branch instead of the live conversation | fixed |
+| `--resume` のチェーン復元が、メインチェーンの書き込みギャップ付近にサブエージェントのメッセージが存在する際に無関係なサブエージェント会話へ誤って接続される問題を修正 | Fixed `--resume` chain recovery bridging into an unrelated subagent conversation when a subagent message landed near a main-chain write gap | fixed |
+| `--resume` 時に保存された Edit/Write ツール結果に `file_path` が欠落している場合に発生するクラッシュを修正 | Fixed a crash on `--resume` when a persisted Edit/Write tool result was missing its `file_path` | fixed |
+| `API_TIMEOUT_MS` の設定に関わらずローカルLLM・拡張思考・低速ゲートウェイなどの遅いバックエンド接続を中断していた、ハードコードされた5分のリクエストタイムアウトを修正 | Fixed a hardcoded 5-minute request timeout that aborted slow backends (local LLMs, extended thinking, slow gateways) regardless of `API_TIMEOUT_MS` | fixed |
+| `permissions.deny` ルールが PreToolUse フックの `permissionDecision: "ask"` を上書きできていなかった問題を修正（以前はフックが拒否をプロンプトに格下げできた） | Fixed `permissions.deny` rules not overriding a PreToolUse hook's `permissionDecision: "ask"` — previously the hook could downgrade a deny into a prompt | fixed |
+| `--setting-sources` に `user` を含めない場合、バックグラウンドクリーンアップが `cleanupPeriodDays` を無視して30日より古い会話履歴を削除してしまう問題を修正 | Fixed `--setting-sources` without `user` causing background cleanup to ignore `cleanupPeriodDays` and delete conversation history older than 30 days | fixed |
+| `ANTHROPIC_AUTH_TOKEN`、`apiKeyHelper`、または `ANTHROPIC_CUSTOM_HEADERS` が Authorization ヘッダーを設定している場合に Bedrock SigV4 認証が 403 で失敗する問題を修正 | Fixed Bedrock SigV4 authentication failing with 403 when `ANTHROPIC_AUTH_TOKEN`, `apiKeyHelper`, or `ANTHROPIC_CUSTOM_HEADERS` set an Authorization header | fixed |
+| 前回セッションの worktree クリーンアップ後に残留ディレクトリが残り、`claude -w <name>` が "already exists" エラーで失敗する問題を修正 | Fixed `claude -w <name>` failing with "already exists" after a previous session's worktree cleanup left a stale directory | fixed |
+| 動的に注入されたサーバーのMCPツールをサブエージェントが継承しない問題を修正 | Fixed subagents not inheriting MCP tools from dynamically-injected servers | fixed |
+| 独立したワークツリーで実行されるサブエージェントが、自身のワークツリー内のファイルへのRead/Editアクセスを拒否される問題を修正 | Fixed sub-agents running in isolated worktrees being denied Read/Edit access to files inside their own worktree | fixed |
+| 起動直後にサンドボックス化された Bash コマンドが `mktemp: No such file or directory` で失敗する問題を修正 | Fixed sandboxed Bash commands failing with `mktemp: No such file or directory` after a fresh boot | fixed |
+| `outputSchema` を検証する MCP クライアントで `claude mcp serve` のツール呼び出しが "Tool execution failed" エラーで失敗する問題を修正 | Fixed `claude mcp serve` tool calls failing with "Tool execution failed" in MCP clients that validate `outputSchema` | fixed |
+| `RemoteTrigger` ツールの `run` アクションが空のボディを送信してサーバーに拒否される問題を修正 | Fixed `RemoteTrigger` tool's `run` action sending an empty body and being rejected by the server | fixed |
+| `/resume` ピッカーの複数の問題を修正（デフォルト表示が狭く他プロジェクトのセッションが隠れる問題、Windows Terminal でプレビューに到達できない問題、ワークツリーでの cwd が不正確になる問題、セッションが見つからないエラーが stderr に出力されない問題、ターミナルタイトルが設定されない問題、再開ヒントがプロンプト入力に重なる問題） | Fixed several `/resume` picker issues: narrow default view hiding sessions from other projects, unreachable preview on Windows Terminal, incorrect cwd in worktrees, session-not-found errors not surfacing in stderr, terminal title not being set, and resume hint overlapping the prompt input | fixed |
+| VS Code 拡張機能の自動更新や macOS App Translocation により組み込み ripgrep バイナリのパスが古くなった際に Grep ツールで発生する ENOENT エラーを修正、システムの `rg` へのフォールバックとセッション中の自己修復に対応 | Fixed Grep tool ENOENT when the embedded ripgrep binary path becomes stale (VS Code extension auto-update, macOS App Translocation); now falls back to system `rg` and self-heals mid-session | fixed |
+| `/btw` を使用するたびに会話全体のコピーがディスクに書き込まれる問題を修正 | Fixed `/btw` writing a copy of the entire conversation to disk on every use | fixed |
+| `/context` のフリースペースとメッセージ内訳がヘッダーのパーセンテージと一致しない問題を修正 | Fixed `/context` Free space and Messages breakdown disagreeing with the header percentage | fixed |
+| 複数のプラグイン問題を修正: `name:` フロントマターの重複によりスラッシュコマンドが誤ったプラグインに解決される問題、`/plugin update` が `ENAMETOOLONG` で失敗する問題、Discover にインストール済みプラグインが表示される問題、ディレクトリソースプラグインが古いバージョンキャッシュから読み込まれる問題、スキルが `context: fork` および `agent` フロントマターフィールドを無視する問題 | Fixed several plugin issues: slash commands resolving to the wrong plugin with duplicate `name:` frontmatter, `/plugin update` failing with `ENAMETOOLONG`, Discover showing already-installed plugins, directory-source plugins loading from a stale version cache, and skills not honoring `context: fork` and `agent` frontmatter fields | fixed |
+| `headersHelper` で設定された MCP サーバーに対して `/mcp` メニューが OAuth 固有のアクションを表示していた問題を修正；代わりにヘルパースクリプトを再実行するための Reconnect を表示するように変更 | Fixed the `/mcp` menu offering OAuth-specific actions for MCP servers configured with `headersHelper`; Reconnect is now offered instead to re-invoke the helper script | fixed |
+| 生の C0 制御バイトを送信するターミナル（Terminal.app、デフォルトの iTerm2、xterm）で `ctrl+]`、`ctrl+\`、`ctrl+^` のキーバインドが動作しない問題を修正 | Fixed `ctrl+]`, `ctrl+\`, and `ctrl+^` keybindings not firing in terminals that send raw C0 control bytes (Terminal.app, default iTerm2, xterm) | fixed |
+| `/login` の OAuth URL にパディングが付与されてマウスで正常に選択できなかった問題を修正 | Fixed `/login` OAuth URL rendering with padding that prevented clean mouse selection | fixed |
+| レンダリングの問題を複数修正：非フルスクリーンモードで表示領域外のコンテンツ変更時に発生するちらつき、非フルスクリーンモードの長時間セッションでターミナルのスクロールバックが消去される問題、マウススクロールのエスケープシーケンスがテキストとしてプロンプトに漏出することがある問題 | Fixed rendering issues: flicker in non-fullscreen mode when content above the visible area changed, terminal scrollback being wiped during long sessions in non-fullscreen mode, and mouse-scroll escape sequences occasionally leaking into the prompt as text | fixed |
+| `settings.json` の env 値が文字列ではなく数値の場合にクラッシュする問題を修正 | Fixed crash when `settings.json` env values are numbers instead of strings | fixed |
+| アプリ内設定の書き込み（`/add-dir --remember`、`/config` など）がメモリ上のスナップショットを更新せず、セッション中に削除されたディレクトリの権限が取り消されない問題を修正 | Fixed in-app settings writes (e.g. `/add-dir --remember`, `/config`) not refreshing the in-memory snapshot, preventing removed directories from being revoked mid-session | fixed |
+| Bedrock、Vertex、その他のサードパーティプロバイダーでカスタムキーバインド（`~/.claude/keybindings.json`）が読み込まれない問題を修正 | Fixed custom keybindings (`~/.claude/keybindings.json`) not loading on Bedrock, Vertex, and other third-party providers | fixed |
+| `claude --continue -p` が `-p` または SDK によって作成されたセッションを正しく継続できない問題を修正 | Fixed `claude --continue -p` not correctly continuing sessions created by `-p` or the SDK | fixed |
+| リモートコントロールの複数の問題を修正: セッションクラッシュ時に worktree が削除される問題、接続失敗がトランスクリプトに残らない問題、ローカルセッションのブリーフモードで誤って「Disconnected」インジケーターが表示される問題、`CLAUDE_CODE_ORGANIZATION_UUID` のみ設定されている場合に SSH 経由で `/remote-control` が失敗する問題 | Fixed several Remote Control issues: worktrees removed on session crash, connection failures not persisting in the transcript, spurious "Disconnected" indicator in brief mode for local sessions, and `/remote-control` failing over SSH when only `CLAUDE_CODE_ORGANIZATION_UUID` is set | fixed |
+| `/insights` がレスポンスからレポートファイルのリンクを省略することがある問題を修正 | Fixed `/insights` sometimes omitting the report file link from its response | fixed |
+| [VSCode] 最後のエディタタブを閉じた際にチャット入力欄下部のファイル添付がクリアされない問題を修正 | [VSCode] Fixed the file attachment below the chat input not clearing when the last editor tab is closed | fixed |
+
 ## 2.1.98
 
 | 日本語 | English | Category |
