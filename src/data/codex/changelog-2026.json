@@ -1,10 +1,117 @@
 {
-  "generatedAt": "2026-04-09T04:00:50.118Z",
+  "generatedAt": "2026-04-10T23:12:03.825Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "0.119.0",
+          "releaseDate": "2026-04-11",
+          "releaseDateDisplay": "2026年4月11日",
+          "entries": [
+            {
+              "ja": "リアルタイム音声セッションがデフォルトで v2 WebRTC パスを使用するようになり、トランスポートの設定、音声選択、ネイティブ TUI メディアサポート、新フローのアプリサーバー対応を追加 (#16960, #17057, #17058, #17093, #17097, #17145, #17165, #17176, #17183, #17188)。",
+              "en": "Realtime voice sessions now default to the v2 WebRTC path, with configurable transport, voice selection, native TUI media support, and app-server coverage for the new flow (#16960, #17057, #17058, #17093, #17097, #17145, #17165, #17176, #17183, #17188).",
+              "category": "new-features"
+            },
+            {
+              "ja": "MCP アプリおよびカスタム MCP サーバーのサポートを強化し、リソース読み取り、ツール呼び出しメタデータ、カスタムサーバーのツール検索、サーバー主導の Elicitation、ファイルパラメータのアップロード、プラグインキャッシュの更新安定性を改善 (#16082, #16465, #16944, #17043, #15197, #16191, #16947)。",
+              "en": "MCP Apps and custom MCP servers gained richer support, including resource reads, tool-call metadata, custom-server tool search, server-driven elicitations, file-parameter uploads, and more reliable plugin cache refreshes (#16082, #16465, #16944, #17043, #15197, #16191, #16947).",
+              "category": "new-features"
+            },
+            {
+              "ja": "リモート／アプリサーバーワークフローに Egress WebSocket トランスポート、リモート `--cd` 転送、ランタイムによるリモートコントロール有効化、サンドボックス対応ファイルシステム API、実験的サブコマンド `codex exec-server` を追加 (#15951, #16700, #16973, #16751, #17059, #17142, #17162)。",
+              "en": "Remote/app-server workflows now support egress websocket transport, remote `--cd` forwarding, runtime remote-control enablement, sandbox-aware filesystem APIs, and an experimental `codex exec-server` subcommand (#15951, #16700, #16973, #16751, #17059, #17142, #17162).",
+              "category": "new-features"
+            },
+            {
+              "ja": "TUI で `Ctrl+O` による最新エージェントレスポンスのコピーを追加し、SSH 環境やクロスプラットフォームでのクリップボード動作を改善 (#16966)。",
+              "en": "The TUI can copy the latest agent response with `Ctrl+O`, including better clipboard behavior over SSH and across platforms (#16966).",
+              "category": "new-features"
+            },
+            {
+              "ja": "`/resume` でセッション ID または名前を指定して TUI から直接セッションへジャンプ可能に (#17222)。",
+              "en": "`/resume` can now jump directly to a session by ID or name from the TUI (#17222).",
+              "category": "new-features"
+            },
+            {
+              "ja": "TUI 通知の設定項目を拡充し、Warp OSC 9 サポートとターミナルフォーカス中でも通知を受け取るオプトインモードを追加 (#17174, #17175)。",
+              "en": "TUI notifications are more configurable, including Warp OSC 9 support and an opt-in mode for notifications even while the terminal is focused (#17174, #17175).",
+              "category": "new-features"
+            },
+            {
+              "ja": "レート制限の非同期取得により TUI の起動を高速化し、`/status` がフリーズまたは誤ったクォータ情報を表示する代わりに古い制限情報を更新するよう修正 (#16201, #17039)。",
+              "en": "The TUI starts faster by fetching rate limits asynchronously, and `/status` now refreshes stale limits instead of showing frozen or misleading quota information (#16201, #17039).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "再開フローを安定化し、ピッカーが誤った空状態をフラッシュしない修正、スレッド名の鮮度向上、タイムスタンプラベルの安定化、ゼロトークン終了時の再開ヒント保持、現在のスレッド再開時のクラッシュ修正を実施 (#16591, #16601, #16822, #16987, #17086)。",
+              "en": "Resume flows are more stable: the picker no longer flashes false empty states, uses fresher thread names, stabilizes timestamp labels, preserves resume hints on zero-token exits, and avoids crashing when resuming the current thread (#16591, #16601, #16822, #16987, #17086).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "コンポーザーおよびチャットの動作を改善し、ペースト後処理の修正、CJK 単語ナビゲーション、`/copy` の出力古化、パーセントデコードされたローカルファイルリンク、実行出力の切り捨て時のヒント表示を修正 (#16202, #16829, #16648, #16810, #17076)。",
+              "en": "Composer and chat behavior are smoother, including fixed paste teardown, CJK word navigation, stale `/copy` output, percent-decoded local file links, and clearer truncated exec-output hints (#16202, #16829, #16648, #16810, #17076).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "アプリサーバー接続の TUI セッションで `/fast off` 後も Fast Mode がオンのままになる問題を修正 (#16833)。",
+              "en": "Fast Mode no longer stays stuck on after `/fast off` in app-server-backed TUI sessions (#16833).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "MCP のステータス表示とスタートアップのノイズを削減・高速化し、ハイフン入りサーバー名のツール一覧表示修正、`/mcp` の低速フルインベントリプローブ回避、無効サーバーの認証プローブスキップ、`codex mcp-server` によるレジデンシーヘッダーの反映を対応 (#16674, #16831, #17098, #16952)。",
+              "en": "MCP status and startup are less noisy and faster: hyphenated server names list tools correctly, `/mcp` avoids slow full inventory probes, disabled servers skip auth probing, and residency headers are honored by `codex mcp-server` (#16674, #16831, #17098, #16952).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "サンドボックス・ネットワーク・プラットフォーム固有の問題を修正し、読み取り専用時の `apply_patch` エラーメッセージ改善、サンドボックス変更後のネットワークプロキシポリシー更新、無関係な bubblewrap 警告の抑制、macOS HTTP クライアントサンドボックスのパニック修正、Windows ファイアウォールのアドレス処理を改善 (#16885, #17040, #16667, #16670, #17053)。",
+              "en": "Sandbox, network, and platform edge cases were tightened, including clearer read-only `apply_patch` errors, refreshed network proxy policy after sandbox changes, suppressed irrelevant bubblewrap warnings, a macOS HTTP-client sandbox panic fix, and Windows firewall address handling (#16885, #17040, #16667, #16670, #17053).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "README に記載の ChatGPT ビジネスプラン名を現行の名称に更新 (#16348)。",
+              "en": "The README now uses the current ChatGPT Business plan name (#16348).",
+              "category": "documentation"
+            },
+            {
+              "ja": "`argument_comment_lint` の開発者向けガイダンスを更新し、低速なローカル lint の完了を待つよりも CI を先に開始することを推奨するよう変更 (#16375)。",
+              "en": "Developer guidance for `argument_comment_lint` was updated to favor getting CI started instead of blocking on slow local lint runs (#16375).",
+              "category": "documentation"
+            },
+            {
+              "ja": "古い `codex-cli` README の内容を削除し、陳腐化したセットアップガイダンスを排除 (#17096)。",
+              "en": "Obsolete `codex-cli` README content was removed to avoid stale setup guidance (#17096).",
+              "category": "documentation"
+            },
+            {
+              "ja": "`codex exec --help` の使用方法と承認モードの説明をわかりやすく改善 (#16881, #16888)。",
+              "en": "`codex exec --help` now shows clearer usage and approval-mode wording (#16881, #16888).",
+              "category": "documentation"
+            },
+            {
+              "ja": "MCP、ツール、設定、モデル管理、認証、フィードバック、プロトコル等の主要クレートを分離することで `codex-core` をスリム化 (#15919, #16379, #16508, #16523, #16962)。",
+              "en": "`codex-core` was slimmed down through major crate extractions for MCP, tools, config, model management, auth, feedback, protocol, and related ownership boundaries (#15919, #16379, #16508, #16523, #16962).",
+              "category": "chores"
+            },
+            {
+              "ja": "新規クレートフィーチャーのブロックと定例の `--all-features` 実行の廃止により Rust CI とワークスペースのガードレールを簡略化 (#16455, #16473)。",
+              "en": "Rust CI and workspace guardrails were simplified by blocking new crate features and dropping routine `--all-features` runs (#16455, #16473).",
+              "category": "chores"
+            },
+            {
+              "ja": "頻繁に使用されるツール／タスク抽象から高コストな async-trait 展開を削除し、コアのコンパイル時間を短縮 (#16630, #16631)。",
+              "en": "Core compile times were reduced by removing expensive async-trait expansion from hot tool/task abstractions (#16630, #16631).",
+              "category": "chores"
+            },
+            {
+              "ja": "コンパクトな実行ログ、リポジトリキャッシュの永続化、リモートダウンローダーサポート、複数のプラットフォーム固有ビルド修正により Bazel の診断と依存関係の配線を改善 (#16577, #16926, #16928, #16634, #16744)。",
+              "en": "Bazel diagnostics and dependency wiring improved with compact execution logs, repository-cache persistence, remote downloader support, and several platform-specific build fixes (#16577, #16926, #16928, #16634, #16744).",
+              "category": "chores"
+            }
+          ]
+        },
         {
           "version": "0.118.0",
           "releaseDate": "2026-04-01",
