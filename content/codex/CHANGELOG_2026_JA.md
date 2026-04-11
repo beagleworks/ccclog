@@ -4,6 +4,28 @@
 
 ---
 
+## 0.120.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Realtime V2 がバックグラウンドエージェントの進捗をリアルタイムでストリーミングし、アクティブなレスポンス完了までフォローアップレスポンスをキュー管理する機能に対応 (#17264, #17306) | Realtime V2 can now stream background agent progress while work is still running and queue follow-up responses until the active response completes (#17264, #17306) | new-features |
+| TUI のフック表示を改善し、実行中のフックを個別に表示、完了したフックの出力は必要な場合のみ保持するよう変更 (#17266) | Hook activity in the TUI is easier to scan, with live running hooks shown separately and completed hook output kept only when useful (#17266) | new-features |
+| カスタム TUI ステータスラインに変更後のスレッドタイトルを含めることが可能に (#17187) | Custom TUI status lines can include the renamed thread title (#17187) | new-features |
+| コードモードのツール宣言に MCP の `outputSchema` 詳細を追加し、構造化されたツール結果の型をより厳密に指定 (#17210) | Code-mode tool declarations now include MCP `outputSchema` details so structured tool results are typed more precisely (#17210) | new-features |
+| SessionStart フックで `/clear` によるセッションと、新規起動または再開セッションを区別可能に (#17073) | SessionStart hooks can distinguish sessions created by `/clear` from fresh startup or resume sessions (#17073) | new-features |
+| 書き込み可能ルート配下の読み取り専用カーブアウトを含む、分割ファイルシステムポリシーにおける Windows 昇格サンドボックス処理を修正 (#14568) | Fixed Windows elevated sandbox handling for split filesystem policies, including read-only carveouts under writable roots (#14568) | bug-fixes |
+| シンボリックリンクされた書き込み可能ルートおよびカーブアウトのサンドボックスパーミッション処理を修正し、シェルおよび `apply_patch` ワークフローでの失敗を解消 (#15981) | Fixed sandbox permission handling for symlinked writable roots and carveouts, preventing failures in shell and `apply_patch` workflows (#15981) | bug-fixes |
+| TLS WebSocket 接続前に Rustls 暗号プロバイダーを初期化することで `codex --remote wss://...` のパニックを修正 (#17288) | Fixed `codex --remote wss://...` panics by installing the Rustls crypto provider before TLS websocket connections (#17288) | bug-fixes |
+| ツール検索結果のアルファベット順ソートをやめ、元の順序を維持するよう修正 (#17263) | Preserved tool search result ordering instead of alphabetically reordering results (#17263) | bug-fixes |
+| ライブ Stop フックのプロンプトがスレッド履歴の再読み込み後でなく即時表示されるよう修正 (#17189) | Fixed live Stop-hook prompts so they appear immediately instead of only after thread history reloads (#17189) | bug-fixes |
+| アプリサーバー MCP の切断時クリーンアップを修正し、サブスクリプション解除済みのスレッドとリソースが正しく破棄されるよう対応 (#17223) | Fixed app-server MCP cleanup on disconnect so unsubscribed threads and resources are torn down correctly (#17223) | bug-fixes |
+| コア README に Windows サンドボックスの昇格トークンと制限付きトークンのサポート分割を記載 (#14568) | Documented the elevated vs restricted-token Windows sandbox support split in the core README (#14568) | documentation |
+| 新しい `/clear` SessionStart ソースに対応したアプリサーバープロトコルドキュメントを更新 (#17073) | Updated app-server protocol documentation for the new `/clear` SessionStart source (#17073) | documentation |
+| 失敗したフラッシュのリトライと耐久性障害の通知を追加し、バッファアイテムをドロップせずロールアウト記録の信頼性を向上 (#17214) | Made rollout recording more reliable by retrying failed flushes and surfacing durability failures instead of dropping buffered items (#17214) | chores |
+| コンパクションおよび Guardian レビューイベント向けの分析スキーマとメタデータ配線を追加 (#17155, #17055) | Added analytics schemas and metadata wiring for compaction and Guardian review events (#17155, #17055) | chores |
+| 全履歴を繰り返し送信する代わりにトランスクリプトの差分を送信することで Guardian フォローアップの効率を改善 (#17269) | Improved Guardian follow-up efficiency by sending transcript deltas instead of repeatedly resending full history (#17269) | chores |
+| アプリサーバーイベントと内部承認状態をまたいで安定した Guardian レビュー ID を追加 (#17298) | Added stable Guardian review IDs across app-server events and internal approval state (#17298) | chores |
+
 ## 0.119.0
 
 | 日本語 | English | Category |

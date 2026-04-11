@@ -1,10 +1,102 @@
 {
-  "generatedAt": "2026-04-10T23:12:03.825Z",
+  "generatedAt": "2026-04-11T03:54:52.242Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "0.120.0",
+          "releaseDate": "2026-04-11",
+          "releaseDateDisplay": "2026年4月11日",
+          "entries": [
+            {
+              "ja": "Realtime V2 がバックグラウンドエージェントの進捗をリアルタイムでストリーミングし、アクティブなレスポンス完了までフォローアップレスポンスをキュー管理する機能に対応 (#17264, #17306)",
+              "en": "Realtime V2 can now stream background agent progress while work is still running and queue follow-up responses until the active response completes (#17264, #17306)",
+              "category": "new-features"
+            },
+            {
+              "ja": "TUI のフック表示を改善し、実行中のフックを個別に表示、完了したフックの出力は必要な場合のみ保持するよう変更 (#17266)",
+              "en": "Hook activity in the TUI is easier to scan, with live running hooks shown separately and completed hook output kept only when useful (#17266)",
+              "category": "new-features"
+            },
+            {
+              "ja": "カスタム TUI ステータスラインに変更後のスレッドタイトルを含めることが可能に (#17187)",
+              "en": "Custom TUI status lines can include the renamed thread title (#17187)",
+              "category": "new-features"
+            },
+            {
+              "ja": "コードモードのツール宣言に MCP の `outputSchema` 詳細を追加し、構造化されたツール結果の型をより厳密に指定 (#17210)",
+              "en": "Code-mode tool declarations now include MCP `outputSchema` details so structured tool results are typed more precisely (#17210)",
+              "category": "new-features"
+            },
+            {
+              "ja": "SessionStart フックで `/clear` によるセッションと、新規起動または再開セッションを区別可能に (#17073)",
+              "en": "SessionStart hooks can distinguish sessions created by `/clear` from fresh startup or resume sessions (#17073)",
+              "category": "new-features"
+            },
+            {
+              "ja": "書き込み可能ルート配下の読み取り専用カーブアウトを含む、分割ファイルシステムポリシーにおける Windows 昇格サンドボックス処理を修正 (#14568)",
+              "en": "Fixed Windows elevated sandbox handling for split filesystem policies, including read-only carveouts under writable roots (#14568)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "シンボリックリンクされた書き込み可能ルートおよびカーブアウトのサンドボックスパーミッション処理を修正し、シェルおよび `apply_patch` ワークフローでの失敗を解消 (#15981)",
+              "en": "Fixed sandbox permission handling for symlinked writable roots and carveouts, preventing failures in shell and `apply_patch` workflows (#15981)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "TLS WebSocket 接続前に Rustls 暗号プロバイダーを初期化することで `codex --remote wss://...` のパニックを修正 (#17288)",
+              "en": "Fixed `codex --remote wss://...` panics by installing the Rustls crypto provider before TLS websocket connections (#17288)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "ツール検索結果のアルファベット順ソートをやめ、元の順序を維持するよう修正 (#17263)",
+              "en": "Preserved tool search result ordering instead of alphabetically reordering results (#17263)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "ライブ Stop フックのプロンプトがスレッド履歴の再読み込み後でなく即時表示されるよう修正 (#17189)",
+              "en": "Fixed live Stop-hook prompts so they appear immediately instead of only after thread history reloads (#17189)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "アプリサーバー MCP の切断時クリーンアップを修正し、サブスクリプション解除済みのスレッドとリソースが正しく破棄されるよう対応 (#17223)",
+              "en": "Fixed app-server MCP cleanup on disconnect so unsubscribed threads and resources are torn down correctly (#17223)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "コア README に Windows サンドボックスの昇格トークンと制限付きトークンのサポート分割を記載 (#14568)",
+              "en": "Documented the elevated vs restricted-token Windows sandbox support split in the core README (#14568)",
+              "category": "documentation"
+            },
+            {
+              "ja": "新しい `/clear` SessionStart ソースに対応したアプリサーバープロトコルドキュメントを更新 (#17073)",
+              "en": "Updated app-server protocol documentation for the new `/clear` SessionStart source (#17073)",
+              "category": "documentation"
+            },
+            {
+              "ja": "失敗したフラッシュのリトライと耐久性障害の通知を追加し、バッファアイテムをドロップせずロールアウト記録の信頼性を向上 (#17214)",
+              "en": "Made rollout recording more reliable by retrying failed flushes and surfacing durability failures instead of dropping buffered items (#17214)",
+              "category": "chores"
+            },
+            {
+              "ja": "コンパクションおよび Guardian レビューイベント向けの分析スキーマとメタデータ配線を追加 (#17155, #17055)",
+              "en": "Added analytics schemas and metadata wiring for compaction and Guardian review events (#17155, #17055)",
+              "category": "chores"
+            },
+            {
+              "ja": "全履歴を繰り返し送信する代わりにトランスクリプトの差分を送信することで Guardian フォローアップの効率を改善 (#17269)",
+              "en": "Improved Guardian follow-up efficiency by sending transcript deltas instead of repeatedly resending full history (#17269)",
+              "category": "chores"
+            },
+            {
+              "ja": "アプリサーバーイベントと内部承認状態をまたいで安定した Guardian レビュー ID を追加 (#17298)",
+              "en": "Added stable Guardian review IDs across app-server events and internal approval state (#17298)",
+              "category": "chores"
+            }
+          ]
+        },
         {
           "version": "0.119.0",
           "releaseDate": "2026-04-11",
