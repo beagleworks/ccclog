@@ -4,6 +4,48 @@
 
 ---
 
+## 2.1.105
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `EnterWorktree` ツールに、現在のリポジトリの既存ワークツリーへ切り替えるための `path` パラメータを追加 | Added `path` parameter to the `EnterWorktree` tool to switch into an existing worktree of the current repository | added |
+| PreCompact フックのサポートを追加：コード 2 で終了または `{"decision":"block"}` を返すことでコンパクションをブロック可能に | Added PreCompact hook support: hooks can now block compaction by exiting with code 2 or returning `{"decision":"block"}` | added |
+| プラグインのバックグラウンドモニターサポートを追加：トップレベルの `monitors` マニフェストキーによりセッション開始またはスキル呼び出し時に自動起動 | Added background monitor support for plugins via a top-level `monitors` manifest key that auto-arms at session start or on skill invoke | added |
+| `/proactive` を `/loop` のエイリアスとして追加 | `/proactive` is now an alias for `/loop` | added |
+| APIストリームの停止処理を改善：データが届かない場合5分後にストリームを中断し、無期限のハングの代わりに非ストリーミングで再試行 | Improved stalled API stream handling: streams now abort after 5 minutes of no data and retry non-streaming instead of hanging indefinitely | improved |
+| ネットワークエラーメッセージを改善：接続エラー時にサイレントなスピナーの代わりに再試行メッセージを即時表示 | Improved network error messages: connection errors now show a retry message immediately instead of a silent spinner | improved |
+| ファイル書き込み表示を改善：長い1行の書き込み（例：圧縮済みJSON）を複数画面にまたがるページ表示ではなくUIで省略表示 | Improved file write display: long single-line writes (e.g. minified JSON) are now truncated in the UI instead of paginating across many screens | improved |
+| `/doctor` のレイアウトをステータスアイコン付きに改善：`f` キーで報告された問題をClaudeに修正させることが可能に | Improved `/doctor` layout with status icons; press `f` to have Claude fix reported issues | improved |
+| `/config` のラベルと説明をより明確に改善 | Improved `/config` labels and descriptions for clarity | improved |
+| スキル説明の処理を改善：リスト表示の上限を250文字から1,536文字に引き上げ、説明が省略される場合の起動時警告を追加 | Improved skill description handling: raised the listing cap from 250 to 1,536 characters and added a startup warning when descriptions are truncated | improved |
+| `WebFetch` を改善：取得したページから `<style>` と `<script>` の内容を除去し、CSSが多いページでも本文到達前にコンテンツバジェットを消費しないよう対応 | Improved `WebFetch` to strip `<style>` and `<script>` contents from fetched pages so CSS-heavy pages no longer exhaust the content budget before reaching actual text | improved |
+| 古いエージェントワークツリーのクリーンアップを改善：スカッシュマージされたPRのワークツリーを無期限に保持する代わりに削除するよう対応 | Improved stale agent worktree cleanup to remove worktrees whose PR was squash-merged instead of keeping them indefinitely | improved |
+| MCPの大規模出力省略プロンプトを改善：フォーマット固有の対処法（例：JSONには `jq`、テキストには計算済みの読み取りチャンクサイズ）を提示 | Improved MCP large-output truncation prompt to give format-specific recipes (e.g. `jq` for JSON, computed Read chunk sizes for text) | improved |
+| Claudeの処理中に送信されたキューメッセージに添付された画像が消える問題を修正 | Fixed images attached to queued messages (sent while Claude is working) being dropped | fixed |
+| 長い会話でプロンプト入力が2行目に折り返された際に画面が空白になる問題を修正 | Fixed screen going blank when the prompt input wraps to a second line in long conversations | fixed |
+| フルスクリーンモードで複数行のアシスタント応答を選択した際に先頭の空白がコピーされる問題を修正 | Fixed leading whitespace getting copied when selecting multi-line assistant responses in fullscreen mode | fixed |
+| アシスタントメッセージの先頭の空白が削除され、アスキーアートやインデントされた図が崩れる問題を修正 | Fixed leading whitespace being trimmed from assistant messages, breaking ASCII art and indented diagrams | fixed |
+| コマンドがクリック可能なファイルリンク（例：Pythonの `rich`/`loguru` ログ）を出力する際にbash出力が文字化けする問題を修正 | Fixed garbled bash output when commands print clickable file links (e.g. Python `rich`/`loguru` logging) | fixed |
+| ESCプレフィックスのaltエンコーディングを使用するターミナルでalt+enterが改行を挿入しない問題、およびCtrl+Jが改行を挿入しない問題を修正（2.1.100でのリグレッション） | Fixed alt+enter not inserting a newline in terminals using ESC-prefix alt encoding, and Ctrl+J not inserting a newline (regression in 2.1.100) | fixed |
+| EnterWorktree/ExitWorktree ツールの表示で「Creating worktree」テキストが重複する問題を修正 | Fixed duplicate "Creating worktree" text in EnterWorktree/ExitWorktree tool display | fixed |
+| キューに入ったユーザープロンプトがフォーカスモードから消える問題を修正 | Fixed queued user prompts disappearing from focus mode | fixed |
+| ファイルウォッチャーが実行後のクリーンアップを見逃した際に、ワンショットのスケジュールタスクが繰り返し再実行される問題を修正 | Fixed one-shot scheduled tasks re-firing repeatedly when the file watcher missed the post-fire cleanup | fixed |
+| Team/Enterprise ユーザーで最初のメッセージ以降の受信チャンネル通知がサイレントに破棄される問題を修正 | Fixed inbound channel notifications being silently dropped after the first message for Team/Enterprise users | fixed |
+| `package.json` とロックファイルを持つマーケットプレイスプラグインのインストール・更新後に依存関係が自動インストールされない問題を修正 | Fixed marketplace plugins with `package.json` and lockfile not having dependencies installed automatically after install/update | fixed |
+| 更新中にプラグインプロセスがファイルを開いたままの場合、マーケットプレイスの自動更新が公式マーケットプレイスを壊れた状態にする問題を修正 | Fixed marketplace auto-update leaving the official marketplace in a broken state when a plugin process holds files open during the update | fixed |
+| `/resume`、`--worktree`、`/branch` の後の終了時に「Resume this session with...」のヒントが表示されない問題を修正 | Fixed "Resume this session with..." hint not printing on exit after `/resume`, `--worktree`, or `/branch` | fixed |
+| フィードバックサーベイのショートカットキーが長いプロンプトの末尾に入力された際に誤って発動する問題を修正 | Fixed feedback survey shortcut keys firing when typed at the end of a longer prompt | fixed |
+| stdio MCPサーバーが不正な（非JSON）出力を送出した際に「Connection closed」で即失敗する代わりにセッションがハングする問題を修正 | Fixed stdio MCP server emitting malformed (non-JSON) output hanging the session instead of failing fast with "Connection closed" | fixed |
+| MCPサーバーが非同期接続する場合にヘッドレス/リモートトリガーセッションの最初のターンでMCPツールが欠落する問題を修正 | Fixed MCP tools missing on the first turn of headless/remote-trigger sessions when MCP servers connect asynchronously | fixed |
+| 米国外リージョンのAWS Bedrockで推論プロファイルの検出中に `/model` ピッカーが無効な `us.*` モデルIDを `settings.json` に保存する問題を修正 | Fixed `/model` picker on AWS Bedrock in non-US regions persisting invalid `us.*` model IDs to `settings.json` when inference profile discovery is still in-flight | fixed |
+| APIキー、Bedrock、Vertex ユーザーで429レート制限エラーが整形されたメッセージの代わりに生のJSONダンプを表示する問題を修正 | Fixed 429 rate-limit errors showing a raw JSON dump instead of a clean message for API-key, Bedrock, and Vertex users | fixed |
+| セッションに不正なテキストブロックが含まれる場合に再開時にクラッシュする問題を修正 | Fixed crash on resume when session contains malformed text blocks | fixed |
+| ターミナルの高さが低い場合に `/help` のタブバー、ショートカット見出し、フッターが消える問題を修正 | Fixed `/help` dropping the tab bar, Shortcuts heading, and footer at short terminal heights | fixed |
+| `keybindings.json` 内の不正なキーバインドエントリ値が明確なエラーで拒否される代わりにサイレントに読み込まれる問題を修正 | Fixed malformed keybinding entry values in `keybindings.json` being silently loaded instead of rejected with a clear error | fixed |
+| あるプロジェクトの設定で `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` を設定すると、マシン上の全プロジェクトの使用メトリクスが永続的に無効化される問題を修正 | Fixed `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` in one project's settings permanently disabling usage metrics for all projects on the machine | fixed |
+| SSH/mosh 経由で Ghostty、Kitty、Alacritty、WezTerm、foot、rio、Contour を使用した際に16色パレットが色あせて表示される問題を修正 | Fixed washed-out 16-color palette when using Ghostty, Kitty, Alacritty, WezTerm, foot, rio, or Contour over SSH/mosh | fixed |
+| プランモード終了時により高い権限レベルからダウングレードされる場合に Bash ツールが `acceptEdits` 権限モードを提案する問題を修正 | Fixed Bash tool suggesting `acceptEdits` permission mode when exiting plan mode would downgrade from a higher permission level | fixed |
+
 ## 2.1.101
 
 | 日本語 | English | Category |
