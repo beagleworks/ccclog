@@ -4,6 +4,35 @@
 
 ---
 
+## 2.1.108
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| APIキー・Bedrock・Vertex・Foundry で1時間のプロンプトキャッシュTTLを有効にする環境変数 `ENABLE_PROMPT_CACHING_1H` を追加（`ENABLE_PROMPT_CACHING_1H_BEDROCK` は非推奨だが引き続き有効）、および5分TTLを強制する `FORCE_PROMPT_CACHING_5M` を追加 | Added `ENABLE_PROMPT_CACHING_1H` env var to opt into 1-hour prompt cache TTL on API key, Bedrock, Vertex, and Foundry (`ENABLE_PROMPT_CACHING_1H_BEDROCK` is deprecated but still honored), and `FORCE_PROMPT_CACHING_5M` to force 5-minute TTL | added |
+| セッションに戻る際にコンテキストを提供するrecap機能を追加（/configで設定可能、/recapで手動実行可能、テレメトリ無効時は `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` で強制有効化） | Added recap feature to provide context when returning to a session, configurable in /config and manually invocable with /recap; force with `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` if telemetry disabled. | added |
+| Skillツールを通じて `/init`・`/review`・`/security-review` などの組み込みスラッシュコマンドをモデルが検出・実行できるように対応 | The model can now discover and invoke built-in slash commands like `/init`, `/review`, and `/security-review` via the Skill tool | added |
+| `/undo` を `/rewind` のエイリアスとして追加 | `/undo` is now an alias for `/rewind` | added |
+| 会話中のモデル切り替え前に警告を表示するよう `/model` を改善（次のレスポンスでフルヒストリーがキャッシュなしで再読み込みされるため） | Improved `/model` to warn before switching models mid-conversation, since the next response re-reads the full history uncached | improved |
+| `/resume` ピッカーをカレントディレクトリのセッションをデフォルト表示するよう改善、`Ctrl+A` で全プロジェクトを表示 | Improved `/resume` picker to default to sessions from the current directory; press `Ctrl+A` to show all projects | improved |
+| エラーメッセージを改善：サーバーレート制限とプラン使用制限を区別表示、5xx/529エラーにstatus.claude.comへのリンクを追加、不明なスラッシュコマンドに最も近い候補を提示 | Improved error messages: server rate limits are now distinguished from plan usage limits; 5xx/529 errors show a link to status.claude.com; unknown slash commands suggest the closest match | improved |
+| 言語グラマーのオンデマンド読み込みにより、ファイル読み込み・編集・シンタックスハイライトのメモリ使用量を削減 | Reduced memory footprint for file reads, edits, and syntax highlighting by loading language grammars on demand | improved |
+| 詳細トランスクリプト表示（`Ctrl+O`）時に「verbose」インジケーターを追加 | Added "verbose" indicator when viewing the detailed transcript (`Ctrl+O`) | added |
+| `DISABLE_PROMPT_CACHING*` 環境変数でプロンプトキャッシュが無効化されている場合に起動時警告を表示するよう追加 | Added a warning at startup when prompt caching is disabled via `DISABLE_PROMPT_CACHING*` environment variables | added |
+| `/login` のコードプロンプトでペーストが機能しない問題を修正（2.1.105のリグレッション） | Fixed paste not working in the `/login` code prompt (regression in 2.1.105) | fixed |
+| `DISABLE_TELEMETRY` を設定しているサブスクライバーのプロンプトキャッシュTTLが1時間ではなく5分にフォールバックする問題を修正 | Fixed subscribers who set `DISABLE_TELEMETRY` falling back to 5-minute prompt cache TTL instead of 1 hour | fixed |
+| 安全分類器のトランスクリプトがコンテキストウィンドウを超えた際、Agentツールがオートモードでパーミッションを要求する問題を修正 | Fixed Agent tool prompting for permission in auto mode when the safety classifier's transcript exceeded its context window | fixed |
+| `CLAUDE_ENV_FILE`（例: `~/.zprofile`）が `#` コメント行で終わる場合にBashツールが出力を生成しない問題を修正 | Fixed Bash tool producing no output when `CLAUDE_ENV_FILE` (e.g. `~/.zprofile`) ends with a `#` comment line | fixed |
+| `claude --resume <session-id>` で `/rename` により設定したセッションのカスタム名とカラーが失われる問題を修正 | Fixed `claude --resume <session-id>` losing the session's custom name and color set via `/rename` | fixed |
+| 最初のメッセージが短い挨拶の場合にセッションタイトルにプレースホルダーのサンプルテキストが表示される問題を修正 | Fixed session titles showing placeholder example text when the first message is a short greeting | fixed |
+| `--teleport` 後のプロンプト入力にターミナルエスケープコードが文字化けとして表示される問題を修正 | Fixed terminal escape codes appearing as garbage text in the prompt input after `--teleport` | fixed |
+| `/feedback` 送信失敗後、説明を編集せずにEnterキーで再送信できない問題を修正 | Fixed `/feedback` retry: pressing Enter to resubmit after a failure now works without first editing the description | fixed |
+| `--teleport` および `--resume <id>` の前提条件エラー（例: gitツリーの未コミット変更、セッションが見つからない）がエラーメッセージを表示せずにサイレント終了する問題を修正 | Fixed `--teleport` and `--resume <id>` precondition errors (e.g. dirty git tree, session not found) exiting silently instead of showing the error message | fixed |
+| Web UIで設定したRemote ControlセッションのタイトルがメッセージThat's3通目以降に自動生成タイトルで上書きされる問題を修正 | Fixed Remote Control session titles set in the web UI being overwritten by auto-generated titles after the third message | fixed |
+| トランスクリプトに自己参照メッセージが含まれる場合に `--resume` でセッションが切り捨てられる問題を修正 | Fixed `--resume` truncating sessions when the transcript contained a self-referencing message | fixed |
+| トランスクリプトの書き込み失敗（例: ディスクフル）がログに記録されずサイレントに無視される問題を修正 | Fixed transcript write failures (e.g., disk full) being silently dropped instead of being logged | fixed |
+| `language` 設定が構成されている場合にレスポンスからダイアクリティカルマーク（アクセント・ウムラウト・セジーユ）が脱落する問題を修正 | Fixed diacritical marks (accents, umlauts, cedillas) being dropped from responses when the `language` setting is configured | fixed |
+| ポリシー管理プラグインが初回インストール時と異なるプロジェクトから実行した場合に自動更新されない問題を修正 | Fixed policy-managed plugins never auto-updating when running from a different project than where they were first installed | fixed |
+
 ## 2.1.107
 
 | 日本語 | English | Category |
