@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.107
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 長時間の操作中にthinkingヒントをより早く表示 | Show thinking hints sooner during long operations | improved |
+
 ## 2.1.105
 
 | 日本語 | English | Category |
