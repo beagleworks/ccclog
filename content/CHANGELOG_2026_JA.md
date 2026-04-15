@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.109
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 拡張思考インジケーターを回転プログレスヒントで改善 | Improved the extended-thinking indicator with a rotating progress hint | improved |
+
 ## 2.1.108
 
 | 日本語 | English | Category |

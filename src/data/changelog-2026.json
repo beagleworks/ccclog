@@ -1,10 +1,22 @@
 {
-  "generatedAt": "2026-04-14T21:16:51.203Z",
+  "generatedAt": "2026-04-15T04:05:50.918Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "2.1.109",
+          "releaseDate": "2026-04-15",
+          "releaseDateDisplay": "2026年4月15日",
+          "entries": [
+            {
+              "ja": "拡張思考インジケーターを回転プログレスヒントで改善",
+              "en": "Improved the extended-thinking indicator with a rotating progress hint",
+              "category": "improved"
+            }
+          ]
+        },
         {
           "version": "2.1.108",
           "releaseDate": "2026-04-15",
