@@ -4,6 +4,44 @@
 
 ---
 
+## 2.1.110
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `/tui` コマンドと `tui` 設定を追加 — `/tui fullscreen` で同一会話内においてちらつきのないレンダリングに切り替え可能 | Added `/tui` command and `tui` setting — run `/tui fullscreen` to switch to flicker-free rendering in the same conversation | added |
+| プッシュ通知ツールを追加 — Remote Control と「Push when Claude decides」設定が有効な場合、Claude がモバイルプッシュ通知を送信可能 | Added push notification tool — Claude can send mobile push notifications when Remote Control and "Push when Claude decides" config are enabled | added |
+| `Ctrl+O` を通常とverboseトランスクリプト間のトグルに変更；フォーカスビューは新しい `/focus` コマンドで別途切り替え可能 | Changed `Ctrl+O` to toggle between normal and verbose transcript only; focus view is now toggled separately with the new `/focus` command | changed |
+| フルスクリーンモードでの会話の自動スクロールを無効化する `autoScrollEnabled` 設定を追加 | Added `autoScrollEnabled` config to disable conversation auto-scroll in fullscreen mode | added |
+| `Ctrl+G` 外部エディタでClaudeの直近の応答をコメント付きコンテキストとして表示するオプションを追加（`/config` で有効化） | Added option to show Claude's last response as commented context in the `Ctrl+G` external editor (enable via `/config`) | added |
+| `/plugin` のインストール済みタブを改善 — 要注意アイテムとお気に入りが上部に表示、無効アイテムは折り畳み内に格納、`f` でお気に入り登録可能 | Improved `/plugin` Installed tab — items needing attention and favorites appear at the top, disabled items are hidden behind a fold, and `f` favorites the selected item | improved |
+| `/doctor` を改善 — MCPサーバーが複数の設定スコープに異なるエンドポイントで定義されている場合に警告を表示 | Improved `/doctor` to warn when an MCP server is defined in multiple config scopes with different endpoints | improved |
+| `--resume`/`--continue` で未期限のスケジュール済みタスクを復元可能に | `--resume`/`--continue` now resurrects unexpired scheduled tasks | added |
+| `/autocompact`、`/context`、`/exit`、`/reload-plugins` がRemote Control（モバイル/Web）クライアントから利用可能に | `/autocompact`, `/context`, `/exit`, and `/reload-plugins` now work from Remote Control (mobile/web) clients | added |
+| WriteツールがIDEのdiff画面で提案内容を編集してから承認した場合にモデルへ通知するように改善 | Write tool now informs the model when you edit the proposed content in the IDE diff before accepting | improved |
+| Bashツールが任意の大きな値を受け入れる代わりに、ドキュメントに記載された最大タイムアウトを強制するように修正 | Bash tool now enforces the documented maximum timeout instead of accepting arbitrarily large values | fixed |
+| SDK/ヘッドレスセッションが分散トレース連携のために環境変数から `TRACEPARENT`/`TRACESTATE` を読み取るように対応 | SDK/headless sessions now read `TRACEPARENT`/`TRACESTATE` from the environment for distributed trace linking | added |
+| テレメトリが無効なユーザー（Bedrock、Vertex、Foundry、`DISABLE_TELEMETRY`）向けにセッションリキャップを有効化。`/config` または `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0` でオプトアウト可能 | Session recap is now enabled for users with telemetry disabled (Bedrock, Vertex, Foundry, `DISABLE_TELEMETRY`). Opt out via `/config` or `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0`. | changed |
+| SSE/HTTPトランスポートで応答中にサーバー接続が切断された際にMCPツールコールが無限にハングする問題を修正 | Fixed MCP tool calls hanging indefinitely when the server connection drops mid-response on SSE/HTTP transports | fixed |
+| APIが到達不能な場合に非ストリーミングフォールバックリトライが数分間のハングを引き起こす問題を修正 | Fixed non-streaming fallback retries causing multi-minute hangs when the API is unreachable | fixed |
+| フォーカスモードでセッションリキャップ、ローカルスラッシュコマンドの出力、その他のシステムステータス行が表示されない問題を修正 | Fixed session recap, local slash-command output, and other system status lines not appearing in focus mode | fixed |
+| ツール実行中にテキストが選択されているとフルスクリーンモードでCPU使用率が高くなる問題を修正 | Fixed high CPU usage in fullscreen when text is selected while a tool is running | fixed |
+| マーケットプレイスエントリで省略された場合に `plugin.json` で宣言された依存関係が考慮されないプラグインインストールの問題を修正；`/plugin` インストールで自動インストールされた依存関係を一覧表示するように | Fixed plugin install not honoring dependencies declared in `plugin.json` when the marketplace entry omits them; `/plugin` install now lists auto-installed dependencies | fixed |
+| `disable-model-invocation: true` を持つスキルがメッセージ途中で `/<skill>` から呼び出すと失敗する問題を修正 | Fixed skills with `disable-model-invocation: true` failing when invoked via `/<skill>` mid-message | fixed |
+| まだ実行中またはアンクリーンに終了したセッションで `--resume` が `/rename` 名の代わりに最初のプロンプトを表示する場合がある問題を修正 | Fixed `--resume` sometimes showing the first prompt instead of the `/rename` name for sessions still running or exited uncleanly | fixed |
+| マルチツールコールターン中にキューされたメッセージが一時的に二重表示される問題を修正 | Fixed queued messages briefly appearing twice during multi-tool-call turns | fixed |
+| セッションクリーンアップがサブエージェントのトランスクリプトを含むセッションディレクトリ全体を削除しない問題を修正 | Fixed session cleanup not removing the full session directory including subagent transcripts | fixed |
+| CLI再起動後（例: `/tui`、プロバイダセットアップウィザード）にキーストロークがドロップされる問題を修正 | Fixed dropped keystrokes after the CLI relaunches (e.g. `/tui`, provider setup wizards) | fixed |
+| 同期出力をサポートしないmacOS Terminal.appおよびその他のターミナルでの起動時の描画が乱れる問題を修正 | Fixed garbled startup rendering in macOS Terminal.app and other terminals that don't support synchronized output | fixed |
+| 信頼されていないファイル名によるコマンドインジェクションに対して「エディタで開く」アクションを強化 | Hardened "Open in editor" actions against command injection from untrusted filenames | fixed |
+| `PermissionRequest` フックが返す `updatedInput` が `permissions.deny` ルールで再チェックされない問題を修正；`setMode:'bypassPermissions'` の更新が `disableBypassPermissionsMode` を尊重するように | Fixed `PermissionRequest` hooks returning `updatedInput` not being re-checked against `permissions.deny` rules; `setMode:'bypassPermissions'` updates now respect `disableBypassPermissionsMode` | fixed |
+| ツールコール失敗時に `PreToolUse` フックの `additionalContext` が破棄される問題を修正 | Fixed `PreToolUse` hook `additionalContext` being dropped when the tool call fails | fixed |
+| stdoutに無関係な非JSON行を出力するstdio MCPサーバーが最初の無関係な行で切断される問題を修正（2.1.105のリグレッション） | Fixed stdio MCP servers that print stray non-JSON lines to stdout being disconnected on the first stray line (regression in 2.1.105) | fixed |
+| `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` または `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` が設定されている場合にヘッドレス/SDKセッションの自動タイトルが余分なHaikuリクエストを発行する問題を修正 | Fixed headless/SDK session auto-title firing an extra Haiku request when `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` or `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` is set | fixed |
+| パイプ（非TTY）のInk出力に非常に幅の広い行が含まれる場合に過剰なメモリ割り当てが発生する可能性がある問題を修正 | Fixed potential excessive memory allocation when piped (non-TTY) Ink output contains a single very wide line | fixed |
+| フルスクリーンモードでリストがモーダルをオーバーフローした際に `/skills` メニューがスクロールしない問題を修正 | Fixed `/skills` menu not scrolling when the list overflows the modal in fullscreen mode | fixed |
+| セッションが古すぎる場合にRemote Controlセッションが再ログインを促す代わりに汎用エラーを表示する問題を修正 | Fixed Remote Control sessions showing a generic error instead of prompting for re-login when the session is too old | fixed |
+| claude.aiからのRemote ControlセッションのリネームがローカルのCLIセッションにタイトルを永続化しない問題を修正 | Fixed Remote Control session renames from claude.ai not persisting the title to the local CLI session | fixed |
+
 ## 2.1.109
 
 | 日本語 | English | Category |
@@ -15,7 +53,7 @@
 | 日本語 | English | Category |
 |--------|---------|----------|
 | APIキー・Bedrock・Vertex・Foundry で1時間のプロンプトキャッシュTTLを有効にする環境変数 `ENABLE_PROMPT_CACHING_1H` を追加（`ENABLE_PROMPT_CACHING_1H_BEDROCK` は非推奨だが引き続き有効）、および5分TTLを強制する `FORCE_PROMPT_CACHING_5M` を追加 | Added `ENABLE_PROMPT_CACHING_1H` env var to opt into 1-hour prompt cache TTL on API key, Bedrock, Vertex, and Foundry (`ENABLE_PROMPT_CACHING_1H_BEDROCK` is deprecated but still honored), and `FORCE_PROMPT_CACHING_5M` to force 5-minute TTL | added |
-| セッションに戻る際にコンテキストを提供するrecap機能を追加（/configで設定可能、/recapで手動実行可能、テレメトリ無効時は `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` で強制有効化） | Added recap feature to provide context when returning to a session, configurable in /config and manually invocable with /recap; force with `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` if telemetry disabled. | added |
+| セッション復帰時にコンテキストを提供するリキャップ機能を追加。`/config` で設定可能、`/recap` で手動実行でき、テレメトリー無効時は `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` で強制有効化可能。 | Added recap feature to provide context when returning to a session, configurable in `/config` and manually invocable with `/recap`; force with `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` if telemetry disabled. | added |
 | Skillツールを通じて `/init`・`/review`・`/security-review` などの組み込みスラッシュコマンドをモデルが検出・実行できるように対応 | The model can now discover and invoke built-in slash commands like `/init`, `/review`, and `/security-review` via the Skill tool | added |
 | `/undo` を `/rewind` のエイリアスとして追加 | `/undo` is now an alias for `/rewind` | added |
 | 会話中のモデル切り替え前に警告を表示するよう `/model` を改善（次のレスポンスでフルヒストリーがキャッシュなしで再読み込みされるため） | Improved `/model` to warn before switching models mid-conversation, since the next response re-reads the full history uncached | improved |

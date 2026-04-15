@@ -1,10 +1,182 @@
 {
-  "generatedAt": "2026-04-15T04:05:50.918Z",
+  "generatedAt": "2026-04-15T23:17:31.131Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "2.1.110",
+          "releaseDate": "2026-04-16",
+          "releaseDateDisplay": "2026年4月16日",
+          "entries": [
+            {
+              "ja": "`/tui` コマンドと `tui` 設定を追加 — `/tui fullscreen` で同一会話内においてちらつきのないレンダリングに切り替え可能",
+              "en": "Added `/tui` command and `tui` setting — run `/tui fullscreen` to switch to flicker-free rendering in the same conversation",
+              "category": "added"
+            },
+            {
+              "ja": "プッシュ通知ツールを追加 — Remote Control と「Push when Claude decides」設定が有効な場合、Claude がモバイルプッシュ通知を送信可能",
+              "en": "Added push notification tool — Claude can send mobile push notifications when Remote Control and \"Push when Claude decides\" config are enabled",
+              "category": "added"
+            },
+            {
+              "ja": "`Ctrl+O` を通常とverboseトランスクリプト間のトグルに変更；フォーカスビューは新しい `/focus` コマンドで別途切り替え可能",
+              "en": "Changed `Ctrl+O` to toggle between normal and verbose transcript only; focus view is now toggled separately with the new `/focus` command",
+              "category": "changed"
+            },
+            {
+              "ja": "フルスクリーンモードでの会話の自動スクロールを無効化する `autoScrollEnabled` 設定を追加",
+              "en": "Added `autoScrollEnabled` config to disable conversation auto-scroll in fullscreen mode",
+              "category": "added"
+            },
+            {
+              "ja": "`Ctrl+G` 外部エディタでClaudeの直近の応答をコメント付きコンテキストとして表示するオプションを追加（`/config` で有効化）",
+              "en": "Added option to show Claude's last response as commented context in the `Ctrl+G` external editor (enable via `/config`)",
+              "category": "added"
+            },
+            {
+              "ja": "`/plugin` のインストール済みタブを改善 — 要注意アイテムとお気に入りが上部に表示、無効アイテムは折り畳み内に格納、`f` でお気に入り登録可能",
+              "en": "Improved `/plugin` Installed tab — items needing attention and favorites appear at the top, disabled items are hidden behind a fold, and `f` favorites the selected item",
+              "category": "improved"
+            },
+            {
+              "ja": "`/doctor` を改善 — MCPサーバーが複数の設定スコープに異なるエンドポイントで定義されている場合に警告を表示",
+              "en": "Improved `/doctor` to warn when an MCP server is defined in multiple config scopes with different endpoints",
+              "category": "improved"
+            },
+            {
+              "ja": "`--resume`/`--continue` で未期限のスケジュール済みタスクを復元可能に",
+              "en": "`--resume`/`--continue` now resurrects unexpired scheduled tasks",
+              "category": "added"
+            },
+            {
+              "ja": "`/autocompact`、`/context`、`/exit`、`/reload-plugins` がRemote Control（モバイル/Web）クライアントから利用可能に",
+              "en": "`/autocompact`, `/context`, `/exit`, and `/reload-plugins` now work from Remote Control (mobile/web) clients",
+              "category": "added"
+            },
+            {
+              "ja": "WriteツールがIDEのdiff画面で提案内容を編集してから承認した場合にモデルへ通知するように改善",
+              "en": "Write tool now informs the model when you edit the proposed content in the IDE diff before accepting",
+              "category": "improved"
+            },
+            {
+              "ja": "Bashツールが任意の大きな値を受け入れる代わりに、ドキュメントに記載された最大タイムアウトを強制するように修正",
+              "en": "Bash tool now enforces the documented maximum timeout instead of accepting arbitrarily large values",
+              "category": "fixed"
+            },
+            {
+              "ja": "SDK/ヘッドレスセッションが分散トレース連携のために環境変数から `TRACEPARENT`/`TRACESTATE` を読み取るように対応",
+              "en": "SDK/headless sessions now read `TRACEPARENT`/`TRACESTATE` from the environment for distributed trace linking",
+              "category": "added"
+            },
+            {
+              "ja": "テレメトリが無効なユーザー（Bedrock、Vertex、Foundry、`DISABLE_TELEMETRY`）向けにセッションリキャップを有効化。`/config` または `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0` でオプトアウト可能",
+              "en": "Session recap is now enabled for users with telemetry disabled (Bedrock, Vertex, Foundry, `DISABLE_TELEMETRY`). Opt out via `/config` or `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0`.",
+              "category": "changed"
+            },
+            {
+              "ja": "SSE/HTTPトランスポートで応答中にサーバー接続が切断された際にMCPツールコールが無限にハングする問題を修正",
+              "en": "Fixed MCP tool calls hanging indefinitely when the server connection drops mid-response on SSE/HTTP transports",
+              "category": "fixed"
+            },
+            {
+              "ja": "APIが到達不能な場合に非ストリーミングフォールバックリトライが数分間のハングを引き起こす問題を修正",
+              "en": "Fixed non-streaming fallback retries causing multi-minute hangs when the API is unreachable",
+              "category": "fixed"
+            },
+            {
+              "ja": "フォーカスモードでセッションリキャップ、ローカルスラッシュコマンドの出力、その他のシステムステータス行が表示されない問題を修正",
+              "en": "Fixed session recap, local slash-command output, and other system status lines not appearing in focus mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "ツール実行中にテキストが選択されているとフルスクリーンモードでCPU使用率が高くなる問題を修正",
+              "en": "Fixed high CPU usage in fullscreen when text is selected while a tool is running",
+              "category": "fixed"
+            },
+            {
+              "ja": "マーケットプレイスエントリで省略された場合に `plugin.json` で宣言された依存関係が考慮されないプラグインインストールの問題を修正；`/plugin` インストールで自動インストールされた依存関係を一覧表示するように",
+              "en": "Fixed plugin install not honoring dependencies declared in `plugin.json` when the marketplace entry omits them; `/plugin` install now lists auto-installed dependencies",
+              "category": "fixed"
+            },
+            {
+              "ja": "`disable-model-invocation: true` を持つスキルがメッセージ途中で `/<skill>` から呼び出すと失敗する問題を修正",
+              "en": "Fixed skills with `disable-model-invocation: true` failing when invoked via `/<skill>` mid-message",
+              "category": "fixed"
+            },
+            {
+              "ja": "まだ実行中またはアンクリーンに終了したセッションで `--resume` が `/rename` 名の代わりに最初のプロンプトを表示する場合がある問題を修正",
+              "en": "Fixed `--resume` sometimes showing the first prompt instead of the `/rename` name for sessions still running or exited uncleanly",
+              "category": "fixed"
+            },
+            {
+              "ja": "マルチツールコールターン中にキューされたメッセージが一時的に二重表示される問題を修正",
+              "en": "Fixed queued messages briefly appearing twice during multi-tool-call turns",
+              "category": "fixed"
+            },
+            {
+              "ja": "セッションクリーンアップがサブエージェントのトランスクリプトを含むセッションディレクトリ全体を削除しない問題を修正",
+              "en": "Fixed session cleanup not removing the full session directory including subagent transcripts",
+              "category": "fixed"
+            },
+            {
+              "ja": "CLI再起動後（例: `/tui`、プロバイダセットアップウィザード）にキーストロークがドロップされる問題を修正",
+              "en": "Fixed dropped keystrokes after the CLI relaunches (e.g. `/tui`, provider setup wizards)",
+              "category": "fixed"
+            },
+            {
+              "ja": "同期出力をサポートしないmacOS Terminal.appおよびその他のターミナルでの起動時の描画が乱れる問題を修正",
+              "en": "Fixed garbled startup rendering in macOS Terminal.app and other terminals that don't support synchronized output",
+              "category": "fixed"
+            },
+            {
+              "ja": "信頼されていないファイル名によるコマンドインジェクションに対して「エディタで開く」アクションを強化",
+              "en": "Hardened \"Open in editor\" actions against command injection from untrusted filenames",
+              "category": "fixed"
+            },
+            {
+              "ja": "`PermissionRequest` フックが返す `updatedInput` が `permissions.deny` ルールで再チェックされない問題を修正；`setMode:'bypassPermissions'` の更新が `disableBypassPermissionsMode` を尊重するように",
+              "en": "Fixed `PermissionRequest` hooks returning `updatedInput` not being re-checked against `permissions.deny` rules; `setMode:'bypassPermissions'` updates now respect `disableBypassPermissionsMode`",
+              "category": "fixed"
+            },
+            {
+              "ja": "ツールコール失敗時に `PreToolUse` フックの `additionalContext` が破棄される問題を修正",
+              "en": "Fixed `PreToolUse` hook `additionalContext` being dropped when the tool call fails",
+              "category": "fixed"
+            },
+            {
+              "ja": "stdoutに無関係な非JSON行を出力するstdio MCPサーバーが最初の無関係な行で切断される問題を修正（2.1.105のリグレッション）",
+              "en": "Fixed stdio MCP servers that print stray non-JSON lines to stdout being disconnected on the first stray line (regression in 2.1.105)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` または `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` が設定されている場合にヘッドレス/SDKセッションの自動タイトルが余分なHaikuリクエストを発行する問題を修正",
+              "en": "Fixed headless/SDK session auto-title firing an extra Haiku request when `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` or `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` is set",
+              "category": "fixed"
+            },
+            {
+              "ja": "パイプ（非TTY）のInk出力に非常に幅の広い行が含まれる場合に過剰なメモリ割り当てが発生する可能性がある問題を修正",
+              "en": "Fixed potential excessive memory allocation when piped (non-TTY) Ink output contains a single very wide line",
+              "category": "fixed"
+            },
+            {
+              "ja": "フルスクリーンモードでリストがモーダルをオーバーフローした際に `/skills` メニューがスクロールしない問題を修正",
+              "en": "Fixed `/skills` menu not scrolling when the list overflows the modal in fullscreen mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "セッションが古すぎる場合にRemote Controlセッションが再ログインを促す代わりに汎用エラーを表示する問題を修正",
+              "en": "Fixed Remote Control sessions showing a generic error instead of prompting for re-login when the session is too old",
+              "category": "fixed"
+            },
+            {
+              "ja": "claude.aiからのRemote ControlセッションのリネームがローカルのCLIセッションにタイトルを永続化しない問題を修正",
+              "en": "Fixed Remote Control session renames from claude.ai not persisting the title to the local CLI session",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.109",
           "releaseDate": "2026-04-15",
@@ -28,8 +200,8 @@
               "category": "added"
             },
             {
-              "ja": "セッションに戻る際にコンテキストを提供するrecap機能を追加（/configで設定可能、/recapで手動実行可能、テレメトリ無効時は `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` で強制有効化）",
-              "en": "Added recap feature to provide context when returning to a session, configurable in /config and manually invocable with /recap; force with `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` if telemetry disabled.",
+              "ja": "セッション復帰時にコンテキストを提供するリキャップ機能を追加。`/config` で設定可能、`/recap` で手動実行でき、テレメトリー無効時は `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` で強制有効化可能。",
+              "en": "Added recap feature to provide context when returning to a session, configurable in `/config` and manually invocable with `/recap`; force with `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` if telemetry disabled.",
               "category": "added"
             },
             {
