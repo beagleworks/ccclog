@@ -4,6 +4,33 @@
 
 ---
 
+## 0.121.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| GitHubリポジトリ・git URL・ローカルディレクトリ・`marketplace.json` URL から直接プラグインマーケットプレイスをインストールする `codex marketplace add` コマンドおよびアプリサーバーサポートを追加 (#17087, #17717, #17756) | Added `codex marketplace add` and app-server support for installing plugin marketplaces from GitHub, git URLs, local directories, and direct `marketplace.json` URLs (#17087, #17717, #17756). | new-features |
+| `Ctrl+R` による逆順検索や受け入れ済みスラッシュコマンドのローカル履歴再呼び出しなど、TUI プロンプト履歴機能を改善 (#17550, #17336) | Added TUI prompt history improvements, including `Ctrl+R` reverse search and local recall for accepted slash commands (#17550, #17336). | new-features |
+| メモリモードの切り替え、メモリのリセット／削除、メモリ拡張クリーンアップに関する TUI およびアプリサーバーの制御機能を追加 (#17632, #17626, #17913, #17937, #17844) | Added TUI and app-server controls for memory mode, memory reset/deletion, and memory-extension cleanup (#17632, #17626, #17913, #17937, #17844). | new-features |
+| MCP Apps ツール呼び出し、名前空間付き MCP 登録、並列呼び出しオプトイン、MCP サーバー向けサンドボックス状態メタデータを追加し、MCP／プラグインサポートを拡張 (#17364, #17404, #17667, #17763) | Expanded MCP/plugin support with MCP Apps tool calls, namespaced MCP registration, parallel-call opt-in, and sandbox-state metadata for MCP servers (#17364, #17404, #17667, #17763). | new-features |
+| 出力モダリティ、トランスクリプト完了イベント、ロー Turn アイテム注入、シンボリックリンク対応ファイルシステムメタデータ向けのリアルタイムおよびアプリサーバー API を追加 (#17701, #17703, #17719) | Added realtime and app-server APIs for output modality, transcript completion events, raw turn item injection, and symlink-aware filesystem metadata (#17701, #17703, #17719). | new-features |
+| bubblewrap サポートを備えたセキュアな devcontainer プロファイルを追加し、Unix ソケット向け macOS サンドボックス許可リストを追加 (#10431, #17547, #17654) | Added a secure devcontainer profile with bubblewrap support, plus macOS sandbox allowlists for Unix sockets (#10431, #17547, #17654). | new-features |
+| プライベート DNS に関する macOS サンドボックス／プロキシ処理を修正し、`danger-full-access` の拒否リスト専用ネットワークモードを削除 (#17370, #17732) | Fixed macOS sandbox/proxy handling for private DNS and removed the `danger-full-access` denylist-only network mode (#17370, #17732). | bug-fixes |
+| パスに verbatim プレフィックスが含まれる場合に `resume --last` および `thread/list` が動作するよう Windows の cwd／セッションマッチングを修正 (#17414) | Fixed Windows cwd/session matching so `resume --last` and `thread/list` work when paths use verbatim prefixes (#17414). | bug-fixes |
+| `prolite` プランのレート制限／アカウント処理を修正し、未知の WHAM プラン値をデコード可能に対応 (#17419) | Fixed rate-limit/account handling for `prolite` plans and made unknown WHAM plan values decodable (#17419). | bug-fixes |
+| Guardian のタイムアウトをポリシー拒否と区別し、タイムアウト固有のガイダンス表示および TUI 履歴への表示エントリを追加 (#17381, #17486, #17521, #17557) | Made Guardian timeouts distinct from policy denials, with timeout-specific guidance and visible TUI history entries (#17381, #17486, #17521, #17557). | bug-fixes |
+| スレッドの早期アンロード回避、起動時の信頼永続化失敗への耐性追加、`fs/readDirectory` での壊れたシンボリックリンクのスキップにより、アプリサーバーの動作を安定化 (#17398, #17595, #17907) | Stabilized app-server behavior by avoiding premature thread unloads, tolerating failed trust persistence on startup, and skipping broken symlinks in `fs/readDirectory` (#17398, #17595, #17907). | bug-fixes |
+| 遅延ツール名のフラット化、elicitation タイムアウトの計算、空の名前空間説明に関する MCP／ツール呼び出しのエッジケースを修正 (#17556, #17566, #17946) | Fixed MCP/tool-call edge cases including flattened deferred tool names, elicitation timeout accounting, and empty namespace descriptions (#17556, #17566, #17946). | bug-fixes |
+| セキュアな devcontainer プロファイルおよびその bubblewrap 要件をドキュメント化 (#10431, #17547) | Documented the secure devcontainer profile and its bubblewrap requirements (#10431, #17547). | documentation |
+| TUI コンポーザーの履歴検索動作に関するドキュメントを追加 (#17550) | Added TUI composer documentation for history search behavior (#17550). | documentation |
+| MCP、マーケットプレイス、ターン注入、メモリリセット、ファイルシステムメタデータ、外部エージェント移行、WebSocket トークンハッシュ API に関するアプリサーバードキュメントを更新 (#17364, #17717, #17703, #17913, #17719, #17855, #17871) | Updated app-server docs for new MCP, marketplace, turn injection, memory reset, filesystem metadata, external-agent migration, and websocket token-hash APIs (#17364, #17717, #17703, #17913, #17719, #17855, #17871). | documentation |
+| WSL1 の bubblewrap 制限と WSL2 の動作をドキュメント化 (#17559) | Documented WSL1 bubblewrap limitations and WSL2 behavior (#17559). | documentation |
+| 拡張クリーンアップに関するメモリパイプラインのドキュメントを追加 (#17844) | Added memory pipeline documentation for extension cleanup (#17844). | documentation |
+| GitHub Actions、cargo インストール、git 依存関係、V8 チェックサム、cargo-deny ソース許可リストをピン留めし、サプライチェーンおよび CI 入力のセキュリティを強化 (#17471) | Hardened supply-chain and CI inputs by pinning GitHub Actions, cargo installs, git dependencies, V8 checksums, and cargo-deny source allowlists (#17471). | chores |
+| PR CI にてリリース専用 Rust コードがコンパイルされるよう、Bazel リリースビルド検証を追加 (#17704, #17705) | Added Bazel release-build verification so release-only Rust code is compiled in PR CI (#17704, #17705). | chores |
+| `codex-thread-store` クレート／インターフェイスを導入し、ローカルスレッド一覧取得をその背後に移行 (#17659, #17824) | Introduced the `codex-thread-store` crate/interface and moved local thread listing behind it (#17659, #17824). | chores |
+| ワークスペースインストールにおける pnpm 依存関係ビルドスクリプトのレビュー必須化 (#17558) | Required reviewed pnpm dependency build scripts for workspace installs (#17558). | chores |
+| 絶対パス型の適用範囲拡大および未使用ヘルパー API の削除により、Rust のメンテナンスコストを低減 (#17407, #17792, #17146) | Reduced Rust maintenance surface with broader absolute-path types and removal of unused helper APIs (#17407, #17792, #17146). | chores |
+
 ## 0.120.0
 
 | 日本語 | English | Category |
