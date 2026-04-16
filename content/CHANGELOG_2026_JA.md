@@ -4,6 +4,46 @@
 
 ---
 
+## 2.1.111
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Claude Opus 4.7 の xhigh が利用可能に。`/effort` で速度とインテリジェンスのバランスを調整可能 | Claude Opus 4.7 xhigh is now available! Use /effort to tune speed vs. intelligence | added |
+| Opus 4.7 使用時、Max サブスクライバー向けに Auto モードが利用可能に | Auto mode is now available for Max subscribers when using Opus 4.7 | added |
+| Opus 4.7 向けに `high` と `max` の間に位置する `xhigh` エフォートレベルを追加。`/effort`、`--effort`、モデルピッカーから利用可能。他のモデルは `high` にフォールバック | Added `xhigh` effort level for Opus 4.7, sitting between `high` and `max`. Available via `/effort`, `--effort`, and the model picker; other models fall back to `high` | added |
+| `/effort` を引数なしで呼び出すとインタラクティブスライダーが開き、矢印キーでレベルを選択、Enter で確定 | `/effort` now opens an interactive slider when called without arguments, with arrow-key navigation between levels and Enter to confirm | improved |
+| ターミナルのダーク/ライトモードに追従する「Auto (match terminal)」テーマオプションを追加。`/theme` から選択可能 | Added "Auto (match terminal)" theme option that matches your terminal's dark/light mode — select it from `/theme` | added |
+| `/less-permission-prompts` スキルを追加。よく使われる読み取り専用 Bash および MCP ツール呼び出しをトランスクリプトからスキャンし、`.claude/settings.json` への優先許可リストを提案 | Added `/less-permission-prompts` skill — scans transcripts for common read-only Bash and MCP tool calls and proposes a prioritized allowlist for `.claude/settings.json` | added |
+| 並列マルチエージェント分析を用いたクラウド上での包括的コードレビュー用 `/ultrareview` を追加。引数なしで現在のブランチをレビュー、`/ultrareview <PR#>` で特定の GitHub PR を取得してレビュー | Added `/ultrareview` for running comprehensive code review in the cloud using parallel multi-agent analysis and critique — invoke with no arguments to review your current branch, or `/ultrareview <PR#>` to fetch and review a specific GitHub PR | added |
+| Auto モードに `--enable-auto-mode` が不要に | Auto mode no longer requires `--enable-auto-mode` | changed |
+| Windows: PowerShell ツールを段階的に展開中。`CLAUDE_CODE_USE_POWERSHELL_TOOL` でオプトイン/アウト可能。Linux・macOS では `CLAUDE_CODE_USE_POWERSHELL_TOOL=1` で有効化（PATH に `pwsh` が必要） | Windows: PowerShell tool is progressively rolling out. Opt in or out with `CLAUDE_CODE_USE_POWERSHELL_TOOL`. On Linux and macOS, enable with `CLAUDE_CODE_USE_POWERSHELL_TOOL=1` (requires `pwsh` on PATH) | added |
+| グロブパターンを含む読み取り専用 bash コマンド（例: `ls *.ts`）および `cd <project-dir> &&` で始まるコマンドが権限プロンプトをトリガーしないように変更 | Read-only bash commands with glob patterns (e.g. `ls *.ts`) and commands starting with `cd <project-dir> &&` no longer trigger a permission prompt | improved |
+| `claude <word>` でタイポに近い入力があった場合、最も近いサブコマンドを候補として提案（例: `claude udpate` → "Did you mean `claude update`?"） | Suggest the closest matching subcommand when `claude <word>` is invoked with a near-miss typo (e.g. `claude udpate` → "Did you mean `claude update`?") | improved |
+| プランファイルの名前がランダム単語ではなくプロンプト内容に基づいたものに変更（例: `fix-auth-race-snug-otter.md`） | Plan files are now named after your prompt (e.g. `fix-auth-race-snug-otter.md`) instead of purely random words | improved |
+| `/setup-vertex` および `/setup-bedrock` を改善。`CLAUDE_CONFIG_DIR` 設定時に実際の `settings.json` パスを表示、再実行時に既存ピンからモデル候補を引き継ぎ、対応モデルに「with 1M context」オプションを追加 | Improved `/setup-vertex` and `/setup-bedrock` to show the actual `settings.json` path when `CLAUDE_CONFIG_DIR` is set, seed model candidates from existing pins on re-run, and offer a "with 1M context" option for supported models | improved |
+| `/skills` メニューで推定トークン数によるソートに対応。`t` キーで切り替え可能 | `/skills` menu now supports sorting by estimated token count — press `t` to toggle | improved |
+| `Ctrl+U` で入力バッファ全体をクリアするように変更（以前は行頭まで削除）。`Ctrl+Y` で復元可能 | `Ctrl+U` now clears the entire input buffer (previously: delete to start of line); press `Ctrl+Y` to restore | changed |
+| `Ctrl+L` でプロンプト入力のクリアに加えて画面全体の再描画も実行するように変更 | `Ctrl+L` now forces a full screen redraw in addition to clearing the prompt input | improved |
+| トランスクリプトビューのフッターに `[`（スクロールバックへ出力）と `v`（エディタで開く）のショートカットを表示 | Transcript view footer now shows `[` (dump to scrollback) and `v` (open in editor) shortcuts | added |
+| 長いペーストの切り捨て時に表示される「+N lines」マーカーを全幅ルールに変更し、視認性を改善 | The "+N lines" marker for truncated long pastes is now a full-width rule for easier scanning | improved |
+| ヘッドレス `--output-format stream-json` で、依存関係未充足によりプラグインが降格された場合に init イベントへ `plugin_errors` を含むように改善 | Headless `--output-format stream-json` now includes `plugin_errors` on the init event when plugins are demoted for unsatisfied dependencies | improved |
+| デバッグ用に API リクエスト・レスポンスの全ボディを OpenTelemetry ログイベントとして出力する環境変数 `OTEL_LOG_RAW_API_BODIES` を追加 | Added `OTEL_LOG_RAW_API_BODIES` environment variable to emit full API request and response bodies as OpenTelemetry log events for debugging | added |
+| 通常操作中に TUI に表示されることがあった不正な解凍・ネットワーク・一時的エラーメッセージを抑制 | Suppressed spurious decompression, network, and transient error messages that could appear in the TUI during normal operation | fixed |
+| v2.1.110 で追加した非ストリーミングフォールバックリトライの上限を差し戻し。API 過負荷時に長い待機の代わりに失敗が増加する問題のため | Reverted the v2.1.110 cap on non-streaming fallback retries — it traded long waits for more outright failures during API overload | changed |
+| ターミナル通知送信時に iTerm2 + tmux 環境で発生していた画面の乱れ（文字化け、入力位置のズレ）を修正 | Fixed terminal display tearing (random characters, drifting input) in iTerm2 + tmux setups when terminal notifications are sent | fixed |
+| git 管理外ディレクトリでターンごとにプロジェクト全体を再スキャンする `@` ファイル候補の問題と、追跡ファイルのない初期化直後の git リポジトリで設定ファイルのみ表示される問題を修正 | Fixed `@` file suggestions re-scanning the entire project on every turn in non-git working directories, and showing only config files in freshly-initialized git repos with no tracked files | fixed |
+| 編集前の LSP 診断が編集後に表示され、モデルが直前に編集したファイルを再読み込みしていた問題を修正 | Fixed LSP diagnostics from before an edit appearing after it, causing the model to re-read files it just edited | fixed |
+| `/resume` のタブ補完でセッションピッカーを表示せずに任意のセッションが即座に再開されていた問題を修正 | Fixed tab-completing `/resume` immediately resuming an arbitrary titled session instead of showing the session picker | fixed |
+| `/context` グリッドの行間に余分な空行が表示されていたレンダリングの問題を修正 | Fixed `/context` grid rendering with extra blank lines between rows | fixed |
+| `/clear` 実行時に `/rename` で設定したセッション名が失われ、ステータスライン出力の `session_name` が消える問題を修正 | Fixed `/clear` dropping the session name set by `/rename`, causing statusline output to lose `session_name` | fixed |
+| プラグインのエラーハンドリングを改善。依存エラーで競合・無効・過複雑なバージョン要件を区別、`plugin update` 後の古い解決済みバージョンを修正、`plugin install` が中断された以前のインストールから回復可能に | Improved plugin error handling: dependency errors now distinguish conflicting, invalid, and overly complex version requirements; fixed stale resolved versions after `plugin update`; `plugin install` now recovers from interrupted prior installs | improved |
+| カスタム `/commit` コマンドを持たないユーザーに対して存在しない `commit` スキルを呼び出し「Unknown skill: commit」と表示していた問題を修正 | Fixed Claude calling a non-existent `commit` skill and showing "Unknown skill: commit" for users without a custom `/commit` command | fixed |
+| Bedrock/Vertex/Foundry での 429 レート制限エラーが status.claude.com を参照していた問題を修正（status.claude.com は Anthropic 運営プロバイダーのみ対象） | Fixed 429 rate-limit errors on Bedrock/Vertex/Foundry referencing status.claude.com (it only covers Anthropic-operated providers) | fixed |
+| フィードバックサーベイを閉じた直後に連続して表示されていた問題を修正 | Fixed feedback surveys appearing back-to-back after dismissing one | fixed |
+| bash/PowerShell/MCP ツール出力中の素の URL がターミナルで折り返された際にクリック不可になっていた問題を修正 | Fixed bare URLs in bash/PowerShell/MCP tool output being unclickable when the terminal wraps them across lines | fixed |
+| Windows: `CLAUDE_ENV_FILE` および SessionStart フックの環境ファイルが適用されるように修正（以前は無効） | Windows: `CLAUDE_ENV_FILE` and SessionStart hook environment files now apply (previously a no-op) | fixed |
+| Windows: ドライブレターパスを含む権限ルールが正しくルートアンカーされるように修正。ドライブレターの大文字/小文字のみが異なるパスを同一パスとして認識 | Windows: permission rules with drive-letter paths are now correctly root-anchored, and paths differing only by drive-letter case are recognized as the same path | fixed |
+
 ## 2.1.110
 
 | 日本語 | English | Category |
