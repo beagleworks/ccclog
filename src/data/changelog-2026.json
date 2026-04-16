@@ -1,10 +1,22 @@
 {
-  "generatedAt": "2026-04-16T15:32:25.809Z",
+  "generatedAt": "2026-04-16T21:15:35.178Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "2.1.112",
+          "releaseDate": "2026-04-17",
+          "releaseDateDisplay": "2026年4月17日",
+          "entries": [
+            {
+              "ja": "auto モードで \"claude-opus-4-7 is temporarily unavailable\" と表示される問題を修正",
+              "en": "Fixed \"claude-opus-4-7 is temporarily unavailable\" for auto mode",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.111",
           "releaseDate": "2026-04-17",

@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.112
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| auto モードで "claude-opus-4-7 is temporarily unavailable" と表示される問題を修正 | Fixed "claude-opus-4-7 is temporarily unavailable" for auto mode | fixed |
+
 ## 2.1.111
 
 | 日本語 | English | Category |
