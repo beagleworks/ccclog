@@ -16,7 +16,7 @@
 | `/plugin` のインストール済みタブを改善 — 要注意アイテムとお気に入りが上部に表示、無効アイテムは折り畳み内に格納、`f` でお気に入り登録可能 | Improved `/plugin` Installed tab — items needing attention and favorites appear at the top, disabled items are hidden behind a fold, and `f` favorites the selected item | improved |
 | `/doctor` を改善 — MCPサーバーが複数の設定スコープに異なるエンドポイントで定義されている場合に警告を表示 | Improved `/doctor` to warn when an MCP server is defined in multiple config scopes with different endpoints | improved |
 | `--resume`/`--continue` で未期限のスケジュール済みタスクを復元可能に | `--resume`/`--continue` now resurrects unexpired scheduled tasks | added |
-| `/autocompact`、`/context`、`/exit`、`/reload-plugins` がRemote Control（モバイル/Web）クライアントから利用可能に | `/autocompact`, `/context`, `/exit`, and `/reload-plugins` now work from Remote Control (mobile/web) clients | added |
+| `/context`、`/exit`、`/reload-plugins` がリモートコントロール（モバイル/ウェブ）クライアントから動作するように対応 | `/context`, `/exit`, and `/reload-plugins` now work from Remote Control (mobile/web) clients | added |
 | WriteツールがIDEのdiff画面で提案内容を編集してから承認した場合にモデルへ通知するように改善 | Write tool now informs the model when you edit the proposed content in the IDE diff before accepting | improved |
 | Bashツールが任意の大きな値を受け入れる代わりに、ドキュメントに記載された最大タイムアウトを強制するように修正 | Bash tool now enforces the documented maximum timeout instead of accepting arbitrarily large values | fixed |
 | SDK/ヘッドレスセッションが分散トレース連携のために環境変数から `TRACEPARENT`/`TRACESTATE` を読み取るように対応 | SDK/headless sessions now read `TRACEPARENT`/`TRACESTATE` from the environment for distributed trace linking | added |

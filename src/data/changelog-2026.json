@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-15T23:17:31.131Z",
+  "generatedAt": "2026-04-16T01:40:49.834Z",
   "months": [
     {
       "key": "2026-04",
@@ -51,8 +51,8 @@
               "category": "added"
             },
             {
-              "ja": "`/autocompact`、`/context`、`/exit`、`/reload-plugins` がRemote Control（モバイル/Web）クライアントから利用可能に",
-              "en": "`/autocompact`, `/context`, `/exit`, and `/reload-plugins` now work from Remote Control (mobile/web) clients",
+              "ja": "`/context`、`/exit`、`/reload-plugins` がリモートコントロール（モバイル/ウェブ）クライアントから動作するように対応",
+              "en": "`/context`, `/exit`, and `/reload-plugins` now work from Remote Control (mobile/web) clients",
               "category": "added"
             },
             {
