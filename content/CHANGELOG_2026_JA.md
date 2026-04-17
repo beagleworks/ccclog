@@ -4,6 +4,49 @@
 
 ---
 
+## 2.1.113
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| バンドルされたJavaScriptの代わりに、プラットフォームごとのオプション依存関係経由でネイティブのClaude Codeバイナリを起動するようCLIを変更 | Changed the CLI to spawn a native Claude Code binary (via a per-platform optional dependency) instead of bundled JavaScript | changed |
+| より広い `allowedDomains` ワイルドカードが許可する場合でも特定のドメインをブロックできる `sandbox.network.deniedDomains` 設定を追加 | Added `sandbox.network.deniedDomains` setting to block specific domains even when a broader `allowedDomains` wildcard would otherwise permit them | added |
+| フルスクリーンモードで選択範囲を可視領域の端を超えて拡張する際、Shift+↑/↓ がビューポートをスクロールするように対応 | Fullscreen mode: Shift+↑/↓ now scrolls the viewport when extending a selection past the visible edge | improved |
+| 複数行入力において `Ctrl+A` と `Ctrl+E` が現在の論理行の先頭/末尾に移動するようになり、readline の挙動に準拠 | `Ctrl+A` and `Ctrl+E` now move to the start/end of the current logical line in multiline input, matching readline behavior | improved |
+| Windowsで`Ctrl+Backspace`による前の単語の削除に対応 | Windows: `Ctrl+Backspace` now deletes the previous word | added |
+| レスポンスおよびbash出力内の長いURLが複数行に折り返されてもクリック可能な状態を維持（OSC 8ハイパーリンク対応ターミナル） | Long URLs in responses and bash output stay clickable when they wrap across lines (in terminals with OSC 8 hyperlinks) | improved |
+| `/loop` を改善: Esc キー押下で保留中のウェイクアップをキャンセル可能にし、ウェイクアップ時の表示を「Claude resuming /loop wakeup」に変更してわかりやすく | Improved `/loop`: pressing Esc now cancels pending wakeups, and wakeups display as "Claude resuming /loop wakeup" for clarity | improved |
+| `/extra-usage` がリモートコントロール（モバイル/ウェブ）クライアントから利用可能に | `/extra-usage` now works from Remote Control (mobile/web) clients | added |
+| リモートコントロールクライアントが `@` ファイルのオートコンプリート候補を取得可能に | Remote Control clients can now query `@`-file autocomplete suggestions | added |
+| `/ultrareview` を改善: チェックの並列化による起動高速化、起動ダイアログへの diffstat 表示、起動中のアニメーション状態に対応 | Improved `/ultrareview`: faster launch with parallelized checks, diffstat in the launch dialog, and animated launching state | improved |
+| ストリーム途中で停止したサブエージェントが、無音のままハングする代わりに10分後に明確なエラーで失敗するように変更 | Subagents that stall mid-stream now fail with a clear error after 10 minutes instead of hanging silently | improved |
+| Bashツール: 最初の行がコメントである複数行コマンドについて、トランスクリプトにコマンド全体を表示するよう変更し、UIスプーフィングの攻撃経路を閉鎖 | Bash tool: multi-line commands whose first line is a comment now show the full command in the transcript, closing a UI-spoofing vector | fixed |
+| `cd <current-directory> && git …` 実行時、`cd` が no-op の場合に権限プロンプトが表示されなくなった | Running `cd <current-directory> && git …` no longer triggers a permission prompt when the `cd` is a no-op | fixed |
+| セキュリティ: macOS において、`Bash(rm:*)` の許可ルール下で `/private/{etc,var,tmp,home}` パスを危険な削除対象として扱うように対応 | Security: on macOS, `/private/{etc,var,tmp,home}` paths are now treated as dangerous removal targets under `Bash(rm:*)` allow rules | improved |
+| セキュリティ: `env`/`sudo`/`watch`/`ionice`/`setsid` などの exec ラッパーでラップされたコマンドにも Bash 拒否ルールが適用されるよう対応 | Security: Bash deny rules now match commands wrapped in `env`/`sudo`/`watch`/`ionice`/`setsid` and similar exec wrappers | fixed |
+| セキュリティ: `Bash(find:*)` の許可ルールで `find -exec`/`-delete` が自動承認されなくなった | Security: `Bash(find:*)` allow rules no longer auto-approve `find -exec`/`-delete` | fixed |
+| MCPの並行呼び出しタイムアウト処理において、あるツール呼び出しへのメッセージが別の呼び出しのウォッチドッグをサイレントに無効化してしまう問題を修正 | Fixed MCP concurrent-call timeout handling where a message for one tool call could silently disarm another call's watchdog | fixed |
+| Cmd-backspace / `Ctrl+U` でカーソルから行頭までを削除する動作を修正 | Fixed Cmd-backspace / `Ctrl+U` to once again delete from the cursor to the start of the line | fixed |
+| マークダウンテーブルのセルにパイプ文字を含むインラインコードスパンがある場合にテーブルが崩れる問題を修正 | Fixed markdown tables breaking when a cell contains an inline code span with a pipe character | fixed |
+| プロンプトで未送信テキストを入力中にセッションサマリーが自動実行される問題を修正 | Fixed session recap auto-firing while composing unsent text in the prompt | fixed |
+| `/copy` の「Full response」で GitHub、Notion、Slack への貼り付け時にマークダウンテーブルの列が揃わない問題を修正 | Fixed `/copy` "Full response" not aligning markdown table columns for pasting into GitHub, Notion, or Slack | fixed |
+| 実行中のサブエージェントを表示中に入力したメッセージがそのトランスクリプトに表示されず、親AIに誤って帰属される問題を修正 | Fixed messages typed while viewing a running subagent being hidden from its transcript and misattributed to the parent AI | fixed |
+| Bash の `dangerouslyDisableSandbox` がパーミッションプロンプトなしでサンドボックス外のコマンドを実行していた問題を修正 | Fixed Bash `dangerouslyDisableSandbox` running commands outside the sandbox without a permission prompt | fixed |
+| `/effort auto` の確認メッセージを修正 — ステータスバーのラベルに合わせて「Effort level set to max」と表示するように変更 | Fixed `/effort auto` confirmation — now says "Effort level set to max" to match the status bar label | fixed |
+| 「コピーした N 文字」トーストが絵文字などのマルチコードユニット文字を過剰カウントする問題を修正 | Fixed the "copied N chars" toast overcounting emoji and other multi-code-unit characters | fixed |
+| Windows で `/insights` が `EBUSY` エラーによりクラッシュする問題を修正 | Fixed `/insights` crashing with `EBUSY` on Windows | fixed |
+| 終了確認ダイアログがワンショットのスケジュールタスクを繰り返しタスクと誤表示していた問題を修正し、カウントダウン表示に対応 | Fixed exit confirmation dialog mislabeling one-shot scheduled tasks as recurring — now shows a countdown | fixed |
+| フルスクリーンモードでスラッシュ/@補完メニューがプロンプト境界に密着しない問題を修正 | Fixed slash/@ completion menu not sitting flush against the prompt border in fullscreen mode | fixed |
+| `CLAUDE_CODE_EXTRA_BODY` の `output_config.effort` が、effortをサポートしないモデルおよびVertex AIへのサブエージェント呼び出し時に400エラーを引き起こす問題を修正 | Fixed `CLAUDE_CODE_EXTRA_BODY` `output_config.effort` causing 400 errors on subagent calls to models that don't support effort and on Vertex AI | fixed |
+| `NO_COLOR` が設定されている場合にプロンプトのカーソルが消える問題を修正 | Fixed prompt cursor disappearing when `NO_COLOR` is set | fixed |
+| `ToolSearch` のランキングを修正し、貼り付けた MCP ツール名が説明文マッチの類似ツールではなく実際のツールを返すように対応 | Fixed `ToolSearch` ranking so pasted MCP tool names surface the actual tool instead of description-matching siblings | fixed |
+| 再開したロングコンテキストセッションのコンパクションが「Extra usage is required for long context requests」エラーで失敗する問題を修正 | Fixed compacting a resumed long-context session failing with "Extra usage is required for long context requests" | fixed |
+| 依存バージョンがインストール済みプラグインと競合する場合に `plugin install` が成功してしまう問題を修正 — `range-conflict` を報告するように変更 | Fixed `plugin install` succeeding when a dependency version conflicts with an already-installed plugin — now reports `range-conflict` | fixed |
+| "Refine with Ultraplan" がトランスクリプトにリモートセッション URL を表示しない問題を修正 | Fixed "Refine with Ultraplan" not showing the remote session URL in the transcript | fixed |
+| 処理に失敗したSDK画像コンテンツブロックによるセッションクラッシュを修正 — テキストプレースホルダーへのフォールバックに変更 | Fixed SDK image content blocks that fail to process crashing the session — now degrade to a text placeholder | fixed |
+| リモートコントロールセッションでサブエージェントのトランスクリプトがストリーミングされない問題を修正 | Fixed Remote Control sessions not streaming subagent transcripts | fixed |
+| Claude Code 終了時にリモートコントロールセッションがアーカイブされない問題を修正 | Fixed Remote Control sessions not being archived when Claude Code exits | fixed |
+| Bedrock Application Inference Profile ARN 経由で Opus 4.7 を使用する際に発生する `thinking.type.enabled is not supported` 400 エラーを修正 | Fixed `thinking.type.enabled is not supported` 400 error when using Opus 4.7 via a Bedrock Application Inference Profile ARN | fixed |
+
 ## 2.1.112
 
 | 日本語 | English | Category |
