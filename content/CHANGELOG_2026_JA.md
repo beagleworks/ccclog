@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.114
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| エージェントチームのメンバーがツール権限を要求した際にパーミッションダイアログがクラッシュする問題を修正 | Fixed a crash in the permission dialog when an agent teams teammate requested tool permission | fixed |
+
 ## 2.1.113
 
 | 日本語 | English | Category |
