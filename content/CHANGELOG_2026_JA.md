@@ -4,6 +4,35 @@
 
 ---
 
+## 2.1.116
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 大規模セッションでの `/resume` を大幅に高速化（40MB以上のセッションで最大67%）し、デッドフォークエントリが多いセッションをより効率的に処理 | `/resume` on large sessions is significantly faster (up to 67% on 40MB+ sessions) and handles sessions with many dead-fork entries more efficiently | improved |
+| 複数のstdioサーバー設定時のMCP起動を高速化し、`resources/templates/list` を最初の `@` メンション時まで遅延実行するよう変更 | Faster MCP startup when multiple stdio servers are configured; `resources/templates/list` is now deferred to first `@`-mention | improved |
+| VS Code、Cursor、Windsurf ターミナルでのフルスクリーンスクロールをスムーズ化し、`/terminal-setup` でエディタのスクロール感度を設定可能に | Smoother fullscreen scrolling in VS Code, Cursor, and Windsurf terminals — `/terminal-setup` now configures the editor's scroll sensitivity | improved |
+| 思考中スピナーのプログレス表示をインライン化（「still thinking」「thinking more」「almost done thinking」）し、独立したヒント行を廃止 | Thinking spinner now shows progress inline ("still thinking", "thinking more", "almost done thinking"), replacing the separate hint row | changed |
+| `/config` の検索でオプション値もマッチするよう改善（例：「vim」で検索するとエディタモード設定が見つかる） | `/config` search now matches option values (e.g. searching "vim" finds the Editor mode setting) | improved |
+| Claude が応答中でも `/doctor` を開けるようになり、現在のターンの終了を待つ必要がなくなった | `/doctor` can now be opened while Claude is responding, without waiting for the current turn to finish | improved |
+| `/reload-plugins` およびバックグラウンドのプラグイン自動更新で、追加済みマーケットプレイスから不足しているプラグイン依存関係を自動インストール | `/reload-plugins` and background plugin auto-update now auto-install missing plugin dependencies from marketplaces you've already added | improved |
+| `gh` コマンドが GitHub API レート制限に達した際に Bash ツールがヒントを表示し、エージェントが再試行せずにバックオフ可能に | Bash tool now surfaces a hint when `gh` commands hit GitHub's API rate limit, so agents can back off instead of retrying | improved |
+| 設定の使用状況タブで5時間および週次の使用量を即座に表示し、使用量エンドポイントがレート制限されても失敗しないよう修正 | The Usage tab in Settings now shows your 5-hour and weekly usage immediately and no longer fails when the usage endpoint is rate-limited | improved |
+| `--agent` でメインスレッドエージェントとして実行時にエージェントフロントマターの `hooks:` が発火するよう修正 | Agent frontmatter `hooks:` now fire when running as a main-thread agent via `--agent` | fixed |
+| フィルター結果がゼロのとき、スラッシュコマンドメニューが消える代わりに「No commands match」を表示するよう改善 | Slash command menu now shows "No commands match" when your filter has zero results, instead of disappearing | improved |
+| セキュリティ：サンドボックスの自動許可が `/`、`$HOME` などの重要なシステムディレクトリを対象とした `rm`/`rmdir` の危険パス安全チェックをバイパスしないよう修正 | Security: sandbox auto-allow no longer bypasses the dangerous-path safety check for `rm`/`rmdir` targeting `/`, `$HOME`, or other critical system directories | fixed |
+| ターミナル UI でデーヴァナーガリーおよびその他のインド系文字が列アライメント崩れでレンダリングされる問題を修正 | Fixed Devanagari and other Indic scripts rendering with broken column alignment in the terminal UI | fixed |
+| Kitty キーボードプロトコルを使用するターミナル（iTerm2、Ghostty、kitty、WezTerm、Windows Terminal）で Ctrl+- がアンドゥをトリガーしない問題を修正 | Fixed Ctrl+- not triggering undo in terminals using the Kitty keyboard protocol (iTerm2, Ghostty, kitty, WezTerm, Windows Terminal) | fixed |
+| Kitty キーボードプロトコルを使用するターミナル（Warp フルスクリーン、kitty、Ghostty、WezTerm）で Cmd+左右矢印が行頭・行末にジャンプしない問題を修正 | Fixed Cmd+Left/Right not jumping to line start/end in terminals that use the Kitty keyboard protocol (Warp fullscreen, kitty, Ghostty, WezTerm) | fixed |
+| `npx`、`bun run` などのラッパープロセス経由で Claude Code を起動した際に Ctrl+Z がターミナルをハングさせる問題を修正 | Fixed Ctrl+Z hanging the terminal when Claude Code is launched via a wrapper process (e.g. `npx`, `bun run`) | fixed |
+| インラインモードでターミナルのリサイズや大量出力時に過去の会話履歴がスクロールバックに重複表示される問題を修正 | Fixed scrollback duplication in inline mode where resizing the terminal or large output bursts would repeat earlier conversation history | fixed |
+| ターミナルの高さが短い場合にモーダル検索ダイアログが画面からはみ出し、検索ボックスとキーボードヒントが隠れる問題を修正 | Fixed modal search dialogs overflowing the screen at short terminal heights, hiding the search box and keyboard hints | fixed |
+| VS Code 統合ターミナルでのスクロール中に空白セルが散在しコンポーザーのクロームが消える問題を修正 | Fixed scattered blank cells and disappearing composer chrome in the VS Code integrated terminal during scrolling | fixed |
+| リクエストセットアップ中に並列リクエストが完了した際に発生するキャッシュコントロール TTL の順序に起因する断続的な API 400 エラーを修正 | Fixed an intermittent API 400 error related to cache control TTL ordering that could occur when a parallel request completed during request setup | fixed |
+| 50MB を超えるトランスクリプトを持つ会話を `/branch` が拒否する問題を修正 | Fixed `/branch` rejecting conversations with transcripts larger than 50MB | fixed |
+| 大きなセッションファイルでロードエラーを報告せずに `/resume` が空の会話をサイレントに表示する問題を修正 | Fixed `/resume` silently showing an empty conversation on large session files instead of reporting the load error | fixed |
+| 「要注意」または「お気に入り」に表示されるアイテムが `/plugin` のインストール済みタブに重複表示される問題を修正 | Fixed `/plugin` Installed tab showing the same item twice when it appears under Needs attention or Favorites | fixed |
+| セッション途中でワークツリーに入った後に `/update` と `/tui` が動作しなくなる問題を修正 | Fixed `/update` and `/tui` not working after entering a worktree mid-session | fixed |
+
 ## 2.1.114
 
 | 日本語 | English | Category |
