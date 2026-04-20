@@ -1,10 +1,122 @@
 {
-  "generatedAt": "2026-04-19T15:13:18.521Z",
+  "generatedAt": "2026-04-20T21:16:29.741Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "0.122.0",
+          "releaseDate": "2026-04-21",
+          "releaseDateDisplay": "2026年4月21日",
+          "entries": [
+            {
+              "ja": "スタンドアロンインストールをより自己完結型に改善し、`codex app` が Windows および Intel Mac でデスクトップを正しく開く・インストールするように対応 (#17022, #18500)。",
+              "en": "Standalone installs are more self-contained, and `codex app` now opens or installs Desktop correctly on Windows and Intel Macs (#17022, #18500).",
+              "category": "new-features"
+            },
+            {
+              "ja": "TUI に `/side` でサイド会話を開く機能を追加し、処理実行中のキュー入力でスラッシュコマンドおよび `!` シェルプロンプトをサポート (#18190, #18542)。",
+              "en": "The TUI can open `/side` conversations for quick side questions, and queued input now supports slash commands and `!` shell prompts while work is running (#18190, #18542).",
+              "category": "new-features"
+            },
+            {
+              "ja": "プランモードで新規コンテキストから実装を開始できるようにし、プランニングスレッドを引き継ぐかどうかの判断前にコンテキスト使用量を表示 (#17499, #18573)。",
+              "en": "Plan Mode can start implementation in a fresh context, with context-usage shown before deciding whether to carry the planning thread forward (#17499, #18573).",
+              "category": "new-features"
+            },
+            {
+              "ja": "プラグインワークフローにタブブラウジング、インラインの有効/無効トグル、マーケットプレイス削除、リモート・クロスリポジトリ・ローカルマーケットプレイスソースを追加 (#18222, #18395, #17752, #17751, #17277, #18017, #18246)。",
+              "en": "Plugin workflows now include tabbed browsing, inline enable/disable toggles, marketplace removal, and remote, cross-repo, or local marketplace sources (#18222, #18395, #17752, #17751, #17277, #18017, #18246).",
+              "category": "new-features"
+            },
+            {
+              "ja": "ファイルシステムパーミッションに deny-read グロブポリシー、管理された deny-read 要件、プラットフォームサンドボックス強制、ユーザー設定・ルールを無視した隔離 `codex exec` 実行をサポート (#15979, #17740, #18096, #18646)。",
+              "en": "Filesystem permissions now support deny-read glob policies, managed deny-read requirements, platform sandbox enforcement, and isolated `codex exec` runs that ignore user config or rules (#15979, #17740, #18096, #18646).",
+              "category": "new-features"
+            },
+            {
+              "ja": "ツールディスカバリーと画像生成をデフォルト有効化し、高詳細画像処理および MCP・`js_repl` 画像出力のオリジナル詳細メタデータをサポート (#17854, #17153, #17714, #18386)。",
+              "en": "Tool discovery and image generation are now enabled by default, with higher-detail image handling and original-detail metadata support for MCP and `js_repl` image outputs (#17854, #17153, #17714, #18386).",
+              "category": "new-features"
+            },
+            {
+              "ja": "別クライアントが解決済みの app-server 承認・ユーザー入力プロンプト・MCP エリシテーションを TUI から削除し、古いプロンプトが残留しないよう修正 (#15134)。",
+              "en": "App-server approvals, user-input prompts, and MCP elicitations now disappear from the TUI when another client resolves them, instead of leaving stale prompts behind (#15134).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "リモートコントロール起動時に ChatGPT 認証が欠落していてもエラーを許容するよう修正し、app-server セッション経由の MCP 起動キャンセルを再び動作するよう修正 (#18117, #18078)。",
+              "en": "Remote-control startup now tolerates missing ChatGPT auth, and MCP startup cancellation works again through app-server sessions (#18117, #18078).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "再開・フォークした app-server スレッドがトークン使用量を即座に再生するよう改善し、コンテキスト/ステータス UI が復元済み状態で起動するよう対応 (#18023)。",
+              "en": "Resumed and forked app-server threads now replay token usage immediately so context/status UI starts with the restored state (#18023).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "セキュリティ重要フローを強化：ログアウト時に管理 ChatGPT トークンを失効、プロジェクトフックと exec ポリシーに信頼済みワークスペースを要求、Windows サンドボックスセットアップでの広範なユーザープロファイル・SSH ルート権限付与を回避 (#17825, #14718, #18443, #18493)。",
+              "en": "Security-sensitive flows were tightened: logout revokes managed ChatGPT tokens, project hooks and exec policies require trusted workspaces, and Windows sandbox setup avoids broad user-profile and SSH-root grants (#17825, #14718, #18443, #18493).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "分割ファイルシステムポリシーでのサンドボックス化 `apply_patch` 書き込みを修正し、ウォッチ開始後に作成されたファイルをファイルウォッチャーが検知するよう修正 (#18296, #18492)。",
+              "en": "Sandboxed `apply_patch` writes work correctly with split filesystem policies, and file watchers now notice files created after watching begins (#18296, #18492).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "TUI の不具合を複数修正：スキル一覧の致命的エラー、無効な再開ヒント、コンテキストステータスラインの重複エントリ、`/model` メニューのループ、冗長なメモリ通知、iTerm2 でのターミナルタイトルのクォート (#18061, #18059, #18054, #18154, #18580, #18261)。",
+              "en": "Several TUI rough edges were fixed, including fatal skills-list failures, invalid resume hints, duplicate context statusline entries, `/model` menu loops, redundant memory notices, and terminal title quoting in iTerm2 (#18061, #18059, #18054, #18154, #18580, #18261).",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "サンドボックス・承認・ネットワーク制御に関するセキュリティ境界リファレンスを `SECURITY.md` に追加 (#17848, #18004)。",
+              "en": "Added a security-boundaries reference to `SECURITY.md` for sandboxing, approvals, and network controls (#17848, #18004).",
+              "category": "documentation"
+            },
+            {
+              "ja": "カスタム MCP サーバー承認デフォルトおよび exec-server の stdin 動作をドキュメント化 (#17843, #18086)。",
+              "en": "Documented custom MCP server approval defaults and exec-server stdin behavior (#17843, #18086).",
+              "category": "documentation"
+            },
+            {
+              "ja": "プラグイン API 変更、マーケットプレイス削除、再開/フォークのトークン使用量リプレイ、警告通知に関する app-server ドキュメントを更新 (#17277, #17751, #18023, #18298)。",
+              "en": "Updated app-server docs for plugin API changes, marketplace removal, resume/fork token-usage replay, and warning notifications (#17277, #17751, #18023, #18298).",
+              "category": "documentation"
+            },
+            {
+              "ja": "responses API プロキシの簡易ガイドを追加 (#18604)。",
+              "en": "Added a short guide for the responses API proxy (#18604).",
+              "category": "documentation"
+            },
+            {
+              "ja": "プラグインおよびマーケットプレイスコードを `codex-core-plugins` に分離し、コネクタコードを `connectors` に移動、大規模なコアセッション/ターンモジュールの分割を継続 (#18070, #18158, #18200, #18206, #18244, #18249)。",
+              "en": "Split plugin and marketplace code into `codex-core-plugins`, moved more connector code into `connectors`, and continued breaking up the large core session/turn modules (#18070, #18158, #18200, #18206, #18244, #18249).",
+              "category": "chores"
+            },
+            {
+              "ja": "設定読み込みおよび `AGENTS.md` 探索をファイルシステムとマネージャーの狭いインターフェース経由にリファクタリング (#18209, #18035)。",
+              "en": "Refactored config loading and `AGENTS.md` discovery behind narrower filesystem and manager abstractions (#18209, #18035).",
+              "category": "chores"
+            },
+            {
+              "ja": "フレーク修正、ネイティブ Rust テストシャーディング、スコープ付きリポジトリキャッシュ、強化した Windows clippy カバレッジ、`rules_rs`/LLVM ピンの更新により Bazel および CI を安定化 (#17791, #18082, #18366, #18350, #18397)。",
+              "en": "Stabilized Bazel and CI with flake fixes, native Rust test sharding, scoped repository caches, stronger Windows clippy coverage, and updated `rules_rs`/LLVM pins (#17791, #18082, #18366, #18350, #18397).",
+              "category": "chores"
+            },
+            {
+              "ja": "コア CODEOWNERS および小規模な開発ビルドプロファイルを追加 (#18362, #18612)。",
+              "en": "Added core CODEOWNERS and a smaller development build profile (#18362, #18612).",
+              "category": "chores"
+            },
+            {
+              "ja": "古くなったコアの `models.json` を削除し、リリース準備でアクティブなモデルカタログを更新するよう対応 (#18585)。",
+              "en": "Removed the stale core `models.json` and updated release preparation to refresh the active model catalog (#18585).",
+              "category": "chores"
+            }
+          ]
+        },
         {
           "version": "0.121.0",
           "releaseDate": "2026-04-16",

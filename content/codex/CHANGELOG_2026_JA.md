@@ -4,6 +4,32 @@
 
 ---
 
+## 0.122.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| スタンドアロンインストールをより自己完結型に改善し、`codex app` が Windows および Intel Mac でデスクトップを正しく開く・インストールするように対応 (#17022, #18500)。 | Standalone installs are more self-contained, and `codex app` now opens or installs Desktop correctly on Windows and Intel Macs (#17022, #18500). | new-features |
+| TUI に `/side` でサイド会話を開く機能を追加し、処理実行中のキュー入力でスラッシュコマンドおよび `!` シェルプロンプトをサポート (#18190, #18542)。 | The TUI can open `/side` conversations for quick side questions, and queued input now supports slash commands and `!` shell prompts while work is running (#18190, #18542). | new-features |
+| プランモードで新規コンテキストから実装を開始できるようにし、プランニングスレッドを引き継ぐかどうかの判断前にコンテキスト使用量を表示 (#17499, #18573)。 | Plan Mode can start implementation in a fresh context, with context-usage shown before deciding whether to carry the planning thread forward (#17499, #18573). | new-features |
+| プラグインワークフローにタブブラウジング、インラインの有効/無効トグル、マーケットプレイス削除、リモート・クロスリポジトリ・ローカルマーケットプレイスソースを追加 (#18222, #18395, #17752, #17751, #17277, #18017, #18246)。 | Plugin workflows now include tabbed browsing, inline enable/disable toggles, marketplace removal, and remote, cross-repo, or local marketplace sources (#18222, #18395, #17752, #17751, #17277, #18017, #18246). | new-features |
+| ファイルシステムパーミッションに deny-read グロブポリシー、管理された deny-read 要件、プラットフォームサンドボックス強制、ユーザー設定・ルールを無視した隔離 `codex exec` 実行をサポート (#15979, #17740, #18096, #18646)。 | Filesystem permissions now support deny-read glob policies, managed deny-read requirements, platform sandbox enforcement, and isolated `codex exec` runs that ignore user config or rules (#15979, #17740, #18096, #18646). | new-features |
+| ツールディスカバリーと画像生成をデフォルト有効化し、高詳細画像処理および MCP・`js_repl` 画像出力のオリジナル詳細メタデータをサポート (#17854, #17153, #17714, #18386)。 | Tool discovery and image generation are now enabled by default, with higher-detail image handling and original-detail metadata support for MCP and `js_repl` image outputs (#17854, #17153, #17714, #18386). | new-features |
+| 別クライアントが解決済みの app-server 承認・ユーザー入力プロンプト・MCP エリシテーションを TUI から削除し、古いプロンプトが残留しないよう修正 (#15134)。 | App-server approvals, user-input prompts, and MCP elicitations now disappear from the TUI when another client resolves them, instead of leaving stale prompts behind (#15134). | bug-fixes |
+| リモートコントロール起動時に ChatGPT 認証が欠落していてもエラーを許容するよう修正し、app-server セッション経由の MCP 起動キャンセルを再び動作するよう修正 (#18117, #18078)。 | Remote-control startup now tolerates missing ChatGPT auth, and MCP startup cancellation works again through app-server sessions (#18117, #18078). | bug-fixes |
+| 再開・フォークした app-server スレッドがトークン使用量を即座に再生するよう改善し、コンテキスト/ステータス UI が復元済み状態で起動するよう対応 (#18023)。 | Resumed and forked app-server threads now replay token usage immediately so context/status UI starts with the restored state (#18023). | bug-fixes |
+| セキュリティ重要フローを強化：ログアウト時に管理 ChatGPT トークンを失効、プロジェクトフックと exec ポリシーに信頼済みワークスペースを要求、Windows サンドボックスセットアップでの広範なユーザープロファイル・SSH ルート権限付与を回避 (#17825, #14718, #18443, #18493)。 | Security-sensitive flows were tightened: logout revokes managed ChatGPT tokens, project hooks and exec policies require trusted workspaces, and Windows sandbox setup avoids broad user-profile and SSH-root grants (#17825, #14718, #18443, #18493). | bug-fixes |
+| 分割ファイルシステムポリシーでのサンドボックス化 `apply_patch` 書き込みを修正し、ウォッチ開始後に作成されたファイルをファイルウォッチャーが検知するよう修正 (#18296, #18492)。 | Sandboxed `apply_patch` writes work correctly with split filesystem policies, and file watchers now notice files created after watching begins (#18296, #18492). | bug-fixes |
+| TUI の不具合を複数修正：スキル一覧の致命的エラー、無効な再開ヒント、コンテキストステータスラインの重複エントリ、`/model` メニューのループ、冗長なメモリ通知、iTerm2 でのターミナルタイトルのクォート (#18061, #18059, #18054, #18154, #18580, #18261)。 | Several TUI rough edges were fixed, including fatal skills-list failures, invalid resume hints, duplicate context statusline entries, `/model` menu loops, redundant memory notices, and terminal title quoting in iTerm2 (#18061, #18059, #18054, #18154, #18580, #18261). | bug-fixes |
+| サンドボックス・承認・ネットワーク制御に関するセキュリティ境界リファレンスを `SECURITY.md` に追加 (#17848, #18004)。 | Added a security-boundaries reference to `SECURITY.md` for sandboxing, approvals, and network controls (#17848, #18004). | documentation |
+| カスタム MCP サーバー承認デフォルトおよび exec-server の stdin 動作をドキュメント化 (#17843, #18086)。 | Documented custom MCP server approval defaults and exec-server stdin behavior (#17843, #18086). | documentation |
+| プラグイン API 変更、マーケットプレイス削除、再開/フォークのトークン使用量リプレイ、警告通知に関する app-server ドキュメントを更新 (#17277, #17751, #18023, #18298)。 | Updated app-server docs for plugin API changes, marketplace removal, resume/fork token-usage replay, and warning notifications (#17277, #17751, #18023, #18298). | documentation |
+| responses API プロキシの簡易ガイドを追加 (#18604)。 | Added a short guide for the responses API proxy (#18604). | documentation |
+| プラグインおよびマーケットプレイスコードを `codex-core-plugins` に分離し、コネクタコードを `connectors` に移動、大規模なコアセッション/ターンモジュールの分割を継続 (#18070, #18158, #18200, #18206, #18244, #18249)。 | Split plugin and marketplace code into `codex-core-plugins`, moved more connector code into `connectors`, and continued breaking up the large core session/turn modules (#18070, #18158, #18200, #18206, #18244, #18249). | chores |
+| 設定読み込みおよび `AGENTS.md` 探索をファイルシステムとマネージャーの狭いインターフェース経由にリファクタリング (#18209, #18035)。 | Refactored config loading and `AGENTS.md` discovery behind narrower filesystem and manager abstractions (#18209, #18035). | chores |
+| フレーク修正、ネイティブ Rust テストシャーディング、スコープ付きリポジトリキャッシュ、強化した Windows clippy カバレッジ、`rules_rs`/LLVM ピンの更新により Bazel および CI を安定化 (#17791, #18082, #18366, #18350, #18397)。 | Stabilized Bazel and CI with flake fixes, native Rust test sharding, scoped repository caches, stronger Windows clippy coverage, and updated `rules_rs`/LLVM pins (#17791, #18082, #18366, #18350, #18397). | chores |
+| コア CODEOWNERS および小規模な開発ビルドプロファイルを追加 (#18362, #18612)。 | Added core CODEOWNERS and a smaller development build profile (#18362, #18612). | chores |
+| 古くなったコアの `models.json` を削除し、リリース準備でアクティブなモデルカタログを更新するよう対応 (#18585)。 | Removed the stale core `models.json` and updated release preparation to refresh the active model catalog (#18585). | chores |
+
 ## 0.121.0
 
 | 日本語 | English | Category |
