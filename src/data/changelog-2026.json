@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-22T01:45:09.358Z",
+  "generatedAt": "2026-04-22T23:17:23.167Z",
   "months": [
     {
       "key": "2026-04",
@@ -216,6 +216,11 @@
               "ja": "セキュリティ：サンドボックスの自動許可が `/`、`$HOME` などの重要なシステムディレクトリを対象とした `rm`/`rmdir` の危険パス安全チェックをバイパスしないよう修正",
               "en": "Security: sandbox auto-allow no longer bypasses the dangerous-path safety check for `rm`/`rmdir` targeting `/`, `$HOME`, or other critical system directories",
               "category": "fixed"
+            },
+            {
+              "ja": "Claude Code とインストーラーのリリース取得先 URL を `https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases` から `https://downloads.claude.ai/claude-code-releases` に変更",
+              "en": "Claude Code and installer now use `https://downloads.claude.ai/claude-code-releases` instead of `https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases`",
+              "category": "changed"
             },
             {
               "ja": "ターミナル UI でデーヴァナーガリーおよびその他のインド系文字が列アライメント崩れでレンダリングされる問題を修正",
