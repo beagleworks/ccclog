@@ -1,10 +1,157 @@
 {
-  "generatedAt": "2026-04-20T23:16:19.201Z",
+  "generatedAt": "2026-04-22T01:45:09.358Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "2.1.117",
+          "releaseDate": "2026-04-22",
+          "releaseDateDisplay": "2026年4月22日",
+          "entries": [
+            {
+              "ja": "`CLAUDE_CODE_FORK_SUBAGENT=1` を設定することで、外部ビルドでフォークサブエージェントを有効化可能に",
+              "en": "Forked subagents can now be enabled on external builds by setting `CLAUDE_CODE_FORK_SUBAGENT=1`",
+              "category": "added"
+            },
+            {
+              "ja": "エージェントのフロントマター `mcpServers` が `--agent` 経由のメインスレッドエージェントセッションで読み込まれるように対応",
+              "en": "Agent frontmatter `mcpServers` are now loaded for main-thread agent sessions via `--agent`",
+              "category": "added"
+            },
+            {
+              "ja": "`/model` を改善：プロジェクトが別のモデルをピン留めしている場合でも選択内容が再起動後に保持されるようになり、起動時ヘッダーにアクティブなモデルがプロジェクトまたは管理設定のピン留めに由来するかどうかを表示するように",
+              "en": "Improved `/model`: selections now persist across restarts even when the project pins a different model, and the startup header shows when the active model comes from a project or managed-settings pin",
+              "category": "improved"
+            },
+            {
+              "ja": "`/resume` コマンドが古い大規模セッションの再読み込み前に要約を提案するようになり、既存の `--resume` の動作と統一",
+              "en": "The `/resume` command now offers to summarize stale, large sessions before re-reading them, matching the existing `--resume` behavior",
+              "category": "improved"
+            },
+            {
+              "ja": "ローカルとclaude.ai両方のMCPサーバーが設定されている場合の起動を高速化（並行接続がデフォルトに）",
+              "en": "Faster startup when both local and claude.ai MCP servers are configured (concurrent connect now default)",
+              "category": "improved"
+            },
+            {
+              "ja": "既にインストール済みのプラグインに対して `plugin install` を実行した際、「already installed」で停止せず、不足している依存関係をインストールするように修正",
+              "en": "`plugin install` on an already-installed plugin now installs any missing dependencies instead of stopping at \"already installed\"",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラグインの依存関係エラーに「not installed」メッセージとインストールヒントを表示するよう改善し、`claude plugin marketplace add` が設定済みマーケットプレイスから不足している依存関係を自動解決するよう対応",
+              "en": "Plugin dependency errors now say \"not installed\" with an install hint, and `claude plugin marketplace add` now auto-resolves missing dependencies from configured marketplaces",
+              "category": "improved"
+            },
+            {
+              "ja": "マネージド設定の `blockedMarketplaces` と `strictKnownMarketplaces` が、プラグインのインストール・更新・リフレッシュ・自動更新時に適用されるように",
+              "en": "Managed-settings `blockedMarketplaces` and `strictKnownMarketplaces` are now enforced on plugin install, update, refresh, and autoupdate",
+              "category": "added"
+            },
+            {
+              "ja": "Advisor Tool（実験的）: ダイアログに「実験的」ラベル、詳細リンク、有効時の起動通知を追加し、プロンプトおよび `/compact` のたびに「Advisor tool result content could not be processed」エラーでセッションが停止する問題を修正",
+              "en": "Advisor Tool (experimental): dialog now carries an \"experimental\" label, learn-more link, and startup notification when enabled; sessions no longer get stuck with \"Advisor tool result content could not be processed\" errors on every prompt and `/compact`",
+              "category": "improved"
+            },
+            {
+              "ja": "`cleanupPeriodDays` の保持期間スイープが `~/.claude/tasks/`、`~/.claude/shell-snapshots/`、`~/.claude/backups/` にも適用されるように対応",
+              "en": "The `cleanupPeriodDays` retention sweep now also covers `~/.claude/tasks/`, `~/.claude/shell-snapshots/`, and `~/.claude/backups/`",
+              "category": "improved"
+            },
+            {
+              "ja": "OpenTelemetry: スラッシュコマンド向けに `user_prompt` イベントへ `command_name` と `command_source` を追加；モデルがエフォートレベルに対応する場合、`cost.usage`・`token.usage`・`api_request`・`api_error` に `effort` 属性を追加；カスタム/MCP コマンド名は `OTEL_LOG_TOOL_DETAILS=1` 未設定時はマスク処理される",
+              "en": "OpenTelemetry: `user_prompt` events now include `command_name` and `command_source` for slash commands; `cost.usage`, `token.usage`, `api_request`, and `api_error` now include an `effort` attribute when the model supports effort levels. Custom/MCP command names are redacted unless `OTEL_LOG_TOOL_DETAILS=1` is set",
+              "category": "added"
+            },
+            {
+              "ja": "macOS および Linux のネイティブビルドにおいて、`Glob` ツールと `Grep` ツールを Bash ツール経由で利用可能な組み込みの `bfs` および `ugrep` に置き換え、ツール呼び出しの往復なしに高速な検索を実現（Windows および npm インストール版は変更なし）",
+              "en": "Native builds on macOS and Linux: the `Glob` and `Grep` tools are replaced by embedded `bfs` and `ugrep` available through the Bash tool — faster searches without a separate tool round-trip (Windows and npm-installed builds unchanged)",
+              "category": "improved"
+            },
+            {
+              "ja": "Windows: `where.exe` の実行ファイル検索をプロセスごとにキャッシュし、サブプロセスの起動を高速化",
+              "en": "Windows: cached `where.exe` executable lookups per process for faster subprocess launches",
+              "category": "improved"
+            },
+            {
+              "ja": "Opus 4.6 および Sonnet 4.6 における Pro/Max サブスクライバーのデフォルト effort を `high` に変更（従来は `medium`）",
+              "en": "Default effort for Pro/Max subscribers on Opus 4.6 and Sonnet 4.6 is now `high` (was `medium`)",
+              "category": "changed"
+            },
+            {
+              "ja": "セッション中にアクセストークンが期限切れになると「Please run /login」が表示されて Plain-CLI OAuth セッションが切断される問題を修正（401 受信時にトークンをリアクティブに更新するよう対応）",
+              "en": "Fixed Plain-CLI OAuth sessions dying with \"Please run /login\" when the access token expires mid-session — the token is now refreshed reactively on 401",
+              "category": "fixed"
+            },
+            {
+              "ja": "非常に大きな HTML ページで `WebFetch` がハングする問題を、HTML からマークダウン変換前に入力を切り捨てることで修正",
+              "en": "Fixed `WebFetch` hanging on very large HTML pages by truncating input before HTML-to-markdown conversion",
+              "category": "fixed"
+            },
+            {
+              "ja": "プロキシが HTTP 204 No Content を返す際のクラッシュを修正し、`TypeError` の代わりに明確なエラーを表示するよう対応",
+              "en": "Fixed a crash when a proxy returns HTTP 204 No Content — now surfaces a clear error instead of a `TypeError`",
+              "category": "fixed"
+            },
+            {
+              "ja": "`CLAUDE_CODE_OAUTH_TOKEN` 環境変数で起動した状態でトークンが期限切れになった際に `/login` が無効になる問題を修正",
+              "en": "Fixed `/login` having no effect when launched with `CLAUDE_CODE_OAUTH_TOKEN` env var and that token expires",
+              "category": "fixed"
+            },
+            {
+              "ja": "プロンプト入力のアンドゥ（`Ctrl+_`）が入力直後に機能しない問題と、アンドゥのたびに状態がスキップされる問題を修正",
+              "en": "Fixed prompt-input undo (`Ctrl+_`) doing nothing immediately after typing, and skipping a state on each undo step",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bun 環境下でリモート API リクエスト時に `NO_PROXY` が適用されない問題を修正",
+              "en": "Fixed `NO_PROXY` not being respected for remote API requests when running under Bun",
+              "category": "fixed"
+            },
+            {
+              "ja": "低速な接続でキー名がまとまって届く際に稀に発生する誤ったエスケープ/リターントリガーを修正",
+              "en": "Fixed rare spurious escape/return triggers when key names arrive as coalesced text over slow connections",
+              "category": "fixed"
+            },
+            {
+              "ja": "SDK の `reload_plugins` がすべてのユーザー MCP サーバーを直列で再接続する問題を修正",
+              "en": "Fixed SDK `reload_plugins` reconnecting all user MCP servers serially",
+              "category": "fixed"
+            },
+            {
+              "ja": "thinking 無効時に Opus 4.7 をバックエンドとする Bedrock の application-inference-profile リクエストが 400 で失敗する問題を修正",
+              "en": "Fixed Bedrock application-inference-profile requests failing with 400 when backed by Opus 4.7 with thinking disabled",
+              "category": "fixed"
+            },
+            {
+              "ja": "print/SDK モードでターン途中にサーバーの接続が完了した際、MCP `elicitation/create` リクエストが自動キャンセルされる問題を修正",
+              "en": "Fixed MCP `elicitation/create` requests auto-cancelling in print/SDK mode when the server finishes connecting mid-turn",
+              "category": "fixed"
+            },
+            {
+              "ja": "メインエージェントと異なるモデルで実行されているサブエージェントが、ファイル読み取りをマルウェア警告として誤検知する問題を修正",
+              "en": "Fixed subagents running a different model than the main agent incorrectly flagging file reads with a malware warning",
+              "category": "fixed"
+            },
+            {
+              "ja": "バックグラウンドタスクが存在する場合のアイドル時の再レンダリングループを修正し、Linux でのメモリ増加を抑制",
+              "en": "Fixed idle re-render loop when background tasks are present, reducing memory growth on Linux",
+              "category": "fixed"
+            },
+            {
+              "ja": "[VSCode] 複数の大規模マーケットプレイスが設定されている場合に「Manage Plugins」パネルが機能しなくなる問題を修正",
+              "en": "[VSCode] Fixed \"Manage Plugins\" panel breaking when multiple large marketplaces are configured",
+              "category": "fixed"
+            },
+            {
+              "ja": "Opus 4.7 セッションで `/context` のパーセンテージが過大に表示され、自動コンパクションが早期に実行される問題を修正（Claude Code が Opus 4.7 ネイティブの 1M ではなく 200K のコンテキストウィンドウを基準に計算していた）",
+              "en": "Fixed Opus 4.7 sessions showing inflated `/context` percentages and autocompacting too early — Claude Code was computing against a 200K context window instead of Opus 4.7's native 1M",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.116",
           "releaseDate": "2026-04-21",
