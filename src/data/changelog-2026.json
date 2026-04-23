@@ -1,10 +1,187 @@
 {
-  "generatedAt": "2026-04-22T23:17:23.167Z",
+  "generatedAt": "2026-04-23T01:41:37.050Z",
   "months": [
     {
       "key": "2026-04",
       "label": "2026年4月",
       "versions": [
+        {
+          "version": "2.1.118",
+          "releaseDate": "2026-04-23",
+          "releaseDateDisplay": "2026年4月23日",
+          "entries": [
+            {
+              "ja": "vim ビジュアルモード（`v`）およびビジュアルラインモード（`V`）を追加（選択、オペレータ、視覚的フィードバック付き）",
+              "en": "Added vim visual mode (`v`) and visual-line mode (`V`) with selection, operators, and visual feedback",
+              "category": "added"
+            },
+            {
+              "ja": "`/cost` と `/stats` を `/usage` に統合（両コマンドは引き続き該当タブを開くショートカットとして使用可能）",
+              "en": "Merged `/cost` and `/stats` into `/usage` — both remain as typing shortcuts that open the relevant tab",
+              "category": "changed"
+            },
+            {
+              "ja": "`/theme` から名前付きカスタムテーマの作成・切り替えが可能に。`~/.claude/themes/` の JSON ファイルを直接編集するか、プラグインが `themes/` ディレクトリ経由でテーマを提供することも可能",
+              "en": "Create and switch between named custom themes from `/theme`, or hand-edit JSON files in `~/.claude/themes/`; plugins can also ship themes via a `themes/` directory",
+              "category": "added"
+            },
+            {
+              "ja": "フックから `type: \"mcp_tool\"` を使って MCP ツールを直接呼び出し可能に",
+              "en": "Hooks can now invoke MCP tools directly via `type: \"mcp_tool\"`",
+              "category": "added"
+            },
+            {
+              "ja": "すべての更新経路（手動の `claude update` を含む）を完全に遮断する環境変数 `DISABLE_UPDATES` を追加（`DISABLE_AUTOUPDATER` より厳格）",
+              "en": "Added `DISABLE_UPDATES` env var to completely block all update paths including manual `claude update` — stricter than `DISABLE_AUTOUPDATER`",
+              "category": "added"
+            },
+            {
+              "ja": "Windows 上の WSL が `wslInheritsWindowsSettings` ポリシーキーを通じて Windows 側の管理設定を継承可能に",
+              "en": "WSL on Windows can now inherit Windows-side managed settings via the `wslInheritsWindowsSettings` policy key",
+              "category": "added"
+            },
+            {
+              "ja": "オートモード: `autoMode.allow`、`autoMode.soft_deny`、`autoMode.environment` に `\"$defaults\"` を含めることで、組み込みリストを置き換えずにカスタムルールを追加可能に",
+              "en": "Auto mode: include `\"$defaults\"` in `autoMode.allow`, `autoMode.soft_deny`, or `autoMode.environment` to add custom rules alongside the built-in list instead of replacing it",
+              "category": "added"
+            },
+            {
+              "ja": "オートモードの有効化プロンプトに「次回から確認しない」オプションを追加",
+              "en": "Added a \"Don't ask again\" option to the auto mode opt-in prompt",
+              "category": "added"
+            },
+            {
+              "ja": "バージョン検証付きでプラグインのリリース git タグを作成する `claude plugin tag` を追加",
+              "en": "Added `claude plugin tag` to create release git tags for plugins with version validation",
+              "category": "added"
+            },
+            {
+              "ja": "`--continue`/`--resume` が `/add-dir` で追加された現在のディレクトリを持つセッションを検索可能に",
+              "en": "`--continue`/`--resume` now find sessions that added the current directory via `/add-dir`",
+              "category": "improved"
+            },
+            {
+              "ja": "リモートコントロール接続時に `/color` がセッションのアクセントカラーを claude.ai/code に同期するように改善",
+              "en": "`/color` now syncs the session accent color to claude.ai/code when Remote Control is connected",
+              "category": "improved"
+            },
+            {
+              "ja": "カスタム `ANTHROPIC_BASE_URL` ゲートウェイ使用時に `/model` ピッカーが `ANTHROPIC_DEFAULT_*_MODEL_NAME`/`_DESCRIPTION` の上書き設定を反映するように改善",
+              "en": "The `/model` picker now honors `ANTHROPIC_DEFAULT_*_MODEL_NAME`/`_DESCRIPTION` overrides when using a custom `ANTHROPIC_BASE_URL` gateway",
+              "category": "improved"
+            },
+            {
+              "ja": "別プラグインのバージョン制約によりプラグインの自動更新がスキップされた場合、`/doctor` と `/plugin` のエラータブに表示されるように改善",
+              "en": "When auto-update skips a plugin due to another plugin's version constraint, the skip now appears in `/doctor` and the `/plugin` Errors tab",
+              "category": "improved"
+            },
+            {
+              "ja": "`headersHelper` で設定されたサーバーの OAuth 認証/再認証アクションが `/mcp` メニューに表示されない問題、および一時的な 401 エラー後にカスタムヘッダー付き HTTP/SSE MCP サーバーが「認証が必要」状態のまま抜け出せない問題を修正",
+              "en": "Fixed `/mcp` menu hiding OAuth Authenticate/Re-authenticate actions for servers configured with `headersHelper`, and HTTP/SSE MCP servers with custom headers being stuck in \"needs authentication\" after a transient 401",
+              "category": "fixed"
+            },
+            {
+              "ja": "OAuth トークンレスポンスに `expires_in` が含まれない MCP サーバーで毎時再認証が要求される問題を修正",
+              "en": "Fixed MCP servers whose OAuth token response omits `expires_in` requiring re-authentication every hour",
+              "category": "fixed"
+            },
+            {
+              "ja": "サーバーの `insufficient_scope` 403 エラーが現在のトークンが既に持つスコープを指している場合に、再同意を求めずにサイレントリフレッシュされる MCP ステップアップ認証の問題を修正",
+              "en": "Fixed MCP step-up authorization silently refreshing instead of prompting for re-consent when the server's `insufficient_scope` 403 names a scope the current token already has",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP サーバーの OAuth フローがタイムアウトまたはキャンセルされた際の未処理の Promise rejection を修正",
+              "en": "Fixed an unhandled promise rejection when an MCP server's OAuth flow times out or is cancelled",
+              "category": "fixed"
+            },
+            {
+              "ja": "競合状態時に MCP OAuth リフレッシュがクロスプロセスロックなしで進行する問題を修正",
+              "en": "Fixed MCP OAuth refresh proceeding without its cross-process lock under contention",
+              "category": "fixed"
+            },
+            {
+              "ja": "同時 MCP トークンリフレッシュが新しくリフレッシュされた OAuth トークンを上書きし、予期しない「/login を実行してください」プロンプトが表示される macOS キーチェーンの競合状態を修正",
+              "en": "Fixed macOS keychain race where a concurrent MCP token refresh could overwrite a freshly-refreshed OAuth token, causing unexpected \"Please run /login\" prompts",
+              "category": "fixed"
+            },
+            {
+              "ja": "サーバーがローカルの有効期限前にトークンを失効させた場合に OAuth トークンリフレッシュが失敗する問題を修正",
+              "en": "Fixed OAuth token refresh failing when the server revokes a token before its local expiry time",
+              "category": "fixed"
+            },
+            {
+              "ja": "Linux/Windows で認証情報の保存時にクラッシュし `~/.claude/.credentials.json` が破損する問題を修正",
+              "en": "Fixed credential save crash on Linux/Windows corrupting `~/.claude/.credentials.json`",
+              "category": "fixed"
+            },
+            {
+              "ja": "`CLAUDE_CODE_OAUTH_TOKEN` で起動したセッションで `/login` が無効になる問題を修正（環境変数のトークンをクリアしてディスク上の認証情報が有効になるように）",
+              "en": "Fixed `/login` having no effect in a session launched with `CLAUDE_CODE_OAUTH_TOKEN` — the env token is now cleared so disk credentials take effect",
+              "category": "fixed"
+            },
+            {
+              "ja": "「新しいメッセージ」スクロールピルと `/plugin` バッジのテキストが読めない問題を修正",
+              "en": "Fixed unreadable text in the \"new messages\" scroll pill and `/plugin` badges",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--dangerously-skip-permissions` 実行時にプラン承認ダイアログが「パーミッションのバイパス」の代わりに「オートモード」を提示する問題を修正",
+              "en": "Fixed plan acceptance dialog offering \"auto mode\" instead of \"bypass permissions\" when running with `--dangerously-skip-permissions`",
+              "category": "fixed"
+            },
+            {
+              "ja": "`Stop` または `SubagentStop` 以外のイベント向けに設定した場合にエージェント型フックが「Messages are required for agent hooks」で失敗する問題を修正",
+              "en": "Fixed agent-type hooks failing with \"Messages are required for agent hooks\" when configured for events other than `Stop` or `SubagentStop`",
+              "category": "fixed"
+            },
+            {
+              "ja": "エージェントフック検証サブエージェントによるツール呼び出し時に `prompt` フックが再実行される問題を修正",
+              "en": "Fixed `prompt` hooks re-firing on tool calls made by an agent-hook verifier subagent",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/fork` がフォークごとに親会話全体をディスクに書き込む問題を修正（ポインタを書き込み、読み取り時に展開する方式に変更）",
+              "en": "Fixed `/fork` writing the full parent conversation to disk per fork — now writes a pointer and hydrates on read",
+              "category": "fixed"
+            },
+            {
+              "ja": "Alt+K / Alt+X / Alt+^ / Alt+_ でキーボード入力がフリーズする問題を修正",
+              "en": "Fixed Alt+K / Alt+X / Alt+^ / Alt+_ freezing keyboard input",
+              "category": "fixed"
+            },
+            {
+              "ja": "リモートセッションへの接続時に `~/.claude/settings.json` のローカルの `model` 設定が上書きされる問題を修正",
+              "en": "Fixed connecting to a remote session overwriting your local `model` setting in `~/.claude/settings.json`",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/` で始まるファイルパスを貼り付けた際にタイプアヘッドが「No commands match」エラーを表示する問題を修正",
+              "en": "Fixed typeahead showing \"No commands match\" error when pasting file paths that start with `/`",
+              "category": "fixed"
+            },
+            {
+              "ja": "インストール済みプラグインに対して `plugin install` を実行しても誤ったバージョンでインストールされた依存関係が再解決されない問題を修正",
+              "en": "Fixed `plugin install` on an already-installed plugin not re-resolving a dependency installed at the wrong version",
+              "category": "fixed"
+            },
+            {
+              "ja": "無効なパスまたはファイルディスクリプタの枯渇時にファイルウォッチャーから発生する未処理エラーを修正",
+              "en": "Fixed unhandled errors from file watcher on invalid paths or fd exhaustion",
+              "category": "fixed"
+            },
+            {
+              "ja": "JWT リフレッシュ中の一時的な CCR 初期化の乱れによりリモートコントロールセッションがアーカイブされる問題を修正",
+              "en": "Fixed Remote Control sessions getting archived on transient CCR initialization blips during JWT refresh",
+              "category": "fixed"
+            },
+            {
+              "ja": "`SendMessage` で再開されたサブエージェントが起動時に指定された `cwd` を復元しない問題を修正",
+              "en": "Fixed subagents resumed via `SendMessage` not restoring the explicit `cwd` they were spawned with",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.117",
           "releaseDate": "2026-04-22",

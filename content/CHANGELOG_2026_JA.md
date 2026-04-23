@@ -4,6 +4,45 @@
 
 ---
 
+## 2.1.118
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| vim ビジュアルモード（`v`）およびビジュアルラインモード（`V`）を追加（選択、オペレータ、視覚的フィードバック付き） | Added vim visual mode (`v`) and visual-line mode (`V`) with selection, operators, and visual feedback | added |
+| `/cost` と `/stats` を `/usage` に統合（両コマンドは引き続き該当タブを開くショートカットとして使用可能） | Merged `/cost` and `/stats` into `/usage` — both remain as typing shortcuts that open the relevant tab | changed |
+| `/theme` から名前付きカスタムテーマの作成・切り替えが可能に。`~/.claude/themes/` の JSON ファイルを直接編集するか、プラグインが `themes/` ディレクトリ経由でテーマを提供することも可能 | Create and switch between named custom themes from `/theme`, or hand-edit JSON files in `~/.claude/themes/`; plugins can also ship themes via a `themes/` directory | added |
+| フックから `type: "mcp_tool"` を使って MCP ツールを直接呼び出し可能に | Hooks can now invoke MCP tools directly via `type: "mcp_tool"` | added |
+| すべての更新経路（手動の `claude update` を含む）を完全に遮断する環境変数 `DISABLE_UPDATES` を追加（`DISABLE_AUTOUPDATER` より厳格） | Added `DISABLE_UPDATES` env var to completely block all update paths including manual `claude update` — stricter than `DISABLE_AUTOUPDATER` | added |
+| Windows 上の WSL が `wslInheritsWindowsSettings` ポリシーキーを通じて Windows 側の管理設定を継承可能に | WSL on Windows can now inherit Windows-side managed settings via the `wslInheritsWindowsSettings` policy key | added |
+| オートモード: `autoMode.allow`、`autoMode.soft_deny`、`autoMode.environment` に `"$defaults"` を含めることで、組み込みリストを置き換えずにカスタムルールを追加可能に | Auto mode: include `"$defaults"` in `autoMode.allow`, `autoMode.soft_deny`, or `autoMode.environment` to add custom rules alongside the built-in list instead of replacing it | added |
+| オートモードの有効化プロンプトに「次回から確認しない」オプションを追加 | Added a "Don't ask again" option to the auto mode opt-in prompt | added |
+| バージョン検証付きでプラグインのリリース git タグを作成する `claude plugin tag` を追加 | Added `claude plugin tag` to create release git tags for plugins with version validation | added |
+| `--continue`/`--resume` が `/add-dir` で追加された現在のディレクトリを持つセッションを検索可能に | `--continue`/`--resume` now find sessions that added the current directory via `/add-dir` | improved |
+| リモートコントロール接続時に `/color` がセッションのアクセントカラーを claude.ai/code に同期するように改善 | `/color` now syncs the session accent color to claude.ai/code when Remote Control is connected | improved |
+| カスタム `ANTHROPIC_BASE_URL` ゲートウェイ使用時に `/model` ピッカーが `ANTHROPIC_DEFAULT_*_MODEL_NAME`/`_DESCRIPTION` の上書き設定を反映するように改善 | The `/model` picker now honors `ANTHROPIC_DEFAULT_*_MODEL_NAME`/`_DESCRIPTION` overrides when using a custom `ANTHROPIC_BASE_URL` gateway | improved |
+| 別プラグインのバージョン制約によりプラグインの自動更新がスキップされた場合、`/doctor` と `/plugin` のエラータブに表示されるように改善 | When auto-update skips a plugin due to another plugin's version constraint, the skip now appears in `/doctor` and the `/plugin` Errors tab | improved |
+| `headersHelper` で設定されたサーバーの OAuth 認証/再認証アクションが `/mcp` メニューに表示されない問題、および一時的な 401 エラー後にカスタムヘッダー付き HTTP/SSE MCP サーバーが「認証が必要」状態のまま抜け出せない問題を修正 | Fixed `/mcp` menu hiding OAuth Authenticate/Re-authenticate actions for servers configured with `headersHelper`, and HTTP/SSE MCP servers with custom headers being stuck in "needs authentication" after a transient 401 | fixed |
+| OAuth トークンレスポンスに `expires_in` が含まれない MCP サーバーで毎時再認証が要求される問題を修正 | Fixed MCP servers whose OAuth token response omits `expires_in` requiring re-authentication every hour | fixed |
+| サーバーの `insufficient_scope` 403 エラーが現在のトークンが既に持つスコープを指している場合に、再同意を求めずにサイレントリフレッシュされる MCP ステップアップ認証の問題を修正 | Fixed MCP step-up authorization silently refreshing instead of prompting for re-consent when the server's `insufficient_scope` 403 names a scope the current token already has | fixed |
+| MCP サーバーの OAuth フローがタイムアウトまたはキャンセルされた際の未処理の Promise rejection を修正 | Fixed an unhandled promise rejection when an MCP server's OAuth flow times out or is cancelled | fixed |
+| 競合状態時に MCP OAuth リフレッシュがクロスプロセスロックなしで進行する問題を修正 | Fixed MCP OAuth refresh proceeding without its cross-process lock under contention | fixed |
+| 同時 MCP トークンリフレッシュが新しくリフレッシュされた OAuth トークンを上書きし、予期しない「/login を実行してください」プロンプトが表示される macOS キーチェーンの競合状態を修正 | Fixed macOS keychain race where a concurrent MCP token refresh could overwrite a freshly-refreshed OAuth token, causing unexpected "Please run /login" prompts | fixed |
+| サーバーがローカルの有効期限前にトークンを失効させた場合に OAuth トークンリフレッシュが失敗する問題を修正 | Fixed OAuth token refresh failing when the server revokes a token before its local expiry time | fixed |
+| Linux/Windows で認証情報の保存時にクラッシュし `~/.claude/.credentials.json` が破損する問題を修正 | Fixed credential save crash on Linux/Windows corrupting `~/.claude/.credentials.json` | fixed |
+| `CLAUDE_CODE_OAUTH_TOKEN` で起動したセッションで `/login` が無効になる問題を修正（環境変数のトークンをクリアしてディスク上の認証情報が有効になるように） | Fixed `/login` having no effect in a session launched with `CLAUDE_CODE_OAUTH_TOKEN` — the env token is now cleared so disk credentials take effect | fixed |
+| 「新しいメッセージ」スクロールピルと `/plugin` バッジのテキストが読めない問題を修正 | Fixed unreadable text in the "new messages" scroll pill and `/plugin` badges | fixed |
+| `--dangerously-skip-permissions` 実行時にプラン承認ダイアログが「パーミッションのバイパス」の代わりに「オートモード」を提示する問題を修正 | Fixed plan acceptance dialog offering "auto mode" instead of "bypass permissions" when running with `--dangerously-skip-permissions` | fixed |
+| `Stop` または `SubagentStop` 以外のイベント向けに設定した場合にエージェント型フックが「Messages are required for agent hooks」で失敗する問題を修正 | Fixed agent-type hooks failing with "Messages are required for agent hooks" when configured for events other than `Stop` or `SubagentStop` | fixed |
+| エージェントフック検証サブエージェントによるツール呼び出し時に `prompt` フックが再実行される問題を修正 | Fixed `prompt` hooks re-firing on tool calls made by an agent-hook verifier subagent | fixed |
+| `/fork` がフォークごとに親会話全体をディスクに書き込む問題を修正（ポインタを書き込み、読み取り時に展開する方式に変更） | Fixed `/fork` writing the full parent conversation to disk per fork — now writes a pointer and hydrates on read | fixed |
+| Alt+K / Alt+X / Alt+^ / Alt+_ でキーボード入力がフリーズする問題を修正 | Fixed Alt+K / Alt+X / Alt+^ / Alt+_ freezing keyboard input | fixed |
+| リモートセッションへの接続時に `~/.claude/settings.json` のローカルの `model` 設定が上書きされる問題を修正 | Fixed connecting to a remote session overwriting your local `model` setting in `~/.claude/settings.json` | fixed |
+| `/` で始まるファイルパスを貼り付けた際にタイプアヘッドが「No commands match」エラーを表示する問題を修正 | Fixed typeahead showing "No commands match" error when pasting file paths that start with `/` | fixed |
+| インストール済みプラグインに対して `plugin install` を実行しても誤ったバージョンでインストールされた依存関係が再解決されない問題を修正 | Fixed `plugin install` on an already-installed plugin not re-resolving a dependency installed at the wrong version | fixed |
+| 無効なパスまたはファイルディスクリプタの枯渇時にファイルウォッチャーから発生する未処理エラーを修正 | Fixed unhandled errors from file watcher on invalid paths or fd exhaustion | fixed |
+| JWT リフレッシュ中の一時的な CCR 初期化の乱れによりリモートコントロールセッションがアーカイブされる問題を修正 | Fixed Remote Control sessions getting archived on transient CCR initialization blips during JWT refresh | fixed |
+| `SendMessage` で再開されたサブエージェントが起動時に指定された `cwd` を復元しない問題を修正 | Fixed subagents resumed via `SendMessage` not restoring the explicit `cwd` they were spawned with | fixed |
+
 ## 2.1.117
 
 | 日本語 | English | Category |

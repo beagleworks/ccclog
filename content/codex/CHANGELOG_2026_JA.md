@@ -4,6 +4,29 @@
 
 ---
 
+## 0.123.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| AWS プロファイル設定に対応した組み込み `amazon-bedrock` モデルプロバイダーを追加 (#18744)。 | Added a built-in `amazon-bedrock` model provider with configurable AWS profile support (#18744). | new-features |
+| `/mcp verbose` で MCP サーバーの詳細診断・リソース・リソーステンプレートを表示可能にしつつ、通常の `/mcp` は高速なままを維持 (#18610)。 | Added `/mcp verbose` for full MCP server diagnostics, resources, and resource templates while keeping plain `/mcp` fast (#18610). | new-features |
+| プラグイン MCP 読み込みで `.mcp.json` の `mcpServers` とトップレベルのサーバーマップの両形式に対応 (#18780)。 | Made plugin MCP loading accept both `mcpServers` and top-level server maps in `.mcp.json` (#18780). | new-features |
+| バックグラウンドエージェントがトランスクリプトの差分を受け取り、適切な場合に明示的に沈黙できるよう、リアルタイムハンドオフを改善 (#18597, #18761, #18635)。 | Improved realtime handoffs so background agents receive transcript deltas and can explicitly stay silent when appropriate (#18597, #18761, #18635). | new-features |
+| リモート環境向けにホスト固有の `remote_sandbox_config` 要件を追加 (#18763)。 | Added host-specific `remote_sandbox_config` requirements for remote environments (#18763). | new-features |
+| 現在のデフォルト `gpt-5.4` を含むバンドル済みモデルメタデータを更新 (#18586, #18388, #18719)。 | Refreshed bundled model metadata, including the current `gpt-5.4` default (#18586, #18388, #18719). | new-features |
+| ロールバック後の `/copy` でロールバック前のレスポンスではなく最新の表示済みアシスタントレスポンスをコピーするよう修正 (#18739)。 | Fixed `/copy` after rollback so it copies the latest visible assistant response, not a pre-rollback response (#18739). | bug-fixes |
+| 手動シェルコマンド実行中に送信された通常のフォローアップテキストをキューに入れ、`Working` 状態のフリーズを防止 (#18820)。 | Queued normal follow-up text submitted while a manual shell command is running, preventing stuck `Working` states (#18820). | bug-fixes |
+| VS Code WSL ターミナルで拡張キーボードモードを無効化することで Unicode/デッドキー入力の問題を修正 (#18741)。 | Fixed Unicode/dead-key input in VS Code WSL terminals by disabling the enhanced keyboard mode there (#18741). | bug-fixes |
+| シェルスナップショットからの古いプロキシ環境変数の復元を防止 (#17271)。 | Prevented stale proxy environment variables from being restored from shell snapshots (#17271). | bug-fixes |
+| `codex exec` でサンドボックスやモデルオプション等のルートレベルの共有フラグを継承するよう対応 (#18630)。 | Made `codex exec` inherit root-level shared flags such as sandbox and model options (#18630). | bug-fixes |
+| TUI トランスクリプトへのレビュープロンプトの漏洩を修正 (#18659)。 | Removed leaked review prompts from TUI transcripts (#18659). | bug-fixes |
+| Codex 駆動レビューで使用するコードレビュースキルの指示を追加・強化 (#18746, #18818)。 | Added and tightened the Code Review skill instructions used by Codex-driven reviews (#18746, #18818). | documentation |
+| ロックをまたぐ意図的な await のケースをドキュメント化し、Clippy によるリントを有効化 (#18423, #18698)。 | Documented intentional await-across-lock cases and enabled Clippy linting for them (#18423, #18698). | documentation |
+| スレッドレスな MCP リソース読み取りと名前空間付き動的ツールに関するアプリサーバープロトコルドキュメントを更新 (#18292, #18413)。 | Updated app-server protocol docs for threadless MCP resource reads and namespaced dynamic tools (#18292, #18413). | documentation |
+| パッチ済みの JS および Rust 依存関係をピン留めすることで高深刻度の依存関係アラートを修正 (#18167)。 | Fixed high-severity dependency alerts by pinning patched JS and Rust dependencies (#18167). | chores |
+| 有用なバックトレースを維持しつつ、Rust 開発ビルドのデバッグ情報によるオーバーヘッドを削減 (#18844)。 | Reduced Rust dev build debug-info overhead while preserving useful backtraces (#18844). | chores |
+| 現在のスキーマから生成済み Python アプリサーバー SDK 型を更新 (#18862)。 | Refreshed generated Python app-server SDK types from the current schema (#18862). | chores |
+
 ## 0.122.0
 
 | 日本語 | English | Category |
