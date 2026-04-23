@@ -4,6 +4,23 @@
 
 ---
 
+## 0.124.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| TUI にクイック推論コントロールを追加: `Alt+,` で推論を下げ、`Alt+.` で推論を上げ、モデルアップグレードの承認時に古い設定を引き継がず新モデルのデフォルト値にリセット。(#18866, #19085) | The TUI now has quick reasoning controls: `Alt+,` lowers reasoning, `Alt+.` raises it, and accepted model upgrades now reset reasoning to the new model’s default instead of carrying over stale settings. (#18866, #19085) | new-features |
+| アプリサーバーセッションで複数の環境を管理し、ターンごとに環境と作業ディレクトリを選択可能に。マルチワークスペースやリモート環境の精密なターゲット指定が容易に。(#18401, #18416) | App-server sessions can now manage multiple environments and choose an environment and working directory per turn, which makes multi-workspace and remote setups easier to target precisely. (#18401, #18416) | new-features |
+| AWS SigV4 署名および AWS 認証情報ベースの認証を含む、OpenAI 互換プロバイダー向け Amazon Bedrock の正式サポートを追加。(#17820) | Added first-class Amazon Bedrock support for OpenAI-compatible providers, including AWS SigV4 signing and AWS credential-based auth. (#17820) | new-features |
+| リモートプラグインマーケットプレイスの一覧表示と直接読み取りに対応。詳細検索の信頼性向上と検索結果ページの大容量化。(#18452, #19079) | Remote plugin marketplaces can now be listed and read directly, with more reliable detail lookups and larger result pages. (#18452, #19079) | new-features |
+| フックを安定化。`config.toml` へのインライン設定と `requirements.toml` での管理に対応。MCP ツール、`apply_patch`、長時間実行の Bash セッションの監視も可能に。(#18893, #18385, #18391, #18888, #19012) | Hooks are now stable, can be configured inline in `config.toml` and managed `requirements.toml`, and can observe MCP tools as well as `apply_patch` and long-running Bash sessions. (#18893, #18385, #18391, #18888, #19012) | new-features |
+| 対象 ChatGPT プランでは、明示的にオプトアウトしない限り Fast サービスティアをデフォルトに変更。(#19053) | Eligible ChatGPT plans now default to the Fast service tier unless you explicitly opt out. (#19053) | new-features |
+| 承認済み ChatGPT ホスト間で Cloudflare Cookie を保持し、HTTP バックエンドの ChatGPT フローにおける認証失敗を低減。(#17783) | Preserved Cloudflare cookies across approved ChatGPT hosts, reducing auth breakage in HTTP-backed ChatGPT flows. (#17783) | bug-fixes |
+| リモートアプリサーバーの信頼性問題を修正。負荷時の WebSocket イベント処理継続と、クリーンアップ中のリモートワーカー終了時にシャットダウンが失敗しない問題を修正。(#18932, #18936) | Fixed remote app-server reliability issues so websocket events keep draining under load and shutdown no longer fails when the remote worker exits during cleanup. (#18932, #18936) | bug-fixes |
+| パーミッションモードのドリフトを修正。`/permissions` の変更がサイド会話を経ても保持され、Full Access の状態が MCP 承認処理に正しく反映されるように修正。(#18924, #19033) | Fixed permission-mode drift so `/permissions` changes survive side conversations and updated Full Access state is correctly reflected in MCP approval handling. (#18924, #19033) | bug-fixes |
+| `wait_agent` がメールボックスに処理待ち作業が既にキューイングされている場合に、新規通知の待機やタイムアウトを経ずに即座に返るよう修正。(#18968) | Fixed `wait_agent` so it returns promptly when mailbox work is already queued instead of waiting for a fresh notification or timing out. (#18968) | bug-fixes |
+| 明示的な `cwd` を持たない相対コマンドのローカル stdio MCP 起動を修正。フォールバックのパス解決を CLI の挙動に準拠。(#19031) | Fixed local stdio MCP launches for relative commands without an explicit `cwd`, bringing fallback path resolution in line with CLI behavior. (#19031) | bug-fixes |
+| 管理設定のエッジケースによる起動失敗を低減。未知の機能要件は中断せず警告を表示し、クラウド要件エラーは失敗内容をより明確に表示するよう改善。(#19038, #19078) | Startup now fails less often on managed config edge cases: unknown feature requirements warn instead of aborting, and cloud-requirements errors are clearer about what failed. (#19038, #19078) | bug-fixes |
+
 ## 0.123.0
 
 | 日本語 | English | Category |
