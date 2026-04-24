@@ -4,6 +4,30 @@
 
 ---
 
+## 0.125.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| アプリサーバー統合が Unix ソケットトランスポート、ページネーション対応の resume/fork、スティッキー環境、リモートスレッドの config/store 配線をサポート。(#18255, #18892, #18897, #18908, #19008, #19014) | App-server integrations now support Unix socket transport, pagination-friendly resume/fork, sticky environments, and remote thread config/store plumbing. (#18255, #18892, #18897, #18908, #19008, #19014) | new-features |
+| アプリサーバーのプラグイン管理がリモートプラグインのインストールおよび設定済みマーケットプレイスのアップグレードに対応。(#18917, #19074) | App-server plugin management can install remote plugins and upgrade configured marketplaces. (#18917, #19074) | new-features |
+| パーミッションプロファイルが TUI セッション、ユーザーターン、MCP サンドボックス状態、シェルエスカレーション、アプリサーバー API 間でのラウンドトリップに対応。(#18284, #18285, #18286, #18287, #19231) | Permission profiles now round-trip across TUI sessions, user turns, MCP sandbox state, shell escalation, and app-server APIs. (#18284, #18285, #18286, #18287, #19231) | new-features |
+| モデルプロバイダーがモデルディスカバリーを管理するようになり、AWS/Bedrock のアカウント状態をアプリクライアントに公開。(#18950, #19048) | Model providers now own model discovery, with AWS/Bedrock account state exposed to app clients. (#18950, #19048) | new-features |
+| `codex exec --json` がプログラム利用向けに推論トークン使用量を報告するように改善。(#19308) | `codex exec --json` now reports reasoning-token usage for programmatic consumers. (#19308) | new-features |
+| ロールアウトトレースがツール、コードモード、セッション、マルチエージェントの関係を記録するようになり、デバッグ用リデューサーコマンドを追加。(#18878, #18879, #18880) | Rollout tracing now records tool, code-mode, session, and multi-agent relationships, with a debug reducer command for inspection. (#18878, #18879, #18880) | new-features |
+| `/review` の中断および TUI 終了時にデリゲートの起動やアンサブスクライブ処理でインターフェースがハングする問題を修正。(#18921) | Interrupting `/review` and exiting the TUI no longer leaves the interface wedged on delegate startup or unsubscribe. (#18921) | bug-fixes |
+| exec サーバーがプロセス終了後にバッファされた出力を破棄する問題を修正し、ストリームのクローズを正しく待機するように改善。(#18946, #19130) | Exec-server no longer drops buffered output after process exit and now waits correctly for stream closure. (#18946, #19130) | bug-fixes |
+| アプリサーバーが明示的に非信頼とされたプロジェクト設定を自動的に信頼永続化せず尊重するように修正。(#18626) | App-server now respects explicitly untrusted project config instead of auto-persisting trust. (#18626) | bug-fixes |
+| WebSocket アプリサーバークライアントがターンおよびツール出力通知のバースト時に切断されにくくなるよう改善。(#19246) | WebSocket app-server clients are less likely to disconnect during bursts of turn and tool-output notifications. (#19246) | bug-fixes |
+| Windows サンドボックス起動時の複数 CLI バージョンおよびインストール済みアプリディレクトリの処理を改善し、バックグラウンドの `Start-Process` 呼び出しで PowerShell ウィンドウが表示されないように修正。(#19044, #19180, #19214) | Windows sandbox startup handles multiple CLI versions and installed app directories better, and background `Start-Process` calls avoid visible PowerShell windows. (#19044, #19180, #19214) | bug-fixes |
+| config/スキーマ処理において、MultiAgentV2 スレッド上限の競合を拒否、エージェントロール設定パスの相対解決、非サポートの MCP ベアラートークンフィールドの非表示、不正な `js_repl` イメージ MIME タイプの拒否に対応。(#19129, #19261, #19294, #19292) | Config/schema handling now rejects conflicting MultiAgentV2 thread limits, resolves relative agent-role config paths, hides unsupported MCP bearer-token fields, and rejects invalid `js_repl` image MIME types. (#19129, #19261, #19294, #19292) | bug-fixes |
+| アプリサーバーのドキュメントおよび生成済みスキーマを新しいトランスポート、スレッド、マーケットプレイス、スティッキー環境、パーミッションプロファイル API に合わせて更新。(#18255, #18897, #19014, #19074, #19231) | App-server docs and generated schemas were refreshed for the new transport, thread, marketplace, sticky environment, and permission-profile APIs. (#18255, #18897, #19014, #19074, #19231) | documentation |
+| ロールアウトトレースのドキュメントにデバッグトレースリダクションのワークフローを追記。(#18880) | Rollout-trace documentation now covers the debug trace reduction workflow. (#18880) | documentation |
+| `models.json` および関連するコア、アプリサーバー、SDK、TUI フィクスチャを最新のモデルカタログおよび推論デフォルトに合わせて更新。(#19323) | Refreshed `models.json` and related core, app-server, SDK, and TUI fixtures for the latest model catalog and reasoning defaults. (#19323) | chores |
+| Windows Bazel CI でより良いキャッシュ再利用のために安定した PATH と共有クエリスタートアップパスを使用するように改善。(#19161, #19232) | Windows Bazel CI now uses a stable PATH and shared query startup path for better cache reuse. (#19161, #19232) | chores |
+| プラグインマーケットプレイスの追加/削除/起動時同期の内部処理を `codex-core` から分離し、キュレーション済みプラグインのキャッシュバージョンに短縮 SHA を使用するように変更。(#19099, #19095) | Plugin marketplace add/remove/startup-sync internals moved out of `codex-core`, and curated plugin cache versions now use short SHAs. (#19099, #19095) | chores |
+| macOS 署名エンタイトルメントの変更がアルファ版の起動失敗を引き起こしたためリバート。(#19167, #19350) | Reverted a macOS signing entitlement change after it caused alpha startup failures. (#19167, #19350) | chores |
+| 承認ポップアップおよびプラグイン MCP ツールディスカバリーの不安定なテストを安定化。(#19178, #19191) | Stabilized flaky approval-popup and plugin MCP tool-discovery tests. (#19178, #19191) | chores |
+
 ## 0.124.0
 
 | 日本語 | English | Category |
