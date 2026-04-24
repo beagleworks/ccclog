@@ -4,6 +4,62 @@
 
 ---
 
+## 2.1.119
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `/config` で設定したテーマ・エディタモード・verbose 等が `~/.claude/settings.json` に保存されるようになり、プロジェクト/ローカル/ポリシーのオーバーライド優先順位にも従うように | `/config` settings (theme, editor mode, verbose, etc.) now persist to `~/.claude/settings.json` and participate in project/local/policy override precedence | improved |
+| フッターの PR バッジを github.com の代わりにカスタムコードレビュー URL へ向けられる `prUrlTemplate` 設定を追加 | Added `prUrlTemplate` setting to point the footer PR badge at a custom code-review URL instead of github.com | added |
+| 起動ロゴの作業ディレクトリを非表示にする環境変数 `CLAUDE_CODE_HIDE_CWD` を追加 | Added `CLAUDE_CODE_HIDE_CWD` environment variable to hide the working directory in the startup logo | added |
+| `--from-pr` が GitLab マージリクエスト、Bitbucket プルリクエスト、GitHub Enterprise PR URL に対応 | `--from-pr` now accepts GitLab merge-request, Bitbucket pull-request, and GitHub Enterprise PR URLs | added |
+| `--print` モードがエージェントの `tools:` および `disallowedTools:` フロントマターを尊重するようになり、インタラクティブモードの動作と一致 | `--print` mode now honors the agent's `tools:` and `disallowedTools:` frontmatter, matching interactive-mode behavior | fixed |
+| `--agent <name>` で組み込みエージェントの `permissionMode` が正しく適用されるように修正 | `--agent <name>` now honors the agent definition's `permissionMode` for built-in agents | fixed |
+| PowerShell ツールコマンドがパーミッションモードで自動承認可能になり、Bash の動作と統一 | PowerShell tool commands can now be auto-approved in permission mode, matching Bash behavior | added |
+| フック: `PostToolUse` および `PostToolUseFailure` のフック入力に `duration_ms`（ツール実行時間。パーミッションプロンプトおよび PreToolUse フックの時間を除く）を追加 | Hooks: `PostToolUse` and `PostToolUseFailure` hook inputs now include `duration_ms` (tool execution time, excluding permission prompts and PreToolUse hooks) | added |
+| サブエージェントおよびSDKのMCPサーバー再設定において、サーバーへの接続を直列ではなく並列で実行するように変更 | Subagent and SDK MCP server reconfiguration now connects servers in parallel instead of serially | improved |
+| 別のプラグインのバージョン制約によって固定されたプラグインが、条件を満たす最新の git タグへ自動更新されるように対応 | Plugins pinned by another plugin's version constraint now auto-update to the highest satisfying git tag | added |
+| Vim モード: INSERT モードで Esc を押してもキュー済みメッセージが入力欄に戻らないよう修正；割り込みには再度 Esc を押す | Vim mode: Esc in INSERT no longer pulls a queued message back into the input; press Esc again to interrupt | fixed |
+| スラッシュコマンドの候補で、クエリにマッチした文字をハイライト表示 | Slash command suggestions now highlight the characters that matched your query | improved |
+| スラッシュコマンドピッカーで長い説明文が切り捨てられる代わりに2行目に折り返されるように変更 | Slash command picker now wraps long descriptions onto a second line instead of truncating | improved |
+| 出力内の `owner/repo#N` 形式のショートハンドリンクが、常に github.com を指す代わりに git リモートのホストを使用するように変更 | `owner/repo#N` shorthand links in output now use your git remote's host instead of always pointing at github.com | improved |
+| セキュリティ: `blockedMarketplaces` の `hostPattern` および `pathPattern` エントリが正しく適用されるように修正 | Security: `blockedMarketplaces` now correctly enforces `hostPattern` and `pathPattern` entries | fixed |
+| OpenTelemetry: `tool_result` および `tool_decision` イベントに `tool_use_id` を追加、`tool_result` には `tool_input_size_bytes` も追加 | OpenTelemetry: `tool_result` and `tool_decision` events now include `tool_use_id`; `tool_result` also includes `tool_input_size_bytes` | improved |
+| ステータスライン: stdin JSON に `effort.level` と `thinking.enabled` を追加 | Status line: stdin JSON now includes `effort.level` and `thinking.enabled` | added |
+| CRLFコンテンツ（Windowsクリップボード、Xcodeコンソール）のペースト時に各行間へ余分な空白行が挿入される問題を修正 | Fixed pasting CRLF content (Windows clipboards, Xcode console) inserting an extra blank line between every line | fixed |
+| ブラケットペースト内でkittyキーボードプロトコルシーケンスを使用するターミナルにおいて、複数行ペースト時に改行が失われる問題を修正 | Fixed multi-line paste losing newlines in terminals using kitty keyboard protocol sequences inside bracketed paste | fixed |
+| ネイティブ macOS/Linux ビルドで Bash ツールがパーミッションにより拒否された際、Glob および Grep ツールが消える問題を修正 | Fixed Glob and Grep tools disappearing on native macOS/Linux builds when the Bash tool is denied via permissions | fixed |
+| フルスクリーンモードでスクロールアップした際、ツールの実行が完了するたびに最下部へ強制スクロールされる問題を修正 | Fixed scrolling up in fullscreen mode snapping back to the bottom every time a tool finishes | fixed |
+| OAuthディスカバリーリクエストに対してサーバーが非JSONボディを返した際にMCP HTTP接続が「Invalid OAuth error response」で失敗する問題を修正 | Fixed MCP HTTP connections failing with "Invalid OAuth error response" when servers returned non-JSON bodies for OAuth discovery requests | fixed |
+| 画像添付のあるメッセージで Rewind オーバーレイに "(no prompt)" と表示される不具合を修正 | Fixed Rewind overlay showing "(no prompt)" for messages with image attachments | fixed |
+| auto mode が「Execute immediately」という競合する指示によって plan mode を上書きしてしまう問題を修正 | Fixed auto mode overriding plan mode with conflicting "Execute immediately" instructions | fixed |
+| レスポンスペイロードを返さない非同期 `PostToolUse` フックがセッショントランスクリプトに空エントリを書き込む問題を修正 | Fixed async `PostToolUse` hooks that emit no response payload writing empty entries to the session transcript | fixed |
+| サブエージェントタスクの通知がキューに孤立した際にスピナーが表示されたままになる問題を修正 | Fixed spinner staying on when a subagent task notification is orphaned in the queue | fixed |
+| サポートされていないベータヘッダーエラーを回避するため、Vertex AI でのツール検索をデフォルトで無効化（`ENABLE_TOOL_SEARCH` でオプトイン可能） | Tool search is now disabled by default on Vertex AI to avoid an unsupported beta header error (opt in with `ENABLE_TOOL_SEARCH`) | changed |
+| スラッシュコマンド内で絶対パスを使用した際に `@` ファイルのTab補完がプロンプト全体を置き換える問題を修正 | Fixed `@`-file Tab completion replacing the entire prompt when used inside a slash command with an absolute path | fixed |
+| macOS の Terminal.app で Docker または SSH 経由で起動時にプロンプトに余分な `p` 文字が表示される問題を修正 | Fixed a stray `p` character appearing at the prompt on startup in macOS Terminal.app via Docker or SSH | fixed |
+| HTTP/SSE/WebSocket MCPサーバーの`headers`における`${ENV_VAR}`プレースホルダーがリクエスト前に置換されない問題を修正 | Fixed `${ENV_VAR}` placeholders in `headers` for HTTP/SSE/WebSocket MCP servers not being substituted before requests | fixed |
+| `--client-secret` で保存された MCP OAuth クライアントシークレットが `client_secret_post` を要求するサーバーでのトークン交換時に送信されない問題を修正 | Fixed MCP OAuth client secret stored via `--client-secret` not being sent during token exchange for servers requiring `client_secret_post` | fixed |
+| `/skills` でEnterキーを押した際にダイアログが閉じてしまう代わりに、プロンプトへ `/<skill-name>` が事前入力されるよう修正 | Fixed `/skills` Enter key closing the dialog instead of pre-filling `/<skill-name>` in the prompt | fixed |
+| `/agents` 詳細ビューでサブエージェントが利用できない組み込みツールを "Unrecognized" と誤表示していた問題を修正 | Fixed `/agents` detail view mislabeling built-in tools unavailable to subagents as "Unrecognized" | fixed |
+| プラグインキャッシュが不完全な場合に Windows でプラグインの MCP サーバーが起動しない問題を修正 | Fixed MCP servers from plugins not spawning on Windows when the plugin cache was incomplete | fixed |
+| `/export` が実際に会話で使用されたモデルではなく、現在のデフォルトモデルを表示していた問題を修正 | Fixed `/export` showing the current default model instead of the model the conversation actually used | fixed |
+| 再起動後に詳細出力設定が保持されない問題を修正 | Fixed verbose output setting not persisting after restart | fixed |
+| `/usage` のプログレスバーが「Resets …」ラベルと重なる問題を修正 | Fixed `/usage` progress bars overlapping with their "Resets …" labels | fixed |
+| プラグインの MCP サーバーが `${user_config.*}` でオプションフィールドを空白のままにした場合に失敗する問題を修正 | Fixed plugin MCP servers failing when `${user_config.*}` references an optional field left blank | fixed |
+| 文末に数字を含むリスト項目で、その数字が単独行に折り返される問題を修正 | Fixed list items containing a sentence-final number wrapping the number onto its own line | fixed |
+| `/plan` および `/plan open` がプランモード移行時に既存のプランに対して動作しない問題を修正 | Fixed `/plan` and `/plan open` not acting on the existing plan when entering plan mode | fixed |
+| 自動圧縮前に呼び出されたスキルが次のユーザーメッセージに対して再実行される問題を修正 | Fixed skills invoked before auto-compaction being re-executed against the next user message | fixed |
+| 無効化されたプラグインに対して `/reload-plugins` と `/doctor` が読み込みエラーを報告する問題を修正 | Fixed `/reload-plugins` and `/doctor` reporting load errors for disabled plugins | fixed |
+| Agent ツールの `isolation: "worktree"` が過去のセッションの古いワークツリーを再利用する問題を修正 | Fixed Agent tool with `isolation: "worktree"` reusing stale worktrees from prior sessions | fixed |
+| 無効化されたMCPサーバーが `/status` で「failed」と表示される問題を修正 | Fixed disabled MCP servers appearing as "failed" in `/status` | fixed |
+| `TaskList` がID順ではなく任意のファイルシステム順でタスクを返していた問題を修正 | Fixed `TaskList` returning tasks in arbitrary filesystem order instead of sorted by ID | fixed |
+| `gh` の出力に "rate limit" を含む PR タイトルが存在する場合に、誤って「GitHub API レート制限超過」のヒントが表示される問題を修正 | Fixed spurious "GitHub API rate limit exceeded" hints when `gh` output contained PR titles mentioning "rate limit" | fixed |
+| SDK/bridge の `read_file` が増加するファイルに対してサイズ上限を正しく適用しない問題を修正 | Fixed SDK/bridge `read_file` not correctly enforcing size cap on growing files | fixed |
+| git worktree で作業中に PR がセッションに紐付けられない問題を修正 | Fixed PR not linked to session when working in a git worktree | fixed |
+| より高い優先スコープによって上書きされた MCP サーバーエントリに関する `/doctor` の警告を修正 | Fixed `/doctor` warning about MCP server entries overridden by a higher-precedence scope | fixed |
+| Windows: 誤検知だった「Windowsでは 'cmd /c' ラッパーが必要」というMCP設定の警告を削除 | Windows: removed false-positive "Windows requires 'cmd /c' wrapper" MCP config warning | fixed |
+| [VSCode] macOS でマイク権限のプロンプト表示中に音声入力の最初の録音が無効になる問題を修正 | [VSCode] Fixed voice dictation's first recording producing nothing on macOS while the microphone permission prompt is showing | fixed |
+
 ## 2.1.118
 
 | 日本語 | English | Category |
