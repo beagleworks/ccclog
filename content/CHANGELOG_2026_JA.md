@@ -4,6 +4,33 @@
 
 ---
 
+## 2.1.120
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Windows: Git for Windows (Git Bash) が不要に — 未インストール時は PowerShell をシェルツールとして使用 | Windows: Git for Windows (Git Bash) is no longer required — when absent, Claude Code uses PowerShell as the shell tool | changed |
+| CI やスクリプトから `/ultrareview` を非インタラクティブに実行できる `claude ultrareview [target]` サブコマンドを追加 — 結果を標準出力に出力し（`--json` で生出力）、完了時は 0、失敗時は 1 で終了 | Added `claude ultrareview [target]` subcommand to run `/ultrareview` non-interactively from CI or scripts — prints findings to stdout (`--json` for raw output) and exits 0 on completion or 1 on failure | added |
+| スキルのコンテンツ内で `${CLAUDE_EFFORT}` を使用して現在のエフォートレベルを参照可能に | Skills can now reference the current effort level with `${CLAUDE_EFFORT}` in their content | added |
+| `gh` がトラフィックを Claude Code に帰属できるよう、サブプロセスに `AI_AGENT` 環境変数を設定 | Set `AI_AGENT` environment variable for subprocesses so `gh` can attribute traffic to Claude Code | added |
+| デスクトップアプリのインストールやスキル／エージェントの作成を推奨するスピナーのヒントを、既に利用中の場合は非表示に | Spinner tips that recommend installing the desktop app or creating skills/agents are now hidden when you already have them | improved |
+| ターミナルがスクロールイベントの代わりに矢印キーを送信する場合、「PgUp/PgDn でスクロール」のヒントを表示 | Show a "use PgUp/PgDn to scroll" hint when the terminal sends arrow keys instead of scroll events | improved |
+| 多数の claude.ai コネクタが設定されているが未認証の場合のセッション開始を高速化 | Faster session start when you have many claude.ai connectors configured but not authorized | improved |
+| オートモードの拒否メッセージに設定ドキュメントへのリンクを追加 | The auto mode denial message now links to the configuration docs | improved |
+| `claude plugin validate` が `marketplace.json` のトップレベルで `$schema`・`version`・`description` を、`plugin.json` で `$schema` を受け入れるように | `claude plugin validate` now accepts `$schema`, `version`, and `description` at the top level of `marketplace.json` and `$schema` in `plugin.json` | changed |
+| オートモードの自動コンパクトが誤解を招くトークン数の代わりに `auto`（小文字、トークン数なし）を表示するように | Auto-compact in auto mode now displays `auto` (lowercase, no token count) instead of a misleading token value | improved |
+| stdio MCP ツール呼び出し中に Esc を押すとサーバー接続全体が切断される問題を修正（2.1.105 でのリグレッション） | Fixed pressing Esc during a stdio MCP tool call closing the entire server connection (regression in 2.1.105) | fixed |
+| `claude --resume` で起動後、`/rewind` などのインタラクティブオーバーレイがキーボード入力を受け付けない問題を修正 | Fixed `/rewind` and other interactive overlays not responding to keyboard input after launching with `claude --resume` | fixed |
+| 非フルスクリーンモードでのターミナルスクロールバック重複を修正（リサイズ、ダイアログ閉じ、長時間セッション時） | Fixed terminal scrollback duplication in non-fullscreen mode (resize, dialog dismiss, long sessions) | fixed |
+| API・エンタープライズユーザーの使用状況メトリクステレメトリが `DISABLE_TELEMETRY` / `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` で抑制されない問題を修正 | Fixed `DISABLE_TELEMETRY` / `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` not suppressing usage metrics telemetry for API and enterprise users | fixed |
+| パイプとリダイレクトの両方を含む複数行の Bash コマンドに対して、オートモードで誤検知される「危険な rm 操作」パーミッションプロンプトを修正 | Fixed false-positive "Dangerous rm operation" permission prompts in auto mode for multi-line bash commands containing both a pipe and a redirect | fixed |
+| フルスクリーンモードで長い選択メニューがターミナル下部でクリップされる問題を修正 — スクロール中もフォーカス中の選択肢が画面内に表示されるように | Fixed long selection menus clipping below the terminal in fullscreen mode — the focused option now stays on screen as you scroll | fixed |
+| フルスクリーンで「+N lines」クリック時に Write ツールの出力が展開ではなく折り畳まれる問題を修正 | Fixed Write tool output collapsing instead of expanding when clicking "+N lines" in fullscreen | fixed |
+| 入力中にスラッシュコマンドのピッカーがジャンプする問題を修正し、ハイライトを連続する部分文字列のみ青色で一致するよう改善 | Fixed slash command picker jumping while typing, and improved highlight to only match contiguous substrings in blue | fixed |
+| 認識できないソース形式のエントリがある場合に `/plugin` マーケットプレイスがロードに失敗する問題を修正 — 該当エントリは表示されるが、インストール時はアップデートを促す | Fixed `/plugin` marketplace failing to load when one entry uses an unrecognized source format — that entry is shown but installing it prompts you to update | fixed |
+| [VSCode] `/usage` がプレーンテキストのセッションコストを返す代わりにネイティブの「アカウントと使用状況」ダイアログを開くように | [VSCode] `/usage` now opens the native Account & Usage dialog instead of returning plain-text session cost | improved |
+| [VSCode] 音声入力が `~/.claude/settings.json` の `language` 設定を反映するように | [VSCode] Voice dictation now respects the `language` setting in `~/.claude/settings.json` | fixed |
+| 大規模なディレクトリツリーで Bash ツールの `find` がファイルディスクリプタを枯渇させ、ホスト全体がクラッシュする問題を修正（macOS/Linux ネイティブビルド） | Fixed `find` in the Bash tool exhausting open file descriptors on large directory trees, causing host-wide crashes (macOS/Linux native builds) | fixed |
+
 ## 2.1.119
 
 | 日本語 | English | Category |
