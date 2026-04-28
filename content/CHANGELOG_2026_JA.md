@@ -4,6 +4,29 @@
 
 ---
 
+## 2.1.122
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Bedrock サービスティア（`default`、`flex`、`priority`）を選択する環境変数 `ANTHROPIC_BEDROCK_SERVICE_TIER` を追加（`X-Amzn-Bedrock-Service-Tier` ヘッダーとして送信） | Added `ANTHROPIC_BEDROCK_SERVICE_TIER` environment variable to select a Bedrock service tier (`default`, `flex`, or `priority`), sent as the `X-Amzn-Bedrock-Service-Tier` header | added |
+| `/resume` の検索ボックスに PR URL を貼り付けることで、その PR を作成したセッションを検索可能に（GitHub、GitHub Enterprise、GitLab、Bitbucket 対応） | Pasting a PR URL into the `/resume` search box now finds the session that created that PR (GitHub, GitHub Enterprise, GitLab, and Bitbucket) | improved |
+| `/mcp` で、同じ URL を持つ手動追加サーバーによって非表示になっていた claude.ai コネクターを表示するよう改善し、重複削除のヒントも表示 | `/mcp` now shows claude.ai connectors hidden by a manually-added server with the same URL, with a hint to remove the duplicate | improved |
+| ブラウザサインインフロー後も MCP サーバーが未認証のままの場合に表示される `/mcp` メッセージを明確化 | Clarified the `/mcp` message shown when an MCP server is still unauthorized after the browser sign-in flow | improved |
+| OpenTelemetry: `api_request`/`api_error` ログイベントの数値属性を文字列ではなく数値として出力するよう修正 | OpenTelemetry: numeric attributes on `api_request`/`api_error` log events are now emitted as numbers, not strings | fixed |
+| OpenTelemetry: `@` メンション解決用の `claude_code.at_mention` ログイベントを追加 | OpenTelemetry: added `claude_code.at_mention` log event for `@`-mention resolution | added |
+| 巻き戻されたタイムラインのエントリを含むセッションから `/branch` でフォークした際に「tool_use ids were found without tool_result blocks」エラーが発生する不具合を修正 | Fixed `/branch` producing forks that fail with "tool_use ids were found without tool_result blocks" when the source session contained entries from rewound timelines | fixed |
+| Bedrock アプリケーション推論プロファイル ARN に対して `/model` が Effort オプションを表示しない問題および当該 ARN に `output_config.effort` が送信されない問題を修正 | Fixed `/model` not showing the Effort option for Bedrock application inference profile ARNs, and those ARNs not receiving `output_config.effort` | fixed |
+| Vertex AI / Bedrock でセッションタイトル生成などの構造化出力クエリ時に `invalid_request_error: output_config: Extra inputs are not permitted` が返される不具合を修正 | Fixed Vertex AI / Bedrock returning `invalid_request_error: output_config: Extra inputs are not permitted` on session-title generation and other structured-output queries | fixed |
+| プロキシゲートウェイ経由のユーザーで Vertex AI の `count_tokens` エンドポイントが 400 エラーを返す不具合を修正 | Fixed Vertex AI `count_tokens` endpoint returning 400 errors for users behind proxy gateways | fixed |
+| `spinnerTipsOverride.excludeDefault` が時間ベースのスピナーヒントを抑制しない不具合を修正 | Fixed `spinnerTipsOverride.excludeDefault` not suppressing the time-based spinner tips | fixed |
+| 非ブロッキングモードでセッション開始後に接続した MCP ツールが ToolSearch で見つからない不具合を修正 | Fixed ToolSearch missing MCP tools that connected after session start in nonblocking mode | fixed |
+| bash モードで `!exit` / `!quit` がシェルコマンドとして実行される代わりに CLI を終了してしまう不具合を修正 | Fixed `!exit` / `!quit` in bash mode terminating the CLI instead of running as a shell command | fixed |
+| 新しいモデルに送信される画像が正しい最大サイズ 2000px ではなく 2576px にリサイズされる不具合を修正 | Fixed images sent to newer models being resized to 2576px per side instead of the correct 2000px maximum | fixed |
+| リモートコントロールセッションのアイドル状態が毎秒 2 回再描画され、`tmux -CC` コントロールパイプが溢れてターミナルが停止する不具合を修正 | Fixed remote control session idle status redrawing twice per second, which could flood `tmux -CC` control pipes and pause the terminal | fixed |
+| 古いビュー設定により一部のセッションでアシスタントのメッセージが空白で表示される不具合を修正 | Fixed assistant messages appearing blank in some sessions due to a stale view preference | fixed |
+| `settings.json` 内の不正なフックエントリがファイル全体を無効にしてしまう不具合を修正 | Fixed a malformed hooks entry in `settings.json` no longer invalidating the entire file | fixed |
+| ボイスモード: ターミナルが Caps Lock をキーイベントとして送信しないため、Caps Lock にバインドされたキーバインドにエラーを表示するよう改善 | Voice mode: keybindings bound to Caps Lock now show an error since terminals don't deliver Caps Lock as a key event | improved |
+
 ## 2.1.121
 
 | 日本語 | English | Category |
