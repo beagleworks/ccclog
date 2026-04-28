@@ -4,6 +4,77 @@
 
 ---
 
+## 2.1.121
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| MCPサーバー設定に `alwaysLoad` オプションを追加 — `true` の場合、そのサーバーのすべてのツールはツール検索の遅延をスキップし、常に利用可能となる | Added `alwaysLoad` option to MCP server config — when `true`, all tools from that server skip tool-search deferral and are always available | added |
+| 孤立した自動インストール済みプラグイン依存関係を削除する `claude plugin prune` を追加；`plugin uninstall --prune` によるカスケード削除にも対応 | Added `claude plugin prune` to remove orphaned auto-installed plugin dependencies; `plugin uninstall --prune` cascades | added |
+| `/skills` にタイプして絞り込める検索ボックスを追加し、長いリストでもスクロールなしでスキルを検索可能に | Added a type-to-filter search box to `/skills` so you can find a skill in long lists without scrolling | added |
+| PostToolUse フックが `hookSpecificOutput.updatedToolOutput` を通じてすべてのツールの出力置き換えに対応（以前は MCP のみ） | PostToolUse hooks can now replace tool output for all tools via `hookSpecificOutput.updatedToolOutput` (previously MCP-only) | added |
+| フルスクリーンモードで、過去の出力を確認するためにスクロールアップした状態でプロンプトに入力しても、画面が最下部に戻らないよう修正 | Fullscreen mode: typing into the prompt no longer jumps scroll back to the bottom after you've scrolled up to read earlier output | fixed |
+| ターミナルからはみ出るダイアログが、フルスクリーン・非フルスクリーンの両モードで、矢印キー・PgUp/PgDn・Home/End・マウスホイールによるスクロールに対応 | Dialogs that overflow the terminal are now scrollable with arrow keys, PgUp/PgDn, home/end, and mouse wheel in both fullscreen and non-fullscreen modes | improved |
+| フルスクリーンモードで複数行に折り返された長いURLの任意の行をクリックしてもURL全体が開くように修正 | Clicking any line of a long URL that wraps across rows in fullscreen mode now opens the full URL | fixed |
+| SDK および `claude -p`: 非インタラクティブセッションで `CLAUDE_CODE_FORK_SUBAGENT=1` が動作するように対応 | SDK and `claude -p`: `CLAUDE_CODE_FORK_SUBAGENT=1` now works in non-interactive sessions | fixed |
+| `--dangerously-skip-permissions` 使用時、`.claude/skills/`、`.claude/agents/`、`.claude/commands/` への書き込みで確認プロンプトを表示しないように変更 | `--dangerously-skip-permissions` no longer prompts for writes to `.claude/skills/`, `.claude/agents/`, and `.claude/commands/` | changed |
+| `/terminal-setup` が iTerm2 の「Applications in terminal may access clipboard」設定を有効化するようになり、tmux を含む環境でも `/copy` が機能するように対応 | `/terminal-setup` now enables iTerm2's "Applications in terminal may access clipboard" setting so `/copy` works, including from tmux | added |
+| MCP サーバーが起動時に一時的なエラーに遭遇した場合、切断されたままになる代わりに最大3回まで自動リトライするように改善 | MCP servers that hit a transient error during startup now auto-retry up to 3 times instead of staying disconnected | improved |
+| ターミナルタブのセッションタイトルを設定済みの `language` 設定に従って生成するよう対応 | The terminal tab session title is now generated in your configured `language` setting | improved |
+| 同じアップストリームURLを持つClaude.aiコネクターが重複表示される代わりに重複排除されるように | Claude.ai connectors with the same upstream URL are now deduplicated instead of appearing as duplicates | fixed |
+| Vertex AI: X.509 証明書ベースの Workload Identity Federation（mTLS ADC）に対応 | Vertex AI: support X.509 certificate-based Workload Identity Federation (mTLS ADC) | added |
+| アップグレード後の起動を高速化：リリースノートのスプラッシュ画面から「最近のアクティビティ」パネルを削除 | Faster startup after upgrading: removed the Recent Activity panel from the release-notes splash | improved |
+| LSP診断サマリーがクリック/ctrl+oで展開されるようになり、展開ヒントを表示するように対応 | LSP diagnostic summaries now expand on click/ctrl+o and show the expand hint | improved |
+| SDK: `mcp_authenticate` がカスタムスキーム補完および claude.ai コネクター向けに `redirectUri` をサポート | SDK: `mcp_authenticate` now supports `redirectUri` for custom scheme completion and claude.ai connectors | added |
+| OpenTelemetry: LLMリクエストスパンに `stop_reason`、`gen_ai.response.finish_reasons`、`user_system_prompt`（`OTEL_LOG_USER_PROMPTS` で制御）を追加 | OpenTelemetry: added `stop_reason`, `gen_ai.response.finish_reasons`, and `user_system_prompt` (gated behind `OTEL_LOG_USER_PROMPTS`) to LLM request spans | added |
+| [VSCode] Claude Code の言語未設定時に音声入力が `accessibility.voice.speechLanguage` 設定を参照するように修正 | [VSCode] Voice dictation now respects the `accessibility.voice.speechLanguage` setting when no Claude Code language is configured | fixed |
+| [VSCode] `/context` がネイティブのトークン使用量ダイアログを開くように変更 | [VSCode] `/context` now opens a native token usage dialog | changed |
+| セッション内で多数の画像を処理する際の無制限なメモリ増大（数GB規模のRSS）を修正 | Fixed unbounded memory growth (multi-GB RSS) when processing many images in a session | fixed |
+| 大量のトランスクリプト履歴を持つマシンで `/usage` が最大約2GBのメモリリークを引き起こす問題を修正 | Fixed `/usage` leaking up to ~2GB of memory on machines with large transcript histories | fixed |
+| 長時間実行ツールが進捗イベントを正常に発行しない場合のメモリリークを修正 | Fixed memory leak when long-running tools fail to emit a clear progress event | fixed |
+| セッション中にClaudeが起動したディレクトリが削除または移動された場合、Bashツールが永続的に使用不能になる問題を修正 | Fixed Bash tool becoming permanently unusable when the directory Claude was started in is deleted or moved mid-session | fixed |
+| 外部ビルドの起動時に `--resume` がクラッシュする問題を修正 | Fixed `--resume` crashing on startup in external builds | fixed |
+| 不正なシャットダウンによるトランスクリプト行の破損が原因で大規模セッションの `--resume` が失敗する問題を修正（破損行はスキップ） | Fixed `--resume` failing on large sessions when a transcript line was corrupted by an unclean shutdown — the corrupt line is now skipped | fixed |
+| Bedrock アプリケーション推論プロファイル ARN 使用時に発生する `thinking.type.enabled is not supported` エラーを修正 | Fixed `thinking.type.enabled is not supported` error when using Bedrock application inference profile ARNs | fixed |
+| Microsoft 365 MCP OAuth が重複または未サポートの `prompt` パラメータで失敗する問題を修正 | Fixed Microsoft 365 MCP OAuth failing with duplicate or unsupported `prompt` parameter | fixed |
+| tmux、GNOME Terminal、Windows Terminal、Konsole の非フルスクリーンモードで Ctrl+L を押したときや再描画をトリガーしたときに発生するスクロールバックの重複を修正 | Fixed scrollback duplication when pressing Ctrl+L or triggering a redraw in non-fullscreen mode on tmux, GNOME Terminal, Windows Terminal, and Konsole | fixed |
+| 起動時にコネクターリストの取得で一時的な認証エラーが発生した際、claude.ai MCPコネクターが無言で消える問題を修正 | Fixed claude.ai MCP connectors silently disappearing when the connector-list fetch hits a transient auth error at startup | fixed |
+| リモートセッションで組み込みツールの「常に許可」ルールがワーカー再起動後に保持されない問題を修正 | Fixed "Always allow" rules for built-in tools in remote sessions not surviving worker restarts | fixed |
+| ネイティブビルドにおいて `managed-settings.json` で設定した `NO_PROXY` がすべての HTTP クライアントに反映されない問題を修正 | Fixed `NO_PROXY` not being respected for all HTTP clients when set via `managed-settings.json` under the native build | fixed |
+| マネージド設定の承認プロンプトで、承認してもセッションが終了してしまう問題を修正（設定を適用してセッションを継続するように変更） | Fixed managed settings approval prompt exiting the session even when accepted — now applies settings and continues | fixed |
+| 期限切れ OAuth トークンにより `/usage` が "rate limited" を返す問題を修正 — 自動リフレッシュに対応 | Fixed `/usage` returning "rate limited" after a stale OAuth token — now refreshes automatically | fixed |
+| `settings.json` の無効なレガシー enum 値によってファイル全体が無効化される問題を修正 | Fixed invalid legacy enum values in `settings.json` invalidating the entire settings file | fixed |
+| フリッカーなしモードがオフの場合に `/usage` ダイアログのコンテンツが切り取られる問題を修正 | Fixed `/usage` dialog content being clipped when no-flicker mode is off | fixed |
+| フルスクリーンレンダラーが無効な場合に `/focus` が "Unknown command" と表示される問題を修正し、有効化方法を案内するよう変更 | Fixed `/focus` showing "Unknown command" when the fullscreen renderer is off — now explains how to enable it | fixed |
+| セッション中に実行バイナリが削除された場合に組み込みのgrep/find/rgシェルラッパーが失敗する問題を修正し、インストール済みツールへのフォールバックに対応 | Fixed embedded grep/find/rg shell wrappers failing when the running binary is deleted mid-session — now falls back to installed tools | fixed |
+| Bashツールで大規模なディレクトリツリーに対して `find` を実行する際のピークファイルディスクリプタ使用量を削減 | Reduced peak file descriptor usage during `find` in the Bash tool on large directory trees | improved |
+
+## 2.1.120
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Windows: Git for Windows（Git Bash）が不要に。未インストールの場合、Claude Code は PowerShell をシェルツールとして使用 | Windows: Git for Windows (Git Bash) is no longer required — when absent, Claude Code uses PowerShell as the shell tool | changed |
+| CI やスクリプトから `/ultrareview` を非対話的に実行する `claude ultrareview [target]` サブコマンドを追加。結果を stdout に出力し（`--json` で生出力）、成功時は 0、失敗時は 1 で終了 | Added `claude ultrareview [target]` subcommand to run `/ultrareview` non-interactively from CI or scripts — prints findings to stdout (`--json` for raw output) and exits 0 on completion or 1 on failure | added |
+| スキルのコンテンツ内で `${CLAUDE_EFFORT}` を使用して現在のエフォートレベルを参照可能に | Skills can now reference the current effort level with `${CLAUDE_EFFORT}` in their content | added |
+| サブプロセスに `AI_AGENT` 環境変数を設定し、`gh` のトラフィックを Claude Code に帰属可能に | Set `AI_AGENT` environment variable for subprocesses so `gh` can attribute traffic to Claude Code | added |
+| デスクトップアプリのインストールやスキル・エージェントの作成を推奨するスピナーのヒントを、すでに利用済みの場合は非表示に | Spinner tips that recommend installing the desktop app or creating skills/agents are now hidden when you already have them | improved |
+| ターミナルがスクロールイベントの代わりに矢印キーを送信する場合、「PgUp/PgDn でスクロール」のヒントを表示 | Show a "use PgUp/PgDn to scroll" hint when the terminal sends arrow keys instead of scroll events | improved |
+| 多数の claude.ai コネクタが設定されているが未認証の場合のセッション起動を高速化 | Faster session start when you have many claude.ai connectors configured but not authorized | improved |
+| オートモードの拒否メッセージに設定ドキュメントへのリンクを追加 | The auto mode denial message now links to the configuration docs | improved |
+| `claude plugin validate` が `marketplace.json` のトップレベルで `$schema`・`version`・`description`、および `plugin.json` の `$schema` を受け入れるように対応 | `claude plugin validate` now accepts `$schema`, `version`, and `description` at the top level of `marketplace.json` and `$schema` in `plugin.json` | changed |
+| オートモードの自動圧縮で、誤解を招くトークン数の代わりに `auto`（小文字、トークン数なし）を表示するように変更 | Auto-compact in auto mode now displays `auto` (lowercase, no token count) instead of a misleading token value | changed |
+| stdio MCP ツール呼び出し中に Esc キーを押すとサーバー接続全体が閉じられる問題を修正（2.1.105 のリグレッション） | Fixed pressing Esc during a stdio MCP tool call closing the entire server connection (regression in 2.1.105) | fixed |
+| `claude --resume` で起動後、`/rewind` などのインタラクティブオーバーレイがキーボード入力に反応しない問題を修正 | Fixed `/rewind` and other interactive overlays not responding to keyboard input after launching with `claude --resume` | fixed |
+| 非フルスクリーンモードでのターミナルスクロールバックの重複を修正（リサイズ、ダイアログ閉じ、長時間セッション） | Fixed terminal scrollback duplication in non-fullscreen mode (resize, dialog dismiss, long sessions) | fixed |
+| API およびエンタープライズユーザーで `DISABLE_TELEMETRY` / `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` が使用状況メトリクステレメトリを抑制しない問題を修正 | Fixed `DISABLE_TELEMETRY` / `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` not suppressing usage metrics telemetry for API and enterprise users | fixed |
+| パイプとリダイレクトの両方を含む複数行の bash コマンドに対して、オートモードで誤検知の「危険な rm 操作」許可プロンプトが表示される問題を修正 | Fixed false-positive "Dangerous rm operation" permission prompts in auto mode for multi-line bash commands containing both a pipe and a redirect | fixed |
+| フルスクリーンモードで長い選択メニューがターミナル下部にクリップされる問題を修正。スクロール時にフォーカス中のオプションが画面内に留まるように改善 | Fixed long selection menus clipping below the terminal in fullscreen mode — the focused option now stays on screen as you scroll | fixed |
+| フルスクリーンで「+N lines」をクリックした際に Write ツールの出力が展開ではなく折りたたまれる問題を修正 | Fixed Write tool output collapsing instead of expanding when clicking "+N lines" in fullscreen | fixed |
+| 入力中にスラッシュコマンドのピッカーがジャンプする問題を修正し、連続した部分文字列のみを青色でハイライトするように改善 | Fixed slash command picker jumping while typing, and improved highlight to only match contiguous substrings in blue | fixed |
+| エントリのひとつが未認識のソース形式を使用している場合に `/plugin` マーケットプレイスが読み込めない問題を修正。該当エントリは表示されるが、インストール時にアップデートを促すプロンプトを表示 | Fixed `/plugin` marketplace failing to load when one entry uses an unrecognized source format — that entry is shown but installing it prompts you to update | fixed |
+| [VSCode] `/usage` がプレーンテキストのセッションコストを返す代わりに、ネイティブのアカウントと使用状況ダイアログを開くように変更 | [VSCode] `/usage` now opens the native Account & Usage dialog instead of returning plain-text session cost | changed |
+| [VSCode] 音声入力が `~/.claude/settings.json` の `language` 設定に従うように対応 | [VSCode] Voice dictation now respects the `language` setting in `~/.claude/settings.json` | fixed |
+| 大規模なディレクトリツリーで Bash ツールの `find` がオープンファイルディスクリプタを枯渇させ、ホスト全体がクラッシュする問題を修正（macOS/Linux ネイティブビルド） | Fixed `find` in the Bash tool exhausting open file descriptors on large directory trees, causing host-wide crashes (macOS/Linux native builds) | fixed |
+
 ## 2.1.119
 
 | 日本語 | English | Category |
