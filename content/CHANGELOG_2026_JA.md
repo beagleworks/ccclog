@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.123
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` が設定されている場合に OAuth 認証が 401 エラーのリトライループで失敗する問題を修正 | Fixed OAuth authentication failing with a 401 retry loop when `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` is set | fixed |
+
 ## 2.1.122
 
 | 日本語 | English | Category |
