@@ -4,6 +4,30 @@
 
 ---
 
+## 0.128.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| アプリサーバー API、モデルツール、ランタイム継続、TUI コントロール（作成・一時停止・再開・クリア）を備えた永続化 `/goal` ワークフローを追加。(#18073, #18074, #18075, #18076, #18077, #20082) | Added persisted `/goal` workflows with app-server APIs, model tools, runtime continuation, and TUI controls for create, pause, resume, and clear. (#18073, #18074, #18075, #18076, #18077, #20082) | new-features |
+| `codex update`、設定可能な TUI キーマップ、プランモードの促し、アクション要求時のターミナルタイトル、アクティブターン中の `/statusline` および `/title` 編集を追加。(#19933, #18593, #19901, #18372, #19917) | Added `codex update`, configurable TUI keymaps, plan-mode nudges, action-required terminal titles, and active-turn `/statusline` and `/title` edits. (#19933, #18593, #19901, #18372, #19917) | new-features |
+| 組み込みデフォルト、サンドボックス CLI プロファイル選択、cwd 制御、クライアント向けアクティブプロファイルメタデータを含むパーミッションプロファイルを拡張。(#19900, #20117, #20118, #20095) | Expanded permission profiles with built-in defaults, sandbox CLI profile selection, cwd controls, and active-profile metadata for clients. (#19900, #20117, #20118, #20095) | new-features |
+| マーケットプレイスインストール、リモートバンドルキャッシュ、リモートアンインストール、プラグインバンドルフック、フック有効化状態、外部エージェント設定インポートを含むプラグインワークフローを改善。(#18704, #19914, #19456, #19705, #19840, #19949) | Improved plugin workflows with marketplace installation, remote bundle caching, remote uninstall, plugin-bundled hooks, hook enablement state, and external-agent config import. (#18704, #19914, #19456, #19705, #19840, #19949) | new-features |
+| バックグラウンドインポートおよびインポート済みセッションのタイトル処理を含む外部エージェントセッションインポートを追加。(#19895, #20284, #20261) | Added external agent session import, including background imports and imported-session title handling. (#19895, #20284, #20261) | new-features |
+| スレッド上限、待機時間制御、ルート/サブエージェントヒント、v2 固有の深さ処理により MultiAgentV2 設定をより明示的に変更。(#19360, #19792, #19805, #20052, #20180) | Made MultiAgentV2 configuration more explicit with thread caps, wait-time controls, root/subagent hints, and v2-specific depth handling. (#19360, #19792, #19805, #20052, #20180) | new-features |
+| 古い割り込みのハング、永続化プロバイダーの復元、大規模リモート再開レスポンス、フィルタ済み再開リストの低速化を含む複数の再開・割り込み問題を修正。(#18392, #19287, #19920, #19591) | Fixed several resume and interruption issues, including stale interrupt hangs, persisted provider restoration, large remote resume responses, and slow filtered resume lists. (#18392, #19287, #19920, #19591) | bug-fixes |
+| ターミナルリサイズ時のリフロー、マークダウンリストの間隔、スラッシュコマンドポップアップのレイアウト、キーボードクリーンアップ、シェルモードエスケープ、動作ステータス更新に関する TUI の信頼性を改善。(#18575, #19706, #19511, #19625, #19986, #19939) | Improved TUI reliability around terminal resize reflow, markdown list spacing, slash-command popup layout, keyboard cleanup, shell-mode escape, and working status updates. (#18575, #19706, #19511, #19625, #19986, #19939) | bug-fixes |
+| 遅延拒否、プロキシバイパスのデフォルト、解決済みターゲットチェック、IPv6 ホストマッチング、`git -C` 承認処理に関するマネージドネットワーク動作を堅牢化。(#19184, #20002, #19999, #19995, #20085) | Hardened managed network behavior for deferred denials, proxy bypass defaults, resolved target checks, IPv6 host matching, and `git -C` approval handling. (#19184, #20002, #19999, #19995, #20085) | bug-fixes |
+| 擬似コンソール起動、昇格ランナープロセス処理、コアシェル環境の継承、名前付きパイプの検証を含む Windows サンドボックスおよび PTY のエッジケースを修正。(#20042, #19211, #20089, #19283) | Fixed Windows sandbox and PTY edge cases, including pseudoconsole startup, elevated runner process handling, core shell environment inheritance, and named-pipe validation. (#20042, #19211, #20089, #19283) | bug-fixes |
+| `apply_patch` の Bedrock モデルサポート、GPT-5.4 推論レベル、Bedrock GPT-5.4 エンドポイント/モデルメタデータの更新を修正。(#19416, #19461, #20109) | Fixed Bedrock model support for `apply_patch`, GPT-5.4 reasoning levels, and updated Bedrock GPT-5.4 endpoint/model metadata. (#19416, #19461, #20109) | bug-fixes |
+| stdio サーバーのクリーンアップ、プラグイン MCP 承認の永続化、カスタム MCP メタデータの分離に関する MCP/プラグインのエッジケースを修正。(#19753, #19537, #19836, #19875) | Fixed MCP/plugin edge cases around stdio server cleanup, plugin MCP approval persistence, and custom MCP metadata isolation. (#19753, #19537, #19836, #19875) | bug-fixes |
+| GPT-5.5、`gpt-image-2`、およびより明確なアップグレードガイダンスに向けてバンドル済み OpenAI Docs スキルを更新。(#19407, #19443, #19422) | Updated the bundled OpenAI Docs skill for GPT-5.5, `gpt-image-2`, and clearer upgrade guidance. (#19407, #19443, #19422) | documentation |
+| PR テンプレート、Rust async trait のガイダンス、README の記述を含むコントリビューター向けドキュメントを明確化。(#19912, #20242, #19514) | Clarified contributor-facing docs, including the PR template, Rust async trait guidance, and README wording. (#19912, #20242, #19514) | documentation |
+| チェックイン済みの `codex-core` 公開 API 一覧と ThreadManager サンプルクレートを追加。(#20243, #20141) | Added a checked-in `codex-core` public API listing and a ThreadManager sample crate. (#20243, #20141) | documentation |
+| `codex-app-server` リリース成果物を公開、GNU Linux バイナリの公開を停止、リリースワークフローのタイムアウトを延長。(#19447, #19445, #20271, #20343) | Published `codex-app-server` release artifacts, stopped publishing GNU Linux binaries, and increased release workflow timeouts. (#19447, #19445, #20271, #20343) | chores |
+| Python アプリサーバー SDK パッケージに Codex 固定バージョニングを追加。(#18996) | Added Codex-pinned versioning for the Python app-server SDK package. (#18996) | chores |
+| 明示的なパーミッションプロファイルおよびトラストフローへの移行を促しつつ `--full-auto` を非推奨化。(#20133) | Deprecated `--full-auto` while steering users toward explicit permission profiles and trust flows. (#20133) | chores |
+| Bazel セットアップの移行、リリーススモークテストのピン留め、ワークフローのピン/タイムアウト更新により CI およびリリース基盤を安定化。(#19851, #19854, #19472, #19609) | Stabilized CI and release plumbing with Bazel setup migration, release smoke-test pinning, and updated workflow pins/timeouts. (#19851, #19854, #19472, #19609) | chores |
+
 ## 0.125.0
 
 | 日本語 | English | Category |
