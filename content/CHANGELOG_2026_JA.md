@@ -4,6 +4,43 @@
 
 ---
 
+## 2.1.126
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `ANTHROPIC_BASE_URL` が Anthropic 互換ゲートウェイを指している場合、`/model` ピッカーがゲートウェイの `/v1/models` エンドポイントからモデル一覧を取得して表示するように対応 | The `/model` picker now lists models from your gateway's `/v1/models` endpoint when `ANTHROPIC_BASE_URL` points at an Anthropic-compatible gateway | added |
+| プロジェクトの全 Claude Code 状態（トランスクリプト、タスク、ファイル履歴、設定エントリ）を削除する `claude project purge [path]` を追加 — `--dry-run`、`-y/--yes`、`-i/--interactive`、`--all` をサポート | - Added `claude project purge [path]` to delete all Claude Code state for a project (transcripts, tasks, file history, config entry) — supports `--dry-run`, `-y/--yes`, `-i/--interactive`, and `--all` | added |
+| `--dangerously-skip-permissions` が `.claude/`、`.git/`、`.vscode/`、シェル設定ファイル、およびその他の従来保護されていたパスへの書き込みプロンプトもバイパスするように変更（破壊的な削除コマンドは安全策として引き続きプロンプトを表示） | `--dangerously-skip-permissions` now bypasses prompts for writes to `.claude/`, `.git/`, `.vscode/`, shell config files, and other previously-protected paths (catastrophic removal commands still prompt as a safety net) | changed |
+| `claude auth login` がブラウザのコールバックで localhost に到達できない環境（WSL2、SSH、コンテナ）において、ターミナルへの OAuth コード貼り付けに対応 | `claude auth login` now accepts the OAuth code pasted into the terminal when the browser callback can't reach localhost (WSL2, SSH, containers) | added |
+| `claude_code.skill_activated` OpenTelemetry イベントがユーザー入力のスラッシュコマンドでも発火するよう対応し、新しい `invocation_trigger` 属性（`"user-slash"`、`"claude-proactive"`、`"nested-skill"`）を追加 | `claude_code.skill_activated` OpenTelemetry event now fires for user-typed slash commands and carries a new `invocation_trigger` attribute (`"user-slash"`, `"claude-proactive"`, or `"nested-skill"`) | added |
+| Auto mode: パーミッションチェックが停止した際、ツールが実行中であるかのように見える代わりに、スピナーが赤く表示されるように変更 | Auto mode: the spinner now turns red when a permission check stalls, instead of looking like the tool is running | improved |
+| ホスト管理デプロイメント（`CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST`）が Bedrock/Vertex/Foundry でのアナリティクスを自動無効化しないよう変更 | Host-managed deployments (`CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST`) no longer auto-disable analytics on Bedrock/Vertex/Foundry | changed |
+| Windows: Microsoft Store、PATH なしの MSI、または `.NET global tool` 経由でインストールされた PowerShell 7 の検出に対応 | Windows: PowerShell 7 installed via the Microsoft Store, MSI without PATH, or `.NET global tool` is now detected | added |
+| Windows: PowerShellツールが有効な場合、Bashをデフォルトとする代わりにPowerShellをプライマリシェルとして扱うよう変更 | Windows: when the PowerShell tool is enabled, Claude now treats PowerShell as the primary shell instead of defaulting to Bash | changed |
+| Read ツール: レガシーモデルで不当な拒否や「これはマルウェアではありません」というコメントを引き起こしていたファイルごとのマルウェア評価リマインダーを削除 | Read tool: removed the per-file malware-assessment reminder that could cause spurious refusals and "this is not malware" commentary on legacy models | fixed |
+| **Security:** 優先度の高いマネージド設定ソースに `sandbox` ブロックが存在しない場合、`allowManagedDomainsOnly` / `allowManagedReadPathsOnly` が無視される問題を修正 | **Security:** Fixed `allowManagedDomainsOnly` / `allowManagedReadPathsOnly` being ignored when a higher-priority managed-settings source lacked a `sandbox` block | fixed |
+| 2000px を超える画像の貼り付けによりセッションが壊れる問題を修正——貼り付け時に画像を自動ダウンスケールし、履歴内のサイズ超過画像は自動削除してリクエストを再試行するよう対応 | Fixed pasting an image larger than 2000px breaking the session — images are now downscaled on paste, and oversized images in history are automatically removed and the request retried | fixed |
+| 「OAuth not allowed for organization」エラー時にログイン画面が表示される問題を修正 — 管理者への連絡を促すガイダンスを表示するよう改善 | Fixed showing the login screen for "OAuth not allowed for organization" errors — now shows guidance to contact your admin | fixed |
+| 低速またはプロキシ接続環境、IPv6のみのdevcontainer、およびブラウザのコールバックがlocalhostに到達できない場合にOAuthログインがタイムアウトで失敗する問題を修正 | Fixed OAuth login failing with timeout on slow or proxied connections, in IPv6-only devcontainers, and when the browser callback can't reach localhost | fixed |
+| 同時の認証情報書き込みにより有効なOAuthリフレッシュトークンが消去される可能性があった稀なレースコンディションを修正 | Fixed a rare race where a concurrent credential write could clear a valid OAuth refresh token | fixed |
+| APIリトライのカウントダウンが試行間でカウントダウンされず「0s」で止まる問題を修正 | Fixed API retry countdown sticking at "0s" instead of counting down between attempts | fixed |
+| リクエスト中に Mac がスリープから復帰した際に発生する「Stream idle timeout」エラーを修正 | Fixed "Stream idle timeout" error after waking Mac from sleep mid-request | fixed |
+| バックグラウンドおよびリモートセッションが、モデルの長い思考停止中に "Stream idle timeout" で誤って中断される問題を修正 | Fixed background and remote sessions falsely aborting with "Stream idle timeout" during long model thinking pauses | fixed |
+| アシスタントが思考を完了しても、空のターンが連続した後に出力が表示されないハングを修正 | Fixed a hang where the assistant could finish thinking but show no output after a run of empty turns | fixed |
+| CursorおよびVS Code 1.92–1.104の統合ターミナルにおけるトラックパッドの過剰スクロールを修正 | Fixed overly fast trackpad scrolling in Cursor and VS Code 1.92–1.104 integrated terminals | fixed |
+| needs-auth 状態でスタックした手動サーバーによって claude.ai の MCP コネクターが抑制される問題を修正 | Fixed claude.ai MCP connectors being suppressed by manual servers stuck in needs-auth state | fixed |
+| Windowsのノーフリッカーモードで日本語・韓国語・中国語のテキストが文字化けして表示される問題を修正 | Fixed Japanese/Korean/Chinese text rendering as garbled characters on Windows in no-flicker mode | fixed |
+| `Ctrl+L` がプロンプト入力をクリアしていた問題を修正し、readline の動作に合わせて画面の再描画のみを行うように変更 | Fixed `Ctrl+L` clearing the prompt input — it now only forces a screen redraw, matching readline behavior | fixed |
+| 遅延ツール（WebSearch、WebFetch など）が `context: fork` を持つスキルや他のサブエージェントの初回ターンで利用できない問題を修正 | Fixed deferred tools (WebSearch, WebFetch, etc.) not being available to skills with `context: fork` and other subagents on their first turn | fixed |
+| `--channels` で起動したインタラクティブセッションでプランモードのツールが使用できない問題を修正 | Fixed plan-mode tools being unavailable in interactive sessions launched with `--channels` | fixed |
+| `/plugin` のアンインストール時に「Uninstalled」ではなく「Enabled」と表示される不具合を修正 | Fixed `/plugin` Uninstall reporting "Enabled" instead of "Uninstalled" | fixed |
+| リンターが多数のファイルを一度に変更した際のファイル変更リマインダーの合計サイズを制限 | Bounded total size of file-modified reminders when a linter touches many files at once | improved |
+| `/remote-control` のリトライが「connecting…」のまま止まって見える問題を修正。各リトライが結果を表示するように変更 | Fixed `/remote-control` retries appearing stuck on "connecting…" — each retry now shows its result | fixed |
+| リモートコントロールの初回接続失敗時、失敗通知にエラー理由が表示されない不具合を修正 | Fixed Remote Control failure notification not showing the error reason for initial connection failures | fixed |
+| Windows: クリップボードへの書き込み時にコピー内容がEDR/SIEMテレメトリから参照可能なプロセスのコマンドライン引数に露出する問題を修正、および22KBを超える選択内容がクリップボードに反映されない不具合を修正 | Windows: clipboard writes no longer expose copied content in process command-line arguments visible to EDR/SIEM telemetry; also fixes >22KB selections not reaching the clipboard | fixed |
+| PowerShellツール: 単独の `--`（例: `git diff -- file`）が `--%` のストップパーストークンとして誤検知されなくなった | PowerShell tool: bare `--` (e.g. `git diff -- file`) is no longer mis-flagged as the `--%` stop-parsing token | fixed |
+| 並列ツール呼び出しバッチでモデルが不正なツール名を出力した際にAgent SDKがハングする問題を修正 | Fixed Agent SDK hang when the model emits a malformed tool name in a parallel tool call batch | fixed |
+
 ## 2.1.123
 
 | 日本語 | English | Category |
