@@ -1,10 +1,202 @@
 {
-  "generatedAt": "2026-05-01T04:33:18.194Z",
+  "generatedAt": "2026-05-04T23:23:18.552Z",
   "months": [
     {
       "key": "2026-05",
       "label": "2026年5月",
       "versions": [
+        {
+          "version": "2.1.128",
+          "releaseDate": "2026-05-05",
+          "releaseDateDisplay": "2026年5月5日",
+          "entries": [
+            {
+              "ja": "引数なしの `/color` がランダムなセッションカラーを選択するように対応",
+              "en": "Bare `/color` (no args) now picks a random session color",
+              "category": "added"
+            },
+            {
+              "ja": "`/mcp` コマンドが接続済みサーバーのツール数を表示し、ツール数0で接続されたサーバーにフラグを表示するように改善",
+              "en": "`/mcp` now shows the tool count for connected servers and flags servers that connected with 0 tools",
+              "category": "improved"
+            },
+            {
+              "ja": "`--plugin-dir` がディレクトリに加えて `.zip` プラグインアーカイブも受け付けるように対応",
+              "en": "`--plugin-dir` now accepts `.zip` plugin archives in addition to directories",
+              "category": "added"
+            },
+            {
+              "ja": "`--channels` がコンソール（APIキー）認証に対応 — マネージド設定を使用するコンソール組織は有効化のために `channelsEnabled: true` の設定が必要",
+              "en": "`--channels` now works with console (API key) authentication — console orgs with managed settings must set `channelsEnabled: true` to enable",
+              "category": "added"
+            },
+            {
+              "ja": "`/model` ピッカーを更新：重複していた Opus 4.7 のエントリを統合し、現在の Opus が \"Opus 4.7\" ではなく \"Opus\" と表示されるように変更",
+              "en": "Updated `/model` picker: collapsed duplicate Opus 4.7 entries, and current Opus now shows as \"Opus\" instead of \"Opus 4.7\"",
+              "category": "changed"
+            },
+            {
+              "ja": "サブプロセス（Bash、フック、MCP、LSP）が `OTEL_*` 環境変数を継承しなくなり、Bash ツール経由で実行される OTEL 計装済みアプリが CLI 自身の OTLP エンドポイントを引き継がないよう修正",
+              "en": "Subprocesses (Bash, hooks, MCP, LSP) no longer inherit `OTEL_*` environment variables, so OTEL-instrumented apps run via the Bash tool no longer pick up the CLI's own OTLP endpoint",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCP: `workspace` が予約済みサーバー名となり、同名の既存サーバーは警告とともにスキップされるように変更",
+              "en": "MCP: `workspace` is now a reserved server name — existing servers with that name will be skipped with a warning",
+              "category": "changed"
+            },
+            {
+              "ja": "MCPサーバーの再接続時に毎回ツール名の全リストが会話に流れ込む問題を解消 — 再アナウンスされるツールはサーバープレフィックスで要約して表示",
+              "en": "Reconnecting MCP servers no longer flood the conversation with full tool-name lists on every reconnect — re-announced tools are summarized by server prefix",
+              "category": "improved"
+            },
+            {
+              "ja": "SDKホストの Bash 権限プロンプトに永続的な `localSettings` 提案を追加し、「常に許可」を選択すると `.claude/settings.local.json` に書き込まれるように対応",
+              "en": "SDK hosts now receive a persistent `localSettings` suggestion for Bash permission prompts, so \"Always allow\" writes to `.claude/settings.local.json`",
+              "category": "added"
+            },
+            {
+              "ja": "`EnterWorktree` がドキュメント通り `origin/<default-branch>` ではなくローカルの HEAD から新しいブランチを作成するよう修正 — プッシュ前のコミットが失われなくなった",
+              "en": "`EnterWorktree` now creates the new branch from local HEAD as documented, instead of `origin/<default-branch>` — unpushed commits are no longer dropped",
+              "category": "fixed"
+            },
+            {
+              "ja": "Auto mode: クラシファイアがアクションを評価できない場合、エラーにヒント（retry、`/compact`、または `--debug` での実行）を含めるように",
+              "en": "Auto mode: when the classifier can't evaluate an action, the error now includes a hint (retry, `/compact`, or run with `--debug`)",
+              "category": "improved"
+            },
+            {
+              "ja": "フォーカスモードで新しいプロンプト送信時に直前の応答が一瞬暗くなる問題を修正",
+              "en": "Fixed focus mode briefly dimming the previous response when submitting a new prompt",
+              "category": "fixed"
+            },
+            {
+              "ja": "KittyなどOSC 9を通知として解釈する端末で、`/exit` のたびに余分な \"4;0;\" デスクトップ通知が表示される問題を修正",
+              "en": "Fixed stray \"4;0;\" desktop notification on every `/exit` in Kitty and other terminals that interpret OSC 9 as a notification",
+              "category": "fixed"
+            },
+            {
+              "ja": "レート制限時にリモートコントロールが有用なアップセルオプションの代わりに空の「オプションを開いています…」メッセージを表示する問題を修正",
+              "en": "Fixed Remote Control showing an empty \"Opening your options…\" message on rate limit instead of actionable upsell options",
+              "category": "fixed"
+            },
+            {
+              "ja": "ドラッグ＆ドロップによる画像アップロードで、画像の読み込みに失敗した際に「Pasting text…」のまま停止する問題を修正",
+              "en": "Fixed drag-and-drop image upload hanging on \"Pasting text…\" when the image read fails",
+              "category": "fixed"
+            },
+            {
+              "ja": "`claude -p` に標準入力経由で非常に大きな入力（10MB超）をパイプした際のクラッシュループを修正",
+              "en": "Fixed crash loop when piping very large input (>10 MB) to `claude -p` via stdin",
+              "category": "fixed"
+            },
+            {
+              "ja": "フルスクリーンモードで長いURLが折り返された各行で個別にクリックできない問題を修正",
+              "en": "Fixed long URLs not being individually clickable on every wrapped row in fullscreen mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--plugin-dir` 経由で読み込んだプラグインで `/plugin` の Components パネルに「Marketplace 'inline' not found」が表示される問題を修正",
+              "en": "Fixed `/plugin` Components panel showing \"Marketplace 'inline' not found\" for plugins loaded via `--plugin-dir`",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCPツールの結果で、サーバーが構造化コンテンツとコンテンツブロックの両方を返す場合に画像が欠落する問題を修正",
+              "en": "Fixed MCP tool results dropping images when the server returns both structured content and content blocks",
+              "category": "fixed"
+            },
+            {
+              "ja": "リストアイテム内のフェンスコードブロックをコピー＆ペーストした際、先頭の空白がクリップボードに混入する問題を修正",
+              "en": "Fixed fenced code blocks inside list items carrying leading whitespace into the clipboard on copy-paste",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/config` のタブナビゲーションでフォーカスが失われる問題を修正 — タブヘッダーにフォーカスが保持され、矢印キーとEscキーが正常に動作するよう対応",
+              "en": "Fixed tab navigation in `/config` stranding focus — the tab header now stays focused so arrows and Esc keep working",
+              "category": "fixed"
+            },
+            {
+              "ja": "OSC 8 ハイパーリンク非対応ターミナルでマークダウンリンクのラベルが失われる問題を修正 — リンクが URL のみではなく `label (url)` 形式で表示されるよう対応",
+              "en": "Fixed markdown link labels being lost on terminals without OSC 8 hyperlink support — links now render as `label (url)` instead of just the URL",
+              "category": "fixed"
+            },
+            {
+              "ja": "1Mコンテキストモデルでオートコンパクトウィンドウが小さい場合、実際のAPIの制限に達する前に「Prompt is too long」と誤ってブロックされるセッションの問題を修正",
+              "en": "Fixed sessions on 1M-context models with a smaller autocompact window being falsely blocked with \"Prompt is too long\" before reaching the actual API limit",
+              "category": "fixed"
+            },
+            {
+              "ja": "並列シェルツール呼び出しを修正：失敗した読み取り専用コマンド（grep、git diff、ls）が並列実行中の他の呼び出しをキャンセルしなくなった",
+              "en": "Fixed parallel shell tool calls: a failing read-only command (grep, git diff, ls) no longer cancels sibling calls",
+              "category": "fixed"
+            },
+            {
+              "ja": "エフォートをサポートしないモデルで「with X effort」バナーが表示される問題を修正",
+              "en": "Fixed banner showing \"with X effort\" on models that don't support effort",
+              "category": "fixed"
+            },
+            {
+              "ja": "サードパーティプロバイダーで `/fast` が「利用不可」と表示する代わりに無関係なスキルにファジーマッチしていた問題を修正",
+              "en": "Fixed `/fast` on 3P providers fuzzy-matching to an unrelated skill instead of showing \"not available\"",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bedrockのデフォルトモデルがリージョン適切なプレフィックスではなく`global.*`に解決される問題を修正",
+              "en": "Fixed Bedrock default model resolving to `global.*` instead of the region-appropriate prefix",
+              "category": "fixed"
+            },
+            {
+              "ja": "vimモードの修正: ノーマルモードでの`Space`キーがカーソルを右に移動するよう修正し、標準的なvi/vimの動作に準拠",
+              "en": "Fixed vim mode: `Space` in NORMAL mode now moves the cursor right, matching standard vi/vim behavior",
+              "category": "fixed"
+            },
+            {
+              "ja": "ターミナルの進捗インジケーター（OSC 9;4）がツール呼び出し間に点滅して消える問題を修正、ターン全体を通じて表示を維持するように",
+              "en": "Fixed terminal progress indicator (OSC 9;4) flickering off between tool calls — stays visible across the full turn",
+              "category": "fixed"
+            },
+            {
+              "ja": "最後のエントリがコンパクト境界であるセッションを再開した際、引数なしの `/rename` が失敗する問題を修正",
+              "en": "Fixed `/rename` without args failing on resumed sessions whose last entry is a compact boundary",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--resume`/`--continue` 後に以前のセッションの古い「remote-control is active」ステータスラインが残存する問題を修正",
+              "en": "Fixed stale \"remote-control is active\" status lines from prior sessions appearing after `--resume`/`--continue`",
+              "category": "fixed"
+            },
+            {
+              "ja": "削除済みのキャッシュディレクトリを参照する古い`installed_plugins.json`エントリがPATHを汚染する問題を修正",
+              "en": "Fixed stale `installed_plugins.json` entries pointing at deleted cache directories polluting PATH",
+              "category": "fixed"
+            },
+            {
+              "ja": "`CLAUDE_CODE_SHELL_PREFIX` が設定されている場合、引数にスペースやシェルメタキャラクタが含まれると MCP stdio サーバーが引数を破損して受け取る問題を修正",
+              "en": "Fixed MCP stdio servers receiving corrupted arguments when `CLAUDE_CODE_SHELL_PREFIX` is set and an argument contains spaces or shell metacharacters",
+              "category": "fixed"
+            },
+            {
+              "ja": "サブエージェントの進捗サマリーでプロンプトキャッシュが適用されていなかった問題を修正（`cache_creation` 約3倍削減）",
+              "en": "Fixed sub-agent progress summaries missing the prompt cache (~3× `cache_creation` reduction)",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/plugin update` が npm 由来のプラグインの新バージョンを検出できない問題を修正",
+              "en": "Fixed `/plugin update` never detecting new versions of npm-sourced plugins",
+              "category": "fixed"
+            },
+            {
+              "ja": "サブエージェントのトランスクリプトが静止している間にサマリーが繰り返し発火する問題を修正し、アイドル状態のサブエージェントにおける最悪ケースのトークンコストを抑制",
+              "en": "Fixed sub-agent summaries firing repeatedly while a sub-agent's transcript is static, capping worst-case token cost on idle sub-agents",
+              "category": "fixed"
+            },
+            {
+              "ja": "ヘッドレス `--output-format stream-json`: `init.plugin_errors` が依存関係のデモーションに加えて `--plugin-dir` の読み込み失敗も含むように対応",
+              "en": "Headless `--output-format stream-json`: `init.plugin_errors` now includes `--plugin-dir` load failures in addition to dependency demotions",
+              "category": "improved"
+            }
+          ]
+        },
         {
           "version": "2.1.126",
           "releaseDate": "2026-05-01",
