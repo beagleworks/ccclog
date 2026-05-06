@@ -4,6 +4,38 @@
 
 ---
 
+## 2.1.129
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 現在のセッション用に URL からプラグイン `.zip` アーカイブを取得する `--plugin-url <url>` フラグを追加 | Added `--plugin-url <url>` flag to fetch a plugin `.zip` archive from a URL for the current session | added |
+| 自動検出が機能しないターミナル（例: Emacs `eat`）で同期出力を強制有効化する `CLAUDE_CODE_FORCE_SYNC_OUTPUT=1` 環境変数を追加 | Added `CLAUDE_CODE_FORCE_SYNC_OUTPUT=1` env var to force-enable synchronized output on terminals that auto-detection misses (e.g. Emacs `eat`) | added |
+| `CLAUDE_CODE_PACKAGE_MANAGER_AUTO_UPDATE` を追加：Homebrew または WinGet 環境で設定した場合、バックグラウンドでアップグレードコマンドを実行し再起動を促す | Added `CLAUDE_CODE_PACKAGE_MANAGER_AUTO_UPDATE`: when set on Homebrew or WinGet installations, Claude Code runs the upgrade command in the background and prompts to restart | added |
+| プラグインマニフェストの `themes` および `monitors` を `"experimental": { ... }` 配下での宣言に変更を推奨。トップレベル宣言は引き続き機能するが `claude plugin validate` が警告を表示 | Plugin manifests: `themes` and `monitors` should now be declared under `"experimental": { ... }`. Top-level declarations still work but `claude plugin validate` will warn | changed |
+| `/model` ピッカー向けのゲートウェイ `/v1/models` 探索を `CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1` によるオプトイン方式に変更（2.1.126〜2.1.128 では自動有効化だった） | Gateway `/v1/models` discovery for the `/model` picker is now opt-in via `CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1` (was automatic in 2.1.126–2.1.128) | changed |
+| Ctrl+R 履歴ピッカーのデフォルトを全プロジェクト横断検索に変更（2.1.124 以前の動作に戻す）。Ctrl+S で現在のプロジェクトまたはセッションに絞り込み可能 | Ctrl+R history picker now defaults to searching all prompts across all projects, matching pre-2.1.124 behavior. Press Ctrl+S to narrow to the current project or session | changed |
+| サードパーティデプロイメント（Bedrock、Vertex、Foundry、または `ANTHROPIC_BASE_URL` ゲートウェイ）でファーストパーティの Anthropic サービスを指すスピナーヒントが表示されなくなった | Third-party deployments (Bedrock, Vertex, Foundry, or `ANTHROPIC_BASE_URL` gateway) no longer see spinner tips pointing at first-party Anthropic surfaces | fixed |
+| `skillOverrides` 設定の動作を修正：`off` でモデルと `/` から非表示、`user-invocable-only` でモデルのみから非表示、`name-only` で説明を折りたたみ | `skillOverrides` setting now works: `off` hides from model and `/`, `user-invocable-only` hides from model only, `name-only` collapses description | fixed |
+| `claude_code.pull_request.count` OTel メトリクスで MCP ツール経由で作成された PR/MR もカウント対象に追加（シェルコマンドのみから拡張） | The `claude_code.pull_request.count` OTel metric now counts PRs/MRs created via MCP tools, not just shell commands | improved |
+| ポリシー拒否エラーメッセージにサポートデバッグ用の API リクエスト ID を追加 | Policy refusal error messages now include the API Request ID for easier support debugging | improved |
+| 認識されない 400 ステータスコードの API エラーで生の JSON が表示される不具合を修正 | Fixed API errors with unrecognized 400 status codes showing raw JSON instead of the underlying error message | fixed |
+| 会話後に `/clear` がターミナルタブのタイトルをリセットしない不具合を修正 | Fixed `/clear` not resetting the terminal tab title after a conversation | fixed |
+| 権限ダイアログ等の表示中に `/rename` で設定したセッションタイトルチップが消える不具合を修正 | Fixed session title chip from `/rename` disappearing while a permission or other dialog is active | fixed |
+| サブエージェント実行中にプロンプト下のエージェントパネルが非表示になる不具合を修正（2.1.122 のリグレッション） | Fixed agent panel below the prompt being hidden when subagents are running (regression in 2.1.122) | fixed |
+| 外部エディタへの引き渡し（Ctrl+G）でプロンプト上の会話履歴が消去される不具合を修正 | Fixed external-editor handoff (Ctrl+G) blanking the conversation history above the prompt | fixed |
+| `/context` がレンダリングされた ASCII 可視化グリッドを会話に出力し、呼び出しごとに約 1.6k トークンを無駄に消費する不具合を修正 | Fixed `/context` dumping its rendered ASCII visualization grid into the conversation, wasting ~1.6k tokens per call | fixed |
+| `/agents` ライブラリ一覧の矢印キーナビゲーションを修正：リストがビューポートを超えた場合もハイライト中のエージェントが表示され続けるよう改善 | Fixed `/agents` Library list arrow-key navigation: the highlighted agent now stays visible when the list exceeds the viewport | fixed |
+| `/branch` の成功メッセージに `/resume` 用の新規ブランチのセッション ID が含まれない不具合を修正 | Fixed `/branch` success message not including the new branch's session id for `/resume` | fixed |
+| フルスクリーンモードで太字ヘッダー内のキーキャップ・ZWJ・スキントーン絵文字の後続文字が欠落する不具合を修正 | Fixed bold headers with keycap/ZWJ/skin-tone emoji losing trailing characters in fullscreen mode | fixed |
+| 保存済み OAuth 認証情報に `user:inference` スコープが含まれないエンタープライズ・チームユーザーにサーバー管理設定ポリシーが適用されない不具合を修正 | Fixed server-managed settings policy not applying for enterprise/team users whose stored OAuth credentials lacked the `user:inference` scope | fixed |
+| スリープ復帰後の OAuth リフレッシュの競合状態で全実行中セッションがログアウトされる不具合を修正 | Fixed OAuth refresh race after wake-from-sleep that could log out all running sessions | fixed |
+| プロンプトキャッシュの TTL が 1 時間から 5 分に暗黙的にダウングレードされる不具合を修正 | Fixed 1-hour prompt cache TTL being silently downgraded to 5 minutes | fixed |
+| `/effort` または `/model` 変更後の `/clear` やコンパクション実行時にキャッシュミス警告が誤表示される不具合を修正 | Fixed cache-miss warning appearing spuriously after `/clear` or compaction when changing `/effort` or `/model` | fixed |
+| プロジェクト内パスに対して `Bash(mkdir *)` や `Bash(touch *)` などの許可ルールが適用されない不具合を修正 | Fixed `Bash(mkdir *)`, `Bash(touch *)` and similar allow rules not being honored for in-project paths | fixed |
+| `deniedMcpServers` の `*://` スキームワイルドカードパターンが大文字小文字混在のホスト名にマッチしない不具合を修正 | Fixed `deniedMcpServers` patterns with a `*://` scheme wildcard not matching mixed-case hostnames | fixed |
+| 音声モードの `--debug` 実行中に無害な WebSocket 警告がエラーとして記録される不具合を修正 | Fixed harmless WebSocket warning being logged as an error in `--debug` during voice mode | fixed |
+| [VSCode] `/clear` が会話コンテキストと表示済みトランスクリプトをクリアしない不具合を修正 | [VSCode] Fixed `/clear` not clearing the conversation context and displayed transcript | fixed |
+
 ## 2.1.128
 
 | 日本語 | English | Category |
