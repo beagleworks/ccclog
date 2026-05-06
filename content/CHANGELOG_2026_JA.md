@@ -4,6 +4,39 @@
 
 ---
 
+## 2.1.132
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Bash ツールのサブプロセス環境に、フックへ渡される `session_id` と一致する `CLAUDE_CODE_SESSION_ID` 環境変数を追加 | Added `CLAUDE_CODE_SESSION_ID` environment variable to the Bash tool subprocess environment, matching the `session_id` passed to hooks | added |
+| フルスクリーンの代替スクリーンレンダラーを無効化してターミナルのネイティブスクロールバックに会話を残すための `CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1` 環境変数を追加 | Added `CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1` env var to opt out of the fullscreen alternate-screen renderer and keep the conversation in the terminal's native scrollback | added |
+| Ctrl+V による画像のクリップボード読み込み中に「Pasting…」フッターヒントを表示する機能を追加 | Added a "Pasting…" footer hint while a Ctrl+V image paste is being read from the clipboard | added |
+| 外部 SIGINT（IDE の停止ボタンや `kill -INT` 等）でグレースフルシャットダウンが実行されない問題を修正。ターミナルモードが復元され、突然の終了の代わりに `--resume` ヒントが表示されるように対応 | Fixed external SIGINT (e.g. IDE stop button, `kill -INT`) not running graceful shutdown — terminal modes are now restored and the `--resume` hint is printed instead of an abrupt exit | fixed |
+| ネイティブビルドでセッション中にターミナルが閉じられたり SSH が切断された際に発生する未捕捉例外を修正 | Fixed an uncaught exception when the terminal is closed or SSH disconnects mid-session under the native build | fixed |
+| ツールエラーの切り捨て処理で絵文字が分断された際に `--resume` が `no low surrogate in string` で失敗する問題を修正。読み込み時に破損済みセッションをサニタイズするように対応 | Fixed `--resume` failing with `no low surrogate in string` when a tool error truncation split an emoji; pre-corrupted sessions are sanitized on load | fixed |
+| `-p --continue`/`--resume` でプランモードセッションを再開する際に `--permission-mode` フラグが無視される問題、および同一セッション内で `ExitPlanMode` 後にプランモードが再適用されない問題を修正 | Fixed `--permission-mode` flag being ignored when resuming a plan-mode session with `-p --continue`/`--resume`, and plan mode not being re-applied after `ExitPlanMode` within the same session | fixed |
+| ラップトップのスリープ/復帰や Ctrl+Z/`fg` 後、次のキー入力またはストリーム出力まで全画面モードが白紙になる問題を修正 | Fixed fullscreen mode showing a blank screen after laptop sleep/wake or Ctrl+Z/`fg` until the next keystroke or stream output | fixed |
+| インド系合字や ZWJ 絵文字が行をまたぐ場合に Ctrl+E/A/K/U/矢印キーでカーソルが書記素の途中に移動する問題を修正 | Fixed cursor landing mid-grapheme on Ctrl+E/A/K/U/arrow keys when an Indic conjunct or ZWJ emoji wraps across lines | fixed |
+| NFD 分解されたアクセント文字を含むテキストを vim オペレータが破壊する問題を修正 | Fixed vim operators corrupting text containing decomposed (NFD) accented characters | fixed |
+| `/` で始まるテキストをペーストした際に入力がサイレントに消えるか未知コマンドの返答が発生する問題を修正 | Fixed pasting text starting with `/` silently swallowing the input or triggering an unknown-command reply | fixed |
+| フォーカスイベントやマウストラッキングレポートがブラケットペーストと混在した際に余分なエスケープシーケンスがプロンプトに流れ込む問題を修正 | Fixed pasting dumping stray escape sequences into the prompt when focus events or mouse-tracking reports interleave with the bracketed paste | fixed |
+| upstream の xterm.js バグが原因で Cursor および VS Code 1.92–1.104 のマウスホイールスクロールが速すぎる問題を修正 | Fixed mouse wheel scrolling being too fast in Cursor and VS Code 1.92–1.104 due to an upstream xterm.js bug | fixed |
+| JetBrains IDE 2025.2 ターミナルでのスクロールホイール処理（誤った矢印キー、逆方向イベント、加速の暴走）を修正 | Fixed scroll-wheel handling in JetBrains IDE 2025.2 terminals (spurious arrow keys, wrong-direction events, runaway acceleration) | fixed |
+| Linux/X11 で `/usage` の Ctrl+S が統計スクリーンショットをクリップボードにコピーする際にハングする問題を修正 | Fixed `/usage` Ctrl+S hanging when copying the stats screenshot to the clipboard on Linux/X11 | fixed |
+| Windows Terminal で Shift+Enter がネイティブサポートされているにもかかわらず `/terminal-setup` が矛盾するエラーを表示する問題を修正 | Fixed `/terminal-setup` showing a contradictory error in Windows Terminal — Shift+Enter is natively supported there | fixed |
+| `/effort` ピッカーが `CLAUDE_CODE_EFFORT_LEVEL` 環境変数による上書きを反映しない問題を修正 | Fixed `/effort` picker not reflecting the `CLAUDE_CODE_EFFORT_LEVEL` env var override | fixed |
+| 一部ユーザーで `/status` が誤ったデフォルトモデルを表示する問題を修正 | Fixed `/status` showing the wrong default model for some users | fixed |
+| スラッシュコマンドの自動補完ポップアップがターミナルの高さに応じてスケールせず 3〜5 件に制限される問題を修正 | Fixed slash command autocomplete popup being capped at ~3–5 visible commands instead of scaling with terminal height | fixed |
+| ステータスラインの `context_window` トークン数が現在のコンテキスト使用量ではなくセッションの累計を反映する問題を修正 | Fixed statusline `context_window` token counts reflecting cumulative session totals instead of current context usage | fixed |
+| 「Option as Meta」が有効でない macOS ターミナル（iTerm2、Terminal.app のデフォルト）で Alt+T（思考切り替え）が機能しない問題を修正 | Fixed Alt+T (thinking toggle) not working on macOS terminals without "Option as Meta" enabled (iTerm2, Terminal.app defaults) | fixed |
+| `claude agents` からバックグラウンドセッションを再開した後に Windows でキーボード入力が効かなくなる問題を修正 | Fixed dead keyboard input on Windows after re-opening a background session from `claude agents` | fixed |
+| stdio MCP サーバーが非プロトコルデータを stdout に書き込む際にメモリが際限なく増加（RSS 10GB 超）する問題を修正 | Fixed unbounded memory growth (10GB+ RSS) when a stdio MCP server writes non-protocol data to stdout | fixed |
+| 接続に成功しても `tools/list` が失敗した MCP サーバーがサイレントに 0 件表示される問題を修正。1 回リトライし `/mcp` で「connected · tools fetch failed」を表示するように対応 | Fixed MCP servers that connect but fail `tools/list` silently showing 0 tools — they now retry once and show "connected · tools fetch failed" in `/mcp` | fixed |
+| 未認証の claude.ai MCP コネクタが「needs auth」ではなく「failed」と表示される問題、およびヘッドレス `-p` モードが一時的でない 4xx 接続エラーを継続してリトライする問題を修正 | Fixed unauthorized claude.ai MCP connectors showing as "failed" instead of "needs auth", and headless `-p` mode retrying non-transient 4xx connection failures | fixed |
+| スラッシュコマンドダイアログおよび `/login`、`/upgrade`、`/extra-usage` ダイアログのスペーシングの視覚的一貫性を改善 | Improved visual consistency in slash command dialogs and `/login`, `/upgrade`, `/extra-usage` dialog spacing | improved |
+| `/tui fullscreen` 起動バナーにレンダラーの追加メリット（メモリ使用量の削減、マウスサポート、選択時の自動コピー）の説明を追記 | Updated the `/tui fullscreen` startup banner to describe additional renderer benefits (lower memory usage, mouse support, auto-copy on select) | changed |
+| `ENABLE_PROMPT_CACHING_1H` が設定されている場合に Bedrock および Vertex で発生する 400 エラーを修正 | Fixed Bedrock and Vertex 400 errors when `ENABLE_PROMPT_CACHING_1H` is set | fixed |
+
 ## 2.1.131
 
 | 日本語 | English | Category |
