@@ -4,6 +4,13 @@
 
 ---
 
+## 2.1.131
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| Windows でバンドル済み SDK のハードコードされたビルドパス（`createRequire` polyfill バグ）が原因で VS Code 拡張機能が起動に失敗する問題を修正 | Fixed VS Code extension failing to activate on Windows due to a hardcoded build path in the bundled SDK (`createRequire` polyfill bug) | fixed |
+| `x-api-key` ヘッダーの欠落により Mantle エンドポイントの認証が失敗する問題を修正 | Fixed Mantle endpoint authentication failing with missing `x-api-key` header | fixed |
+
 ## 2.1.129
 
 | 日本語 | English | Category |
