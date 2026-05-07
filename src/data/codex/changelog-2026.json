@@ -1,10 +1,117 @@
 {
-  "generatedAt": "2026-04-30T21:21:36.665Z",
+  "generatedAt": "2026-05-07T21:21:14.150Z",
   "months": [
     {
       "key": "2026-05",
       "label": "2026年5月",
       "versions": [
+        {
+          "version": "0.129.0",
+          "releaseDate": "2026-05-08",
+          "releaseDateDisplay": "2026年5月8日",
+          "entries": [
+            {
+              "ja": "TUI のコンポーザーにモーダル Vim 編集を追加（`/vim`、デフォルトモード設定、Vim 専用キーマップコンテキスト対応）。 (#18595)",
+              "en": "The TUI now supports modal Vim editing in the composer, including `/vim`, default-mode config, and Vim-specific keymap contexts. (#18595)",
+              "category": "new-features"
+            },
+            {
+              "ja": "再設計されたレジューム/フォークピッカー、生スクロールバックモード、`/ide` コンテキスト注入、ワークスペース対応の `/diff` により、TUI ワークフローの再開とコピーを改善。 (#20065, #20819, #20294, #21001)",
+              "en": "TUI workflows are easier to resume and copy from with a redesigned resume/fork picker, raw scrollback mode, `/ide` context injection, and workspace-aware `/diff`. (#20065, #20819, #20294, #21001)",
+              "category": "new-features"
+            },
+            {
+              "ja": "ステータスラインにテーマ対応カラーおよびオプションの PR・ブランチ変更サマリーの表示に対応、`/keymap debug` でターミナルキーイベントの検査が可能に。 (#19631, #20892, #20794)",
+              "en": "The status line can show theme-aware colors plus optional PR and branch-change summaries, and `/keymap debug` helps inspect terminal key events. (#19631, #20892, #20794)",
+              "category": "new-features"
+            },
+            {
+              "ja": "プラグイン管理にワークスペース共有、共有アクセス制御、ソースフィルタリング、ローカル共有パス追跡、マーケットプレイスの削除/アップグレード、リモートバンドル同期、管理者無効化状態の処理を追加。 (#20278, #21124, #21419, #20560, #19843, #20478, #20268, #20298)",
+              "en": "Plugin management now supports workspace sharing, share access controls, source filtering, local share path tracking, marketplace removal/upgrades, remote bundle sync, and admin-disabled status handling. (#20278, #21124, #21419, #20560, #19843, #20478, #20268, #20298)",
+              "category": "new-features"
+            },
+            {
+              "ja": "`/hooks` からのフック一覧表示とトグル、コンパクション前後の実行、`PreToolUse` コンテキストの追加に対応、Codex Apps 認証および対象 MCP エリシテーションを TUI/Guardian フローに表示。 (#19882, #19905, #20692, #19193, #19431)",
+              "en": "Hooks can be browsed and toggled from `/hooks`, can run before/after compaction, and can add `PreToolUse` context; Codex Apps auth and eligible MCP elicitations now surface through TUI/Guardian flows. (#19882, #19905, #20692, #19193, #19431)",
+              "category": "new-features"
+            },
+            {
+              "ja": "実験的ゴールの検索性を向上、ユーザーが再オプトインしない限りレジューム後もポーズ状態を維持、バリデーションと複数日の期間出力の表示を改善。 (#20083, #20790, #20746, #20558)",
+              "en": "Experimental goals are now discoverable, stay paused across resume unless the user opts back in, and show clearer validation and multi-day duration output. (#20083, #20790, #20746, #20558)",
+              "category": "new-features"
+            },
+            {
+              "ja": "tmux での `/copy` の動作を改善、Alt+Enter および修飾 Delete/Backspace キーの挙動を修正、Windows のタイピング/ペーストのレイテンシを低減。 (#20207, #20535, #21058, #18914)",
+              "en": "`/copy` works better in tmux, Alt+Enter and modified Delete/Backspace keys behave correctly, and Windows typing/paste latency was reduced. (#20207, #20535, #21058, #18914)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "大量ペーストのプレースホルダーおよび Ctrl+C で退避したドラフトが、クリア/エディタワークフロー後もドラフト履歴を破壊せずに保持されるよう修正。 (#21091, #21190, #21351, #21397)",
+              "en": "Large paste placeholders and Ctrl+C-stashed drafts now survive clear/editor workflows without corrupting draft history. (#21091, #21190, #21351, #21397)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "ターミナルプローブの上限設定、最初のインラインビューポートのレンダリングクリア、ライブ行への `animations = false` 適用により、TUI の起動とアクセシビリティを改善。 (#20654, #21450, #20564)",
+              "en": "TUI startup and accessibility were tightened by bounding terminal probes, clearing the first inline viewport render, and honoring `animations = false` for live rows. (#20654, #21450, #20564)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "古い `bwrap`、低速なマウントプローブ、シンリンクで保護されたパス、共有 `/tmp` 環境における Linux サンドボックスの起動安定性を向上。 (#20628, #20111, #21127, #21234)",
+              "en": "Linux sandbox startup is more reliable across older `bwrap`, slow mount probes, symlink-protected paths, and shared `/tmp` setups. (#20628, #20111, #21127, #21234)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "名前付きパイプ、ConPTY のティアダウン、PowerShell ラップされた許可ルール、ワークツリーの `safe.directory`、安全でない Git オプションに対する Windows サンドボックスおよび実行ポリシーの信頼性を改善。 (#20270, #20685, #20336, #21409, #21275)",
+              "en": "Windows sandbox and exec policy now handle named pipes, ConPTY teardown, PowerShell-wrapped allow rules, worktree `safe.directory`, and unsafe Git options more reliably. (#20270, #20685, #20336, #21409, #21275)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "TLS インスペクションプロキシ環境でのカスタム CA ログイン、Bedrock ランタイムエンドポイントのレポート、危険なプロジェクト設定キー、ヒアドキュメントリダイレクトの承認マッチング、MCP/フック出力の無制限増大を修正。 (#20676, #20275, #20098, #20113, #20260, #21069)",
+              "en": "Fixed custom CA login behind TLS-inspecting proxies, Bedrock runtime endpoint reporting, dangerous project config keys, heredoc redirect approval matching, and unbounded MCP/hook output growth. (#20676, #20275, #20098, #20113, #20260, #21069)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "組み込みの OpenAI Docs サンプルスキルを更新し、API キーセットアップガイダンスを他のドキュメントと統一。 (#21263)",
+              "en": "Updated the embedded OpenAI Docs sample skill so API-key setup guidance stays aligned with other docs variants. (#21263)",
+              "category": "documentation"
+            },
+            {
+              "ja": "生成された Git コミット帰属が `codex_git_commit` でゲートされ `config.toml` で設定される仕組みをドキュメント化。 (#21379)",
+              "en": "Documented how generated git commit attribution is gated by `codex_git_commit` and configured in `config.toml`. (#21379)",
+              "category": "documentation"
+            },
+            {
+              "ja": "ローカル専用の計画/仕様ドキュメントを削除し、設定ドキュメントをメンテナンスされている外部ドキュメントに移行。 (#20896)",
+              "en": "Removed local-only planning/spec docs and redirected config docs toward the maintained external documentation surface. (#20896)",
+              "category": "documentation"
+            },
+            {
+              "ja": "Linux リリースにおいて npm および DotSlash インストール向けのスタンドアロン `bwrap` フォールバックのビルド、公開、バンドル、検証に対応。 (#21255, #21256, #21257, #21312, #21285)",
+              "en": "Linux releases now build, publish, bundle, and verify a standalone `bwrap` fallback for npm and DotSlash installs. (#21255, #21256, #21257, #21312, #21285)",
+              "category": "chores"
+            },
+            {
+              "ja": "ベンダー管理の Bubblewrap を 0.11.2 に更新（setuid サポートに関するアップストリームのセキュリティ変更を含む）。 (#21389)",
+              "en": "Vendored Bubblewrap was updated to 0.11.2, including upstream security changes around setuid support. (#21389)",
+              "category": "chores"
+            },
+            {
+              "ja": "Windows Bazel CI でテスト、clippy、リリースビルドチェックに高速クロスコンパイルを採用、Bazel でシャーディングされた Rust 統合テストを実行。 (#20585, #20701, #21057)",
+              "en": "Windows Bazel CI now uses faster cross-compilation for tests, clippy, and release-build checks, and Bazel now runs sharded Rust integration tests. (#20585, #20701, #21057)",
+              "category": "chores"
+            },
+            {
+              "ja": "アプリサーバーとプロトコル内部を分割・スリム化（トランスポートの分離、プロトコルモジュールの分解、スレッド/メッセージ履歴の移動、ツールハンドラーのクリーンアップを含む）。 (#20324, #20325, #20348, #20545, #21251, #21278, #21395)",
+              "en": "App-server and protocol internals were split and slimmed down, including transport extraction, protocol module decomposition, thread/message history moves, and tool-handler cleanup. (#20324, #20325, #20348, #20545, #21251, #21278, #21395)",
+              "category": "chores"
+            },
+            {
+              "ja": "ツールライフサイクル、ゴール、プラグインスキル、スレッドソース、サービスティア、PR イシューラベリングに関するアナリティクスと診断のカバレッジを拡充。 (#17089, #17090, #20799, #20923, #20949, #20969, #20893)",
+              "en": "Analytics and diagnostics coverage expanded for tool lifecycles, goals, plugin skills, thread sources, service tiers, and PR issue labeling. (#17089, #17090, #20799, #20923, #20949, #20969, #20893)",
+              "category": "chores"
+            }
+          ]
+        },
         {
           "version": "0.128.0",
           "releaseDate": "2026-05-01",
