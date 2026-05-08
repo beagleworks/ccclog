@@ -4,6 +4,28 @@
 
 ---
 
+## 2.1.133
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| `worktree.baseRef` 設定（`fresh` \| `head`）を追加。`--worktree`・`EnterWorktree`・エージェント分離ワークツリーのブランチ元を `origin/<default>` またはローカル `HEAD` から選択可能。**注意:** デフォルトの `fresh` により `EnterWorktree` のベースが `origin/<default>` に戻る（2.1.128 以降はローカル `HEAD` であった）。未プッシュのコミットを新しいワークツリーに引き継ぐには `worktree.baseRef: "head"` を設定すること | Added `worktree.baseRef` setting (`fresh` \| `head`) to choose whether `--worktree`, `EnterWorktree`, and agent-isolation worktrees branch from `origin/<default>` or local `HEAD`. **Note:** the default `fresh` changes `EnterWorktree`'s base back to `origin/<default>` (it has been local `HEAD` since 2.1.128) — set `worktree.baseRef: "head"` to keep unpushed commits in new worktrees | added |
+| カスタムの bubblewrap および socat バイナリのパスを指定する `sandbox.bwrapPath` と `sandbox.socatPath` マネージド設定を追加（Linux/WSL） | Added `sandbox.bwrapPath` and `sandbox.socatPath` managed settings (Linux/WSL) to specify custom bubblewrap and socat binary locations | added |
+| SDK の `managedSettings`（親ティア）をポリシーマージに組み込めるようにする admin ティアキー `parentSettingsBehavior`（`'first-wins' \| 'merge'`）を追加 | Added `parentSettingsBehavior` admin-tier key (`'first-wins' \| 'merge'`) to let admins opt SDK `managedSettings` (parent tier) into the policy merge | added |
+| フックが `effort.level` JSON 入力フィールドおよび `$CLAUDE_EFFORT` 環境変数を通じてアクティブなエフォートレベルを受け取れるように対応。Bash ツールのコマンドからも `$CLAUDE_EFFORT` を参照可能 | Hooks now receive the active effort level via the `effort.level` JSON input field and the `$CLAUDE_EFFORT` environment variable, and Bash tool commands can read `$CLAUDE_EFFORT` | added |
+| フォーカスモードの動作を改善 | Improved focus mode behavior | improved |
+| メモリ逼迫時にウォームスペアのバックグラウンドワーカーを解放することでメモリ使用量を改善 | Improved memory usage by releasing warm-spare background workers under memory pressure | improved |
+| リフレッシュトークンの競合により共有クレデンシャルが消去され、並行セッションがすべて 401 でデッドエンドになる問題を修正 | Fixed parallel sessions all dead-ending at 401 after a refresh-token race wiped shared credentials | fixed |
+| ドライブルート（`C:\`）または POSIX の `/` にスコープされた `Edit`/`Write` の許可ルールが誤ってマッチし、常に確認プロンプトが表示される問題を修正 | Fixed `Edit`/`Write` allow rules scoped to a drive root (`C:\`) or POSIX `/` matching incorrectly and always prompting | fixed |
+| クロックスキューや低速ディスクにより履歴またはセッションログのファイルロックが破損した際に未処理の拒否（`ECOMPROMISED`）が発生する問題を修正 | Fixed an unhandled rejection (`ECOMPROMISED`) when a history or session-log file lock is compromised by clock skew or slow disk | fixed |
+| 会話圧縮中に Esc を押した際に "Error compacting conversation" 通知が誤って表示される問題を修正 | Fixed pressing Esc during conversation compaction showing a spurious "Error compacting conversation" notification | fixed |
+| ディスカバリー・動的クライアント登録・トークン交換・トークンリフレッシュを含む MCP OAuth フロー全体で `HTTP(S)_PROXY` / `NO_PROXY` / mTLS が適用されない問題を修正 | Fixed `HTTP(S)_PROXY` / `NO_PROXY` / mTLS not being respected for the full MCP OAuth flow including discovery, dynamic client registration, token exchange, and token refresh | fixed |
+| `--add-dir` / SDK の `additionalDirectories` で指定されたマップ済みネットワークドライブ上で Read/Write/Edit が拒否される問題を修正 | Fixed Read/Write/Edit being denied on mapped network drives passed via `--add-dir` / SDK `additionalDirectories` | fixed |
+| claude.ai からのリモートコントロールによる停止・中断がローカルの Esc と同様に CLI セッションを完全にキャンセルせず、スタックしたツールやプロンプトの中断後にキュー内のメッセージが進行しなくなる問題を修正 | Fixed Remote Control stop/interrupt from claude.ai not fully canceling the CLI session the same way local Esc does, causing queued messages to never advance after interrupting a stuck tool or prompt | fixed |
+| あるセッションでの `/effort` が他の並行セッションのエフォートレベルを意図せず変更する問題と、IDE でのエフォート変更がサイレントに破棄される関連問題を修正 | Fixed `/effort` in one session unexpectedly changing the effort level of other concurrent sessions, and a related issue where an IDE effort change could be silently dropped | fixed |
+| サブエージェントが Skill ツールを通じてプロジェクト・ユーザー・プラグインのスキルを検出できない問題を修正 | Fixed subagents not discovering project, user, or plugin skills via the Skill tool | fixed |
+| `claude --help` に `--remote-control-session-name-prefix` と並べて `--remote-control` を表示するように対応 | `claude --help` now lists `--remote-control` alongside `--remote-control-session-name-prefix` | changed |
+| [VSCode] 拡張ビルドに Claude バイナリがバンドルされていない場合に `claudeCode.claudeProcessWrapper` が "Unsupported platform" で失敗する問題を修正 | [VSCode] Fixed `claudeCode.claudeProcessWrapper` failing with "Unsupported platform" when the extension build doesn't bundle a Claude binary | fixed |
+
 ## 2.1.132
 
 | 日本語 | English | Category |
