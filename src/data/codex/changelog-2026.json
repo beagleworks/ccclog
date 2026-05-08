@@ -1,10 +1,102 @@
 {
-  "generatedAt": "2026-05-07T21:21:14.150Z",
+  "generatedAt": "2026-05-08T23:20:06.722Z",
   "months": [
     {
       "key": "2026-05",
       "label": "2026年5月",
       "versions": [
+        {
+          "version": "0.130.0",
+          "releaseDate": "2026-05-09",
+          "releaseDateDisplay": "2026年5月9日",
+          "entries": [
+            {
+              "ja": "プラグイン詳細にバンドルされたフックを表示し、プラグイン共有にリンクメタデータと公開設定コントロールを追加。 (#21447, #21495, #21637)",
+              "en": "Plugin details now show bundled hooks, and plugin sharing exposes link metadata plus discoverability controls. (#21447, #21495, #21637)",
+              "category": "new-features"
+            },
+            {
+              "ja": "ヘッドレスでリモート操作可能なアプリサーバーを起動するシンプルなエントリポイントとして `codex remote-control` を追加。 (#21424)",
+              "en": "Added `codex remote-control` as a simpler entrypoint for starting a headless, remotely controllable app-server. (#21424)",
+              "category": "new-features"
+            },
+            {
+              "ja": "アプリサーバークライアントが未ロード・サマリー・フル表示の各ターンアイテムビューで大きなスレッドをページング可能に。 (#21566)",
+              "en": "App-server clients can page large threads with unloaded, summary, or full turn item views. (#21566)",
+              "category": "new-features"
+            },
+            {
+              "ja": "Bedrock 認証で `aws login` プロファイルの AWS コンソールログイン資格情報を使用可能に。 (#21623)",
+              "en": "Bedrock auth can now use AWS console-login credentials from `aws login` profiles. (#21623)",
+              "category": "new-features"
+            },
+            {
+              "ja": "`view_image` がマルチ環境セッションで選択された環境を通じてファイルを解決可能に。 (#21143)",
+              "en": "`view_image` can resolve files through the selected environment for multi-environment sessions. (#21143)",
+              "category": "new-features"
+            },
+            {
+              "ja": "ライブアプリサーバースレッドが再起動不要で設定変更を反映するように改善。 (#21187)",
+              "en": "Live app-server threads now pick up config changes without requiring a restart. (#21187)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "ファイルを変更した部分的な失敗を含む apply-patch 操作全体でターン差分の精度を維持。 (#21180, #21518)",
+              "en": "Turn diffs stay accurate across apply-patch operations, including partial failures that still mutated files. (#21180, #21518)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "`ThreadStore` 経由のスレッドサマリー・リネーム・再開・フォークパスを改善し、ローカルロールアウトパスなしのスレッドにも対応。 (#21264, #21265, #21266)",
+              "en": "Thread summaries, renames, resume, and fork paths work better through `ThreadStore`, including threads without local rollout paths. (#21264, #21265, #21266)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "リモートコンパクションで v2 ストリームに `response.processed` を送出し、APIキーのコンパクトリクエストで `service_tier` を送信しないように修正。 (#21642, #21676)",
+              "en": "Remote compaction now emits `response.processed` for v2 streams and avoids sending `service_tier` on API-key compact requests. (#21642, #21676)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "Windows サンドボックスのセットアップでサンドボックスユーザーがデスクトップランタイムのバイナリキャッシュにアクセスできるように修正。 (#21564)",
+              "en": "Windows sandbox setup now grants sandbox users access to the desktop runtime binary cache. (#21564)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "`codex exec` 起動バナーから古い「research preview」の文言を削除。 (#21683)",
+              "en": "Removed stale “research preview” wording from the `codex exec` startup banner. (#21683)",
+              "category": "bug-fixes"
+            },
+            {
+              "ja": "CLI レポートが意図したガイダンスを保持し、ラベルが正しく適用され、機能リクエストが正しいコントリビュートドキュメントにリンクされるよう Issue テンプレートを修正。 (#21685, #21686, #21688)",
+              "en": "Fixed issue templates so CLI reports keep the intended guidance, labels apply correctly, and feature requests link to the right contributing docs. (#21685, #21686, #21688)",
+              "category": "documentation"
+            },
+            {
+              "ja": "インストールおよびツールドキュメントを `cargo install --locked` で統一するよう更新。 (#21592)",
+              "en": "Updated install and tooling docs to consistently use `cargo install --locked`. (#21592)",
+              "category": "documentation"
+            },
+            {
+              "ja": "高速な Cargo プロファイリングビルドプロファイルを追加し、空の doctest ターゲットを無効化することで Rust 開発ループを高速化。 (#21574, #21584)",
+              "en": "Added a faster Cargo profiling build profile and disabled empty doctest targets to speed up Rust development loops. (#21574, #21584)",
+              "category": "chores"
+            },
+            {
+              "ja": "GitHub Actions の完全修飾ピン・Dependabot クールダウン・`cargo-shear` のアップグレードにより依存関係と CI の健全性を強化。 (#21436, #21547, #21599)",
+              "en": "Hardened dependency and CI hygiene with fully qualified GitHub Action pins, a Dependabot cooldown, and a `cargo-shear` upgrade. (#21436, #21547, #21599)",
+              "category": "chores"
+            },
+            {
+              "ja": "未使用のデバイスキー API・余分なスキルルート・リモートスレッドストア実装・文字列キーの MCP ツールマップを削除し内部構造を簡素化。 (#21487, #21485, #21596, #21454)",
+              "en": "Simplified internal surfaces by removing unused device-key APIs, extra skills roots, the remote thread-store implementation, and string-keyed MCP tool maps. (#21487, #21485, #21596, #21454)",
+              "category": "chores"
+            },
+            {
+              "ja": "デバッグとトリアージ改善のため、設定可能な OpenTelemetry トレースメタデータとレビュー/フィードバック分析の詳細化を追加。 (#21556, #18747, #21434, #21498)",
+              "en": "Added configurable OpenTelemetry trace metadata and richer review/feedback analytics for better debugging and triage. (#21556, #18747, #21434, #21498)",
+              "category": "chores"
+            }
+          ]
+        },
         {
           "version": "0.129.0",
           "releaseDate": "2026-05-08",

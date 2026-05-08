@@ -4,6 +4,28 @@
 
 ---
 
+## 0.130.0
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| プラグイン詳細にバンドルされたフックを表示し、プラグイン共有にリンクメタデータと公開設定コントロールを追加。 (#21447, #21495, #21637) | Plugin details now show bundled hooks, and plugin sharing exposes link metadata plus discoverability controls. (#21447, #21495, #21637) | new-features |
+| ヘッドレスでリモート操作可能なアプリサーバーを起動するシンプルなエントリポイントとして `codex remote-control` を追加。 (#21424) | Added `codex remote-control` as a simpler entrypoint for starting a headless, remotely controllable app-server. (#21424) | new-features |
+| アプリサーバークライアントが未ロード・サマリー・フル表示の各ターンアイテムビューで大きなスレッドをページング可能に。 (#21566) | App-server clients can page large threads with unloaded, summary, or full turn item views. (#21566) | new-features |
+| Bedrock 認証で `aws login` プロファイルの AWS コンソールログイン資格情報を使用可能に。 (#21623) | Bedrock auth can now use AWS console-login credentials from `aws login` profiles. (#21623) | new-features |
+| `view_image` がマルチ環境セッションで選択された環境を通じてファイルを解決可能に。 (#21143) | `view_image` can resolve files through the selected environment for multi-environment sessions. (#21143) | new-features |
+| ライブアプリサーバースレッドが再起動不要で設定変更を反映するように改善。 (#21187) | Live app-server threads now pick up config changes without requiring a restart. (#21187) | bug-fixes |
+| ファイルを変更した部分的な失敗を含む apply-patch 操作全体でターン差分の精度を維持。 (#21180, #21518) | Turn diffs stay accurate across apply-patch operations, including partial failures that still mutated files. (#21180, #21518) | bug-fixes |
+| `ThreadStore` 経由のスレッドサマリー・リネーム・再開・フォークパスを改善し、ローカルロールアウトパスなしのスレッドにも対応。 (#21264, #21265, #21266) | Thread summaries, renames, resume, and fork paths work better through `ThreadStore`, including threads without local rollout paths. (#21264, #21265, #21266) | bug-fixes |
+| リモートコンパクションで v2 ストリームに `response.processed` を送出し、APIキーのコンパクトリクエストで `service_tier` を送信しないように修正。 (#21642, #21676) | Remote compaction now emits `response.processed` for v2 streams and avoids sending `service_tier` on API-key compact requests. (#21642, #21676) | bug-fixes |
+| Windows サンドボックスのセットアップでサンドボックスユーザーがデスクトップランタイムのバイナリキャッシュにアクセスできるように修正。 (#21564) | Windows sandbox setup now grants sandbox users access to the desktop runtime binary cache. (#21564) | bug-fixes |
+| `codex exec` 起動バナーから古い「research preview」の文言を削除。 (#21683) | Removed stale “research preview” wording from the `codex exec` startup banner. (#21683) | bug-fixes |
+| CLI レポートが意図したガイダンスを保持し、ラベルが正しく適用され、機能リクエストが正しいコントリビュートドキュメントにリンクされるよう Issue テンプレートを修正。 (#21685, #21686, #21688) | Fixed issue templates so CLI reports keep the intended guidance, labels apply correctly, and feature requests link to the right contributing docs. (#21685, #21686, #21688) | documentation |
+| インストールおよびツールドキュメントを `cargo install --locked` で統一するよう更新。 (#21592) | Updated install and tooling docs to consistently use `cargo install --locked`. (#21592) | documentation |
+| 高速な Cargo プロファイリングビルドプロファイルを追加し、空の doctest ターゲットを無効化することで Rust 開発ループを高速化。 (#21574, #21584) | Added a faster Cargo profiling build profile and disabled empty doctest targets to speed up Rust development loops. (#21574, #21584) | chores |
+| GitHub Actions の完全修飾ピン・Dependabot クールダウン・`cargo-shear` のアップグレードにより依存関係と CI の健全性を強化。 (#21436, #21547, #21599) | Hardened dependency and CI hygiene with fully qualified GitHub Action pins, a Dependabot cooldown, and a `cargo-shear` upgrade. (#21436, #21547, #21599) | chores |
+| 未使用のデバイスキー API・余分なスキルルート・リモートスレッドストア実装・文字列キーの MCP ツールマップを削除し内部構造を簡素化。 (#21487, #21485, #21596, #21454) | Simplified internal surfaces by removing unused device-key APIs, extra skills roots, the remote thread-store implementation, and string-keyed MCP tool maps. (#21487, #21485, #21596, #21454) | chores |
+| デバッグとトリアージ改善のため、設定可能な OpenTelemetry トレースメタデータとレビュー/フィードバック分析の詳細化を追加。 (#21556, #18747, #21434, #21498) | Added configurable OpenTelemetry trace metadata and richer review/feedback analytics for better debugging and triage. (#21556, #18747, #21434, #21498) | chores |
+
 ## 0.129.0
 
 | 日本語 | English | Category |
