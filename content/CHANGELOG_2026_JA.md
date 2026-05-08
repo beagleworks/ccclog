@@ -4,6 +4,63 @@
 
 ---
 
+## 2.1.136
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| OpenTelemetry でレスポンスを収集しているエンタープライズ向けにセッション品質サーベイを再有効化する `CLAUDE_CODE_ENABLE_FEEDBACK_SURVEY_FOR_OTEL` を追加 | Added `CLAUDE_CODE_ENABLE_FEEDBACK_SURVEY_FOR_OTEL` to re-enable the session quality survey for enterprises capturing responses through OpenTelemetry | added |
+| ユーザーの意図や許可例外に関わらず無条件にブロックする、自動モード分類器ルール向けの `settings.autoMode.hard_deny` を追加 | Added `settings.autoMode.hard_deny` for auto mode classifier rules that block unconditionally regardless of user intent or allow exceptions | added |
+| VS Code 拡張機能、JetBrains プラグイン、Agent SDK において、`.mcp.json` で設定された MCP サーバー、プラグイン、claude.ai コネクターが `/clear` 後に通知なく消える問題を修正 | Fixed MCP servers configured in `.mcp.json`, plugins, and claude.ai connectors silently disappearing after `/clear` in the VS Code extension, JetBrains plugin, and Agent SDK | fixed |
+| 認証情報の同時書き込みによって直後にローテーションされたOAuthトークンが上書きされ再ログインを強制するまれなログインループを修正 | Fixed a rare login loop where a concurrent credential write could overwrite a freshly-rotated OAuth token and force re-login | fixed |
+| 複数サーバーが同時にリフレッシュする際にMCP OAuthリフレッシュトークンが失われる問題を修正 — 複数のリモートMCPサーバーを利用するユーザーが毎日再認証する必要がなくなる | Fixed MCP OAuth refresh tokens being lost when multiple servers refresh concurrently — users with several remote MCP servers should no longer need daily re-authentication | fixed |
+| ツール呼び出し後に拡張思考が編集済み思考ブロックを出力した際のAPIエラー（400）を修正 | Fixed an API error (400) when extended thinking emitted a redacted thinking block after a tool call | fixed |
+| プロジェクトパスにアンダースコアが含まれる場合に `--resume` / `--continue` がセッションを見つけられない問題を修正 | Fixed `--resume` / `--continue` not finding sessions when the project path contains underscores | fixed |
+| プランモードで `Edit(...)` の許可ルールが存在する場合にファイル書き込みがブロックされない問題を修正 | Fixed plan mode not blocking file writes when a matching `Edit(...)` allow rule exists | fixed |
+| WSL2: xclip/wl-paste が画像データを読み取れない場合に PowerShell フォールバック経由で Windows クリップボードからの画像貼り付けが動作するよう対応 | WSL2: image paste from Windows clipboard now works via a PowerShell fallback when xclip/wl-paste cannot read image data | fixed |
+| キャッシュのクリーンアップが実行中セッションで使用中のバージョンを削除した際にプラグインの `Stop`/`UserPromptSubmit` フックが失敗する問題を修正 | Fixed plugin `Stop`/`UserPromptSubmit` hooks failing when cache cleanup deletes a version still in use by a running session | fixed |
+| スラッシュコマンドダイアログ全体の視覚的一貫性を改善：フッターのヒント、ダイアログの余白、矢印キーのスタイルを統一し、ロード中にダイアログフレームが遅れてポップインする代わりに即座に表示されるよう変更 | Improved visual consistency across slash command dialogs: standardized footer hints, dialog spacing, and arrow-key styling, and the dialog frame now appears immediately during loading instead of popping in after | improved |
+| bashコマンド出力およびMarkdownコードブロックで色が誤った位置に表示される問題を修正 | Fixed colors appearing at wrong positions in bash command output and markdown code blocks | fixed |
+| ReasonML の差分表示においてワード差分境界部分に壊れた "undefined" テキストアーティファクトが表示される問題を修正 | Fixed ReasonML diffs rendering corrupted "undefined" text artifacts at word-diff boundaries | fixed |
+| worktree削除後、誤ったディレクトリの未コミットファイルを警告するworktree終了ダイアログを修正 | Fixed worktree exit dialog warning about uncommitted files in the wrong directory after worktree removal | fixed |
+| 小規模な非gitディレクトリでセッション中に作成されたファイルが `@` ファイルピッカーにマッチしない問題を修正 | Fixed `@` file picker not matching files created mid-session in small non-git directories | fixed |
+| `@`メンションのファイルピッカーが100件以上のエントリを含むディレクトリでファイルを検出できない問題を修正 | Fixed `@`-mention file picker not finding files in directories with more than 100 entries | fixed |
+| フルスクリーンモードで出力が切り詰められた際、失敗したツール呼び出しがクリックで展開できない問題を修正 | Fixed failed tool calls not being click-to-expand in fullscreen mode when their output was truncated | fixed |
+| 拡張キーモードが持続するターミナルでCtrl+Gを使用して外部エディタを開いた後、BackspaceとCtrl+Backspaceが入れ替わる問題を修正 | Fixed Backspace and Ctrl+Backspace getting swapped after using Ctrl+G to open an external editor on terminals with persistent extended-key modes | fixed |
+| `/usage` の週次リセットが日付ではなく時刻を表示していた問題を修正 | Fixed `/usage` weekly reset showing time of day instead of the calendar date | fixed |
+| CJK端末でウェルカムバナーの省略記号がカラムオーバーフローを引き起こす問題を修正 | Fixed welcome banner ellipsis causing column overflow on CJK terminals | fixed |
+| セッション履歴に不正な入力フィールドを持つツール呼び出しが含まれる場合に `/insights` がクラッシュする問題を修正 | Fixed `/insights` crash when session history contains tool calls with malformed input fields | fixed |
+| ツールの折りたたみ分類がセッション中に変更された際のレンダラークラッシュを修正 | Fixed a renderer crash when a tool's collapsibility classification changes mid-session | fixed |
+| `plugin.json` の `skills` エントリがプラグインのデフォルト `skills/` ディレクトリを隠してしまう問題を修正、ファイルパスを指定した際にサイレント失敗ではなくエラーを表示するように対応 | Fixed a `skills` entry in `plugin.json` hiding the plugin's default `skills/` directory, and listing a file path now shows an error instead of failing silently | fixed |
+| IDEのシェル統合ロックファイルが`CLAUDE_CONFIG_DIR`を参照しない問題を修正 | Fixed IDE shell-integration lock files not respecting `CLAUDE_CONFIG_DIR` | fixed |
+| ストリーミング中にコピーしたターミナル出力の末尾の余分な空白を修正 | Fixed trailing whitespace in copied terminal output during streaming | fixed |
+| プラグインのアンインストールおよび有効化/無効化でスラグが大文字小文字を区別せずマッチングされない問題を修正 | Fixed plugin uninstall and enable/disable not matching slugs case-insensitively | fixed |
+| サロゲートペア文字列に対してツールエラーの切り詰めマーカーが負の数を表示する問題を修正 | Fixed tool error truncation marker showing a negative count for surrogate-pair strings | fixed |
+| `/resume` または `/clear` 後に `CLAUDE_ENV_FILE` の SessionStart フックの環境変数が古くなる問題を修正 | Fixed env vars from `CLAUDE_ENV_FILE` SessionStart hooks going stale after `/resume` or `/clear` | fixed |
+| `/branch` に複数行の名前を貼り付けた際、複数行のセッションタイトルが保存される問題を修正 | Fixed `/branch` saving a multi-line session title when given a pasted multi-line name | fixed |
+| 列境界で折り返されたテキストの2行目に余分な先頭スペースが挿入される問題を修正 | Fixed a stray leading space on the second line of wrapped text at the column boundary | fixed |
+| `/install-github-app`、`/desktop`、`/resume`、`/web-setup` でEscキーを押してもダイアログが閉じない問題を修正 | Fixed Esc not dismissing dialogs in `/install-github-app`, `/desktop`, `/resume`, and `/web-setup` | fixed |
+| `/doctor` の MCP スキーマエラーで欠落フィールド名やソースファイルパスが表示されない問題を修正 | Fixed `/doctor` MCP schema errors not naming the missing field or showing the source file path | fixed |
+| Bash の権限確認プロンプトが、ユーザーが読める説明の代わりに内部パーサーの診断情報を表示していた問題を修正 | Fixed Bash permission prompts showing an internal parser diagnostic instead of a user-readable explanation | fixed |
+| スペースを含むプラグインスラッシュコマンド（例: `/myplugin review`）が名前空間形式に解決されない問題を修正 | Fixed plugin slash commands with spaces (e.g. `/myplugin review`) not resolving to their namespaced form | fixed |
+| `AskUserQuestion` で配列として渡された複数選択の回答が破棄される問題を修正 | Fixed `AskUserQuestion` discarding multi-select answers when supplied as an array | fixed |
+| `/clear <name>` でクリアしたセッションが `/resume` 向けにラベル付けされない問題を修正 | Fixed `/clear <name>` not labeling the cleared session for `/resume` | fixed |
+| `CronList` の出力に修飾子とスケジュールされたプロンプトが欠落していた問題を修正 | Fixed `CronList` output missing qualifiers and the scheduled prompt | fixed |
+| フルスクリーンモードで「Jump to bottom」オーバーレイがCJK文字に色の残像を残す問題を修正 | Fixed "Jump to bottom" overlay leaving color artifacts on CJK characters in fullscreen mode | fixed |
+| ストリーミング中に幅広いMarkdownテーブルがターミナルのスクロールバックに古いボーダー付き描画が残る問題を修正 | Fixed wide markdown tables leaving a stale bordered render in terminal scrollback while streaming | fixed |
+| 貼り付けテキストのプレースホルダーを含む長いプロンプトが自動トランケートされた際に、貼り付けテキストが通知なく破棄される問題を修正 | Fixed pasted text being silently dropped when a long prompt with a pasted-text placeholder was auto-truncated | fixed |
+| changelog の更新失敗後に `/release-notes` が古いバージョンで止まる問題を修正 | Fixed `/release-notes` getting stuck on an old version after a failed changelog refresh | fixed |
+| `/mcp` サーバーリストがターミナルに収まらない場合にスクロールできない問題を修正 | Fixed `/mcp` server list not scrolling when there are more servers than fit in the terminal | fixed |
+| 入力途中のスラッシュコマンドのオートコンプリートが、最初のスラッシュコマンド実行後に機能しない問題を修正 | Fixed mid-input slash command autocomplete not working after an initial slash command | fixed |
+| `autoScrollEnabled: false` の設定時にスクロール末尾への移動で自動追従が再有効化される問題を修正 | Fixed scrolling to bottom re-engaging auto-follow with `autoScrollEnabled: false` | fixed |
+| 空の入力でEnterキーを押した際にプロンプト候補が自動送信されていた問題を修正（TabキーまたはArrowキーでの確定が必要） | Fixed prompt suggestions being auto-submitted by Enter on an empty input instead of requiring Tab or arrow to accept | fixed |
+| `keybindings.json` でリバインドされたキーがキーボードショートカットのヒントに反映されない問題を修正 | Fixed keyboard shortcut hints not reflecting rebound keys from `keybindings.json` | fixed |
+| `/settings` で確認後に Escape キーを押すと言語変更が元に戻る問題を修正 | Fixed `/settings` language change being reverted on Escape after confirming | fixed |
+| `/terminal-setup` がオートコンプリートで完全一致時のみ表示され、部分プレフィックスで表示されない問題を修正 | Fixed `/terminal-setup` only appearing in autocomplete on exact name match instead of partial prefixes | fixed |
+| `AskUserQuestion` ダイアログの「Chat about this」が質問テキストを消去する問題を修正 | Fixed "Chat about this" on an `AskUserQuestion` dialog erasing the question text | fixed |
+| MCPサーバーがコンテンツブロックを返す際にツール結果が表示されない問題を修正 | Fixed MCP tool results being invisible when the server returns content blocks | fixed |
+| `--worktree` が既存または古いワークツリーと衝突した際のエラーメッセージを改善 | Improved error message when `--worktree` collides with an existing or stale worktree | improved |
+| プラグインマーケットプレイスの削除キーを、retry と競合していた `r` から `d`（他の削除操作と統一）に変更 | Changed plugin marketplace removal key to `d` (matching delete elsewhere) instead of `r` which collided with retry | changed |
+
 ## 2.1.133
 
 | 日本語 | English | Category |

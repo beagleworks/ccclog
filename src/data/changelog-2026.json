@@ -1,10 +1,277 @@
 {
-  "generatedAt": "2026-05-08T01:43:28.399Z",
+  "generatedAt": "2026-05-08T21:26:19.225Z",
   "months": [
     {
       "key": "2026-05",
       "label": "2026年5月",
       "versions": [
+        {
+          "version": "2.1.136",
+          "releaseDate": "2026-05-09",
+          "releaseDateDisplay": "2026年5月9日",
+          "entries": [
+            {
+              "ja": "OpenTelemetry でレスポンスを収集しているエンタープライズ向けにセッション品質サーベイを再有効化する `CLAUDE_CODE_ENABLE_FEEDBACK_SURVEY_FOR_OTEL` を追加",
+              "en": "Added `CLAUDE_CODE_ENABLE_FEEDBACK_SURVEY_FOR_OTEL` to re-enable the session quality survey for enterprises capturing responses through OpenTelemetry",
+              "category": "added"
+            },
+            {
+              "ja": "ユーザーの意図や許可例外に関わらず無条件にブロックする、自動モード分類器ルール向けの `settings.autoMode.hard_deny` を追加",
+              "en": "Added `settings.autoMode.hard_deny` for auto mode classifier rules that block unconditionally regardless of user intent or allow exceptions",
+              "category": "added"
+            },
+            {
+              "ja": "VS Code 拡張機能、JetBrains プラグイン、Agent SDK において、`.mcp.json` で設定された MCP サーバー、プラグイン、claude.ai コネクターが `/clear` 後に通知なく消える問題を修正",
+              "en": "Fixed MCP servers configured in `.mcp.json`, plugins, and claude.ai connectors silently disappearing after `/clear` in the VS Code extension, JetBrains plugin, and Agent SDK",
+              "category": "fixed"
+            },
+            {
+              "ja": "認証情報の同時書き込みによって直後にローテーションされたOAuthトークンが上書きされ再ログインを強制するまれなログインループを修正",
+              "en": "Fixed a rare login loop where a concurrent credential write could overwrite a freshly-rotated OAuth token and force re-login",
+              "category": "fixed"
+            },
+            {
+              "ja": "複数サーバーが同時にリフレッシュする際にMCP OAuthリフレッシュトークンが失われる問題を修正 — 複数のリモートMCPサーバーを利用するユーザーが毎日再認証する必要がなくなる",
+              "en": "Fixed MCP OAuth refresh tokens being lost when multiple servers refresh concurrently — users with several remote MCP servers should no longer need daily re-authentication",
+              "category": "fixed"
+            },
+            {
+              "ja": "ツール呼び出し後に拡張思考が編集済み思考ブロックを出力した際のAPIエラー（400）を修正",
+              "en": "Fixed an API error (400) when extended thinking emitted a redacted thinking block after a tool call",
+              "category": "fixed"
+            },
+            {
+              "ja": "プロジェクトパスにアンダースコアが含まれる場合に `--resume` / `--continue` がセッションを見つけられない問題を修正",
+              "en": "Fixed `--resume` / `--continue` not finding sessions when the project path contains underscores",
+              "category": "fixed"
+            },
+            {
+              "ja": "プランモードで `Edit(...)` の許可ルールが存在する場合にファイル書き込みがブロックされない問題を修正",
+              "en": "Fixed plan mode not blocking file writes when a matching `Edit(...)` allow rule exists",
+              "category": "fixed"
+            },
+            {
+              "ja": "WSL2: xclip/wl-paste が画像データを読み取れない場合に PowerShell フォールバック経由で Windows クリップボードからの画像貼り付けが動作するよう対応",
+              "en": "WSL2: image paste from Windows clipboard now works via a PowerShell fallback when xclip/wl-paste cannot read image data",
+              "category": "fixed"
+            },
+            {
+              "ja": "キャッシュのクリーンアップが実行中セッションで使用中のバージョンを削除した際にプラグインの `Stop`/`UserPromptSubmit` フックが失敗する問題を修正",
+              "en": "Fixed plugin `Stop`/`UserPromptSubmit` hooks failing when cache cleanup deletes a version still in use by a running session",
+              "category": "fixed"
+            },
+            {
+              "ja": "スラッシュコマンドダイアログ全体の視覚的一貫性を改善：フッターのヒント、ダイアログの余白、矢印キーのスタイルを統一し、ロード中にダイアログフレームが遅れてポップインする代わりに即座に表示されるよう変更",
+              "en": "Improved visual consistency across slash command dialogs: standardized footer hints, dialog spacing, and arrow-key styling, and the dialog frame now appears immediately during loading instead of popping in after",
+              "category": "improved"
+            },
+            {
+              "ja": "bashコマンド出力およびMarkdownコードブロックで色が誤った位置に表示される問題を修正",
+              "en": "Fixed colors appearing at wrong positions in bash command output and markdown code blocks",
+              "category": "fixed"
+            },
+            {
+              "ja": "ReasonML の差分表示においてワード差分境界部分に壊れた \"undefined\" テキストアーティファクトが表示される問題を修正",
+              "en": "Fixed ReasonML diffs rendering corrupted \"undefined\" text artifacts at word-diff boundaries",
+              "category": "fixed"
+            },
+            {
+              "ja": "worktree削除後、誤ったディレクトリの未コミットファイルを警告するworktree終了ダイアログを修正",
+              "en": "Fixed worktree exit dialog warning about uncommitted files in the wrong directory after worktree removal",
+              "category": "fixed"
+            },
+            {
+              "ja": "小規模な非gitディレクトリでセッション中に作成されたファイルが `@` ファイルピッカーにマッチしない問題を修正",
+              "en": "Fixed `@` file picker not matching files created mid-session in small non-git directories",
+              "category": "fixed"
+            },
+            {
+              "ja": "`@`メンションのファイルピッカーが100件以上のエントリを含むディレクトリでファイルを検出できない問題を修正",
+              "en": "Fixed `@`-mention file picker not finding files in directories with more than 100 entries",
+              "category": "fixed"
+            },
+            {
+              "ja": "フルスクリーンモードで出力が切り詰められた際、失敗したツール呼び出しがクリックで展開できない問題を修正",
+              "en": "Fixed failed tool calls not being click-to-expand in fullscreen mode when their output was truncated",
+              "category": "fixed"
+            },
+            {
+              "ja": "拡張キーモードが持続するターミナルでCtrl+Gを使用して外部エディタを開いた後、BackspaceとCtrl+Backspaceが入れ替わる問題を修正",
+              "en": "Fixed Backspace and Ctrl+Backspace getting swapped after using Ctrl+G to open an external editor on terminals with persistent extended-key modes",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/usage` の週次リセットが日付ではなく時刻を表示していた問題を修正",
+              "en": "Fixed `/usage` weekly reset showing time of day instead of the calendar date",
+              "category": "fixed"
+            },
+            {
+              "ja": "CJK端末でウェルカムバナーの省略記号がカラムオーバーフローを引き起こす問題を修正",
+              "en": "Fixed welcome banner ellipsis causing column overflow on CJK terminals",
+              "category": "fixed"
+            },
+            {
+              "ja": "セッション履歴に不正な入力フィールドを持つツール呼び出しが含まれる場合に `/insights` がクラッシュする問題を修正",
+              "en": "Fixed `/insights` crash when session history contains tool calls with malformed input fields",
+              "category": "fixed"
+            },
+            {
+              "ja": "ツールの折りたたみ分類がセッション中に変更された際のレンダラークラッシュを修正",
+              "en": "Fixed a renderer crash when a tool's collapsibility classification changes mid-session",
+              "category": "fixed"
+            },
+            {
+              "ja": "`plugin.json` の `skills` エントリがプラグインのデフォルト `skills/` ディレクトリを隠してしまう問題を修正、ファイルパスを指定した際にサイレント失敗ではなくエラーを表示するように対応",
+              "en": "Fixed a `skills` entry in `plugin.json` hiding the plugin's default `skills/` directory, and listing a file path now shows an error instead of failing silently",
+              "category": "fixed"
+            },
+            {
+              "ja": "IDEのシェル統合ロックファイルが`CLAUDE_CONFIG_DIR`を参照しない問題を修正",
+              "en": "Fixed IDE shell-integration lock files not respecting `CLAUDE_CONFIG_DIR`",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミング中にコピーしたターミナル出力の末尾の余分な空白を修正",
+              "en": "Fixed trailing whitespace in copied terminal output during streaming",
+              "category": "fixed"
+            },
+            {
+              "ja": "プラグインのアンインストールおよび有効化/無効化でスラグが大文字小文字を区別せずマッチングされない問題を修正",
+              "en": "Fixed plugin uninstall and enable/disable not matching slugs case-insensitively",
+              "category": "fixed"
+            },
+            {
+              "ja": "サロゲートペア文字列に対してツールエラーの切り詰めマーカーが負の数を表示する問題を修正",
+              "en": "Fixed tool error truncation marker showing a negative count for surrogate-pair strings",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/resume` または `/clear` 後に `CLAUDE_ENV_FILE` の SessionStart フックの環境変数が古くなる問題を修正",
+              "en": "Fixed env vars from `CLAUDE_ENV_FILE` SessionStart hooks going stale after `/resume` or `/clear`",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/branch` に複数行の名前を貼り付けた際、複数行のセッションタイトルが保存される問題を修正",
+              "en": "Fixed `/branch` saving a multi-line session title when given a pasted multi-line name",
+              "category": "fixed"
+            },
+            {
+              "ja": "列境界で折り返されたテキストの2行目に余分な先頭スペースが挿入される問題を修正",
+              "en": "Fixed a stray leading space on the second line of wrapped text at the column boundary",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/install-github-app`、`/desktop`、`/resume`、`/web-setup` でEscキーを押してもダイアログが閉じない問題を修正",
+              "en": "Fixed Esc not dismissing dialogs in `/install-github-app`, `/desktop`, `/resume`, and `/web-setup`",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/doctor` の MCP スキーマエラーで欠落フィールド名やソースファイルパスが表示されない問題を修正",
+              "en": "Fixed `/doctor` MCP schema errors not naming the missing field or showing the source file path",
+              "category": "fixed"
+            },
+            {
+              "ja": "Bash の権限確認プロンプトが、ユーザーが読める説明の代わりに内部パーサーの診断情報を表示していた問題を修正",
+              "en": "Fixed Bash permission prompts showing an internal parser diagnostic instead of a user-readable explanation",
+              "category": "fixed"
+            },
+            {
+              "ja": "スペースを含むプラグインスラッシュコマンド（例: `/myplugin review`）が名前空間形式に解決されない問題を修正",
+              "en": "Fixed plugin slash commands with spaces (e.g. `/myplugin review`) not resolving to their namespaced form",
+              "category": "fixed"
+            },
+            {
+              "ja": "`AskUserQuestion` で配列として渡された複数選択の回答が破棄される問題を修正",
+              "en": "Fixed `AskUserQuestion` discarding multi-select answers when supplied as an array",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/clear <name>` でクリアしたセッションが `/resume` 向けにラベル付けされない問題を修正",
+              "en": "Fixed `/clear <name>` not labeling the cleared session for `/resume`",
+              "category": "fixed"
+            },
+            {
+              "ja": "`CronList` の出力に修飾子とスケジュールされたプロンプトが欠落していた問題を修正",
+              "en": "Fixed `CronList` output missing qualifiers and the scheduled prompt",
+              "category": "fixed"
+            },
+            {
+              "ja": "フルスクリーンモードで「Jump to bottom」オーバーレイがCJK文字に色の残像を残す問題を修正",
+              "en": "Fixed \"Jump to bottom\" overlay leaving color artifacts on CJK characters in fullscreen mode",
+              "category": "fixed"
+            },
+            {
+              "ja": "ストリーミング中に幅広いMarkdownテーブルがターミナルのスクロールバックに古いボーダー付き描画が残る問題を修正",
+              "en": "Fixed wide markdown tables leaving a stale bordered render in terminal scrollback while streaming",
+              "category": "fixed"
+            },
+            {
+              "ja": "貼り付けテキストのプレースホルダーを含む長いプロンプトが自動トランケートされた際に、貼り付けテキストが通知なく破棄される問題を修正",
+              "en": "Fixed pasted text being silently dropped when a long prompt with a pasted-text placeholder was auto-truncated",
+              "category": "fixed"
+            },
+            {
+              "ja": "changelog の更新失敗後に `/release-notes` が古いバージョンで止まる問題を修正",
+              "en": "Fixed `/release-notes` getting stuck on an old version after a failed changelog refresh",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/mcp` サーバーリストがターミナルに収まらない場合にスクロールできない問題を修正",
+              "en": "Fixed `/mcp` server list not scrolling when there are more servers than fit in the terminal",
+              "category": "fixed"
+            },
+            {
+              "ja": "入力途中のスラッシュコマンドのオートコンプリートが、最初のスラッシュコマンド実行後に機能しない問題を修正",
+              "en": "Fixed mid-input slash command autocomplete not working after an initial slash command",
+              "category": "fixed"
+            },
+            {
+              "ja": "`autoScrollEnabled: false` の設定時にスクロール末尾への移動で自動追従が再有効化される問題を修正",
+              "en": "Fixed scrolling to bottom re-engaging auto-follow with `autoScrollEnabled: false`",
+              "category": "fixed"
+            },
+            {
+              "ja": "空の入力でEnterキーを押した際にプロンプト候補が自動送信されていた問題を修正（TabキーまたはArrowキーでの確定が必要）",
+              "en": "Fixed prompt suggestions being auto-submitted by Enter on an empty input instead of requiring Tab or arrow to accept",
+              "category": "fixed"
+            },
+            {
+              "ja": "`keybindings.json` でリバインドされたキーがキーボードショートカットのヒントに反映されない問題を修正",
+              "en": "Fixed keyboard shortcut hints not reflecting rebound keys from `keybindings.json`",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/settings` で確認後に Escape キーを押すと言語変更が元に戻る問題を修正",
+              "en": "Fixed `/settings` language change being reverted on Escape after confirming",
+              "category": "fixed"
+            },
+            {
+              "ja": "`/terminal-setup` がオートコンプリートで完全一致時のみ表示され、部分プレフィックスで表示されない問題を修正",
+              "en": "Fixed `/terminal-setup` only appearing in autocomplete on exact name match instead of partial prefixes",
+              "category": "fixed"
+            },
+            {
+              "ja": "`AskUserQuestion` ダイアログの「Chat about this」が質問テキストを消去する問題を修正",
+              "en": "Fixed \"Chat about this\" on an `AskUserQuestion` dialog erasing the question text",
+              "category": "fixed"
+            },
+            {
+              "ja": "MCPサーバーがコンテンツブロックを返す際にツール結果が表示されない問題を修正",
+              "en": "Fixed MCP tool results being invisible when the server returns content blocks",
+              "category": "fixed"
+            },
+            {
+              "ja": "`--worktree` が既存または古いワークツリーと衝突した際のエラーメッセージを改善",
+              "en": "Improved error message when `--worktree` collides with an existing or stale worktree",
+              "category": "improved"
+            },
+            {
+              "ja": "プラグインマーケットプレイスの削除キーを、retry と競合していた `r` から `d`（他の削除操作と統一）に変更",
+              "en": "Changed plugin marketplace removal key to `d` (matching delete elsewhere) instead of `r` which collided with retry",
+              "category": "changed"
+            }
+          ]
+        },
         {
           "version": "2.1.133",
           "releaseDate": "2026-05-08",
