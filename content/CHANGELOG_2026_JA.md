@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.138
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| 内部修正 | Internal fixes | fixed |
+
 ## 2.1.137
 
 | 日本語 | English | Category |

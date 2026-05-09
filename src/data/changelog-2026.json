@@ -1,10 +1,22 @@
 {
-  "generatedAt": "2026-05-09T01:41:42.670Z",
+  "generatedAt": "2026-05-09T06:42:48.644Z",
   "months": [
     {
       "key": "2026-05",
       "label": "2026年5月",
       "versions": [
+        {
+          "version": "2.1.138",
+          "releaseDate": "2026-05-09",
+          "releaseDateDisplay": "2026年5月9日",
+          "entries": [
+            {
+              "ja": "内部修正",
+              "en": "Internal fixes",
+              "category": "fixed"
+            }
+          ]
+        },
         {
           "version": "2.1.137",
           "releaseDate": "2026-05-09",
