@@ -4,6 +4,12 @@
 
 ---
 
+## 2.1.137
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| [VSCode] Windows で拡張機能が起動しない問題を修正 | [VSCode] Fixed extension failing to activate on Windows | fixed |
+
 ## 2.1.136
 
 | 日本語 | English | Category |
