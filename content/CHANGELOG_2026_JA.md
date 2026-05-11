@@ -4,6 +4,61 @@
 
 ---
 
+## 2.1.139
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| （翻訳待ち） | Added agent view (Research Preview): a single list of every Claude Code session — running, blocked on you, or done. Run `claude agents` to get started. See https://code.claude.com/docs/en/agent-view | other |
+| （翻訳待ち） | Added `/goal` command: set a completion condition and Claude keeps working across turns until it's met. Works in interactive, `-p`, and Remote Control. Shows live elapsed/turns/tokens as an overlay panel | other |
+| （翻訳待ち） | Added `/scroll-speed` command to tune mouse wheel scroll speed with a live preview | other |
+| （翻訳待ち） | Added `claude plugin details <name>` to show a plugin's component inventory and projected per-session token cost | other |
+| （翻訳待ち） | Added transcript view navigation: `?` for keyboard shortcuts, `{`/`}` to jump between user prompts, `v` to toggle shortcut panel | other |
+| （翻訳待ち） | Added hook `args: string[]` field (exec form) that spawns the command directly without a shell, so path placeholders never need quoting | other |
+| （翻訳待ち） | Added hook `continueOnBlock` config option for `PostToolUse` — set to `true` to feed the hook's rejection reason back to Claude and continue the turn | other |
+| （翻訳待ち） | MCP stdio servers now receive `CLAUDE_PROJECT_DIR` in their environment, matching hooks. Plugin configs can reference `${CLAUDE_PROJECT_DIR}` in commands | other |
+| （翻訳待ち） | Compaction prompt now asks the model to preserve sensitive user instructions | other |
+| （翻訳待ち） | `/mcp` Reconnect now picks up `.mcp.json` edits without a restart, and shows the HTTP status and URL when reconnecting fails | other |
+| （翻訳待ち） | `/context all` per-skill token estimates now account for the model's tokenizer and show rounded values | other |
+| （翻訳待ち） | `claude plugin install <name>@<marketplace>` now auto-refreshes the marketplace and retries before reporting a plugin as not found | other |
+| （翻訳待ち） | `/plugin` installed-plugin details now show hook event names and MCP server names cleanly | other |
+| （翻訳待ち） | `/context` now shows the providing plugin's name for plugin-sourced skills | other |
+| （翻訳待ち） | Remote MCP server reconnect retry on transient failures is now enabled for all users | other |
+| （翻訳待ち） | API requests from subagents now carry `x-claude-code-agent-id` / `x-claude-code-parent-agent-id` headers, and `claude_code.llm_request` OTEL spans include `agent_id` / `parent_agent_id` attributes | other |
+| （翻訳待ち） | Remote Control, `/schedule`, claude.ai MCP connectors, and notification preferences are now disabled when `ANTHROPIC_API_KEY` / `apiKeyHelper` / `ANTHROPIC_AUTH_TOKEN` is set, even if a Claude.ai login also exists. Unset the API key to use these features | other |
+| （翻訳待ち） | Fixed a deadlock where expired credentials and the `forceRemoteSettingsRefresh` policy setting blocked `claude auth login`/`logout`/`status` with no way to recover | other |
+| （翻訳待ち） | Fixed `autoAllowBashIfSandboxed` not auto-approving commands with shell expansions like `$VAR` and `$(cmd)` | other |
+| （翻訳待ち） | Fixed a bug where a hook writing to the terminal could corrupt an on-screen interactive prompt; hooks now run without terminal access | other |
+| （翻訳待ち） | Fixed unbounded memory growth when an HTTP/SSE MCP server streams non-protocol data — response bodies now capped at 16 MB per SSE frame | other |
+| （翻訳待ち） | Fixed `Skill(name *)` permission rules — the wildcard form now works as a prefix match, matching `Bash(ls *)` behavior | other |
+| （翻訳待ち） | Fixed settings hot-reload not detecting edits to symlinked `~/.claude/settings.json` | other |
+| （翻訳待ち） | Fixed plugin details failing to load when the marketplace key differs from the manifest name | other |
+| （翻訳待ち） | Fixed `/model` picker "Default" row not reflecting `ANTHROPIC_DEFAULT_OPUS_MODEL`/`ANTHROPIC_DEFAULT_SONNET_MODEL` overrides | other |
+| （翻訳待ち） | Fixed spurious "stream idle timeout" 5 minutes after a response completed, caused by the watchdog timer not being cleared on stream cancellation | other |
+| （翻訳待ち） | Fixed silent `exit 1` when 10+ MCP servers are configured and the cache directory is unwritable — the error message now includes the underlying cause | other |
+| （翻訳待ち） | Fixed a typing cursor blinking on tab names, list pointers, and select rows in dialogs | other |
+| （翻訳待ち） | Fixed transcript view letter shortcuts not working after mouse click | other |
+| （翻訳待ち） | Fixed Bash-mode up-arrow history repeating the first entry and clobbering the in-progress draft | other |
+| （翻訳待ち） | Fixed pasting or dropping multiple images only inserting the last one | other |
+| （翻訳待ち） | Fixed hyperlinks using unreadable dark navy on dark themes — they now adapt to the active theme | other |
+| （翻訳待ち） | Fixed model picker showing a redundant "Current model" row for third-party users whose model is set to the `opus` alias | other |
+| （翻訳待ち） | Fixed legacy Opus picker entry on PAYG 3P providers resolving to the same model as the default entry | other |
+| （翻訳待ち） | Fixed mouse wheel scrolling speed in Cursor and VS Code 1.92–1.104; the trackpad now scrolls at a steady rate and the mouse wheel keeps ~3 lines per notch | other |
+| （翻訳待ち） | Fixed scroll behavior in Windows Terminal and VS Code when attached to background sessions | other |
+| （翻訳待ち） | Fixed MCP resources from disconnected servers lingering in `@server:` autocomplete | other |
+| （翻訳待ち） | Fixed two-file diff snippets over-reporting the number of truncated lines by one | other |
+| （翻訳待ち） | Fixed Grep results not relativizing Windows drive-letter paths and count mode reporting wrong totals for single-file paths | other |
+| （翻訳待ち） | Fixed border-embedded text overflowing on CJK/emoji due to visual cell width miscalculation | other |
+| （翻訳待ち） | Fixed fuzzy-match highlighting splitting emoji and astral-plane characters mid-pair | other |
+| （翻訳待ち） | Fixed skill argument names containing regex metacharacters breaking argument substitution | other |
+| （翻訳待ち） | Fixed ProgressBar rendering a full block for an almost-full fractional cell | other |
+| （翻訳待ち） | Fixed task polling and `fs.watch` being resurrected when the last subscriber leaves while a fetch is in flight | other |
+| （翻訳待ち） | Fixed plugin dependency resolution leaving a stale count when the manifest name differs from the source identifier | other |
+| （翻訳待ち） | Fixed Insights Time-of-Day chart skewing when a session has an unparseable timestamp | other |
+| （翻訳待ち） | Fixed keybindings using only the cmd/super/win modifier being flagged as unparseable | other |
+| （翻訳待ち） | Fixed `claude_code.active_time.total` OpenTelemetry metric not being emitted in `--print` mode | other |
+| （翻訳待ち） | Fixed `claude plugin update` not preserving cross-plugin symlinks inside a marketplace | other |
+| （翻訳待ち） | [VSCode] Press Cmd/Ctrl+Shift+T to reopen the most recently closed session tab, configurable via `claudeCode.enableReopenClosedSessionShortcut` | other |
+
 ## 2.1.138
 
 | 日本語 | English | Category |
