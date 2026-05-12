@@ -4,6 +4,24 @@
 
 ---
 
+## 2.1.140
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| （翻訳待ち） | Improved Agent tool `subagent_type` matching to accept case- and separator-insensitive values (e.g. `"Code Reviewer"` resolves to `code-reviewer`) | other |
+| （翻訳待ち） | Updated agent color palette | other |
+| （翻訳待ち） | Fixed `/goal` silently hanging when `disableAllHooks` or `allowManagedHooksOnly` is set — now shows a clear message instead of an indicator that never resolves | other |
+| （翻訳待ち） | Fixed a regression in settings hot-reload where symlinked settings files caused misattributed change events and spurious `ConfigChange` hooks | other |
+| （翻訳待ち） | Fixed `claude --bg` failing with "connection dropped mid-request" when the background service was about to idle-exit | other |
+| （翻訳待ち） | Fixed background service startup failing on machines with enterprise endpoint security by allowing more time | other |
+| （翻訳待ち） | Fixed remote managed settings not retrying on 401 — now retries once with a force-refreshed token | other |
+| （翻訳待ち） | Fixed managed `extraKnownMarketplaces` auto-update policy not being persisted to `known_marketplaces.json` | other |
+| （翻訳待ち） | Fixed `/loop` scheduling redundant wakeups to poll for background tasks that already notify on completion | other |
+| （翻訳待ち） | Fixed a recurring event-loop stall on Windows when a missing executable (e.g. `gh`) triggered synchronous `where.exe` re-spawns on every check | other |
+| （翻訳待ち） | Fixed `Read` tool calls failing validation when `offset` is passed as a whitespace-padded or `+`-prefixed string | other |
+| （翻訳待ち） | Fixed native terminal cursor not staying at the input caret when the terminal loses focus | other |
+| （翻訳待ち） | Plugins now warn when a default component folder (e.g. `commands/`) is silently ignored because `plugin.json` sets the matching key. Shown in `/doctor`, `claude plugin list`, and `/plugin`. | other |
+
 ## 2.1.139
 
 | 日本語 | English | Category |
