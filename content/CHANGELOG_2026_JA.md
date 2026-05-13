@@ -4,6 +4,72 @@
 
 ---
 
+## 2.1.141
+
+| 日本語 | English | Category |
+|--------|---------|----------|
+| （翻訳待ち） | Added `terminalSequence` field to hook JSON output so hooks can emit desktop notifications, window titles, and bells without a controlling terminal | other |
+| （翻訳待ち） | Added `CLAUDE_CODE_PLUGIN_PREFER_HTTPS` to clone GitHub plugin sources over HTTPS instead of SSH, for environments without a GitHub SSH key | other |
+| （翻訳待ち） | Added `ANTHROPIC_WORKSPACE_ID` environment variable for workload identity federation — scopes the minted token to a specific workspace when the federation rule covers more than one | other |
+| （翻訳待ち） | Added `claude agents --cwd <path>` to scope the session list to a directory | other |
+| （翻訳待ち） | `/feedback` can now include recent sessions (last 24 hours or 7 days) for issues spanning more than the current session | other |
+| （翻訳待ち） | Rewind menu: added "Summarize up to here" to compress earlier context while keeping recent turns intact | other |
+| （翻訳待ち） | Auto mode permission dialog now explains when a `permissions.ask` rule caused the prompt | other |
+| （翻訳待ち） | Restored the "view diff in your IDE" option on file-edit permission prompts when an IDE is connected | other |
+| （翻訳待ち） | Background agents launched via `/bg` or `←←` now preserve the current permission mode instead of reverting to default | other |
+| （翻訳待ち） | `claude agents`: agents that finish work but leave a background shell running now move to Completed instead of staying under Working | other |
+| （翻訳待ち） | Improved spinner feedback during long thinking periods — the spinner now warms to amber after 10 seconds to signal Claude is still working | other |
+| （翻訳待ち） | Improved plugin menu navigation: `→`/Tab switch tabs, `↑` moves to the tab strip, and tab headers and search box are clickable in fullscreen mode | other |
+| （翻訳待ち） | Fixed background side-queries sending an unavailable Haiku model ID on Bedrock/Vertex/Foundry/gateway when no `ANTHROPIC_SMALL_FAST_MODEL` override is set — now falls back to the main-loop model | other |
+| （翻訳待ち） | Fixed `claude daemon status` and `/doctor` on Windows throwing when the daemon pipe key file is locked or unreadable — now shows the underlying error instead of an opaque failure | other |
+| （翻訳待ち） | Fixed `claude agents` showing the agent-type list instead of the dashboard when launched through a wrapper that adds flags | other |
+| （翻訳待ち） | Fixed `claude agents` opening a crashed session firing redundant dispatches when the working directory was deleted | other |
+| （翻訳待ち） | Fixed background jobs on a custom `ANTHROPIC_BASE_URL` gateway not getting auto-named — the namer now uses the main model when no Haiku model is configured | other |
+| （翻訳待ち） | Fixed `/model` in one session silently changing the autocompact threshold in other concurrent sessions | other |
+| （翻訳待ち） | Fixed switching permission mode while a tool-permission prompt is open not auto-dismissing the prompt when the new setting permits the tool | other |
+| （翻訳待ち） | Fixed pressing Enter while a permission/dialog prompt is open also submitting text in the input box | other |
+| （翻訳待ち） | Fixed hooks receiving a non-existent `transcript_path` after `EnterWorktree` switches the working directory | other |
+| （翻訳待ち） | Fixed markdown tables with cell wrapping falling back to the vertical key-value layout instead of rendering as a bordered grid (regression in 2.1.136) | other |
+| （翻訳待ち） | Fixed cancelled prompts being removed from Up-arrow history when auto-restored into the input box, avoiding duplicate entries | other |
+| （翻訳待ち） | Fixed prompts cancelled with Ctrl+C/Esc before any response being dropped from Up-arrow history | other |
+| （翻訳待ち） | Fixed Ctrl+C not interrupting a running turn while in vim INSERT/VISUAL mode | other |
+| （翻訳待ち） | Fixed alternative `chat:submit` keybindings (e.g. `meta+enter`, `ctrl+enter`) not working when `enter` is rebound to `chat:newline` | other |
+| （翻訳待ち） | Fixed prompt suggestions being silently disabled when an output style was configured | other |
+| （翻訳待ち） | Fixed `spinnerVerbs` setting not being honored in turn-completion messages | other |
+| （翻訳待ち） | Fixed AskUserQuestion popup hiding the last line of preceding chat content | other |
+| （翻訳待ち） | Fixed Web Search status showing "Did 0 searches" when searches returned errors | other |
+| （翻訳待ち） | Fixed multi-line statusline output dropping or corrupting rows when any line exceeds terminal width | other |
+| （翻訳待ち） | Fixed light-ansi theme using invisible white for diff context lines on light backgrounds — now uses black | other |
+| （翻訳待ち） | Fixed error overlay dumping minified bundle source that hid the original error message | other |
+| （翻訳待ち） | Fixed pressing Enter after typing a feedback survey rating digit submitting it as a chat message instead of the rating | other |
+| （翻訳待ち） | Fixed pressing `x` on a selected subagent in the agent panel typing into the prompt instead of stopping the agent | other |
+| （翻訳待ち） | Fixed session title being derived from plugin monitor notifications before the user's first prompt | other |
+| （翻訳待ち） | Fixed "Allowed by PermissionRequest hook" repeating once per tool call under a collapsed read/search group | other |
+| （翻訳待ち） | Fixed `/tui` silently dropping running background shells and subagents — now refuses and asks to wait for them to finish | other |
+| （翻訳待ち） | Fixed welcome banner showing "API Usage Billing" on Bedrock, Vertex, Foundry, and other third-party providers — now shows the provider name | other |
+| （翻訳待ち） | Fixed `/mcp` server list not keeping the focused server visible in short terminals in fullscreen mode | other |
+| （翻訳待ち） | Fixed redaction in `/feedback` bundles producing invalid JSON for quoted values like session IDs | other |
+| （翻訳待ち） | Fixed desktop and third-party provider sessions incorrectly inheriting `apiKeyHelper`/`ANTHROPIC_AUTH_TOKEN` from host managed-settings | other |
+| （翻訳待ち） | Fixed early analytics events being silently dropped when fired before logger initialization | other |
+| （翻訳待ち） | Fixed `claude plugin install` failing for plugins whose marketplace `ref` no longer exists upstream when a `sha` is also pinned | other |
+| （翻訳待ち） | Fixed plugin details pane showing 0 MCP servers for plugins that declare them via `.mcp.json` | other |
+| （翻訳待ち） | Fixed plugin MCP servers with unset config variables showing a generic connection failure instead of a "config issue" message with a fix-it hint; malformed `.mcp.json` entries no longer drop other MCP servers | other |
+| （翻訳待ち） | Fixed MCP server configs using POSIX shell parameter expansions (e.g. `${var%pattern}`) being incorrectly flagged as missing environment variables | other |
+| （翻訳待ち） | Fixed MCP HTTP/SSE servers returning 403 on connect showing as "failed" instead of "needs auth" | other |
+| （翻訳待ち） | Fixed remote MCP servers disconnecting unnecessarily when the optional server-events stream failed to reconnect — tool calls continue over POST | other |
+| （翻訳待ち） | Fixed Remote Control MCP connectors all failing with 401 when the worker session token rotated mid-session | other |
+| （翻訳待ち） | Fixed Remote Control automatically re-enrolling a trusted device when the server rejects a stale token, instead of looping through `/login` | other |
+| （翻訳待ち） | Fixed a race where early OTel spans could be silently dropped in SDK/headless mode with beta tracing enabled | other |
+| （翻訳待ち） | Fixed custom `voice:pushToTalk` keybindings and `"space": null` unbinds being silently ignored | other |
+| （翻訳待ち） | Fixed Windows Alt+V image paste reporting "no image found" when the clipboard contains a screenshot | other |
+| （翻訳待ち） | Fixed SDK "Claude Code native binary not found" on Linux when both glibc and musl platform packages are installed | other |
+| （翻訳待ち） | Bedrock: `awsCredentialExport` now always runs when configured instead of being skipped when ambient AWS credentials resolve, fixing auth for cross-account access | other |
+| （翻訳待ち） | [VSCode] Fixed in-chat mic showing no feedback when the microphone produced only silence — now shows "No audio detected" | other |
+| （翻訳待ち） | [VSCode] Voice mode: the WSL error now suggests installing `sox libsox-fmt-pulse` for WSLg users | other |
+| （翻訳待ち） | `claude agents`: launching a session no longer fails when the pre-warmed background worker is unhealthy — now falls back to a fresh launch | other |
+| （翻訳待ち） | `claude agents` no longer shows empty placeholder sessions left over from backgrounding a fresh REPL, and shows onboarding text when entered via ← with no other agents | other |
+| （翻訳待ち） | Empty idle background sessions left over from `←` are now automatically retired by the daemon after 5 minutes | other |
+
 ## 2.1.140
 
 | 日本語 | English | Category |
